@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
@@ -24,6 +25,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.math.Direction;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -39,6 +41,14 @@ public class ItemRegistry {
     public static final Item CLAM_PINK = register(BlockRegistry.CLAM_PINK, new Item.Settings().component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
     public static final Item CLAM_PURPLE = register(BlockRegistry.CLAM_PURPLE, new Item.Settings().component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
 
+    public static final Item PEARL = register("pearl");
+    public static final Item PEARL_BLOCK = register(BlockRegistry.PEARL_BLOCK);
+
+    public static final Item GLOW_TORCH = register(
+            BlockRegistry.GLOW_TORCH,
+            ((block, settings) -> new VerticallyAttachableBlockItem(block, BlockRegistry.GLOW_WALL_TORCH, Direction.DOWN, settings))
+    );
+
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);
     }
@@ -53,11 +63,13 @@ public class ItemRegistry {
         if (item instanceof BlockItem blockItem) {
             blockItem.appendBlocks(Item.BLOCK_ITEMS, item);
         }
-
         return Registry.register(Registries.ITEM, key, item);
     }
     public static Item register(Block block) {
         return register(block, BlockItem::new, new Item.Settings());
+    }
+    public static Item register(String id) {
+        return register(keyOf(id), Item::new, new Item.Settings());
     }
     public static Item register(Block block, Item.Settings settings) {
         return register(block, BlockItem::new, settings);

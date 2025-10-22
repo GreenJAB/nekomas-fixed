@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "nekomasfixed:block/glow_torch_off"
+    },
+    "waterlogged=true": {
+      "model": "nekomasfixed:block/glow_torch"
+    }
+  }
+}

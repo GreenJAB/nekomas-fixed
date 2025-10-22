@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ContainerComponentMixin",
-    "ItemStackMixin"
+    "ItemStackMixin",
+    "TradeOffersMixin"
   ],
   "injectors": {
     "defaultRequire": 1

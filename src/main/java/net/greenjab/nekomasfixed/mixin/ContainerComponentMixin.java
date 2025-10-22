@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 public class ContainerComponentMixin {
 
     @Inject(method = "appendTooltip", at = @At("HEAD"), cancellable = true)
-    private void test(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components, CallbackInfo ci){
+    private void removeNormalTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components, CallbackInfo ci){
         ci.cancel();
     }
 }

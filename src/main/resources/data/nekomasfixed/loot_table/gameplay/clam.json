@@ -12,7 +12,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:snowball",
+          "name": "nekomasfixed:pearl",
           "weight": 3,
           "quality": 7
         },

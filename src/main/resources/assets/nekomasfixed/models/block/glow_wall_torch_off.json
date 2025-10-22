@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_torch_wall_unlit",
+  "textures": {
+    "torch": "nekomasfixed:block/glow_torch_off"
+  }
+}

@@ -17,6 +17,9 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.CLAM_BLUE);
                         entries.add(ItemRegistry.CLAM_PINK);
                         entries.add(ItemRegistry.CLAM_PURPLE);
+                        entries.add(ItemRegistry.PEARL);
+                        entries.add(ItemRegistry.PEARL_BLOCK);
+                        entries.add(ItemRegistry.GLOW_TORCH);
                     }).build();
 
 

@@ -31,7 +31,7 @@ import java.util.Optional;
 public class ItemStackMixin {
 
 	@Inject(method = "getTooltipData", at = @At("HEAD"), cancellable = true)
-	private void test(CallbackInfoReturnable<Optional<TooltipData>> cir){
+	private void UseNewContainerComponentTooltip(CallbackInfoReturnable<Optional<TooltipData>> cir){
         ItemStack itemStack = (ItemStack)(Object) this;
 		if (itemStack.getComponents().contains(DataComponentTypes.CONTAINER)) {
 			TooltipDisplayComponent tooltipDisplayComponent = itemStack.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT);

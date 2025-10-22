@@ -3,5 +3,9 @@
   "block.nekomasfixed.clam": "Clam",
   "block.nekomasfixed.clam_blue": "Blue Clam",
   "block.nekomasfixed.clam_pink": "Pink Clam",
-  "block.nekomasfixed.clam_purple": "Purple Clam"
+  "block.nekomasfixed.clam_purple": "Purple Clam",
+  "block.nekomasfixed.pearl_block": "Pearl Block",
+  "item.nekomasfixed.pearl": "Pearl",
+  "block.nekomasfixed.glow_torch": "Glow Torch",
+  "block.nekomasfixed.glow_wall_torch": "Glow Wall Torch"
 }

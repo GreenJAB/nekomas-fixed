@@ -67,8 +67,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.OptionalInt;
 
 public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	public static final MapCodec<ClamBlock> CODEC = RecordCodecBuilder.mapCodec(
@@ -81,7 +79,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	public static final BooleanProperty OPEN = Properties.OPEN;
 	public static final BooleanProperty POWERED = Properties.POWERED;
-	public static final int field_31057 = 1;
 	public static final Map<Direction, VoxelShape> SHAPES_BY_DIRECTION;
 
 	public static final Identifier CONTENTS_DYNAMIC_DROP_ID = NekomasFixed.id("clam_contents");
@@ -97,15 +94,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 		this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false).with(OPEN, false).with(POWERED, false));
 		this.clamType = clamType;
 	}
-
-	/*@Override
-	public Optional<TooltipData> getTooltipData(ItemStack stack) {
-		TooltipDisplayComponent tooltipDisplayComponent = stack.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT);
-		return !tooltipDisplayComponent.shouldDisplay(DataComponentTypes.BUNDLE_CONTENTS)
-				? Optional.empty()
-				: Optional.ofNullable(stack.get(DataComponentTypes.BUNDLE_CONTENTS)).map(BundleTooltipData::new);
-	}*/
-
 
 	@Override
 	protected BlockState getStateForNeighborUpdate(
@@ -146,24 +134,23 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 					}
 				}
 			}
-			if (wasPowered) {
-				world.scheduleBlockTick(pos, this, 4);
-
-				world.setBlockState(pos, state.with(OPEN, false), Block.NOTIFY_LISTENERS);
+			if (!isPowered) {
+				//world.scheduleBlockTick(pos, this, 4);
+				//world.setBlockState(pos, state.with(OPEN, false), Block.NOTIFY_LISTENERS);
+				world.setBlockState(pos, state.with(POWERED, false).with(OPEN, false), Block.NOTIFY_LISTENERS);
 			} else {
 				world.setBlockState(pos, state.with(POWERED, true).with(OPEN, true), Block.NOTIFY_LISTENERS);
 			}
-
 		}
 	}
 
-	@Override
+	/*@Override
 	protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		if (state.get(POWERED)) {
 			world.setBlockState(pos, state.with(POWERED, false), Block.NOTIFY_LISTENERS);
 			tryLaunch(state, world, pos);
 		}
-	}
+	}*/
 
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
@@ -246,6 +233,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 		}
 	}
 	private static boolean swapSingleStack(ItemStack stack, PlayerEntity player, ClamBlockEntity clamBlockEntity, PlayerInventory playerInventory) {
+		if (stack.isIn(ItemTags.SHULKER_BOXES)) return false;
 		ItemStack itemStack = clamBlockEntity.swapStackNoMarkDirty(0, stack);
 		ItemStack itemStack2 = player.isInCreativeMode() && itemStack.isEmpty() ? stack.copy() : itemStack;
 		playerInventory.setStack(playerInventory.getSelectedSlot(), itemStack2);
