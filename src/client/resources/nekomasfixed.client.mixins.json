@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "net.greenjab.nekomasfixed.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "EntityModelsMixin",
+    "TooltipComponentMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

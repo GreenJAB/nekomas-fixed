@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "net.greenjab.nekomasfixed.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ContainerComponentMixin",
+    "ItemStackMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+	}
+}

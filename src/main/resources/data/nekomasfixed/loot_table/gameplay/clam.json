@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "quality": 9,
+          "name": "minecraft:heart_of_the_sea"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:snowball",
+          "weight": 3,
+          "quality": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal",
+          "weight": 5,
+          "quality": 5
+        }
+      ],
+      "rolls": 100
+    }
+  ],
+  "random_sequence": "nekomasfixed:gameplay/clam"
+}
