@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.registry.block.entity;
 
 import com.mojang.logging.LogUtils;
 import net.greenjab.nekomasfixed.registry.block.ClamBlock;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.*;
@@ -40,7 +40,7 @@ public class ClamBlockEntity extends LootableContainerBlockEntity implements Lid
 	}
 
 	public ClamBlockEntity(BlockPos pos, BlockState state) {
-		this(OtherRegistry.Clam_BlockEntity, pos, state);
+		this(BlockEntityTypeRegistry.Clam_Block_Entity, pos, state);
 	}
 
 	@Override

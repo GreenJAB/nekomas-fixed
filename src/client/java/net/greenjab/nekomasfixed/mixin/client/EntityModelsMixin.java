@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
+import net.greenjab.nekomasfixed.render.entity.model.MegaBoatEntityModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -23,5 +24,7 @@ public class EntityModelsMixin {
     @Inject(method = "getModels", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/entity/SignBlockEntityRenderer;getTexturedModelData(Z)Lnet/minecraft/client/model/TexturedModelData;", ordinal = 0))
     private static void addClamModel(CallbackInfoReturnable<Map<EntityModelLayer, TexturedModelData>> cir, @Local ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder) {
         builder.put(EntityModelLayerRegistry.CLAM, ClamBlockModel.getTexturedModelData());
+        builder.put(EntityModelLayerRegistry.MEGA_BOAT, MegaBoatEntityModel.getBaseTexturedModelData());
+        builder.put(EntityModelLayerRegistry.OAK_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
     }
 }

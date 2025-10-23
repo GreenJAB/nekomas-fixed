@@ -7,19 +7,14 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
+import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MovementType;
 import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
@@ -27,8 +22,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.BundleTooltipData;
-import net.minecraft.item.tooltip.TooltipData;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
@@ -37,7 +30,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -47,12 +39,10 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.*;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -281,7 +271,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return world.isClient() ? validateTicker(type, OtherRegistry.Clam_BlockEntity, ClamBlockEntity::clientTick) : null;
+		return world.isClient() ? validateTicker(type, BlockEntityTypeRegistry.Clam_Block_Entity, ClamBlockEntity::clientTick) : null;
 	}
 
 	@Override
@@ -304,7 +294,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 							clamBlockEntity.setHeldStack(item.copyWithCount(Math.min(item.getCount() + 1, item.getMaxCount())));
 						}
 					}
-					if (random.nextInt(Math.max(64 - item.getCount(),1)) < 4) {
+					if (!state.get(POWERED) && random.nextInt(Math.max(64 - item.getCount(),1)) < 4) {
 						BlockState blockState = state.cycle(OPEN);
 						world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
 					}
@@ -330,7 +320,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 							}
 						}
 					}
-					if (random.nextInt(item.getCount() + 1) < 4) {
+					if (!state.get(POWERED) && random.nextInt(item.getCount() + 1) < 4) {
 						BlockState blockState = state.cycle(OPEN);
 						world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
 					}

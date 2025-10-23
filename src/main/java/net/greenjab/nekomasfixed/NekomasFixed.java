@@ -2,10 +2,7 @@ package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
-import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.ItemGroupRegistry;
+import net.greenjab.nekomasfixed.registry.registries.*;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +14,11 @@ public class NekomasFixed implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		OtherRegistry.registerBlockEntityType();
+		BlockEntityTypeRegistry.registerBlockEntityType();
 		BlockRegistry.registerBlocks();
 		ItemRegistry.registerItems();
 		ItemGroupRegistry.registerItemGroup();
+		EntityTypeRegistry.registerEntityType();
 	}
 
 	public static Identifier id(String path) {

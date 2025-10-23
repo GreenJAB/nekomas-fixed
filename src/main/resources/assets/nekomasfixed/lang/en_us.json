@@ -7,5 +7,7 @@
   "block.nekomasfixed.pearl_block": "Pearl Block",
   "item.nekomasfixed.pearl": "Pearl",
   "block.nekomasfixed.glow_torch": "Glow Torch",
-  "block.nekomasfixed.glow_wall_torch": "Glow Wall Torch"
+  "block.nekomasfixed.glow_wall_torch": "Glow Wall Torch",
+  "item.nekomasfixed.oak_mega_boat": "Oak Mega Boat",
+  "entity.nekomasfixed.oak_mega_boat": "Oak Mega Boat"
 }

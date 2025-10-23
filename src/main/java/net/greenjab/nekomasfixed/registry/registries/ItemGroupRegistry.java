@@ -20,6 +20,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.PEARL);
                         entries.add(ItemRegistry.PEARL_BLOCK);
                         entries.add(ItemRegistry.GLOW_TORCH);
+                        entries.add(ItemRegistry.OAK_MEGA_BOAT);
                     }).build();
 
 

@@ -8,9 +8,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 
-public class OtherRegistry {
+public class BlockEntityTypeRegistry {
 
-    public static final BlockEntityType<ClamBlockEntity> Clam_BlockEntity = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("clam"),
+    public static final BlockEntityType<ClamBlockEntity> Clam_Block_Entity = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("clam"),
             FabricBlockEntityTypeBuilder.create(ClamBlockEntity::new, BlockRegistry.CLAM, BlockRegistry.CLAM_BLUE, BlockRegistry.CLAM_PINK, BlockRegistry.CLAM_PURPLE).build(null));
 
     public static void registerBlockEntityType() {

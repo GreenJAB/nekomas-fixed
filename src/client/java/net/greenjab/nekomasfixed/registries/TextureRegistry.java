@@ -1,17 +1,8 @@
 package net.greenjab.nekomasfixed.registries;
 
-import net.fabricmc.fabric.api.client.rendering.v1.AtlasSourceRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
-import net.greenjab.nekomasfixed.render.block.entity.ClamBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.state.ClamBlockEntityRenderState;
-import net.minecraft.block.enums.ChestType;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.block.entity.state.ChestBlockEntityRenderState;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.SpriteMapper;
-import net.minecraft.util.Identifier;
 
 import static net.minecraft.client.render.TexturedRenderLayers.CHEST_SPRITE_MAPPER;
 
