@@ -24,7 +24,15 @@ public class EntityModelsMixin {
     @Inject(method = "getModels", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/entity/SignBlockEntityRenderer;getTexturedModelData(Z)Lnet/minecraft/client/model/TexturedModelData;", ordinal = 0))
     private static void addClamModel(CallbackInfoReturnable<Map<EntityModelLayer, TexturedModelData>> cir, @Local ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder) {
         builder.put(EntityModelLayerRegistry.CLAM, ClamBlockModel.getTexturedModelData());
-        builder.put(EntityModelLayerRegistry.MEGA_BOAT, MegaBoatEntityModel.getBaseTexturedModelData());
+        builder.put(EntityModelLayerRegistry.ACACIA_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
+        builder.put(EntityModelLayerRegistry.BAMBOO_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
+        builder.put(EntityModelLayerRegistry.BIRCH_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
+        builder.put(EntityModelLayerRegistry.CHERRY_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
+        builder.put(EntityModelLayerRegistry.DARK_OAK_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
+        builder.put(EntityModelLayerRegistry.JUNGLE_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
+        builder.put(EntityModelLayerRegistry.MANGROVE_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
         builder.put(EntityModelLayerRegistry.OAK_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
+        builder.put(EntityModelLayerRegistry.PALE_OAK_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
+        builder.put(EntityModelLayerRegistry.SPRUCE_MEGA_BOAT, MegaBoatEntityModel.getChestTexturedModelData());
     }
 }

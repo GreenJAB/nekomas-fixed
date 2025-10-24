@@ -20,7 +20,8 @@ public class MegaBoatEntityRenderState extends EntityRenderState {
 	public boolean submergedInWater;
 	public float leftPaddleAngle;
 	public float rightPaddleAngle;
+
+	public boolean hasChest;
 	public int players;
-	public ItemStack banner;
-	//public Optional<BlockState> banner;
+	public final ItemRenderState bannerRenderState = new ItemRenderState();
 }

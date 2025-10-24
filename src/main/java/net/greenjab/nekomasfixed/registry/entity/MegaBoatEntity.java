@@ -1,13 +1,23 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractChestBoatEntity;
+import net.minecraft.entity.vehicle.VehicleEntity;
+import net.minecraft.entity.vehicle.VehicleInventory;
+import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -15,87 +25,158 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 import java.util.function.Supplier;
 
 public class MegaBoatEntity extends AbstractChestBoatEntity {
 
-	private ItemStack BANNER = ItemStack.EMPTY;
+	protected static final TrackedData<Boolean> CHEST = DataTracker.registerData(MegaBoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	protected static final TrackedData<ItemStack> BANNER = DataTracker.registerData(MegaBoatEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
 
 	public MegaBoatEntity(EntityType<? extends AbstractChestBoatEntity> entityType, World world, Supplier<Item> supplier) {
 		super(entityType, world, supplier);
 	}
 
 	@Override
-	protected float getPassengerHorizontalOffset() {
-		return 0.15F;
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder);
+		builder.add(CHEST, false);
+		builder.add(BANNER, ItemStack.EMPTY);
 	}
 
-	@Override
+    @Override
 	protected double getPassengerAttachmentY(EntityDimensions dimensions) {
-		return dimensions.height() / 3.0F;
+		return dimensions.height() / 3.0F +0.2f;
 	}
 
 	@Override
 	protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-		float f = 0.2f- this.getPassengerList().indexOf(passenger)*0.8f;
+		float f = 1.6f- this.getPassengerList().indexOf(passenger)*1.25f;
 		return new Vec3d(0.0, this.getPassengerAttachmentY(dimensions), f).rotateY(-this.getYaw() * (float) (Math.PI / 180.0));
 	}
 
 	@Override
 	protected int getMaxPassengers() {
-		return 3;
+		return hasChest()?3:4;
 	}
 
 	@Override
 	protected void writeCustomData(WriteView view) {
 		super.writeCustomData(view);
-		if (!BANNER.isEmpty()) {
-			view.put("Banner", ItemStack.CODEC, BANNER);
+		view.putBoolean("Chest", hasChest());
+		if (!getBanner().isEmpty()) {
+			view.put("Banner", ItemStack.CODEC, getBanner());
 		}
 	}
 
 	@Override
 	protected void readCustomData(ReadView view) {
 		super.readCustomData(view);
-		BANNER = view.read("Banner", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		setHasChest(view.read("Chest", Codec.BOOL).orElse(false));
+		setBanner(view.read("Banner", ItemStack.CODEC).orElse(ItemStack.EMPTY));
 	}
 
 	@Override
 	public ActionResult interact(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.isOf(Items.CHEST)) {
+			if (!hasChest() && getPassengerList().size()<4) {
+				setHasChest(true);
+				itemStack.decrement(1);
+				player.getEntityWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_DONKEY_CHEST, SoundCategory.PLAYERS, 1.0F, 1.0F);
+				return ActionResult.SUCCESS;
+			}
+		}
 		if (itemStack.isIn(ItemTags.BANNERS)) {
-			if (BANNER.isEmpty()) {
-				BANNER =itemStack.copyWithCount(1);
+			if (getBanner().isEmpty()) {
+				setBanner(itemStack.copyWithCount(1));
 				itemStack.decrement(1);
 				player.getEntityWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_WIND_CHARGE_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
+				return ActionResult.SUCCESS;
 			}
-			return ActionResult.SUCCESS;
 		}
 		if (itemStack.isOf(Items.SHEARS)) {
-			if (!BANNER.isEmpty()) {
+			if (!getBanner().isEmpty()) {
 				player.getEntityWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_COPPER_GOLEM_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
-				ItemStack banner = BANNER.copy();
-				BANNER = ItemStack.EMPTY;
+				ItemStack banner = getBanner().copy();
+				setBanner(ItemStack.EMPTY);
 				if (player.getEntityWorld() instanceof ServerWorld serverWorld) {
-				this.dropStack(serverWorld, banner, 1.5F);
-				itemStack.damage(1, player);
+					this.dropStack(serverWorld, banner, 1.5F);
+					itemStack.damage(1, player);
 				}
+				return ActionResult.SUCCESS;
 			}
-			return ActionResult.SUCCESS;
 		}
 		return super.interact(player, hand);
 	}
 
-	public ItemStack getBanner() {
-		return BANNER;
+	public void setHasChest(boolean hasChest) {
+		this.dataTracker.set(CHEST, hasChest);
 	}
+	public boolean hasChest() { return this.dataTracker.get(CHEST);}
+
+	public void setBanner(ItemStack banner) {
+		this.dataTracker.set(BANNER, banner);
+	}
+	public ItemStack getBanner() {return this.dataTracker.get(BANNER);}
+
 
 	public float getSpeed() {
 		//return 0.3f+getPlayerPassengers()*0.1f+(!BANNER.isEmpty()?0.2f:0f);
-		return !BANNER.isEmpty()?0.8f:0.4f;
+		return !getBanner().isEmpty()?0.8f:0.4f;
 	}
 
+	@Override
+	public void killAndDropSelf(ServerWorld world, DamageSource damageSource) {
+		this.killAndDropItem(world, this.asItem());
+		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+			if (hasChest()) ItemScatterer.spawn(world, this.getX(), this.getY(), this.getZ(), Items.CHEST.getDefaultStack());
+			ItemScatterer.spawn(world, this.getX(), this.getY(), this.getZ(), getBanner());
+		}
+		this.onBroken(damageSource, world, this);
+	}
+
+	@Override
+	public void remove(Entity.RemovalReason reason) {
+		if (!this.getEntityWorld().isClient() && reason.shouldDestroy()) {
+			if (hasChest()) ItemScatterer.spawn(this.getEntityWorld(), this.getX(), this.getY(), this.getZ(), Items.CHEST.getDefaultStack());
+			ItemScatterer.spawn(this.getEntityWorld(), this.getX(), this.getY(), this.getZ(), getBanner());
+		}
+
+		super.remove(reason);
+	}
+
+	@Override
+	public void onBroken(DamageSource source, ServerWorld world, Entity vehicle) {
+		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+			if (hasChest()) ItemScatterer.spawn(world, vehicle.getX(), vehicle.getY(), vehicle.getZ(), Items.CHEST.getDefaultStack());
+			ItemScatterer.spawn(world, vehicle.getX(), vehicle.getY(), vehicle.getZ(), getBanner());
+		}
+		super.onBroken(source, world, vehicle);
+	}
+
+
+	public ActionResult open(PlayerEntity player) {
+		if (hasChest()) return super.open(player);
+		return ActionResult.PASS;
+	}
+
+	@Override
+	public void openInventory(PlayerEntity player) {
+		if (hasChest()) super.openInventory(player);
+		// else player.openHandledScreen((NamedScreenHandlerFactory)player);
+
+	}
+
+	@Override
+	public StackReference getInventoryStackReference(int slot) {
+		if (hasChest()) return super.getInventoryStackReference(slot);
+		return StackReference.EMPTY;
+	}
 }

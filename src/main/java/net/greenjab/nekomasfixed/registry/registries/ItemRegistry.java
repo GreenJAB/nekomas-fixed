@@ -16,10 +16,10 @@ import java.util.function.Function;
 public class ItemRegistry {
 
 
-    public static final Item CLAM = register(BlockRegistry.CLAM, new Item.Settings().component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
-    public static final Item CLAM_BLUE = register(BlockRegistry.CLAM_BLUE, new Item.Settings().component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
-    public static final Item CLAM_PINK = register(BlockRegistry.CLAM_PINK, new Item.Settings().component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
-    public static final Item CLAM_PURPLE = register(BlockRegistry.CLAM_PURPLE, new Item.Settings().component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
+    public static final Item CLAM = register(BlockRegistry.CLAM, new Item.Settings().maxCount(1).component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
+    public static final Item CLAM_BLUE = register(BlockRegistry.CLAM_BLUE, new Item.Settings().maxCount(1).component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
+    public static final Item CLAM_PINK = register(BlockRegistry.CLAM_PINK, new Item.Settings().maxCount(1).component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
+    public static final Item CLAM_PURPLE = register(BlockRegistry.CLAM_PURPLE, new Item.Settings().maxCount(1).component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
 
     public static final Item PEARL = register("pearl");
     public static final Item PEARL_BLOCK = register(BlockRegistry.PEARL_BLOCK);
@@ -29,9 +29,16 @@ public class ItemRegistry {
             ((block, settings) -> new VerticallyAttachableBlockItem(block, BlockRegistry.GLOW_WALL_TORCH, Direction.DOWN, settings))
     );
 
-    public static final Item OAK_MEGA_BOAT = register(
-            "oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1)
-    );
+    public static final Item ACACIA_MEGA_BOAT = register("acacia_mega_boat", settings -> new BoatItem(EntityTypeRegistry.ACACIA_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BAMBOO_MEGA_BOAT = register("bamboo_mega_boat", settings -> new BoatItem(EntityTypeRegistry.BAMBOO_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIRCH_MEGA_BOAT = register("birch_mega_boat", settings -> new BoatItem(EntityTypeRegistry.BIRCH_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item CHERRY_MEGA_BOAT = register("cherry_mega_boat", settings -> new BoatItem(EntityTypeRegistry.CHERRY_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item DARK_OAK_MEGA_BOAT = register("dark_oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.DARK_OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item JUNGLE_MEGA_BOAT = register("jungle_mega_boat", settings -> new BoatItem(EntityTypeRegistry.JUNGLE_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item MANGROVE_MEGA_BOAT = register("mangrove_mega_boat", settings -> new BoatItem(EntityTypeRegistry.MANGROVE_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item OAK_MEGA_BOAT = register("oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item PALE_OAK_MEGA_BOAT = register("pale_oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.PALE_OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item SPRUCE_MEGA_BOAT = register("spruce_mega_boat", settings -> new BoatItem(EntityTypeRegistry.SPRUCE_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);

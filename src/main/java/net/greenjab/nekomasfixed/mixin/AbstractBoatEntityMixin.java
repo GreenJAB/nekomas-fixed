@@ -48,12 +48,6 @@ public class AbstractBoatEntityMixin {
         instance.setHeadYaw(instance.getHeadYaw() + yawVelocity*f);
     }
 
-    /*@ModifyVariable(method = "updatePaddles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V"))
-    private float adjustVelocityForBigBoat(float f) {
-        AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
-        if (ABE instanceof MegaBoatEntity) return f*0.1f;
-        return f;
-    }*/
     @Redirect(method = "updatePaddles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V"))
     private void adjustAccelerationForBigBoat(AbstractBoatEntity instance, Vec3d vec3d, @Local float f){
         //float f = 1.0f;

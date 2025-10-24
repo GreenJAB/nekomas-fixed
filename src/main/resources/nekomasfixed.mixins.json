@@ -5,6 +5,7 @@
   "mixins": [
     "AbstractBoatEntityMixin",
     "ContainerComponentMixin",
+    "HopperBlockEntityMixin",
     "ItemStackMixin",
     "TradeOffersMixin"
   ],

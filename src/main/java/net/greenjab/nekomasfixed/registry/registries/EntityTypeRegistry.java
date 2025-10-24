@@ -16,15 +16,22 @@ import java.util.function.Supplier;
 
 public class EntityTypeRegistry {
 
-    public static final EntityType<MegaBoatEntity> OAK_MEGA_BOAT = register(
-            "oak_mega_boat",
-            EntityType.Builder.create(getMegaBoatFactory(() -> ItemRegistry.OAK_MEGA_BOAT), SpawnGroup.MISC)
-                    .dropsNothing()
-                    .dimensions(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .maxTrackingRange(10)
-    );
+    public static final EntityType<MegaBoatEntity> ACACIA_MEGA_BOAT = megaBoatFactory("acacia_mega_boat", ItemRegistry.ACACIA_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> BAMBOO_MEGA_BOAT = megaBoatFactory("bamboo_mega_boat", ItemRegistry.BAMBOO_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> BIRCH_MEGA_BOAT = megaBoatFactory("birch_mega_boat", ItemRegistry.BIRCH_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> CHERRY_MEGA_BOAT = megaBoatFactory("cherry_mega_boat", ItemRegistry.CHERRY_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> DARK_OAK_MEGA_BOAT = megaBoatFactory("dark_oak_mega_boat", ItemRegistry.DARK_OAK_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> JUNGLE_MEGA_BOAT = megaBoatFactory("jungle_mega_boat", ItemRegistry.JUNGLE_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> MANGROVE_MEGA_BOAT = megaBoatFactory("mangrove_mega_boat", ItemRegistry.MANGROVE_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> OAK_MEGA_BOAT = megaBoatFactory("oak_mega_boat", ItemRegistry.OAK_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> PALE_OAK_MEGA_BOAT = megaBoatFactory("pale_oak_mega_boat", ItemRegistry.PALE_OAK_MEGA_BOAT);
+    public static final EntityType<MegaBoatEntity> SPRUCE_MEGA_BOAT = megaBoatFactory("spruce_mega_boat", ItemRegistry.SPRUCE_MEGA_BOAT);
 
+    private static EntityType<MegaBoatEntity> megaBoatFactory(String id, Item item) {
+        return register(
+                id, EntityType.Builder.create(getMegaBoatFactory(() -> item), SpawnGroup.MISC)
+                        .dropsNothing().dimensions(2.5f, 0.5625F).eyeHeight(0.5625F).maxTrackingRange(10));
+    }
     private static EntityType.EntityFactory<MegaBoatEntity> getMegaBoatFactory(Supplier<Item> itemSupplier) {
         return (type, world) -> new MegaBoatEntity(type, world, itemSupplier);
     }

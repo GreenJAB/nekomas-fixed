@@ -20,7 +20,16 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.PEARL);
                         entries.add(ItemRegistry.PEARL_BLOCK);
                         entries.add(ItemRegistry.GLOW_TORCH);
+                        entries.add(ItemRegistry.ACACIA_MEGA_BOAT);
+                        entries.add(ItemRegistry.BAMBOO_MEGA_BOAT);
+                        entries.add(ItemRegistry.BIRCH_MEGA_BOAT);
+                        entries.add(ItemRegistry.CHERRY_MEGA_BOAT);
+                        entries.add(ItemRegistry.DARK_OAK_MEGA_BOAT);
+                        entries.add(ItemRegistry.JUNGLE_MEGA_BOAT);
+                        entries.add(ItemRegistry.MANGROVE_MEGA_BOAT);
                         entries.add(ItemRegistry.OAK_MEGA_BOAT);
+                        entries.add(ItemRegistry.PALE_OAK_MEGA_BOAT);
+                        entries.add(ItemRegistry.SPRUCE_MEGA_BOAT);
                     }).build();
 
 
