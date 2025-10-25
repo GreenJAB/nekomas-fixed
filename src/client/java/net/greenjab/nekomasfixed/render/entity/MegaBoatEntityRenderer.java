@@ -113,7 +113,7 @@ public class MegaBoatEntityRenderer extends EntityRenderer<MegaBoatEntity, MegaB
 		megaBoatEntityRenderState.rightPaddleAngle = megaBoatEntity.lerpPaddlePhase(1, f);
 
 		megaBoatEntityRenderState.hasChest = megaBoatEntity.hasChest();
-		megaBoatEntityRenderState.players = megaBoatEntity.getPlayerPassengers();
+		megaBoatEntityRenderState.players = megaBoatEntity.getPassengerList().size();//megaBoatEntity.getPlayerPassengers();
 		if (megaBoatEntity.getBanner().isIn(ItemTags.BANNERS)) {
 			this.itemModelResolver.updateForNonLivingEntity(megaBoatEntityRenderState.bannerRenderState, megaBoatEntity.getBanner(), ItemDisplayContext.HEAD, megaBoatEntity);
 		} else {

@@ -3,6 +3,7 @@
   "package": "net.greenjab.nekomasfixed.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "ClientPlayerInteractionManagerMixin",
     "EntityModelsMixin",
     "TooltipComponentMixin"
   ],

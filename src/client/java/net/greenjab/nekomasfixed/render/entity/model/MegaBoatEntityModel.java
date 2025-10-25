@@ -104,8 +104,8 @@ public class MegaBoatEntityModel extends EntityModel<MegaBoatEntityRenderState> 
 		modelPartData.addChild("boat_37", ModelPartBuilder.create().uv(0, 0).cuboid(-5F, 0F, -43F, 10F, 3F, 1F), ModelTransform.NONE);
 		modelPartData.addChild("boat_38", ModelPartBuilder.create().uv(0, 0).cuboid(-5F, 0F, 44F, 10F, 3F, 1F), ModelTransform.NONE);
 
-		modelPartData.addChild("stand_1", ModelPartBuilder.create().uv(48, 48).cuboid(-1F, -45F, 5F, 2F, 45F, 2F), ModelTransform.NONE);
-		modelPartData.addChild("stand_2", ModelPartBuilder.create().uv(48, 48).cuboid(-1F, -35F, -18F, 2F, 35F, 2F), ModelTransform.NONE);
+		modelPartData.addChild("stand_1", ModelPartBuilder.create().uv(48, 48).cuboid(-1F, -45F, 5F, 2F, 45F, 2F), ModelTransform.NONE.scaled(0.999f));
+		modelPartData.addChild("stand_2", ModelPartBuilder.create().uv(48, 48).cuboid(-1F, -35F, -18F, 2F, 35F, 2F), ModelTransform.NONE.scaled(0.999f));
 
 
 		float dist = 23f;

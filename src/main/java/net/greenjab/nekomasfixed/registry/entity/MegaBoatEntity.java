@@ -1,14 +1,19 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
 import com.mojang.serialization.Codec;
+import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.entity.*;
+import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.decoration.InteractionEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraft.entity.vehicle.AbstractChestBoatEntity;
 import net.minecraft.entity.vehicle.VehicleEntity;
 import net.minecraft.entity.vehicle.VehicleInventory;
@@ -27,6 +32,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
@@ -39,8 +45,13 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 	protected static final TrackedData<Boolean> CHEST = DataTracker.registerData(MegaBoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	protected static final TrackedData<ItemStack> BANNER = DataTracker.registerData(MegaBoatEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
 
+	//private final FakeBoatEntity front;
+	private FakeBoatEntity front;
+	private FakeBoatEntity back;
+
 	public MegaBoatEntity(EntityType<? extends AbstractChestBoatEntity> entityType, World world, Supplier<Item> supplier) {
 		super(entityType, world, supplier);
+
 	}
 
 	@Override
@@ -83,6 +94,29 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 	}
 
 	@Override
+	public void tick() {
+		super.tick();
+
+		if (front==null || !front.isAlive()) {
+			front = EntityTypeRegistry.FAKE_MEGA_BOAT.create(this.getEntityWorld(), SpawnReason.MOB_SUMMONED);
+			front.owner = this;
+			this.getEntityWorld().spawnEntity(front);
+		}
+		if (back==null || !back.isAlive()) {
+			back = EntityTypeRegistry.FAKE_MEGA_BOAT.create(this.getEntityWorld(), SpawnReason.MOB_SUMMONED);
+			back.owner = this;
+			this.getEntityWorld().spawnEntity(back);
+		}
+
+		double dx = 2f * Math.cos((getYaw()+90f) * Math.PI / 180f);
+		double dz = 2f * Math.sin((getYaw()+90f) * Math.PI / 180f);
+		front.setPosition(this.getX() + dx, this.getY(), this.getZ() + dz);
+		back.setPosition(this.getX() - dx, this.getY(), this.getZ() - dz);
+		front.resetCounter();
+		back.resetCounter();
+	}
+
+	@Override
 	public ActionResult interact(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.isOf(Items.CHEST)) {
@@ -90,18 +124,16 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 				setHasChest(true);
 				itemStack.decrement(1);
 				player.getEntityWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_DONKEY_CHEST, SoundCategory.PLAYERS, 1.0F, 1.0F);
-				return ActionResult.SUCCESS;
 			}
-		}
-		if (itemStack.isIn(ItemTags.BANNERS)) {
+			return ActionResult.SUCCESS;
+		} else if (itemStack.isIn(ItemTags.BANNERS)) {
 			if (getBanner().isEmpty()) {
 				setBanner(itemStack.copyWithCount(1));
 				itemStack.decrement(1);
-				player.getEntityWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_WIND_CHARGE_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
-				return ActionResult.SUCCESS;
+				player.getEntityWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_DONKEY_CHEST, SoundCategory.PLAYERS, 1.0F, 1.0F);
 			}
-		}
-		if (itemStack.isOf(Items.SHEARS)) {
+			return ActionResult.SUCCESS;
+		} else if (itemStack.isOf(Items.SHEARS)) {
 			if (!getBanner().isEmpty()) {
 				player.getEntityWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_COPPER_GOLEM_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
 				ItemStack banner = getBanner().copy();
@@ -110,10 +142,11 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 					this.dropStack(serverWorld, banner, 1.5F);
 					itemStack.damage(1, player);
 				}
-				return ActionResult.SUCCESS;
 			}
+			return ActionResult.SUCCESS;
+		} else {
+			return super.interact(player, hand);
 		}
-		return super.interact(player, hand);
 	}
 
 	public void setHasChest(boolean hasChest) {
@@ -126,14 +159,21 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 	}
 	public ItemStack getBanner() {return this.dataTracker.get(BANNER);}
 
+	public boolean isReal() { System.out.println(this);
+	return true;}
+
 
 	public float getSpeed() {
 		//return 0.3f+getPlayerPassengers()*0.1f+(!BANNER.isEmpty()?0.2f:0f);
-		return !getBanner().isEmpty()?0.8f:0.4f;
+		return 0.3f+getPassengerList().size()*0.1f+(!getBanner().isEmpty()?0.2f:0f);
+		//return !getBanner().isEmpty()?0.8f:0.4f;
 	}
 
 	@Override
 	public void killAndDropSelf(ServerWorld world, DamageSource damageSource) {
+		if (front!=null) this.front.remove(RemovalReason.DISCARDED);
+		if (back!=null) this.back.remove(RemovalReason.DISCARDED);
+		world.spawnEntity(this.back);
 		this.killAndDropItem(world, this.asItem());
 		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
 			if (hasChest()) ItemScatterer.spawn(world, this.getX(), this.getY(), this.getZ(), Items.CHEST.getDefaultStack());
@@ -144,6 +184,8 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 
 	@Override
 	public void remove(Entity.RemovalReason reason) {
+		if (front!=null) this.front.remove(RemovalReason.DISCARDED);
+		if (back!=null) this.back.remove(RemovalReason.DISCARDED);
 		if (!this.getEntityWorld().isClient() && reason.shouldDestroy()) {
 			if (hasChest()) ItemScatterer.spawn(this.getEntityWorld(), this.getX(), this.getY(), this.getZ(), Items.CHEST.getDefaultStack());
 			ItemScatterer.spawn(this.getEntityWorld(), this.getX(), this.getY(), this.getZ(), getBanner());
@@ -154,6 +196,8 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 
 	@Override
 	public void onBroken(DamageSource source, ServerWorld world, Entity vehicle) {
+		if (front!=null) this.front.remove(RemovalReason.DISCARDED);
+		if (back!=null) this.back.remove(RemovalReason.DISCARDED);
 		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
 			if (hasChest()) ItemScatterer.spawn(world, vehicle.getX(), vehicle.getY(), vehicle.getZ(), Items.CHEST.getDefaultStack());
 			ItemScatterer.spawn(world, vehicle.getX(), vehicle.getY(), vehicle.getZ(), getBanner());
@@ -179,4 +223,14 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 		if (hasChest()) return super.getInventoryStackReference(slot);
 		return StackReference.EMPTY;
 	}
+
+	public boolean canBeLeashedTo(Entity entity) {
+		return false;
+	}
+
+	@Override
+	public boolean collidesWith(Entity other) {
+		return !(other instanceof FakeBoatEntity) && super.collidesWith(other);
+	}
+
 }
