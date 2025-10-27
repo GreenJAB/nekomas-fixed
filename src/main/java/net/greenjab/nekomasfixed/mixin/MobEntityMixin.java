@@ -17,10 +17,8 @@ public class MobEntityMixin {
 
     @ModifyExpressionValue(method = "canMobSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;allowsSpawning(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/EntityType;)Z"))
     private static boolean allowPirateSpawning(boolean original, @Local(argsOnly = true) WorldAccess world, @Local(argsOnly = true) SpawnReason spawnReason, @Local(argsOnly = true) BlockPos pos) {
-        BlockPos blockPos = pos.down();
         if (spawnReason == SpawnReason.PATROL) {
-            if (world.getBlockState(blockPos).isOf(Blocks.AIR)) return true;
-            //System.out.println(original + ", " + world.getBlockState(blockPos));
+            if (world.getBlockState(pos).isOf(Blocks.AIR)) return true;
         }
         return original;
     }

@@ -3,26 +3,19 @@ package net.greenjab.nekomasfixed.registry.entity;
 import com.mojang.serialization.Codec;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.entity.*;
-import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.decoration.InteractionEntity;
-import net.minecraft.entity.mob.PiglinBrain;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PigEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.DragonFireballEntity;
+import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.entity.vehicle.AbstractChestBoatEntity;
-import net.minecraft.entity.vehicle.VehicleEntity;
-import net.minecraft.entity.vehicle.VehicleInventory;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -31,13 +24,11 @@ import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 
+import java.util.Iterator;
 import java.util.function.Supplier;
 
 public class MegaBoatEntity extends AbstractChestBoatEntity {
@@ -45,7 +36,6 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 	protected static final TrackedData<Boolean> CHEST = DataTracker.registerData(MegaBoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	protected static final TrackedData<ItemStack> BANNER = DataTracker.registerData(MegaBoatEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
 
-	//private final FakeBoatEntity front;
 	private FakeBoatEntity front;
 	private FakeBoatEntity back;
 
@@ -159,14 +149,22 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 	}
 	public ItemStack getBanner() {return this.dataTracker.get(BANNER);}
 
-	public boolean isReal() { System.out.println(this);
-	return true;}
-
 
 	public float getSpeed() {
-		//return 0.3f+getPlayerPassengers()*0.1f+(!BANNER.isEmpty()?0.2f:0f);
-		return 0.3f+getPassengerList().size()*0.1f+(!getBanner().isEmpty()?0.2f:0f);
-		//return !getBanner().isEmpty()?0.8f:0.4f;
+		float s = 0.3f+countRowable()*0.1f+(!getBanner().isEmpty()?0.2f:0f);
+		return getFirstPassenger() instanceof RaiderEntity ? Math.min(s, 0.6f) : s;
+	}
+
+	public int countRowable() {
+		int i = 0;
+		java.util.Iterator<Entity> iter = getPassengerList().stream().iterator();
+		while (iter.hasNext()){
+			Entity e = iter.next();
+			if (e instanceof PlayerEntity || e instanceof VillagerEntity || e instanceof RaiderEntity) {
+				i++;
+			}
+		}
+		return i;
 	}
 
 	@Override
@@ -214,7 +212,6 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 	@Override
 	public void openInventory(PlayerEntity player) {
 		if (hasChest()) super.openInventory(player);
-		// else player.openHandledScreen((NamedScreenHandlerFactory)player);
 
 	}
 
@@ -230,7 +227,7 @@ public class MegaBoatEntity extends AbstractChestBoatEntity {
 
 	@Override
 	public boolean collidesWith(Entity other) {
-		return !(other instanceof FakeBoatEntity) && super.collidesWith(other);
+		return !(other==front||other==back) && super.collidesWith(other);
 	}
 
 }

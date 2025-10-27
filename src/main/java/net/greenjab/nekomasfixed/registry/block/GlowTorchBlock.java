@@ -79,7 +79,7 @@ public class GlowTorchBlock extends AbstractTorchBlock implements Waterloggable 
 			double d = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
 			double e = pos.getY() + 0.7 + (random.nextDouble() - 0.5) * 0.2;
 			double f = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
-			world.addParticleClient(ParticleTypes.SCRAPE, d, e, f, 0.0, 0.0, 0.0);
+			world.addParticleClient(ParticleTypes.GLOW_SQUID_INK, d, e, f, 0.0, 0.0, 0.0);
 		}
 	}
 

@@ -106,14 +106,14 @@ public class MegaBoatEntityRenderer extends EntityRenderer<MegaBoatEntity, MegaB
 		megaBoatEntityRenderState.yaw = megaBoatEntity.getLerpedYaw(f);
 		megaBoatEntityRenderState.damageWobbleTicks = megaBoatEntity.getDamageWobbleTicks() - f;
 		megaBoatEntityRenderState.damageWobbleSide = megaBoatEntity.getDamageWobbleSide();
-		megaBoatEntityRenderState.damageWobbleStrength = Math.max(megaBoatEntity.getDamageWobbleStrength() - f, 0.0F);
+		megaBoatEntityRenderState.damageWobbleStrength = Math.max((megaBoatEntity.getDamageWobbleStrength()/2.0f) - f, 0.0F);
 		megaBoatEntityRenderState.bubbleWobble = megaBoatEntity.lerpBubbleWobble(f);
 		megaBoatEntityRenderState.submergedInWater = megaBoatEntity.isSubmergedInWater();
 		megaBoatEntityRenderState.leftPaddleAngle = megaBoatEntity.lerpPaddlePhase(0, f);
 		megaBoatEntityRenderState.rightPaddleAngle = megaBoatEntity.lerpPaddlePhase(1, f);
 
 		megaBoatEntityRenderState.hasChest = megaBoatEntity.hasChest();
-		megaBoatEntityRenderState.players = megaBoatEntity.getPassengerList().size();//megaBoatEntity.getPlayerPassengers();
+		megaBoatEntityRenderState.players = megaBoatEntity.countRowable();//megaBoatEntity.getPlayerPassengers();
 		if (megaBoatEntity.getBanner().isIn(ItemTags.BANNERS)) {
 			this.itemModelResolver.updateForNonLivingEntity(megaBoatEntityRenderState.bannerRenderState, megaBoatEntity.getBanner(), ItemDisplayContext.HEAD, megaBoatEntity);
 		} else {

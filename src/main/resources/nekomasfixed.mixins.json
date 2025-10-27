@@ -4,11 +4,14 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractBoatEntityMixin",
+    "BodyControlMixin",
     "ContainerComponentMixin",
     "HopperBlockEntityMixin",
     "ItemStackMixin",
     "MinecraftServerMixin",
     "MobEntityMixin",
+    "PillagerEntityMixin",
+    "RaiderEntityMixin",
     "TradeOffersMixin"
   ],
   "injectors": {

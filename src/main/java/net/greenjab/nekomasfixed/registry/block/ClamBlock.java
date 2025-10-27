@@ -26,6 +26,8 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
@@ -194,12 +196,20 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (world.getBlockEntity(pos) instanceof ClamBlockEntity clamBlockEntity && !hand.equals(Hand.OFF_HAND)) {
 			if (world.isClient()) {
+				if (!state.get(OPEN)&&state.get(WATERLOGGED)) {
+					world.addParticleClient(ParticleTypes.BUBBLE, pos.getX()+0.5, pos.getY()+0.3, pos.getZ()+0.5, 0.0, 1.0, 0.0);
+					world.addParticleClient(ParticleTypes.BUBBLE, pos.getX()+0.4, pos.getY()+0.3, pos.getZ()+0.4, 0.0, 1.0, 0.0);
+					world.addParticleClient(ParticleTypes.BUBBLE, pos.getX()+0.6, pos.getY()+0.3, pos.getZ()+0.6, 0.0, 1.0, 0.0);
+				}
 				return ActionResult.SUCCESS;
 			} else {
 				if (!(Boolean)state.get(OPEN) || player.isSneaking()) {
 					BlockState blockState = state.cycle(OPEN);
 					world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
 					world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
+					if (state.get(OPEN)&&state.get(WATERLOGGED)) {
+						//((ServerWorld)world).spawnParticles(ParticleTypes.BUBBLE, true, true, pos.getX(), pos.getY(), pos.getZ(), 5, 0.0, 0.0, 0.0, 0.0);
+					}
 					return ActionResult.SUCCESS;
 				}
 				PlayerInventory playerInventory = player.getInventory();
