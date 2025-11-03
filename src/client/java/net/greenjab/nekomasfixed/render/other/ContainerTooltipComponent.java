@@ -56,7 +56,7 @@ public class ContainerTooltipComponent implements TooltipComponent {
 
     private int getRows() {
         if (numberOfSlots==0)return 0;
-        return Math.min(Math.ceilDiv(numberOfSlots, getColumns()),3);
+        return Math.min((int)Math.ceil(numberOfSlots/ (getColumns()+0.0)),3);
     }
     private int getColumns() {
         if (numberOfSlots == 0) return 0;

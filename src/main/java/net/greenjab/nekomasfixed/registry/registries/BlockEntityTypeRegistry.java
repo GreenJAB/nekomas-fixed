@@ -11,7 +11,7 @@ import net.minecraft.registry.Registry;
 public class BlockEntityTypeRegistry {
 
     public static final BlockEntityType<ClamBlockEntity> Clam_Block_Entity = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("clam"),
-            FabricBlockEntityTypeBuilder.create(ClamBlockEntity::new, BlockRegistry.CLAM, BlockRegistry.CLAM_BLUE, BlockRegistry.CLAM_PINK, BlockRegistry.CLAM_PURPLE).build(null));
+            FabricBlockEntityTypeBuilder.create(ClamBlockEntity::new, BlockRegistry.CLAM, BlockRegistry.CLAM_BLUE, BlockRegistry.CLAM_PINK, BlockRegistry.CLAM_PURPLE).build());
 
     public static void registerBlockEntityType() {
         System.out.println("register BlockEntityType");

@@ -2,24 +2,25 @@
 	"schemaVersion": 1,
 	"id": "nekomasfixed",
 	"version": "${version}",
-	"name": "NekomasFixed",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Nekomas Fixed Minecraft",
+	"description": "NEKOMA FIXED MINECRAFT!",
 	"authors": [
-		"Me!"
+		"Green_Jab"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/nekomasfixed/icon.png",
 	"environment": "*",
 	"entrypoints": {
+		"client": [
+			"net.greenjab.nekomasfixed.NekomasFixedClient"
+		],
 		"main": [
 			"net.greenjab.nekomasfixed.NekomasFixed"
 		],
-		"client": [
-			"net.greenjab.nekomasfixed.NekomasFixedClient"
+		"fabric-datagen": [
+			"net.greenjab.nekomasfixed.NekomasFixedDataGenerator"
 		]
 	},
 	"mixins": [
@@ -30,13 +31,9 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.17.3",
-		"minecraft": "~1.21.10",
-		"java": ">=21",
-		"fabric-api": "*"
+		"java": ">=17",
+		"minecraft": ">=${minecraft}",
+		"fabric-api": ">=${fabric_api}"
 	},
-	"accessWidener" : "nekomasfixed.accesswidener",
-	"suggests": {
-		"another-mod": "*"
-	}
+	"accessWidener" : "nekomasfixed.accesswidener"
 }

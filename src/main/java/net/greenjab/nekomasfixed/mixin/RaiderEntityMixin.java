@@ -2,15 +2,24 @@ package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registry.entity.MegaBoatEntity;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
+import net.minecraft.entity.mob.PatrolEntity;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.network.packet.c2s.play.BoatPaddleStateC2SPacket;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.RaycastContext;
+import net.minecraft.world.World;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
 import java.util.Optional;
 
 @Mixin(RaiderEntity.class)
@@ -30,15 +40,22 @@ public class RaiderEntityMixin {
         RaiderEntity RE = (RaiderEntity)(Object)this;
         if (RE.hasVehicle() && RE.getVehicle() instanceof AbstractBoatEntity boatEntity && RE == boatEntity.getFirstPassenger()) {
             boatEntity.setInputs(false, false, false, false);
-            LivingEntity LE = RE.getTarget();
-            if (LE!=null) {
-                Optional<Float> toYawOptional = getTargetYaw(LE.getX(), LE.getZ(), RE.getX(), RE.getZ());
+            //Vec3d
+            Vec3d target = null;
+            if (RE.getTarget()!=null) target = RE.getTarget().getEntityPos();
+            else {
+                updatePatrol(RE, boatEntity);
+                if (RE.hasPatrolTarget()) target = RE.getPatrolTarget().toCenterPos();
+            }
+
+            if (target!=null) {
+                Optional<Float> toYawOptional = getTargetYaw(target.getX(), target.getZ(), RE.getX(), RE.getZ());
                 if (toYawOptional.isPresent()) {
                     float targetYaw = toYawOptional.get();
                     float boatYaw = boatEntity.getYaw();
                     double toYaw = (targetYaw-boatYaw)*(Math.PI/180f);
                     toYaw = Math.atan(Math.tan(toYaw/2.0));
-                    if (Vector3f.distanceSquared((float)LE.getX(), (float)LE.getY(), (float)LE.getZ(), (float)RE.getX(), (float)RE.getY(), (float)RE.getZ())>150) {
+                    if (Vector3f.distanceSquared((float)target.getX(), (float)target.getY(), (float)target.getZ(), (float)RE.getX(), (float)RE.getY(), (float)RE.getZ())>150) {
                         if (toYaw > 0.25) boatEntity.setInputs(false, true, Math.abs(toYaw)<Math.PI/4, false);
                         else if (toYaw < -0.25) boatEntity.setInputs(true, false, Math.abs(toYaw)<Math.PI/4, false);
                         else boatEntity.setInputs(false, false, true, false);
@@ -47,6 +64,31 @@ public class RaiderEntityMixin {
                         if (toYaw > 0.25) boatEntity.setInputs(false, true, false, false);
                         else if (toYaw < -0.25) boatEntity.setInputs(true, false, false, false);
                         else boatEntity.setInputs(false, false, false, false);
+                    }
+                }
+            }
+        }
+    }
+
+    @Unique
+    private void updatePatrol(RaiderEntity RE, AbstractBoatEntity boatEntity) {
+        if (boatEntity instanceof MegaBoatEntity megaBoatEntity && RE == megaBoatEntity.getFirstPassenger()) {
+            if (RE.getEntityWorld().getTime() % 20 == 0 && RE.getEntityWorld().random.nextInt(10) == 0) {
+                if (!RE.hasPatrolTarget()) {
+                    if (RE.getEntityWorld().random.nextInt(10) == 0) RE.setPatrolTarget(null);
+                    Random random = RE.getEntityWorld().random;
+                    BlockPos pos = RE.getBlockPos();
+                    pos = pos.add(-50 + random.nextInt(100), 0, -50 + random.nextInt(100));
+                    RE.setPatrolTarget(pos);
+                    List<PatrolEntity> list = RE.getEntityWorld().getEntitiesByClass(
+                            PatrolEntity.class, RE.getBoundingBox().expand(32.0), patrolEntity -> patrolEntity.hasNoRaid() && !patrolEntity.isPartOf(RE));
+
+                    for (PatrolEntity patrolEntity : list) {
+                        patrolEntity.setPatrolTarget(pos);
+                    }
+                } else {
+                    if (RE.getPatrolTarget().isWithinDistance(RE.getEntityPos(), 20.0)) {
+                        RE.setPatrolTarget(null);
                     }
                 }
             }

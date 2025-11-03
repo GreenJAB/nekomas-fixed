@@ -16,12 +16,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
+
 @Mixin(AbstractBoatEntity.class)
 public abstract class AbstractBoatEntityMixin {
 
     @Shadow private float yawVelocity;
 
     @Shadow protected abstract void updatePaddles();
+
+    @Shadow protected abstract int getMaxPassengers();
 
     @Redirect(method = "updatePaddles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setYaw(F)V"))
     private void adjustTurningForBigBoat(AbstractBoatEntity boat, float v){
@@ -43,7 +47,11 @@ public abstract class AbstractBoatEntityMixin {
         AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
         if (ABE instanceof MegaBoatEntity) f=0.4f;
         instance.setHeadYaw(instance.getHeadYaw() + yawVelocity*f);
-        //instance.setHeadYaw(0);
+    }
+    @ModifyExpressionValue(method = "updatePassengerPosition", at = @At(value = "INVOKE", target = "Ljava/util/List;size()I"))
+    private int animalsFaceSideways(int original){
+        if (original <2 ) return original;
+        return getMaxPassengers();
     }
 
     @Inject(method = "clampPassengerYaw", at = @At(value = "HEAD"), cancellable = true)

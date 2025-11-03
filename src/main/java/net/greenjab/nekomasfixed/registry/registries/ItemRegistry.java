@@ -9,7 +9,14 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.Direction;
+
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -39,6 +46,21 @@ public class ItemRegistry {
     public static final Item OAK_MEGA_BOAT = register("oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item PALE_OAK_MEGA_BOAT = register("pale_oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.PALE_OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item SPRUCE_MEGA_BOAT = register("spruce_mega_boat", settings -> new BoatItem(EntityTypeRegistry.SPRUCE_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item MEGA_BOAT_UPGRADE_TEMPLATE = register(
+            "mega_boat_upgrade_template", settings -> new SmithingTemplateItem(
+                    Text.translatable(
+                            Util.createTranslationKey("item", NekomasFixed.id("boat"))
+                            ).formatted(Formatting.BLUE),
+                    Text.translatable(
+                            Util.createTranslationKey("item", NekomasFixed.id("planks"))
+                    ).formatted(Formatting.BLUE),
+                    Text.of(""),
+                    Text.of(""),
+                    List.of(NekomasFixed.id("container/slot/boat")),
+                    List.of(NekomasFixed.id("container/slot/plank")),
+                    settings),new Item.Settings().rarity(Rarity.UNCOMMON)
+    );
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);

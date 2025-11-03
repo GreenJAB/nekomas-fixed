@@ -27,5 +27,8 @@
   "item.nekomasfixed.pale_oak_mega_boat": "Pale Oak Mega Boat",
   "entity.nekomasfixed.pale_oak_mega_boat": "Pale Oak Mega Boat",
   "item.nekomasfixed.spruce_mega_boat": "Spruce Mega Boat",
-  "entity.nekomasfixed.spruce_mega_boat": "Spruce Mega Boat"
+  "entity.nekomasfixed.spruce_mega_boat": "Spruce Mega Boat",
+  "item.nekomasfixed.mega_boat_upgrade_template": "Mega Boat Upgrade Template",
+  "item.nekomasfixed.boat": "Boats",
+  "item.nekomasfixed.planks": "Wooden Planks"
 }

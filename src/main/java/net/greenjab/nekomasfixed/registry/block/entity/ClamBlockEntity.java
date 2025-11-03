@@ -114,9 +114,6 @@ public class ClamBlockEntity extends LootableContainerBlockEntity implements Lid
 		this.inventory.set(0, itemStack);
 	}
 
-	public void clearInventory() {
-		inventory.clear();
-	}
 
 	@Override
 	protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
