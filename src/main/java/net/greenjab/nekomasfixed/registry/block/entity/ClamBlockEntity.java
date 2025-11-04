@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.slf4j.Logger;
 
-public class ClamBlockEntity extends LootableContainerBlockEntity implements LidOpenable, HeldItemContext, ListInventory {
+public class ClamBlockEntity extends LootableContainerBlockEntity implements LidOpenable, HeldItemContext {
 	private static final Logger LOGGER = LogUtils.getLogger();
 	private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
@@ -139,9 +139,9 @@ public class ClamBlockEntity extends LootableContainerBlockEntity implements Lid
 	public float getBodyYaw() {
 		return ((Direction)this.getCachedState().get(ClamBlock.FACING)).getOpposite().getPositiveHorizontalDegrees();
 	}
-	public ItemStack swapStackNoMarkDirty(int slot, ItemStack stack) {
+	public ItemStack swapStack(int slot, ItemStack stack) {
 		ItemStack itemStack = this.removeStack(slot);
-		this.setStackNoMarkDirty(slot, stack);
+		this.setStack(slot, stack);
 		return itemStack;
 	}
 	public void markDirty(RegistryEntry.Reference<GameEvent> gameEvent) {
@@ -150,5 +150,10 @@ public class ClamBlockEntity extends LootableContainerBlockEntity implements Lid
 			this.world.emitGameEvent(gameEvent, this.pos, GameEvent.Emitter.of(this.getCachedState()));
 			this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
 		}
+	}
+
+	@Override
+	public int size() {
+		return 1;
 	}
 }

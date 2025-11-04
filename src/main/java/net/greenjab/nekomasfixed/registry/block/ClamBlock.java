@@ -234,7 +234,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	}
 	private static boolean swapSingleStack(ItemStack stack, PlayerEntity player, ClamBlockEntity clamBlockEntity, PlayerInventory playerInventory) {
 		if (stack.isIn(ItemTags.SHULKER_BOXES)) return false;
-		ItemStack itemStack = clamBlockEntity.swapStackNoMarkDirty(0, stack);
+		ItemStack itemStack = clamBlockEntity.swapStack(0, stack);
 		ItemStack itemStack2 = player.isInCreativeMode() && itemStack.isEmpty() ? stack.copy() : itemStack;
 		playerInventory.setStack(playerInventory.getSelectedSlot(), itemStack2);
 		playerInventory.markDirty();
