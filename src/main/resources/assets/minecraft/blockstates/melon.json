@@ -1,0 +1,769 @@
+{
+  "variants": {
+    "slices=1": {
+      "model": "nekomasfixed:block/melon/1"
+    },
+    "slices=10": {
+      "model": "nekomasfixed:block/melon/1010"
+    },
+    "slices=100": {
+      "model": "nekomasfixed:block/melon/1100100"
+    },
+    "slices=101": {
+      "model": "nekomasfixed:block/melon/1100101"
+    },
+    "slices=102": {
+      "model": "nekomasfixed:block/melon/1100110"
+    },
+    "slices=103": {
+      "model": "nekomasfixed:block/melon/1100111"
+    },
+    "slices=104": {
+      "model": "nekomasfixed:block/melon/1101000"
+    },
+    "slices=105": {
+      "model": "nekomasfixed:block/melon/1101001"
+    },
+    "slices=106": {
+      "model": "nekomasfixed:block/melon/1101010"
+    },
+    "slices=107": {
+      "model": "nekomasfixed:block/melon/1101011"
+    },
+    "slices=108": {
+      "model": "nekomasfixed:block/melon/1101100"
+    },
+    "slices=109": {
+      "model": "nekomasfixed:block/melon/1101101"
+    },
+    "slices=11": {
+      "model": "nekomasfixed:block/melon/1011"
+    },
+    "slices=110": {
+      "model": "nekomasfixed:block/melon/1101110"
+    },
+    "slices=111": {
+      "model": "nekomasfixed:block/melon/1101111"
+    },
+    "slices=112": {
+      "model": "nekomasfixed:block/melon/1110000"
+    },
+    "slices=113": {
+      "model": "nekomasfixed:block/melon/1110001"
+    },
+    "slices=114": {
+      "model": "nekomasfixed:block/melon/1110010"
+    },
+    "slices=115": {
+      "model": "nekomasfixed:block/melon/1110011"
+    },
+    "slices=116": {
+      "model": "nekomasfixed:block/melon/1110100"
+    },
+    "slices=117": {
+      "model": "nekomasfixed:block/melon/1110101"
+    },
+    "slices=118": {
+      "model": "nekomasfixed:block/melon/1110110"
+    },
+    "slices=119": {
+      "model": "nekomasfixed:block/melon/1110111"
+    },
+    "slices=12": {
+      "model": "nekomasfixed:block/melon/1100"
+    },
+    "slices=120": {
+      "model": "nekomasfixed:block/melon/1111000"
+    },
+    "slices=121": {
+      "model": "nekomasfixed:block/melon/1111001"
+    },
+    "slices=122": {
+      "model": "nekomasfixed:block/melon/1111010"
+    },
+    "slices=123": {
+      "model": "nekomasfixed:block/melon/1111011"
+    },
+    "slices=124": {
+      "model": "nekomasfixed:block/melon/1111100"
+    },
+    "slices=125": {
+      "model": "nekomasfixed:block/melon/1111101"
+    },
+    "slices=126": {
+      "model": "nekomasfixed:block/melon/1111110"
+    },
+    "slices=127": {
+      "model": "nekomasfixed:block/melon/1111111"
+    },
+    "slices=128": {
+      "model": "nekomasfixed:block/melon/10000000"
+    },
+    "slices=129": {
+      "model": "nekomasfixed:block/melon/10000001"
+    },
+    "slices=13": {
+      "model": "nekomasfixed:block/melon/1101"
+    },
+    "slices=130": {
+      "model": "nekomasfixed:block/melon/10000010"
+    },
+    "slices=131": {
+      "model": "nekomasfixed:block/melon/10000011"
+    },
+    "slices=132": {
+      "model": "nekomasfixed:block/melon/10000100"
+    },
+    "slices=133": {
+      "model": "nekomasfixed:block/melon/10000101"
+    },
+    "slices=134": {
+      "model": "nekomasfixed:block/melon/10000110"
+    },
+    "slices=135": {
+      "model": "nekomasfixed:block/melon/10000111"
+    },
+    "slices=136": {
+      "model": "nekomasfixed:block/melon/10001000"
+    },
+    "slices=137": {
+      "model": "nekomasfixed:block/melon/10001001"
+    },
+    "slices=138": {
+      "model": "nekomasfixed:block/melon/10001010"
+    },
+    "slices=139": {
+      "model": "nekomasfixed:block/melon/10001011"
+    },
+    "slices=14": {
+      "model": "nekomasfixed:block/melon/1110"
+    },
+    "slices=140": {
+      "model": "nekomasfixed:block/melon/10001100"
+    },
+    "slices=141": {
+      "model": "nekomasfixed:block/melon/10001101"
+    },
+    "slices=142": {
+      "model": "nekomasfixed:block/melon/10001110"
+    },
+    "slices=143": {
+      "model": "nekomasfixed:block/melon/10001111"
+    },
+    "slices=144": {
+      "model": "nekomasfixed:block/melon/10010000"
+    },
+    "slices=145": {
+      "model": "nekomasfixed:block/melon/10010001"
+    },
+    "slices=146": {
+      "model": "nekomasfixed:block/melon/10010010"
+    },
+    "slices=147": {
+      "model": "nekomasfixed:block/melon/10010011"
+    },
+    "slices=148": {
+      "model": "nekomasfixed:block/melon/10010100"
+    },
+    "slices=149": {
+      "model": "nekomasfixed:block/melon/10010101"
+    },
+    "slices=15": {
+      "model": "nekomasfixed:block/melon/1111"
+    },
+    "slices=150": {
+      "model": "nekomasfixed:block/melon/10010110"
+    },
+    "slices=151": {
+      "model": "nekomasfixed:block/melon/10010111"
+    },
+    "slices=152": {
+      "model": "nekomasfixed:block/melon/10011000"
+    },
+    "slices=153": {
+      "model": "nekomasfixed:block/melon/10011001"
+    },
+    "slices=154": {
+      "model": "nekomasfixed:block/melon/10011010"
+    },
+    "slices=155": {
+      "model": "nekomasfixed:block/melon/10011011"
+    },
+    "slices=156": {
+      "model": "nekomasfixed:block/melon/10011100"
+    },
+    "slices=157": {
+      "model": "nekomasfixed:block/melon/10011101"
+    },
+    "slices=158": {
+      "model": "nekomasfixed:block/melon/10011110"
+    },
+    "slices=159": {
+      "model": "nekomasfixed:block/melon/10011111"
+    },
+    "slices=16": {
+      "model": "nekomasfixed:block/melon/10000"
+    },
+    "slices=160": {
+      "model": "nekomasfixed:block/melon/10100000"
+    },
+    "slices=161": {
+      "model": "nekomasfixed:block/melon/10100001"
+    },
+    "slices=162": {
+      "model": "nekomasfixed:block/melon/10100010"
+    },
+    "slices=163": {
+      "model": "nekomasfixed:block/melon/10100011"
+    },
+    "slices=164": {
+      "model": "nekomasfixed:block/melon/10100100"
+    },
+    "slices=165": {
+      "model": "nekomasfixed:block/melon/10100101"
+    },
+    "slices=166": {
+      "model": "nekomasfixed:block/melon/10100110"
+    },
+    "slices=167": {
+      "model": "nekomasfixed:block/melon/10100111"
+    },
+    "slices=168": {
+      "model": "nekomasfixed:block/melon/10101000"
+    },
+    "slices=169": {
+      "model": "nekomasfixed:block/melon/10101001"
+    },
+    "slices=17": {
+      "model": "nekomasfixed:block/melon/10001"
+    },
+    "slices=170": {
+      "model": "nekomasfixed:block/melon/10101010"
+    },
+    "slices=171": {
+      "model": "nekomasfixed:block/melon/10101011"
+    },
+    "slices=172": {
+      "model": "nekomasfixed:block/melon/10101100"
+    },
+    "slices=173": {
+      "model": "nekomasfixed:block/melon/10101101"
+    },
+    "slices=174": {
+      "model": "nekomasfixed:block/melon/10101110"
+    },
+    "slices=175": {
+      "model": "nekomasfixed:block/melon/10101111"
+    },
+    "slices=176": {
+      "model": "nekomasfixed:block/melon/10110000"
+    },
+    "slices=177": {
+      "model": "nekomasfixed:block/melon/10110001"
+    },
+    "slices=178": {
+      "model": "nekomasfixed:block/melon/10110010"
+    },
+    "slices=179": {
+      "model": "nekomasfixed:block/melon/10110011"
+    },
+    "slices=18": {
+      "model": "nekomasfixed:block/melon/10010"
+    },
+    "slices=180": {
+      "model": "nekomasfixed:block/melon/10110100"
+    },
+    "slices=181": {
+      "model": "nekomasfixed:block/melon/10110101"
+    },
+    "slices=182": {
+      "model": "nekomasfixed:block/melon/10110110"
+    },
+    "slices=183": {
+      "model": "nekomasfixed:block/melon/10110111"
+    },
+    "slices=184": {
+      "model": "nekomasfixed:block/melon/10111000"
+    },
+    "slices=185": {
+      "model": "nekomasfixed:block/melon/10111001"
+    },
+    "slices=186": {
+      "model": "nekomasfixed:block/melon/10111010"
+    },
+    "slices=187": {
+      "model": "nekomasfixed:block/melon/10111011"
+    },
+    "slices=188": {
+      "model": "nekomasfixed:block/melon/10111100"
+    },
+    "slices=189": {
+      "model": "nekomasfixed:block/melon/10111101"
+    },
+    "slices=19": {
+      "model": "nekomasfixed:block/melon/10011"
+    },
+    "slices=190": {
+      "model": "nekomasfixed:block/melon/10111110"
+    },
+    "slices=191": {
+      "model": "nekomasfixed:block/melon/10111111"
+    },
+    "slices=192": {
+      "model": "nekomasfixed:block/melon/11000000"
+    },
+    "slices=193": {
+      "model": "nekomasfixed:block/melon/11000001"
+    },
+    "slices=194": {
+      "model": "nekomasfixed:block/melon/11000010"
+    },
+    "slices=195": {
+      "model": "nekomasfixed:block/melon/11000011"
+    },
+    "slices=196": {
+      "model": "nekomasfixed:block/melon/11000100"
+    },
+    "slices=197": {
+      "model": "nekomasfixed:block/melon/11000101"
+    },
+    "slices=198": {
+      "model": "nekomasfixed:block/melon/11000110"
+    },
+    "slices=199": {
+      "model": "nekomasfixed:block/melon/11000111"
+    },
+    "slices=2": {
+      "model": "nekomasfixed:block/melon/10"
+    },
+    "slices=20": {
+      "model": "nekomasfixed:block/melon/10100"
+    },
+    "slices=200": {
+      "model": "nekomasfixed:block/melon/11001000"
+    },
+    "slices=201": {
+      "model": "nekomasfixed:block/melon/11001001"
+    },
+    "slices=202": {
+      "model": "nekomasfixed:block/melon/11001010"
+    },
+    "slices=203": {
+      "model": "nekomasfixed:block/melon/11001011"
+    },
+    "slices=204": {
+      "model": "nekomasfixed:block/melon/11001100"
+    },
+    "slices=205": {
+      "model": "nekomasfixed:block/melon/11001101"
+    },
+    "slices=206": {
+      "model": "nekomasfixed:block/melon/11001110"
+    },
+    "slices=207": {
+      "model": "nekomasfixed:block/melon/11001111"
+    },
+    "slices=208": {
+      "model": "nekomasfixed:block/melon/11010000"
+    },
+    "slices=209": {
+      "model": "nekomasfixed:block/melon/11010001"
+    },
+    "slices=21": {
+      "model": "nekomasfixed:block/melon/10101"
+    },
+    "slices=210": {
+      "model": "nekomasfixed:block/melon/11010010"
+    },
+    "slices=211": {
+      "model": "nekomasfixed:block/melon/11010011"
+    },
+    "slices=212": {
+      "model": "nekomasfixed:block/melon/11010100"
+    },
+    "slices=213": {
+      "model": "nekomasfixed:block/melon/11010101"
+    },
+    "slices=214": {
+      "model": "nekomasfixed:block/melon/11010110"
+    },
+    "slices=215": {
+      "model": "nekomasfixed:block/melon/11010111"
+    },
+    "slices=216": {
+      "model": "nekomasfixed:block/melon/11011000"
+    },
+    "slices=217": {
+      "model": "nekomasfixed:block/melon/11011001"
+    },
+    "slices=218": {
+      "model": "nekomasfixed:block/melon/11011010"
+    },
+    "slices=219": {
+      "model": "nekomasfixed:block/melon/11011011"
+    },
+    "slices=22": {
+      "model": "nekomasfixed:block/melon/10110"
+    },
+    "slices=220": {
+      "model": "nekomasfixed:block/melon/11011100"
+    },
+    "slices=221": {
+      "model": "nekomasfixed:block/melon/11011101"
+    },
+    "slices=222": {
+      "model": "nekomasfixed:block/melon/11011110"
+    },
+    "slices=223": {
+      "model": "nekomasfixed:block/melon/11011111"
+    },
+    "slices=224": {
+      "model": "nekomasfixed:block/melon/11100000"
+    },
+    "slices=225": {
+      "model": "nekomasfixed:block/melon/11100001"
+    },
+    "slices=226": {
+      "model": "nekomasfixed:block/melon/11100010"
+    },
+    "slices=227": {
+      "model": "nekomasfixed:block/melon/11100011"
+    },
+    "slices=228": {
+      "model": "nekomasfixed:block/melon/11100100"
+    },
+    "slices=229": {
+      "model": "nekomasfixed:block/melon/11100101"
+    },
+    "slices=23": {
+      "model": "nekomasfixed:block/melon/10111"
+    },
+    "slices=230": {
+      "model": "nekomasfixed:block/melon/11100110"
+    },
+    "slices=231": {
+      "model": "nekomasfixed:block/melon/11100111"
+    },
+    "slices=232": {
+      "model": "nekomasfixed:block/melon/11101000"
+    },
+    "slices=233": {
+      "model": "nekomasfixed:block/melon/11101001"
+    },
+    "slices=234": {
+      "model": "nekomasfixed:block/melon/11101010"
+    },
+    "slices=235": {
+      "model": "nekomasfixed:block/melon/11101011"
+    },
+    "slices=236": {
+      "model": "nekomasfixed:block/melon/11101100"
+    },
+    "slices=237": {
+      "model": "nekomasfixed:block/melon/11101101"
+    },
+    "slices=238": {
+      "model": "nekomasfixed:block/melon/11101110"
+    },
+    "slices=239": {
+      "model": "nekomasfixed:block/melon/11101111"
+    },
+    "slices=24": {
+      "model": "nekomasfixed:block/melon/11000"
+    },
+    "slices=240": {
+      "model": "nekomasfixed:block/melon/11110000"
+    },
+    "slices=241": {
+      "model": "nekomasfixed:block/melon/11110001"
+    },
+    "slices=242": {
+      "model": "nekomasfixed:block/melon/11110010"
+    },
+    "slices=243": {
+      "model": "nekomasfixed:block/melon/11110011"
+    },
+    "slices=244": {
+      "model": "nekomasfixed:block/melon/11110100"
+    },
+    "slices=245": {
+      "model": "nekomasfixed:block/melon/11110101"
+    },
+    "slices=246": {
+      "model": "nekomasfixed:block/melon/11110110"
+    },
+    "slices=247": {
+      "model": "nekomasfixed:block/melon/11110111"
+    },
+    "slices=248": {
+      "model": "nekomasfixed:block/melon/11111000"
+    },
+    "slices=249": {
+      "model": "nekomasfixed:block/melon/11111001"
+    },
+    "slices=25": {
+      "model": "nekomasfixed:block/melon/11001"
+    },
+    "slices=250": {
+      "model": "nekomasfixed:block/melon/11111010"
+    },
+    "slices=251": {
+      "model": "nekomasfixed:block/melon/11111011"
+    },
+    "slices=252": {
+      "model": "nekomasfixed:block/melon/11111100"
+    },
+    "slices=253": {
+      "model": "nekomasfixed:block/melon/11111101"
+    },
+    "slices=254": {
+      "model": "nekomasfixed:block/melon/11111110"
+    },
+    "slices=255": {
+      "model": "nekomasfixed:block/melon/11111111"
+    },
+    "slices=26": {
+      "model": "nekomasfixed:block/melon/11010"
+    },
+    "slices=27": {
+      "model": "nekomasfixed:block/melon/11011"
+    },
+    "slices=28": {
+      "model": "nekomasfixed:block/melon/11100"
+    },
+    "slices=29": {
+      "model": "nekomasfixed:block/melon/11101"
+    },
+    "slices=3": {
+      "model": "nekomasfixed:block/melon/11"
+    },
+    "slices=30": {
+      "model": "nekomasfixed:block/melon/11110"
+    },
+    "slices=31": {
+      "model": "nekomasfixed:block/melon/11111"
+    },
+    "slices=32": {
+      "model": "nekomasfixed:block/melon/100000"
+    },
+    "slices=33": {
+      "model": "nekomasfixed:block/melon/100001"
+    },
+    "slices=34": {
+      "model": "nekomasfixed:block/melon/100010"
+    },
+    "slices=35": {
+      "model": "nekomasfixed:block/melon/100011"
+    },
+    "slices=36": {
+      "model": "nekomasfixed:block/melon/100100"
+    },
+    "slices=37": {
+      "model": "nekomasfixed:block/melon/100101"
+    },
+    "slices=38": {
+      "model": "nekomasfixed:block/melon/100110"
+    },
+    "slices=39": {
+      "model": "nekomasfixed:block/melon/100111"
+    },
+    "slices=4": {
+      "model": "nekomasfixed:block/melon/100"
+    },
+    "slices=40": {
+      "model": "nekomasfixed:block/melon/101000"
+    },
+    "slices=41": {
+      "model": "nekomasfixed:block/melon/101001"
+    },
+    "slices=42": {
+      "model": "nekomasfixed:block/melon/101010"
+    },
+    "slices=43": {
+      "model": "nekomasfixed:block/melon/101011"
+    },
+    "slices=44": {
+      "model": "nekomasfixed:block/melon/101100"
+    },
+    "slices=45": {
+      "model": "nekomasfixed:block/melon/101101"
+    },
+    "slices=46": {
+      "model": "nekomasfixed:block/melon/101110"
+    },
+    "slices=47": {
+      "model": "nekomasfixed:block/melon/101111"
+    },
+    "slices=48": {
+      "model": "nekomasfixed:block/melon/110000"
+    },
+    "slices=49": {
+      "model": "nekomasfixed:block/melon/110001"
+    },
+    "slices=5": {
+      "model": "nekomasfixed:block/melon/101"
+    },
+    "slices=50": {
+      "model": "nekomasfixed:block/melon/110010"
+    },
+    "slices=51": {
+      "model": "nekomasfixed:block/melon/110011"
+    },
+    "slices=52": {
+      "model": "nekomasfixed:block/melon/110100"
+    },
+    "slices=53": {
+      "model": "nekomasfixed:block/melon/110101"
+    },
+    "slices=54": {
+      "model": "nekomasfixed:block/melon/110110"
+    },
+    "slices=55": {
+      "model": "nekomasfixed:block/melon/110111"
+    },
+    "slices=56": {
+      "model": "nekomasfixed:block/melon/111000"
+    },
+    "slices=57": {
+      "model": "nekomasfixed:block/melon/111001"
+    },
+    "slices=58": {
+      "model": "nekomasfixed:block/melon/111010"
+    },
+    "slices=59": {
+      "model": "nekomasfixed:block/melon/111011"
+    },
+    "slices=6": {
+      "model": "nekomasfixed:block/melon/110"
+    },
+    "slices=60": {
+      "model": "nekomasfixed:block/melon/111100"
+    },
+    "slices=61": {
+      "model": "nekomasfixed:block/melon/111101"
+    },
+    "slices=62": {
+      "model": "nekomasfixed:block/melon/111110"
+    },
+    "slices=63": {
+      "model": "nekomasfixed:block/melon/111111"
+    },
+    "slices=64": {
+      "model": "nekomasfixed:block/melon/1000000"
+    },
+    "slices=65": {
+      "model": "nekomasfixed:block/melon/1000001"
+    },
+    "slices=66": {
+      "model": "nekomasfixed:block/melon/1000010"
+    },
+    "slices=67": {
+      "model": "nekomasfixed:block/melon/1000011"
+    },
+    "slices=68": {
+      "model": "nekomasfixed:block/melon/1000100"
+    },
+    "slices=69": {
+      "model": "nekomasfixed:block/melon/1000101"
+    },
+    "slices=7": {
+      "model": "nekomasfixed:block/melon/111"
+    },
+    "slices=70": {
+      "model": "nekomasfixed:block/melon/1000110"
+    },
+    "slices=71": {
+      "model": "nekomasfixed:block/melon/1000111"
+    },
+    "slices=72": {
+      "model": "nekomasfixed:block/melon/1001000"
+    },
+    "slices=73": {
+      "model": "nekomasfixed:block/melon/1001001"
+    },
+    "slices=74": {
+      "model": "nekomasfixed:block/melon/1001010"
+    },
+    "slices=75": {
+      "model": "nekomasfixed:block/melon/1001011"
+    },
+    "slices=76": {
+      "model": "nekomasfixed:block/melon/1001100"
+    },
+    "slices=77": {
+      "model": "nekomasfixed:block/melon/1001101"
+    },
+    "slices=78": {
+      "model": "nekomasfixed:block/melon/1001110"
+    },
+    "slices=79": {
+      "model": "nekomasfixed:block/melon/1001111"
+    },
+    "slices=8": {
+      "model": "nekomasfixed:block/melon/1000"
+    },
+    "slices=80": {
+      "model": "nekomasfixed:block/melon/1010000"
+    },
+    "slices=81": {
+      "model": "nekomasfixed:block/melon/1010001"
+    },
+    "slices=82": {
+      "model": "nekomasfixed:block/melon/1010010"
+    },
+    "slices=83": {
+      "model": "nekomasfixed:block/melon/1010011"
+    },
+    "slices=84": {
+      "model": "nekomasfixed:block/melon/1010100"
+    },
+    "slices=85": {
+      "model": "nekomasfixed:block/melon/1010101"
+    },
+    "slices=86": {
+      "model": "nekomasfixed:block/melon/1010110"
+    },
+    "slices=87": {
+      "model": "nekomasfixed:block/melon/1010111"
+    },
+    "slices=88": {
+      "model": "nekomasfixed:block/melon/1011000"
+    },
+    "slices=89": {
+      "model": "nekomasfixed:block/melon/1011001"
+    },
+    "slices=9": {
+      "model": "nekomasfixed:block/melon/1001"
+    },
+    "slices=90": {
+      "model": "nekomasfixed:block/melon/1011010"
+    },
+    "slices=91": {
+      "model": "nekomasfixed:block/melon/1011011"
+    },
+    "slices=92": {
+      "model": "nekomasfixed:block/melon/1011100"
+    },
+    "slices=93": {
+      "model": "nekomasfixed:block/melon/1011101"
+    },
+    "slices=94": {
+      "model": "nekomasfixed:block/melon/1011110"
+    },
+    "slices=95": {
+      "model": "nekomasfixed:block/melon/1011111"
+    },
+    "slices=96": {
+      "model": "nekomasfixed:block/melon/1100000"
+    },
+    "slices=97": {
+      "model": "nekomasfixed:block/melon/1100001"
+    },
+    "slices=98": {
+      "model": "nekomasfixed:block/melon/1100010"
+    },
+    "slices=99": {
+      "model": "nekomasfixed:block/melon/1100011"
+    }
+  }
+}

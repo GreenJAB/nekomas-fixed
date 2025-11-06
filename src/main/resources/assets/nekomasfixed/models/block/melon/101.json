@@ -1,0 +1,23 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "nekomasfixed:block/melon",
+		"out": "nekomasfixed:block/melon",
+		"in": "nekomasfixed:block/melon_in",
+		"top": "nekomasfixed:block/melon_top"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [8, 8, 16],
+			"faces": {
+				"north": {"uv": [8, 8, 16, 16], "texture": "#out", "cullface": "north"},
+				"east": {"uv": [0, 8, 16, 16], "texture": "#in"},
+				"south": {"uv": [0, 8, 8, 16], "texture": "#out", "cullface": "south"},
+				"west": {"uv": [0, 8, 16, 16], "texture": "#out", "cullface": "west"},
+				"up": {"uv": [0, 0, 8, 16], "texture": "#in"},
+				"down": {"uv": [0, 0, 8, 16], "texture": "#top", "cullface": "down"}
+			}
+		}
+	]
+}

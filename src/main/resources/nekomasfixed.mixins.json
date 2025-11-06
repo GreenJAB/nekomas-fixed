@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractBoatEntityMixin",
+    "BlocksMixin",
     "BodyControlMixin",
     "ContainerComponentMixin",
     "HopperBlockEntityMixin",
