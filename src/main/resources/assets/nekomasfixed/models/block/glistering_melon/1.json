@@ -1,5 +1,5 @@
 {
-	"parent": "nekomasfixed:block/melon/melon_textures",
+	"parent": "nekomasfixed:block/glistering_melon/glistering_melon_textures",
 	"elements": [
 		{
 			"from": [0, 0, 0],

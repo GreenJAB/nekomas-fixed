@@ -62,6 +62,9 @@ public class ItemRegistry {
                     settings),new Item.Settings().rarity(Rarity.UNCOMMON)
     );
 
+    public static final Item GLISTERING_MELON = register(BlockRegistry.GLISTERING_MELON, new Item.Settings());
+
+
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);
     }

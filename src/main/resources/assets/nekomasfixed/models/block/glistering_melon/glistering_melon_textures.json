@@ -1,0 +1,9 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "nekomasfixed:block/glistering_melon",
+		"out": "nekomasfixed:block/glistering_melon",
+		"in": "nekomasfixed:block/glistering_melon_in",
+		"top": "nekomasfixed:block/glistering_melon_top"
+	}
+}

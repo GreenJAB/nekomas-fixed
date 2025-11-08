@@ -1,0 +1,17 @@
+{
+	"parent": "nekomasfixed:block/melon/melon_textures",
+	"elements": [
+		{
+			"from": [8, 0, 8],
+			"to": [16, 8, 16],
+			"faces": {
+				"north": {"uv": [0, 8, 8, 16], "texture": "#in"},
+				"east": {"uv": [0, 8, 8, 16], "texture": "#out", "cullface": "east"},
+				"south": {"uv": [8, 8, 16, 16], "texture": "#out", "cullface": "south"},
+				"west": {"uv": [8, 8, 16, 16], "texture": "#in"},
+				"up": {"uv": [8, 8, 16, 16], "texture": "#in"},
+				"down": {"uv": [8, 0, 16, 8], "texture": "#top", "cullface": "down"}
+			}
+		}
+	]
+}

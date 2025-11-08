@@ -31,6 +31,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.PALE_OAK_MEGA_BOAT);
                         entries.add(ItemRegistry.SPRUCE_MEGA_BOAT);
                         entries.add(ItemRegistry.MEGA_BOAT_UPGRADE_TEMPLATE);
+                        entries.add(ItemRegistry.GLISTERING_MELON);
                     }).build();
 
 
