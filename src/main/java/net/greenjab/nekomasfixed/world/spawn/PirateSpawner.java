@@ -1,9 +1,8 @@
 package net.greenjab.nekomasfixed.world.spawn;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.entity.MegaBoatEntity;
+import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -11,8 +10,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.PatrolEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
-import net.minecraft.entity.vehicle.BoatEntity;
-import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -69,7 +66,7 @@ public class PirateSpawner implements SpecialSpawner {
                                                 }
                                                 mutable.add(0, 2, 0);
                                                 int n = (int) Math.ceil(world.getLocalDifficulty(mutable).getLocalDifficulty()) + 1;
-                                                int boatType = random.nextInt(EntityTypeRegistry.megaBoats.size());
+                                                int boatType = random.nextInt(EntityTypeRegistry.bigBoats.size());
                                                 for (int o = 0; o < n; o++) {
                                                     if (o == 0) {
                                                         if (!this.spawnBoat(world, mutable, random, boatType, true)) {
@@ -112,22 +109,22 @@ public class PirateSpawner implements SpecialSpawner {
     }
 
     boolean spawnCaptainBoat(ServerWorld world, BlockPos pos, Random random, int boatType){
-        MegaBoatEntity megaBoatEntity = EntityTypeRegistry.megaBoats.get(boatType).create(world, SpawnReason.PATROL);
+        BigBoatEntity bigBoatEntity = EntityTypeRegistry.bigBoats.get(boatType).create(world, SpawnReason.PATROL);
 
-        if (megaBoatEntity != null) {
-            megaBoatEntity.setBanner(Raid.createOminousBanner(world.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN)));
-            megaBoatEntity.setHasChest(true);
-            megaBoatEntity.setLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, NekomasFixed.id("chests/patrol_boat")));
-            megaBoatEntity.setLootTableSeed(random.nextLong());
-            megaBoatEntity.refreshPositionAfterTeleport(pos.toCenterPos());
+        if (bigBoatEntity != null) {
+            bigBoatEntity.setBanner(Raid.createOminousBanner(world.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN)));
+            bigBoatEntity.setHasChest(true);
+            bigBoatEntity.setLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, NekomasFixed.id("chests/patrol_boat")));
+            bigBoatEntity.setLootTableSeed(random.nextLong());
+            bigBoatEntity.refreshPositionAfterTeleport(pos.toCenterPos());
             for (int i = 0; i < world.getDifficulty().getId();i++) {
                 PatrolEntity patrolEntity = EntityType.PILLAGER.create(world, SpawnReason.PATROL);
                 patrolEntity.setPosition(pos.getX(), pos.getY(), pos.getZ());
                 patrolEntity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.PATROL, null);
-                patrolEntity.startRiding(megaBoatEntity);
+                patrolEntity.startRiding(bigBoatEntity);
             }
 
-            world.spawnEntityAndPassengers(megaBoatEntity);
+            world.spawnEntityAndPassengers(bigBoatEntity);
             return true;
         } else {
             return false;

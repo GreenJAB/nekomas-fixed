@@ -7,16 +7,27 @@ public class EntityModelLayerRegistry {
 
     public static final EntityModelLayer CLAM = new EntityModelLayer(NekomasFixed.id("clam"), "main");
 
-    public static final EntityModelLayer ACACIA_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/acacia"), "main");
-    public static final EntityModelLayer BAMBOO_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/bamboo"), "main");
-    public static final EntityModelLayer BIRCH_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/birch"), "main");
-    public static final EntityModelLayer CHERRY_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/cherry"), "main");
-    public static final EntityModelLayer DARK_OAK_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/dark_oak"), "main");
-    public static final EntityModelLayer JUNGLE_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/jungle"), "main");
-    public static final EntityModelLayer MANGROVE_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/mangrove"), "main");
-    public static final EntityModelLayer OAK_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/oak"), "main");
-    public static final EntityModelLayer PALE_OAK_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/pale_oak"), "main");
-    public static final EntityModelLayer SPRUCE_MEGA_BOAT = new EntityModelLayer(NekomasFixed.id("mega_boat/spruce"), "main");
+    public static final EntityModelLayer BIG_ACACIA_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/acacia"), "main");
+    public static final EntityModelLayer BIG_BAMBOO_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/bamboo"), "main");
+    public static final EntityModelLayer BIG_BIRCH_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/birch"), "main");
+    public static final EntityModelLayer BIG_CHERRY_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/cherry"), "main");
+    public static final EntityModelLayer BIG_DARK_OAK_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/dark_oak"), "main");
+    public static final EntityModelLayer BIG_JUNGLE_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/jungle"), "main");
+    public static final EntityModelLayer BIG_MANGROVE_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/mangrove"), "main");
+    public static final EntityModelLayer BIG_OAK_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/oak"), "main");
+    public static final EntityModelLayer BIG_PALE_OAK_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/pale_oak"), "main");
+    public static final EntityModelLayer BIG_SPRUCE_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/spruce"), "main");
+
+    public static final EntityModelLayer HUGE_ACACIA_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/acacia"), "main");
+    public static final EntityModelLayer HUGE_BAMBOO_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/bamboo"), "main");
+    public static final EntityModelLayer HUGE_BIRCH_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/birch"), "main");
+    public static final EntityModelLayer HUGE_CHERRY_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/cherry"), "main");
+    public static final EntityModelLayer HUGE_DARK_OAK_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/dark_oak"), "main");
+    public static final EntityModelLayer HUGE_JUNGLE_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/jungle"), "main");
+    public static final EntityModelLayer HUGE_MANGROVE_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/mangrove"), "main");
+    public static final EntityModelLayer HUGE_OAK_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/oak"), "main");
+    public static final EntityModelLayer HUGE_PALE_OAK_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/pale_oak"), "main");
+    public static final EntityModelLayer HUGE_SPRUCE_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/spruce"), "main");
 
     public static void registerEntityModelLayer() {
         System.out.println("register EntityModelLayer");

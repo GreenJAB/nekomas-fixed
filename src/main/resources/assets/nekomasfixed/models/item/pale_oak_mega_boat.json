@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "nekomasfixed:item/pale_oak_mega_boat"
-  }
-}

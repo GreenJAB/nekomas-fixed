@@ -3,26 +3,43 @@ package net.greenjab.nekomasfixed.registries;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.ClamBlockEntityRenderer;
-import net.greenjab.nekomasfixed.render.entity.FakeMegaBoatEntityRenderer;
-import net.greenjab.nekomasfixed.render.entity.MegaBoatEntityRenderer;
+import net.greenjab.nekomasfixed.render.entity.FakeBoatEntityRenderer;
+import net.greenjab.nekomasfixed.render.entity.BigBoatEntityRenderer;
+import net.greenjab.nekomasfixed.render.entity.HugeBoatEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.ArmorStandEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactories;
+import net.minecraft.client.render.entity.RaftEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.entity.EntityType;
 
 public class EntityRendererRegistry {
 
     public static void registerEntityRenderer() {
         System.out.println("register EntityRenderer");
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.Clam_Block_Entity, ClamBlockEntityRenderer::new);
-        EntityRendererFactories.register(EntityTypeRegistry.FAKE_MEGA_BOAT, FakeMegaBoatEntityRenderer::new);
-        EntityRendererFactories.register(EntityTypeRegistry.ACACIA_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.ACACIA_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.BAMBOO_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.BAMBOO_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.BIRCH_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.BIRCH_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.CHERRY_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.CHERRY_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.DARK_OAK_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.DARK_OAK_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.JUNGLE_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.JUNGLE_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.MANGROVE_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.MANGROVE_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.OAK_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.OAK_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.PALE_OAK_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.PALE_OAK_MEGA_BOAT));
-        EntityRendererFactories.register(EntityTypeRegistry.SPRUCE_MEGA_BOAT, context -> new MegaBoatEntityRenderer(context, EntityModelLayerRegistry.SPRUCE_MEGA_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.FAKE_BOAT, FakeBoatEntityRenderer::new);
+        
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_ACACIA_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_ACACIA_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_BAMBOO_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_BAMBOO_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_BIRCH_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_BIRCH_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_CHERRY_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_CHERRY_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_DARK_OAK_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_DARK_OAK_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_JUNGLE_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_JUNGLE_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_MANGROVE_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_MANGROVE_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_OAK_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_OAK_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_PALE_OAK_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_PALE_OAK_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BIG_SPRUCE_BOAT, context -> new BigBoatEntityRenderer(context, EntityModelLayerRegistry.BIG_SPRUCE_BOAT));
+
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_ACACIA_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_ACACIA_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_BAMBOO_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_BAMBOO_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_BIRCH_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_BIRCH_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_CHERRY_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_CHERRY_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_DARK_OAK_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_DARK_OAK_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_JUNGLE_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_JUNGLE_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_MANGROVE_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_MANGROVE_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_OAK_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_OAK_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_PALE_OAK_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_PALE_OAK_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.HUGE_SPRUCE_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_SPRUCE_BOAT));
     }
 }

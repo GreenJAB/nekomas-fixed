@@ -36,19 +36,30 @@ public class ItemRegistry {
             ((block, settings) -> new VerticallyAttachableBlockItem(block, BlockRegistry.GLOW_WALL_TORCH, Direction.DOWN, settings))
     );
 
-    public static final Item ACACIA_MEGA_BOAT = register("acacia_mega_boat", settings -> new BoatItem(EntityTypeRegistry.ACACIA_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item BAMBOO_MEGA_BOAT = register("bamboo_mega_boat", settings -> new BoatItem(EntityTypeRegistry.BAMBOO_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item BIRCH_MEGA_BOAT = register("birch_mega_boat", settings -> new BoatItem(EntityTypeRegistry.BIRCH_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item CHERRY_MEGA_BOAT = register("cherry_mega_boat", settings -> new BoatItem(EntityTypeRegistry.CHERRY_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item DARK_OAK_MEGA_BOAT = register("dark_oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.DARK_OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item JUNGLE_MEGA_BOAT = register("jungle_mega_boat", settings -> new BoatItem(EntityTypeRegistry.JUNGLE_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item MANGROVE_MEGA_BOAT = register("mangrove_mega_boat", settings -> new BoatItem(EntityTypeRegistry.MANGROVE_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item OAK_MEGA_BOAT = register("oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item PALE_OAK_MEGA_BOAT = register("pale_oak_mega_boat", settings -> new BoatItem(EntityTypeRegistry.PALE_OAK_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
-    public static final Item SPRUCE_MEGA_BOAT = register("spruce_mega_boat", settings -> new BoatItem(EntityTypeRegistry.SPRUCE_MEGA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_ACACIA_BOAT = register("big_acacia_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_ACACIA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_BAMBOO_BOAT = register("big_bamboo_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_BAMBOO_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_BIRCH_BOAT = register("big_birch_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_BIRCH_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_CHERRY_BOAT = register("big_cherry_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_CHERRY_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_DARK_OAK_BOAT = register("big_dark_oak_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_DARK_OAK_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_JUNGLE_BOAT = register("big_jungle_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_JUNGLE_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_MANGROVE_BOAT = register("big_mangrove_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_MANGROVE_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_OAK_BOAT = register("big_oak_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_OAK_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_PALE_OAK_BOAT = register("big_pale_oak_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_PALE_OAK_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_SPRUCE_BOAT = register("big_spruce_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_SPRUCE_BOAT, settings), new Item.Settings().maxCount(1));
 
-    public static final Item MEGA_BOAT_UPGRADE_TEMPLATE = register(
-            "mega_boat_upgrade_template", settings -> new SmithingTemplateItem(
+    public static final Item HUGE_ACACIA_BOAT = register("huge_acacia_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_ACACIA_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_BAMBOO_BOAT = register("huge_bamboo_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BAMBOO_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_BIRCH_BOAT = register("huge_birch_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BIRCH_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_CHERRY_BOAT = register("huge_cherry_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_CHERRY_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_DARK_OAK_BOAT = register("huge_dark_oak_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_DARK_OAK_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_JUNGLE_BOAT = register("huge_jungle_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_JUNGLE_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_MANGROVE_BOAT = register("huge_mangrove_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_MANGROVE_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_OAK_BOAT = register("huge_oak_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_OAK_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_PALE_OAK_BOAT = register("huge_pale_oak_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_PALE_OAK_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_SPRUCE_BOAT = register("huge_spruce_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_SPRUCE_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item BOAT_UPGRADE_TEMPLATE = register(
+            "boat_upgrade_template", settings -> new SmithingTemplateItem(
                     Text.translatable(
                             Util.createTranslationKey("item", NekomasFixed.id("boat"))
                             ).formatted(Formatting.BLUE),

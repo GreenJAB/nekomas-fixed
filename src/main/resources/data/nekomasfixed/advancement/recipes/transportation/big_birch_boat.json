@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_boat_upgrade": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:boat_upgrade_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:big_birch_boat"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_boat_upgrade"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:big_birch_boat"
+    ]
+  }
+}

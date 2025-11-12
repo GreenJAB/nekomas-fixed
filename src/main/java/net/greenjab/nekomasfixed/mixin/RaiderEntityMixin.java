@@ -1,32 +1,18 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
-import net.greenjab.nekomasfixed.registry.entity.MegaBoatEntity;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MovementType;
+import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
 import net.minecraft.entity.mob.PatrolEntity;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
-import net.minecraft.network.packet.c2s.play.BoatPaddleStateC2SPacket;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -72,7 +58,7 @@ public class RaiderEntityMixin {
 
     @Unique
     private void updatePatrol(RaiderEntity RE, AbstractBoatEntity boatEntity) {
-        if (boatEntity instanceof MegaBoatEntity megaBoatEntity && RE == megaBoatEntity.getFirstPassenger()) {
+        if (boatEntity instanceof BigBoatEntity bigBoatEntity && RE == bigBoatEntity.getFirstPassenger()) {
             if (RE.getEntityWorld().getTime() % 20 == 0 && RE.getEntityWorld().random.nextInt(10) == 0) {
                 if (!RE.hasPatrolTarget()) {
                     if (RE.getEntityWorld().random.nextInt(10) == 0) RE.setPatrolTarget(null);

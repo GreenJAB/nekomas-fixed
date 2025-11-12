@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:jungle_planks",
+  "base": "minecraft:jungle_boat",
+  "result": {
+    "id": "nekomasfixed:big_jungle_boat"
+  },
+  "template": "nekomasfixed:boat_upgrade_template"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:oak_planks",
+  "base": "nekomasfixed:big_oak_boat",
+  "result": {
+    "id": "nekomasfixed:huge_oak_boat"
+  },
+  "template": "nekomasfixed:boat_upgrade_template"
+}

@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.greenjab.nekomasfixed.registry.entity.MegaBoatEntity;
+import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.RaiderEntity;
@@ -16,8 +16,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
-
 @Mixin(AbstractBoatEntity.class)
 public abstract class AbstractBoatEntityMixin {
 
@@ -30,7 +28,7 @@ public abstract class AbstractBoatEntityMixin {
     @Redirect(method = "updatePaddles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setYaw(F)V"))
     private void adjustTurningForBigBoat(AbstractBoatEntity boat, float v){
         float f = 1.0f;
-        if (boat instanceof MegaBoatEntity) f=0.4f;
+        if (boat instanceof BigBoatEntity bigBoatEntity) f=bigBoatEntity.getRotationSpeed();
         boat.setYaw(boat.getYaw() + yawVelocity*f);
     }
 
@@ -38,14 +36,14 @@ public abstract class AbstractBoatEntityMixin {
     private void adjustTurningForBigBoat2(Entity instance, float yaw){
         float f = 1.0f;
         AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
-        if (ABE instanceof MegaBoatEntity) f=0.4f;
+        if (ABE instanceof BigBoatEntity bigBoatEntity) f=bigBoatEntity.getRotationSpeed();
         instance.setYaw(instance.getYaw() + yawVelocity*f);
     }
     @Redirect(method = "updatePassengerPosition", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setHeadYaw(F)V"))
     private void adjustTurningForBigBoat3(Entity instance, float yaw){
         float f = 1.0f;
         AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
-        if (ABE instanceof MegaBoatEntity) f=0.4f;
+        if (ABE instanceof BigBoatEntity bigBoatEntity) f=bigBoatEntity.getRotationSpeed();
         instance.setHeadYaw(instance.getHeadYaw() + yawVelocity*f);
     }
     @ModifyExpressionValue(method = "updatePassengerPosition", at = @At(value = "INVOKE", target = "Ljava/util/List;size()I"))
@@ -71,7 +69,7 @@ public abstract class AbstractBoatEntityMixin {
     @Redirect(method = "updatePaddles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V"))
     private void adjustAccelerationForBigBoat(AbstractBoatEntity instance, Vec3d vec3d, @Local float f){
         AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
-        if (ABE instanceof MegaBoatEntity megaBoatEntity) f*=megaBoatEntity.getSpeed();
+        if (ABE instanceof BigBoatEntity bigBoatEntity) f*= bigBoatEntity.getSpeed();
         ABE.setVelocity(
                 ABE.getVelocity().add(MathHelper.sin(-ABE.getYaw() * (float) (Math.PI / 180.0)) * f, 0.0, MathHelper.cos(ABE.getYaw() * (float) (Math.PI / 180.0)) * f)
         );
@@ -80,7 +78,7 @@ public abstract class AbstractBoatEntityMixin {
     @Redirect(method = "updateVelocity", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setVelocity(DDD)V", ordinal = 0))
     private void adjustSpeedForBigBoat2(AbstractBoatEntity instance, double x, double y, double z, @Local float f){
         AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
-        if (ABE instanceof MegaBoatEntity megaBoatEntity) f=1-(1-f)/(megaBoatEntity.getSpeed()*3.0f);
+        if (ABE instanceof BigBoatEntity bigBoatEntity) f=1-(1-f)/(bigBoatEntity.getSpeed()*3.0f);
         Vec3d vec3d = ABE.getVelocity();
         ABE.setVelocity(vec3d.x * f, y, vec3d.z * f);
     }

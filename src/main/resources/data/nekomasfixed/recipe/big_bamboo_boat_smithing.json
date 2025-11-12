@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:bamboo_planks",
+  "base": "minecraft:bamboo_raft",
+  "result": {
+    "id": "nekomasfixed:big_bamboo_boat"
+  },
+  "template": "nekomasfixed:boat_upgrade_template"
+}

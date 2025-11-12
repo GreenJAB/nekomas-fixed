@@ -39,7 +39,7 @@ import java.util.function.Supplier;
 
 public class FakeBoatEntity extends Entity {
 	@Nullable
-	public MegaBoatEntity owner;
+	public BigBoatEntity owner;
 	private int counter = 0;
 
 	public FakeBoatEntity(EntityType<FakeBoatEntity> fakeBoatEntityEntityType, World world) {
