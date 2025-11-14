@@ -3,8 +3,6 @@ package net.greenjab.nekomasfixed;
 import net.fabricmc.api.ModInitializer;
 
 import net.greenjab.nekomasfixed.registry.registries.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

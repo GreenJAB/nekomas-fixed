@@ -11,7 +11,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Direction;
@@ -75,10 +74,6 @@ public class ItemRegistry {
 
     public static final Item GLISTERING_MELON = register(BlockRegistry.GLISTERING_MELON, new Item.Settings());
 
-
-    public static Item register(String id, Item.Settings settings) {
-        return register(keyOf(id), Item::new, settings);
-    }
     public static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings) {
         return register(keyOf(id), factory, settings);
     }

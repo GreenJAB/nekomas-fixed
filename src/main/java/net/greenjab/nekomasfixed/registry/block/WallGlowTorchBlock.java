@@ -5,7 +5,6 @@ import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.state.StateManager;
@@ -20,8 +19,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.block.OrientationHelper;
-import net.minecraft.world.block.WireOrientation;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,7 +58,7 @@ public class WallGlowTorchBlock extends GlowTorchBlock {
 			BlockState neighborState,
 			Random random
 	) {
-		if ((Boolean)state.get(WATERLOGGED)) {
+		if (state.get(WATERLOGGED)) {
 			tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 		return direction.getOpposite() == state.get(FACING) && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : state;
@@ -72,15 +69,14 @@ public class WallGlowTorchBlock extends GlowTorchBlock {
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		BlockState blockState = Blocks.WALL_TORCH.getPlacementState(ctx);
 		FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-		return blockState == null ? null : this.getDefaultState().with(FACING, (Direction)blockState.get(FACING)).with(WATERLOGGED, fluidState.isIn(FluidTags.WATER) && fluidState.getLevel() == 8);
+		return blockState == null ? null : this.getDefaultState().with(FACING, blockState.get(FACING)).with(WATERLOGGED, fluidState.isIn(FluidTags.WATER) && fluidState.getLevel() == 8);
 	}
 
 	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		if (world.random.nextInt(4)!=0) return;
-		if ((Boolean)state.get(WATERLOGGED)) {
-			Direction direction = ((Direction)state.get(FACING)).getOpposite();
-			double d = 0.27;
+		if (state.get(WATERLOGGED)) {
+			Direction direction = (state.get(FACING)).getOpposite();
 			double e = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2 + 0.27 * direction.getOffsetX();
 			double f = pos.getY() + 0.7 + (random.nextDouble() - 0.5) * 0.2 + 0.22;
 			double g = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2 + 0.27 * direction.getOffsetZ();

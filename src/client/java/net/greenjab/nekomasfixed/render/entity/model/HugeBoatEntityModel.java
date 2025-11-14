@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.render.entity.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.render.entity.state.BigBoatEntityRenderState;
 import net.greenjab.nekomasfixed.render.entity.state.HugeBoatEntityRenderState;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;

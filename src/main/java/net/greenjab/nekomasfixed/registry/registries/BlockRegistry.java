@@ -17,8 +17,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 
 import java.util.function.Function;
-import java.util.function.ToIntFunction;
-
 
 public class BlockRegistry {
 
@@ -76,13 +74,12 @@ public class BlockRegistry {
         return Registry.register(Registries.BLOCK, key, block);
     }
     private static AbstractBlock.Settings copyLootTable(Block block, boolean copyTranslationKey) {
-        AbstractBlock.Settings settings = block.getSettings();
-        AbstractBlock.Settings settings2 = AbstractBlock.Settings.create().lootTable(block.getLootTableKey());
+        AbstractBlock.Settings settings = AbstractBlock.Settings.create().lootTable(block.getLootTableKey());
         if (copyTranslationKey) {
-            settings2 = settings2.overrideTranslationKey(block.getTranslationKey());
+            settings = settings.overrideTranslationKey(block.getTranslationKey());
         }
 
-        return settings2;
+        return settings;
     }
 
     public static void registerBlocks() {

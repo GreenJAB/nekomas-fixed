@@ -1,9 +1,11 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.entity.vehicle.AbstractChestBoatEntity;
 import net.minecraft.item.Item;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -39,6 +41,11 @@ public class HugeBoatEntity extends BigBoatEntity {
 
 	@Override
 	public float fakeOffset() {
-		return 2f;
+		return 2.1f;
+	}
+
+	@Override
+	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+		return super.damage(world, source, amount*0.6f);
 	}
 }

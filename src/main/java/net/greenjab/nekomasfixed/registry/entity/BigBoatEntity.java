@@ -91,13 +91,17 @@ public class BigBoatEntity extends AbstractChestBoatEntity {
 
 		if (front==null || !front.isAlive()) {
 			front = EntityTypeRegistry.FAKE_BOAT.create(this.getEntityWorld(), SpawnReason.MOB_SUMMONED);
-			front.owner = this;
-			this.getEntityWorld().spawnEntity(front);
+			if (front!=null) {
+				front.owner = this;
+				this.getEntityWorld().spawnEntity(front);
+			}
 		}
 		if (back==null || !back.isAlive()) {
 			back = EntityTypeRegistry.FAKE_BOAT.create(this.getEntityWorld(), SpawnReason.MOB_SUMMONED);
-			back.owner = this;
-			this.getEntityWorld().spawnEntity(back);
+			if (back!=null) {
+				back.owner = this;
+				this.getEntityWorld().spawnEntity(back);
+			}
 		}
 
 		double dx = fakeOffset() * Math.cos((getYaw()+90f) * Math.PI / 180f);
@@ -109,7 +113,7 @@ public class BigBoatEntity extends AbstractChestBoatEntity {
 	}
 
 	public float fakeOffset() {
-		return 1.25f;
+		return 1.15f;
 	}
 
 	@Override
@@ -240,4 +244,8 @@ public class BigBoatEntity extends AbstractChestBoatEntity {
 		return !(other==front||other==back) && super.collidesWith(other);
 	}
 
+	@Override
+	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+		return super.damage(world, source, amount*0.8f);
+	}
 }

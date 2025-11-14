@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
-public class BigBoatEntityRenderer<T extends BigBoatEntity, S extends BigBoatEntityRenderState, M extends BigBoatEntityModel> extends EntityRenderer<T, S> {
+public class BigBoatEntityRenderer<T extends BigBoatEntity, S extends BigBoatEntityRenderState, M extends BigBoatEntityModel<S>> extends EntityRenderer<T, S> {
 	private final Identifier texture;
 	public final EntityModel<S> model;
 	protected final ItemModelManager itemModelResolver;
@@ -39,7 +39,7 @@ public class BigBoatEntityRenderer<T extends BigBoatEntity, S extends BigBoatEnt
 
 	@NotNull
 	public M getThisModel(EntityRendererFactory.Context context, EntityModelLayer layer) {
-		return (M)new BigBoatEntityModel(context.getPart(layer));
+		return (M)new BigBoatEntityModel<S>(context.getPart(layer));
 	}
 
 	public void render(

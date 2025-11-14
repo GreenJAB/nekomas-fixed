@@ -7,18 +7,11 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.tooltip.HoveredTooltipPositioner;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BundleContentsComponent;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import org.apache.commons.lang3.math.Fraction;
-import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class ContainerTooltipComponent implements TooltipComponent {
@@ -70,21 +63,18 @@ public class ContainerTooltipComponent implements TooltipComponent {
 
     @Override
     public void drawItems(TextRenderer textRenderer, int x, int y, int width, int height, DrawContext context) {
-            this.drawNonEmptyTooltip(textRenderer, x, y, width, height, context);
+            this.drawNonEmptyTooltip(textRenderer, x, y, context);
     }
 
-    private void drawNonEmptyTooltip(TextRenderer textRenderer, int x, int y, int width, int height, DrawContext context) {
+    private void drawNonEmptyTooltip(TextRenderer textRenderer, int x, int y, DrawContext context) {
         List<ItemStack> list = this.firstStacksInContents();
         numberOfSlots = list.size();
         if (!list.isEmpty()) {
-            int i = x;
-            int j = y;
             int k = 0;
-
             for (int l = 0; l < this.getRows(); l++) {
                 for (int m = 0; m < this.getColumns(); m++) {
-                    int n = i + m * 24;
-                    int o = j + l * 24;
+                    int n = x + m * 24;
+                    int o = y + l * 24;
                     if (k >= numberOfSlots) break;
                     this.drawItem(k, n, o, list, k, textRenderer, context);
                     k++;
@@ -98,7 +88,6 @@ public class ContainerTooltipComponent implements TooltipComponent {
         int i = (int) Math.min(this.contents.streamNonEmpty().count(), 27);
         return this.contents.streamNonEmpty().toList().subList(0, i);
     }
-
 
     private void drawItem(int index, int x, int y, List<ItemStack> stacks, int seed, TextRenderer textRenderer, DrawContext drawContext) {
         ItemStack itemStack = stacks.get(index);

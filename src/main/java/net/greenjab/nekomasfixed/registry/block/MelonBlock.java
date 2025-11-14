@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.HoneycombItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
@@ -14,7 +13,6 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.ParticleUtil;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -40,7 +38,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class MelonBlock extends Block {
-	boolean glistering = false;
+	boolean glistering;
 	public static final BooleanProperty CORNER_1 = BooleanProperty.of("corner_1");
 	public static final BooleanProperty CORNER_2 = BooleanProperty.of("corner_2");
 	public static final BooleanProperty CORNER_3 = BooleanProperty.of("corner_3");
@@ -153,7 +151,7 @@ public class MelonBlock extends Block {
 				VoxelShape voxelShape = CORNER_SHAPES[k];
 				Optional<Vec3d> optional = voxelShape.getClosestPointTo(pos);
 				if (optional.isPresent()) {
-					double e = ((Vec3d)optional.get()).squaredDistanceTo(pos);
+					double e = (optional.get()).squaredDistanceTo(pos);
 					if (e < d) {
 						d = e;
 						j = k;
@@ -174,7 +172,7 @@ public class MelonBlock extends Block {
 		} else {
 			LootWorldContext lootWorldContext = builder.add(LootContextParameters.BLOCK_STATE, state).build(LootContextTypes.BLOCK);
 			ServerWorld serverWorld = lootWorldContext.getWorld();
-			LootTable lootTable = serverWorld.getServer().getReloadableRegistries().getLootTable((RegistryKey<LootTable>)this.lootTableKey.get());
+			LootTable lootTable = serverWorld.getServer().getReloadableRegistries().getLootTable(this.lootTableKey.get());
 			List<ItemStack> stacks = lootTable.generateLoot(lootWorldContext);
 			int slices = (int) IntStream.range(0, 8).filter(j -> hasCorner(state, j)).count();
 			ArrayList<ItemStack> newstacks = new ArrayList<>(List.of());

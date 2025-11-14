@@ -109,7 +109,9 @@ public class PirateSpawner implements SpecialSpawner {
     }
 
     boolean spawnCaptainBoat(ServerWorld world, BlockPos pos, Random random, int boatType){
-        BigBoatEntity bigBoatEntity = EntityTypeRegistry.bigBoats.get(boatType).create(world, SpawnReason.PATROL);
+        BigBoatEntity bigBoatEntity = world.getDifficulty().getId()>2?
+                EntityTypeRegistry.hugeBoats.get(boatType).create(world, SpawnReason.PATROL):
+                EntityTypeRegistry.bigBoats.get(boatType).create(world, SpawnReason.PATROL);
 
         if (bigBoatEntity != null) {
             bigBoatEntity.setBanner(Raid.createOminousBanner(world.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN)));

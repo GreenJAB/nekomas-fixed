@@ -129,7 +129,6 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidOpenable> implem
 		matrices.translate(vec3d);
 		matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
 		matrices.scale(0.5F, 0.5F, 0.5F);
-		Box box = itemRenderState.getModelBoundingBox();
 		itemRenderState.render(matrices, queue, state.lightmapCoordinates, OverlayTexture.DEFAULT_UV, 0);
 		matrices.pop();
 	}

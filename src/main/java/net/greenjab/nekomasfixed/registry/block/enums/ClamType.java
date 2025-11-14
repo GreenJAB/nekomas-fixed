@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.registry.block.enums;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Oxidizable;
 import net.minecraft.util.StringIdentifiable;
 
 public enum ClamType implements StringIdentifiable {

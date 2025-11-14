@@ -68,7 +68,7 @@ public class BigBoatEntityModel<S extends BigBoatEntityRenderState> extends Enti
 		modelPartData.addChild("boat_9", ModelPartBuilder.create().uv(0, 0).cuboid(5.0F, -6.0F, -28.0F, 2.0F, 6.0F, 2.0F), ModelTransform.NONE);
 		modelPartData.addChild("boat_10", ModelPartBuilder.create().uv(0, 0).cuboid(5.0F, -6.0F, 26.0F, 2.0F, 6.0F, 2.0F), ModelTransform.NONE);
 		modelPartData.addChild("boat_11", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -6.0F, 26.0F, 2.0F, 6.0F, 2.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_12", ModelPartBuilder.create().uv(0, 0).cuboid(7.0F, -6.0F, -26.0F, 2.0F, 6.0F, 3.0F), ModelTransform.NONE);
+		modelPartData.addChild("boat_12", ModelPartBuilder.create().uv(0, 3).cuboid(7.0F, -6.0F, -26.0F, 2.0F, 6.0F, 3.0F), ModelTransform.NONE);
 		modelPartData.addChild("boat_13", ModelPartBuilder.create().uv(0, 0).cuboid(8.0F, -6.0F, -23.0F, 2.0F, 6.0F, 46.0F), ModelTransform.NONE);
 		modelPartData.addChild("boat_14", ModelPartBuilder.create().uv(0, 0).cuboid(-10.0F, -6.0F, -23.0F, 2.0F, 6.0F, 46.0F), ModelTransform.NONE);
 		modelPartData.addChild("boat_15", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, 0.0F, 23.0F, 14.0F, 3.0F, 3.0F), ModelTransform.NONE);

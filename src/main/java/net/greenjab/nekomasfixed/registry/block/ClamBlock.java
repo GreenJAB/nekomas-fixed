@@ -26,7 +26,6 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -98,7 +97,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 		BlockState neighborState,
 		Random random
 	) {
-		if ((Boolean)state.get(WATERLOGGED)) {
+		if (state.get(WATERLOGGED)) {
 			tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 		return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
@@ -126,23 +125,9 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 					}
 				}
 			}
-			if (!isPowered) {
-				//world.scheduleBlockTick(pos, this, 4);
-				//world.setBlockState(pos, state.with(OPEN, false), Block.NOTIFY_LISTENERS);
-				world.setBlockState(pos, state.with(POWERED, false).with(OPEN, false), Block.NOTIFY_LISTENERS);
-			} else {
-				world.setBlockState(pos, state.with(POWERED, true).with(OPEN, true), Block.NOTIFY_LISTENERS);
-			}
+			world.setBlockState(pos, state.with(POWERED, false).with(OPEN, isPowered), Block.NOTIFY_LISTENERS);
 		}
 	}
-
-	/*@Override
-	protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (state.get(POWERED)) {
-			world.setBlockState(pos, state.with(POWERED, false), Block.NOTIFY_LISTENERS);
-			tryLaunch(state, world, pos);
-		}
-	}*/
 
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
@@ -207,9 +192,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 					BlockState blockState = state.cycle(OPEN);
 					world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
 					world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
-					if (state.get(OPEN)&&state.get(WATERLOGGED)) {
-						//((ServerWorld)world).spawnParticles(ParticleTypes.BUBBLE, true, true, pos.getX(), pos.getY(), pos.getZ(), 5, 0.0, 0.0, 0.0, 0.0);
-					}
 					return ActionResult.SUCCESS;
 				}
 				PlayerInventory playerInventory = player.getInventory();
@@ -255,21 +237,11 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 		return ActionResult.SUCCESS;
 	}
 
-	public static PropertyRetriever<ClamBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(LidOpenable progress) {
-		return new PropertyRetriever<ClamBlockEntity, Float2FloatFunction>() {
-
-			public Float2FloatFunction getFrom(ClamBlockEntity ClamBlockEntity) {
-				return ClamBlockEntity::getAnimationProgress;
-			}
-
-			public Float2FloatFunction getFallback() {
-				return progress::getAnimationProgress;
-			}
-		};
+	public static PropertyRetriever< Float2FloatFunction> getAnimationProgressRetriever(LidOpenable progress) {
+		return () -> progress::getAnimationProgress;
 	}
 
-	public interface PropertyRetriever<S, T> {
-		T getFrom(S single);
+	public interface PropertyRetriever<T> {
 		T getFallback();
 	}
 

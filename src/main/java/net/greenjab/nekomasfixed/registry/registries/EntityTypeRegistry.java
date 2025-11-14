@@ -20,8 +20,8 @@ import java.util.function.Supplier;
 public class EntityTypeRegistry {
 
     public static final EntityType<FakeBoatEntity> FAKE_BOAT = register(
-            "fake_boat", EntityType.Builder.<FakeBoatEntity>create(FakeBoatEntity::new, SpawnGroup.MISC)
-                    .dropsNothing().dimensions(1.9f, 0.5625F).eyeHeight(0.5625F).maxTrackingRange(10));
+            "fake_boat", EntityType.Builder.create(FakeBoatEntity::new, SpawnGroup.MISC)
+                    .dropsNothing().dimensions(1.65f, 0.5625F).eyeHeight(0.5625F).maxTrackingRange(10));
     public static final EntityType<BigBoatEntity> BIG_ACACIA_BOAT = bigBoatFactory("big_acacia_boat", () -> ItemRegistry.BIG_ACACIA_BOAT);
     public static final EntityType<BigBoatEntity> BIG_BAMBOO_BOAT = bigBoatFactory("big_bamboo_boat", () -> ItemRegistry.BIG_BAMBOO_BOAT);
     public static final EntityType<BigBoatEntity> BIG_BIRCH_BOAT = bigBoatFactory("big_birch_boat", () -> ItemRegistry.BIG_BIRCH_BOAT);
@@ -29,7 +29,7 @@ public class EntityTypeRegistry {
     public static final EntityType<BigBoatEntity> BIG_DARK_OAK_BOAT = bigBoatFactory("big_dark_oak_boat", () -> ItemRegistry.BIG_DARK_OAK_BOAT);
     public static final EntityType<BigBoatEntity> BIG_JUNGLE_BOAT = bigBoatFactory("big_jungle_boat", () -> ItemRegistry.BIG_JUNGLE_BOAT);
     public static final EntityType<BigBoatEntity> BIG_MANGROVE_BOAT = bigBoatFactory("big_mangrove_boat", () -> ItemRegistry.BIG_MANGROVE_BOAT);
-    public static final EntityType<BigBoatEntity> BIG_OAK_BOAT = bigBoatFactory("big_oak_boat", () -> ItemRegistry.BIG_OAK_BOAT);;
+    public static final EntityType<BigBoatEntity> BIG_OAK_BOAT = bigBoatFactory("big_oak_boat", () -> ItemRegistry.BIG_OAK_BOAT);
     public static final EntityType<BigBoatEntity> BIG_PALE_OAK_BOAT = bigBoatFactory("big_pale_oak_boat", () -> ItemRegistry.BIG_PALE_OAK_BOAT);
     public static final EntityType<BigBoatEntity> BIG_SPRUCE_BOAT = bigBoatFactory("big_spruce_boat", () -> ItemRegistry.BIG_SPRUCE_BOAT);
 
@@ -40,7 +40,7 @@ public class EntityTypeRegistry {
     public static final EntityType<HugeBoatEntity> HUGE_DARK_OAK_BOAT = hugeBoatFactory("huge_dark_oak_boat", () -> ItemRegistry.HUGE_DARK_OAK_BOAT);
     public static final EntityType<HugeBoatEntity> HUGE_JUNGLE_BOAT = hugeBoatFactory("huge_jungle_boat", () -> ItemRegistry.HUGE_JUNGLE_BOAT);
     public static final EntityType<HugeBoatEntity> HUGE_MANGROVE_BOAT = hugeBoatFactory("huge_mangrove_boat", () -> ItemRegistry.HUGE_MANGROVE_BOAT);
-    public static final EntityType<HugeBoatEntity> HUGE_OAK_BOAT = hugeBoatFactory("huge_oak_boat", () -> ItemRegistry.HUGE_OAK_BOAT);;
+    public static final EntityType<HugeBoatEntity> HUGE_OAK_BOAT = hugeBoatFactory("huge_oak_boat", () -> ItemRegistry.HUGE_OAK_BOAT);
     public static final EntityType<HugeBoatEntity> HUGE_PALE_OAK_BOAT = hugeBoatFactory("huge_pale_oak_boat", () -> ItemRegistry.HUGE_PALE_OAK_BOAT);
     public static final EntityType<HugeBoatEntity> HUGE_SPRUCE_BOAT = hugeBoatFactory("huge_spruce_boat", () -> ItemRegistry.HUGE_SPRUCE_BOAT);
 

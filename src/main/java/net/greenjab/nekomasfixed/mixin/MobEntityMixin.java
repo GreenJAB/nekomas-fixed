@@ -1,9 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import com.google.common.collect.ImmutableList;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.greenjab.nekomasfixed.world.spawn.PirateSpawner;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;

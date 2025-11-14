@@ -2,8 +2,6 @@ package net.greenjab.nekomasfixed.render.block.entity.state;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
-import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 import net.minecraft.client.render.item.ItemRenderState;
 
@@ -15,7 +13,7 @@ public class ClamBlockEntityRenderState extends BlockEntityRenderState {
 	public ItemRenderState itemRenderState = new ItemRenderState();
 
 	@Environment(EnvType.CLIENT)
-	public static enum Variant {
+	public enum Variant {
 		BLUE,
 		PINK,
 		PURPLE,

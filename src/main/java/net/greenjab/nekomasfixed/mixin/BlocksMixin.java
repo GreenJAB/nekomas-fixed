@@ -5,8 +5,6 @@ import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,17 +22,6 @@ public class BlocksMixin {
         return register(key, settings -> new MelonBlock(false, settings), settings2);
     }
 
-
-
-
-    @Unique
-    private static Block register(String id, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        return register(keyOf(id), factory, settings);
-    }
-    @Unique
-    private static RegistryKey<Block> keyOf(String id) {
-        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.ofVanilla(id));
-    }
     @Unique
     private static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = factory.apply(settings.registryKey(key));
