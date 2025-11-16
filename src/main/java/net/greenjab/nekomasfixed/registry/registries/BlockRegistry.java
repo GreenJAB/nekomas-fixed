@@ -1,10 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.block.ClamBlock;
-import net.greenjab.nekomasfixed.registry.block.GlowTorchBlock;
-import net.greenjab.nekomasfixed.registry.block.MelonBlock;
-import net.greenjab.nekomasfixed.registry.block.WallGlowTorchBlock;
+import net.greenjab.nekomasfixed.registry.block.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -58,6 +55,9 @@ public class BlockRegistry {
 
     public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings),
             AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
+
+    public static final Block NAUTILUS_BLOCK = register("nautilus_block", NautilusBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 
 
     private static Block register(String id, AbstractBlock.Settings settings) {

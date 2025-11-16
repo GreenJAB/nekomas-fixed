@@ -8,11 +8,12 @@ import net.greenjab.nekomasfixed.render.entity.BigBoatEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.HugeBoatEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.EntityRendererFactories;
+
 public class EntityRendererRegistry {
 
     public static void registerEntityRenderer() {
         System.out.println("register EntityRenderer");
-        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.Clam_Block_Entity, ClamBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.FAKE_BOAT, FakeBoatEntityRenderer::new);
         
         EntityRendererFactories.register(EntityTypeRegistry.BIG_ACACIA_BOAT, context -> new BigBoatEntityRenderer<>(context, EntityModelLayerRegistry.BIG_ACACIA_BOAT));

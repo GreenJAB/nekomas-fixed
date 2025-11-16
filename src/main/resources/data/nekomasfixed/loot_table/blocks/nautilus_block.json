@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [],
+              "functions": [
+                {
+                  "function": "minecraft:copy_components",
+                  "include": [
+                    "minecraft:animal"
+                  ],
+                  "source": "block_entity"
+                },
+                {
+                  "block": "nekomasfixed:nautilus_block",
+                  "function": "minecraft:copy_state",
+                  "properties": [
+                    "occupied"
+                  ]
+                }
+              ],
+              "name": "nekomasfixed:nautilus_block"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "nekomasfixed:nautilus_block"
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "nekomasfixed:blocks/nautilus_block"
+}

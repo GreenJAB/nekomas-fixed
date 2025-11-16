@@ -8,6 +8,6 @@ public class BlockEntityRendererRegistry {
 
     public static void registerBlockEntityRenderer() {
         System.out.println("register BlockEntityRenderer");
-        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.Clam_Block_Entity, ClamBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntityRenderer::new);
     }
 }

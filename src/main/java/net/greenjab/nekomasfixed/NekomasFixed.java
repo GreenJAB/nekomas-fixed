@@ -19,6 +19,7 @@ public class NekomasFixed implements ModInitializer {
 		ItemRegistry.registerItems();
 		ItemGroupRegistry.registerItemGroup();
 		EntityTypeRegistry.registerEntityType();
+		OtherRegistry.registerOther();
 	}
 
 	public static Identifier id(String path) {

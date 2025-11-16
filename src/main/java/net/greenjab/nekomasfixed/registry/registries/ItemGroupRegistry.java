@@ -42,6 +42,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
                         entries.add(ItemRegistry.BOAT_UPGRADE_TEMPLATE);
                         entries.add(ItemRegistry.GLISTERING_MELON);
+                        entries.add(ItemRegistry.NAUTILUS_BLOCK);
                     }).build();
 
 

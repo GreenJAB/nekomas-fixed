@@ -51,5 +51,7 @@
   "item.nekomasfixed.big_boat_upgrade_template": "Boat Upgrade Template",
   "item.nekomasfixed.boat": "Boats",
   "item.nekomasfixed.planks": "Wooden Planks",
-  "block.nekomasfixed.glistering_melon": "Glistering Melon"
+  "block.nekomasfixed.glistering_melon": "Glistering Melon",
+  "block.nekomasfixed.nautilus_block": "Nautilus Block",
+  "container.nautilus": "Holding: %s%s%s%s"
 }

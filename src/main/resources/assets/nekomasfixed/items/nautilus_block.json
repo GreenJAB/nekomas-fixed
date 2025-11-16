@@ -1,0 +1,20 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "occupied",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "nekomasfixed:block/nautilus_full"
+        },
+        "when": "true"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "nekomasfixed:block/nautilus_empty"
+    },
+    "property": "minecraft:block_state"
+  }
+}

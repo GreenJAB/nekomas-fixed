@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "nekomasfixed:pearl"
+    "#": "minecraft:nautilus_shell"
   },
   "pattern": [
     "##",
@@ -10,6 +10,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "nekomasfixed:pearl_block"
+    "id": "nekomasfixed:nautilus_block"
   }
 }

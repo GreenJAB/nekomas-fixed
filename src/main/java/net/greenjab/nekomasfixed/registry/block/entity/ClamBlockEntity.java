@@ -39,7 +39,7 @@ public class ClamBlockEntity extends LootableContainerBlockEntity implements Lid
 	}
 
 	public ClamBlockEntity(BlockPos pos, BlockState state) {
-		this(BlockEntityTypeRegistry.Clam_Block_Entity, pos, state);
+		this(BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, pos, state);
 	}
 
 	@Override
