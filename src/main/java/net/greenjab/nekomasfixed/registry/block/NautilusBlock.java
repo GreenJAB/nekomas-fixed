@@ -84,7 +84,7 @@ public class NautilusBlock extends BlockWithEntity {
 							if (entity2 instanceof AnimalEntity animalEntity) {
 								if (world.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
 									if (((AnimalEntity) entity2).getBoundingBox().getLengthX()<1 &&
-										((AnimalEntity) entity2).getBoundingBox().getLengthY()<1) {
+										((AnimalEntity) entity2).getBoundingBox().getLengthY()<1.5f) {
 										nautilusBlockEntity.tryEnterNautilus(animalEntity);
 										world.setBlockState(pos, state.with(NautilusBlock.OCCUPIED, true));
 										return ActionResult.SUCCESS;

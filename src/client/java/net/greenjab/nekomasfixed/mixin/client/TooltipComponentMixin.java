@@ -1,6 +1,8 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
+import net.greenjab.nekomasfixed.registry.other.AnimalTooltipData;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
+import net.greenjab.nekomasfixed.render.other.AnimalTooltipComponent;
 import net.greenjab.nekomasfixed.render.other.ContainerTooltipComponent;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.item.tooltip.TooltipData;
@@ -16,6 +18,9 @@ public interface TooltipComponentMixin {
     private static void useContainerTooltip(TooltipData tooltipData, CallbackInfoReturnable<TooltipComponent> cir) {
         if (tooltipData instanceof ContainerTooltipData containerTooltipData) {
             cir.setReturnValue(new ContainerTooltipComponent(containerTooltipData.contents()));
+        } else
+        if (tooltipData instanceof AnimalTooltipData animalTooltipData) {
+            cir.setReturnValue(new AnimalTooltipComponent(animalTooltipData.contents()));
         }
     }
 }

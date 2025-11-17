@@ -39,7 +39,7 @@ import java.util.List;
 
 public class NautilusBlockEntity extends BlockEntity {
 	static final Logger LOGGER = LogUtils.getLogger();
-	static final List<String> IRRELEVANT_ANIMAL_NBT_KEYS = Arrays.asList(
+	public static final List<String> IRRELEVANT_ANIMAL_NBT_KEYS = Arrays.asList(
 		"Air",
 		"drop_chances",
 		"Brain",
@@ -121,30 +121,23 @@ public class NautilusBlockEntity extends BlockEntity {
 		NautilusBlockEntity.AnimalData animal,
 		@Nullable List<Entity> entities
 	) {
-			Direction direction = state.get(NautilusBlock.FACING);
-			BlockPos blockPos = pos.offset(direction);
-			boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty() ;
-			if (bl) return false;
-			if (animal.tickEnteredHive ==world.getTime()) return false;
-			Entity entity = animal.loadEntity(world, pos);
-			if (entity != null) {
-				if (entity instanceof AnimalEntity animalEntity) {
-					if (entities != null) {
-						entities.add(animalEntity);
-					}
-
-					float f = entity.getWidth();
-					double d = 0.55 + f / 2.0F;
-					double e = pos.getX() + 0.5 + d * direction.getOffsetX();
-					double g = pos.getY() + 0.5 - entity.getHeight() / 2.0F;
-					double h = pos.getZ() + 0.5 + d * direction.getOffsetZ();
-					entity.refreshPositionAndAngles(e, g, h, entity.getYaw(), entity.getPitch());
-				}
-
-				world.playSound(null, pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.BLOCKS, 1.0F, 1.0F);
-				world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(entity, world.getBlockState(pos)));
-				return world.spawnEntity(entity);
-			} else return false;
+		Direction direction = state.get(NautilusBlock.FACING);
+		BlockPos blockPos = pos.offset(direction);
+		boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty() ;
+		if (bl) return false;
+		if (animal.tickEnteredHive ==world.getTime()) return false;
+		Entity entity = animal.loadEntity(world, pos);
+		if (entity != null) {
+			if (entities != null) entities.add(entity);
+			double d = 0.55 + entity.getWidth() / 2.0F;
+			double e = pos.getX() + 0.5 + d * direction.getOffsetX();
+			double g = pos.getY() + 0.5 - entity.getHeight() / 2.0F;
+			double h = pos.getZ() + 0.5 + d * direction.getOffsetZ();
+			entity.refreshPositionAndAngles(e, g, h, entity.getYaw(), entity.getPitch());
+			world.playSound(null, pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(entity, world.getBlockState(pos)));
+			return world.spawnEntity(entity);
+		} else return false;
 	}
 
 

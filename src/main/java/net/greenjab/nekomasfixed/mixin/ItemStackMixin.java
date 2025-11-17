@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.other.AnimalTooltipData;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.component.DataComponentTypes;
@@ -29,6 +30,11 @@ public class ItemStackMixin {
 			cir.setReturnValue(!tooltipDisplayComponent.shouldDisplay(DataComponentTypes.CONTAINER)
 					? Optional.empty()
 					: Optional.ofNullable(itemStack.get(DataComponentTypes.CONTAINER)).map(ContainerTooltipData::new));
+		} else if (itemStack.getComponents().contains(OtherRegistry.ANIMAL)) {
+			TooltipDisplayComponent tooltipDisplayComponent = itemStack.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT);
+			cir.setReturnValue(!tooltipDisplayComponent.shouldDisplay(OtherRegistry.ANIMAL)
+					? Optional.empty()
+					: Optional.ofNullable(itemStack.get(OtherRegistry.ANIMAL)).map(AnimalTooltipData::new));
 		}
 	}
 
