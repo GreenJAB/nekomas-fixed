@@ -59,7 +59,12 @@ public class AnimalTooltipComponent implements TooltipComponent {
             NbtCompound nbtCompound = entityData.copyNbtWithoutId();
             NautilusBlockEntity.IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtCompound::remove);
             Entity entity = EntityType.loadEntityWithPassengers(entityData.getType(), nbtCompound, world, SpawnReason.LOAD, entityx -> entityx);
-            InventoryScreen.drawEntity(context, x, y-20, x + getWidth(), y + getHeight(), 40, 0.25F, x-20, y+40, (LivingEntity) entity);
+            float time = System.currentTimeMillis()%(20*1000);
+            time*= (float) (2*Math.PI)/(20*1000.0f);
+            float dx = 10*(float)(Math.cos(7*time)+Math.sin(3*time));
+            float dy = 10*(float)(Math.cos(5*time)+Math.sin(2*time));
+            InventoryScreen.drawEntity(context, x, y-20, x + getWidth(), y + getHeight(), 40, 0.25F, x-15+dx, y+30+dy, (LivingEntity) entity);
+            entity.discard();
         }
     }
 }

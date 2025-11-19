@@ -1,10 +1,24 @@
 {
-  "parent": "minecraft:block/orientable_with_bottom",
+  "parent": "block/block",
   "textures": {
-    "bottom": "nekomasfixed:block/nautilus_end",
+    "back": "nekomasfixed:block/nautilus_back",
     "front": "nekomasfixed:block/nautilus_front",
-    "particle": "nekomasfixed:block/nautilus_side",
     "side": "nekomasfixed:block/nautilus_side",
-    "top": "nekomasfixed:block/nautilus_end"
-  }
+    "top": "nekomasfixed:block/nautilus_top",
+    "particle": "#side"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#front", "cullface": "north"},
+        "east": {"uv": [16, 16, 0, 0], "rotation": 180, "texture": "#side", "cullface": "east"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#top", "cullface": "south"},
+        "west": {"uv": [0, 16, 16, 0], "rotation": 180, "texture": "#side", "cullface": "west"},
+        "up": {"uv": [0, 16, 16, 0], "rotation": 180, "texture": "#top", "cullface": "up"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#top", "cullface": "down"}
+      }
+    }
+  ]
 }

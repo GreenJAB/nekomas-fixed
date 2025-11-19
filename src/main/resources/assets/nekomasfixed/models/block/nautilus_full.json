@@ -1,10 +1,6 @@
 {
-  "parent": "minecraft:block/orientable_with_bottom",
+  "parent": "nekomasfixed:block/nautilus_empty",
   "textures": {
-    "bottom": "nekomasfixed:block/nautilus_end",
-    "front": "nekomasfixed:block/nautilus_front_full",
-    "particle": "nekomasfixed:block/nautilus_side",
-    "side": "nekomasfixed:block/nautilus_side",
-    "top": "nekomasfixed:block/nautilus_end"
+    "front": "nekomasfixed:block/nautilus_front_full"
   }
 }
