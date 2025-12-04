@@ -5,6 +5,7 @@
   "client": [
     "ClientPlayerInteractionManagerMixin",
     "EntityModelsMixin",
+    "EquipmentRendererMixin",
     "TooltipComponentMixin"
   ],
   "injectors": {

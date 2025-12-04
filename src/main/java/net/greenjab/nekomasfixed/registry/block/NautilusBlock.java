@@ -63,14 +63,21 @@ public class NautilusBlock extends BlockWithEntity {
 	protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		boolean occupied = hasAnimal(world, pos);
 		if (world instanceof ServerWorld serverWorld) {
-		if (occupied) {
-			if (world.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
-				List<Entity > list = nautilusBlockEntity.tryReleaseAnimal(state);
-				if (!list.isEmpty()) {
-					world.setBlockState(pos, state.with(NautilusBlock.OCCUPIED, false));
+			System.out.println(occupied);
+			if (occupied) {
+				if (world.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
+					List<Entity > list = nautilusBlockEntity.tryReleaseAnimal(state);
+					if (!list.isEmpty()) {
+						world.setBlockState(pos, state.with(NautilusBlock.OCCUPIED, false));
+						if (stack.isOf(Items.LEAD)) {
+							if (list.get(0) instanceof Leashable leashable) {
+								leashable.attachLeash(player, true);
+								stack.decrement(1);
+							}
+						}
+					}
 				}
-			}
-		} else {
+			} else {
 				List<Entity> list = serverWorld.getOtherEntities(player, player.getBoundingBox().expand(10));
 				for (Entity entity : list) {
 					if (!player.shouldCancelInteraction()
@@ -95,6 +102,8 @@ public class NautilusBlock extends BlockWithEntity {
 					}
 				}
 			}
+		} else {
+			return ActionResult.SUCCESS;
 		}
 
 		return super.onUseWithItem(stack, state, world, pos, player, hand, hit);

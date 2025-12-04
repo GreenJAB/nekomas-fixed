@@ -11,9 +11,11 @@
     "DrownedEntityMixin",
     "HopperBlockEntityMixin",
     "ItemStackMixin",
+    "LivingEntityMixin",
     "MinecraftServerMixin",
     "MobEntityMixin",
     "PillagerEntityMixin",
+    "PlayerEntityMixin",
     "RaiderEntityMixin",
     "TradeOffersMixin"
   ],
