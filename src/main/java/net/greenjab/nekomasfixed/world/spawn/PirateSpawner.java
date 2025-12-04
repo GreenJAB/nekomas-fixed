@@ -35,7 +35,7 @@ public class PirateSpawner implements SpecialSpawner {
                 Random random = world.random;
                 this.cooldown--;
                 if (this.cooldown <= 0) {
-                    this.cooldown = this.cooldown + 200 + random.nextInt(20); //12000 1200
+                    this.cooldown = this.cooldown + 2000 + random.nextInt(1200); //12000 1200
                     long l = world.getTimeOfDay() / 24000L;
                     //if (l >= 5L && world.isDay()) {
                     if (random.nextInt(1) == 0) {//5

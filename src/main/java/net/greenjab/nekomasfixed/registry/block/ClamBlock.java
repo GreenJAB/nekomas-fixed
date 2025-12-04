@@ -9,6 +9,7 @@ import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.Entity;
@@ -26,9 +27,6 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
@@ -181,11 +179,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (world.getBlockEntity(pos) instanceof ClamBlockEntity clamBlockEntity && !hand.equals(Hand.OFF_HAND)) {
 			if (world.isClient()) {
-				if (!state.get(OPEN)&&state.get(WATERLOGGED)) {
-					world.addParticleClient(ParticleTypes.BUBBLE, pos.getX()+0.5, pos.getY()+0.3, pos.getZ()+0.5, 0.0, 1.0, 0.0);
-					world.addParticleClient(ParticleTypes.BUBBLE, pos.getX()+0.4, pos.getY()+0.3, pos.getZ()+0.4, 0.0, 1.0, 0.0);
-					world.addParticleClient(ParticleTypes.BUBBLE, pos.getX()+0.6, pos.getY()+0.3, pos.getZ()+0.6, 0.0, 1.0, 0.0);
-				}
 				return ActionResult.SUCCESS;
 			} else {
 				if (!(Boolean)state.get(OPEN) || player.isSneaking()) {
@@ -284,10 +277,9 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 					if (item.isOf(Items.SAND) || item.isOf(Items.GRAVEL) || item.isOf(Items.DIRT)) {
 						clamBlockEntity.setHeldStack(item.copyWithCount(item.getCount() - 1));
 						if (random.nextInt(16) == 0) {
-							Identifier lootTableId = NekomasFixed.id("gameplay/clam");
 							LootTable lootTable = world.getServer()
 									.getReloadableRegistries()
-									.getLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, lootTableId));
+									.getLootTable(OtherRegistry.CLAM_LOOT_TABLE);
 
 							LootWorldContext lootContextParameterSet = (new LootWorldContext.Builder(world)).add(LootContextParameters.ORIGIN, pos.toCenterPos()).add(LootContextParameters.TOOL, null).add(LootContextParameters.THIS_ENTITY, null).luck(getLuck(this.getClamType())).build(LootContextTypes.FISHING);
 

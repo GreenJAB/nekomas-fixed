@@ -11,6 +11,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenHandler;
@@ -91,6 +92,10 @@ public class ClamBlockEntity extends LootableContainerBlockEntity implements Lid
 	public static void clientTick(World world, BlockPos pos, BlockState state, ClamBlockEntity blockEntity) {
 		blockEntity.lidAnimator.setOpen(state.get(ClamBlock.OPEN));
 		blockEntity.lidAnimator.step();
+		if (state.get(ClamBlock.OPEN) && state.get(ClamBlock.WATERLOGGED) && blockEntity.lidAnimator.getProgress(0)<1){
+			blockEntity.getEntityWorld().addParticleClient(ParticleTypes.BUBBLE, pos.getX()+0.5+world.random.nextGaussian()*0.15, pos.getY()+0.2, pos.getZ()+0.5+world.random.nextGaussian()*0.15, 0.0, 0.75, 0.0);
+		}
+
 	}
 
 	@Override

@@ -8,6 +8,7 @@
     "BlocksMixin",
     "BodyControlMixin",
     "ContainerComponentMixin",
+    "DrownedEntityMixin",
     "HopperBlockEntityMixin",
     "ItemStackMixin",
     "MinecraftServerMixin",
