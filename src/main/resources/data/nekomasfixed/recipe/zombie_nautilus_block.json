@@ -1,0 +1,17 @@
+{
+  "type": "nekomasfixed:zombie_nautilus",
+  "category": "misc",
+  "key": {
+    "#": "nekomasfixed:nautilus_block",
+    "!": "minecraft:rotten_flesh"
+  },
+  "pattern": [
+    "!!!",
+    "!#!",
+    "!!!"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:zombie_nautilus_block"
+  }
+}

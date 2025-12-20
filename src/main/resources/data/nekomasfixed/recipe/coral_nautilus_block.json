@@ -1,0 +1,21 @@
+{
+  "type": "nekomasfixed:coral_nautilus",
+  "category": "misc",
+  "key": {
+    "#": "nekomasfixed:nautilus_block",
+    "!": "minecraft:tube_coral",
+    "@": "minecraft:brain_coral",
+    "$": "minecraft:bubble_coral",
+    "%": "minecraft:horn_coral",
+    "^": "minecraft:fire_coral"
+  },
+  "pattern": [
+    "^!^",
+    "@#$",
+    "^%^"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:coral_nautilus_block"
+  }
+}

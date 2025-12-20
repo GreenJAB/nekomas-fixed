@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,occupied=false": {
+      "model": "nekomasfixed:block/coral_nautilus_empty",
+      "y": 90
+    },
+    "facing=east,occupied=true": {
+      "model": "nekomasfixed:block/coral_nautilus_full",
+      "y": 90
+    },
+    "facing=north,occupied=false": {
+      "model": "nekomasfixed:block/coral_nautilus_empty"
+    },
+    "facing=north,occupied=true": {
+      "model": "nekomasfixed:block/coral_nautilus_full"
+    },
+    "facing=south,occupied=false": {
+      "model": "nekomasfixed:block/coral_nautilus_empty",
+      "y": 180
+    },
+    "facing=south,occupied=true": {
+      "model": "nekomasfixed:block/coral_nautilus_full",
+      "y": 180
+    },
+    "facing=west,occupied=false": {
+      "model": "nekomasfixed:block/coral_nautilus_empty",
+      "y": 270
+    },
+    "facing=west,occupied=true": {
+      "model": "nekomasfixed:block/coral_nautilus_full",
+      "y": 270
+    }
+  }
+}

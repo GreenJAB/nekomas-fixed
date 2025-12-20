@@ -1,12 +1,12 @@
 {
   "parent": "block/block",
   "textures": {
-    "up": "nekomasfixed:block/nautilus_top",
-    "north": "nekomasfixed:block/nautilus_front",
-    "east": "nekomasfixed:block/nautilus_east",
-    "south": "nekomasfixed:block/nautilus_back",
-    "west": "nekomasfixed:block/nautilus_west",
-    "down": "nekomasfixed:block/nautilus_bottom",
+    "up": "nekomasfixed:block/coral_nautilus_top",
+    "north": "nekomasfixed:block/coral_nautilus_front",
+    "east": "nekomasfixed:block/coral_nautilus_east",
+    "south": "nekomasfixed:block/coral_nautilus_back",
+    "west": "nekomasfixed:block/coral_nautilus_west",
+    "down": "nekomasfixed:block/coral_nautilus_bottom",
     "particle": "#west"
   },
   "elements": [

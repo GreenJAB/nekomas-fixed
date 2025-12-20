@@ -1,6 +1,6 @@
 {
   "parent": "nekomasfixed:block/nautilus_empty",
   "textures": {
-    "front": "nekomasfixed:block/nautilus_front_full"
+    "north": "nekomasfixed:block/nautilus_front_full"
   }
 }

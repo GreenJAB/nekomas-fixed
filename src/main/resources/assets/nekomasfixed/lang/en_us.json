@@ -53,6 +53,8 @@
   "item.nekomasfixed.planks": "Wooden Planks",
   "block.nekomasfixed.glistering_melon": "Glistering Melon",
   "block.nekomasfixed.nautilus_block": "Nautilus Block",
+  "block.nekomasfixed.zombie_nautilus_block": "Zombified Nautilus Block",
+  "block.nekomasfixed.coral_nautilus_block": "Coral Nautilus Block",
   "container.nautilus": "Holding: %s%s%s%s",
   "item.nekomasfixed.turtle_chestplate": "Turtle Chestplate",
   "item.nekomasfixed.turtle_leggings": "Turtle Leggings",

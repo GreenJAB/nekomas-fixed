@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.render.other;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registry.block.entity.NautilusBlockEntity;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -57,7 +56,7 @@ public class AnimalTooltipComponent implements TooltipComponent {
         if (!animalComponent.animal().isEmpty()) {
             TypedEntityData<EntityType<?>> entityData = animalComponent.animal().get(0).entityData();
             NbtCompound nbtCompound = entityData.copyNbtWithoutId();
-            NautilusBlockEntity.IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtCompound::remove);
+            AnimalComponent.IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtCompound::remove);
             Entity entity = EntityType.loadEntityWithPassengers(entityData.getType(), nbtCompound, world, SpawnReason.LOAD, entityx -> entityx);
             float time = System.currentTimeMillis()%(20*1000);
             time*= (float) (2*Math.PI)/(20*1000.0f);

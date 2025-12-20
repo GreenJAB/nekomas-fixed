@@ -57,8 +57,13 @@ public class BlockRegistry {
             AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block NAUTILUS_BLOCK = register("nautilus_block", NautilusBlock::new,
-            AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
+            AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
+    public static final Block ZOMBIE_NAUTILUS_BLOCK = register("zombie_nautilus_block", ZombieNautilusBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
+
+    public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block", CoralNautilusBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);

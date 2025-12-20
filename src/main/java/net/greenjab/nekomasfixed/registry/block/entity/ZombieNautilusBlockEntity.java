@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.registry.block.entity;
 
 import com.google.common.collect.Lists;
-import net.greenjab.nekomasfixed.registry.block.NautilusBlock;
+import net.greenjab.nekomasfixed.registry.block.ZombieNautilusBlock;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
@@ -23,34 +23,34 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class NautilusBlockEntity extends BlockEntity {
+public class ZombieNautilusBlockEntity extends BlockEntity {
 	private final List<AnimalComponent.StoredEntityData> animal = Lists.newArrayList();
 
-	public NautilusBlockEntity(BlockPos pos, BlockState state) {
-		super(BlockEntityTypeRegistry.NAUTILUS_BLOCK_ENTITY, pos, state);
+	public ZombieNautilusBlockEntity(BlockPos pos, BlockState state) {
+		super(BlockEntityTypeRegistry.ZOMBIE_NAUTILUS_BLOCK_ENTITY, pos, state);
 	}
 
 	public boolean hasAnimal() {
 		return !this.animal.isEmpty();
 	}
 
-	public void tryEnterNautilus(AnimalEntity animal) {
+	public void tryEnterNautilus(AnimalEntity entity) {
 		if (this.animal.isEmpty()) {
-			animal.stopRiding();
-			animal.removeAllPassengers();
-			animal.detachLeash();
-			this.animal.add(AnimalComponent.StoredEntityData.of(animal));
+			entity.stopRiding();
+			entity.removeAllPassengers();
+			entity.detachLeash();
+			this.animal.add(AnimalComponent.StoredEntityData.of(entity));
 			if (this.world != null) {
 
 				BlockPos blockPos = this.getPos();
 				this.world
-					.playSound(
-						null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.BLOCKS, 1.0F, 1.0F
-					);
+						.playSound(
+								null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.BLOCKS, 1.0F, 1.0F
+						);
 				this.world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(entity, this.getCachedState()));
 			}
 
-			animal.discard();
+			entity.discard();
 			super.markDirty();
 		}
 	}
@@ -65,13 +65,13 @@ public class NautilusBlockEntity extends BlockEntity {
 	}
 
 	public boolean releaseAnimal(
-		World world,
-		BlockPos pos,
-		BlockState state,
-		AnimalComponent.StoredEntityData animal,
-		@Nullable List<Entity> entities
+			World world,
+			BlockPos pos,
+			BlockState state,
+			AnimalComponent.StoredEntityData animal,
+			@Nullable List<Entity> entities
 	) {
-		Direction direction = state.get(NautilusBlock.FACING);
+		Direction direction = state.get(ZombieNautilusBlock.FACING);
 		BlockPos blockPos = pos.offset(direction);
 		boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty() ;
 		if (bl) return false;
