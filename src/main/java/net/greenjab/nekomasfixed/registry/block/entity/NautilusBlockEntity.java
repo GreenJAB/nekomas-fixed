@@ -47,7 +47,7 @@ public class NautilusBlockEntity extends BlockEntity {
 					.playSound(
 						null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.BLOCKS, 1.0F, 1.0F
 					);
-				this.world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(entity, this.getCachedState()));
+				this.world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(animal, this.getCachedState()));
 			}
 
 			animal.discard();
