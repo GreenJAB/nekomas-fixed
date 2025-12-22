@@ -50,7 +50,7 @@ public class CoralNautilusRecipe extends ShapedRecipe {
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getStackInSlot(i);
 
-            if (stack.isOf(BlockRegistry.NAUTILUS_BLOCK.asItem())) {
+            if (stack.isOf(BlockRegistry.ZOMBIE_NAUTILUS_BLOCK.asItem())) {
                 AnimalComponent data = stack.get(OtherRegistry.ANIMAL);
                 if (data != null && !data.animal().isEmpty()) {
                     resultStack.set(OtherRegistry.ANIMAL, data);
