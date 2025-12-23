@@ -17,7 +17,8 @@
     "PillagerEntityMixin",
     "PlayerEntityMixin",
     "RaiderEntityMixin",
-    "TradeOffersMixin"
+    "TradeOffersMixin",
+    "NautilusStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1
