@@ -166,7 +166,6 @@ public class MelonBlock extends Block {
 
 	@Override
 	protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
-		System.out.println(state);
 		if (this.lootTableKey.isEmpty()) {
 			return Collections.emptyList();
 		} else {

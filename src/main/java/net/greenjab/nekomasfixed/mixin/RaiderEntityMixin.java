@@ -1,13 +1,19 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.mob.PatrolEntity;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.RaycastContext;
+import net.minecraft.world.World;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -59,26 +65,46 @@ public class RaiderEntityMixin {
     @Unique
     private void updatePatrol(RaiderEntity RE, AbstractBoatEntity boatEntity) {
         if (boatEntity instanceof BigBoatEntity bigBoatEntity && RE == bigBoatEntity.getFirstPassenger()) {
-            if (RE.getEntityWorld().getTime() % 20 == 0 && RE.getEntityWorld().random.nextInt(10) == 0) {
+            World world = RE.getEntityWorld();
+            if (world.getTime() % 20 == 0 && world.random.nextInt(10) == 0) {
                 if (!RE.hasPatrolTarget()) {
-                    if (RE.getEntityWorld().random.nextInt(10) == 0) RE.setPatrolTarget(null);
-                    Random random = RE.getEntityWorld().random;
+                    if (world.random.nextInt(10) == 0) RE.setPatrolTarget(null);
+                    Random random = world.random;
                     BlockPos pos = RE.getBlockPos();
                     pos = pos.add(-50 + random.nextInt(100), 0, -50 + random.nextInt(100));
-                    RE.setPatrolTarget(pos);
-                    List<PatrolEntity> list = RE.getEntityWorld().getEntitiesByClass(
-                            PatrolEntity.class, RE.getBoundingBox().expand(32.0), patrolEntity -> patrolEntity.hasNoRaid() && !patrolEntity.isPartOf(RE));
+                    if (validOcean(pos, world, RE)) {
+                        RE.setPatrolTarget(pos);
+                        List<PatrolEntity> list = world.getEntitiesByClass(
+                                PatrolEntity.class, RE.getBoundingBox().expand(32.0), patrolEntity -> patrolEntity.hasNoRaid() && !patrolEntity.isPartOf(RE));
 
-                    for (PatrolEntity patrolEntity : list) {
-                        patrolEntity.setPatrolTarget(pos);
+                        for (PatrolEntity patrolEntity : list) {
+                            patrolEntity.setPatrolTarget(pos);
+                        }
                     }
                 } else {
-                    if (RE.getPatrolTarget().isWithinDistance(RE.getEntityPos(), 20.0)) {
+                    if (RE.getPatrolTarget().isWithinDistance(RE.getEntityPos(), 20.0) || world.random.nextInt(3) == 0) {
                         RE.setPatrolTarget(null);
                     }
                 }
             }
         }
+    }
+
+    @Unique
+    private static boolean validOcean(BlockPos pos, World world, RaiderEntity RE) {
+        for (int bx = pos.getX() - 8; bx < pos.getX() + 8; bx++) {
+            for (int by = pos.getY() - 2; by < pos.getY() + 4; by++) {
+                for (int bz = pos.getZ() - 8; bz < pos.getZ() + 8; bz++) {
+                    BlockState blockState = world.getBlockState(new BlockPos(bx, by, bz));
+                    if (!(blockState.isOf(Blocks.AIR) || blockState.isOf(Blocks.WATER))) {
+                        return false;
+                    }
+                }
+            }
+        }
+        BlockHitResult blockHitResult = RE.getEntityWorld()
+                .raycast(new RaycastContext(RE.getEntityPos(), pos.toCenterPos(), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, RE));
+        return blockHitResult.getType() == HitResult.Type.MISS;
     }
 
     @Unique
