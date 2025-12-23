@@ -2,14 +2,20 @@ package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
@@ -34,5 +40,30 @@ public class PlayerEntityMixin {
             }
         }
         return original;
+    }
+
+    @Redirect(
+            method = "attack",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/Entity;sidedDamage(Lnet/minecraft/entity/damage/DamageSource;F)Z"
+            )
+    )
+    private boolean preventFeatherDamage(Entity target, DamageSource source, float amount) {
+        PlayerEntity PE = (PlayerEntity)(Object)this;
+
+        if (PE.getMainHandStack().isOf(Items.FEATHER)) {
+            if (target instanceof LivingEntity) {
+                LivingEntity livingTarget = (LivingEntity)target;
+                livingTarget.takeKnockback(
+                        0.4,
+                        (double)MathHelper.sin(PE.getYaw() * ((float)Math.PI / 180F)),
+                        (double)(-MathHelper.cos(PE.getYaw() * ((float)Math.PI / 180F)))
+                );
+            }
+            return true;
+        }
+
+        return target.sidedDamage(source, amount);
     }
 }
