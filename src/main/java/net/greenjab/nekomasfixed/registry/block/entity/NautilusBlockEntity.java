@@ -83,7 +83,11 @@ public class NautilusBlockEntity extends BlockEntity {
 			double e = pos.getX() + 0.5 + d * direction.getOffsetX();
 			double g = pos.getY();
 			double h = pos.getZ() + 0.5 + d * direction.getOffsetZ();
-			entity.refreshPositionAndAngles(e, g, h, entity.getYaw(), entity.getPitch());
+			entity.setYaw(direction.getPositiveHorizontalDegrees());
+			entity.setBodyYaw(direction.getPositiveHorizontalDegrees());
+			entity.setHeadYaw(direction.getPositiveHorizontalDegrees());
+			entity.lastYaw =direction.getPositiveHorizontalDegrees();
+			entity.refreshPositionAndAngles(e, g, h, direction.getPositiveHorizontalDegrees(), entity.getPitch());
 			world.playSound(null, pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(entity, world.getBlockState(pos)));
 			return world.spawnEntity(entity);

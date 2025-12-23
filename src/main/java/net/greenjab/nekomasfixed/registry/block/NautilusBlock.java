@@ -1,7 +1,10 @@
 package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.registry.block.entity.NautilusBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
@@ -30,18 +33,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class NautilusBlock extends BlockWithEntity {
-	public static final MapCodec<NautilusBlock> CODEC = createCodec(NautilusBlock::new);
+	public static final MapCodec<NautilusBlock> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(
+					NautilusBlockType.CODEC.fieldOf("nautilus_block_type").forGetter(NautilusBlock::getNautilusBlockType),
+					createSettingsCodec()
+			).apply(instance, NautilusBlock::new)
+	);
 	public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
 	public static final BooleanProperty OCCUPIED = Properties.OCCUPIED;
+	private final NautilusBlockType nautilusBlockType;
 
 	@Override
 	public MapCodec<NautilusBlock> getCodec() {
 		return CODEC;
 	}
 
-	public NautilusBlock(Settings settings) {
+	public NautilusBlock(NautilusBlockType nautilusBlockType, Settings settings) {
 		super(settings);
 		this.setDefaultState(this.stateManager.getDefaultState().with(OCCUPIED, false).with(FACING, Direction.NORTH));
+		this.nautilusBlockType = nautilusBlockType;
 	}
 
 	@Override
@@ -63,7 +73,6 @@ public class NautilusBlock extends BlockWithEntity {
 	protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		boolean occupied = hasAnimal(world, pos);
 		if (world instanceof ServerWorld serverWorld) {
-			System.out.println(occupied);
 			if (occupied) {
 				if (world.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
 					List<Entity > list = nautilusBlockEntity.tryReleaseAnimal(state);
@@ -139,7 +148,7 @@ public class NautilusBlock extends BlockWithEntity {
 			boolean occupied = state.get(OCCUPIED);
 			boolean bl = NautilusBlockEntity.hasAnimal();
 			if (bl || occupied) {
-				ItemStack itemStack = new ItemStack(this);
+				ItemStack itemStack = getItemStack(this.getNautilusBlockType());
 				itemStack.applyComponentsFrom(NautilusBlockEntity.createComponentMap());
 				itemStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(OCCUPIED, occupied));
 				ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
@@ -150,7 +159,22 @@ public class NautilusBlock extends BlockWithEntity {
 
 		return super.onBreak(world, pos, state, player);
 	}
+	
+	public static ItemStack getItemStack(@Nullable NautilusBlockType nautilusBlockType) {
+		return new ItemStack(get(nautilusBlockType));
+	}
 
+	public static Block get(@Nullable NautilusBlockType nautilusBlockType) {
+		if (nautilusBlockType == null) {
+			return BlockRegistry.NAUTILUS_BLOCK;
+		} else {
+			return switch (nautilusBlockType) {
+				case REGULAR -> BlockRegistry.NAUTILUS_BLOCK;
+				case ZOMBIE -> BlockRegistry.ZOMBIE_NAUTILUS_BLOCK;
+				case CORAL -> BlockRegistry.CORAL_NAUTILUS_BLOCK;
+			};
+		}
+	}
 
 	@Override
 	protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
@@ -170,5 +194,9 @@ public class NautilusBlock extends BlockWithEntity {
 	@Override
 	public BlockState mirror(BlockState state, BlockMirror mirror) {
 		return state.rotate(mirror.getRotation(state.get(FACING)));
+	}
+
+	public NautilusBlockType getNautilusBlockType() {
+		return this.nautilusBlockType;
 	}
 }

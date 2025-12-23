@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
+import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
@@ -56,13 +57,13 @@ public class BlockRegistry {
     public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings),
             AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block NAUTILUS_BLOCK = register("nautilus_block", NautilusBlock::new,
+    public static final Block NAUTILUS_BLOCK = register("nautilus_block", settings -> new NautilusBlock(NautilusBlockType.REGULAR, settings),
             AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block ZOMBIE_NAUTILUS_BLOCK = register("zombie_nautilus_block", ZombieNautilusBlock::new,
+    public static final Block ZOMBIE_NAUTILUS_BLOCK = register("zombie_nautilus_block", settings -> new NautilusBlock(NautilusBlockType.ZOMBIE, settings),
             AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block", CoralNautilusBlock::new,
+    public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block",settings -> new NautilusBlock(NautilusBlockType.CORAL, settings),
             AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
     private static Block register(String id, AbstractBlock.Settings settings) {

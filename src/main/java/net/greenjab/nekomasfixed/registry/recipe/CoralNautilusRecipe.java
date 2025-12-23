@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.registry.recipe;
 
-import net.greenjab.nekomasfixed.registry.block.CoralNautilusBlock;
+import net.greenjab.nekomasfixed.registry.block.NautilusBlock;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
@@ -55,10 +55,10 @@ public class CoralNautilusRecipe extends ShapedRecipe {
                 if (data != null && !data.animal().isEmpty()) {
                     resultStack.set(OtherRegistry.ANIMAL, data);
                     resultStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT
-                            .with(CoralNautilusBlock.OCCUPIED, true));
+                            .with(NautilusBlock.OCCUPIED, true));
                 } else {
                     resultStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT
-                            .with(CoralNautilusBlock.OCCUPIED, false));
+                            .with(NautilusBlock.OCCUPIED, false));
                 }
                 break;
             }
