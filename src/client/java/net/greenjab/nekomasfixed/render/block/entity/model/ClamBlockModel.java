@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.block.entity.model;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 
 @Environment(EnvType.CLIENT)
 public class ClamBlockModel extends Model<Float> {
@@ -11,7 +11,7 @@ public class ClamBlockModel extends Model<Float> {
 	private final ModelPart lid_hinge;
 
 	public ClamBlockModel(ModelPart root) {
-		super(root, RenderLayer::getEntitySolid);
+		super(root, RenderLayers::entitySolid);
 		this.lid = root.getChild("lid");
 		this.lid_hinge = root.getChild("lid_hinge");
 	}

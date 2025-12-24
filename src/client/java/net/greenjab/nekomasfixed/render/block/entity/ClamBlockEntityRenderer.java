@@ -15,6 +15,7 @@ import net.minecraft.block.entity.*;
 import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.command.ModelCommandRenderer;
@@ -28,7 +29,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
@@ -60,8 +60,8 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidOpenable> implem
 	) {
 		BlockEntityRenderer.super.updateRenderState(blockEntity, clamBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
 		boolean bl = blockEntity.getWorld() != null;
-		BlockState blockState = bl ? blockEntity.getCachedState() : (BlockState) BlockRegistry.CLAM.getDefaultState().with(ClamBlock.FACING, Direction.SOUTH);
-		clamBlockEntityRenderState.yaw = ((Direction)blockState.get(ClamBlock.FACING)).getPositiveHorizontalDegrees();
+		BlockState blockState = bl ? blockEntity.getCachedState() : BlockRegistry.CLAM.getDefaultState().with(ClamBlock.FACING, Direction.SOUTH);
+		clamBlockEntityRenderState.yaw = (blockState.get(ClamBlock.FACING)).getPositiveHorizontalDegrees();
 		clamBlockEntityRenderState.variant = this.getVariant(blockEntity);
 
 		clamBlockEntityRenderState.lidAnimationProgress = ClamBlock.getAnimationProgressRetriever(blockEntity).getFallback().get(f);
@@ -91,7 +91,7 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidOpenable> implem
 		f = 1.0F - f;
 		f = 1.0F - f * f * f;
 		SpriteIdentifier spriteIdentifier = TextureRegistry.getClamTextureId(clamBlockEntityRenderState.variant);
-		RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayer::getEntityCutout);
+		RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayers::entityCutout);
 		Sprite sprite = this.materials.getSprite(spriteIdentifier);
 		orderedRenderCommandQueue.submitModel(
 				this.clamModel,

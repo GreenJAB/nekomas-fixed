@@ -119,7 +119,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 						}
 						entity.setVelocity(power * dirx, power, power * dirz);
 						entity.velocityDirty = true;
-						entity.velocityModified = true;
 					}
 				}
 			}

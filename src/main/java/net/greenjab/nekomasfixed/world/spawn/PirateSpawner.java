@@ -19,10 +19,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.raid.Raid;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.rule.GameRules;
 import net.minecraft.world.spawner.SpecialSpawner;
 
 public class PirateSpawner implements SpecialSpawner {
@@ -31,17 +31,17 @@ public class PirateSpawner implements SpecialSpawner {
     @Override
     public void spawn(ServerWorld world, boolean spawnMonsters) {
         if (spawnMonsters) {
-            if (world.getGameRules().getBoolean(GameRules.DO_PATROL_SPAWNING)) {
+            if (world.getGameRules().getValue(GameRules.SPAWN_PATROLS)) {
                 Random random = world.random;
                 this.cooldown--;
                 if (this.cooldown <= 0) {
-                    this.cooldown = this.cooldown + 2000 + random.nextInt(1200); //12000 1200
+                    this.cooldown = this.cooldown + 12000 + random.nextInt(1200);
                     long l = world.getTimeOfDay() / 24000L;
-                    //if (l >= 5L && world.isDay()) {
-                    if (random.nextInt(1) == 0) {//5
+                    if (l >= 5L && world.isDay()) {
+                    if (random.nextInt(3) == 0) {//5
                         int i = world.getPlayers().size();
                         if (i >= 1) {
-                            PlayerEntity playerEntity = (PlayerEntity)world.getPlayers().get(random.nextInt(i));
+                            PlayerEntity playerEntity = world.getPlayers().get(random.nextInt(i));
                             if (!playerEntity.isSpectator()) {
                                 if (!world.isNearOccupiedPointOfInterest(playerEntity.getBlockPos(), 2)) {
 
@@ -49,7 +49,7 @@ public class PirateSpawner implements SpecialSpawner {
                                     int k = (64 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
                                     Mutable mutable = playerEntity.getBlockPos().mutableCopy().move(j, 0, k);
                                     int m = 10;
-                                    if (world.isRegionLoaded(mutable.getX() - 10, mutable.getZ() - 10, mutable.getX() + 10, mutable.getZ() + 10)) {
+                                    if (world.isRegionLoaded(mutable.getX() - m, mutable.getZ() - m, mutable.getX() + m, mutable.getZ() + m)) {
                                         RegistryEntry<Biome> registryEntry = world.getBiome(mutable);
                                         if (registryEntry.isIn(BiomeTags.IS_OCEAN)) {
                                             mutable.setY(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, mutable).getY());
@@ -87,7 +87,7 @@ public class PirateSpawner implements SpecialSpawner {
                             }
                         }
                     }
-                    //}
+                    }
                 }
             }
         }

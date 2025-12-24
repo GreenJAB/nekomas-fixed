@@ -28,8 +28,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraft.world.rule.GameRules;
 
 import java.util.function.Supplier;
 
@@ -187,7 +187,7 @@ public class BigBoatEntity extends AbstractChestBoatEntity {
 		if (back!=null) this.back.remove(RemovalReason.DISCARDED);
 		world.spawnEntity(this.back);
 		this.killAndDropItem(world, this.asItem());
-		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+		if (world.getGameRules().getValue(GameRules.ENTITY_DROPS)) {
 			if (hasChest()) ItemScatterer.spawn(world, this.getX(), this.getY(), this.getZ(), Items.CHEST.getDefaultStack());
 			ItemScatterer.spawn(world, this.getX(), this.getY(), this.getZ(), getBanner());
 		}
@@ -210,7 +210,7 @@ public class BigBoatEntity extends AbstractChestBoatEntity {
 	public void onBroken(DamageSource source, ServerWorld world, Entity vehicle) {
 		if (front!=null) this.front.remove(RemovalReason.DISCARDED);
 		if (back!=null) this.back.remove(RemovalReason.DISCARDED);
-		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+		if (world.getGameRules().getValue(GameRules.ENTITY_DROPS)) {
 			if (hasChest()) ItemScatterer.spawn(world, vehicle.getX(), vehicle.getY(), vehicle.getZ(), Items.CHEST.getDefaultStack());
 			ItemScatterer.spawn(world, vehicle.getX(), vehicle.getY(), vehicle.getZ(), getBanner());
 		}
@@ -232,7 +232,7 @@ public class BigBoatEntity extends AbstractChestBoatEntity {
 	@Override
 	public StackReference getInventoryStackReference(int slot) {
 		if (hasChest()) return super.getInventoryStackReference(slot);
-		return StackReference.EMPTY;
+		return null;
 	}
 
 	public boolean canBeLeashedTo(Entity entity) {

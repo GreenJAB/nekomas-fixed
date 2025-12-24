@@ -25,9 +25,9 @@ import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.rule.GameRules;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -143,7 +143,7 @@ public class NautilusBlock extends BlockWithEntity {
 	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		if (world instanceof ServerWorld serverWorld
 			&& player.shouldSkipBlockDrops()
-			&& serverWorld.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)
+			&& serverWorld.getGameRules().getValue(GameRules.DO_TILE_DROPS)
 			&& world.getBlockEntity(pos) instanceof NautilusBlockEntity NautilusBlockEntity) {
 			boolean occupied = state.get(OCCUPIED);
 			boolean bl = NautilusBlockEntity.hasAnimal();
