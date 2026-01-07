@@ -11,6 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipData;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,5 +46,17 @@ public class ItemStackMixin {
 								TooltipType type, Consumer<Text> textConsumer, CallbackInfo ci) {
 		ItemStack stack = (ItemStack)(Object)this;
 		stack.appendComponentTooltip(OtherRegistry.ANIMAL, context, displayComponent, textConsumer, type);
+	}
+
+	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
+	private void toggleClamOpen(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+		ItemStack stack = (ItemStack)(Object)this;
+		if (stack.isIn(OtherRegistry.CLAMTAG)) {
+			int c = stack.getOrDefault(OtherRegistry.CLAM_STATE, 0)>0?0:1;
+			if (c>0&&stack.hasChangedComponent(DataComponentTypes.CONTAINER)) {
+				if (!stack.get(DataComponentTypes.CONTAINER).copyFirstStack().isEmpty()) c++;
+			}
+			stack.set(OtherRegistry.CLAM_STATE, c);
+		}
 	}
 }

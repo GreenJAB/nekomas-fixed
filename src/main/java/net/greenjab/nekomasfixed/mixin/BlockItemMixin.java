@@ -1,16 +1,21 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.block.ClamBlock;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockItem.class)
 public class BlockItemMixin {
@@ -30,6 +35,17 @@ public class BlockItemMixin {
                 world.spawnEntity(entity);
             }
             ci.cancel();
+        }
+    }
+
+    @Inject(method="placeFromNbt", at = @At( value = "HEAD"))
+    private void placeOpenClam(BlockPos pos, World world, ItemStack stack, BlockState state, CallbackInfoReturnable<BlockState> cir) {
+        if (stack.isIn(OtherRegistry.CLAMTAG)) {
+            Integer i = stack.getOrDefault(OtherRegistry.CLAM_STATE, 0);
+            if (i > 0) {
+                state = state.with(ClamBlock.OPEN, true);
+                world.setBlockState(pos, state, Block.NOTIFY_LISTENERS);
+            }
         }
     }
 }

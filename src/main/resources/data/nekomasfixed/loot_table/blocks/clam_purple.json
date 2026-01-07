@@ -13,7 +13,8 @@
                 "minecraft:custom_name",
                 "minecraft:container",
                 "minecraft:lock",
-                "minecraft:container_loot"
+                "minecraft:container_loot",
+                "minecraft:clam_state"
               ],
               "source": "block_entity"
             }

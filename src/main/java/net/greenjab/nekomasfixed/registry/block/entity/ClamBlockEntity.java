@@ -3,9 +3,11 @@ package net.greenjab.nekomasfixed.registry.block.entity;
 import com.mojang.logging.LogUtils;
 import net.greenjab.nekomasfixed.registry.block.ClamBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
+import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.*;
+import net.minecraft.component.ComponentMap;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
@@ -32,7 +34,7 @@ import org.slf4j.Logger;
 public class ClamBlockEntity extends LootableContainerBlockEntity implements LidOpenable, HeldItemContext {
 	private static final Logger LOGGER = LogUtils.getLogger();
 	private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
-
+	private int state = 0;
 	private final ChestLidAnimator lidAnimator = new ChestLidAnimator();
 
 	protected ClamBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
@@ -159,5 +161,15 @@ public class ClamBlockEntity extends LootableContainerBlockEntity implements Lid
 	@Override
 	public int size() {
 		return 1;
+	}
+
+	@Override
+	protected void addComponents(ComponentMap.Builder builder) {
+		super.addComponents(builder);
+		if (state!=0) builder.add(OtherRegistry.CLAM_STATE, state);
+	}
+
+	public void setState(int cstate) {
+		state = cstate;
 	}
 }

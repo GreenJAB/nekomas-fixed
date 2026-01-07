@@ -1,6 +1,27 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "nekomasfixed:item/clam_pink"
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "minecraft:clam_state",
+    "cases": [
+      {
+        "when": 1,
+        "model": {
+          "type": "minecraft:model",
+          "model": "nekomasfixed:item/clam_pink_open"
+        }
+      },
+      {
+        "when": 2,
+        "model": {
+          "type": "minecraft:model",
+          "model": "nekomasfixed:item/clam_pink_item"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "nekomasfixed:item/clam_pink"
+    }
   }
 }

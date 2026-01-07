@@ -159,7 +159,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		Direction direction = ctx.getHorizontalPlayerFacing().getOpposite();
 		FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-
 		return this.getDefaultState().with(FACING, direction).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(OPEN, false).with(POWERED, false);
 	}
 
@@ -331,7 +330,11 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof ClamBlockEntity clamBlockEntity) {
-			if (!world.isClient() && player.shouldSkipBlockDrops() && !clamBlockEntity.isEmpty()) {
+			int cstate = state.get(ClamBlock.OPEN, false)?1:0;
+			if (!clamBlockEntity.getHeldStacks().isEmpty()&&!clamBlockEntity.getHeldStacks().get(0).isEmpty()) cstate++;
+			clamBlockEntity.setState(cstate);
+			if (!world.isClient() && player.shouldSkipBlockDrops()) {
+
 				ItemStack itemStack = getItemStack(this.getClamType());
 				itemStack.applyComponentsFrom(blockEntity.createComponentMap());
 				ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
