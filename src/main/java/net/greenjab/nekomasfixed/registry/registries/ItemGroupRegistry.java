@@ -48,6 +48,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.TURTLE_CHESTPLATE);
                         entries.add(ItemRegistry.TURTLE_LEGGINGS);
                         entries.add(ItemRegistry.TURTLE_BOOTS);
+                        entries.add(ItemRegistry.TARGET_DUMMY);
                     }).build();
 
 

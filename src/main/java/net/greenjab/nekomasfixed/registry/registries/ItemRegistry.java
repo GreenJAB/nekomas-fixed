@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.item.TargetDummyItem;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
@@ -84,6 +85,9 @@ public class ItemRegistry {
     public static final Item TURTLE_CHESTPLATE = register("turtle_chestplate", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.CHESTPLATE));
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
+
+    public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
+
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);

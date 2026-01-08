@@ -331,7 +331,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof ClamBlockEntity clamBlockEntity) {
 			int cstate = state.get(ClamBlock.OPEN, false)?1:0;
-			if (!clamBlockEntity.getHeldStacks().isEmpty()&&!clamBlockEntity.getHeldStacks().get(0).isEmpty()) cstate++;
+			if (cstate==1&&!clamBlockEntity.getHeldStacks().isEmpty()&&!clamBlockEntity.getHeldStacks().get(0).isEmpty()) cstate++;
 			clamBlockEntity.setState(cstate);
 			if (!world.isClient() && player.shouldSkipBlockDrops()) {
 

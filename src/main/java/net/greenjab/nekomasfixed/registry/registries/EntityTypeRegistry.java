@@ -1,12 +1,12 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.FakeBoatEntity;
 import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
 import net.greenjab.nekomasfixed.registry.entity.HugeBoatEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
+import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -68,6 +68,11 @@ public class EntityTypeRegistry {
 
 
 
+    public static final EntityType<TargetDummyEntity> TARGET_DUMMY = register(
+            "target_dummy",
+            EntityType.Builder.create(TargetDummyEntity::new, SpawnGroup.MISC).dimensions(0.5F, 1.975F).eyeHeight(1.7775F).maxTrackingRange(10)
+    );
+
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
         return register(keyOf(id), type);
     }
@@ -80,6 +85,6 @@ public class EntityTypeRegistry {
 
     public static void registerEntityType() {
         System.out.println("register EntityType");
-        //OAK_BOAT = bigBoatFactory("oak_boat", ItemRegistry.OAK_BOAT);
+        FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummyEntity.createTargetDummyAttributes().build());
     }
 }

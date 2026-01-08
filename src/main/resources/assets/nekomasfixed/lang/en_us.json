@@ -58,5 +58,7 @@
   "container.nautilus": "Holding: %s%s%s%s",
   "item.nekomasfixed.turtle_chestplate": "Turtle Chestplate",
   "item.nekomasfixed.turtle_leggings": "Turtle Leggings",
-  "item.nekomasfixed.turtle_boots": "Turtle Boots"
+  "item.nekomasfixed.turtle_boots": "Turtle Boots",
+  "item.nekomasfixed.target_dummy": "Target Dummy",
+  "entity.nekomasfixed.target_dummy": "Target Dummy"
 }

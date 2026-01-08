@@ -2,6 +2,8 @@ package net.greenjab.nekomasfixed.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.EquipmentModelData;
+import net.minecraft.util.Identifier;
 
 public class EntityModelLayerRegistry {
 
@@ -28,6 +30,15 @@ public class EntityModelLayerRegistry {
     public static final EntityModelLayer HUGE_OAK_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/oak"), "main");
     public static final EntityModelLayer HUGE_PALE_OAK_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/pale_oak"), "main");
     public static final EntityModelLayer HUGE_SPRUCE_BOAT = new EntityModelLayer(NekomasFixed.id("huge_boat/spruce"), "main");
+
+    public static final EntityModelLayer TARGET_DUMMY = new EntityModelLayer(NekomasFixed.id("target_dummy"), "main");
+    public static final EntityModelLayer TARGET_DUMMY_BASE = new EntityModelLayer(NekomasFixed.id("target_dummy_base"), "main");
+    public static final EquipmentModelData<EntityModelLayer> TARGET_DUMMY_EQUIPMENT = registerEquipment(NekomasFixed.id("target_dummy"));
+
+
+    private static EquipmentModelData<EntityModelLayer> registerEquipment(Identifier id) {
+        return new EquipmentModelData<>(new EntityModelLayer(id, "helmet"), new EntityModelLayer(id, "chestplate"), new EntityModelLayer(id, "leggings"), new EntityModelLayer(id, "boots"));
+    }
 
     public static void registerEntityModelLayer() {
         System.out.println("register EntityModelLayer");
