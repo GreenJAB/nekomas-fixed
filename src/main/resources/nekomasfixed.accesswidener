@@ -1,5 +1,7 @@
 accessWidener v2 named
 accessible method net/minecraft/component/DataComponentTypes register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/component/ComponentType;
 accessible field net/minecraft/loot/LootTables LOOT_TABLES Ljava/util/Set;
-#accessible field net/minecraft/client/network/ClientMannequinEntity skin Lnet/minecraft/entity/player/SkinTextures;
-accessible method net/minecraft/client/network/AbstractClientPlayerEntity getPlayerListEntry ()Lnet/minecraft/client/network/PlayerListEntry;
+accessible method net/minecraft/particle/SimpleParticleType <init> (Z)V
+accessible class net/minecraft/client/particle/ParticleSpriteManager$SpriteAwareFactory
+accessible class net/minecraft/client/particle/ElderGuardianParticleRenderer$State
+accessible class net/minecraft/client/particle/ElderGuardianParticleRenderer$Result

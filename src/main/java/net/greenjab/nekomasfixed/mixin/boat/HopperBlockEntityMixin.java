@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.mixin;
+package net.greenjab.nekomasfixed.mixin.boat;
 
 import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
 import net.minecraft.block.entity.HopperBlockEntity;

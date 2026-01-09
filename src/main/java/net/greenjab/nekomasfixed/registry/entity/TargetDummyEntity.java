@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.entity;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
@@ -183,9 +184,9 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 					return ActionResult.FAIL;
 				}
 
-				if (equipmentSlot.getType() == EquipmentSlot.Type.HAND) {
-					return ActionResult.FAIL;
-				}
+				//if (equipmentSlot.getType() == EquipmentSlot.Type.HAND) {
+				//	return ActionResult.FAIL;
+				//}
 
 				if (this.equip(player, equipmentSlot, itemStack, hand)) {
 					return ActionResult.SUCCESS_SERVER;
@@ -216,7 +217,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 	}
 
 	private boolean isSlotDisabled(EquipmentSlot slot) {
-		return  slot.getType() == EquipmentSlot.Type.HAND;
+		return  false;//slot.getType() == EquipmentSlot.Type.HAND;
 	}
 
 	private boolean equip(PlayerEntity player, EquipmentSlot slot, ItemStack stack, Hand hand) {
@@ -263,10 +264,11 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 			this.updateHealth(world, source, 4.0F);
 			return false;
 		} else {
-			boolean bl = source.isIn(DamageTypeTags.CAN_BREAK_ARMOR_STAND);
-			boolean bl2 = source.isIn(DamageTypeTags.ALWAYS_KILLS_ARMOR_STANDS);
-			if (!bl && !bl2) {
-				return false;
+			if (source.getWeaponStack().isOf(Items.SHEARS)) {
+				this.breakAndDropItem(world, source);
+				this.spawnBreakParticles();
+				this.kill(world);
+				return true;
 			} else if (source.getAttacker() instanceof PlayerEntity playerEntity && !playerEntity.getAbilities().allowModifyWorld) {
 				return false;
 			} else if (source.isSourceCreativePlayer()) {
@@ -276,16 +278,24 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 				return true;
 			} else {
 				long l = world.getTime();
-				if (l - this.lastHitTime > 5L && !bl2) {
-					world.sendEntityStatus(this, EntityStatuses.HIT_ARMOR_STAND);
-					this.emitGameEvent(GameEvent.ENTITY_DAMAGE, source.getAttacker());
-					this.lastHitTime = l;
-				} else {
-					this.breakAndDropItem(world, source);
-					this.spawnBreakParticles();
-					this.kill(world);
+				world.sendEntityStatus(this, EntityStatuses.HIT_ARMOR_STAND);
+				this.emitGameEvent(GameEvent.ENTITY_DAMAGE, source.getAttacker());
+				this.lastHitTime = l;
+				//world.addParticleClient(ParticleTypes.NOTE, this.getEntityPos().getX() + 0.5, this.getEntityPos().getY() + 1.2, this.getEntityPos().getZ() + 0.5, amount / 24.0, 0.0, 0.0);
+				if (this.getEntityWorld() instanceof ServerWorld) {
+					((ServerWorld)this.getEntityWorld())
+							.spawnParticles(
+									OtherRegistry.NUMBER,
+									this.getX(),
+									this.getY()+2,
+									this.getZ(),
+									0,
+									1,
+									0,
+									0,
+									Math.round(amount*10)/20.0
+							);
 				}
-
 				return true;
 			}
 		}

@@ -3,23 +3,24 @@
   "package": "net.greenjab.nekomasfixed.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AbstractBoatEntityMixin",
     "BlockItemMixin",
     "BlocksMixin",
-    "BodyControlMixin",
+    "CarvedPumpkinBlockMixin",
     "ContainerComponentMixin",
     "DrownedEntityMixin",
     "FarmlandBlockMixin",
-    "HopperBlockEntityMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
-    "MinecraftServerMixin",
-    "MobEntityMixin",
+    "NautilusStackMixin",
     "PillagerEntityMixin",
     "PlayerEntityMixin",
-    "RaiderEntityMixin",
     "TradeOffersMixin",
-    "NautilusStackMixin"
+    "boat.AbstractBoatEntityMixin",
+    "boat.BodyControlMixin",
+    "boat.HopperBlockEntityMixin",
+    "boat.MinecraftServerMixin",
+    "boat.MobEntityMixin",
+    "boat.RaiderEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

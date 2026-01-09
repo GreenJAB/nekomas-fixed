@@ -6,6 +6,8 @@
     "ClientPlayerInteractionManagerMixin",
     "EntityModelsMixin",
     "EquipmentRendererMixin",
+    "ParticleManagerMixin",
+    "ParticleSpriteManagerMixin",
     "TooltipComponentMixin"
   ],
   "injectors": {

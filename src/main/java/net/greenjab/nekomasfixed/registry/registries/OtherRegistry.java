@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -62,8 +63,14 @@ public class OtherRegistry {
     }
     public static void registerOther() {
         System.out.println("register Other");
-
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WARM_OCEAN), GenerationStep.Feature.VEGETAL_DECORATION, featureOf("clam"));
 
+    }
+
+    //particle
+    public static final SimpleParticleType NUMBER = registerParticle("number", true);
+
+    private static SimpleParticleType registerParticle(String name, boolean alwaysShow) {
+        return Registry.register(Registries.PARTICLE_TYPE, name, new SimpleParticleType(alwaysShow));
     }
 }

@@ -46,7 +46,7 @@ public class EntityModelsMixin {
         builder.put(EntityModelLayerRegistry.HUGE_PALE_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
         builder.put(EntityModelLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
 
-        builder.put(EntityModelLayerRegistry.TARGET_DUMMY, TargetDummyEntityModel.getTexturedModelData(false));
+        builder.put(EntityModelLayerRegistry.TARGET_DUMMY, TargetDummyEntityModel.getTexturedModelData());
         EquipmentModelData<TexturedModelData> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new Dilation(1.0F), new Dilation(0.5F));
         EntityModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.addTo(equipmentModelData6, builder);
         builder.put(EntityModelLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel.getTexturedModelData());

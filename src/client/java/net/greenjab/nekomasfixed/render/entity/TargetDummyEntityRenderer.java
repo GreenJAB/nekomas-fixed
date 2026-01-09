@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.render.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
 import net.greenjab.nekomasfixed.render.entity.feature.BasePlateFeatureRenderer;
@@ -17,15 +18,19 @@ import net.minecraft.client.render.entity.model.*;
 import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.texture.PlayerSkinCache;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.SkinTextures;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import org.jspecify.annotations.Nullable;
 
+import static net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity.DEFAULT_INFO;
+
 @Environment(EnvType.CLIENT)
 public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyEntity, TargetDummyEntityRenderState, TargetDummyArmorEntityModel> {
 	private final PlayerSkinCache skinCache;
+	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/targetdummy/default.png");
 
 	public TargetDummyEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new TargetDummyEntityModel(context.getPart(EntityModelLayerRegistry.TARGET_DUMMY)), 0.0F);
@@ -45,9 +50,10 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 	}
 
 	public Identifier getTexture(TargetDummyEntityRenderState TargetDummyEntityRenderState) {
-		//return TEXTURE;
+		if (TargetDummyEntityRenderState.skinTextures == null){
+			return TEXTURE;
+		}
 		return TargetDummyEntityRenderState.skinTextures.body().texturePath();
-		//skinCache.get(TargetDummyEntityRenderState.profile).getTextures();
 	}
 
 	public TargetDummyEntityRenderState createRenderState() {
@@ -58,7 +64,6 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 		super.updateRenderState(targetDummyEntity, targetDummyEntityRenderState, f);
 		BipedEntityRenderer.updateBipedRenderState(targetDummyEntity, targetDummyEntityRenderState, f, this.itemModelResolver);
 		targetDummyEntityRenderState.skinTextures = getSkin(targetDummyEntity);
-		//targetDummyEntityRenderState.profile = targetDummyEntity.getTargetDummyProfile();
 		targetDummyEntityRenderState.yaw = MathHelper.lerpAngleDegrees(f, targetDummyEntity.lastYaw, targetDummyEntity.getYaw());
 		targetDummyEntityRenderState.bodyRotation = targetDummyEntity.getBodyRotation();
 		targetDummyEntityRenderState.headRotation = targetDummyEntity.getHeadRotation();
@@ -70,7 +75,11 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 	}
 
 	public SkinTextures getSkin(TargetDummyEntity targetDummyEntity) {
-		return skinCache.get(targetDummyEntity.getTargetDummyProfile()).getTextures();
+		ProfileComponent p = targetDummyEntity.getTargetDummyProfile();
+		if (p==null || p.equals(DEFAULT_INFO)) {
+			return null;
+		}
+        return skinCache.get(p).getTextures();
 	}
 
 	public void render(

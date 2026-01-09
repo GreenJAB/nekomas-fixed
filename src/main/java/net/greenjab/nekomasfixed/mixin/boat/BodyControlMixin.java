@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.mixin;
+package net.greenjab.nekomasfixed.mixin.boat;
 
 import net.minecraft.entity.ai.control.BodyControl;
 import net.minecraft.entity.mob.MobEntity;
