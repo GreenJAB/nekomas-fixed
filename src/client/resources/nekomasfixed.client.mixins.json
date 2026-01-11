@@ -6,6 +6,8 @@
     "ClientPlayerInteractionManagerMixin",
     "EntityModelsMixin",
     "EquipmentRendererMixin",
+    "LabelCommandRendererCommandMixin",
+    "LabelCommandRendererMixin",
     "ParticleManagerMixin",
     "ParticleSpriteManagerMixin",
     "TooltipComponentMixin"

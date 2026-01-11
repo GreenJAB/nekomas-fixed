@@ -2,6 +2,3 @@ accessWidener v2 named
 accessible method net/minecraft/component/DataComponentTypes register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/component/ComponentType;
 accessible field net/minecraft/loot/LootTables LOOT_TABLES Ljava/util/Set;
 accessible method net/minecraft/particle/SimpleParticleType <init> (Z)V
-accessible class net/minecraft/client/particle/ParticleSpriteManager$SpriteAwareFactory
-accessible class net/minecraft/client/particle/ElderGuardianParticleRenderer$State
-accessible class net/minecraft/client/particle/ElderGuardianParticleRenderer$Result

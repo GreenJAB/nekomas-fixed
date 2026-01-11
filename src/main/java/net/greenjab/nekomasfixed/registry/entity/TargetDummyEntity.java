@@ -58,7 +58,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 	public static final TrackedData<EulerAngle> TRACKER_RIGHT_LEG_ROTATION = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.ROTATION);
 	private static final Predicate<Entity> RIDEABLE_MINECART_PREDICATE =  entity -> entity instanceof AbstractMinecartEntity abstractMinecartEntity
 			&& abstractMinecartEntity.isRideable();
-
+	private int lastHitValue;
 	public long lastHitTime;
 
 	public TargetDummyEntity(EntityType<? extends TargetDummyEntity> entityType, World world) {
@@ -66,7 +66,12 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 	}
 
 	public static DefaultAttributeContainer.Builder createTargetDummyAttributes() {
-		return createLivingAttributes().add(EntityAttributes.STEP_HEIGHT, 0.0);
+		return createLivingAttributes().add(EntityAttributes.STEP_HEIGHT, 0.0).add(EntityAttributes.KNOCKBACK_RESISTANCE, 1.0);
+	}
+
+	@Override
+	protected Entity.MoveEffect getMoveEffect() {
+		return Entity.MoveEffect.NONE;
 	}
 
 
@@ -118,6 +123,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		super.writeCustomData(view);
 		view.put("profile", ProfileComponent.CODEC, this.getTargetDummyProfile());
 		view.put("Pose", TargetDummyEntity.PackedRotation.CODEC, this.packRotation());
+		view.put("LastDamage", Codec.INT, lastHitValue);
 	}
 
 	@Override
@@ -125,7 +131,9 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		super.readCustomData(view);
 		this.noClip = !this.canClip();
 		view.read("profile", ProfileComponent.CODEC).ifPresent(this::setTargetDummyProfile);
-		view.read("Pose", TargetDummyEntity.PackedRotation.CODEC).ifPresent(this::unpackRotation);
+		view.read("Pose", PackedRotation.CODEC).ifPresent(this::unpackRotation);
+		view.read("LastDamage", Codec.INT).ifPresent(this::setLastDamage);
+
 	}
 
 	@Override
@@ -237,6 +245,14 @@ public class TargetDummyEntity extends PlayerLikeEntity {
         }
 	}
 
+	public int getLastDamage(){
+		return lastHitValue;
+	}
+
+	public void setLastDamage(int damage){
+		lastHitValue = damage;
+	}
+
 	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		if (this.isRemoved()) {
@@ -246,13 +262,13 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		} else if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
 			this.kill(world);
 			return false;
-		} else if (this.isInvulnerableTo(world, source) ) {
+		} else if (this.isInvulnerableTo(world, source)) {
 			return false;
 		} else if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
 			this.onBreak(world, source);
 			this.kill(world);
 			return false;
-		} else if (source.isIn(DamageTypeTags.IGNITES_ARMOR_STANDS)) {
+		/*} else if (source.isIn(DamageTypeTags.IGNITES_ARMOR_STANDS)) {
 			if (this.isOnFire()) {
 				this.updateHealth(world, source, 0.15F);
 			} else {
@@ -263,38 +279,48 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		} else if (source.isIn(DamageTypeTags.BURNS_ARMOR_STANDS) && this.getHealth() > 0.5F) {
 			this.updateHealth(world, source, 4.0F);
 			return false;
+		*/} else if (source.getAttacker()==null || !((source.getAttacker()) instanceof PlayerEntity)) {
+			return false;
 		} else {
-			if (source.getWeaponStack().isOf(Items.SHEARS)) {
-				this.breakAndDropItem(world, source);
+			amount = this.applyArmorToDamage(source, amount);
+			amount = this.modifyAppliedDamage(source, amount);
+			if (source.getWeaponStack()!=null&&source.getWeaponStack().isOf(Items.SHEARS)) {
+				if (source.isSourceCreativePlayer()) {
+					this.playBreakSound();
+				} else {
+					this.breakAndDropItem(world, source);
+				}
 				this.spawnBreakParticles();
 				this.kill(world);
 				return true;
 			} else if (source.getAttacker() instanceof PlayerEntity playerEntity && !playerEntity.getAbilities().allowModifyWorld) {
 				return false;
 			} else if (source.isSourceCreativePlayer()) {
-				this.playBreakSound();
-				this.spawnBreakParticles();
-				this.kill(world);
+				long l = world.getTime();
+				if (l - this.lastHitTime > 5L) {
+					world.sendEntityStatus(this, EntityStatuses.HIT_ARMOR_STAND);
+					this.emitGameEvent(GameEvent.ENTITY_DAMAGE, source.getAttacker());
+					this.lastHitTime = l;
+					lastHitValue = (int) amount;
+					if (this.getEntityWorld() instanceof ServerWorld) {
+						((ServerWorld)this.getEntityWorld())
+								.spawnParticles(OtherRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
+					}
+				} else {
+					this.playBreakSound();
+					this.spawnBreakParticles();
+					this.kill(world);
+				}
 				return true;
 			} else {
 				long l = world.getTime();
 				world.sendEntityStatus(this, EntityStatuses.HIT_ARMOR_STAND);
 				this.emitGameEvent(GameEvent.ENTITY_DAMAGE, source.getAttacker());
 				this.lastHitTime = l;
-				//world.addParticleClient(ParticleTypes.NOTE, this.getEntityPos().getX() + 0.5, this.getEntityPos().getY() + 1.2, this.getEntityPos().getZ() + 0.5, amount / 24.0, 0.0, 0.0);
+				lastHitValue = (int) amount;
 				if (this.getEntityWorld() instanceof ServerWorld) {
 					((ServerWorld)this.getEntityWorld())
-							.spawnParticles(
-									OtherRegistry.NUMBER,
-									this.getX(),
-									this.getY()+2,
-									this.getZ(),
-									0,
-									1,
-									0,
-									0,
-									Math.round(amount*10)/20.0
-							);
+							.spawnParticles(OtherRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
 				}
 				return true;
 			}
@@ -516,7 +542,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 
 	@Override
 	public ItemStack getPickBlockStack() {
-		return new ItemStack(Items.ARMOR_STAND);
+		return new ItemStack(ItemRegistry.TARGET_DUMMY);
 	}
 
 	@Override
