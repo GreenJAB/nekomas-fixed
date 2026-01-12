@@ -15,6 +15,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
@@ -24,6 +25,7 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
@@ -41,7 +43,7 @@ import net.minecraft.world.rule.GameRules;
 import org.jspecify.annotations.Nullable;
 import java.util.function.Predicate;
 
-public class TargetDummyEntity extends PlayerLikeEntity {
+public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	protected static final TrackedData<ProfileComponent> PROFILE = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.PROFILE);
 	public static final ProfileComponent DEFAULT_INFO = ProfileComponent.Static.EMPTY;
 	public static final EulerAngle DEFAULT_HEAD_ROTATION = new EulerAngle(0.0F, 0.0F, 0.0F);
@@ -60,6 +62,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 			&& abstractMinecartEntity.isRideable();
 	private int lastHitValue;
 	public long lastHitTime;
+	private boolean isZombie;
 
 	public TargetDummyEntity(EntityType<? extends TargetDummyEntity> entityType, World world) {
 		super(entityType, world);
@@ -113,9 +116,17 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		this.dataTracker.set(PROFILE, profile);
 	}
 
+	public boolean getZombie() {
+		return isZombie;
+	}
+
+	private void setZombie(boolean zombie) {
+		isZombie = zombie;
+	}
+
 	@Override
 	public boolean canUseSlot(EquipmentSlot slot) {
-		return slot != EquipmentSlot.BODY && slot != EquipmentSlot.SADDLE && !this.isSlotDisabled(slot);
+		return slot != EquipmentSlot.BODY && slot != EquipmentSlot.SADDLE;
 	}
 
 	@Override
@@ -124,6 +135,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		view.put("profile", ProfileComponent.CODEC, this.getTargetDummyProfile());
 		view.put("Pose", TargetDummyEntity.PackedRotation.CODEC, this.packRotation());
 		view.put("LastDamage", Codec.INT, lastHitValue);
+		view.put("IsZombie", Codec.BOOL, isZombie);
 	}
 
 	@Override
@@ -133,7 +145,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		view.read("profile", ProfileComponent.CODEC).ifPresent(this::setTargetDummyProfile);
 		view.read("Pose", PackedRotation.CODEC).ifPresent(this::unpackRotation);
 		view.read("LastDamage", Codec.INT).ifPresent(this::setLastDamage);
-
+		view.read("IsZombie", Codec.BOOL).ifPresent(this::setZombie);
 	}
 
 	@Override
@@ -157,11 +169,20 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 	@Override
 	public ActionResult interactAt(PlayerEntity player, Vec3d hitPos, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.isOf(Items.NAME_TAG)) {
+		if (itemStack.isOf(Items.SHEARS)) {
+			if (player.getEntityWorld() instanceof ServerWorld world) {
+				this.breakAndDropItem(world, this.getDamageSources().generic());
+				this.spawnBreakParticles();
+				this.kill(world);
+				itemStack.damage(1, player);
+			}
+			return ActionResult.SUCCESS;
+		} else if (itemStack.isOf(Items.NAME_TAG)) {
 			if (itemStack.hasChangedComponent(DataComponentTypes.CUSTOM_NAME)) {
 				Text name = itemStack.get(DataComponentTypes.CUSTOM_NAME);
 				if (name!=null) {
 					setTargetDummyProfile(ProfileComponent.ofDynamic(name.getLiteralString()));
+					setZombie(false);
 					return ActionResult.SUCCESS;
 				}
 			}
@@ -171,10 +192,19 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 				ProfileComponent PC = itemStack.get(DataComponentTypes.PROFILE);
 				if (PC!=null) {
 					setTargetDummyProfile(PC);
+					setZombie(false);
 					return ActionResult.SUCCESS;
 				}
 			}
 			return ActionResult.PASS;
+		} else if (itemStack.isOf(Items.ZOMBIE_HEAD)||itemStack.isOf(Items.SKELETON_SKULL)||itemStack.isOf(Items.ROTTEN_FLESH)) {
+			setTargetDummyProfile(DEFAULT_INFO);
+			setZombie(true);
+			return ActionResult.SUCCESS;
+		} else if (itemStack.isOf(Items.HAY_BLOCK)) {
+			setTargetDummyProfile(DEFAULT_INFO);
+			setZombie(false);
+			return ActionResult.SUCCESS;
 		} else if (player.isSpectator()) {
 			return ActionResult.SUCCESS;
 		} else if (player.getEntityWorld().isClient()) {
@@ -182,20 +212,11 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		} else {
 			EquipmentSlot equipmentSlot = this.getPreferredEquipmentSlot(itemStack);
 			if (itemStack.isEmpty()) {
-				EquipmentSlot equipmentSlot2 = this.getSlotFromPosition(hitPos);
-				EquipmentSlot equipmentSlot3 = this.isSlotDisabled(equipmentSlot2) ? equipmentSlot : equipmentSlot2;
+                EquipmentSlot equipmentSlot3 = this.getSlotFromPosition(hitPos);
 				if (this.hasStackEquipped(equipmentSlot3) && this.equip(player, equipmentSlot3, itemStack, hand)) {
 					return ActionResult.SUCCESS_SERVER;
 				}
 			} else {
-				if (this.isSlotDisabled(equipmentSlot)) {
-					return ActionResult.FAIL;
-				}
-
-				//if (equipmentSlot.getType() == EquipmentSlot.Type.HAND) {
-				//	return ActionResult.FAIL;
-				//}
-
 				if (this.equip(player, equipmentSlot, itemStack, hand)) {
 					return ActionResult.SUCCESS_SERVER;
 				}
@@ -224,9 +245,6 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		return equipmentSlot;
 	}
 
-	private boolean isSlotDisabled(EquipmentSlot slot) {
-		return  false;//slot.getType() == EquipmentSlot.Type.HAND;
-	}
 
 	private boolean equip(PlayerEntity player, EquipmentSlot slot, ItemStack stack, Hand hand) {
 		ItemStack itemStack = this.getEquippedStack(slot);
@@ -268,18 +286,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 			this.onBreak(world, source);
 			this.kill(world);
 			return false;
-		/*} else if (source.isIn(DamageTypeTags.IGNITES_ARMOR_STANDS)) {
-			if (this.isOnFire()) {
-				this.updateHealth(world, source, 0.15F);
-			} else {
-				this.setOnFireFor(5.0F);
-			}
-
-			return false;
-		} else if (source.isIn(DamageTypeTags.BURNS_ARMOR_STANDS) && this.getHealth() > 0.5F) {
-			this.updateHealth(world, source, 4.0F);
-			return false;
-		*/} else if (source.getAttacker()==null || !((source.getAttacker()) instanceof PlayerEntity)) {
+		} else if (source.getAttacker()==null || !((source.getAttacker()) instanceof PlayerEntity)) {
 			return false;
 		} else {
 			amount = this.applyArmorToDamage(source, amount);
@@ -289,6 +296,7 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 					this.playBreakSound();
 				} else {
 					this.breakAndDropItem(world, source);
+					if (source.getAttacker() instanceof PlayerEntity player) source.getWeaponStack().damage(1, player);
 				}
 				this.spawnBreakParticles();
 				this.kill(world);
@@ -365,18 +373,6 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 							this.getWidth() / 4.0F,
 							0.05
 					);
-		}
-	}
-
-	private void updateHealth(ServerWorld world, DamageSource damageSource, float amount) {
-		float f = this.getHealth();
-		f -= amount;
-		if (f <= 0.5F) {
-			this.onBreak(world, damageSource);
-			this.kill(world);
-		} else {
-			this.setHealth(f);
-			this.emitGameEvent(GameEvent.ENTITY_DAMAGE, damageSource.getAttacker());
 		}
 	}
 
@@ -530,6 +526,11 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 	}
 
 	@Override
+	public boolean addStatusEffect(StatusEffectInstance effect, @Nullable Entity source) {
+		return false;
+	}
+
+	@Override
 	public boolean isMobOrPlayer() {
 		return false;
 	}
@@ -563,6 +564,18 @@ public class TargetDummyEntity extends PlayerLikeEntity {
 		return new TargetDummyEntity.PackedRotation(
 				this.getHeadRotation(), this.getBodyRotation(), this.getLeftArmRotation(), this.getRightArmRotation(), this.getLeftLegRotation(), this.getRightLegRotation()
 		);
+	}
+
+	@Override
+	public void sheared(ServerWorld world, SoundCategory shearedSoundCategory, ItemStack shears) {
+		this.breakAndDropItem(world, this.getDamageSources().generic());
+		this.spawnBreakParticles();
+		this.kill(world);
+	}
+
+	@Override
+	public boolean isShearable() {
+		return true;
 	}
 
 	public record PackedRotation(EulerAngle head, EulerAngle body, EulerAngle leftArm, EulerAngle rightArm, EulerAngle leftLeg, EulerAngle rightLeg) {

@@ -11,6 +11,7 @@ import net.minecraft.util.math.EulerAngle;
 @Environment(EnvType.CLIENT)
 public class TargetDummyEntityRenderState extends BipedEntityRenderState {
 	public SkinTextures skinTextures = DefaultSkinHelper.getSteve();
+	public boolean isZombie;
 	public float yaw;
 	public float timeSinceLastHit;
 	public EulerAngle headRotation = TargetDummyEntity.DEFAULT_HEAD_ROTATION;

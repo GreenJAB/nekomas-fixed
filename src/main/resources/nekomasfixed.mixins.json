@@ -8,6 +8,7 @@
     "CarvedPumpkinBlockMixin",
     "ContainerComponentMixin",
     "DrownedEntityMixin",
+    "EnchantmentMixin",
     "ExplosionImplMixin",
     "FarmlandBlockMixin",
     "ItemStackMixin",

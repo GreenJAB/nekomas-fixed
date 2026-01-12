@@ -21,16 +21,18 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.SkinTextures;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.EulerAngle;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import org.jspecify.annotations.Nullable;
 
-import static net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity.DEFAULT_INFO;
+import static net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity.*;
 
 @Environment(EnvType.CLIENT)
 public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyEntity, TargetDummyEntityRenderState, TargetDummyArmorEntityModel> {
 	private final PlayerSkinCache skinCache;
 	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/targetdummy/default.png");
+	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/targetdummy/zombie.png");
 
 	public TargetDummyEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new TargetDummyEntityModel(context.getPart(EntityModelLayerRegistry.TARGET_DUMMY)), 0.0F);
@@ -51,7 +53,7 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 
 	public Identifier getTexture(TargetDummyEntityRenderState TargetDummyEntityRenderState) {
 		if (TargetDummyEntityRenderState.skinTextures == null){
-			return TEXTURE;
+			return TargetDummyEntityRenderState.isZombie?ZOMBIE_TEXTURE:TEXTURE;
 		}
 		return TargetDummyEntityRenderState.skinTextures.body().texturePath();
 	}
@@ -64,11 +66,21 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 		super.updateRenderState(targetDummyEntity, targetDummyEntityRenderState, f);
 		BipedEntityRenderer.updateBipedRenderState(targetDummyEntity, targetDummyEntityRenderState, f, this.itemModelResolver);
 		targetDummyEntityRenderState.skinTextures = getSkin(targetDummyEntity);
+		targetDummyEntityRenderState.isZombie = targetDummyEntity.getZombie();
 		targetDummyEntityRenderState.yaw = MathHelper.lerpAngleDegrees(f, targetDummyEntity.lastYaw, targetDummyEntity.getYaw());
 		targetDummyEntityRenderState.bodyRotation = targetDummyEntity.getBodyRotation();
 		targetDummyEntityRenderState.headRotation = targetDummyEntity.getHeadRotation();
 		targetDummyEntityRenderState.leftArmRotation = targetDummyEntity.getLeftArmRotation();
 		targetDummyEntityRenderState.rightArmRotation = targetDummyEntity.getRightArmRotation();
+		if (targetDummyEntityRenderState.isZombie) {
+			if (targetDummyEntityRenderState.leftArmRotation.equals(DEFAULT_LEFT_ARM_ROTATION)) {
+				targetDummyEntityRenderState.leftArmRotation = new EulerAngle(-90.0F, 0.0F, -5.0F);
+			}
+			if (targetDummyEntityRenderState.rightArmRotation.equals(DEFAULT_RIGHT_ARM_ROTATION)) {
+				targetDummyEntityRenderState.rightArmRotation = new EulerAngle(-90.0F, 0.0F, 5.0F);
+			}
+		}
+
 		targetDummyEntityRenderState.leftLegRotation = targetDummyEntity.getLeftLegRotation();
 		targetDummyEntityRenderState.rightLegRotation = targetDummyEntity.getRightLegRotation();
 		targetDummyEntityRenderState.timeSinceLastHit = (float)(targetDummyEntity.getEntityWorld().getTime() - targetDummyEntity.lastHitTime) + f;
