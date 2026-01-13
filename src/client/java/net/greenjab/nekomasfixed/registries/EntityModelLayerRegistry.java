@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 public class EntityModelLayerRegistry {
 
     public static final EntityModelLayer CLAM = new EntityModelLayer(NekomasFixed.id("clam"), "main");
+    public static final EntityModelLayer CLOCK = new EntityModelLayer(NekomasFixed.id("clock"), "main");
 
     public static final EntityModelLayer BIG_ACACIA_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/acacia"), "main");
     public static final EntityModelLayer BIG_BAMBOO_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/bamboo"), "main");

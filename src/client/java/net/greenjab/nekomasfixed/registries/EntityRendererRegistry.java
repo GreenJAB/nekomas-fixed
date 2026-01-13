@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registries;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.ClamBlockEntityRenderer;
+import net.greenjab.nekomasfixed.render.block.entity.ClockBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.FakeBoatEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.BigBoatEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.HugeBoatEntityRenderer;
@@ -15,6 +16,7 @@ public class EntityRendererRegistry {
     public static void registerEntityRenderer() {
         System.out.println("register EntityRenderer");
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, ClockBlockEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.FAKE_BOAT, FakeBoatEntityRenderer::new);
         
         EntityRendererFactories.register(EntityTypeRegistry.BIG_ACACIA_BOAT, context -> new BigBoatEntityRenderer<>(context, EntityModelLayerRegistry.BIG_ACACIA_BOAT));

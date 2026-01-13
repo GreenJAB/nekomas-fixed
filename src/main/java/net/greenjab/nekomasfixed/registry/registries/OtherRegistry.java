@@ -34,6 +34,9 @@ public class OtherRegistry {
     public static final ComponentType<Integer> CLAM_STATE = DataComponentTypes.register(
             "clam_state", builder -> builder.codec(Codecs.rangedInt(0, 3)).packetCodec(PacketCodecs.INTEGER)
     );
+    public static final ComponentType<Integer> STORED_TIME = DataComponentTypes.register(
+            "stored_time", builder -> builder.codec(Codecs.rangedInt(-1, 23999)).packetCodec(PacketCodecs.INTEGER)
+    );
 
 
     //tag

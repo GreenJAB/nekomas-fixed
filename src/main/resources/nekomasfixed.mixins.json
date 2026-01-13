@@ -11,6 +11,7 @@
     "EnchantmentMixin",
     "ExplosionImplMixin",
     "FarmlandBlockMixin",
+    "ItemsMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "NautilusStackMixin",
