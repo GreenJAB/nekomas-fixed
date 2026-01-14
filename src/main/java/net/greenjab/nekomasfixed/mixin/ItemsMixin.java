@@ -1,7 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.VerticallyAttachableBlockItem;
@@ -23,7 +22,7 @@ public class ItemsMixin {
 		return register(
 				BlockRegistry.CLOCK,
 				(block, settings) -> new VerticallyAttachableBlockItem(
-						block, Blocks.SKELETON_WALL_SKULL, Direction.DOWN, Waypoint.disableTracking(settings)
+						block, BlockRegistry.WALL_CLOCK, Direction.DOWN, Waypoint.disableTracking(settings)
 				),
 				new Item.Settings()
 		);

@@ -17,6 +17,7 @@
     "NautilusStackMixin",
     "PillagerEntityMixin",
     "PlayerEntityMixin",
+    "RedstoneViewMixin",
     "TradeOffersMixin",
     "WeightedPressurePlateBlockMixin",
     "boat.AbstractBoatEntityMixin",

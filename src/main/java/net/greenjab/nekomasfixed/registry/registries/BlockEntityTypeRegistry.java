@@ -19,7 +19,7 @@ public class BlockEntityTypeRegistry {
             FabricBlockEntityTypeBuilder.create(NautilusBlockEntity::new, BlockRegistry.NAUTILUS_BLOCK, BlockRegistry.ZOMBIE_NAUTILUS_BLOCK, BlockRegistry.CORAL_NAUTILUS_BLOCK).build());
 
     public static final BlockEntityType<ClockBlockEntity> CLOCK_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("clock"),
-            FabricBlockEntityTypeBuilder.create(ClockBlockEntity::new, BlockRegistry.CLOCK).build());
+            FabricBlockEntityTypeBuilder.create(ClockBlockEntity::new, BlockRegistry.CLOCK, BlockRegistry.WALL_CLOCK).build());
 
     public static void registerBlockEntityType() {
         System.out.println("register BlockEntityType");
