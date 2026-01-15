@@ -5,8 +5,8 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.other.ClamFeature;
+import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.minecraft.component.ComponentType;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
@@ -25,18 +25,22 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
+import java.util.function.UnaryOperator;
+
 public class OtherRegistry {
 
     //component
-    public static final ComponentType<AnimalComponent> ANIMAL = DataComponentTypes.register(
+    public static final ComponentType<AnimalComponent> ANIMAL = registerComponent(
             "animal", builder -> builder.codec(AnimalComponent.CODEC).packetCodec(AnimalComponent.PACKET_CODEC).cache()
     );
-    public static final ComponentType<Integer> CLAM_STATE = DataComponentTypes.register(
+    public static final ComponentType<Integer> CLAM_STATE = registerComponent(
             "clam_state", builder -> builder.codec(Codecs.rangedInt(0, 3)).packetCodec(PacketCodecs.INTEGER)
     );
-    public static final ComponentType<Integer> STORED_TIME = DataComponentTypes.register(
-            "stored_time", builder -> builder.codec(Codecs.rangedInt(-1, 23999)).packetCodec(PacketCodecs.INTEGER)
-    );
+    public static final ComponentType<StoredTimeComponent> STORED_TIME = registerComponent("stored_time", (builder) -> builder.codec(StoredTimeComponent.CODEC).packetCodec(StoredTimeComponent.PACKET_CODEC).cache());
+
+    private static <T> ComponentType<T> registerComponent(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
+        return Registry.register(Registries.DATA_COMPONENT_TYPE, id, builderOperator.apply(ComponentType.builder()).build());
+    }
 
 
     //tag

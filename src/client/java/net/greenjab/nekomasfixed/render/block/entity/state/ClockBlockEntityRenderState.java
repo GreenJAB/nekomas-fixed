@@ -12,6 +12,10 @@ public class ClockBlockEntityRenderState extends BlockEntityRenderState {
 	public Direction facing = Direction.NORTH;
 	public float yaw;
 	public boolean wall;
+	public boolean bell;
 	public int timer;
-	public ItemRenderState itemRenderState = new ItemRenderState();
+	public int dayTime;
+	public ItemRenderState clockRenderState = new ItemRenderState();
+	public ItemRenderState standRenderState = new ItemRenderState();
+	public ItemRenderState bellRenderState = new ItemRenderState();
 }

@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
@@ -50,27 +51,26 @@ public class WallClockBlock extends AbstractClockBlock {
 	}
 
 	@Override
-	protected int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-		return state.get(POWERED) ? 15 : 0;
-	}
-
-	@Override
 	protected int getStrongRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-		return state.get(POWERED) && state.get(FACING) == direction ? 15 : 0;
+		return direction == state.get(FACING) ? state.getWeakRedstonePower(world, pos, direction) : 0;
 	}
 
 	@Override
-	protected boolean emitsRedstonePower(BlockState state) {
-		return true;
-	}
-
-	private void updateNeighbors(BlockState state, World world, BlockPos pos) {
+	public void updateNeighbors(BlockState state, World world, BlockPos pos) {
 		Direction direction = state.get(FACING).getOpposite();
 		WireOrientation wireOrientation = OrientationHelper.getEmissionOrientation(
-				world, direction, direction.getAxis().isHorizontal() ? Direction.UP : state.get(FACING)
+				world, direction, Direction.UP
 		);
 		world.updateNeighborsAlways(pos, this, wireOrientation);
 		world.updateNeighborsAlways(pos.offset(direction), this, wireOrientation);
+	}
+
+	public void addParticle(BlockState state,World world, BlockPos pos, Random random) {
+		Direction dir = state.get(FACING);
+		double d = pos.getX() + 0.5 + (dir.getAxis()==Direction.Axis.Z?(random.nextDouble() - 0.5) * 0.4 : -dir.getOffsetX()*0.4);
+		double e = pos.getY() + 0.5 + (random.nextDouble() - 0.5) * 0.4;
+		double f = pos.getZ() + 0.5 + (dir.getAxis()==Direction.Axis.X?(random.nextDouble() - 0.5) * 0.4 : -dir.getOffsetZ()*0.4);
+		world.addParticleClient(DustParticleEffect.DEFAULT, d, e, f, 0.0, 0.0, 0.0);
 	}
 
 	@Override

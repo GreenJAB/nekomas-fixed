@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -21,6 +22,8 @@ public class NekomasFixed implements ModInitializer {
 		EntityTypeRegistry.registerEntityType();
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
+
+		SyncHandler.init();
 	}
 
 	public static Identifier id(String path) {

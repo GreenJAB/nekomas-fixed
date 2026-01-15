@@ -18,6 +18,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 		EntityRendererRegistry.registerEntityRenderer();
 		EntityModelLayerRegistry.registerEntityModelLayer();
 		TextureRegistry.registerTextureRegistry();
+
+		ClientSyncHandler.init();
 	}
 
 	private static EquipmentModel createHumanoidOnlyModel(String id) {

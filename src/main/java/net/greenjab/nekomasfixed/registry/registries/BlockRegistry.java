@@ -68,10 +68,10 @@ public class BlockRegistry {
             AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block CLOCK = registerVanilla("clock", ClockBlock::new,
-            AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY));
+            AbstractBlock.Settings.create().noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY));
     public static final Block WALL_CLOCK = registerVanilla(
             "wall_clock", WallClockBlock::new,
-            copyLootTable(CLOCK, true).mapColor(MapColor.YELLOW).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY)
+            copyLootTable(CLOCK, true).noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY)
     );
 
     private static Block register(String id, AbstractBlock.Settings settings) {

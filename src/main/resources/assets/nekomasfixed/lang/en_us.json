@@ -56,6 +56,7 @@
   "block.nekomasfixed.zombie_nautilus_block": "Zombified Nautilus Block",
   "block.nekomasfixed.coral_nautilus_block": "Coral Nautilus Block",
   "container.nautilus": "Holding: %s%s%s%s",
+  "component.nekomasfixed.storedtime": "Recorded Time: %s",
   "item.nekomasfixed.turtle_chestplate": "Turtle Chestplate",
   "item.nekomasfixed.turtle_leggings": "Turtle Leggings",
   "item.nekomasfixed.turtle_boots": "Turtle Boots",
