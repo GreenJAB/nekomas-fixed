@@ -13,11 +13,11 @@ import net.minecraft.util.math.RotationPropertyHelper;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class ClockBlock extends AbstractClockBlock {
-	public static final MapCodec<ClockBlock> CODEC = RecordCodecBuilder.mapCodec(
+public class FloorClockBlock extends AbstractClockBlock {
+	public static final MapCodec<FloorClockBlock> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 				createSettingsCodec()
-			).apply(instance, ClockBlock::new)
+			).apply(instance, FloorClockBlock::new)
 	);
 	public static final int MAX_ROTATION_INDEX = RotationPropertyHelper.getMax();
 	private static final int MAX_ROTATIONS = MAX_ROTATION_INDEX + 1;
@@ -25,11 +25,11 @@ public class ClockBlock extends AbstractClockBlock {
 	private static final VoxelShape SHAPE = Block.createColumnShape(8.0, 0.0, 8.0);
 
 	@Override
-	public MapCodec<? extends ClockBlock> getCodec() {
+	public MapCodec<? extends FloorClockBlock> getCodec() {
 		return CODEC;
 	}
 
-	public ClockBlock(Settings settings) {
+	public FloorClockBlock(Settings settings) {
 		super(settings);
 		this.setDefaultState(this.getDefaultState().with(ROTATION, 0));
 	}

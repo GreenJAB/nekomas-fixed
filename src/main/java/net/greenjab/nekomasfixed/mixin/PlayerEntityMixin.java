@@ -53,12 +53,11 @@ public class PlayerEntityMixin {
         PlayerEntity PE = (PlayerEntity)(Object)this;
 
         if (PE.getMainHandStack().isOf(Items.FEATHER)) {
-            if (target instanceof LivingEntity) {
-                LivingEntity livingTarget = (LivingEntity)target;
+            if (target instanceof LivingEntity livingTarget) {
                 livingTarget.takeKnockback(
                         0.4,
-                        (double)MathHelper.sin(PE.getYaw() * ((float)Math.PI / 180F)),
-                        (double)(-MathHelper.cos(PE.getYaw() * ((float)Math.PI / 180F)))
+                        MathHelper.sin(PE.getYaw() * ((float)Math.PI / 180F)),
+                        (-MathHelper.cos(PE.getYaw() * ((float)Math.PI / 180F)))
                 );
             }
             return true;

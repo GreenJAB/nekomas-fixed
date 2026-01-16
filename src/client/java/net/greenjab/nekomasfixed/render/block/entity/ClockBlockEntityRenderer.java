@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.block.entity;
 import it.unimi.dsi.fastutil.HashCommon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registry.block.ClockBlock;
+import net.greenjab.nekomasfixed.registry.block.FloorClockBlock;
 import net.greenjab.nekomasfixed.registry.block.WallClockBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.ClockBlockEntity;
 import net.greenjab.nekomasfixed.render.block.entity.state.ClockBlockEntityRenderState;
@@ -50,14 +50,14 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 
 		boolean bl = blockState.getBlock() instanceof WallClockBlock;
 		clockBlockEntityRenderState.facing = bl ? blockState.get(WallClockBlock.FACING) : null;
-		int i = bl ? RotationPropertyHelper.fromDirection(clockBlockEntityRenderState.facing.getOpposite()) : blockState.get(ClockBlock.ROTATION);
+		int i = bl ? RotationPropertyHelper.fromDirection(clockBlockEntityRenderState.facing.getOpposite()) : blockState.get(FloorClockBlock.ROTATION);
 		clockBlockEntityRenderState.yaw = RotationPropertyHelper.toDegrees(i);
 		clockBlockEntityRenderState.wall = bl;
 
 		if (clockBlockEntity instanceof ClockBlockEntity clockBlockEntity2) {
 			clockBlockEntityRenderState.bell = clockBlockEntity2.hasBell();
 			clockBlockEntityRenderState.timer = clockBlockEntity2.getTimer();
-			clockBlockEntityRenderState.dayTime = clockBlockEntity2.getShowsTime() && !clockBlockEntity2.hasBell() ? (int) clockBlockEntity2.getEntityWorld().getTimeOfDay() :-1;
+			clockBlockEntityRenderState.dayTime = clockBlockEntity2.getShowsTime() && !clockBlockEntity2.hasBell() ? (int) (int) ((clockBlockEntity2.getEntityWorld().getTimeOfDay() + 6000) % 24000) :-1;
 
 			ItemRenderState clockRenderState = new ItemRenderState();
 			this.itemModelManager.clearAndUpdate(clockRenderState, Items.CLOCK.getDefaultStack(), ItemDisplayContext.FIXED, clockBlockEntity2.getEntityWorld(), clockBlockEntity2, HashCommon.long2int(clockBlockEntity.getPos().asLong()));

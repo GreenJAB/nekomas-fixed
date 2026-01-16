@@ -78,7 +78,7 @@ public abstract class AbstractClockBlock extends BlockWithEntity {
 				if (clockBlockEntity.hasBell()) {
 					int timer = clockBlockEntity.getTimer();
 					if (timer < 0) timer = 0;
-					timer += player.isSneaking() ? 1200 : 10;//100
+					timer += player.isSneaking() ? 1200 : 100;
 					if (timer > 12000) timer = 12000;
 					clockBlockEntity.setTimer(timer);
 					return ActionResult.SUCCESS;

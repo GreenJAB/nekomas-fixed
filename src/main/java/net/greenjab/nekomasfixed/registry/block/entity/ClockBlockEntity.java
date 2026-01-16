@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.greenjab.nekomasfixed.network.UpdateClockPayload;
 import net.greenjab.nekomasfixed.registry.block.AbstractClockBlock;
-import net.greenjab.nekomasfixed.registry.block.ClockBlock;
+import net.greenjab.nekomasfixed.registry.block.FloorClockBlock;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
@@ -130,7 +130,7 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 
 	@Override
 	public float getBodyYaw() {
-		return this.getCachedState().get(ClockBlock.ROTATION);
+		return this.getCachedState().get(FloorClockBlock.ROTATION);
 	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
@@ -147,6 +147,7 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 		}
 		if (world.getTime() % 20L == 0L) {
 			if (world instanceof ServerWorld serverWorld) {
+				world.updateComparators(pos, state.getBlock());
 				UpdateClockPayload payload = new UpdateClockPayload(pos.getX(), pos.getY(), pos.getZ(), blockEntity.getTimer(), blockEntity.hasBell(), blockEntity.getShowsTime());
 				sendToAround(serverWorld.getServer()
 								.getPlayerManager(),
@@ -163,7 +164,7 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 		if (powered!=shouldBePowered) {
 			((AbstractClockBlock)state.getBlock()).setPower(world, pos, state, shouldBePowered);
 		}
-		if (shouldBePowered && world.getTime() % 5L == 0L){
+		if (state.getBlock() instanceof FloorClockBlock && shouldBePowered && world.getTime() % 5L == 0L){
 			world.emitGameEvent(null, GameEvent.NOTE_BLOCK_PLAY, pos);
 			world.playSound(null, pos, SoundEvents.BLOCK_BELL_USE, SoundCategory.BLOCKS, 0.3F, 2f);
 		}

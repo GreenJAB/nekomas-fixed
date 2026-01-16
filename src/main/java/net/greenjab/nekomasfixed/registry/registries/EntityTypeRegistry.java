@@ -2,10 +2,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.entity.FakeBoatEntity;
-import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
-import net.greenjab.nekomasfixed.registry.entity.HugeBoatEntity;
-import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
+import net.greenjab.nekomasfixed.registry.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.item.Item;
@@ -72,6 +69,11 @@ public class EntityTypeRegistry {
             "target_dummy",
             EntityType.Builder.create(TargetDummyEntity::new, SpawnGroup.MISC).dimensions(0.5F, 1.975F).eyeHeight(1.7775F).maxTrackingRange(10)
     );
+
+    public static final EntityType<SpearEntity> SPEAR = register(
+            "spear", EntityType.Builder.create(SpearEntity::new, SpawnGroup.MISC)
+                    .dropsNothing().dimensions(0.6f, 0.6F).eyeHeight(0.3F).maxTrackingRange(10));
+
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
         return register(keyOf(id), type);

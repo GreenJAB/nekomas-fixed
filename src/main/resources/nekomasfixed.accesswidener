@@ -2,3 +2,4 @@ accessWidener v2 named
 accessible method net/minecraft/component/DataComponentTypes register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/component/ComponentType;
 accessible field net/minecraft/loot/LootTables LOOT_TABLES Ljava/util/Set;
 accessible method net/minecraft/particle/SimpleParticleType <init> (Z)V
+accessible field net/minecraft/entity/LivingEntity ticksSinceLastAttack I

@@ -4,10 +4,7 @@ import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.ClamBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.ClockBlockEntityRenderer;
-import net.greenjab.nekomasfixed.render.entity.FakeBoatEntityRenderer;
-import net.greenjab.nekomasfixed.render.entity.BigBoatEntityRenderer;
-import net.greenjab.nekomasfixed.render.entity.HugeBoatEntityRenderer;
-import net.greenjab.nekomasfixed.render.entity.TargetDummyEntityRenderer;
+import net.greenjab.nekomasfixed.render.entity.*;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.EntityRendererFactories;
 
@@ -42,5 +39,7 @@ public class EntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.HUGE_SPRUCE_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_SPRUCE_BOAT));
 
         EntityRendererFactories.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyEntityRenderer::new);
+
+        EntityRendererFactories.register(EntityTypeRegistry.SPEAR, SpearEntityRenderer::new);
     }
 }
