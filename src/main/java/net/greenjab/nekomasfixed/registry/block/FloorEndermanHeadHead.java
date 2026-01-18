@@ -7,36 +7,38 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationPropertyHelper;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class FloorClockBlock extends AbstractClockBlock {
-	public static final MapCodec<FloorClockBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-				createSettingsCodec()
-			).apply(instance, FloorClockBlock::new)
+public class FloorEndermanHeadHead extends AbstractEndermanHeadBlock {
+	public static final MapCodec<FloorEndermanHeadHead> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(
+					createSettingsCodec()
+			).apply(instance, FloorEndermanHeadHead::new)
 	);
 	public static final int MAX_ROTATION_INDEX = RotationPropertyHelper.getMax();
 	private static final int MAX_ROTATIONS = MAX_ROTATION_INDEX + 1;
 	public static final IntProperty ROTATION = Properties.ROTATION;
 	private static final VoxelShape SHAPE = Block.createColumnShape(8.0, 0.0, 8.0);
+	private static final VoxelShape SHAPE_POWERED = Block.createColumnShape(8.0, 0.0, 13.0);
 
 	@Override
-	public MapCodec<? extends FloorClockBlock> getCodec() {
+	public MapCodec<? extends FloorEndermanHeadHead> getCodec() {
 		return CODEC;
 	}
 
-	public FloorClockBlock(Settings settings) {
+	public FloorEndermanHeadHead(Settings settings) {
 		super(settings);
 		this.setDefaultState(this.getDefaultState().with(ROTATION, 0));
 	}
 
 	@Override
 	protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return SHAPE;
+		return state.get(POWER)>0?SHAPE_POWERED:SHAPE;
 	}
 
 	@Override

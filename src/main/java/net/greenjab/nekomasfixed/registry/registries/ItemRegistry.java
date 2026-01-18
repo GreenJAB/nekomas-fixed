@@ -6,6 +6,7 @@ import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
@@ -18,6 +19,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.waypoint.Waypoint;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -88,6 +90,10 @@ public class ItemRegistry {
 
     public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
 
+    public static final Item ENDERMAN_HEAD = register(BlockRegistry.ENDERMAN_HEAD,
+            (block, settings) -> new VerticallyAttachableBlockItem(
+            block, BlockRegistry.WALL_ENDERMAN_HEAD, Direction.DOWN, Waypoint.disableTracking(settings)
+    ),new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);

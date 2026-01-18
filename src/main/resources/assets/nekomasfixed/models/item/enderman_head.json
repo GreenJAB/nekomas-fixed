@@ -1,0 +1,45 @@
+{
+  "parent": "item/template_skull",
+  "texture_size": [32, 32],
+  "textures": {
+    "head": "nekomasfixed:item/enderman",
+    "particle": "nekomasfixed:item/enderman"
+  },
+  "elements": [
+    {
+      "name": "head",
+      "from": [4, 0, 4],
+      "to": [12, 8, 12],
+      "rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 4]},
+      "faces": {
+        "north": {"uv": [12, 4, 16, 8], "texture": "#head"},
+        "east": {"uv": [8, 4, 12, 8], "texture": "#head"},
+        "south": {"uv": [4, 4, 8, 8], "texture": "#head"},
+        "west": {"uv": [0, 4, 4, 8], "texture": "#head"},
+        "up": {"uv": [4, 0, 8, 4], "texture": "#head"},
+        "down": {"uv": [8, 0, 12, 4], "texture": "#head"}
+      }
+    },
+    {
+      "name": "mouth",
+      "from": [4.5, 0.5, 4.5],
+      "to": [11.5, 7.5, 11.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 4]},
+      "faces": {
+        "north": {"uv": [12, 12, 16, 16], "texture": "#head"},
+        "east": {"uv": [8, 12, 12, 16], "texture": "#head"},
+        "south": {"uv": [4, 12, 8, 16], "texture": "#head"},
+        "west": {"uv": [0, 12, 4, 16], "texture": "#head"},
+        "up": {"uv": [4, 8, 8, 12], "texture": "#head"},
+        "down": {"uv": [8, 8, 12, 12], "texture": "#head"}
+      }
+    }
+  ],
+  "display": {
+  "head": {
+    "rotation": [ 0, 180, 0 ],
+    "translation": [0, 8, 0],
+    "scale":[ 1.9, 1.9, 1.9]
+  }
+}
+}

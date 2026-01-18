@@ -59,8 +59,13 @@ public class SpearEntityRenderer extends EntityRenderer<SpearEntity, SpearEntity
 			}
 
 			matrixStack.translate(new Vec3d(0, -1.1+Math.min(-Math.abs((spearEntityRenderState.age-10)/5)+2,1), 0));
+			matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(45));
 			matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-45));
 
+			spearRenderState.render(matrixStack, orderedRenderCommandQueue, spearEntityRenderState.light, OverlayTexture.DEFAULT_UV, 0);
+			matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(45));
+			matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90));
+			matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-45));
 			spearRenderState.render(matrixStack, orderedRenderCommandQueue, spearEntityRenderState.light, OverlayTexture.DEFAULT_UV, 0);
 			matrixStack.pop();
 		}

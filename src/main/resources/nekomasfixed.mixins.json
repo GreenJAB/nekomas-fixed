@@ -17,6 +17,7 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "NautilusStackMixin",
+    "NoteBlockMixin",
     "PillagerEntityMixin",
     "PlayerEntityMixin",
     "TradeOffersMixin",

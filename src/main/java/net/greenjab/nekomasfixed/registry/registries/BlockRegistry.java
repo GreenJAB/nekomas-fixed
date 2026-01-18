@@ -74,6 +74,13 @@ public class BlockRegistry {
             copyLootTable(CLOCK, true).noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY)
     );
 
+    public static final Block ENDERMAN_HEAD = register("enderman_head", FloorEndermanHeadHead::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY).instrument(NoteBlockInstrument.CUSTOM_HEAD));
+    public static final Block WALL_ENDERMAN_HEAD = register(
+            "wall_enderman_head", WallEndermanHeadHead::new,
+            copyLootTable(ENDERMAN_HEAD, true).mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY)
+    );
+
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
     }

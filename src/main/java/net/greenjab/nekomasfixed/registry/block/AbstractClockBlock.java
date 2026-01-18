@@ -15,6 +15,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
@@ -68,6 +69,7 @@ public abstract class AbstractClockBlock extends BlockWithEntity {
 				if (stack.isOf(Items.SHEARS)) {
 					if (clockBlockEntity.hasBell()) {
 						clockBlockEntity.setBell(false);
+						clockBlockEntity.setTimer(-60);
 						stack.damage(1, player);
 						ItemEntity itemEntity = new ItemEntity(world, pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5 , Items.BELL.getDefaultStack());
 						itemEntity.setToDefaultPickupDelay();
@@ -132,6 +134,13 @@ public abstract class AbstractClockBlock extends BlockWithEntity {
 		);
 		world.updateNeighborsAlways(pos, this, wireOrientation);
 		world.updateNeighborsAlways(pos.offset(direction), this, wireOrientation);
+	}
+
+	@Override
+	protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+		if (state.get(POWERED)) {
+			this.updateNeighbors(state.with(POWERED, false), world, pos);
+		}
 	}
 
 	@Override

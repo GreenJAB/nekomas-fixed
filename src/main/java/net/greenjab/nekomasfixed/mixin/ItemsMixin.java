@@ -18,7 +18,7 @@ public class ItemsMixin {
 
 	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Items;register(Ljava/lang/String;)Lnet/minecraft/item/Item;", ordinal = 0 ), slice = @Slice( from = @At(value = "FIELD",
 			target = "Lnet/minecraft/item/Items;FISHING_ROD:Lnet/minecraft/item/Item;")))
-	private static Item throwableBrick(String id) {
+	private static Item wallFloorBlock(String id) {
 		return register(
 				BlockRegistry.CLOCK,
 				(block, settings) -> new VerticallyAttachableBlockItem(
@@ -26,6 +26,7 @@ public class ItemsMixin {
 				),
 				new Item.Settings()
 		);
+
 	}
 
 }

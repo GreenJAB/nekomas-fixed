@@ -4,6 +4,7 @@ import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.ClamBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.ClockBlockEntityRenderer;
+import net.greenjab.nekomasfixed.render.block.entity.EndermanHeadBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.*;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.EntityRendererFactories;
@@ -14,6 +15,7 @@ public class EntityRendererRegistry {
         System.out.println("register EntityRenderer");
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, ClockBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.ENDERMAN_HEAD_BLOCK_ENTITY, EndermanHeadBlockEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.FAKE_BOAT, FakeBoatEntityRenderer::new);
         
         EntityRendererFactories.register(EntityTypeRegistry.BIG_ACACIA_BOAT, context -> new BigBoatEntityRenderer<>(context, EntityModelLayerRegistry.BIG_ACACIA_BOAT));

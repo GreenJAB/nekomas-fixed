@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.ClockBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.EndermanHeadBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.NautilusBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -20,6 +21,9 @@ public class BlockEntityTypeRegistry {
 
     public static final BlockEntityType<ClockBlockEntity> CLOCK_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("clock"),
             FabricBlockEntityTypeBuilder.create(ClockBlockEntity::new, BlockRegistry.CLOCK, BlockRegistry.WALL_CLOCK).build());
+
+    public static final BlockEntityType<EndermanHeadBlockEntity> ENDERMAN_HEAD_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("enderman_head"),
+            FabricBlockEntityTypeBuilder.create(EndermanHeadBlockEntity::new, BlockRegistry.ENDERMAN_HEAD, BlockRegistry.WALL_ENDERMAN_HEAD).build());
 
     public static void registerBlockEntityType() {
         System.out.println("register BlockEntityType");

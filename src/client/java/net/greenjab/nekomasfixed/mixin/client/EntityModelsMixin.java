@@ -5,6 +5,8 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClockBlockModel;
+import net.greenjab.nekomasfixed.render.block.entity.model.EndermanEyesBlockModel;
+import net.greenjab.nekomasfixed.render.block.entity.model.EndermanHeadBlockModel;
 import net.greenjab.nekomasfixed.render.entity.model.BasePlateEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.BigBoatEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.HugeBoatEntityModel;
@@ -26,6 +28,8 @@ public class EntityModelsMixin {
     private static void addClamModel(CallbackInfoReturnable<Map<EntityModelLayer, TexturedModelData>> cir, @Local ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder) {
         builder.put(EntityModelLayerRegistry.CLAM, ClamBlockModel.getTexturedModelData());
         builder.put(EntityModelLayerRegistry.CLOCK, ClockBlockModel.getTexturedModelData());
+        builder.put(EntityModelLayerRegistry.ENDERMAN_HEAD, EndermanHeadBlockModel.getTexturedModelData());
+        builder.put(EntityModelLayerRegistry.ENDERMAN_EYES, EndermanEyesBlockModel.getTexturedModelData());
         builder.put(EntityModelLayerRegistry.BIG_ACACIA_BOAT, BigBoatEntityModel.getChestTexturedModelData());
         builder.put(EntityModelLayerRegistry.BIG_BAMBOO_BOAT, BigBoatEntityModel.getChestTexturedModelData());
         builder.put(EntityModelLayerRegistry.BIG_BIRCH_BOAT, BigBoatEntityModel.getChestTexturedModelData());

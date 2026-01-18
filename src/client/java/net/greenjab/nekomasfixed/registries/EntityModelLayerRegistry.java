@@ -9,6 +9,8 @@ public class EntityModelLayerRegistry {
 
     public static final EntityModelLayer CLAM = new EntityModelLayer(NekomasFixed.id("clam"), "main");
     public static final EntityModelLayer CLOCK = new EntityModelLayer(NekomasFixed.id("clock"), "main");
+    public static final EntityModelLayer ENDERMAN_HEAD = new EntityModelLayer(NekomasFixed.id("enderman_head"), "main");
+    public static final EntityModelLayer ENDERMAN_EYES = new EntityModelLayer(NekomasFixed.id("enderman_head"), "eyes");
 
     public static final EntityModelLayer BIG_ACACIA_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/acacia"), "main");
     public static final EntityModelLayer BIG_BAMBOO_BOAT = new EntityModelLayer(NekomasFixed.id("big_boat/bamboo"), "main");

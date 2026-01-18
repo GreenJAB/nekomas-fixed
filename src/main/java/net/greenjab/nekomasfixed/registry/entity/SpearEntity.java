@@ -77,7 +77,9 @@ public class SpearEntity extends Entity {
 		if (this.getEntityWorld().isClient()) {
 			this.ticksLeft--;
 			if (this.ticksLeft == 20-5) {
-				List<LivingEntity> list = this.getEntityWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(-0.2, -0.2, -0.2));
+				Vec3d b = getDirection().getDoubleVector().multiply(getDirection().getDoubleVector()).multiply(0.4);
+				Box box = this.getBoundingBox().expand(b.x, b.y, b.z);
+				List<LivingEntity> list = this.getEntityWorld().getNonSpectatingEntities(LivingEntity.class, box);
 				if (!list.isEmpty()) {
 					this.getEntityWorld()
 							.playSoundClient(
@@ -104,8 +106,8 @@ public class SpearEntity extends Entity {
 			}
 		} else if (--this.warmup < 0) {
 			if (this.warmup == -5) {
-				Vec3d i = getDirection().getDoubleVector().multiply(getDirection().getDoubleVector()).multiply(0.4);
-				Box box = this.getBoundingBox().expand(i.x, i.y, i.z);
+				Vec3d b = getDirection().getDoubleVector().multiply(getDirection().getDoubleVector()).multiply(0.4);
+				Box box = this.getBoundingBox().expand(b.x, b.y, b.z);
 				for (LivingEntity livingEntity : this.getEntityWorld().getNonSpectatingEntities(LivingEntity.class, box)) {
 					this.damage(livingEntity);
 				}
