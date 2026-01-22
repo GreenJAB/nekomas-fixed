@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.item.SlingshotItem;
 import net.greenjab.nekomasfixed.registry.item.TargetDummyItem;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.minecraft.block.Block;
@@ -94,6 +95,9 @@ public class ItemRegistry {
             (block, settings) -> new VerticallyAttachableBlockItem(
             block, BlockRegistry.WALL_ENDERMAN_HEAD, Direction.DOWN, Waypoint.disableTracking(settings)
     ),new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
+
+    public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384).enchantable(1));
+
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);

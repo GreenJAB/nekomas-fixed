@@ -50,6 +50,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.TURTLE_BOOTS);
                         entries.add(ItemRegistry.TARGET_DUMMY);
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
+                        entries.add(ItemRegistry.SLINGSHOT);
                     }).build();
 
 
