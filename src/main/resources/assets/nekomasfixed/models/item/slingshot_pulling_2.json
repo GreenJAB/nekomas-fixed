@@ -1,5 +1,5 @@
 {
-  "parent": "nekomasfixed:item/slingshot",
+  "parent": "nekomasfixed:item/slingshot_pulling_0",
   "textures": {
     "layer0": "nekomasfixed:item/slingshot_pulling_2"
   }
