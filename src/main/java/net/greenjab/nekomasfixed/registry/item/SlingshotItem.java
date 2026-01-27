@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.server.world.ServerWorld;
@@ -43,7 +44,7 @@ public class SlingshotItem extends RangedWeaponItem {
                 } else {
                     List<ItemStack> list = load(stack, itemStack, playerEntity);
                     if (world instanceof ServerWorld serverWorld && !list.isEmpty()) {
-                        this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 3.0F*(2/3f), 1.0F, f == 1.0F, null);
+                        this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 3.0F*((itemStack.isOf(Items.AMETHYST_SHARD)||itemStack.isOf(Items.RESIN_CLUMP))?(1/2f):2/3f), 1.0F, f == 1.0F, null);
                     }
 
                     world.playSound(

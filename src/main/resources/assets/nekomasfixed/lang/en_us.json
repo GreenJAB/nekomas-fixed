@@ -62,5 +62,6 @@
   "item.nekomasfixed.turtle_boots": "Turtle Boots",
   "item.nekomasfixed.target_dummy": "Target Dummy",
   "entity.nekomasfixed.target_dummy": "Target Dummy",
-  "block.nekomasfixed.enderman_head": "Enderman Head"
+  "block.nekomasfixed.enderman_head": "Enderman Head",
+  "item.nekomasfixed.slingshot": "Slingshot"
 }

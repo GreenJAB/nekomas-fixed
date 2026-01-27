@@ -1,9 +1,8 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityStatuses;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -50,7 +49,16 @@ public class SlingshotProjectileEntity extends ThrownItemEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        entity.serverDamage(this.getDamageSources().thrown(this, this.getOwner()), 2f);
+        entity.serverDamage(this.getDamageSources().thrown(this, this.getOwner()), getDamage(this.getStack().getItem()));
+    }
+
+    private float getDamage(Item item) {
+        if (item==Items.COPPER_NUGGET)return 2;
+        if (item==Items.GOLD_NUGGET)return 3;
+        if (item==Items.IRON_NUGGET)return 4;
+        if (item==Items.AMETHYST_SHARD)return 3;
+        if (item==Items.RESIN_CLUMP)return 1;
+        return 2;
     }
 
     @Override
@@ -62,10 +70,20 @@ public class SlingshotProjectileEntity extends ThrownItemEntity {
                 Vec3d vec2 = new Vec3d(vec.x==0?1:-0.9,vec.y==0?1:-0.9,vec.z==0?1:-0.9);
                 this.setVelocity(this.getVelocity().multiply(vec2));
                 this.velocityDirty = true;
-                this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_PLACE, 1, 1);
+                this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, 1, 1);
             }
         } else {
             super.onCollision(hitResult);
+            if (this.getStack().isOf(Items.RESIN_CLUMP)) {
+                AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.getEntityWorld(), this.getX(), this.getY(), this.getZ());
+                areaEffectCloudEntity.setRadius(3.0F);
+                areaEffectCloudEntity.setRadiusOnUse(-0.5F);
+                areaEffectCloudEntity.setDuration(60);
+                areaEffectCloudEntity.setWaitTime(0);
+                areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / areaEffectCloudEntity.getDuration());
+                areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 0));
+                this.getEntityWorld().spawnEntity(areaEffectCloudEntity);
+            }
             if (!this.getEntityWorld().isClient()) {
                 this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
                 this.discard();
