@@ -74,6 +74,10 @@ public class EntityTypeRegistry {
             "spear", EntityType.Builder.create(SpearEntity::new, SpawnGroup.MISC)
                     .dropsNothing().dimensions(0.6f, 0.6F).eyeHeight(0.3F).maxTrackingRange(10));
 
+    public static final EntityType<WildFireEntity> WILD_FIRE = register(
+            "wild_fire", EntityType.Builder.create(WildFireEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(0.75F, 1.975F).maxTrackingRange(8).notAllowedInPeaceful()
+    );
+
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
         return register(keyOf(id), type);
@@ -88,5 +92,6 @@ public class EntityTypeRegistry {
     public static void registerEntityType() {
         System.out.println("register EntityType");
         FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummyEntity.createTargetDummyAttributes().build());
+        FabricDefaultAttributeRegistry.register(WILD_FIRE, WildFireEntity.createWildFireAttributes().build());
     }
 }

@@ -46,8 +46,8 @@ public class BigBoatEntityModel<S extends BigBoatEntityRenderState> extends Enti
 	public static void setPaddleAngles(float angle, int paddle, ModelPart modelPart, boolean active) {
 		if (!active) angle = 0;
 		modelPart.pitch = (float)Math.PI;
-		modelPart.roll = MathHelper.clampedLerp((float) (-Math.PI / 3), (float) (-Math.PI / 12), (MathHelper.sin(-angle) + 1.0F) / 2.0F);
-		modelPart.yaw = MathHelper.clampedLerp((float) (-Math.PI / 4), (float) (Math.PI / 4), (MathHelper.sin(-angle + 1.0F) + 1.0F) / 2.0F);
+		modelPart.roll = MathHelper.clampedLerp((MathHelper.sin(-angle) + 1.0F) / 2.0F, (float) (-Math.PI / 3), (float) (-Math.PI / 12));
+		modelPart.yaw = MathHelper.clampedLerp((MathHelper.sin(-angle + 1.0F) + 1.0F) / 2.0F, (float) (-Math.PI / 4), (float) (Math.PI / 4));
 		if (paddle == 1) {
 			modelPart.yaw = (float) Math.PI - modelPart.yaw;
 		} else {

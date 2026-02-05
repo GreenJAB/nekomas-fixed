@@ -51,6 +51,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.TARGET_DUMMY);
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
                         entries.add(ItemRegistry.SLINGSHOT);
+                        entries.add(ItemRegistry.WILD_FIRE_SPAWN_EGG);
                     }).build();
 
 

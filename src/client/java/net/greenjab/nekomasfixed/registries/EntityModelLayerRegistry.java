@@ -38,6 +38,8 @@ public class EntityModelLayerRegistry {
     public static final EntityModelLayer TARGET_DUMMY_BASE = new EntityModelLayer(NekomasFixed.id("target_dummy_base"), "main");
     public static final EquipmentModelData<EntityModelLayer> TARGET_DUMMY_EQUIPMENT = registerEquipment(NekomasFixed.id("target_dummy"));
 
+    public static final EntityModelLayer WILD_FIRE = new EntityModelLayer(NekomasFixed.id("wild_fire"), "main");
+
 
     private static EquipmentModelData<EntityModelLayer> registerEquipment(Identifier id) {
         return new EquipmentModelData<>(new EntityModelLayer(id, "helmet"), new EntityModelLayer(id, "chestplate"), new EntityModelLayer(id, "leggings"), new EntityModelLayer(id, "boots"));

@@ -7,6 +7,7 @@ import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterials;
@@ -75,7 +76,7 @@ public class ItemRegistry {
                     Text.of(""),
                     Text.of(""),
                     List.of(NekomasFixed.id("container/slot/boat")),
-                    List.of(NekomasFixed.id("container/slot/plank")),
+                    List.of(NekomasFixed.id("container/slot/planks")),
                     settings),new Item.Settings().rarity(Rarity.UNCOMMON)
     );
 
@@ -98,6 +99,7 @@ public class ItemRegistry {
 
     public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384));
 
+    public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);
@@ -137,6 +139,11 @@ public class ItemRegistry {
     }
     private static RegistryKey<Item> keyOf(RegistryKey<Block> blockKey) {
         return RegistryKey.of(RegistryKeys.ITEM, blockKey.getValue());
+    }
+    private static Item registerSpawnEgg(EntityType<?> type) {
+        return register(
+                RegistryKey.of(RegistryKeys.ITEM, EntityType.getId(type).withSuffixedPath("_spawn_egg")), SpawnEggItem::new, new Item.Settings().spawnEgg(type)
+        );
     }
 
     public static void registerItems() {

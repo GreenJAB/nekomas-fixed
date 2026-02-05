@@ -63,5 +63,7 @@
   "item.nekomasfixed.target_dummy": "Target Dummy",
   "entity.nekomasfixed.target_dummy": "Target Dummy",
   "block.nekomasfixed.enderman_head": "Enderman Head",
-  "item.nekomasfixed.slingshot": "Slingshot"
+  "item.nekomasfixed.slingshot": "Slingshot",
+  "item.nekomasfixed.wild_fire_spawn_egg": "Wild Fire Spawn Egg",
+  "entity.nekomasfixed.wild_fire": "Wild Fire"
 }

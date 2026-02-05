@@ -7,10 +7,7 @@ import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClockBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanEyesBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanHeadBlockModel;
-import net.greenjab.nekomasfixed.render.entity.model.BasePlateEntityModel;
-import net.greenjab.nekomasfixed.render.entity.model.BigBoatEntityModel;
-import net.greenjab.nekomasfixed.render.entity.model.HugeBoatEntityModel;
-import net.greenjab.nekomasfixed.render.entity.model.TargetDummyEntityModel;
+import net.greenjab.nekomasfixed.render.entity.model.*;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.*;
@@ -56,5 +53,7 @@ public class EntityModelsMixin {
         EquipmentModelData<TexturedModelData> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new Dilation(1.0F), new Dilation(0.5F));
         EntityModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.addTo(equipmentModelData6, builder);
         builder.put(EntityModelLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel.getTexturedModelData());
+
+        builder.put(EntityModelLayerRegistry.WILD_FIRE, WildFireEntityModel.getTexturedModelData());
     }
 }

@@ -27,8 +27,10 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -42,6 +44,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -117,12 +120,17 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 							dirx*=0.5f;
 							dirz*=0.5f;
 						}
-						entity.setVelocity(power * dirx, power, power * dirz);
-						entity.velocityDirty = true;
+
+						if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
+							serverPlayerEntity.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayerEntity.getId(), new Vec3d(power * dirx, power, power * dirz)));
+						} else {
+							entity.setVelocity(power * dirx, power, power * dirz);
+							entity.velocityDirty = true;
+						}
 					}
 				}
 			}
-			world.setBlockState(pos, state.with(POWERED, false).with(OPEN, isPowered), Block.NOTIFY_LISTENERS);
+			world.setBlockState(pos, state.with(POWERED, isPowered).with(OPEN, isPowered), Block.NOTIFY_LISTENERS);
 		}
 	}
 

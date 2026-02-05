@@ -43,5 +43,7 @@ public class EntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyEntityRenderer::new);
 
         EntityRendererFactories.register(EntityTypeRegistry.SPEAR, SpearEntityRenderer::new);
+
+        EntityRendererFactories.register(EntityTypeRegistry.WILD_FIRE, WildFireEntityRenderer::new);
     }
 }
