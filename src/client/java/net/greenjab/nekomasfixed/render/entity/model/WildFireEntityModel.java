@@ -15,10 +15,12 @@ public class WildFireEntityModel extends EntityModel<WildFireEntityRenderState> 
 	private final ModelPart[] rods;
 	private final ModelPart[] shields;
 	private final ModelPart head;
+	private final ModelPart pillar;
 
 	public WildFireEntityModel(ModelPart modelPart) {
 		super(modelPart);
 		this.head = modelPart.getChild(EntityModelPartNames.HEAD);
+		this.pillar = modelPart.getChild("pillar");
 		this.rods = new ModelPart[12];
 		this.shields = new ModelPart[4];
 		Arrays.setAll(this.rods, i -> modelPart.getChild(getRodName(i)));
@@ -40,7 +42,7 @@ public class WildFireEntityModel extends EntityModel<WildFireEntityRenderState> 
 		);
 
 		modelPartData.addChild(
-				EntityModelPartNames.BODY, ModelPartBuilder.create().uv(8, 32).cuboid(-2.0F, 3.0F, -2.0F, 4.0F, 18.0F, 4.0F), ModelTransform.NONE
+				"pillar", ModelPartBuilder.create().uv(8, 32).cuboid(-2.0F, 3.0F, -2.0F, 4.0F, 18.0F, 4.0F), ModelTransform.NONE
 		);
 
 
@@ -99,6 +101,7 @@ public class WildFireEntityModel extends EntityModel<WildFireEntityRenderState> 
 			if (ii>3) ii-=3;
 			this.shields[ii].visible = wildFireEntityRenderState.shields>i;
 		}
+		this.pillar.yaw = f;
 
 		this.head.yaw = wildFireEntityRenderState.relativeHeadYaw * (float) (Math.PI / 180.0);
 		this.head.pitch = wildFireEntityRenderState.pitch * (float) (Math.PI / 180.0);

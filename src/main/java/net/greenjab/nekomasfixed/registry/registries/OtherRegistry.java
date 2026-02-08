@@ -3,13 +3,19 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireAttackablesSensor;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireDebugData;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.other.ClamFeature;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.minecraft.component.ComponentType;
+import net.minecraft.entity.ai.brain.sensor.Sensor;
+import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
@@ -19,12 +25,14 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.debug.DebugSubscriptionType;
 import net.minecraft.world.gen.CountConfig;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 public class OtherRegistry {
@@ -80,5 +88,18 @@ public class OtherRegistry {
 
     private static SimpleParticleType registerParticle(String name, boolean alwaysShow) {
         return Registry.register(Registries.PARTICLE_TYPE, name, new SimpleParticleType(alwaysShow));
+    }
+
+
+    //sensor
+    public static final SensorType<WildFireAttackablesSensor> WILD_FIRE_ATTACK_ENTITY_SENSOR = registerSensor("wild_fire_attack_entity_sensor", WildFireAttackablesSensor::new);
+    private static <U extends Sensor<?>> SensorType<U> registerSensor(String id, Supplier<U> factory) {
+        return Registry.register(Registries.SENSOR_TYPE, NekomasFixed.id(id), new SensorType<>(factory));
+    }
+
+    //debug
+    public static final DebugSubscriptionType<WildFireDebugData> WILDFIRES = registerDebug("wild_fires", WildFireDebugData.PACKET_CODEC);
+    private static <T> DebugSubscriptionType<T> registerDebug(String id, PacketCodec<? super RegistryByteBuf, T> packetCodec) {
+        return Registry.register(Registries.DEBUG_SUBSCRIPTION, NekomasFixed.id(id), new DebugSubscriptionType<>(packetCodec));
     }
 }

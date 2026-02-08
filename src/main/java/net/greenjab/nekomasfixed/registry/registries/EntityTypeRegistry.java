@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.item.Item;
@@ -76,6 +77,24 @@ public class EntityTypeRegistry {
 
     public static final EntityType<WildFireEntity> WILD_FIRE = register(
             "wild_fire", EntityType.Builder.create(WildFireEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(0.75F, 1.975F).maxTrackingRange(8).notAllowedInPeaceful()
+    );
+
+    public static final EntityType<SlingshotProjectileEntity> SLINGSHOT_PROJECTILE = register(
+            "slingshot_projectile",
+            EntityType.Builder.<SlingshotProjectileEntity>create(SlingshotProjectileEntity::new, SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(0.25F, 0.25F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(10)
+    );
+
+    public static final EntityType<FireBombEntity> FIRE_BOMB = register(
+            "fire_bomb",
+            EntityType.Builder.create(FireBombEntity::new, SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(0.25F, 0.25F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(10)
     );
 
 

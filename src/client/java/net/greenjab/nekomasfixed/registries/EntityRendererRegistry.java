@@ -8,6 +8,7 @@ import net.greenjab.nekomasfixed.render.block.entity.EndermanHeadBlockEntityRend
 import net.greenjab.nekomasfixed.render.entity.*;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.EntityRendererFactories;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
 public class EntityRendererRegistry {
 
@@ -45,5 +46,8 @@ public class EntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.SPEAR, SpearEntityRenderer::new);
 
         EntityRendererFactories.register(EntityTypeRegistry.WILD_FIRE, WildFireEntityRenderer::new);
+
+        EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.FIRE_BOMB, FireBombEntityRenderer::new);
     }
 }

@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
-import net.greenjab.nekomasfixed.registry.entity.WildFireEntity;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.render.entity.model.WildFireEntityModel;
 import net.greenjab.nekomasfixed.render.entity.state.WildFireEntityRenderState;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -38,8 +38,8 @@ public class WildFireEntityRenderer extends MobEntityRenderer<WildFireEntity, Wi
 
 	public void updateRenderState(WildFireEntity wildFireEntity, WildFireEntityRenderState wildFireEntityRenderState, float f) {
 		super.updateRenderState(wildFireEntity, wildFireEntityRenderState, f);
-		wildFireEntityRenderState.soul = true;
-		wildFireEntityRenderState.shields = 4;
+		wildFireEntityRenderState.soul = wildFireEntity.isSoulActive();
+		wildFireEntityRenderState.shields = wildFireEntity.getShieldsActive();
 		wildFireEntityRenderState.shieldAngle = 1-(MathHelper.cos(Math.PI*MathHelper.clamp(wildFireEntity.clientFireTime +0.5f*(f/20f)*(wildFireEntity.isOnFire()?1:-1), 0, 1))+1)/2f;
 		wildFireEntityRenderState.shieldExtraSpin = wildFireEntity.clientExtraSpin+wildFireEntityRenderState.shieldAngle*4*f;
 	}

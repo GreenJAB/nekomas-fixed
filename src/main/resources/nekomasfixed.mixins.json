@@ -20,6 +20,7 @@
     "NoteBlockMixin",
     "PillagerEntityMixin",
     "PlayerEntityMixin",
+    "SmallFireballEntityMixin",
     "TradeOffersMixin",
     "WeightedPressurePlateBlockMixin",
     "boat.AbstractBoatEntityMixin",

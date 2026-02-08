@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
+import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -21,7 +22,11 @@ import net.minecraft.world.World;
 public class SlingshotProjectileEntity extends ThrownItemEntity {
 
     public SlingshotProjectileEntity(World world, LivingEntity owner, ItemStack stack) {
-        super(EntityType.SNOWBALL, owner, world, stack);
+        super(EntityTypeRegistry.SLINGSHOT_PROJECTILE, owner, world, stack);
+    }
+
+    public SlingshotProjectileEntity(EntityType<SlingshotProjectileEntity> entityType, World world) {
+        super(entityType, world);
     }
 
     @Override
