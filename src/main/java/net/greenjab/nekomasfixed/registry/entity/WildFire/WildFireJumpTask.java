@@ -60,6 +60,9 @@ public class WildFireJumpTask extends MultiTickTask<WildFireEntity> {
 	}
 
 	public static boolean shouldJump(ServerWorld world, WildFireEntity wildFire) {
+		if (true) {
+			return false;
+		}
 		if (!wildFire.isOnGround() && !wildFire.isTouchingWater()) {
 			return false;
 		} else if (StayAboveWaterTask.isUnderwater(wildFire)) {

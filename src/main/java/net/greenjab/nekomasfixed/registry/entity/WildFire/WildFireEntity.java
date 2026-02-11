@@ -27,7 +27,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.Optional;
 
 public class WildFireEntity extends HostileEntity {
-	//private float eyeOffset = 0.5F;
+	public float eyeOffset = 0.5F;
 	//private int eyeOffsetCooldown;
 	public float clientFireTime = 0;
 	public float clientExtraSpin = 0;
@@ -112,9 +112,9 @@ public class WildFireEntity extends HostileEntity {
 
 	@Override
 	public void tickMovement() {
-		/*if (!this.isOnGround() && this.getVelocity().y < 0.0) {
+		if (!this.isOnGround() && this.getVelocity().y < 0.0) {
 			this.setVelocity(this.getVelocity().multiply(1.0, 0.6, 1.0));
-		}*/
+		}
 
 		if (this.getEntityWorld().isClient()) {
 			if (this.random.nextInt(24) == 0 && !this.isSilent()) {
@@ -158,7 +158,7 @@ public class WildFireEntity extends HostileEntity {
 		if (this.eyeOffsetCooldown <= 0) {
 			this.eyeOffsetCooldown = 100;
 			this.eyeOffset = (float)this.random.nextTriangular(0.5, 6.891);
-		}
+		}*/
 
 		LivingEntity livingEntity = this.getTarget();
 		if (livingEntity != null && livingEntity.getEyeY() > this.getEyeY() + this.eyeOffset && this.canTarget(livingEntity)) {
@@ -166,12 +166,6 @@ public class WildFireEntity extends HostileEntity {
 			this.setVelocity(this.getVelocity().add(0.0, (0.3F - vec3d.y) * 0.3F, 0.0));
 			this.velocityDirty = true;
 		}
-
-		if (world.getTime()%20==0) {
-			setSoulActive(world.random.nextBoolean());
-			setShieldsActive(world.random.nextInt(5));
-		}
-	*/
 
 		if (world.getTime()%20==0) {
 			setSoulActive(this.getTargetInBrain()!=null);

@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.minecraft.entity.*;
+import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -90,7 +91,7 @@ public class EntityTypeRegistry {
 
     public static final EntityType<FireBombEntity> FIRE_BOMB = register(
             "fire_bomb",
-            EntityType.Builder.create(FireBombEntity::new, SpawnGroup.MISC)
+            EntityType.Builder.<FireBombEntity>create(FireBombEntity::new, SpawnGroup.MISC)
                     .dropsNothing()
                     .dimensions(0.25F, 0.25F)
                     .maxTrackingRange(4)

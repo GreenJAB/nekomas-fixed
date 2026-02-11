@@ -85,10 +85,12 @@ public class WildFireBrain {
 				Activity.FIGHT,
 				ImmutableList.of(
 						Pair.of(0, ForgetAttackTargetTask.create(Sensor.hasTargetBeenAttackableRecently(wildFire, 100).negate()::test)),
-						Pair.of(1, new WildFireShootTask()),
-						Pair.of(2, new WildFireJumpTask()),
-						Pair.of(3, new WildFireShootIfStuckTask()),
-						Pair.of(4, new WildFireSlideTowardsTargetTask())
+						//Pair.of(1, new WildFireShootTask()),
+						Pair.of(1, new WildFireBombTask()),
+						//Pair.of(3, new WildFireMeleeTask()),
+						//Pair.of(4, new WildFireJumpTask()),
+						//Pair.of(5, new WildFireShootIfStuckTask()),
+						Pair.of(2, new WildFireSlideTowardsTargetTask())
 				),
 				ImmutableSet.of(
 						Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)

@@ -102,6 +102,7 @@ public class WildFireEntityModel extends EntityModel<WildFireEntityRenderState> 
 			this.shields[ii].visible = wildFireEntityRenderState.shields>i;
 		}
 		this.pillar.yaw = f;
+		this.pillar.originY = MathHelper.cos((wildFireEntityRenderState.age) * 0.25F);
 
 		this.head.yaw = wildFireEntityRenderState.relativeHeadYaw * (float) (Math.PI / 180.0);
 		this.head.pitch = wildFireEntityRenderState.pitch * (float) (Math.PI / 180.0);
