@@ -106,7 +106,8 @@ public class SlingshotItem extends RangedWeaponItem {
         }
     }
 
-    public static final Predicate<ItemStack> SLINGSHOT_PROJECTILES = /* method_18817 */ stack -> stack.isIn(OtherRegistry.SLINGSHOT_PROJECTILES);
+    public static final Predicate<ItemStack> SLINGSHOT_PROJECTILES =
+            stack -> stack.isIn(OtherRegistry.SLINGSHOT_PROJECTILES);
 
     @Override
     public Predicate<ItemStack> getProjectiles() {

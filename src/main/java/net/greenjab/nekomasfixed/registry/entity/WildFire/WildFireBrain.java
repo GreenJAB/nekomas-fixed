@@ -49,7 +49,8 @@ public class WildFireBrain {
 			MemoryModuleType.BREEZE_LEAVING_WATER,
 			MemoryModuleType.HURT_BY,
 			MemoryModuleType.HURT_BY_ENTITY,
-			MemoryModuleType.PATH
+			MemoryModuleType.PATH,
+			MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS
 	);
 
 	protected static Brain<?> create(WildFireEntity wildFire, Brain<WildFireEntity> brain) {
@@ -71,9 +72,9 @@ public class WildFireBrain {
 				Activity.IDLE,
 				ImmutableList.of(
 						Pair.of(
-								0, UpdateAttackTargetTask.create(/* method_55749 */ (world, wildFire) -> wildFire.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE))
+								0, UpdateAttackTargetTask.create((world, wildFire) -> wildFire.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE))
 						),
-						Pair.of(1, UpdateAttackTargetTask.create(/* method_64470 */ (world, wildFire) -> wildFire.getHurtBy())),
+						Pair.of(1, UpdateAttackTargetTask.create((world, wildFire) -> wildFire.getHurtBy())),
 						Pair.of(2, new WildFireBrain.SlideAroundTask(20, 40)),
 						Pair.of(3, new RandomTask<>(ImmutableList.of(Pair.of(new WaitTask(20, 100), 1), Pair.of(StrollTask.create(0.6F), 2))))
 				)
@@ -84,13 +85,13 @@ public class WildFireBrain {
 		brain.setTaskList(
 				Activity.FIGHT,
 				ImmutableList.of(
-						Pair.of(0, ForgetAttackTargetTask.create(Sensor.hasTargetBeenAttackableRecently(wildFire, 100).negate()::test)),
-						//Pair.of(1, new WildFireShootTask()),
-						Pair.of(1, new WildFireBombTask()),
-						//Pair.of(3, new WildFireMeleeTask()),
-						//Pair.of(4, new WildFireJumpTask()),
+						Pair.of(0, ForgetAttackTargetTask.create(Sensor.hasTargetBeenAttackableRecently(wildFire, 1).negate()::test)),
+						Pair.of(1, new WildFireShootTask()),
+						Pair.of(2, new WildFireMeleeTask()),
+						Pair.of(3, new WildFireJumpTask()),
+						Pair.of(4, new WildFireBombTask()),
 						//Pair.of(5, new WildFireShootIfStuckTask()),
-						Pair.of(2, new WildFireSlideTowardsTargetTask())
+						Pair.of(5, new WildFireSlideTowardsTargetTask())
 				),
 				ImmutableSet.of(
 						Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)
@@ -112,13 +113,12 @@ public class WildFireBrain {
 		protected void run(ServerWorld serverWorld, MobEntity mobEntity, long l) {
 			super.run(serverWorld, mobEntity, l);
 			mobEntity.playSoundIfNotSilent(SoundEvents.ENTITY_BREEZE_SLIDE);
-			mobEntity.setPose(EntityPose.SLIDING);
+			mobEntity.setPose(EntityPose.STANDING);
 		}
 
 		@Override
 		protected void finishRunning(ServerWorld serverWorld, MobEntity mobEntity, long l) {
 			super.finishRunning(serverWorld, mobEntity, l);
-			mobEntity.setPose(EntityPose.STANDING);
 			if (mobEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET)) {
 				mobEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE, 60L);
 			}

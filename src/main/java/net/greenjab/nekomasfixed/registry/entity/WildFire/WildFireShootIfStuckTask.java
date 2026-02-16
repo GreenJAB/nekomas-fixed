@@ -5,7 +5,6 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Unit;
 
 import java.util.Map;
 
@@ -36,6 +35,6 @@ public class WildFireShootIfStuckTask extends MultiTickTask<WildFireEntity> {
 	}*/
 
 	protected void run(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE, 60L);
+		//wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE, 60L);
 	}
 }

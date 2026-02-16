@@ -24,6 +24,7 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.World;
 import net.minecraft.world.debug.DebugTrackable;
 import org.jspecify.annotations.Nullable;
+
 import java.util.Optional;
 
 public class WildFireEntity extends HostileEntity {
@@ -57,22 +58,10 @@ public class WildFireEntity extends HostileEntity {
 		return Brain.createProfile(WildFireBrain.MEMORY_MODULES, WildFireBrain.SENSORS);
 	}
 
-	/*@Override
-	protected void initGoals() {
-		this.goalSelector.add(4, new WildFireEntity.ShootFireballGoal(this));
-		//this.goalSelector.add(4, new WildFireEntity.MeleeAttackGoal(this));
-		this.goalSelector.add(5, new GoToWalkTargetGoal(this, 1.0));
-		this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0, 0.0F));
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.add(8, new LookAroundGoal(this));
-		this.targetSelector.add(1, new RevengeGoal(this).setGroupRevenge());
-		this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, true));
-	}*/
-
 	public static DefaultAttributeContainer.Builder createWildFireAttributes() {
 		return HostileEntity.createHostileAttributes()
 				.add(EntityAttributes.ATTACK_DAMAGE, 6.0)
-				.add(EntityAttributes.MOVEMENT_SPEED, 0.23F)
+				.add(EntityAttributes.MOVEMENT_SPEED, 0.5F)
 				.add(EntityAttributes.FOLLOW_RANGE, 48.0);
 	}
 
@@ -163,7 +152,7 @@ public class WildFireEntity extends HostileEntity {
 		LivingEntity livingEntity = this.getTarget();
 		if (livingEntity != null && livingEntity.getEyeY() > this.getEyeY() + this.eyeOffset && this.canTarget(livingEntity)) {
 			Vec3d vec3d = this.getVelocity();
-			this.setVelocity(this.getVelocity().add(0.0, (0.3F - vec3d.y) * 0.3F, 0.0));
+			this.setVelocity(this.getVelocity().add(0.0, (0.3F - vec3d.y) * 0.6F, 0.0));
 			this.velocityDirty = true;
 		}
 
@@ -175,8 +164,7 @@ public class WildFireEntity extends HostileEntity {
 		Profiler profiler = Profilers.get();
 		profiler.push("wildFireBrain");
 		this.getBrain().tick(world, this);
-		profiler.swap("wildFireActivityUpdate");
-		WildFireBrain.updateActivities(this);
+		profiler.swap("wildFireActivityUpdate");WildFireBrain.updateActivities(this);
 		profiler.pop();
 		super.mobTick(world);
 	}
@@ -247,215 +235,9 @@ public class WildFireEntity extends HostileEntity {
 		this.dataTracker.set(WILD_FIRE_FLAGS, b);
 	}
 
-	/*static class ShootFireballGoal extends Goal {
-		private final WildFireEntity wildFire;
-		private int fireballsFired;
-		private int fireballCooldown;
-		private int targetNotVisibleTicks;
-
-		public ShootFireballGoal(WildFireEntity wildFire) {
-			this.wildFire = wildFire;
-			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
-		}
-
-		@Override
-		public boolean canStart() {
-			LivingEntity livingEntity = this.wildFire.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && this.wildFire.canTarget(livingEntity);
-		}
-
-		@Override
-		public void start() {
-			this.fireballsFired = 0;
-		}
-
-		@Override
-		public void stop() {
-			this.wildFire.setFireActive(false);
-			this.targetNotVisibleTicks = 0;
-		}
-
-		@Override
-		public boolean shouldRunEveryTick() {
-			return true;
-		}
-
-		@Override
-		public void tick() {
-			this.fireballCooldown--;
-			LivingEntity livingEntity = this.wildFire.getTarget();
-			if (livingEntity != null) {
-				boolean bl = this.wildFire.getVisibilityCache().canSee(livingEntity);
-				if (bl) {
-					this.targetNotVisibleTicks = 0;
-				} else {
-					this.targetNotVisibleTicks++;
-				}
-
-				double d = this.wildFire.squaredDistanceTo(livingEntity);
-				if (d < 4.0) {
-					if (!bl) {
-						return;
-					}
-
-					if (this.fireballCooldown <= 0) {
-						this.fireballCooldown = 20;
-						this.wildFire.tryAttack(getServerWorld(this.wildFire), livingEntity);
-					}
-
-					this.wildFire.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
-				} else if (d < this.getFollowRange() * this.getFollowRange() && bl) {
-					double e = livingEntity.getX() - this.wildFire.getX();
-					double f = livingEntity.getBodyY(0.5) - this.wildFire.getBodyY(0.5);
-					double g = livingEntity.getZ() - this.wildFire.getZ();
-					if (this.fireballCooldown <= 0) {
-						this.fireballsFired++;
-						if (this.fireballsFired == 1) {
-							this.fireballCooldown = 60;
-							this.wildFire.setFireActive(true);
-						} else if (this.fireballsFired <= 9) {
-							this.fireballCooldown = 4;
-						} else {
-							this.fireballCooldown = 100;
-							this.fireballsFired = 0;
-							this.wildFire.setFireActive(false);
-						}
-
-						if (this.fireballsFired > 1) {
-							double h = Math.sqrt(Math.sqrt(d)) * 0.5;
-							if (!this.wildFire.isSilent()) {
-								this.wildFire.getEntityWorld().syncWorldEvent(null, WorldEvents.BLAZE_SHOOTS, this.wildFire.getBlockPos(), 0);
-							}
-
-							for (int i = 0; i < 1; i++) {
-								Vec3d vec3d = new Vec3d(this.wildFire.getRandom().nextTriangular(e, 1 * h), f, this.wildFire.getRandom().nextTriangular(g, 1 * h));
-								SmallFireballEntity smallFireballEntity = new SmallFireballEntity(this.wildFire.getEntityWorld(), this.wildFire, vec3d.normalize());
-								smallFireballEntity.setPosition(smallFireballEntity.getX(), this.wildFire.getBodyY(0.5) + 0.5, smallFireballEntity.getZ());
-								this.wildFire.getEntityWorld().spawnEntity(smallFireballEntity);
-							}
-						}
-					}
-
-					this.wildFire.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
-				} else if (this.targetNotVisibleTicks < 5) {
-					this.wildFire.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
-				}
-
-				super.tick();
-			}
-		}
-
-		private double getFollowRange() {
-			return this.wildFire.getAttributeValue(EntityAttributes.FOLLOW_RANGE);
-		}
+	@Override
+	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+		if(this == source.getAttacker())return false;
+		return super.damage(world,source,amount);
 	}
-
-	static class MeleeAttackGoal extends Goal {
-		private final WildFireEntity wildFire;
-		private int attackTime;
-		private int targetNotVisibleTicks;
-
-		public MeleeAttackGoal(WildFireEntity wildFire) {
-			this.wildFire = wildFire;
-			this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
-		}
-
-		@Override
-		public boolean canStart() {
-			LivingEntity livingEntity = this.wildFire.getTarget();
-			return livingEntity != null && livingEntity.isAlive() && this.wildFire.canTarget(livingEntity);
-		}
-
-		@Override
-		public void start() {
-			this.attackTime = 0;
-			this.wildFire.setFireActive(true);
-		}
-
-		@Override
-		public void stop() {
-			this.wildFire.setFireActive(false);
-			this.targetNotVisibleTicks = 0;
-		}
-
-		@Override
-		public boolean shouldRunEveryTick() {
-			return true;
-		}
-
-		@Override
-		public void tick() {
-			this.attackTime++;
-			this.wildFire.eyeOffset = 0;
-			if (attackTime>200){
-				this.stop();
-				return;
-			}
-			LivingEntity livingEntity = this.wildFire.getTarget();
-			if (livingEntity != null) {
-				boolean bl = this.wildFire.getVisibilityCache().canSee(livingEntity);
-				if (bl) {
-					this.targetNotVisibleTicks = 0;
-				} else {
-					this.targetNotVisibleTicks++;
-				}
-
-				double d = this.wildFire.squaredDistanceTo(livingEntity);
-				if (d < 4.0) {
-					if (!bl) {
-						return;
-					}
-
-					/*if (this.fireballCooldown <= 0) {
-						this.fireballCooldown = 20;
-						this.wildFire.tryAttack(getServerWorld(this.wildFire), livingEntity);
-					}* /
-
-					this.wildFire.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
-				} else if (d < this.getFollowRange() * this.getFollowRange() && bl) {
-					/*double e = livingEntity.getX() - this.wildFire.getX();
-					double f = livingEntity.getBodyY(0.5) - this.wildFire.getBodyY(0.5);
-					double g = livingEntity.getZ() - this.wildFire.getZ();
-					if (this.fireballCooldown <= 0) {
-						this.fireballsFired++;
-						if (this.fireballsFired == 1) {
-							this.fireballCooldown = 60;
-							this.wildFire.setFireActive(true);
-						} else if (this.fireballsFired <= 9) {
-							this.fireballCooldown = 4;
-						} else {
-							this.fireballCooldown = 100;
-							this.fireballsFired = 0;
-							this.wildFire.setFireActive(false);
-						}
-
-						if (this.fireballsFired > 1) {
-							double h = Math.sqrt(Math.sqrt(d)) * 0.5;
-							if (!this.wildFire.isSilent()) {
-								this.wildFire.getEntityWorld().syncWorldEvent(null, WorldEvents.BLAZE_SHOOTS, this.wildFire.getBlockPos(), 0);
-							}
-
-							for (int i = 0; i < 1; i++) {
-								Vec3d vec3d = new Vec3d(this.wildFire.getRandom().nextTriangular(e, 1 * h), f, this.wildFire.getRandom().nextTriangular(g, 1 * h));
-								SmallFireballEntity smallFireballEntity = new SmallFireballEntity(this.wildFire.getEntityWorld(), this.wildFire, vec3d.normalize());
-								smallFireballEntity.setPosition(smallFireballEntity.getX(), this.wildFire.getBodyY(0.5) + 0.5, smallFireballEntity.getZ());
-								this.wildFire.getEntityWorld().spawnEntity(smallFireballEntity);
-							}
-						}
-					}
-					* /
-					this.wildFire.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
-					this.wildFire.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.5);
-				} else if (this.targetNotVisibleTicks < 5) {
-					this.wildFire.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
-				}
-
-				super.tick();
-			}
-		}
-
-		private double getFollowRange() {
-			return this.wildFire.getAttributeValue(EntityAttributes.FOLLOW_RANGE);
-		}
-	}*/
 }

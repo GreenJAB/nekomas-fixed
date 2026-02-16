@@ -1,16 +1,13 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -31,6 +28,7 @@ public class FireBombEntity extends ProjectileEntity {
 
     public FireBombEntity(World world, LivingEntity owner) {
         this(EntityTypeRegistry.FIRE_BOMB, world);
+        this.setOwner(owner);
         this.refreshPositionAndAngles(owner.getX(), owner.getY(), owner.getZ(), this.getYaw(), this.getPitch());
         this.refreshPosition();
     }
@@ -71,11 +69,13 @@ public class FireBombEntity extends ProjectileEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if (!this.getEntityWorld().isClient()) {
-            this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, entity.getX(), entity.getY()+1, entity.getZ(), 1, true, World.ExplosionSourceType.MOB);
-            this.discard();
+        if (!(entity instanceof WildFireEntity)) {
+            super.onEntityHit(entityHitResult);
+            if (!this.getEntityWorld().isClient()) {
+                //this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, entity.getX(), entity.getY() + 1, entity.getZ(), 1, true, World.ExplosionSourceType.MOB);
+                this.discard();
+            }
         }
     }
 
@@ -83,7 +83,7 @@ public class FireBombEntity extends ProjectileEntity {
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if (!this.getEntityWorld().isClient()) {
-            this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, this.getX(), this.getY(), this.getZ(), 1, true, World.ExplosionSourceType.MOB);
+            //this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, this.getX(), this.getY(), this.getZ(), 1, true, World.ExplosionSourceType.MOB);
             this.discard();
         }
     }

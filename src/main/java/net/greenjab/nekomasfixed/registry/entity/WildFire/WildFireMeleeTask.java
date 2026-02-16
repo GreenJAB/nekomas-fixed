@@ -12,46 +12,36 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.WalkTarget;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
 public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 	private static final int MELEE_CHARGING_EXPIRY = Math.round(20.0F);
 	private static final int MELEE_EXPIRY = Math.round(160.0F);
-	private static final int SHOOT_COOLDOWN_EXPIRY = Math.round(3.0F);
+	private static final int MELEE_HIT_COOLDOWN_EXPIRY = Math.round(3.0F);
 
 	@VisibleForTesting
 	public WildFireMeleeTask() {
 		super(
 			ImmutableMap.of(
-				MemoryModuleType.ATTACK_TARGET,
-				MemoryModuleState.VALUE_PRESENT,
-				MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
-				MemoryModuleState.VALUE_ABSENT,
-				MemoryModuleType.BREEZE_SHOOT_CHARGING,
-				MemoryModuleState.VALUE_ABSENT,
-				MemoryModuleType.BREEZE_SHOOT_RECOVER,
-				MemoryModuleState.VALUE_ABSENT,
-				MemoryModuleType.BREEZE_SHOOT,
-				MemoryModuleState.VALUE_PRESENT,
-				MemoryModuleType.WALK_TARGET,
-				MemoryModuleState.VALUE_ABSENT,
-				MemoryModuleType.BREEZE_JUMP_TARGET,
-				MemoryModuleState.VALUE_ABSENT
+					MemoryModuleType.ATTACK_TARGET,
+					MemoryModuleState.VALUE_PRESENT,
+					MemoryModuleType.WALK_TARGET,
+					MemoryModuleState.VALUE_ABSENT,
+					MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
+					MemoryModuleState.VALUE_ABSENT
 			),
 				MELEE_CHARGING_EXPIRY + MELEE_EXPIRY
 		);
 	}
 
 	protected boolean shouldRun(ServerWorld serverWorld, WildFireEntity wildFireEntity) {
-		if (true) return false;
-		return wildFireEntity.getPose() == EntityPose.STANDING && wildFireEntity.getBrain()
+		if (wildFireEntity.getPose() != EntityPose.SPIN_ATTACK) return false;
+		return wildFireEntity.getBrain()
                 .getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET)
                 .map(target -> isTargetWithinRange(wildFireEntity, target))
                 .map(withinRange -> {
@@ -69,19 +59,15 @@ public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 	}
 
 	protected void run(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		wildFireEntity.getBrain()
-			.getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET)
-			.ifPresent( target -> wildFireEntity.setPose(EntityPose.SHOOTING));
+		wildFireEntity.setPose(EntityPose.STANDING);
 		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_CHARGING, Unit.INSTANCE, MELEE_CHARGING_EXPIRY);
+		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE,MELEE_CHARGING_EXPIRY + MELEE_EXPIRY);
 		wildFireEntity.playSound(SoundEvents.ENTITY_BREEZE_INHALE, 1.0F, 1.0F);
 		wildFireEntity.setFireActive(true);
 	}
 
 	protected void finishRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		if (wildFireEntity.getPose() == EntityPose.SHOOTING) {
-			wildFireEntity.setPose(EntityPose.STANDING);
-		}
-		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, SHOOT_COOLDOWN_EXPIRY);
+		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 60L);
 		wildFireEntity.getBrain().forget(MemoryModuleType.BREEZE_SHOOT);
 		wildFireEntity.setFireActive(false);
 	}
@@ -93,9 +79,9 @@ public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 			wildFireEntity.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, livingEntity.getEntityPos());
 			if (brain.getOptionalRegisteredMemory(MemoryModuleType.BREEZE_SHOOT_CHARGING).isEmpty()
 				&& brain.getOptionalRegisteredMemory(MemoryModuleType.BREEZE_SHOOT_RECOVER).isEmpty()) {
-				brain.remember(MemoryModuleType.BREEZE_SHOOT_RECOVER, Unit.INSTANCE, SHOOT_COOLDOWN_EXPIRY);
+				brain.remember(MemoryModuleType.BREEZE_SHOOT_RECOVER, Unit.INSTANCE, MELEE_HIT_COOLDOWN_EXPIRY);
 
-				List<LivingEntity> list = serverWorld.getEntitiesByClass(LivingEntity.class, wildFireEntity.getBoundingBox().expand(1, 0, 1), e -> e != wildFireEntity && e.isAlive());
+				List<LivingEntity> list = serverWorld.getEntitiesByClass(LivingEntity.class, wildFireEntity.getBoundingBox().expand(1.5, 0, 1.5), e -> e != wildFireEntity && e.isAlive());
 				for (LivingEntity entity : list) {
 					double f = entity.getX() - wildFireEntity.getX();
 					double g = entity.getZ() - wildFireEntity.getZ();

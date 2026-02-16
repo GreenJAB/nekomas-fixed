@@ -25,11 +25,11 @@ public class WildFireAttackablesSensor extends NearestLivingEntitiesSensor<WildF
 			.stream()
 			.flatMap(Collection::stream)
 			.filter(EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR)
-			.filter(/* method_54996 */ target -> Sensor.testAttackableTargetPredicate(serverWorld, wildFireEntity, target))
+			.filter(target -> Sensor.testAttackableTargetPredicate(serverWorld, wildFireEntity, target))
 			.findFirst()
 			.ifPresentOrElse(
-				/* method_54995 */ target -> wildFireEntity.getBrain().remember(MemoryModuleType.NEAREST_ATTACKABLE, target),
-				/* method_54994 */ () -> wildFireEntity.getBrain().forget(MemoryModuleType.NEAREST_ATTACKABLE)
+				target -> wildFireEntity.getBrain().remember(MemoryModuleType.NEAREST_ATTACKABLE, target),
+				() -> wildFireEntity.getBrain().forget(MemoryModuleType.NEAREST_ATTACKABLE)
 			);
 	}
 }

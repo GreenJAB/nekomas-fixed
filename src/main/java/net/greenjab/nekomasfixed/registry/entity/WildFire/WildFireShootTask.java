@@ -24,28 +24,20 @@ public class WildFireShootTask extends MultiTickTask<WildFireEntity> {
 	public WildFireShootTask() {
 		super(
 			ImmutableMap.of(
-				MemoryModuleType.ATTACK_TARGET,
-				MemoryModuleState.VALUE_PRESENT,
-				MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
-				MemoryModuleState.VALUE_ABSENT,
-				MemoryModuleType.BREEZE_SHOOT_CHARGING,
-				MemoryModuleState.VALUE_ABSENT,
-				MemoryModuleType.BREEZE_SHOOT_RECOVER,
-				MemoryModuleState.VALUE_ABSENT,
-				MemoryModuleType.BREEZE_SHOOT,
-				MemoryModuleState.VALUE_PRESENT,
-				MemoryModuleType.WALK_TARGET,
-				MemoryModuleState.VALUE_ABSENT,
-				MemoryModuleType.BREEZE_JUMP_TARGET,
-				MemoryModuleState.VALUE_ABSENT
+					MemoryModuleType.ATTACK_TARGET,
+					MemoryModuleState.VALUE_PRESENT,
+					MemoryModuleType.WALK_TARGET,
+					MemoryModuleState.VALUE_ABSENT,
+					MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
+					MemoryModuleState.VALUE_ABSENT
 			),
 			SHOOT_CHARGING_EXPIRY + RECOVER_EXPIRY
 		);
 	}
 
 	protected boolean shouldRun(ServerWorld serverWorld, WildFireEntity wildFireEntity) {
-		if (true) return false;
-		return wildFireEntity.getPose() == EntityPose.STANDING && wildFireEntity.getBrain()
+		if (wildFireEntity.getPose() != EntityPose.SHOOTING) return false;
+		return wildFireEntity.getBrain()
                 .getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET)
                 .map(target -> isTargetWithinRange(wildFireEntity, target))
                 .map(withinRange -> {
@@ -59,24 +51,20 @@ public class WildFireShootTask extends MultiTickTask<WildFireEntity> {
 	}
 
 	protected boolean shouldKeepRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		return wildFireEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET) && wildFireEntity.getBrain().hasMemoryModule(MemoryModuleType.BREEZE_SHOOT);
+		return wildFireEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET); //&& wildFireEntity.getBrain().hasMemoryModule(MemoryModuleType.BREEZE_SHOOT);
 	}
 
 	protected void run(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		wildFireEntity.getBrain()
-			.getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET)
-			.ifPresent( target -> wildFireEntity.setPose(EntityPose.SHOOTING));
+		wildFireEntity.setPose(EntityPose.STANDING);
 		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_CHARGING, Unit.INSTANCE, SHOOT_CHARGING_EXPIRY);
+		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE,SHOOT_CHARGING_EXPIRY + RECOVER_EXPIRY);
 		wildFireEntity.playSound(SoundEvents.ENTITY_BREEZE_INHALE, 1.0F, 1.0F);
 		wildFireEntity.setFireActive(true);
 		wildFireEntity.eyeOffset = -6;
 	}
 
 	protected void finishRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		if (wildFireEntity.getPose() == EntityPose.SHOOTING) {
-			wildFireEntity.setPose(EntityPose.STANDING);
-		}
-		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, SHOOT_COOLDOWN_EXPIRY);
+		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 60L);
 		wildFireEntity.getBrain().forget(MemoryModuleType.BREEZE_SHOOT);
 		wildFireEntity.setFireActive(false);
 		wildFireEntity.eyeOffset = 0.5f;
