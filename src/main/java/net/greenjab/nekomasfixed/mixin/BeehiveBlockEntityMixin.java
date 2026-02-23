@@ -31,10 +31,10 @@ public class BeehiveBlockEntityMixin {
         if (beeState != BeehiveBlockEntity.BeeState.HONEY_DELIVERED) return;
         BlockPos belowPos = pos.down(2);
         BlockState belowState = world.getBlockState(belowPos);
-        if (belowState.getBlock() == BlockRegistry.HONEY_CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5) {
+        if (belowState.getBlock() == BlockRegistry.HONEY_CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5 && world.getBlockState(pos.up(1)).isOf(Blocks.AIR)) {
             HoneyCauldronUtil.incrementHoneyLevel(world, belowPos, belowState);
         }
-        else if (belowState.getBlock() == Blocks.CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5) {
+        else if (belowState.getBlock() == Blocks.CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5 && world.getBlockState(pos.up(1)).isOf(Blocks.AIR)) {
             world.setBlockState(belowPos, BlockRegistry.HONEY_CAULDRON.getDefaultState()
                     .with(HoneyCauldronBlock.HONEY_LEVEL, 1));
             world.playSound(null, belowPos, SoundEvents.BLOCK_BEEHIVE_DRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
