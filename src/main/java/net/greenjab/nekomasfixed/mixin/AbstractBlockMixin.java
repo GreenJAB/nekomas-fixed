@@ -43,11 +43,7 @@ public class AbstractBlockMixin {
                 System.out.println("WORKING");
 
             } else {
-                world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState()
-                        .with(LeveledCauldronBlock.LEVEL, 3));
-                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
-                System.out.println("Np not working buddy");
+
             }
         }
 
