@@ -26,7 +26,7 @@ public class CauldronMixin {
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos,
                                PlayerEntity player, Hand hand, BlockHitResult hit,
                                CallbackInfoReturnable<ActionResult> cir) {
-        if(stack.getItem() == null){
+        if(stack.isEmpty()){
             System.out.println("Hand is empty");
         }
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
