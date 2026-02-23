@@ -30,6 +30,7 @@ public class CauldronMixin {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
             if(level == HoneyCauldronBlock.MAX_LEVEL){
                 player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BLOCK, 1));
+                world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
             }
         }
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
