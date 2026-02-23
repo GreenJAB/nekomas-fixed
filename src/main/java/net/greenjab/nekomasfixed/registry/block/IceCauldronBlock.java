@@ -4,8 +4,8 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
@@ -20,17 +20,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 
 public class IceCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<IceCauldronBlock> CODEC = createCodec(IceCauldronBlock::new);
 
-    public static final IntProperty ICE_LEVEL = IntProperty.of("ice_level", 1, 1);
-    public static final int MAX_LEVEL = 1;
+    // For ice cauldron, level 1 = has ice, level 0 = no ice (empty)
+    public static final IntProperty ICE_LEVEL = IntProperty.of("ice_level", 0, 1);
+    public static final int HAS_ICE = 1;
+    public static final int NO_ICE = 0;
 
     public IceCauldronBlock(Settings settings) {
         super(settings, createBehaviorMap());
         this.setDefaultState(this.stateManager.getDefaultState()
-                .with(ICE_LEVEL, MAX_LEVEL));
+                .with(ICE_LEVEL, HAS_ICE));
     }
 
     @Override
@@ -46,9 +49,9 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
     private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
         var behaviorMap = CauldronBehavior.createMap("ice");
         var map = behaviorMap.map();
+
         return behaviorMap;
     }
-
 
     @Override
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
@@ -57,37 +60,45 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
                     Identifier.of("c", "climate/cold"));
             boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
 
-            if (isCold) {
-                world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState()
-                        .with(IceCauldronBlock.ICE_LEVEL, 1));
-                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+            // Get water cauldron state below (if any)
+            BlockPos belowPos = pos.down(1);
+            BlockState belowState = world.getBlockState(belowPos);
 
+            if (isCold) {
+                // In cold biome - stay as ice
+                System.out.println("Ice cauldron at " + pos + " staying frozen");
+
+                // Optional: If there's a water cauldron below, freeze it too?
+                if (belowState.getBlock() == Blocks.WATER_CAULDRON) {
+                    world.setBlockState(belowPos, BlockRegistry.ICE_CAULDRON.getDefaultState()
+                            .with(ICE_LEVEL, HAS_ICE));
+                }
             } else {
+                // Not cold - melt to water
                 world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState()
                         .with(LeveledCauldronBlock.LEVEL, 3));
                 world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
                         SoundCategory.BLOCKS, 1.0F, 1.0F);
-System.out.println("Np not working buddy");
+                System.out.println("Ice cauldron melted to water at " + pos);
             }
         }
-        world.scheduleBlockTick(pos, this, 100); // Check every 100 seconds
+        world.scheduleBlockTick(pos, this, 200); // Check every 10 seconds
     }
 
     @Override
     protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         if (!world.isClient()) {
-            world.scheduleBlockTick(pos, this, 2000);
+            world.scheduleBlockTick(pos, this, 200);
         }
     }
 
     @Override
     protected double getFluidHeight(BlockState state) {
-        return (4.0 + state.get(ICE_LEVEL) * 3.0) / 16.0;
+        return state.get(ICE_LEVEL) == HAS_ICE ? 0.9375 : 0.0; // Full height if ice present
     }
 
     @Override
     public boolean isFull(BlockState state) {
-        return state.get(ICE_LEVEL) == MAX_LEVEL;
+        return state.get(ICE_LEVEL) == HAS_ICE;
     }
 }
