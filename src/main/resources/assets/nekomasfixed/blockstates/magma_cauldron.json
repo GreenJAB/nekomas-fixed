@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "cauldron_level=1": {
+      "model": "nekomasfixed:block/magma_cauldron_level1"
+    },
+    "cauldron_level=2": {
+      "model": "nekomasfixed:block/magma_cauldron_level2"
+    },
+    "cauldron_level=3": {
+      "model": "nekomasfixed:block/magma_cauldron_level3"
+    },
+    "cauldron_level=4": {
+      "model": "nekomasfixed:block/magma_cauldron_full"
+    }
+  }
+}

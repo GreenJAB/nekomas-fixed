@@ -133,6 +133,12 @@ public class BlockRegistry {
             HoneyCauldronBlock::new,
             AbstractBlock.Settings.copy(Blocks.CAULDRON)
     );
+
+    public static final Block MAGMA_CAULDRON = register(
+            "magma_cauldron",
+            MagmaCauldronBlock::new,
+            AbstractBlock.Settings.copy(Blocks.CAULDRON)
+    );
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
     }

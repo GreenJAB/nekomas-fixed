@@ -19,7 +19,7 @@ public class HoneyCauldronUtil {
 
         world.setBlockState(pos, state.with(HoneyCauldronBlock.HONEY_LEVEL, currentLevel + 1));
         world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        System.out.println("Honey cauldron incremented to level " + (currentLevel + 1));
+
 
         return true;
     }

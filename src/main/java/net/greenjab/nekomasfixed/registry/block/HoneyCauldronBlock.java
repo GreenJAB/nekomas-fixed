@@ -122,14 +122,14 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
         }
 
         // Reschedule for next tick
-        world.scheduleBlockTick(pos, this, 20);
+        world.scheduleBlockTick(pos, this, 2000);
 
     }
 
     @Override
     protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         if (!world.isClient()) {
-            world.scheduleBlockTick(pos, this, 20);
+            world.scheduleBlockTick(pos, this, 2000);
         }
     }
 

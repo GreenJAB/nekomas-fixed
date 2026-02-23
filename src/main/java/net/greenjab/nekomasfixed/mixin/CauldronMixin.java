@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.MagmaCauldronBlock;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -20,10 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractCauldronBlock.class)
 public class CauldronMixin {
-
-
-
-
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos,
                                PlayerEntity player, Hand hand, BlockHitResult hit,
@@ -35,6 +32,18 @@ public class CauldronMixin {
                     player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BLOCK, 1));
                     world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
                     world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+        }
+        if(stack.isEmpty() && state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
+            int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
+            if(level == MagmaCauldronBlock.MAX_LEVEL) {
+                if (!world.isClient()) {
+                    player.getInventory().offerOrDrop(new ItemStack(Items.MAGMA_BLOCK, 1));
+                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
+                    world.playSound(null, pos, SoundEvents.ENTITY_MAGMA_CUBE_SQUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
