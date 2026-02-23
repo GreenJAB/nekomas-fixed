@@ -1,13 +1,17 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.IceCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BeehiveBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,6 +28,26 @@ public class AbstractBlockMixin {
         int honeyLevel = 0;
         if(aboveState.isOf(Blocks.BEEHIVE) || aboveState.isOf(Blocks.BEE_NEST)){
             honeyLevel= aboveState.get(BeehiveBlock.HONEY_LEVEL);
+        }
+
+        if (!world.isClient()) {
+            TagKey<Biome> COLD_BIOMES = TagKey.of(RegistryKeys.BIOME,
+                    Identifier.of("c", "climate/cold"));
+            boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
+
+            if (isCold && state.isOf(Blocks.WATER_CAULDRON) && LeveledCauldronBlock.LEVEL.equals(LeveledCauldronBlock.MAX_LEVEL)) {
+                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState()
+                        .with(IceCauldronBlock.ICE_LEVEL, 1));
+                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
+                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+            } else {
+                world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState()
+                        .with(LeveledCauldronBlock.LEVEL, 3));
+                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
+                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+                System.out.println("Np not working buddy");
+            }
         }
 
         if (state.getBlock() == Blocks.CAULDRON) {

@@ -145,6 +145,12 @@ public class BlockRegistry {
             SlimeCauldronBlock::new,
             AbstractBlock.Settings.copy(Blocks.CAULDRON)
     );
+
+    public static final Block ICE_CAULDRON = register(
+            "ice_cauldron",
+            IceCauldronBlock::new,
+            AbstractBlock.Settings.copy(Blocks.CAULDRON)
+    );
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
     }

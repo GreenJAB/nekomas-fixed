@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "ice_level=1": {
+      "model": "nekomasfixed:block/ice_cauldron_full"
+    }
+  }
+}
