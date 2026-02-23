@@ -5,6 +5,8 @@ import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -26,11 +28,16 @@ public class CauldronMixin {
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos,
                                PlayerEntity player, Hand hand, BlockHitResult hit,
                                CallbackInfoReturnable<ActionResult> cir) {
-        if(stack.isEmpty()){
+        if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
-            if(level == HoneyCauldronBlock.MAX_LEVEL){
-                player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BLOCK, 1));
-                world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
+            if(level == HoneyCauldronBlock.MAX_LEVEL) {
+                if (!world.isClient()) {
+                    player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BLOCK, 1));
+                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
+                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
             }
         }
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
