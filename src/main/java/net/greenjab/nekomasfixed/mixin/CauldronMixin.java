@@ -21,10 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractCauldronBlock.class)
 public class CauldronMixin {
+
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos,
                                PlayerEntity player, Hand hand, BlockHitResult hit,
                                CallbackInfoReturnable<ActionResult> cir) {
+
+        // Empty hand harvest for honey cauldron
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
             if(level == HoneyCauldronBlock.MAX_LEVEL) {
@@ -37,6 +40,8 @@ public class CauldronMixin {
                 return;
             }
         }
+
+        // Empty hand harvest for magma cauldron
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
             if(level == MagmaCauldronBlock.MAX_LEVEL) {
@@ -49,6 +54,8 @@ public class CauldronMixin {
                 return;
             }
         }
+
+        // Honey bottle on empty cauldron
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.HONEY_CAULDRON.getDefaultState()
@@ -60,9 +67,25 @@ public class CauldronMixin {
             return;
         }
 
+        if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
+            int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
+
+
+            if (stack.getItem() == Items.MAGMA_CREAM && level < MagmaCauldronBlock.MAX_LEVEL) {
+                if (!world.isClient()) {
+                    world.setBlockState(pos, state.with(MagmaCauldronBlock.MAGMA_LEVEL, level + 1));
+                    stack.decrement(1);
+                }
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+        }
+
+        // Honey cauldron interactions
         if (state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
 
+            // Glass bottle takes honey
             if (stack.getItem() == Items.GLASS_BOTTLE) {
                 if (!world.isClient()) {
                     player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BOTTLE));
@@ -78,8 +101,8 @@ public class CauldronMixin {
                 return;
             }
 
-
-            if (stack.getItem() == Items.HONEY_BOTTLE && level < 4) {
+            // Honey bottle adds honey
+            if (stack.getItem() == Items.HONEY_BOTTLE && level < HoneyCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
                     world.setBlockState(pos, state.with(HoneyCauldronBlock.HONEY_LEVEL, level + 1));
                     stack.decrement(1);
