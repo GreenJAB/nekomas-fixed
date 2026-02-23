@@ -29,7 +29,6 @@ public class CauldronMixin {
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         System.out.println(stack);
 
-        // Handle magma cream on EMPTY cauldron (convert to magma cauldron)
         if (stack.getItem() == Items.MAGMA_CREAM && state.getBlock() == Blocks.CAULDRON) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.MAGMA_CAULDRON.getDefaultState()
@@ -42,11 +41,9 @@ public class CauldronMixin {
             return;
         }
 
-        // Handle magma cream on EXISTING magma cauldron
         if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
 
-            // Magma cream adds to cauldron
             if (stack.getItem() == Items.MAGMA_CREAM && level < MagmaCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
                     world.setBlockState(pos, state.with(MagmaCauldronBlock.MAGMA_LEVEL, level + 1));
@@ -60,7 +57,6 @@ public class CauldronMixin {
         }
 
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
-            System.out.println("🎯 MIXIN: Magma cauldron interaction");
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
             if(level == MagmaCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
@@ -72,7 +68,6 @@ public class CauldronMixin {
                 return;
             }
         }
-
 
         if (stack.getItem() == Items.SLIME_BALL && state.getBlock() == Blocks.CAULDRON) {
             if (!world.isClient()) {
@@ -86,11 +81,9 @@ public class CauldronMixin {
             return;
         }
 
-        // Handle magma cream on EXISTING magma cauldron
         if (state.getBlock() == BlockRegistry.SLIME_CAULDRON) {
             int level = state.get(SlimeCauldronBlock.SLIME_LEVEL);
 
-            // Magma cream adds to cauldron
             if (stack.getItem() == Items.SLIME_BALL && level < SlimeCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
                     world.setBlockState(pos, state.with(SlimeCauldronBlock.SLIME_LEVEL, level + 1));
@@ -115,9 +108,6 @@ public class CauldronMixin {
                 return;
             }
         }
-
-
-
 
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);

@@ -121,7 +121,7 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
             }
         }
 
-        // Reschedule for next tick
+
         world.scheduleBlockTick(pos, this, 2000);
 
     }
