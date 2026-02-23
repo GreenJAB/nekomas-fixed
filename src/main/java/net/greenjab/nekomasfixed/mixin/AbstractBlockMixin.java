@@ -40,6 +40,7 @@ public class AbstractBlockMixin {
                         .with(IceCauldronBlock.ICE_LEVEL, 1));
                 world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
                         SoundCategory.BLOCKS, 1.0F, 1.0F);
+                System.out.println("WORKING");
 
             } else {
                 world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState()
