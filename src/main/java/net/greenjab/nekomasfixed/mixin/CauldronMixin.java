@@ -27,7 +27,7 @@ public class CauldronMixin {
                                PlayerEntity player, Hand hand, BlockHitResult hit,
                                CallbackInfoReturnable<ActionResult> cir) {
         System.out.println(stack);
-        if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
+        if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON || state.getBlock() == Blocks.CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
             if (stack.getItem() == Items.MAGMA_CREAM && level < MagmaCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
