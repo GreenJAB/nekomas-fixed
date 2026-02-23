@@ -29,9 +29,9 @@ public class AbstractBlockMixin {
         if (state.getBlock() == Blocks.CAULDRON) {
             abovePos = pos.up(2);
             aboveState = world.getBlockState(abovePos);
-            if ((aboveState.isOf(Blocks.BEE_NEST) && honeyLevel==5 && world.getBlockState(pos.down(1)).isOf(Blocks.AIR))
+            if ((aboveState.isOf(Blocks.BEE_NEST) && honeyLevel==5 && world.getBlockState(pos.up(1)).isOf(Blocks.AIR))
                     ||
-                    (aboveState.isOf(Blocks.BEEHIVE) && honeyLevel == 5) && world.getBlockState(pos.down(1)).isOf(Blocks.AIR)) {
+                    (aboveState.isOf(Blocks.BEEHIVE) && honeyLevel == 5) && world.getBlockState(pos.up(1)).isOf(Blocks.AIR)) {
                 world.setBlockState(pos, BlockRegistry.HONEY_CAULDRON.getDefaultState()
                         .with(HoneyCauldronBlock.HONEY_LEVEL, 1));
             }
@@ -40,7 +40,7 @@ public class AbstractBlockMixin {
         if ((aboveState.isOf(Blocks.BEE_NEST) && honeyLevel==5) || (aboveState.isOf(Blocks.BEEHIVE) && honeyLevel == 5)) {
             BlockPos downPos = pos.down(2);
             BlockState downState = world.getBlockState(downPos);
-            if ((downState.isOf(Blocks.CAULDRON) && world.getBlockState(pos.up(1)).isOf(Blocks.AIR)) || (downState.isOf(BlockRegistry.HONEY_CAULDRON) && world.getBlockState(pos.up(1)).isOf(Blocks.AIR))) {
+            if ((downState.isOf(Blocks.CAULDRON) && world.getBlockState(pos.down(1)).isOf(Blocks.AIR)) || (downState.isOf(BlockRegistry.HONEY_CAULDRON) && world.getBlockState(pos.down(1)).isOf(Blocks.AIR))) {
                 world.setBlockState(pos.down(2), BlockRegistry.HONEY_CAULDRON.getDefaultState()
                         .with(HoneyCauldronBlock.HONEY_LEVEL, 1));
             }

@@ -48,7 +48,6 @@ public class CauldronMixin {
 
                     if (level > 1) {
                         world.setBlockState(pos, state.with(HoneyCauldronBlock.HONEY_LEVEL, level - 1));
-                        System.out.println("level decrease");
                     } else {
                         world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
                     }
@@ -61,7 +60,6 @@ public class CauldronMixin {
             if (stack.getItem() == Items.HONEY_BOTTLE && level < 4) {
                 if (!world.isClient()) {
                     world.setBlockState(pos, state.with(HoneyCauldronBlock.HONEY_LEVEL, level + 1));
-                    System.out.println("level increase");
                     stack.decrement(1);
                     player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
                 }
