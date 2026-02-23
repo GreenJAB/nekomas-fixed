@@ -107,7 +107,7 @@ public class CauldronMixin {
             int level = state.get(SlimeCauldronBlock.SLIME_LEVEL);
             if(level == SlimeCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
-                    player.getInventory().offerOrDrop(new ItemStack(Items.SLIME_BALL, 1));
+                    player.getInventory().offerOrDrop(new ItemStack(Items.SLIME_BLOCK, 1));
                     world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
                     world.playSound(null, pos, SoundEvents.BLOCK_SLIME_BLOCK_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
