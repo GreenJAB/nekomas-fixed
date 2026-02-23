@@ -35,7 +35,22 @@ public class CauldronMixin {
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         System.out.println(stack);
 
+        if (!world.isClient()) {
+            TagKey<Biome> COLD_BIOMES = TagKey.of(RegistryKeys.BIOME,
+                    Identifier.of("c", "climate/cold"));
+            boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
 
+            if (stack.isOf(Items.WATER_BUCKET) && isCold) {
+                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState()
+                        .with(IceCauldronBlock.ICE_LEVEL, 1));
+                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
+                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+                System.out.println("WORKING");
+
+            } else {
+
+            }
+        }
 
         if (stack.getItem() == Items.MAGMA_CREAM && state.getBlock() == Blocks.CAULDRON) {
             if (!world.isClient()) {
