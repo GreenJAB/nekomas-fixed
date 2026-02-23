@@ -4,7 +4,7 @@
 	"parent": "minecraft:block/template_cauldron_level2",
 	"ambientocclusion": false,
 	"textures": {
-		"content": "block/magma",
+		"content": "block/coarse_dirt",
 		"bottom": "block/cauldron_bottom",
 		"inside": "block/cauldron_inner",
 		"particle": "block/cauldron_side",
