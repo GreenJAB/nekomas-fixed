@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.util;
 
+import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.MagmaCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +13,7 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 
 public class MagmaCauldronUtil {
 
-    public static boolean incrementMagmaLevel(BlockState state , World world, BlockPos pos, PlayerEntity player, Hand hand) {
+    public static boolean incrementMagmaLevel(World world, BlockPos pos, BlockState state) {
         if (world.isClient()) return false;
         if (state.getBlock() != BlockRegistry.MAGMA_CAULDRON) return false;
 
@@ -20,8 +21,8 @@ public class MagmaCauldronUtil {
         if (currentLevel >= MagmaCauldronBlock.MAX_LEVEL) return false;
 
         world.setBlockState(pos, state.with(MagmaCauldronBlock.MAGMA_LEVEL, currentLevel + 1));
-        world.playSound(null, pos, SoundEvents.ENTITY_MAGMA_CUBE_SQUISH,
-                SoundCategory.BLOCKS, 1.0F, 1.0F);
+        world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
 
         return true;
     }
