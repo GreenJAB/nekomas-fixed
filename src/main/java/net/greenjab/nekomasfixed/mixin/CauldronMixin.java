@@ -27,20 +27,19 @@ public class CauldronMixin {
                                PlayerEntity player, Hand hand, BlockHitResult hit,
                                CallbackInfoReturnable<ActionResult> cir) {
 
-        // Empty hand harvest for honey cauldron
-        if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
-            int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
-            if(level == HoneyCauldronBlock.MAX_LEVEL) {
+        if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
+            int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
+
+
+            if (stack.getItem() == Items.MAGMA_CREAM && level < MagmaCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
-                    player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BLOCK, 1));
-                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
-                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    world.setBlockState(pos, state.with(MagmaCauldronBlock.MAGMA_LEVEL, level + 1));
+                    stack.decrement(1);
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
             }
         }
-
         // Empty hand harvest for magma cauldron
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             System.out.println("🎯 MIXIN: Magma cauldron interaction");
@@ -55,6 +54,21 @@ public class CauldronMixin {
                 return;
             }
         }
+        // Empty hand harvest for honey cauldron
+        if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
+            int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
+            if(level == HoneyCauldronBlock.MAX_LEVEL) {
+                if (!world.isClient()) {
+                    player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BLOCK, 1));
+                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
+                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+        }
+
+
 
         // Honey bottle on empty cauldron
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
@@ -68,19 +82,7 @@ public class CauldronMixin {
             return;
         }
 
-        if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
-            int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
 
-
-            if (stack.getItem() == Items.MAGMA_CREAM && level < MagmaCauldronBlock.MAX_LEVEL) {
-                if (!world.isClient()) {
-                    world.setBlockState(pos, state.with(MagmaCauldronBlock.MAGMA_LEVEL, level + 1));
-                    stack.decrement(1);
-                }
-                cir.setReturnValue(ActionResult.SUCCESS);
-                return;
-            }
-        }
 
         // Honey cauldron interactions
         if (state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
