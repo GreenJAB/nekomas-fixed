@@ -43,6 +43,7 @@ public class CauldronMixin {
 
         // Empty hand harvest for magma cauldron
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
+            System.out.println("🎯 MIXIN: Magma cauldron interaction");
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
             if(level == MagmaCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {

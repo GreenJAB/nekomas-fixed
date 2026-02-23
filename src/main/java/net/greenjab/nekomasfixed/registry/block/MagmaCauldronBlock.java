@@ -46,27 +46,9 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
 
         // Magma cream adds to cauldron
         map.put(Items.MAGMA_CREAM, (state, world, pos, player, hand, stack) -> {
+            System.out.println("🔥 BEHAVIOR MAP: Magma cream used");
             if (!world.isClient()) {
                 incrementMagmaLevel(state, world, pos, player, hand, stack);
-            }
-            return ActionResult.SUCCESS;
-        });
-
-        // Glass bottle takes magma cream? (Optional)
-        map.put(Items.GLASS_BOTTLE, (state, world, pos, player, hand, stack) -> {
-            if (!world.isClient()) {
-                int level = state.get(MAGMA_LEVEL);
-                player.setStackInHand(hand, new ItemStack(Items.MAGMA_CREAM));
-                stack.decrement(1);
-
-                if (level > 1) {
-                    world.setBlockState(pos, state.with(MAGMA_LEVEL, level - 1));
-                } else {
-                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
-                }
-
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
             return ActionResult.SUCCESS;
         });
