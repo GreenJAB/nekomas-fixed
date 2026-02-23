@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.MagmaCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.SlimeCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
@@ -71,6 +72,52 @@ public class CauldronMixin {
                 return;
             }
         }
+
+
+        if (stack.getItem() == Items.SLIME_BALL && state.getBlock() == Blocks.CAULDRON) {
+            if (!world.isClient()) {
+                world.setBlockState(pos, BlockRegistry.SLIME_CAULDRON.getDefaultState()
+                        .with(SlimeCauldronBlock.SLIME_LEVEL, 1));
+                stack.decrement(1);
+                world.playSound(null, pos, SoundEvents.BLOCK_SLIME_BLOCK_BREAK,
+                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+            cir.setReturnValue(ActionResult.SUCCESS);
+            return;
+        }
+
+        // Handle magma cream on EXISTING magma cauldron
+        if (state.getBlock() == BlockRegistry.SLIME_CAULDRON) {
+            int level = state.get(SlimeCauldronBlock.SLIME_LEVEL);
+
+            // Magma cream adds to cauldron
+            if (stack.getItem() == Items.SLIME_BALL && level < SlimeCauldronBlock.MAX_LEVEL) {
+                if (!world.isClient()) {
+                    world.setBlockState(pos, state.with(SlimeCauldronBlock.SLIME_LEVEL, level + 1));
+                    stack.decrement(1);
+                    world.playSound(null, pos, SoundEvents.BLOCK_SLIME_BLOCK_BREAK,
+                            SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+        }
+
+        if(stack.isEmpty() && state.getBlock() == BlockRegistry.SLIME_CAULDRON) {
+            int level = state.get(SlimeCauldronBlock.SLIME_LEVEL);
+            if(level == SlimeCauldronBlock.MAX_LEVEL) {
+                if (!world.isClient()) {
+                    player.getInventory().offerOrDrop(new ItemStack(Items.SLIME_BALL, 1));
+                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
+                    world.playSound(null, pos, SoundEvents.BLOCK_SLIME_BLOCK_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                cir.setReturnValue(ActionResult.SUCCESS);
+                return;
+            }
+        }
+
+
+
 
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
