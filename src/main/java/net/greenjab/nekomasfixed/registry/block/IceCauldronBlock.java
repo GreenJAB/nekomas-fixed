@@ -53,37 +53,31 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
         return behaviorMap;
     }
 
-    @Override
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!world.isClient()) {
-            TagKey<Biome> COLD_BIOMES = TagKey.of(RegistryKeys.BIOME,
-                    Identifier.of("c", "climate/cold"));
-            boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
-
-            // Get water cauldron state below (if any)
-            BlockPos belowPos = pos.down(1);
-            BlockState belowState = world.getBlockState(belowPos);
-
-            if (isCold) {
-                // In cold biome - stay as ice
-                System.out.println("Ice cauldron at " + pos + " staying frozen");
-
-                // Optional: If there's a water cauldron below, freeze it too?
-                if (belowState.getBlock() == Blocks.WATER_CAULDRON) {
-                    world.setBlockState(belowPos, BlockRegistry.ICE_CAULDRON.getDefaultState()
-                            .with(ICE_LEVEL, HAS_ICE));
-                }
-            } else {
-                // Not cold - melt to water
-                world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState()
-                        .with(LeveledCauldronBlock.LEVEL, 3));
-                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
-                System.out.println("Ice cauldron melted to water at " + pos);
-            }
-        }
-        world.scheduleBlockTick(pos, this, 200); // Check every 10 seconds
-    }
+//    @Override
+//    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+//        if (!world.isClient()) {
+//            TagKey<Biome> COLD_BIOMES = TagKey.of(RegistryKeys.BIOME,
+//                    Identifier.of("c", "climate/cold"));
+//            boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
+//
+//
+//
+//            if (isCold && state.getBlock().equals(Blocks.WATER_CAULDRON) && ) {
+//                if (belowState.getBlock() == Blocks.WATER_CAULDRON) {
+//                    world.setBlockState(belowPos, BlockRegistry.ICE_CAULDRON.getDefaultState()
+//                            .with(ICE_LEVEL, HAS_ICE));
+//                }
+//            } else {
+//                // Not cold - melt to water
+//                world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState()
+//                        .with(LeveledCauldronBlock.LEVEL, 3));
+//                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
+//                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+//                System.out.println("Ice cauldron melted to water at " + pos);
+//            }
+//        }
+//        world.scheduleBlockTick(pos, this, 200); // Check every 10 seconds
+//    }
 
     @Override
     protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
