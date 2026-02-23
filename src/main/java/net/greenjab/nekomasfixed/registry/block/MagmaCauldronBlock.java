@@ -67,7 +67,7 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
 
         map.put(Items.MAGMA_CREAM, (state, world, pos, player, hand, stack) -> {
             if (!world.isClient()) {
-                incrementMagmaLevel(state, world, pos, player, hand);
+                incrementMagmaLevel(state, world, pos);
             }
             return ActionResult.SUCCESS;
         });

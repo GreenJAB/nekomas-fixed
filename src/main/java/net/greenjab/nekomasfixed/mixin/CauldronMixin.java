@@ -2,7 +2,10 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.MagmaCauldronBlock;
-import net.minecraft.block.*;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.minecraft.block.AbstractCauldronBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -13,7 +16,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,16 +25,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class CauldronMixin {
 
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
-    private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos,
-                               PlayerEntity player, Hand hand, BlockHitResult hit,
-                               CallbackInfoReturnable<ActionResult> cir) {
+    private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         System.out.println(stack);
-        if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON || state.getBlock() == Blocks.CAULDRON) {
+
+        // Handle magma cream on EMPTY cauldron (convert to magma cauldron)
+        if (stack.getItem() == Items.MAGMA_CREAM && state.getBlock() == Blocks.CAULDRON) {
+            if (!world.isClient()) {
+                world.setBlockState(pos, BlockRegistry.MAGMA_CAULDRON.getDefaultState()
+                        .with(MagmaCauldronBlock.MAGMA_LEVEL, 1));
+                stack.decrement(1);
+                world.playSound(null, pos, SoundEvents.ENTITY_MAGMA_CUBE_SQUISH,
+                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+            cir.setReturnValue(ActionResult.SUCCESS);
+            return;
+        }
+
+        // Handle magma cream on EXISTING magma cauldron
+        if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
+
+            // Magma cream adds to cauldron
             if (stack.getItem() == Items.MAGMA_CREAM && level < MagmaCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
                     world.setBlockState(pos, state.with(MagmaCauldronBlock.MAGMA_LEVEL, level + 1));
                     stack.decrement(1);
+                    world.playSound(null, pos, SoundEvents.ENTITY_MAGMA_CUBE_SQUISH,
+                            SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
