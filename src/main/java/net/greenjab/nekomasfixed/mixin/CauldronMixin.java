@@ -27,7 +27,10 @@ public class CauldronMixin {
                                PlayerEntity player, Hand hand, BlockHitResult hit,
                                CallbackInfoReturnable<ActionResult> cir) {
         if(stack.isEmpty()){
-            System.out.println("Hand is empty");
+            int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
+            if(level == HoneyCauldronBlock.MAX_LEVEL){
+                player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BLOCK, 1));
+            }
         }
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
             if (!world.isClient()) {
