@@ -26,8 +26,9 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
 
     public MagmaCauldronBlock(Settings settings) {
         super(settings, createBehaviorMap());
+        System.out.println("🏭 MagmaCauldronBlock created!");
         this.setDefaultState(this.stateManager.getDefaultState()
-                .with(MAGMA_LEVEL, 1)); // Start at level 1 instead of max
+                .with(MAGMA_LEVEL, 1));
     }
 
     @Override
