@@ -9,6 +9,7 @@ import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -16,7 +17,10 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+
+import static net.greenjab.nekomasfixed.util.MagmaCauldronUtil.incrementMagmaLevel;
 
 public class MagmaCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<MagmaCauldronBlock> CODEC = createCodec(MagmaCauldronBlock::new);
@@ -26,9 +30,8 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
 
     public MagmaCauldronBlock(Settings settings) {
         super(settings, createBehaviorMap());
-        System.out.println("🏭 MagmaCauldronBlock created!");
         this.setDefaultState(this.stateManager.getDefaultState()
-                .with(MAGMA_LEVEL, 1));
+                .with(MAGMA_LEVEL, MAX_LEVEL));
     }
 
     @Override
@@ -44,12 +47,27 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
     private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
         var behaviorMap = CauldronBehavior.createMap("magma");
         var map = behaviorMap.map();
-
-        // Magma cream adds to cauldron
+/*
         map.put(Items.MAGMA_CREAM, (state, world, pos, player, hand, stack) -> {
-            System.out.println("🔥 BEHAVIOR MAP: Magma cream used");
             if (!world.isClient()) {
-                incrementMagmaLevel(state, world, pos, player, hand, stack);
+                int level = state.get(MAGMA_LEVEL);
+                player.setStackInHand(hand, new ItemStack(Items.HONEY_BOTTLE));
+
+                if (level > 1) {
+                    world.setBlockState(pos, state.with(MAGMA_LEVEL, level - 1));
+                } else {
+                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
+                }
+
+                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL,
+                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+            return ActionResult.SUCCESS;
+        });*/
+
+        map.put(Items.MAGMA_CREAM, (state, world, pos, player, hand, stack) -> {
+            if (!world.isClient()) {
+                incrementMagmaLevel(state, world, pos, player, hand);
             }
             return ActionResult.SUCCESS;
         });
@@ -57,28 +75,48 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         return behaviorMap;
     }
 
-    public static void incrementMagmaLevel(BlockState state, World world, BlockPos pos,
-                                           PlayerEntity player, Hand hand, ItemStack stack) {
+    // New method to increment honey level
+    public static void incrementMagmaLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand) {
         if (world.isClient()) return;
 
         int level = state.get(MAGMA_LEVEL);
         if (level < MAX_LEVEL) {
             world.setBlockState(pos, state.with(MAGMA_LEVEL, level + 1));
-            stack.decrement(1);
-            world.playSound(null, pos, SoundEvents.ENTITY_MAGMA_CUBE_SQUISH,
+
+            world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
                     SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
     }
 
-    // Fixed method name
+    // Overloaded method without player (for automatic filling)
     public static void incrementMagmaLevel(BlockState state, World world, BlockPos pos) {
         if (world.isClient()) return;
 
         int level = state.get(MAGMA_LEVEL);
         if (level < MAX_LEVEL) {
             world.setBlockState(pos, state.with(MAGMA_LEVEL, level + 1));
-            world.playSound(null, pos, SoundEvents.ENTITY_MAGMA_CUBE_SQUISH,
+            world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
                     SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
+    }
+
+    @Override
+    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if (!world.isClient()) {
+                int currentLevel = state.get(MAGMA_LEVEL);
+                if (currentLevel < MAX_LEVEL) {
+                    world.setBlockState(pos, state.with(MAGMA_LEVEL, currentLevel + 1));
+                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
+                            SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+        }
+        world.scheduleBlockTick(pos, this, 2000);
+    }
+
+    @Override
+    protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        if (!world.isClient()) {
+            world.scheduleBlockTick(pos, this, 2000);
         }
     }
 

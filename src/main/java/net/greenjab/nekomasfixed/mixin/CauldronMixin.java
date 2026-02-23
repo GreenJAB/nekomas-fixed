@@ -29,8 +29,6 @@ public class CauldronMixin {
 
         if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
-
-
             if (stack.getItem() == Items.MAGMA_CREAM && level < MagmaCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
                     world.setBlockState(pos, state.with(MagmaCauldronBlock.MAGMA_LEVEL, level + 1));
@@ -40,7 +38,7 @@ public class CauldronMixin {
                 return;
             }
         }
-        // Empty hand harvest for magma cauldron
+
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             System.out.println("🎯 MIXIN: Magma cauldron interaction");
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
@@ -54,7 +52,7 @@ public class CauldronMixin {
                 return;
             }
         }
-        // Empty hand harvest for honey cauldron
+
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
             if(level == HoneyCauldronBlock.MAX_LEVEL) {
@@ -68,9 +66,6 @@ public class CauldronMixin {
             }
         }
 
-
-
-        // Honey bottle on empty cauldron
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.HONEY_CAULDRON.getDefaultState()
@@ -82,9 +77,6 @@ public class CauldronMixin {
             return;
         }
 
-
-
-        // Honey cauldron interactions
         if (state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
 
