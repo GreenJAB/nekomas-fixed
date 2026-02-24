@@ -20,23 +20,15 @@ public class DispenserBlockMixin {
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
         if (blockEntity instanceof DispenserBlockEntity dispenser) {
-            // Use public methods to access inventory
             for (int i = 0; i < dispenser.size(); i++) {
                 ItemStack stack = dispenser.getStack(i);
                 if (!stack.isEmpty()) {
-                    System.out.println("Slot " + i + ": " + stack.getItem());
+                    if(stack.isOf(Items.BUCKET)){
+                        System.out.println(true);
+                    }
                 }
             }
 
-            // Get a random non-empty slot
-            int slot = dispenser.chooseNonEmptySlot(world.random);
-            if (slot >= 0) {
-                ItemStack randomStack = dispenser.getStack(slot);
-                System.out.println("Random item: " + randomStack.getItem());
-            }
-
-            // Modify inventory using public methods
-            dispenser.setStack(0, new ItemStack(Items.DIAMOND, 1));
         }
     }
 }
