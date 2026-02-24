@@ -42,13 +42,9 @@ public class CauldronMixin {
             boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
 
             if (isCold && !world.isClient()) {
-                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState()
-                        .with(IceCauldronBlock.ICE_LEVEL, 1));
-                // Replace water bucket with empty bucket
-                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
+                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
                 world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
                         SoundCategory.BLOCKS, 1.0F, 1.0F);
-                System.out.println("Water froze into ice cauldron!");
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
             }

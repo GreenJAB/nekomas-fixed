@@ -4,10 +4,13 @@ import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.IceCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -30,20 +33,16 @@ public class AbstractBlockMixin {
             honeyLevel= aboveState.get(BeehiveBlock.HONEY_LEVEL);
         }
 
-        if (!world.isClient()) {
+        if (state.getBlock() == Blocks.CAULDRON) {
             TagKey<Biome> COLD_BIOMES = TagKey.of(RegistryKeys.BIOME,
                     Identifier.of("c", "climate/cold"));
             boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
 
-            if (isCold && state.isOf(Blocks.WATER_CAULDRON) && LeveledCauldronBlock.LEVEL.equals(LeveledCauldronBlock.MAX_LEVEL)) {
-                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState()
-                        .with(IceCauldronBlock.ICE_LEVEL, 1));
-                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
+            if (isCold && !world.isClient()) {
+                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
+                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
                         SoundCategory.BLOCKS, 1.0F, 1.0F);
-                System.out.println("WORKING");
-
-            } else {
-
+                return;
             }
         }
 
