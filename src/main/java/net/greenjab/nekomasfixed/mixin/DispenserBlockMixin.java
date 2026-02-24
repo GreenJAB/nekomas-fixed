@@ -21,18 +21,19 @@ import java.util.Arrays;
 @Mixin(DispenserBlock.class)
 public class DispenserBlockMixin {
 
-    private static final Block[] CAULDRON_TYPES = {
-            BlockRegistry.ICE_CAULDRON,
-            BlockRegistry.HONEY_CAULDRON,
-            BlockRegistry.SLIME_CAULDRON,
-            BlockRegistry.MAGMA_CAULDRON,
-            Blocks.LAVA_CAULDRON,
-            Blocks.WATER_CAULDRON,
-            Blocks.POWDER_SNOW_CAULDRON,
-    };
+
 
     @Inject(method = "dispense", at = @At("HEAD"))
     private void onDispense(ServerWorld world, BlockState state, BlockPos pos, CallbackInfo ci) {
+        final Block[] CAULDRON_TYPES = {
+                BlockRegistry.ICE_CAULDRON,
+                BlockRegistry.HONEY_CAULDRON,
+                BlockRegistry.SLIME_CAULDRON,
+                BlockRegistry.MAGMA_CAULDRON,
+                Blocks.LAVA_CAULDRON,
+                Blocks.WATER_CAULDRON,
+                Blocks.POWDER_SNOW_CAULDRON,
+        };
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
         if (blockEntity instanceof DispenserBlockEntity dispenser) {
