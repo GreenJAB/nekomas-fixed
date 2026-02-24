@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -21,48 +22,46 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Mixin(AbstractCauldronBlock.class)
 public class CauldronMixin {
+
+    @Unique
+    private static final Map<BlockPos, Integer> ICE_FORMATION_TIMERS = new HashMap<>();
 
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         System.out.println(stack);
 
-        // ICE CAULDRON - Water bucket in cold biome creates ice cauldron
+        // Water bucket in cold biome with delay
         if (stack.isOf(Items.WATER_BUCKET) && state.getBlock() == Blocks.CAULDRON) {
-
-                Biome biome = world.getBiome(pos).value();
+            Biome biome = world.getBiome(pos).value();
             if (biome.isCold(pos, 63) && !world.isClient()) {
-                final PlayerEntity finalPlayer = player;
-                final Hand finalHand = hand;
-                world.scheduleBlockTick(pos, state.getBlock(), 20);
-                finalPlayer.setStackInHand(finalHand, new ItemStack(Items.BUCKET));
 
+                // Start ice formation timer (20 ticks = 1 second)
+                ICE_FORMATION_TIMERS.put(pos, 20);
+
+                // Remove water bucket immediately
+                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
+
+                System.out.println("Water will freeze in 20 ticks");
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
             }
         }
 
-        // ICE CAULDRON - Empty hand harvest
-        if (stack.isEmpty() && state.getBlock() == BlockRegistry.ICE_CAULDRON) {
-            if (!world.isClient()) {
-                player.getInventory().offerOrDrop(new ItemStack(Items.ICE, 1));
-                world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
-                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_BREAK,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
-            }
-            cir.setReturnValue(ActionResult.SUCCESS);
-            return;
-        }
-
-        // MAGMA CAULDRON - Magma cream on empty cauldron
         if (stack.getItem() == Items.MAGMA_CREAM && state.getBlock() == Blocks.CAULDRON) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.MAGMA_CAULDRON.getDefaultState()
@@ -75,7 +74,6 @@ public class CauldronMixin {
             return;
         }
 
-        // MAGMA CAULDRON - Add more magma cream
         if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
 
@@ -91,7 +89,6 @@ public class CauldronMixin {
             }
         }
 
-        // MAGMA CAULDRON - Empty hand harvest when full
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
             if(level == MagmaCauldronBlock.MAX_LEVEL) {
@@ -105,7 +102,6 @@ public class CauldronMixin {
             }
         }
 
-        // SLIME CAULDRON - Slime ball on empty cauldron
         if (stack.getItem() == Items.SLIME_BALL && state.getBlock() == Blocks.CAULDRON) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.SLIME_CAULDRON.getDefaultState()
@@ -118,7 +114,6 @@ public class CauldronMixin {
             return;
         }
 
-        // SLIME CAULDRON - Add more slime balls
         if (state.getBlock() == BlockRegistry.SLIME_CAULDRON) {
             int level = state.get(SlimeCauldronBlock.SLIME_LEVEL);
 
@@ -134,7 +129,6 @@ public class CauldronMixin {
             }
         }
 
-        // SLIME CAULDRON - Empty hand harvest when full
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.SLIME_CAULDRON) {
             int level = state.get(SlimeCauldronBlock.SLIME_LEVEL);
             if(level == SlimeCauldronBlock.MAX_LEVEL) {
@@ -148,7 +142,6 @@ public class CauldronMixin {
             }
         }
 
-        // HONEY CAULDRON - Empty hand harvest when full
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
             if(level == HoneyCauldronBlock.MAX_LEVEL) {
@@ -162,7 +155,6 @@ public class CauldronMixin {
             }
         }
 
-        // HONEY CAULDRON - Honey bottle on empty cauldron
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.HONEY_CAULDRON.getDefaultState()
@@ -174,7 +166,6 @@ public class CauldronMixin {
             return;
         }
 
-        // HONEY CAULDRON - Interactions
         if (state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
 
@@ -203,6 +194,25 @@ public class CauldronMixin {
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
+            }
+        }
+    }
+
+    @Inject(method = "scheduledTick", at = @At("HEAD"))
+    private void onScheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+
+        if (ICE_FORMATION_TIMERS.containsKey(pos)) {
+            int timer = ICE_FORMATION_TIMERS.get(pos) - 1;
+
+            if (timer <= 0) {
+                // Time's up - form ice
+                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
+                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
+                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+                System.out.println("Ice formed at " + pos);
+                ICE_FORMATION_TIMERS.remove(pos);
+            } else {
+                ICE_FORMATION_TIMERS.put(pos, timer);
             }
         }
     }
