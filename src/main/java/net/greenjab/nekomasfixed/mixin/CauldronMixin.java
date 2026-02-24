@@ -39,7 +39,8 @@ public class CauldronMixin {
         if (stack.isOf(Items.WATER_BUCKET) && state.getBlock() == Blocks.CAULDRON) {
 
                 Biome biome = world.getBiome(pos).value();
-            if (biome.isCold(pos, 63) && !world.isClient()) {
+            Biome.Precipitation precipitation = biome.getPrecipitation(pos, world.getSeaLevel());
+            if (biome.isCold(pos, 63) && precipitation == Biome.Precipitation.SNOW && !world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
                 System.out.println("In a cold biome");
                 player.setStackInHand(hand, new ItemStack(Items.BUCKET));

@@ -43,6 +43,8 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
     private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
         var behaviorMap = CauldronBehavior.createMap("ice");
         var map = behaviorMap.map();
+
+
         return behaviorMap;
     }
 
