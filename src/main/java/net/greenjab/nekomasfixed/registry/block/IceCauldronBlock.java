@@ -43,29 +43,9 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
     private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
         var behaviorMap = CauldronBehavior.createMap("ice");
         var map = behaviorMap.map();
-
-
         return behaviorMap;
     }
 
-    @Override
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!world.isClient()) {
-            TagKey<Biome> COLD_BIOMES = TagKey.of(RegistryKeys.BIOME,
-                    Identifier.of("c", "climate/cold"));
-            boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
-
-            if (!isCold) {
-                // Not cold - melt to water cauldron
-                world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState()
-                        .with(LeveledCauldronBlock.LEVEL, 3));
-                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-            }
-        }
-        world.scheduleBlockTick(pos, this, 200);
-    }
 
     @Override
     protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
