@@ -40,11 +40,11 @@ public class CauldronMixin {
 
                 Biome biome = world.getBiome(pos).value();
             if (biome.isCold(pos, 63) && !world.isClient()) {
-                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
-                System.out.println("In a cold biome");
-                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
-                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+                final PlayerEntity finalPlayer = player;
+                final Hand finalHand = hand;
+                world.scheduleBlockTick(pos, state.getBlock(), 20);
+                finalPlayer.setStackInHand(finalHand, new ItemStack(Items.BUCKET));
+
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
             }

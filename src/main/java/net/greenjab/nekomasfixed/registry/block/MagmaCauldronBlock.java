@@ -47,23 +47,6 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
     private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
         var behaviorMap = CauldronBehavior.createMap("magma");
         var map = behaviorMap.map();
-/*
-        map.put(Items.MAGMA_CREAM, (state, world, pos, player, hand, stack) -> {
-            if (!world.isClient()) {
-                int level = state.get(MAGMA_LEVEL);
-                player.setStackInHand(hand, new ItemStack(Items.HONEY_BOTTLE));
-
-                if (level > 1) {
-                    world.setBlockState(pos, state.with(MAGMA_LEVEL, level - 1));
-                } else {
-                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
-                }
-
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
-            }
-            return ActionResult.SUCCESS;
-        });*/
 
         map.put(Items.MAGMA_CREAM, (state, world, pos, player, hand, stack) -> {
             if (!world.isClient()) {

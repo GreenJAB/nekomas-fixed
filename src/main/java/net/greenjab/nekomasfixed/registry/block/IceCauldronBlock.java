@@ -61,7 +61,7 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
                         .with(LeveledCauldronBlock.LEVEL, 3));
                 world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH,
                         SoundCategory.BLOCKS, 1.0F, 1.0F);
-                System.out.println("Ice cauldron melted to water at " + pos);
+
             }
         }
         world.scheduleBlockTick(pos, this, 200);
