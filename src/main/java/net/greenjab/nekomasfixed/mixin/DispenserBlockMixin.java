@@ -17,43 +17,75 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Mixin(DispenserBlock.class)
 public class DispenserBlockMixin {
+
+    private static final Block[] CAULDRON_TYPES = {
+            BlockRegistry.ICE_CAULDRON,
+            BlockRegistry.HONEY_CAULDRON,
+            BlockRegistry.SLIME_CAULDRON,
+            BlockRegistry.MAGMA_CAULDRON,
+            Blocks.LAVA_CAULDRON,
+            Blocks.WATER_CAULDRON,
+            Blocks.POWDER_SNOW_CAULDRON,
+    };
+
     @Inject(method = "dispense", at = @At("HEAD"))
     private void onDispense(ServerWorld world, BlockState state, BlockPos pos, CallbackInfo ci) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
         if (blockEntity instanceof DispenserBlockEntity dispenser) {
 
-            Block[] allCauldronState = {
-                    BlockRegistry.ICE_CAULDRON,
-                    BlockRegistry.HONEY_CAULDRON,
-                    BlockRegistry.SLIME_CAULDRON,
-                    BlockRegistry.MAGMA_CAULDRON,
-                    Blocks.LAVA_CAULDRON,
-                    Blocks.WATER_CAULDRON,
-                    Blocks.POWDER_SNOW_CAULDRON,
-            };
-
             if(!world.isClient()){
+                // Get all blocks in each direction
                 BlockState belowState = world.getBlockState(pos.down());
-                Block belowBlock = belowState.getBlock();
-                Block aboveBlock = world.getBlockState(pos.up()).getBlock();
-                Block leftBlock = world.getBlockState(pos.west()).getBlock();
-                Block rightBlock = world.getBlockState(pos.east()).getBlock();
+                BlockState aboveState = world.getBlockState(pos.up());
+                BlockState westState = world.getBlockState(pos.west());
+                BlockState eastState = world.getBlockState(pos.east());
+                BlockState northState = world.getBlockState(pos.north());
+                BlockState southState = world.getBlockState(pos.south());
 
-                boolean isCauldronNear = Arrays.stream(allCauldronState)
-                        .anyMatch(cauldron -> cauldron == belowBlock || cauldron == aboveBlock || cauldron == leftBlock || cauldron == rightBlock);
-                System.out.println(isCauldronNear);
+                Block belowBlock = belowState.getBlock();
+                Block aboveBlock = aboveState.getBlock();
+                Block westBlock = westState.getBlock();
+                Block eastBlock = eastState.getBlock();
+                Block northBlock = northState.getBlock();
+                Block southBlock = southState.getBlock();
+
+                // Debug prints - see what blocks are actually there
+                System.out.println("===== DISPENSER DEBUG AT " + pos + " =====");
+                System.out.println("Below: " + belowBlock + " - " + belowState);
+                System.out.println("Above: " + aboveBlock + " - " + aboveState);
+                System.out.println("West: " + westBlock + " - " + westState);
+                System.out.println("East: " + eastBlock + " - " + eastState);
+                System.out.println("North: " + northBlock + " - " + northState);
+                System.out.println("South: " + southBlock + " - " + southState);
+
+                // Check each direction individually
+                boolean belowMatch = Arrays.stream(CAULDRON_TYPES).anyMatch(c -> c == belowBlock);
+                boolean aboveMatch = Arrays.stream(CAULDRON_TYPES).anyMatch(c -> c == aboveBlock);
+                boolean westMatch = Arrays.stream(CAULDRON_TYPES).anyMatch(c -> c == westBlock);
+                boolean eastMatch = Arrays.stream(CAULDRON_TYPES).anyMatch(c -> c == eastBlock);
+                boolean northMatch = Arrays.stream(CAULDRON_TYPES).anyMatch(c -> c == northBlock);
+                boolean southMatch = Arrays.stream(CAULDRON_TYPES).anyMatch(c -> c == southBlock);
+
+                System.out.println("Below match: " + belowMatch);
+                System.out.println("Above match: " + aboveMatch);
+                System.out.println("West match: " + westMatch);
+                System.out.println("East match: " + eastMatch);
+                System.out.println("North match: " + northMatch);
+                System.out.println("South match: " + southMatch);
+
+                boolean isCauldronNear = belowMatch || aboveMatch || westMatch || eastMatch || northMatch || southMatch;
+                System.out.println("Final result: " + isCauldronNear);
+
                 if (isCauldronNear) {
-                    System.out.println("Found a cauldron below the dispenser!");
+                    System.out.println("✅ Found a cauldron near the dispenser!");
                     for (int i = 0; i < dispenser.size(); i++) {
                         ItemStack stack = dispenser.getStack(i);
                         if (stack.isOf(Items.BUCKET)) {
-                            System.out.println("Bucket in slot " + i + " can be used with cauldron below!");
-                            // Your logic here
+                            System.out.println("Bucket in slot " + i);
                         }
                     }
                 }
