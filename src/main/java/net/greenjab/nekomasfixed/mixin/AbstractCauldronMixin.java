@@ -1,24 +1,19 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
-import net.greenjab.nekomasfixed.registry.block.IceCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.MagmaCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.SlimeCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,27 +24,27 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractCauldronBlock.class)
-public class CauldronMixin {
+public class AbstractCauldronMixin {
 
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         System.out.println(stack);
 
         // ICE CAULDRON - Water bucket in cold biome creates ice cauldron
-        if (stack.isOf(Items.WATER_BUCKET) && state.getBlock() == Blocks.CAULDRON) {
-
-                Biome biome = world.getBiome(pos).value();
-            Biome.Precipitation precipitation = biome.getPrecipitation(pos, world.getSeaLevel());
-            if (biome.isCold(pos, 63) && precipitation == Biome.Precipitation.SNOW && !world.isClient()) {
-                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
-                System.out.println("In a cold biome");
-                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
-                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
-                cir.setReturnValue(ActionResult.SUCCESS);
-                return;
-            }
-        }
+//        if (stack.isOf(Items.WATER_BUCKET) && state.getBlock() == Blocks.CAULDRON) {
+//
+//                Biome biome = world.getBiome(pos).value();
+//            Biome.Precipitation precipitation = biome.getPrecipitation(pos, world.getSeaLevel());
+//            if (biome.isCold(pos, 63) && precipitation == Biome.Precipitation.SNOW && !world.isClient()) {
+//                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
+//                System.out.println("In a cold biome");
+//                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
+//                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
+//                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+//                cir.setReturnValue(ActionResult.SUCCESS);
+//                return;
+//            }
+//        }
 
         // ICE CAULDRON - Empty hand harvest
         if (stack.isEmpty() && state.getBlock() == BlockRegistry.ICE_CAULDRON) {

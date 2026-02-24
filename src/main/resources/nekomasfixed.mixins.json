@@ -4,11 +4,12 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractBlockMixin",
+    "AbstractCauldronMixin",
     "BeehiveBlockEntityMixin",
     "BlockItemMixin",
     "BlocksMixin",
     "CarvedPumpkinBlockMixin",
-    "CauldronMixin",
+    "CauldronBlockMixin",
     "ContainerComponentMixin",
     "DispenserBlockMixin",
     "DrownedEntityMixin",
