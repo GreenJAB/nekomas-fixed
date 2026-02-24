@@ -10,6 +10,7 @@
     "CarvedPumpkinBlockMixin",
     "CauldronMixin",
     "ContainerComponentMixin",
+    "DispenserBlockMixin",
     "DrownedEntityMixin",
     "DyeItemMixin",
     "EnchantmentMixin",
@@ -42,6 +43,5 @@
     "requireAnnotations": true
   },
   "client": [
-
   ]
 }
