@@ -13,9 +13,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-/**
- * A cauldron filled with lava.
- */
 public class IceCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<IceCauldronBlock> CODEC = createCodec(IceCauldronBlock::new);
     private static final VoxelShape ICE_SHAPE = Block.createColumnShape(12.0, 4.0, 15.0);
