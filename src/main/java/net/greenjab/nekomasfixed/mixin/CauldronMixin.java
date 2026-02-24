@@ -37,11 +37,9 @@ public class CauldronMixin {
 
         // ICE CAULDRON - Water bucket in cold biome creates ice cauldron
         if (stack.isOf(Items.WATER_BUCKET) && state.getBlock() == Blocks.CAULDRON) {
-            TagKey<Biome> COLD_BIOMES = TagKey.of(RegistryKeys.BIOME,
-                    Identifier.of("c", "climate/cold"));
-            boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
 
-            if (isCold && !world.isClient()) {
+                Biome biome = world.getBiome(pos).value();
+            if (biome.isCold(pos, 63) && !world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
                 System.out.println("In a cold biome");
                 player.setStackInHand(hand, new ItemStack(Items.BUCKET));
