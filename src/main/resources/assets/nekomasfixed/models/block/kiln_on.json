@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "nekomasfixed:block/kiln_front_on",
+    "side": "nekomasfixed:block/kiln_side",
+    "top": "nekomasfixed:block/kiln_top"
+
+  }
+}

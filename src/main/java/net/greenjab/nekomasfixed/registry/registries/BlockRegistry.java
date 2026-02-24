@@ -5,8 +5,10 @@ import net.greenjab.nekomasfixed.registry.block.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.minecraft.block.*;
+import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -14,8 +16,11 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biome;
 
 import java.util.function.Function;
+
+import static net.minecraft.block.Blocks.CAULDRON;
 
 public class BlockRegistry {
 
@@ -33,6 +38,9 @@ public class BlockRegistry {
 
     public static final Block PEARL_BLOCK = register("pearl_block", AbstractBlock.Settings.create().mapColor(MapColor.WHITE).instrument(NoteBlockInstrument.BASEDRUM)
             .sounds(BlockSoundGroup.CALCITE).requiresTool().strength(0.75F));
+
+    public static final Block KILN = register("kiln", KilnBlock::new,AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM)
+            .sounds(BlockSoundGroup.GILDED_BLACKSTONE).requiresTool().strength(3.5f));
 
     public static final Block GLOW_TORCH = register(
             "glow_torch",
@@ -81,6 +89,68 @@ public class BlockRegistry {
             copyLootTable(ENDERMAN_HEAD, true).mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY)
     );
 
+    /*
+    Added By CyberModder:
+    1. Amber Terracotta
+    2. Aqua Terracotta
+    3. Indigo Terracotta
+    4. Crimson Terracotta
+    5. Aqua Glazed Terracotta
+     */
+
+    public static final Block AMBER_TERRACOTTA = register("amber_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_YELLOW).instrument(NoteBlockInstrument.BASEDRUM)
+            .strength(0.70F).resistance(4.2F).requiresTool());
+
+    public static final Block INDIGO_TERRACOTTA = register("indigo_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_BLUE).instrument(NoteBlockInstrument.BASEDRUM)
+            .strength(0.70F).resistance(4.2F).requiresTool());
+
+    public static final Block AQUA_TERRACOTTA = register("aqua_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).instrument(NoteBlockInstrument.BASEDRUM)
+            .strength(0.70F).resistance(4.2F).requiresTool());
+
+    public static final Block CRIMSON_TERRACOTTA = register("crimson_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_RED).instrument(NoteBlockInstrument.BASEDRUM)
+            .strength(0.70F).resistance(4.2F).requiresTool());
+
+    public static final Block AQUA_GLAZED_TERRACOTTA = register("aqua_glazed_terracotta",
+            GlazedTerracottaBlock::new,  // Required for creating a glazed terracotte block
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.TERRACOTTA_LIGHT_BLUE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .strength(1.4F)
+                    .resistance(4.2F)
+                    .requiresTool());
+
+    public static final Block AMBER_GLAZED_TERRACOTTA = register("amber_glazed_terracotta",
+            GlazedTerracottaBlock::new,  // Required for creating a glazed terracotta block
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .strength(1.4F)
+                    .resistance(4.2F)
+                    .requiresTool());
+
+    public static final Block HONEY_CAULDRON = register(
+            "honey_cauldron",
+            HoneyCauldronBlock::new,
+            AbstractBlock.Settings.copy(Blocks.CAULDRON)
+    );
+
+    public static final Block MAGMA_CAULDRON = register(
+            "magma_cauldron",
+            MagmaCauldronBlock::new,
+            AbstractBlock.Settings.copy(Blocks.CAULDRON)
+    );
+
+    public static final Block SLIME_CAULDRON = register(
+            "slime_cauldron",
+            SlimeCauldronBlock::new,
+            AbstractBlock.Settings.copy(Blocks.CAULDRON)
+    );
+
+    public static final Block ICE_CAULDRON = register(
+            "ice_cauldron",
+            IceCauldronBlock::new,
+            AbstractBlock.Settings.copy(Blocks.CAULDRON)
+    );
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
     }

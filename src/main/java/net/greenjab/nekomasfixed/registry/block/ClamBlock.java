@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.block;
-
+//Block class of minecraft -
+// import net.minecraft.block.Blocks'
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
@@ -11,6 +12,7 @@ import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.block.*;
+import net.minecraft.block.Blocks; // For CyberModder
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;

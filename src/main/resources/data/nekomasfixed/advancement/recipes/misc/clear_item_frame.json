@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "nekomasfixed:clear_item_frame"
+      }
+    },
+    "has_ingredients": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["minecraft:item_frame"]
+          },
+          {
+            "items": ["minecraft:phantom_membrane"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_the_recipe", "has_ingredients"]
+  ],
+  "rewards": {
+    "recipes": ["nekomasfixed:clear_item_frame"]
+  }
+}

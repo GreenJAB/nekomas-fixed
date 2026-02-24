@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "_notes": "Dry plants like dead bush and dry grass can be placed on it",
+  "values": [
+
+    "nekomasfixed:indigo_terracotta",
+    "nekomasfixed:amber_terracotta",
+    "nekomasfixed:aqua_terracotta",
+    "nekomasfixed:crimson_terracotta"
+  ]
+}

@@ -1,0 +1,19 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "#minecraft:gold_tool_materials"
+  },
+  "pattern": [
+    " XX",
+    "X X",
+    "#  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:golden_sickle"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "nekomasfixed:copper_sickle"
+      }
+    },
+    "has_ingredients": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["minecraft:stick"]
+          },
+          {
+            "items": ["minecraft:copper_ingot"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_the_recipe", "has_ingredients"]
+  ],
+  "rewards": {
+    "recipes": ["nekomasfixed:copper_sickle"]
+  }
+}

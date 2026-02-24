@@ -5,9 +5,10 @@ import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registries.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
+import net.minecraft.client.render.entity.ItemFrameEntityRenderer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.util.Identifier;
-
+import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 
 public class NekomasFixedClient implements ClientModInitializer {
 	public static EquipmentModel turtleArmorModel = createHumanoidOnlyModel("turtle_scute");
@@ -19,6 +20,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerEntityModelLayer();
 		TextureRegistry.registerTextureRegistry();
 
+
 		ClientSyncHandler.init();
 	}
 
@@ -27,4 +29,5 @@ public class NekomasFixedClient implements ClientModInitializer {
 				.addHumanoidLayers(Identifier.ofVanilla(id))
 				.build();
 	}
+
 }

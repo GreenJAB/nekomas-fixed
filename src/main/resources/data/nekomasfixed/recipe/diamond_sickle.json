@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "#minecraft:diamond_tool_materials"
+  },
+  "pattern": [
+    " XX",
+    "X X",
+    "#  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:diamond_sickle"
+  }
+}

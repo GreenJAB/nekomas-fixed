@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "nekomasfixed:iron_sickle",
+    "nekomasfixed:wooden_sickle",
+    "nekomasfixed:copper_sickle",
+    "nekomasfixed:golden_sickle",
+    "nekomasfixed:stone_sickle",
+    "nekomasfixed:diamond_sickle",
+    "nekomasfixed:netherite_sickle"
+  ]
+}

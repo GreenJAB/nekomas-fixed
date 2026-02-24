@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nekomasfixed:block/amber_glazed_terracotta",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "nekomasfixed:block/amber_glazed_terracotta",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "nekomasfixed:block/amber_glazed_terracotta"
+    },
+    "facing=west": {
+      "model": "nekomasfixed:block/amber_glazed_terracotta",
+      "y": 90
+    }
+  }
+}

@@ -1,15 +1,19 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.item.SickleItem;
 import net.greenjab.nekomasfixed.registry.item.SlingshotItem;
 import net.greenjab.nekomasfixed.registry.item.TargetDummyItem;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
+import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.item.Items;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.Registries;
@@ -17,15 +21,16 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Rarity;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.waypoint.Waypoint;
+
 
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
+import static net.greenjab.nekomasfixed.NekomasFixed.id;
 
 public class ItemRegistry {
 
@@ -68,15 +73,15 @@ public class ItemRegistry {
     public static final Item BOAT_UPGRADE_TEMPLATE = register(
             "boat_upgrade_template", settings -> new SmithingTemplateItem(
                     Text.translatable(
-                            Util.createTranslationKey("item", NekomasFixed.id("boat"))
+                            Util.createTranslationKey("item", id("boat"))
                             ).formatted(Formatting.BLUE),
                     Text.translatable(
-                            Util.createTranslationKey("item", NekomasFixed.id("planks"))
+                            Util.createTranslationKey("item", id("planks"))
                     ).formatted(Formatting.BLUE),
                     Text.of(""),
                     Text.of(""),
-                    List.of(NekomasFixed.id("container/slot/boat")),
-                    List.of(NekomasFixed.id("container/slot/planks")),
+                    List.of(id("container/slot/boat")),
+                    List.of(id("container/slot/planks")),
                     settings),new Item.Settings().rarity(Rarity.UNCOMMON)
     );
 
@@ -89,6 +94,73 @@ public class ItemRegistry {
     public static final Item TURTLE_CHESTPLATE = register("turtle_chestplate", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.CHESTPLATE));
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
+
+    /*Added By CyberModder
+    1. Wild Fire Smithing Template - Not Working
+    2. Amber Dye
+    3. Aqua Dye
+    4. Indigo Dye
+    5. Crimson Dye
+    6. Amber Terracotta
+     */
+
+
+    public static final Item WILD_FIRE_SMITHING_TEMPLATE = register(
+            "wild_fire_smithing_template",
+            settings -> new SmithingTemplateItem(
+                    Text.translatable("item.minecraft.smithing_template.armor_trim.applies_to"),
+                    Text.translatable("item.minecraft.smithing_template.armor_trim.ingredients"),
+                    Text.translatable("item.nekomasfixed.wild_fire_smithing_template"),
+                    Text.translatable("item.nekomasfixed.wild_fire_smithing_template"),
+                    List.of(
+                            Identifier.of("minecraft", "item/empty_armor_slot_helmet"),
+                            Identifier.of("minecraft", "item/empty_armor_slot_chestplate"),
+                            Identifier.of("minecraft", "item/empty_armor_slot_leggings"),
+                            Identifier.of("minecraft", "item/empty_armor_slot_boots")
+                    ),
+                    List.of(
+                            Identifier.of("minecraft", "item/empty_slot_ingot")
+                    ),
+                    settings
+            ),
+            new Item.Settings().rarity(Rarity.RARE)
+    );
+
+
+
+
+    public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
+    public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
+    public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
+    public static final Item AQUA_DYE = registerDye("aqua_dye", DyeColor.LIGHT_BLUE);
+
+//    public static final Item CLEAR_ITEM_FRAME = Registry.register(
+//            Registries.ITEM,
+//            NekomasFixed.id("clear_item_frame"),
+//            new ItemFrameItem(EntityTypeRegistry.CLEAR_ITEM_FRAME, new Item.Settings())
+//    );
+
+    public static final Item IRON_SICKLE = register("iron_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.IRON, SickleItem.SPEED));
+    public static final Item WOODEN_SICKLE = register("wooden_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.WOOD, SickleItem.SPEED));
+    public static final Item GOLDEN_SICKLE = register("golden_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.GOLD, SickleItem.SPEED));
+    public static final Item COPPER_SICKLE = register("copper_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.COPPER, SickleItem.SPEED));
+    public static final Item DIAMOND_SICKLE = register("diamond_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.DIAMOND, SickleItem.SPEED));
+    public static final Item STONE_SICKLE = register("stone_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.STONE, SickleItem.SPEED));
+    public static final Item NETHERITE_SICKLE = register("netherite_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.NETHERITE, SickleItem.SPEED));
+
+    public static final Item AMBER_TERRACOTTA = register(BlockRegistry.AMBER_TERRACOTTA);
+    public static final Item INDIGO_TERRACOTTA = register(BlockRegistry.INDIGO_TERRACOTTA);
+    public static final Item AQUA_TERRACOTTA = register(BlockRegistry.AQUA_TERRACOTTA);
+    public static final Item CRIMSON_TERRACOTTA = register(BlockRegistry.CRIMSON_TERRACOTTA);
+
+    public static final Item KILN = register(BlockRegistry.KILN);
+
+    public static final Item AQUA_GLAZED_TERRACOTTA = register(BlockRegistry.AQUA_GLAZED_TERRACOTTA);
+    public static final Item AMBER_GLAZED_TERRACOTTA = register(BlockRegistry.AMBER_GLAZED_TERRACOTTA);
+
+//    ------------------------------------------------------------------------------------------
+
+
 
     public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
 
@@ -109,7 +181,7 @@ public class ItemRegistry {
         return register(keyOf(id), factory, settings);
     }
     private static RegistryKey<Item> keyOf(String id) {
-        return RegistryKey.of(RegistryKeys.ITEM, NekomasFixed.id(id));
+        return RegistryKey.of(RegistryKeys.ITEM, id(id));
     }
     public static Item register(RegistryKey<Item> key, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(key));
@@ -118,6 +190,7 @@ public class ItemRegistry {
         }
         return Registry.register(Registries.ITEM, key, item);
     }
+
     public static Item register(Block block) {
         return register(block, BlockItem::new, new Item.Settings());
     }
@@ -129,6 +202,30 @@ public class ItemRegistry {
     }
     public static Item register(Block block, BiFunction<Block, Item.Settings, Item> factory) {
         return register(block, factory, new Item.Settings());
+    }
+    public static DyeItem registerDye(String id, DyeColor color) {
+        return (DyeItem) register(
+                keyOf(id),
+                settings -> new DyeItem(color, settings),
+                new Item.Settings()
+        );
+    }
+    public static Item registerItemFrame(String id) {
+        return register(
+                keyOf(id),
+                settings -> new ItemFrameItem(EntityType.ITEM_FRAME, settings),
+                new Item.Settings().maxCount(16)
+        );
+    }
+    public static void registerItems() {
+        NekomasFixed.LOGGER.info("Registering items...");
+
+        try {
+            Class.forName(ItemRegistry.class.getName());
+            NekomasFixed.LOGGER.info("Items registered successfully");
+        } catch (ClassNotFoundException e) {
+            NekomasFixed.LOGGER.error("Failed to register items", e);
+        }
     }
     public static Item register(Block block, BiFunction<Block, Item.Settings, Item> factory, Item.Settings settings) {
         return register(
@@ -146,7 +243,9 @@ public class ItemRegistry {
         );
     }
 
-    public static void registerItems() {
-        System.out.println("register Items");
-    }
+
+
+
+
+
 }

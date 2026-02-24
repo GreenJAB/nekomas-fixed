@@ -52,6 +52,28 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
                         entries.add(ItemRegistry.SLINGSHOT);
                         entries.add(ItemRegistry.WILD_FIRE_SPAWN_EGG);
+                        entries.add(ItemRegistry.WILD_FIRE_SMITHING_TEMPLATE);
+                        entries.add(ItemRegistry.AMBER_DYE);
+                        entries.add(ItemRegistry.INDIGO_DYE);
+                        entries.add(ItemRegistry.CRIMSON_DYE);
+                        entries.add(ItemRegistry.AQUA_DYE);
+                        entries.add(ItemRegistry.AMBER_TERRACOTTA);
+                        entries.add(ItemRegistry.INDIGO_TERRACOTTA);
+                        entries.add(ItemRegistry.AQUA_TERRACOTTA);
+                        entries.add(ItemRegistry.CRIMSON_TERRACOTTA);
+                        entries.add(ItemRegistry.AQUA_GLAZED_TERRACOTTA);
+                        entries.add(ItemRegistry.AMBER_GLAZED_TERRACOTTA);
+                        entries.add(ItemRegistry.IRON_SICKLE);
+                        entries.add(ItemRegistry.WOODEN_SICKLE);
+                        entries.add(ItemRegistry.STONE_SICKLE);
+                        entries.add(ItemRegistry.GOLDEN_SICKLE);
+                        entries.add(ItemRegistry.COPPER_SICKLE);
+                        entries.add(ItemRegistry.DIAMOND_SICKLE);
+                        entries.add(ItemRegistry.NETHERITE_SICKLE);
+                        entries.add(ItemRegistry.KILN);
+
+
+
                     }).build();
 
 

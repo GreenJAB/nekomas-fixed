@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:bricks",
+    "D": "minecraft:furnace",
+    "C": "minecraft:cobblestone"
+  },
+  "pattern": [
+    "###",
+    "#D#",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:kiln"
+  }
+
+
+}
