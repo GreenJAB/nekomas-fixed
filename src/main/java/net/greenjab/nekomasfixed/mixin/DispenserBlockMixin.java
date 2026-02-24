@@ -26,14 +26,6 @@ public class DispenserBlockMixin {
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
         if (blockEntity instanceof DispenserBlockEntity dispenser) {
-            for (int i = 0; i < dispenser.size(); i++) {
-                ItemStack stack = dispenser.getStack(i);
-                if (!stack.isEmpty()) {
-                    if(stack.isOf(Items.BUCKET)){
-                        System.out.println("Bucket found in slot " + i);
-                    }
-                }
-            }
 
             Block[] allCauldronState = {
                     BlockRegistry.ICE_CAULDRON,
@@ -54,7 +46,7 @@ public class DispenserBlockMixin {
 
                 boolean isCauldronNear = Arrays.stream(allCauldronState)
                         .anyMatch(cauldron -> cauldron == belowBlock || cauldron == aboveBlock || cauldron == leftBlock || cauldron == rightBlock);
-
+                System.out.println(isCauldronNear);
                 if (isCauldronNear) {
                     System.out.println("Found a cauldron below the dispenser!");
                     for (int i = 0; i < dispenser.size(); i++) {
