@@ -33,18 +33,7 @@ public class AbstractBlockMixin {
             honeyLevel= aboveState.get(BeehiveBlock.HONEY_LEVEL);
         }
 
-        if (state.getBlock() == Blocks.CAULDRON) {
-            TagKey<Biome> COLD_BIOMES = TagKey.of(RegistryKeys.BIOME,
-                    Identifier.of("c", "climate/cold"));
-            boolean isCold = world.getBiome(pos).isIn(COLD_BIOMES);
 
-            if (isCold && !world.isClient()) {
-                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
-                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
-                return;
-            }
-        }
 
         if (state.getBlock() == Blocks.CAULDRON) {
             abovePos = pos.up(2);
