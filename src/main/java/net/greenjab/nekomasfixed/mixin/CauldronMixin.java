@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -22,28 +21,15 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 @Mixin(AbstractCauldronBlock.class)
 public class CauldronMixin {
-
-    @Unique
-    private static final Map<BlockPos, Integer> ICE_FORMATION_TIMERS = new HashMap<>();
-
-    @Unique
-    private static int globalTickCounter = 0;
 
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
@@ -51,16 +37,14 @@ public class CauldronMixin {
 
         // ICE CAULDRON - Water bucket in cold biome creates ice cauldron
         if (stack.isOf(Items.WATER_BUCKET) && state.getBlock() == Blocks.CAULDRON) {
-            Biome biome = world.getBiome(pos).value();
+
+                Biome biome = world.getBiome(pos).value();
             if (biome.isCold(pos, 63) && !world.isClient()) {
-
-                // Start ice formation timer (20 ticks = 1 second)
-                ICE_FORMATION_TIMERS.put(pos, 20);
-
-                // Remove water bucket immediately
+                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
+                System.out.println("In a cold biome");
                 player.setStackInHand(hand, new ItemStack(Items.BUCKET));
-
-                System.out.println("Water will freeze in 20 ticks at " + pos);
+                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
+                        SoundCategory.BLOCKS, 1.0F, 1.0F);
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
             }
@@ -219,33 +203,6 @@ public class CauldronMixin {
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
-            }
-        }
-    }
-
-    @Inject(method = "scheduledTick", at = @At("HEAD"))
-    private void onScheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        // Process ice formation timers
-        if (!ICE_FORMATION_TIMERS.isEmpty()) {
-            Iterator<Map.Entry<BlockPos, Integer>> iterator = ICE_FORMATION_TIMERS.entrySet().iterator();
-
-            while (iterator.hasNext()) {
-                Map.Entry<BlockPos, Integer> entry = iterator.next();
-                BlockPos timerPos = entry.getKey();
-                int timer = entry.getValue() - 1;
-
-                if (timer <= 0) {
-                    // Time's up - form ice
-                    if (world.getBlockState(timerPos).getBlock() == Blocks.CAULDRON) {
-                        world.setBlockState(timerPos, BlockRegistry.ICE_CAULDRON.getDefaultState());
-                        world.playSound(null, timerPos, SoundEvents.BLOCK_GLASS_PLACE,
-                                SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        System.out.println("Ice formed at " + timerPos);
-                    }
-                    iterator.remove();
-                } else {
-                    entry.setValue(timer);
-                }
             }
         }
     }
