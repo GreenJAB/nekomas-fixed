@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:phantom_membrane",
+    "minecraft:item_frame"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:clear_item_frame"
+  }
+}

@@ -10,6 +10,7 @@ public class ClientSyncHandler {
         ClientPlayNetworking.registerGlobalReceiver(UpdateClockPayload.PACKET_ID, ClientSyncHandler::updateClockTimer);
 
     }
+
     private static void updateClockTimer(UpdateClockPayload payload, ClientPlayNetworking.Context context) {
         context.client().execute(() -> {
             if (context.client().world.getBlockEntity(new BlockPos(payload.x(), payload.y(), payload.z())) instanceof ClockBlockEntity clockBlockEntity){

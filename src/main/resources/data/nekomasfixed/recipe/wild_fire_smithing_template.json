@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "#S#",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "minecraft:blaze_rod"
+    },
+    "S": {
+      "item": "nekomasfixed:wild_fire_smithing_template"
+    }
+  },
+  "result": {
+    "item": "nekomasfixed:wild_fire_smithing_template",
+    "count": 2
+  }
+}

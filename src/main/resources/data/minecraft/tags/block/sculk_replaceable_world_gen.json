@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "_notes": "The blocks in this tag can be replaced by sculk during world gen",
+  "values": [
+
+    "nekomasfixed:indigo_terracotta",
+    "nekomasfixed:amber_terracotta",
+    "nekomasfixed:aqua_terracotta",
+    "nekomasfixed:crimson_terracotta"
+  ]
+}

@@ -3,11 +3,16 @@
   "package": "net.greenjab.nekomasfixed.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AbstractBlockMixin",
+    "BeehiveBlockEntityMixin",
     "BlockItemMixin",
     "BlocksMixin",
     "CarvedPumpkinBlockMixin",
+    "CauldronMixin",
     "ContainerComponentMixin",
+    "DispenserBlockMixin",
     "DrownedEntityMixin",
+    "DyeItemMixin",
     "EnchantmentMixin",
     "ExplosionImplMixin",
     "FarmlandBlockMixin",
@@ -16,12 +21,12 @@
     "ItemsMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
-    "LongJumpUtilMixin",
     "NautilusStackMixin",
     "NoteBlockMixin",
     "PillagerEntityMixin",
+    "PlayerEntityInterfaceMixin",
     "PlayerEntityMixin",
-    "SmallFireballEntityMixin",
+    "RecipeBookTypeInvoker",
     "TradeOffersMixin",
     "WeightedPressurePlateBlockMixin",
     "boat.AbstractBoatEntityMixin",
@@ -36,5 +41,7 @@
   },
   "overwrites": {
     "requireAnnotations": true
-	}
+  },
+  "client": [
+  ]
 }

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "slime_level=1": {
+      "model": "nekomasfixed:block/slime_cauldron_level1"
+    },
+    "slime_level=2": {
+      "model": "nekomasfixed:block/slime_cauldron_level2"
+    },
+    "slime_level=3": {
+      "model": "nekomasfixed:block/slime_cauldron_level3"
+    },
+    "slime_level=4": {
+      "model": "nekomasfixed:block/slime_cauldron_full"
+    }
+  }
+}

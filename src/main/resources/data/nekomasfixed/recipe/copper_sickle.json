@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "#minecraft:copper_tool_materials"
+  },
+  "pattern": [
+    " XX",
+    "X X",
+    "#  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:copper_sickle"
+  }
+}
