@@ -43,8 +43,6 @@ public class FireBombEntity extends ProjectileEntity {
 
     @Override
     public void handleStatus(byte status) {
-        //if (status == EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES) {
-        //}
     }
 
     @Override
@@ -73,7 +71,7 @@ public class FireBombEntity extends ProjectileEntity {
         if (!(entity instanceof WildFireEntity)) {
             super.onEntityHit(entityHitResult);
             if (!this.getEntityWorld().isClient()) {
-                //this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, entity.getX(), entity.getY() + 1, entity.getZ(), 1, true, World.ExplosionSourceType.MOB);
+                this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, entity.getX(), entity.getY() + 1, entity.getZ(), 1, true, World.ExplosionSourceType.MOB);
                 this.discard();
             }
         }
@@ -83,7 +81,7 @@ public class FireBombEntity extends ProjectileEntity {
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if (!this.getEntityWorld().isClient()) {
-            //this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, this.getX(), this.getY(), this.getZ(), 1, true, World.ExplosionSourceType.MOB);
+            this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, this.getX(), this.getY(), this.getZ(), 1, true, World.ExplosionSourceType.MOB);
             this.discard();
         }
     }

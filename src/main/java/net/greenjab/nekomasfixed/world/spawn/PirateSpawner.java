@@ -9,7 +9,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.PatrolEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -17,6 +19,8 @@ import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.raid.Raid;
 import net.minecraft.world.Heightmap;
@@ -44,41 +48,42 @@ public class PirateSpawner implements SpecialSpawner {
                             PlayerEntity playerEntity = world.getPlayers().get(random.nextInt(i));
                             if (!playerEntity.isSpectator()) {
                                 if (!world.isNearOccupiedPointOfInterest(playerEntity.getBlockPos(), 2)) {
-
-                                    int j = (64 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
-                                    int k = (64 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
-                                    Mutable mutable = playerEntity.getBlockPos().mutableCopy().move(j, 0, k);
-                                    int m = 10;
-                                    if (world.isRegionLoaded(mutable.getX() - m, mutable.getZ() - m, mutable.getX() + m, mutable.getZ() + m)) {
-                                        RegistryEntry<Biome> registryEntry = world.getBiome(mutable);
-                                        if (registryEntry.isIn(BiomeTags.IS_OCEAN)) {
-                                            mutable.setY(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, mutable).getY());
-                                            if (world.getBlockState(mutable).isOf(Blocks.AIR) && world.getBlockState(mutable.down()).isOf(Blocks.WATER)) {
-                                                for (int bx = mutable.getX() - 8; bx < mutable.getX() + 8; bx++) {
-                                                    for (int by = mutable.getY() - 2; by < mutable.getY() + 4; by++) {
-                                                        for (int bz = mutable.getZ() - 8; bz < mutable.getZ() + 8; bz++) {
-                                                            BlockState blockState = world.getBlockState(new BlockPos(bx, by, bz));
-                                                            if (!(blockState.isOf(Blocks.AIR) || blockState.isOf(Blocks.WATER))) {
-                                                               return;
+                                    if (notNearOtherPatrols(world, playerEntity.getBlockPos())) {
+                                        int j = (64 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
+                                        int k = (64 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
+                                        Mutable mutable = playerEntity.getBlockPos().mutableCopy().move(j, 0, k);
+                                        int m = 10;
+                                        if (world.isRegionLoaded(mutable.getX() - m, mutable.getZ() - m, mutable.getX() + m, mutable.getZ() + m)) {
+                                            RegistryEntry<Biome> registryEntry = world.getBiome(mutable);
+                                            if (registryEntry.isIn(BiomeTags.IS_OCEAN)) {
+                                                mutable.setY(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, mutable).getY());
+                                                if (world.getBlockState(mutable).isOf(Blocks.AIR) && world.getBlockState(mutable.down()).isOf(Blocks.WATER)) {
+                                                    for (int bx = mutable.getX() - 8; bx < mutable.getX() + 8; bx++) {
+                                                        for (int by = mutable.getY() - 2; by < mutable.getY() + 4; by++) {
+                                                            for (int bz = mutable.getZ() - 8; bz < mutable.getZ() + 8; bz++) {
+                                                                BlockState blockState = world.getBlockState(new BlockPos(bx, by, bz));
+                                                                if (!(blockState.isOf(Blocks.AIR) || blockState.isOf(Blocks.WATER))) {
+                                                                    return;
+                                                                }
                                                             }
                                                         }
                                                     }
-                                                }
-                                                mutable.add(0, 2, 0);
-                                                int n = (int) Math.ceil(world.getLocalDifficulty(mutable).getLocalDifficulty()) + 1;
-                                                int boatType = random.nextInt(EntityTypeRegistry.bigBoats.size());
-                                                for (int o = 0; o < n; o++) {
-                                                    if (o == 0) {
-                                                        if (!this.spawnBoat(world, mutable, random, boatType, true)) {
-                                                            break;
+                                                    mutable.add(0, 2, 0);
+                                                    int n = (int) Math.ceil(world.getLocalDifficulty(mutable).getLocalDifficulty()) + 1;
+                                                    int boatType = random.nextInt(EntityTypeRegistry.bigBoats.size());
+                                                    for (int o = 0; o < n; o++) {
+                                                        if (o == 0) {
+                                                            if (!this.spawnBoat(world, mutable, random, boatType, true)) {
+                                                                break;
+                                                            }
+                                                        } else {
+                                                            this.spawnBoat(world, mutable, random, boatType, false);
                                                         }
-                                                    } else {
-                                                        this.spawnBoat(world, mutable, random, boatType, false);
-                                                    }
 
-                                                    mutable.setX(mutable.getX() + (3 + random.nextInt(3)) * (int)Math.signum(random.nextInt(2) - 0.5));
-                                                    mutable.setY(mutable.getY() + 2);
-                                                    mutable.setZ(mutable.getZ() + (3 + random.nextInt(3)) * (int)Math.signum(random.nextInt(2) - 0.5));
+                                                        mutable.setX(mutable.getX() + (3 + random.nextInt(3)) * (int) Math.signum(random.nextInt(2) - 0.5));
+                                                        mutable.setY(mutable.getY() + 2);
+                                                        mutable.setZ(mutable.getZ() + (3 + random.nextInt(3)) * (int) Math.signum(random.nextInt(2) - 0.5));
+                                                    }
                                                 }
                                             }
                                         }
@@ -91,6 +96,10 @@ public class PirateSpawner implements SpecialSpawner {
                 }
             }
         }
+    }
+
+    private boolean notNearOtherPatrols(ServerWorld world, BlockPos blockPos) {
+        return world.getEntitiesByClass(RaiderEntity.class, Box.from(Vec3d.of(blockPos)).expand(100), EntityPredicates.VALID_LIVING_ENTITY).isEmpty();
     }
 
     private boolean spawnBoat(ServerWorld world, BlockPos pos, Random random, int boatType, boolean captain) {

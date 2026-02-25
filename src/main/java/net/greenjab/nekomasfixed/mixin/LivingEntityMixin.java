@@ -1,13 +1,17 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -67,4 +71,22 @@ public class LivingEntityMixin {
         }
     }
 
+    @ModifyExpressionValue(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;tryUseDeathProtector(Lnet/minecraft/entity/damage/DamageSource;)Z"))
+    private boolean wildFireSecondPhase(boolean original, @Local(argsOnly = true) DamageSource source) {
+        LivingEntity LE = (LivingEntity)(Object)this;
+        if (LE instanceof WildFireEntity wildFireEntity) {
+            if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+                return false;
+            } else {
+                if (!wildFireEntity.isSoulActive()) {
+                    wildFireEntity.setSoulActive(true);
+                    wildFireEntity.setShieldsActive(4);
+                    wildFireEntity.setHealth(wildFireEntity.getMaxHealth());
+                    wildFireEntity.getEntityWorld().sendEntityStatus(wildFireEntity, EntityStatuses.USE_TOTEM_OF_UNDYING);
+                    return true;
+                }
+            }
+        }
+        return original;
+    }
 }

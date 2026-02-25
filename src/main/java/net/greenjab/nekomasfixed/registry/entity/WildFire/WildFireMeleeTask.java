@@ -67,8 +67,10 @@ public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 	}
 
 	protected void finishRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 60L);
+		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 200L);
 		wildFireEntity.getBrain().forget(MemoryModuleType.BREEZE_SHOOT);
+		wildFireEntity.getBrain().forget(MemoryModuleType.WALK_TARGET);
+		//Brain b = wildFireEntity.getBrain();
 		wildFireEntity.setFireActive(false);
 	}
 
@@ -92,9 +94,8 @@ public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 					entity.damage(serverWorld, damageSource, 5.0F);
 					EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource);
 				}
-
 			}
-			wildFireEntity.getBrain().remember(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.ofFloored(livingEntity.getEntityPos()), 0.6F, 1));
+			wildFireEntity.getBrain().remember(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.ofFloored(livingEntity.getEntityPos()), wildFireEntity.isSoulActive()?0.65F:0.5F, 0));
 
 		}
 	}

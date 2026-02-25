@@ -19,7 +19,6 @@ import net.minecraft.entity.ai.brain.task.ForgetAttackTargetTask;
 import net.minecraft.entity.ai.brain.task.MoveToTargetTask;
 import net.minecraft.entity.ai.brain.task.RandomTask;
 import net.minecraft.entity.ai.brain.task.StayAboveWaterTask;
-import net.minecraft.entity.ai.brain.task.StrollTask;
 import net.minecraft.entity.ai.brain.task.UpdateAttackTargetTask;
 import net.minecraft.entity.ai.brain.task.UpdateLookControlTask;
 import net.minecraft.entity.ai.brain.task.WaitTask;
@@ -50,7 +49,9 @@ public class WildFireBrain {
 			MemoryModuleType.HURT_BY,
 			MemoryModuleType.HURT_BY_ENTITY,
 			MemoryModuleType.PATH,
-			MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS
+			MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, //bomb counter
+			MemoryModuleType.TOUCH_COOLDOWN, //forced fight cooldown
+			MemoryModuleType.SNIFF_COOLDOWN //stay in fire to heal
 	);
 
 	protected static Brain<?> create(WildFireEntity wildFire, Brain<WildFireEntity> brain) {
@@ -76,7 +77,7 @@ public class WildFireBrain {
 						),
 						Pair.of(1, UpdateAttackTargetTask.create((world, wildFire) -> wildFire.getHurtBy())),
 						Pair.of(2, new WildFireBrain.SlideAroundTask(20, 40)),
-						Pair.of(3, new RandomTask<>(ImmutableList.of(Pair.of(new WaitTask(20, 100), 1), Pair.of(StrollTask.create(0.6F), 2))))
+						Pair.of(3, new RandomTask<>(ImmutableList.of(Pair.of(new WaitTask(20, 100), 1),Pair.of(new WildFireSlideTowardsTargetTask(), 3))))
 				)
 		);
 	}
@@ -90,8 +91,8 @@ public class WildFireBrain {
 						Pair.of(2, new WildFireMeleeTask()),
 						Pair.of(3, new WildFireJumpTask()),
 						Pair.of(4, new WildFireBombTask()),
-						//Pair.of(5, new WildFireShootIfStuckTask()),
-						Pair.of(5, new WildFireSlideTowardsTargetTask())
+						Pair.of(5, new WildFireShootIfStuckTask()),
+						Pair.of(6, new WildFireSlideTowardsTargetTask())
 				),
 				ImmutableSet.of(
 						Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)

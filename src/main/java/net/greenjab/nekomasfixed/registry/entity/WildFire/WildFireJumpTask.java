@@ -52,7 +52,7 @@ public class WildFireJumpTask extends MultiTickTask<WildFireEntity> {
 					BlockState blockState = world.getBlockState(blockPos.down());
 					if (wildFire.getType().isInvalidSpawn(blockState)) {
 						return false;
-					} else if (!WildFireMovementUtil.canMoveTo(wildFire, blockPos.toCenterPos()) && !WildFireMovementUtil.canMoveTo(wildFire, blockPos.up(4).toCenterPos())) {
+					} else if (WildFireMovementUtil.cantMoveTo(wildFire, blockPos.toCenterPos()) && WildFireMovementUtil.cantMoveTo(wildFire, blockPos.up(4).toCenterPos())) {
 						return false;
 					} else {
 						wildFire.getBrain().remember(MemoryModuleType.BREEZE_JUMP_TARGET, blockPos);
@@ -135,7 +135,7 @@ public class WildFireJumpTask extends MultiTickTask<WildFireEntity> {
 	protected void finishRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
 		wildFireEntity.getBrain().forget(MemoryModuleType.BREEZE_JUMP_TARGET);
 		wildFireEntity.getBrain().forget(MemoryModuleType.BREEZE_JUMP_INHALING);
-		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 60L);
+		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 200L);
 		wildFireEntity.setNoDrag(false);
 	}
 

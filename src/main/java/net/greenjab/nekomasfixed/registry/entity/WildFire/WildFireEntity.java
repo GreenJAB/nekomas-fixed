@@ -14,13 +14,19 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.debug.DebugTrackable;
 import org.jspecify.annotations.Nullable;
@@ -29,7 +35,6 @@ import java.util.Optional;
 
 public class WildFireEntity extends HostileEntity {
 	public float eyeOffset = 0.5F;
-	//private int eyeOffsetCooldown;
 	public float clientFireTime = 0;
 	public float clientExtraSpin = 0;
 	private static final TrackedData<Byte> WILD_FIRE_FLAGS = DataTracker.registerData(WildFireEntity.class, TrackedDataHandlerRegistry.BYTE);
@@ -41,6 +46,17 @@ public class WildFireEntity extends HostileEntity {
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.experiencePoints = 50;
+		setShieldsActive(4);
+	}
+
+	@Override
+	protected void writeCustomData(WriteView view) {
+		view.putInt("State", this.dataTracker.get(WILD_FIRE_FLAGS));
+	}
+
+	@Override
+	protected void readCustomData(ReadView view) {
+		this.dataTracker.set(WILD_FIRE_FLAGS, (byte)view.getInt("State", 0));
 	}
 
 	@Override
@@ -102,7 +118,7 @@ public class WildFireEntity extends HostileEntity {
 	@Override
 	public void tickMovement() {
 		if (!this.isOnGround() && this.getVelocity().y < 0.0) {
-			this.setVelocity(this.getVelocity().multiply(1.0, 0.6, 1.0));
+			this.setVelocity(this.getVelocity().multiply(1.0, (this.eyeOffset > -1?0.85:0.6), 1.0));
 		}
 
 		if (this.getEntityWorld().isClient()) {
@@ -136,29 +152,42 @@ public class WildFireEntity extends HostileEntity {
 		return true;
 	}
 
-	public boolean isWithinShortRange(Vec3d pos) {
-		Vec3d vec3d = this.getBlockPos().toCenterPos();
-		return pos.isWithinRangeOf(vec3d, 4.0, 10.0);
-	}
-
 	@Override
 	protected void mobTick(ServerWorld world) {
-		/*this.eyeOffsetCooldown--;
-		if (this.eyeOffsetCooldown <= 0) {
-			this.eyeOffsetCooldown = 100;
-			this.eyeOffset = (float)this.random.nextTriangular(0.5, 6.891);
-		}*/
-
 		LivingEntity livingEntity = this.getTarget();
-		if (livingEntity != null && livingEntity.getEyeY() > this.getEyeY() + this.eyeOffset && this.canTarget(livingEntity)) {
+		if (livingEntity != null && this.canTarget(livingEntity)) {
+
+			if (this.canSee(livingEntity)) {
+				brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+			}
+
 			Vec3d vec3d = this.getVelocity();
-			this.setVelocity(this.getVelocity().add(0.0, (0.3F - vec3d.y) * 0.6F, 0.0));
-			this.velocityDirty = true;
+
+			double d = livingEntity.getEyeY() - (this.getEyeY() + this.eyeOffset);
+			if (this.eyeOffset > -1 && d>-3) {
+				BlockHitResult blockHitResult = this.getEntityWorld()
+						.raycast(
+								new RaycastContext(
+										this.getEyePos(), this.getEntityPos().add(0, -3, 0), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this
+								)
+						);
+				if (blockHitResult.getType() == HitResult.Type.MISS ) {
+					if ( livingEntity.getEyeY() > this.getEyeY() + this.eyeOffset) {
+						this.setVelocity(this.getVelocity().add(0.0, (0.3F - vec3d.y) * 0.6F, 0.0));
+					}
+					this.setVelocity(this.getVelocity().add(livingEntity.getEyePos().subtract(this.getEntityPos()).getHorizontal().normalize().multiply(0.03f)));
+				}
+			} else {
+				if ( livingEntity.getEyeY() > this.getEyeY() + this.eyeOffset) {
+					this.setVelocity(this.getVelocity().add(0.0, (0.3F - vec3d.y) * 0.6F, 0.0));
+					this.velocityDirty = true;
+				}
+			}
 		}
 
 		if (world.getTime()%20==0) {
-			setSoulActive(this.getTargetInBrain()!=null);
-			setShieldsActive((int)(5*this.getHealth()/this.getMaxHealth()));
+			if (world.getBlockState(this.getBlockPos()).isIn(BlockTags.FIRE))this.heal(1);
+			setShieldsActive((int)MathHelper.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4));
 		}
 
 		Profiler profiler = Profilers.get();
@@ -212,7 +241,7 @@ public class WildFireEntity extends HostileEntity {
 		return (this.dataTracker.get(WILD_FIRE_FLAGS) & 2) != 0;
 	}
 
-	void setSoulActive(boolean soulActive) {
+	public void setSoulActive(boolean soulActive) {
 		byte b = this.dataTracker.get(WILD_FIRE_FLAGS);
 		if (soulActive) {
 			b = (byte)(b | 2);
@@ -227,7 +256,7 @@ public class WildFireEntity extends HostileEntity {
 		return (this.dataTracker.get(WILD_FIRE_FLAGS) & 28)/4;
 	}
 
-	void setShieldsActive(int shieldsActive) {
+	public void setShieldsActive(int shieldsActive) {
 		byte b = this.dataTracker.get(WILD_FIRE_FLAGS);
 		b = (byte)(b & -(28+1));
 		b = (byte)(b | 4*shieldsActive);

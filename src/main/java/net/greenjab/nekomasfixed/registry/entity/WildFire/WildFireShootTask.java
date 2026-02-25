@@ -16,7 +16,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.util.math.Vec3d;
 
 public class WildFireShootTask extends MultiTickTask<WildFireEntity> {
-	private static final int SHOOT_CHARGING_EXPIRY = Math.round(60.0F);
+	private static final int SHOOT_CHARGING_EXPIRY = Math.round(40.0F);
 	private static final int RECOVER_EXPIRY = Math.round(30.0F);
 	private static final int SHOOT_COOLDOWN_EXPIRY = Math.round(3.0F);
 
@@ -64,10 +64,10 @@ public class WildFireShootTask extends MultiTickTask<WildFireEntity> {
 	}
 
 	protected void finishRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 60L);
+		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 200L);
 		wildFireEntity.getBrain().forget(MemoryModuleType.BREEZE_SHOOT);
 		wildFireEntity.setFireActive(false);
-		wildFireEntity.eyeOffset = 0.5f;
+		wildFireEntity.eyeOffset = -0.5f;
 	}
 
 	protected void keepRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
@@ -77,7 +77,7 @@ public class WildFireShootTask extends MultiTickTask<WildFireEntity> {
 			wildFireEntity.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, livingEntity.getEntityPos());
 			if (brain.getOptionalRegisteredMemory(MemoryModuleType.BREEZE_SHOOT_CHARGING).isEmpty()
 				&& brain.getOptionalRegisteredMemory(MemoryModuleType.BREEZE_SHOOT_RECOVER).isEmpty()) {
-				brain.remember(MemoryModuleType.BREEZE_SHOOT_RECOVER, Unit.INSTANCE, SHOOT_COOLDOWN_EXPIRY);
+				brain.remember(MemoryModuleType.BREEZE_SHOOT_RECOVER, Unit.INSTANCE, SHOOT_COOLDOWN_EXPIRY + (wildFireEntity.isSoulActive()?-1:0));
 				double e = livingEntity.getX() - wildFireEntity.getX();
 				double f = livingEntity.getBodyY(0.5) - wildFireEntity.getBodyY(0.5);
 				double g = livingEntity.getZ() - wildFireEntity.getZ();

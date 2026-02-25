@@ -22,7 +22,7 @@ import java.util.Optional;
 
 public class WildFireBombTask extends MultiTickTask<WildFireEntity> {
 	private static final int SHOOT_CHARGING_EXPIRY = Math.round(20.0F);
-	private static final int RECOVER_EXPIRY = Math.round(40.0F);
+	private static final int RECOVER_EXPIRY = Math.round(39.0F);
 	private static final int SHOOT_COOLDOWN_EXPIRY = Math.round(4.0F);
 
 	@VisibleForTesting
@@ -70,11 +70,11 @@ public class WildFireBombTask extends MultiTickTask<WildFireEntity> {
 	}
 
 	protected void finishRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 60L);
+		wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 200L);
 		wildFireEntity.getBrain().forget(MemoryModuleType.BREEZE_SHOOT);
 		wildFireEntity.getBrain().forget(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS);
 		wildFireEntity.setFireActive(false);
-		wildFireEntity.eyeOffset = 0.5f;
+		wildFireEntity.eyeOffset = -0.5f;
 	}
 
 	protected void keepRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
@@ -88,16 +88,19 @@ public class WildFireBombTask extends MultiTickTask<WildFireEntity> {
 
 				Optional<Vec3d> optional = LongJumpUtil.getJumpingVelocity(wildFireEntity, livingEntity.getEntityPos(), 1.11f, serverWorld.random.nextInt(10) + 65, false);
 				if (optional.isPresent()) {
-					int i = brain.getOptionalRegisteredMemory(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS).orElse(0);
+					int i = brain.getOptionalRegisteredMemory(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS).orElse(-1);
 					brain.remember(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, i+1, 60);
-					Vec3d v = optional.get();
-					int j = (int)(i/2f+0.5f+(i%2==0?-i+7.5f:0));
-					v=v.rotateY((float) (45*j*Math.PI/180.0));
+					if (i < 5 ||wildFireEntity.isSoulActive()) {
+						Vec3d v = optional.get();
+						int j = (int) (i / 2f + 0.5f + (i % 2 == 0 ? -i + 15.5f : 0));
+						v = v.rotateY((float) (22.5 * j * Math.PI / 180.0));
+						if (i == -1) v = v.multiply(0);
 
-					FireBombEntity fireBombEntity = new FireBombEntity(serverWorld, wildFireEntity);
-					fireBombEntity.setPosition(fireBombEntity.getX(), wildFireEntity.getBodyY(0.5) + 0.5, fireBombEntity.getZ());
-					ProjectileEntity.spawnWithVelocity(fireBombEntity, serverWorld, ItemStack.EMPTY, v.x, v.y, v.z, (float) v.length() * 1.1f, 0.0F);
-					wildFireEntity.playSound(SoundEvents.ENTITY_BREEZE_SHOOT, 1.5F, 1.0F);
+						FireBombEntity fireBombEntity = new FireBombEntity(serverWorld, wildFireEntity);
+						fireBombEntity.setPosition(fireBombEntity.getX(), wildFireEntity.getBodyY(0.5) + 0.5, fireBombEntity.getZ());
+						ProjectileEntity.spawnWithVelocity(fireBombEntity, serverWorld, ItemStack.EMPTY, v.x, v.y, v.z, (float) v.length() * 1.1f, 0.0F);
+						wildFireEntity.playSound(SoundEvents.ENTITY_BREEZE_SHOOT, 1.5F, 1.0F);
+					}
 				}
 			}
 		}
