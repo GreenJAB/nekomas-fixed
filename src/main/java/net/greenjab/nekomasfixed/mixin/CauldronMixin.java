@@ -1,24 +1,19 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
-import net.greenjab.nekomasfixed.registry.block.IceCauldronBlock;
-import net.greenjab.nekomasfixed.registry.block.MagmaCauldronBlock;
-import net.greenjab.nekomasfixed.registry.block.SlimeCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.HoneyCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.MagmaCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.SlimeCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

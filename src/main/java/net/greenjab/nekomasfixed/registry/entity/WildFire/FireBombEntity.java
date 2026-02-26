@@ -1,6 +1,5 @@
-package net.greenjab.nekomasfixed.registry.entity;
+package net.greenjab.nekomasfixed.registry.entity.WildFire;
 
-import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

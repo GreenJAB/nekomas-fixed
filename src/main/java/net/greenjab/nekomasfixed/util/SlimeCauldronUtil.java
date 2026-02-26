@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.util;
 
-import net.greenjab.nekomasfixed.registry.block.MagmaCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.MagmaCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.sound.SoundCategory;

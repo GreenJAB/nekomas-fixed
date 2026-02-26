@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.util;
 
-import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.HoneyCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;

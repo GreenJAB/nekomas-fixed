@@ -8,9 +8,7 @@ import net.greenjab.nekomasfixed.render.block.entity.EndermanHeadBlockEntityRend
 import net.greenjab.nekomasfixed.render.entity.*;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.EntityRendererFactories;
-import net.minecraft.client.render.entity.ItemFrameEntityRenderer;
-
-
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
 public class EntityRendererRegistry {
 
@@ -19,8 +17,8 @@ public class EntityRendererRegistry {
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, ClockBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.ENDERMAN_HEAD_BLOCK_ENTITY, EndermanHeadBlockEntityRenderer::new);
+
         EntityRendererFactories.register(EntityTypeRegistry.FAKE_BOAT, FakeBoatEntityRenderer::new);
-        
         EntityRendererFactories.register(EntityTypeRegistry.BIG_ACACIA_BOAT, context -> new BigBoatEntityRenderer<>(context, EntityModelLayerRegistry.BIG_ACACIA_BOAT));
         EntityRendererFactories.register(EntityTypeRegistry.BIG_BAMBOO_BOAT, context -> new BigBoatEntityRenderer<>(context, EntityModelLayerRegistry.BIG_BAMBOO_BOAT));
         EntityRendererFactories.register(EntityTypeRegistry.BIG_BIRCH_BOAT, context -> new BigBoatEntityRenderer<>(context, EntityModelLayerRegistry.BIG_BIRCH_BOAT));
@@ -44,13 +42,14 @@ public class EntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.HUGE_SPRUCE_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_SPRUCE_BOAT));
 
 
-
-
-
         EntityRendererFactories.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyEntityRenderer::new);
 
         EntityRendererFactories.register(EntityTypeRegistry.SPEAR, SpearEntityRenderer::new);
 
         EntityRendererFactories.register(EntityTypeRegistry.WILD_FIRE, WildFireEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.FIRE_BOMB, FireBombEntityRenderer::new);
+
+        EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
+
     }
 }

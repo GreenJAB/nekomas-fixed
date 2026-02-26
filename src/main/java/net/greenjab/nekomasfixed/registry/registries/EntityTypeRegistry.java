@@ -1,11 +1,11 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.minecraft.entity.*;
-import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -65,28 +65,6 @@ public class EntityTypeRegistry {
         return (type, world) -> new HugeBoatEntity(type, world, itemSupplier);
     }
 
-    public static final EntityType<ItemFrameEntity> CLEAR_ITEM_FRAME;
-
-    static {
-        RegistryKey<EntityType<?>> key = RegistryKey.of(
-                RegistryKeys.ENTITY_TYPE,
-                NekomasFixed.id("clear_item_frame")
-        );
-
-        CLEAR_ITEM_FRAME = Registry.register(
-                Registries.ENTITY_TYPE,
-                key,
-                FabricEntityTypeBuilder.<ItemFrameEntity>create(SpawnGroup.MISC, ItemFrameEntity::new)
-                        .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-                        .trackRangeBlocks(10)
-                        .trackedUpdateRate(10)
-                        .build(key) // ✅ THIS IS THE FIX
-        );
-    }
-
-
-
-
 
     public static final EntityType<TargetDummyEntity> TARGET_DUMMY = register(
             "target_dummy",
@@ -100,6 +78,25 @@ public class EntityTypeRegistry {
     public static final EntityType<WildFireEntity> WILD_FIRE = register(
             "wild_fire", EntityType.Builder.create(WildFireEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(0.75F, 1.975F).maxTrackingRange(8).notAllowedInPeaceful()
     );
+
+    public static final EntityType<SlingshotProjectileEntity> SLINGSHOT_PROJECTILE = register(
+            "slingshot_projectile",
+            EntityType.Builder.<SlingshotProjectileEntity>create(SlingshotProjectileEntity::new, SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(0.25F, 0.25F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(10)
+    );
+
+    public static final EntityType<FireBombEntity> FIRE_BOMB = register(
+            "fire_bomb",
+            EntityType.Builder.<FireBombEntity>create(FireBombEntity::new, SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(0.25F, 0.25F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(10)
+    );
+
 
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {

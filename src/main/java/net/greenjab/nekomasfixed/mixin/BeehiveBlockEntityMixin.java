@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import net.greenjab.nekomasfixed.registry.block.HoneyCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.HoneyCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.HoneyCauldronUtil;
 import net.minecraft.block.BeehiveBlock;

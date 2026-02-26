@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.entity.WildFire;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.block.Blocks;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityPose;
@@ -12,6 +13,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.WalkTarget;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Unit;
@@ -21,8 +23,8 @@ import java.util.List;
 
 public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 	private static final int MELEE_CHARGING_EXPIRY = Math.round(20.0F);
-	private static final int MELEE_EXPIRY = Math.round(160.0F);
-	private static final int MELEE_HIT_COOLDOWN_EXPIRY = Math.round(3.0F);
+	private static final int MELEE_EXPIRY = Math.round(120.0F);
+	private static final int MELEE_HIT_COOLDOWN_EXPIRY = Math.round(4.0F);
 
 	@VisibleForTesting
 	public WildFireMeleeTask() {
@@ -82,6 +84,10 @@ public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 			if (brain.getOptionalRegisteredMemory(MemoryModuleType.BREEZE_SHOOT_CHARGING).isEmpty()
 				&& brain.getOptionalRegisteredMemory(MemoryModuleType.BREEZE_SHOOT_RECOVER).isEmpty()) {
 				brain.remember(MemoryModuleType.BREEZE_SHOOT_RECOVER, Unit.INSTANCE, MELEE_HIT_COOLDOWN_EXPIRY);
+
+				if (serverWorld.getBlockState(wildFireEntity.getBlockPos()).isIn(BlockTags.REPLACEABLE)) {
+					serverWorld.setBlockState(wildFireEntity.getBlockPos(), Blocks.FIRE.getDefaultState());
+				}
 
 				List<LivingEntity> list = serverWorld.getEntitiesByClass(LivingEntity.class, wildFireEntity.getBoundingBox().expand(1.5, 0, 1.5), e -> e != wildFireEntity && e.isAlive());
 				for (LivingEntity entity : list) {

@@ -3,3 +3,4 @@ accessible method net/minecraft/component/DataComponentTypes register (Ljava/lan
 accessible field net/minecraft/loot/LootTables LOOT_TABLES Ljava/util/Set;
 accessible method net/minecraft/particle/SimpleParticleType <init> (Z)V
 accessible field net/minecraft/entity/LivingEntity ticksSinceLastAttack I
+accessible method net/minecraft/entity/LivingEntity sendEquipmentChanges ()V

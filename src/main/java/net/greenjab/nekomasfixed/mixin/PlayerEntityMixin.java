@@ -1,7 +1,10 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -11,10 +14,11 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -90,18 +94,10 @@ public class PlayerEntityMixin {
         System.out.println("Base damage: " + baseDamage + " | Final damage: " + lastFinalDamage);
     }
 
-    @Unique
-    public float getLastFinalDamage() {
-        return lastFinalDamage;
+    @WrapOperation(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;interact(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
+    private ActionResult allowOffHandHit(Entity instance, PlayerEntity player, Hand hand, Operation<ActionResult> original) {
+        if (player.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) return ActionResult.PASS;
+        return original.call(instance, player, hand);
     }
 
-    @Unique
-    public float getLastBaseDamage() {
-        return lastBaseDamage;
-    }
-
-    @Unique
-    public Entity getLastTarget() {
-        return lastTarget;
-    }
 }

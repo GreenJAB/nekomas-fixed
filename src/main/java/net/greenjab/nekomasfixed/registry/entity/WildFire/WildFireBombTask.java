@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.registry.entity.WildFire;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
-import net.greenjab.nekomasfixed.registry.entity.FireBombEntity;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;

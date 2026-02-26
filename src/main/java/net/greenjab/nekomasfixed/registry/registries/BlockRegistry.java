@@ -2,13 +2,15 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.*;
+import net.greenjab.nekomasfixed.registry.block.cauldron.HoneyCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.IceCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.MagmaCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.SlimeCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.minecraft.block.*;
-import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -16,11 +18,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.Biome;
 
 import java.util.function.Function;
-
-import static net.minecraft.block.Blocks.CAULDRON;
 
 public class BlockRegistry {
 

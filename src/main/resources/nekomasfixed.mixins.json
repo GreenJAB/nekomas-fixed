@@ -27,6 +27,7 @@
     "PlayerEntityInterfaceMixin",
     "PlayerEntityMixin",
     "RecipeBookTypeInvoker",
+    "SmallFireballEntityMixin",
     "TradeOffersMixin",
     "WeightedPressurePlateBlockMixin",
     "boat.AbstractBoatEntityMixin",

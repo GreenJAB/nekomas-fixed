@@ -7,18 +7,12 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:diamond"
-    },
-    "C": {
-      "item": "minecraft:blaze_rod"
-    },
-    "S": {
-      "item": "nekomasfixed:wild_fire_smithing_template"
-    }
+    "#": "minecraft:diamond",
+    "C": "minecraft:blaze_rod",
+    "S": "nekomasfixed:wild_fire_smithing_template"
   },
   "result": {
-    "item": "nekomasfixed:wild_fire_smithing_template",
+    "id": "nekomasfixed:wild_fire_smithing_template",
     "count": 2
   }
 }

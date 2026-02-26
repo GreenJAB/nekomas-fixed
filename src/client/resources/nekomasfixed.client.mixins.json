@@ -12,7 +12,6 @@
     "HeldItemRendererMixin",
     "LabelCommandRendererCommandMixin",
     "LabelCommandRendererMixin",
-    "MinecraftClientMixin",
     "ParticleManagerMixin",
     "ParticleSpriteManagerMixin",
     "TooltipComponentMixin"

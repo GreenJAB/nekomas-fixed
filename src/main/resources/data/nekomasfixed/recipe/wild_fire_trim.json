@@ -1,12 +1,8 @@
 {
   "type": "minecraft:smithing_trim",
-  "template": {
-    "item": "nekomasfixed:wild_fire_smithing_template"
-  },
-  "base": {
-    "tag": "minecraft:trimmable_armor"
-  },
-  "addition": {
-    "tag": "minecraft:trim_materials"
-  }
+  "addition": "#minecraft:trim_materials",
+  "base": "#minecraft:trimmable_armor",
+  "pattern": "nekomasfixed:wild_fire_trim",
+  "template": "nekomasfixed:wild_fire_smithing_template"
+
 }
