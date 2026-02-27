@@ -3,7 +3,6 @@
   "package": "net.greenjab.nekomasfixed.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AbstractBlockMixin",
     "BeehiveBlockEntityMixin",
     "BlockItemMixin",
     "BlocksMixin",
@@ -20,6 +19,7 @@
     "ItemMixin",
     "ItemsMixin",
     "ItemStackMixin",
+    "LeveledCauldronBlockMixin",
     "LivingEntityMixin",
     "NautilusStackMixin",
     "NoteBlockMixin",

@@ -70,6 +70,8 @@ public class PlayerEntityMixin {
             return true;
         }
 
+        if (PE.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && PE.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) target.timeUntilRegen = 10;
+
         return target.sidedDamage(source, amount);
     }
 
@@ -95,9 +97,15 @@ public class PlayerEntityMixin {
     }
 
     @WrapOperation(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;interact(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
-    private ActionResult allowOffHandHit(Entity instance, PlayerEntity player, Hand hand, Operation<ActionResult> original) {
+    private ActionResult allowOffhandAttack(Entity instance, PlayerEntity player, Hand hand, Operation<ActionResult> original) {
         if (player.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) return ActionResult.PASS;
         return original.call(instance, player, hand);
+    }
+
+    @Inject(method = "getAttackCooldownDamageModifier", at = @At("HEAD"), cancellable = true)
+    private void offHandDamage(CallbackInfoReturnable<Float> cir){
+        PlayerEntity player = (PlayerEntity)(Object)this;
+        if (player.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) cir.setReturnValue(1f);
     }
 
 }

@@ -29,12 +29,18 @@ public class BeehiveBlockEntityMixin {
                                      BeehiveBlockEntity.BeeState beeState, @Nullable BlockPos flowerPos,
                                      CallbackInfoReturnable<Boolean> cir) {
         if (beeState != BeehiveBlockEntity.BeeState.HONEY_DELIVERED) return;
-        BlockPos belowPos = pos.down(2);
+        BlockPos belowPos = pos.down();
         BlockState belowState = world.getBlockState(belowPos);
-        if (belowState.getBlock() == BlockRegistry.HONEY_CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5 && world.getBlockState(pos.down(1)).isOf(Blocks.AIR)) {
+        int i = 0;
+        while (belowState.isOf(Blocks.AIR) && i<3) {
+            belowPos = belowPos.down();
+            belowState = world.getBlockState(belowPos);
+            i++;
+        }
+        if (belowState.getBlock() == BlockRegistry.HONEY_CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5) {
             HoneyCauldronUtil.incrementHoneyLevel(world, belowPos, belowState);
         }
-        else if (belowState.getBlock() == Blocks.CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5 && world.getBlockState(pos.down(1)).isOf(Blocks.AIR)) {
+        else if (belowState.getBlock() == Blocks.CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5) {
             world.setBlockState(belowPos, BlockRegistry.HONEY_CAULDRON.getDefaultState()
                     .with(HoneyCauldronBlock.HONEY_LEVEL, 1));
             world.playSound(null, belowPos, SoundEvents.BLOCK_BEEHIVE_DRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);

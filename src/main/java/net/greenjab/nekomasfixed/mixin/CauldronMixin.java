@@ -17,7 +17,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,23 +27,6 @@ public class CauldronMixin {
 
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        System.out.println(stack);
-
-        // ICE CAULDRON - Water bucket in cold biome creates ice cauldron
-        if (stack.isOf(Items.WATER_BUCKET) && state.getBlock() == Blocks.CAULDRON) {
-
-                Biome biome = world.getBiome(pos).value();
-            Biome.Precipitation precipitation = biome.getPrecipitation(pos, world.getSeaLevel());
-            if (biome.isCold(pos, 63) && precipitation == Biome.Precipitation.SNOW && !world.isClient()) {
-                world.setBlockState(pos, BlockRegistry.ICE_CAULDRON.getDefaultState());
-                System.out.println("In a cold biome");
-                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
-                world.playSound(null, pos, SoundEvents.BLOCK_GLASS_PLACE,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
-                cir.setReturnValue(ActionResult.SUCCESS);
-                return;
-            }
-        }
 
         // ICE CAULDRON - Empty hand harvest
         if (stack.isEmpty() && state.getBlock() == BlockRegistry.ICE_CAULDRON) {
