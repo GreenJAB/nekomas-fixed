@@ -45,7 +45,7 @@ public class WildFireJumpTask extends MultiTickTask<WildFireEntity> {
 			if (livingEntity == null) {
 				return false;
 			} else {
-				BlockPos blockPos = livingEntity.getBlockPos().add(0, 7, 0);
+				BlockPos blockPos = livingEntity.getBlockPos().add(0, 4, 0);
                 if (blockPos == null) {
 					return false;
 				} else {
@@ -102,7 +102,7 @@ public class WildFireJumpTask extends MultiTickTask<WildFireEntity> {
 			wildFireEntity.setVelocity(vec3d);
 		} else if (shouldStopLongJumpingPose(wildFireEntity)) {
 			wildFireEntity.setVelocity(0, 0, 0);
-			wildFireEntity.eyeOffset = -7;
+			wildFireEntity.eyeOffset = -4;
 			wildFireEntity.playSound(SoundEvents.ENTITY_BREEZE_LAND, 1.0F, 1.0F);
 			wildFireEntity.setNoDrag(false);
 			boolean bl2 = wildFireEntity.getBrain().hasMemoryModule(MemoryModuleType.HURT_BY);

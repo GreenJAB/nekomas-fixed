@@ -5,10 +5,11 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
 import net.greenjab.nekomasfixed.registry.item.SickleItem;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
 import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,12 +38,13 @@ public class EnchantmentMixin {
         return original;
     }
 
-    @Inject(method = "isAcceptableItem", at = @At("HEAD"), cancellable = true)
-    private void modifyEnchantability(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (stack.getItem() instanceof SickleItem) {
-            cir.setReturnValue(
-                    (Object)this == Enchantments.UNBREAKING || (Object)this == Enchantments.SHARPNESS || (Object)this == Enchantments.MENDING
-            );
+    @Inject(method = {"isPrimaryItem", "isAcceptableItem", "isSupportedItem"}, at = @At(value = "HEAD"), cancellable = true)
+    private void otherChecks(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+        Enchantment enchantment = (Enchantment)(Object)this;
+        Item item = stack.getItem();
+        if (item instanceof SickleItem) {
+            cir.setReturnValue(enchantment.isAcceptableItem(Items.DIAMOND_SWORD.getDefaultStack()) && enchantment.getMaxLevel()!=5);
+            cir.cancel();
         }
     }
 }

@@ -44,7 +44,7 @@ public class WildFireSlideTowardsTargetTask extends MultiTickTask<WildFireEntity
 		wildFireEntity.eyeOffset = -0.5f;
 		Vec3d fire = WildFireMovementUtil.findFirePos(wildFireEntity, false);
 		if (fire != null) {
-            wildFireEntity.getBrain().remember(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.ofFloored(fire), 0.6F, 0));
+            wildFireEntity.getBrain().remember(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.ofFloored(fire), 0.6F, 0), 200L);
 			wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_LEAVING_WATER, Unit.INSTANCE, 200L);
 		}
 		wildFireEntity.getBrain().remember(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, 60L);
@@ -60,7 +60,7 @@ public class WildFireSlideTowardsTargetTask extends MultiTickTask<WildFireEntity
 				if (!serverWorld.getBlockState(wildFireEntity.getBlockPos()).isIn(BlockTags.FIRE)) {
 					Vec3d fire = WildFireMovementUtil.findFirePos(wildFireEntity, false);
 					if (fire != null) {
-						wildFireEntity.getBrain().remember(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.ofFloored(fire), 0.6F, 0));
+						wildFireEntity.getBrain().remember(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.ofFloored(fire), 0.6F, 0), 200L);
 						wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_LEAVING_WATER, Unit.INSTANCE, 200L);
 					}
 				}
@@ -68,7 +68,7 @@ public class WildFireSlideTowardsTargetTask extends MultiTickTask<WildFireEntity
 				if (!brain.hasMemoryModule(MemoryModuleType.BREEZE_LEAVING_WATER)) {
 					Vec3d fire = WildFireMovementUtil.findFirePos(wildFireEntity, true);
 					if (fire != null) {
-						wildFireEntity.getBrain().remember(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.ofFloored(fire), 0.6F, 0));
+						wildFireEntity.getBrain().remember(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.ofFloored(fire), 0.6F, 0), 200L);
 						wildFireEntity.getBrain().remember(MemoryModuleType.BREEZE_LEAVING_WATER, Unit.INSTANCE, 200L);
 					}
 				} else {

@@ -22,12 +22,15 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.debug.DebugTrackable;
 import org.jspecify.annotations.Nullable;
 
@@ -47,6 +50,10 @@ public class WildFireEntity extends HostileEntity {
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
 		this.experiencePoints = 50;
 		setShieldsActive(4);
+	}
+
+	public static boolean canSpawn(EntityType<WildFireEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+		return true;
 	}
 
 	@Override
@@ -76,6 +83,7 @@ public class WildFireEntity extends HostileEntity {
 
 	public static DefaultAttributeContainer.Builder createWildFireAttributes() {
 		return HostileEntity.createHostileAttributes()
+				.add(EntityAttributes.MAX_HEALTH, 100.0)
 				.add(EntityAttributes.ATTACK_DAMAGE, 6.0)
 				.add(EntityAttributes.MOVEMENT_SPEED, 0.5F)
 				.add(EntityAttributes.FOLLOW_RANGE, 48.0);
