@@ -1,10 +1,11 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.greenjab.nekomasfixed.registry.registries.EnchantmentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -12,15 +13,22 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -38,6 +46,23 @@ public class PlayerEntityMixin {
         }
     }
 
+    @Inject(method = "damage", at = @At("HEAD"))
+    private void cancelChargeOnHit(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        PlayerEntity player = (PlayerEntity)(Object)this;
+        if (player.isUsingItem()) {
+            ItemStack activeItem = player.getActiveItem();
+
+            boolean hasLunge = EnchantmentHelper.getLevel((RegistryEntry<Enchantment>) Enchantments.LUNGE, activeItem) > 0;
+
+            if (hasLunge) {
+                player.stopUsingItem();
+                if (!player.isSilent()) {
+                    player.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE, 1.0F, 1.0F);
+                }
+            }
+        }
+    }
+
     @ModifyExpressionValue(method = "getBlockBreakingSpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isOnGround()Z"))
     private boolean turtleLeggingsMining(boolean original) {
         PlayerEntity PE = (PlayerEntity)(Object)this;
@@ -48,6 +73,77 @@ public class PlayerEntityMixin {
         }
         return original;
     }
+
+/*
+    @Unique
+    private static final int CLONE_DISTANCE = 2;
+
+    @Unique
+    private int cloneTimer = 0;
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void onTick(CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity)(Object)this;
+
+        ItemStack mainHand = player.getMainHandStack();
+
+        RegistryEntry<?> cloningEnchantment = player.getRegistryManager()
+                .get(RegistryKeys.ENCHANTMENT)
+                .getEntry(EnchantmentRegistry.CLONING)
+                .orElse(null);
+
+        if (cloningEnchantment == null) {
+            return;
+        }
+
+        int level = EnchantmentHelper.getLevel(cloningEnchantment, mainHand);
+
+
+        if (level > 0 && player.isUsingItem() && player.getEntityWorld() instanceof ServerWorld serverWorld) {
+
+            showClones(serverWorld, player);
+            cloneTimer++;
+        } else {
+            cloneTimer = 0;
+        }
+    }
+
+    @Unique
+    private void showClones(ServerWorld world, PlayerEntity player) {
+        Direction facing = player.getHorizontalFacing();
+        Direction leftDir = facing.rotateYCounterclockwise();
+        Direction rightDir = facing.rotateYClockwise();
+
+        Vec3d playerPos = Vec3d.of(player.getBlockPos());
+        for (int i = 0; i < 15; i++) {
+            // Left clone
+            world.spawnParticles(
+                    ParticleTypes.CLOUD,
+                    playerPos.x + leftDir.getOffsetX() * CLONE_DISTANCE,
+                    playerPos.y + 1.0 + (world.random.nextDouble() - 0.5) * 1.8,
+                    playerPos.z + leftDir.getOffsetZ() * CLONE_DISTANCE,
+                    3, 0.3, 0.5, 0.3, 0.02
+            );
+
+            world.spawnParticles(
+                    ParticleTypes.CLOUD,
+                    playerPos.x + rightDir.getOffsetX() * CLONE_DISTANCE,
+                    playerPos.y + 1.0 + (world.random.nextDouble() - 0.5) * 1.8,
+                    playerPos.z + rightDir.getOffsetZ() * CLONE_DISTANCE,
+                    3, 0.3, 0.5, 0.3, 0.02
+            );
+        }
+
+        if (cloneTimer % 20 == 0) {
+            world.playSound(
+                    null,
+                    player.getX(), player.getY(), player.getZ(),
+                    SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE,
+                    player.getSoundCategory(),
+                    0.5F, 1.0F
+            );
+        }
+    }*/
 
     @Redirect(
             method = "attack",
@@ -69,8 +165,6 @@ public class PlayerEntityMixin {
             }
             return true;
         }
-
-        if (PE.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && PE.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) target.timeUntilRegen = 10;
 
         return target.sidedDamage(source, amount);
     }
@@ -96,16 +190,18 @@ public class PlayerEntityMixin {
         System.out.println("Base damage: " + baseDamage + " | Final damage: " + lastFinalDamage);
     }
 
-    @WrapOperation(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;interact(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
-    private ActionResult allowOffhandAttack(Entity instance, PlayerEntity player, Hand hand, Operation<ActionResult> original) {
-        if (player.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) return ActionResult.PASS;
-        return original.call(instance, player, hand);
+    @Unique
+    public float getLastFinalDamage() {
+        return lastFinalDamage;
     }
 
-    @Inject(method = "getAttackCooldownDamageModifier", at = @At("HEAD"), cancellable = true)
-    private void offHandDamage(CallbackInfoReturnable<Float> cir){
-        PlayerEntity player = (PlayerEntity)(Object)this;
-        if (player.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) cir.setReturnValue(1f);
+    @Unique
+    public float getLastBaseDamage() {
+        return lastBaseDamage;
     }
 
+    @Unique
+    public Entity getLastTarget() {
+        return lastTarget;
+    }
 }
