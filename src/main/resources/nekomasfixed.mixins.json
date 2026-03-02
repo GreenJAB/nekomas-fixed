@@ -32,6 +32,7 @@
     "TradeOffersMixin",
     "TrialSpawnerStateMixin",
     "WeightedPressurePlateBlockMixin",
+    "accessor.MobEntityAccessor",
     "boat.AbstractBoatEntityMixin",
     "boat.BodyControlMixin",
     "boat.HopperBlockEntityMixin",

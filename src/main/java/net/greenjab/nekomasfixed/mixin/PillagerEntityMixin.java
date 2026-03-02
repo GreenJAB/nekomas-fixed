@@ -1,6 +1,8 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.mixin.accessor.MobEntityAccessor;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.PillagerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -11,6 +13,7 @@ import net.minecraft.world.LocalDifficulty;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PillagerEntity.class)
 public class PillagerEntityMixin {
@@ -35,4 +38,12 @@ public class PillagerEntityMixin {
         pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
         ci.cancel();
     }
+    @Inject(method = "initGoals", at = @At("TAIL"))
+    private void addMeleeGoalForSpear(CallbackInfo ci) {
+        PillagerEntity pillager = (PillagerEntity)(Object)this;
+        ((MobEntityAccessor) pillager).getGoalSelector()
+                .add(3, new MeleeAttackGoal(pillager, 1.2, false));
+    }
+
+
 }
