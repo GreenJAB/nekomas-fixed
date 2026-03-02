@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
@@ -12,6 +13,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
 
 import java.util.List;
@@ -98,7 +100,13 @@ public class EntityTypeRegistry {
                     .trackingTickInterval(10)
     );
 
-
+    public static final EntityType<PiglinHoglinEntity> PIGLIN_HOGLIN = register(
+            "piglin_hoglin",
+            EntityType.Builder.create(PiglinHoglinEntity::new, SpawnGroup.MONSTER)
+                    .dimensions(1.4f, 1.4f)
+                    .maxTrackingRange(8)
+                    .trackingTickInterval(3)
+    );
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
         return register(keyOf(id), type);
@@ -114,7 +122,7 @@ public class EntityTypeRegistry {
         System.out.println("register EntityType");
         FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummyEntity.createTargetDummyAttributes().build());
         FabricDefaultAttributeRegistry.register(WILD_FIRE, WildFireEntity.createWildFireAttributes().build());
-
+        FabricDefaultAttributeRegistry.register(PIGLIN_HOGLIN, PiglinHoglinEntity.createPiglinHoglinAttributes().build());
         SpawnRestriction.register(WILD_FIRE, SpawnLocationTypes.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WildFireEntity::canSpawn);
     }
 
