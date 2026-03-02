@@ -6,41 +6,47 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat",
-          "weight": 10
+          "name": "minecraft:red_sand",
+          "weight": 40
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:pitcher_pod",
+          "name": "minecraft:terracotta",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat_seeds",
+          "name": "minecraft:gold_nugget",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cactus",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:heart_pottery_sherd",
-          "weight": 10
+          "name": "minecraft:raw_gold",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dead_bush",
+          "weight": 40
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:prize_pottery_sherd",
-          "weight": 5
-        },{
-          "type": "minecraft:item",
-          "name": "minecraft:lead",
-          "weight": 5
-        },{
-          "type": "minecraft:item",
-          "name": "nekomasfixed:amber_dye",
+          "name": "minecraft:gold_nugget",
           "weight": 30
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:green_dye",
-          "weight": 10
         }
       ]
     }
