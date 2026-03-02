@@ -17,6 +17,7 @@ import net.minecraft.world.Heightmap;
 import java.util.List;
 import java.util.function.Supplier;
 
+
 public class EntityTypeRegistry {
 
     public static final EntityType<FakeBoatEntity> FAKE_BOAT = register(
@@ -78,6 +79,10 @@ public class EntityTypeRegistry {
 
     public static final EntityType<WildFireEntity> WILD_FIRE = register(
             "wild_fire", EntityType.Builder.create(WildFireEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(0.75F, 1.975F).maxTrackingRange(8).notAllowedInPeaceful()
+    );
+
+    public static final EntityType<PiglinHoglinEntity> PIGLIN_HOGLIN = register(
+            "piglin_hoglin", EntityType.Builder.create(PiglinHoglinEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(2F, 3F).maxTrackingRange(8).notAllowedInPeaceful()
     );
 
     public static final EntityType<SlingshotProjectileEntity> SLINGSHOT_PROJECTILE = register(
