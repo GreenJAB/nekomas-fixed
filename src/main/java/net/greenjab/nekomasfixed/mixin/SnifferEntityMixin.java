@@ -5,8 +5,10 @@ import net.minecraft.entity.passive.SnifferEntity;
 import net.minecraft.loot.LootTables;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,7 +26,8 @@ public class SnifferEntityMixin {
         if (world instanceof ServerWorld serverWorld) {
             if (sniffer.getDataTracker().get(net.greenjab.nekomasfixed.mixin.SnifferEntityAccessor.getFinishDigTime()) == sniffer.age) {
                 BlockPos blockPos = accessor.invokeGetDigPos();
-
+                Biome biome = serverWorld.getBiome(blockPos).value();
+                System.out.println(biome.toString());
                 sniffer.forEachGiftedItem(serverWorld, LootTables.SNIFFER_DIGGING_GAMEPLAY, (serverWorldx, itemStack) -> {
                     ItemEntity itemEntity = new ItemEntity(
                             sniffer.getEntityWorld(),
