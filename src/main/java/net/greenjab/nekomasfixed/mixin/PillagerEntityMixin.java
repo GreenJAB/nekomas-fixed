@@ -2,6 +2,8 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.PillagerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.random.Random;
@@ -24,6 +26,18 @@ public class PillagerEntityMixin {
     @Inject(method = "initEquipment", at = @At("HEAD"), cancellable = true)
     protected void initSpearEquipment(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
         PillagerEntity pillager = (PillagerEntity)(Object)this;
+        ItemConvertible item = new ItemConvertible(Items.IRON_SPEAR) {
+            @Override
+            public Item asItem() {
+                return null;
+            }
+        };
+       int randInt = (int)Math.round(Math.random()*2)+1;
+       if(randInt == 1){
+            item = Items.IRON_SPEAR;
+       }else{
+           item = Items.CROSSBOW;
+       }
         pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
         ci.cancel();
     }
