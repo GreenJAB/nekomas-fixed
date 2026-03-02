@@ -139,7 +139,7 @@ public class ItemRegistry {
     public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384));
 
     public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
-    public static final Item PIGLIN_HOGLIN_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.PIGLIN_HOGLIN);
+
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);
     }
