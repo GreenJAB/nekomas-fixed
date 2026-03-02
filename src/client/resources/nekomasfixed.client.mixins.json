@@ -9,6 +9,7 @@
     "ClientPlayerInteractionManagerMixin",
     "EntityModelsMixin",
     "EquipmentRendererMixin",
+    "FireCommandRendererMixin",
     "HeldItemRendererMixin",
     "LabelCommandRendererCommandMixin",
     "LabelCommandRendererMixin",

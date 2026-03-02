@@ -1,12 +1,15 @@
-package net.greenjab.nekomasfixed.mixin;
+package net.greenjab.nekomasfixed.mixin.wildfire;
 
-import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
+import com.mojang.logging.LogUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.TrialSpawnerBlockEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.storage.NbtReadView;
 import net.minecraft.structure.NetherFortressGenerator;
+import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -59,9 +62,10 @@ public class NetherFortressGeneratorMixin {
         piece.fillWithOutline(world, chunkBox, 3, 4, 3, X-4, 4, X-4, air, air, false);
 
         //doorways
-        piece.fillWithOutline(world, chunkBox, 7, 5, 0, 9, 8, 1, air, air, false);
-        piece.fillWithOutline(world, chunkBox, 7, 5, X-2, 9, 7, X-1, air, air, false);
-        piece.fillWithOutline(world, chunkBox, 7, 8, 0, 9, 8, 0, Blocks.NETHER_BRICK_FENCE.getDefaultState(), Blocks.NETHER_BRICK_FENCE.getDefaultState(), false);
+        piece.fillWithOutline(world, chunkBox, XC-1, 5, 0, XC+1, 8, 1, air, air, false);
+        piece.fillWithOutline(world, chunkBox, XC-1, 5, X-2, XC+1, 8, X-1, air, air, false);
+        piece.fillWithOutline(world, chunkBox, XC-1, 8, 0, XC+1, 8, 0, Blocks.NETHER_BRICK_FENCE.getDefaultState(), Blocks.NETHER_BRICK_FENCE.getDefaultState(), false);
+        piece.fillWithOutline(world, chunkBox, XC-2, 0, 0, XC+2, 1, 0, bricks, bricks, false);
 
         //roof
         int i;
@@ -144,7 +148,16 @@ public class NetherFortressGeneratorMixin {
             world.setBlockState(blockPos, Blocks.TRIAL_SPAWNER.getDefaultState(), 2);
             BlockEntity blockEntity = world.getBlockEntity(blockPos);
             if (blockEntity instanceof TrialSpawnerBlockEntity trialSpawnerBlockEntity) {
-                trialSpawnerBlockEntity.setEntityType(EntityTypeRegistry.WILD_FIRE, random);
+                //trialSpawnerBlockEntity.setEntityType(EntityTypeRegistry.WILD_FIRE, random);
+                NbtCompound nbt = new NbtCompound();
+                nbt.putString("id", "minecraft:trial_spawner");
+                nbt.putString("normal_config", "nekomasfixed:trial_chamber/wild_fire/normal");
+                nbt.putString("ominous_config", "nekomasfixed:trial_chamber/wild_fire/ominous");
+
+                try (ErrorReporter.Logging logging = new ErrorReporter.Logging(LogUtils.getLogger())) {
+                    trialSpawnerBlockEntity.read(NbtReadView.create(logging, world.getRegistryManager(), nbt));
+                }
+
             }
         }
         ci.cancel();

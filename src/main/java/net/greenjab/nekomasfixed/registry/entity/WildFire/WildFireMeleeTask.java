@@ -89,7 +89,7 @@ public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 					serverWorld.setBlockState(wildFireEntity.getBlockPos(), Blocks.FIRE.getDefaultState());
 				}
 
-				List<LivingEntity> list = serverWorld.getEntitiesByClass(LivingEntity.class, wildFireEntity.getBoundingBox().expand(1.5, 0, 1.5), e -> e != wildFireEntity && e.isAlive());
+				List<LivingEntity> list = serverWorld.getEntitiesByClass(LivingEntity.class, wildFireEntity.getBoundingBox().expand(1.5, 0, 1.5), e -> !(e instanceof WildFireEntity) && e.isAlive());
 				for (LivingEntity entity : list) {
 					double f = entity.getX() - wildFireEntity.getX();
 					double g = entity.getZ() - wildFireEntity.getZ();
@@ -97,7 +97,7 @@ public class WildFireMeleeTask extends MultiTickTask<WildFireEntity> {
 					entity.addVelocity(f / h * 2.0, 0.2F, g / h * 2.0);
 
 					DamageSource damageSource = wildFireEntity.getDamageSources().mobAttack(wildFireEntity);
-					entity.damage(serverWorld, damageSource, 5.0F);
+					entity.damage(serverWorld, damageSource, wildFireEntity.isSoulActive()?6.0F:4.0F);
 					EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource);
 				}
 			}

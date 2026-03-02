@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.mixin;
+package net.greenjab.nekomasfixed.mixin.targetdummy;
 
 import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
