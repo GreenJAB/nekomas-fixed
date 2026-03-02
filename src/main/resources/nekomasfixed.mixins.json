@@ -29,6 +29,8 @@
     "PlayerEntityMixin",
     "RecipeBookTypeInvoker",
     "SmallFireballEntityMixin",
+    "SnifferEntityAccessor",
+    "SnifferEntityMixin",
     "TradeOffersMixin",
     "TrialSpawnerStateMixin",
     "WeightedPressurePlateBlockMixin",
