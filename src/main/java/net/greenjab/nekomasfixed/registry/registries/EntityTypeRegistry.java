@@ -82,7 +82,11 @@ public class EntityTypeRegistry {
     );
 
     public static final EntityType<PiglinHoglinEntity> PIGLIN_HOGLIN = register(
-            "piglin_hoglin", EntityType.Builder.create(PiglinHoglinEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(2F, 3F).maxTrackingRange(8).notAllowedInPeaceful()
+            "piglin_hoglin",
+            EntityType.Builder.create(PiglinHoglinEntity::new, SpawnGroup.MONSTER)
+                    .dimensions(1.4f, 1.4f)
+                    .maxTrackingRange(8)
+                    .makeFireImmune()
     );
 
     public static final EntityType<SlingshotProjectileEntity> SLINGSHOT_PROJECTILE = register(
@@ -119,6 +123,7 @@ public class EntityTypeRegistry {
         System.out.println("register EntityType");
         FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummyEntity.createTargetDummyAttributes().build());
         FabricDefaultAttributeRegistry.register(WILD_FIRE, WildFireEntity.createWildFireAttributes().build());
+        FabricDefaultAttributeRegistry.register(PIGLIN_HOGLIN, PiglinHoglinEntity.createPiglinHoglinAttributes().build());
 
         SpawnRestriction.register(WILD_FIRE, SpawnLocationTypes.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WildFireEntity::canSpawn);
     }

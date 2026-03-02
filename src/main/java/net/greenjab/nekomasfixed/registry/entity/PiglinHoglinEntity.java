@@ -57,7 +57,7 @@ public class PiglinHoglinEntity extends AbstractHorseEntity {
         this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, -1.0F);
     }
 
-    public static DefaultAttributeContainer.Builder createZombieHorseAttributes() {
+    public static DefaultAttributeContainer.Builder createPiglinHoglinAttributes() {
         return createBaseHorseAttributes().add(EntityAttributes.MAX_HEALTH, (double)25.0F);
     }
 
