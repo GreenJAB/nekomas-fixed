@@ -21,14 +21,14 @@
         "type": "minecraft:special",
         "base": "nekomasfixed:item/soulfire_trident_in_hand",
         "model": {
-          "type": "nekomasfixed:item/soulfire_trident"
+          "type": "nekomasfixed:soulfire_trident"
         }
       },
       "on_true": {
         "type": "minecraft:special",
         "base": "nekomasfixed:item/soulfire_trident_throwing",
         "model": {
-          "type": "nekomasfixed:item/soulfire_trident"
+          "type": "nekomasfixed:soulfire_trident"
         }
       },
       "property": "minecraft:using_item"
