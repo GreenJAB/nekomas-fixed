@@ -31,16 +31,22 @@ public class SnifferEntityMixin {
                 BlockPos blockPos = accessor.invokeGetDigPos();
 
                 Biome biome = serverWorld.getBiome(blockPos).value();
-                String biomeName = biome.toString();
-
+                String biomeName = serverWorld.getBiome(blockPos)
+                        .getKey()
+                        .map(key -> key.getValue().toString())
+                        .orElse("unknown");
                 float temperature = biome.getTemperature();
+
                 RegistryKey<LootTable> lootTableKey;
+
                 System.out.println("\n");
                 System.out.println(biomeName + " This is the BIOME NAME WHERE THE Digging TAKES PLACE");
+
                 if (temperature <= 0.15f) {
                     lootTableKey = RegistryKey.of(RegistryKeys.LOOT_TABLE,
                             Identifier.of("minecraft", "gameplay/sniffer_digging_snowy"));
                 }
+
                 else {
                     if (biomeName.contains("desert")) {
                         lootTableKey = RegistryKey.of(RegistryKeys.LOOT_TABLE,
