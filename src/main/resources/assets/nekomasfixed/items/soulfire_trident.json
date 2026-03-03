@@ -18,21 +18,17 @@
     "fallback": {
       "type": "minecraft:condition",
       "on_false": {
-        "type": "minecraft:special",
-        "base": "nekomasfixed:item/soulfire_trident_in_hand",
-        "model": {
-          "type": "nekomasfixed:entity/soulfire_trident_in_hand"
-        }
+        "type": "minecraft:model",
+        "model": "nekomasfixed:item/soulfire_trident_in_hand"
       },
       "on_true": {
-        "type": "minecraft:special",
-        "base": "nekomasfixed:item/soulfire_trident_throwing",
-        "model": {
-          "type": "nekomasfixed:entity/soulfire_trident_in_hand"
-        }
+        "type": "minecraft:model",
+        "model": "nekomasfixed:item/soulfire_trident_throwing"
       },
       "property": "minecraft:using_item"
     },
+    "property": "minecraft:display_context"
+  },
     "property": "minecraft:display_context"
   }
 }
