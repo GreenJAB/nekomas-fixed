@@ -2,7 +2,7 @@
   "parent": "item/handheld",
   "gui_light": "front",
   "textures": {
-    "layer0": "nekomasfixed:entity/soulfire_trident"
+    "layer0": "nekomasfixed:textures/entity/soulfire_trident"
   },
   "display": {
     "thirdperson_righthand": {
