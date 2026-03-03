@@ -21,6 +21,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
@@ -72,11 +73,13 @@ public class WildFireEntity extends HostileEntity {
 
 	@Override
 	protected void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 		view.putInt("State", this.dataTracker.get(WILD_FIRE_FLAGS));
 	}
 
 	@Override
 	protected void readCustomData(ReadView view) {
+		super.readCustomData(view);
 		this.dataTracker.set(WILD_FIRE_FLAGS, (byte)view.getInt("State", 0));
 		if (this.hasCustomName()) {
 			this.bossBar.setName(this.getDisplayName());
@@ -217,7 +220,16 @@ public class WildFireEntity extends HostileEntity {
 
 		if (world.getTime()%20==0) {
 			if (world.getBlockState(this.getBlockPos()).isIn(BlockTags.FIRE))this.heal(1);
-			setShieldsActive((int)MathHelper.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4));
+			int lastShields = getShieldsActive();
+			int newShields = (int)MathHelper.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4);
+			setShieldsActive(newShields);
+			if (newShields < lastShields) {
+				//TODO shield gone particles/sound
+				world.playSoundFromEntity(null, this, SoundEvents.ITEM_WOLF_ARMOR_BREAK.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+			} else if (newShields > lastShields) {
+				//shield regen particles/sound
+				world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 0.7F, 2.0F);
+			}
 		}
 
 		Profiler profiler = Profilers.get();
@@ -309,7 +321,10 @@ public class WildFireEntity extends HostileEntity {
 		if (!isOnFire()) {
 			Entity entity = source.getSource();
 			if (entity instanceof PersistentProjectileEntity || entity instanceof WindChargeEntity) {
-				return false;
+				if (random.nextInt(4)<getShieldsActive()) {
+					world.playSoundFromEntity(null, this, SoundEvents.ITEM_SHIELD_BLOCK.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+					return false;
+				}
 			}
 		}
 		return super.damage(world,source,amount);

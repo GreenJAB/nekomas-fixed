@@ -83,10 +83,10 @@ public class WildFireSlideTowardsTargetTask extends MultiTickTask<WildFireEntity
 	}
 
 	protected void finishRunning(ServerWorld serverWorld, WildFireEntity wildFireEntity, long l) {
-		int i = wildFireEntity.getRandom().nextInt(3);
+		int i = wildFireEntity.getRandom().nextInt(wildFireEntity.getShieldsActive()>1?3:2);
 		if (i == 0)	wildFireEntity.setPose(EntityPose.SHOOTING);
-		else if (i == 1) wildFireEntity.setPose(EntityPose.SPIN_ATTACK);
-		else if (i == 2) wildFireEntity.setPose(EntityPose.LONG_JUMPING);
+		else if (i == 1) wildFireEntity.setPose(EntityPose.LONG_JUMPING);
+		else if (i == 2) wildFireEntity.setPose(EntityPose.SPIN_ATTACK);
 		wildFireEntity.getBrain().forget(MemoryModuleType.WALK_TARGET);
 		wildFireEntity.getBrain().forget(MemoryModuleType.SNIFF_COOLDOWN);
 		wildFireEntity.getBrain().forget(MemoryModuleType.TOUCH_COOLDOWN);
