@@ -1,5 +1,5 @@
 {
-  "parent": "item/generated",
+  "parent": "item/handheld",
   "gui_light": "front",
   "textures": {
     "layer0": "nekomasfixed:entity/soulfire_trident"
