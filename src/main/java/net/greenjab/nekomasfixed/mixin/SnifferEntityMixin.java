@@ -48,7 +48,7 @@ public class SnifferEntityMixin {
                 }
 
                 else {
-                    if (biomeName.contains("desert")) {
+                    if (biomeName.contains("des")) {
                         lootTableKey = RegistryKey.of(RegistryKeys.LOOT_TABLE,
                                 Identifier.of("minecraft", "gameplay/sniffer_digging_desert"));
                     }

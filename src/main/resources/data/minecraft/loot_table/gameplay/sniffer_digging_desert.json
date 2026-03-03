@@ -21,6 +21,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:torchflower_seeds",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:copper_nugget",
           "weight": 20
         },
