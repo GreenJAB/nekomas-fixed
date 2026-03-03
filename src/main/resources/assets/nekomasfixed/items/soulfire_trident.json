@@ -5,7 +5,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "minecraft:item/trident"
+          "model": "nekomasfixed:soulfire_trident"
         },
         "when": [
           "gui",
@@ -19,16 +19,16 @@
       "type": "minecraft:condition",
       "on_false": {
         "type": "minecraft:special",
-        "base": "minecraft:item/trident_in_hand",
+        "base": "nekomasfixed:soulfire_trident_in_hand",
         "model": {
-          "type": "minecraft:trident"
+          "type": "nekomasfixed:soulfire_trident"
         }
       },
       "on_true": {
         "type": "minecraft:special",
-        "base": "minecraft:item/trident_throwing",
+        "base": "nekomasfixed:soulfire_trident_throwing",
         "model": {
-          "type": "minecraft:trident"
+          "type": "nekomasfixed:soulfire_trident"
         }
       },
       "property": "minecraft:using_item"
