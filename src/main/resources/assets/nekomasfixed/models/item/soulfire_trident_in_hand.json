@@ -1,7 +1,7 @@
 {
   "gui_light": "front",
   "textures": {
-    "particle": "nekomasfixed:soulfire_trident"
+    "layer0": "nekomasfixed:item/soulfire_trident"
   },
   "display": {
     "thirdperson_righthand": {
