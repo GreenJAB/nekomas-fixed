@@ -35,7 +35,8 @@ public class SnifferEntityMixin {
 
                 float temperature = biome.getTemperature();
                 RegistryKey<LootTable> lootTableKey;
-                System.out.println(biomeName);
+                System.out.println("\n");
+                System.out.println(biomeName + " This is the BIOME NAME WHERE THE Digging TAKES PLACE");
                 if (temperature <= 0.15f) {
                     lootTableKey = RegistryKey.of(RegistryKeys.LOOT_TABLE,
                             Identifier.of("minecraft", "gameplay/sniffer_digging_snowy"));
