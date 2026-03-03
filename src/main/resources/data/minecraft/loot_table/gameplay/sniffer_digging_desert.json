@@ -1,64 +1,32 @@
 {
-  "type": "minecraft:gameplay",
+  "type": "minecraft:gift",
   "pools": [
     {
-      "rolls": 1,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:sand",
-          "weight": 40
+          "name": "minecraft:torchflower_seeds"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:cactus",
-          "weight": 20
+          "name": "minecraft:burn_pottery_sherd"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:burn_pottery_sherd",
-          "weight": 5
+          "name": "minecraft:sand"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:dead_bush",
-          "weight": 20
+          "name": "minecraft:diamond"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
-          "weight": 5
+          "name": "minecraft:stick"
         }
-      ]
-    },
-    {
-      "rolls": {
-        "type": "minecraft:uniform",
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:dead_bush",
-          "weight": 50
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:acacia_sapling",
-          "weight": 30
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:golden_carrot",
-          "weight": 5
-        }
-      ]
+      ],
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "minecraft:gameplay/sniffer_digging"
 }
