@@ -25,10 +25,7 @@
     "PlayerEntityInterfaceMixin",
     "PlayerEntityMixin",
     "RecipeBookTypeInvoker",
-
     "SignTextMixin",
-    "SmallFireballEntityMixin",
-
     "SnifferEntityAccessor",
     "SnifferEntityMixin",
     "TradeOffersMixin",

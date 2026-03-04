@@ -1,11 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "group": "cyan_dye",
   "ingredients": [
     "minecraft:pitcher_plant"
   ],
   "result": {
-    "id": "minecraft:cyan_dye"
-  },
-  "category": "misc"
+    "count": 2,
+    "id": "nekomasfixed:indigo_dye"
+  }
 }
