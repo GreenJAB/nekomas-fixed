@@ -13,14 +13,13 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.FireworkStarRecipe;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import oshi.jna.platform.mac.SystemConfiguration;
 
+//Note for GREEN_JAB: Plz check this class once, i am not sure if it going to override vanilla logic and give support to the trials and effects for fireworks
 @Mixin(FireworkStarRecipe.class)
 public class FireworkStarRecipeMixin {
     @Unique
@@ -37,7 +36,7 @@ public class FireworkStarRecipeMixin {
            return true;
         }return false;
     }
-    @Inject(method = "craft" , at = @At("HEAD"), cancellable = true)
+    @Inject(method = "craft" , at = @At("TAIL"), cancellable = true)
     public void craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup, CallbackInfoReturnable<ItemStack> cir) {
         FireworkExplosionComponent.Type type = FireworkExplosionComponent.Type.SMALL_BALL;
         boolean bl = false;

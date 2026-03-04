@@ -3,6 +3,7 @@
   "package": "net.greenjab.nekomasfixed.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ArmorDyeRecipeMixin",
     "BeehiveBlockEntityMixin",
     "BlockItemMixin",
     "BlocksMixin",
@@ -25,9 +26,7 @@
     "PlayerEntityInterfaceMixin",
     "PlayerEntityMixin",
     "RecipeBookTypeInvoker",
-
     "SignTextMixin",
-
     "SnifferEntityAccessor",
     "SnifferEntityMixin",
     "TradeOffersMixin",
