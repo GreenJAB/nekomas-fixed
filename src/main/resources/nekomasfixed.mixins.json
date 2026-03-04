@@ -15,6 +15,7 @@
     "EnchantmentMixin",
     "ExplosionImplMixin",
     "FarmlandBlockMixin",
+    "FireworkStarRecipeMixin",
     "ItemDispenserBehaviorMixin",
     "ItemMixin",
     "ItemsMixin",
