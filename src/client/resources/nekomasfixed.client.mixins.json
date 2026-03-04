@@ -16,6 +16,7 @@
     "MinecraftClientMixin",
     "ParticleManagerMixin",
     "ParticleSpriteManagerMixin",
+    "SpecialModelTypesMixin",
     "TooltipComponentMixin"
   ],
   "injectors": {

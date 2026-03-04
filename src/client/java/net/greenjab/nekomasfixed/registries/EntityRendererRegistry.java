@@ -48,6 +48,7 @@ public class EntityRendererRegistry {
 
         EntityRendererFactories.register(EntityTypeRegistry.WILD_FIRE, WildFireEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.FIRE_BOMB, FireBombEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.SOULFIRE_TRIDENT, SoulfireTridentEntityRenderer::new);
 
         EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
 

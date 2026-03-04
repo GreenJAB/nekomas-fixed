@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:item/trident",
   "textures": {
     "layer0": "nekomasfixed:item/soulfire_trident"
   }
