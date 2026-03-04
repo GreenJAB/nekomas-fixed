@@ -29,10 +29,6 @@ public class DyeItemMixin {
     @Inject(method = "useOnSign", at = @At("TAIL"), cancellable = true)
     private void changeDye(World world, SignBlockEntity signBlockEntity, boolean front, PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
         ItemStack stack = player.getStackInHand(player.getActiveHand());
-
-        if(stack.isOf(Items.GLOW_INK_SAC)){
-            System.out.println("Glow ink sac is used on sign");
-        }
         if (stack.isOf(ItemRegistry.AMBER_DYE)) {
             applyDye(signBlockEntity, front, AMBER.getColor());
             cir.setReturnValue(true);
