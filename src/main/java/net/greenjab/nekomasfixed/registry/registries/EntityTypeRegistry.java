@@ -80,7 +80,15 @@ public class EntityTypeRegistry {
     public static final EntityType<WildFireEntity> WILD_FIRE = register(
             "wild_fire", EntityType.Builder.create(WildFireEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(0.75F, 1.975F).maxTrackingRange(8).notAllowedInPeaceful()
     );
-
+    public static final EntityType<SoulfireTridentEntity> SOULFIRE_TRIDENT = register(
+            "soulfire_trident",
+            EntityType.Builder.<SoulfireTridentEntity>create(SoulfireTridentEntity::new, SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(0.5F, 0.5F)
+                    .eyeHeight(0.13F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(20)
+    );
 //    public static final EntityType<PiglinHoglinEntity> PIGLIN_HOGLIN = register(
 //            "piglin_hoglin",
 //            EntityType.Builder.create(PiglinHoglinEntity::new, SpawnGroup.MONSTER)

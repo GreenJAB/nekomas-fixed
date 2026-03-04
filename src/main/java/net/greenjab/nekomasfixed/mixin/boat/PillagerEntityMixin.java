@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.mixin;
+package net.greenjab.nekomasfixed.mixin.boat;
 
 import net.greenjab.nekomasfixed.mixin.accessor.MobEntityAccessor;
 import net.minecraft.entity.EquipmentSlot;

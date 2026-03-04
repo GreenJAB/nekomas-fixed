@@ -1,17 +1,13 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package net.greenjab.nekomasfixed.registry.item;
 
 import java.util.List;
+
+import net.greenjab.nekomasfixed.registry.entity.SoulfireTridentEntity;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.ToolComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -19,7 +15,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity.PickupPermission;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,16 +35,13 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SoulfireTridentItem extends Item implements ProjectileItem {
-    public static final int MIN_DRAW_DURATION = 10;
-    public static final float ATTACK_DAMAGE = 8.0F;
-    public static final float THROW_SPEED = 2.5F;
 
     public SoulfireTridentItem(Item.Settings settings) {
         super(settings);
     }
 
     public static AttributeModifiersComponent createAttributeModifiers() {
-        return AttributeModifiersComponent.builder().add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, (double)8.0F, Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND).add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID, (double)-2.9F, Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND).build();
+        return AttributeModifiersComponent.builder().add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, 8.0F, Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND).add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID, -2.9F, Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND).build();
     }
 
     public static ToolComponent createToolComponent() {
@@ -76,19 +68,18 @@ public class SoulfireTridentItem extends Item implements ProjectileItem {
                 } else if (stack.willBreakNextUse()) {
                     return false;
                 } else {
-                    RegistryEntry<SoundEvent> registryEntry = (RegistryEntry)EnchantmentHelper.getEffect(stack, EnchantmentEffectComponentTypes.TRIDENT_SOUND).orElse(SoundEvents.ITEM_TRIDENT_THROW);
+                    RegistryEntry<SoundEvent> registryEntry = EnchantmentHelper.getEffect(stack, EnchantmentEffectComponentTypes.TRIDENT_SOUND).orElse(SoundEvents.ITEM_TRIDENT_THROW);
                     playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-                    if (world instanceof ServerWorld) {
-                        ServerWorld serverWorld = (ServerWorld)world;
+                    if (world instanceof ServerWorld serverWorld) {
                         stack.damage(1, playerEntity);
                         if (f == 0.0F) {
                             ItemStack itemStack = stack.splitUnlessCreative(1, playerEntity);
-                            TridentEntity tridentEntity = (TridentEntity)ProjectileEntity.spawnWithVelocity(TridentEntity::new, serverWorld, itemStack, playerEntity, 0.0F, 2.5F, 1.0F);
+                            SoulfireTridentEntity tridentEntity = ProjectileEntity.spawnWithVelocity(SoulfireTridentEntity::new, serverWorld, itemStack, playerEntity, 0.0F, 2.5F, 1.0F);
                             if (playerEntity.isInCreativeMode()) {
                                 tridentEntity.pickupType = PickupPermission.CREATIVE_ONLY;
                             }
 
-                            world.playSoundFromEntity((Entity)null, tridentEntity, (SoundEvent)registryEntry.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+                            world.playSoundFromEntity(null, tridentEntity, registryEntry.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
                             return true;
                         }
                     }
@@ -96,21 +87,20 @@ public class SoulfireTridentItem extends Item implements ProjectileItem {
                     if (f > 0.0F) {
                         float g = playerEntity.getYaw();
                         float h = playerEntity.getPitch();
-                        float j = -MathHelper.sin((double)(g * ((float)Math.PI / 180F))) * MathHelper.cos((double)(h * ((float)Math.PI / 180F)));
-                        float k = -MathHelper.sin((double)(h * ((float)Math.PI / 180F)));
-                        float l = MathHelper.cos((double)(g * ((float)Math.PI / 180F))) * MathHelper.cos((double)(h * ((float)Math.PI / 180F)));
+                        float j = -MathHelper.sin((g * ((float)Math.PI / 180F))) * MathHelper.cos((h * ((float)Math.PI / 180F)));
+                        float k = -MathHelper.sin((h * ((float)Math.PI / 180F)));
+                        float l = MathHelper.cos((g * ((float)Math.PI / 180F))) * MathHelper.cos((h * ((float)Math.PI / 180F)));
                         float m = MathHelper.sqrt(j * j + k * k + l * l);
                         j *= f / m;
                         k *= f / m;
                         l *= f / m;
-                        playerEntity.addVelocity((double)j, (double)k, (double)l);
+                        playerEntity.addVelocity(j, k, l);
                         playerEntity.useRiptide(20, 8.0F, stack);
                         if (playerEntity.isOnGround()) {
-                            float n = 1.1999999F;
-                            playerEntity.move(MovementType.SELF, new Vec3d((double)0.0F, (double)1.1999999F, (double)0.0F));
+                            playerEntity.move(MovementType.SELF, new Vec3d(0.0F, 1.1999999F, 0.0F));
                         }
 
-                        world.playSoundFromEntity((Entity)null, playerEntity, (SoundEvent)registryEntry.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+                        world.playSoundFromEntity(null, playerEntity, registryEntry.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
                         return true;
                     } else {
                         return false;
@@ -135,7 +125,7 @@ public class SoulfireTridentItem extends Item implements ProjectileItem {
     }
 
     public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
-        TridentEntity tridentEntity = new TridentEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack.copyWithCount(1));
+        SoulfireTridentEntity tridentEntity = new SoulfireTridentEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack.copyWithCount(1));
         tridentEntity.pickupType = PickupPermission.ALLOWED;
         return tridentEntity;
     }
