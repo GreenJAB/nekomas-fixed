@@ -1,11 +1,19 @@
 package net.greenjab.nekomasfixed.mixin.boat;
 
+import net.greenjab.nekomasfixed.mixin.accessor.MobEntityAccessor;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.PillagerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.LocalDifficulty;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PillagerEntity.class)
 public class PillagerEntityMixin {
@@ -18,4 +26,24 @@ public class PillagerEntityMixin {
     private float shootFurther2(float distance) {
         return 12;
     }
+    @Inject(method = "initEquipment", at = @At("HEAD"), cancellable = true)
+    protected void initSpearEquipment(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
+        PillagerEntity pillager = (PillagerEntity)(Object)this;
+        int randInt = random.nextInt(3) + 1;
+        if (randInt == 1) {
+            pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
+        } else {
+            pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
+        }
+        pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
+        ci.cancel();
+    }
+    @Inject(method = "initGoals", at = @At("TAIL"))
+    private void addMeleeGoalForSpear(CallbackInfo ci) {
+        PillagerEntity pillager = (PillagerEntity)(Object)this;
+        ((MobEntityAccessor) pillager).getGoalSelector()
+                .add(3, new MeleeAttackGoal(pillager, 1.2, false));
+    }
+
+
 }
