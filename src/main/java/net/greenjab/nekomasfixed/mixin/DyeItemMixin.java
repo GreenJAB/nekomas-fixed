@@ -3,11 +3,19 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.SignBlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.SignChangingItem;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,25 +30,23 @@ public class DyeItemMixin {
     private void changeDye(World world, SignBlockEntity signBlockEntity, boolean front, PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
         ItemStack stack = player.getStackInHand(player.getActiveHand());
 
-        //AMBER
+        if(stack.isOf(Items.GLOW_INK_SAC)){
+            System.out.println("Glow ink sac is used on sign");
+        }
+
         if (stack.isOf(ItemRegistry.AMBER_DYE)) {
             applyDye(signBlockEntity, front, AMBER.getColor());
             cir.setReturnValue(true);
         }
-
-        //AQUA
         if (stack.isOf(ItemRegistry.AQUA_DYE)) {
             applyDye(signBlockEntity, front, AQUA.getColor());
             cir.setReturnValue(true);
         }
-
-        //INDIGO
         if (stack.isOf(ItemRegistry.INDIGO_DYE)) {
             applyDye(signBlockEntity, front, INDIGO.getColor());
             cir.setReturnValue(true);
         }
 
-        //CRIMSON
         if (stack.isOf(ItemRegistry.CRIMSON_DYE)) {
             applyDye(signBlockEntity, front, CRIMSON.getColor());
             cir.setReturnValue(true);
@@ -48,7 +54,8 @@ public class DyeItemMixin {
 
     }
 
-    //Method to applyDye - DRY priciple
+
+
     private void applyDye(SignBlockEntity sign, boolean front, int color) {
         var signText = sign.getText(front);
         for (int i = 0; i < 4; i++) {

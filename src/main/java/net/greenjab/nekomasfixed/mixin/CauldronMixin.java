@@ -28,7 +28,6 @@ public class CauldronMixin {
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
     private void onCauldronUse(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
 
-        // ICE CAULDRON - Empty hand harvest
         if (stack.isEmpty() && state.getBlock() == BlockRegistry.ICE_CAULDRON) {
             if (!world.isClient()) {
                 player.getInventory().offerOrDrop(new ItemStack(Items.ICE, 1));
@@ -39,8 +38,6 @@ public class CauldronMixin {
             cir.setReturnValue(ActionResult.SUCCESS);
             return;
         }
-
-        // MAGMA CAULDRON - Magma cream on empty cauldron
         if (stack.getItem() == Items.MAGMA_CREAM && state.getBlock() == Blocks.CAULDRON) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.MAGMA_CAULDRON.getDefaultState()
@@ -53,7 +50,6 @@ public class CauldronMixin {
             return;
         }
 
-        // MAGMA CAULDRON - Add more magma cream
         if (state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
 
@@ -68,8 +64,6 @@ public class CauldronMixin {
                 return;
             }
         }
-
-        // MAGMA CAULDRON - Empty hand harvest when full
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.MAGMA_CAULDRON) {
             int level = state.get(MagmaCauldronBlock.MAGMA_LEVEL);
             if(level == MagmaCauldronBlock.MAX_LEVEL) {
@@ -83,7 +77,6 @@ public class CauldronMixin {
             }
         }
 
-        // SLIME CAULDRON - Slime ball on empty cauldron
         if (stack.getItem() == Items.SLIME_BALL && state.getBlock() == Blocks.CAULDRON) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.SLIME_CAULDRON.getDefaultState()
@@ -96,7 +89,6 @@ public class CauldronMixin {
             return;
         }
 
-        // SLIME CAULDRON - Add more slime balls
         if (state.getBlock() == BlockRegistry.SLIME_CAULDRON) {
             int level = state.get(SlimeCauldronBlock.SLIME_LEVEL);
 
@@ -112,7 +104,6 @@ public class CauldronMixin {
             }
         }
 
-        // SLIME CAULDRON - Empty hand harvest when full
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.SLIME_CAULDRON) {
             int level = state.get(SlimeCauldronBlock.SLIME_LEVEL);
             if(level == SlimeCauldronBlock.MAX_LEVEL) {
@@ -126,7 +117,6 @@ public class CauldronMixin {
             }
         }
 
-        // HONEY CAULDRON - Empty hand harvest when full
         if(stack.isEmpty() && state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
             if(level == HoneyCauldronBlock.MAX_LEVEL) {
@@ -140,7 +130,6 @@ public class CauldronMixin {
             }
         }
 
-        // HONEY CAULDRON - Honey bottle on empty cauldron
         if (stack.getItem() == Items.HONEY_BOTTLE && state.getBlock() == Blocks.CAULDRON ) {
             if (!world.isClient()) {
                 world.setBlockState(pos, BlockRegistry.HONEY_CAULDRON.getDefaultState()
@@ -152,11 +141,9 @@ public class CauldronMixin {
             return;
         }
 
-        // HONEY CAULDRON - Interactions
         if (state.getBlock() == BlockRegistry.HONEY_CAULDRON) {
             int level = state.get(HoneyCauldronBlock.HONEY_LEVEL);
 
-            // Glass bottle takes honey
             if (stack.getItem() == Items.GLASS_BOTTLE) {
                 if (!world.isClient()) {
                     player.getInventory().offerOrDrop(new ItemStack(Items.HONEY_BOTTLE));
@@ -172,7 +159,6 @@ public class CauldronMixin {
                 return;
             }
 
-            // Honey bottle adds honey
             if (stack.getItem() == Items.HONEY_BOTTLE && level < HoneyCauldronBlock.MAX_LEVEL) {
                 if (!world.isClient()) {
                     world.setBlockState(pos, state.with(HoneyCauldronBlock.HONEY_LEVEL, level + 1));
