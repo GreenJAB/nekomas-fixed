@@ -34,7 +34,6 @@ public class FireBombEntityRenderer extends EntityRenderer<FireBombEntity, Entit
 	@Override
 	public void render(EntityRenderState renderState, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
 		matrices.push();
-		matrices.scale(2.0F, 2.0F, 2.0F);
 		matrices.multiply(cameraState.orientation);
 		queue.submitCustom(matrices, LAYER, (matricesEntry, vertexConsumer) -> {
 			produceVertex(vertexConsumer, matricesEntry, renderState.light, 0.0F, 0, 0, 1);

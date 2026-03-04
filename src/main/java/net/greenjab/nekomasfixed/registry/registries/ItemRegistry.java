@@ -90,14 +90,14 @@ public class ItemRegistry {
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
 
     /*Added By CyberModder
-    1. Wild Fire Smithing Template - Not Working
+    1. Wild Fire Smithing Template
     2. Dyes: Amber, Aqua, Indigo, Crimson
     3. Terracotta: Amber, ...
      */
 
 
     public static final Item WILD_FIRE_SMITHING_TEMPLATE = register(
-            "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON)
+            "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
 
@@ -138,7 +138,14 @@ public class ItemRegistry {
     ),new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
 
     public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384));
-    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings().maxDamage(384));
+    public static final Item NETHER_HEART = register("nether_heart",  new Item.Settings().fireproof().rarity(Rarity.UNCOMMON));
+    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings()
+            .rarity(Rarity.RARE)
+            .maxDamage(250)
+            .attributeModifiers(SoulfireTridentItem.createAttributeModifiers())
+            .component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent())
+            .enchantable(1)
+            .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
     public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
 
     public static Item register(String id, Item.Settings settings) {

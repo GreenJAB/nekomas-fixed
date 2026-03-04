@@ -53,6 +53,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.SLINGSHOT);
                         entries.add(ItemRegistry.WILD_FIRE_SPAWN_EGG);
                         entries.add(ItemRegistry.WILD_FIRE_SMITHING_TEMPLATE);
+                        entries.add(ItemRegistry.NETHER_HEART);
                         entries.add(ItemRegistry.AMBER_DYE);
                         entries.add(ItemRegistry.INDIGO_DYE);
                         entries.add(ItemRegistry.CRIMSON_DYE);

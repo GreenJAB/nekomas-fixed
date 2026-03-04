@@ -5,6 +5,8 @@ import com.google.common.collect.Iterables;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.NearestLivingEntitiesSensor;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 
@@ -26,6 +28,7 @@ public class WildFireAttackablesSensor extends NearestLivingEntitiesSensor<WildF
 			.flatMap(Collection::stream)
 			.filter(EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR)
 			.filter(target -> Sensor.testAttackableTargetPredicate(serverWorld, wildFireEntity, target))
+			.filter(target -> target instanceof PlayerEntity || target instanceof PassiveEntity)
 			.findFirst()
 			.ifPresentOrElse(
 				target -> wildFireEntity.getBrain().remember(MemoryModuleType.NEAREST_ATTACKABLE, target),

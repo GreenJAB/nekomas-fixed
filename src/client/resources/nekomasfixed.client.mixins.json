@@ -9,12 +9,14 @@
     "ClientPlayerInteractionManagerMixin",
     "EntityModelsMixin",
     "EquipmentRendererMixin",
+    "FireCommandRendererMixin",
     "HeldItemRendererMixin",
     "LabelCommandRendererCommandMixin",
     "LabelCommandRendererMixin",
     "MinecraftClientMixin",
     "ParticleManagerMixin",
     "ParticleSpriteManagerMixin",
+    "SpecialModelTypesMixin",
     "TooltipComponentMixin"
   ],
   "injectors": {

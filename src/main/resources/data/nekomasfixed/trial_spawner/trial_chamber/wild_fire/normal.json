@@ -1,0 +1,18 @@
+{
+  "simultaneous_mobs": 1.0,
+  "simultaneous_mobs_added_per_player": 0.0,
+  "spawn_potentials": [
+    {
+      "data": {
+        "entity": {
+          "id": "nekomasfixed:wild_fire"
+        }
+      },
+      "weight": 1
+    }
+  ],
+  "ticks_between_spawn": 20,
+  "total_mobs": 1.0,
+  "total_mobs_added_per_player": 0.0,
+  "spawn_range": 1
+}

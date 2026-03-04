@@ -8,18 +8,25 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.WindChargeEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -31,6 +38,7 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.debug.DebugTrackable;
 import org.jspecify.annotations.Nullable;
 
@@ -40,6 +48,7 @@ public class WildFireEntity extends HostileEntity {
 	public float eyeOffset = 0.5F;
 	public float clientFireTime = 0;
 	public float clientExtraSpin = 0;
+	private final ServerBossBar bossBar;
 	private static final TrackedData<Byte> WILD_FIRE_FLAGS = DataTracker.registerData(WildFireEntity.class, TrackedDataHandlerRegistry.BYTE);
 
 	public WildFireEntity(EntityType<? extends WildFireEntity> entityType, World world) {
@@ -48,6 +57,7 @@ public class WildFireEntity extends HostileEntity {
 		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
+		this.bossBar = (new ServerBossBar(this.getDisplayName(), BossBar.Color.YELLOW, BossBar.Style.PROGRESS));
 		this.experiencePoints = 50;
 		setShieldsActive(4);
 	}
@@ -57,13 +67,27 @@ public class WildFireEntity extends HostileEntity {
 	}
 
 	@Override
+	public boolean canSpawn(WorldView world) {
+		return world.doesNotIntersectEntities(this);
+	}
+
+	@Override
 	protected void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 		view.putInt("State", this.dataTracker.get(WILD_FIRE_FLAGS));
 	}
 
 	@Override
 	protected void readCustomData(ReadView view) {
+		super.readCustomData(view);
 		this.dataTracker.set(WILD_FIRE_FLAGS, (byte)view.getInt("State", 0));
+		if (this.hasCustomName()) {
+			this.bossBar.setName(this.getDisplayName());
+		}
+	}
+	public void setCustomName(@Nullable Text name) {
+		super.setCustomName(name);
+		this.bossBar.setName(this.getDisplayName());
 	}
 
 	@Override
@@ -163,6 +187,7 @@ public class WildFireEntity extends HostileEntity {
 	@Override
 	protected void mobTick(ServerWorld world) {
 		LivingEntity livingEntity = this.getTarget();
+		this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
 		if (livingEntity != null && this.canTarget(livingEntity)) {
 
 			if (this.canSee(livingEntity)) {
@@ -195,7 +220,16 @@ public class WildFireEntity extends HostileEntity {
 
 		if (world.getTime()%20==0) {
 			if (world.getBlockState(this.getBlockPos()).isIn(BlockTags.FIRE))this.heal(1);
-			setShieldsActive((int)MathHelper.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4));
+			int lastShields = getShieldsActive();
+			int newShields = (int)MathHelper.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4);
+			setShieldsActive(newShields);
+			if (newShields < lastShields) {
+				//TODO shield gone particles/sound
+				world.playSoundFromEntity(null, this, SoundEvents.ITEM_WOLF_ARMOR_BREAK.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+			} else if (newShields > lastShields) {
+				//shield regen particles/sound
+				world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 0.7F, 2.0F);
+			}
 		}
 
 		Profiler profiler = Profilers.get();
@@ -222,6 +256,15 @@ public class WildFireEntity extends HostileEntity {
 						this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.BREEZE_JUMP_TARGET)
 				)
 		);
+	}
+
+	public void onStartedTrackingBy(ServerPlayerEntity player) {
+		super.onStartedTrackingBy(player);
+		this.bossBar.addPlayer(player);
+	}
+	public void onStoppedTrackingBy(ServerPlayerEntity player) {
+		super.onStoppedTrackingBy(player);
+		this.bossBar.removePlayer(player);
 	}
 	
 	
@@ -256,7 +299,7 @@ public class WildFireEntity extends HostileEntity {
 		} else {
 			b = (byte)(b & -(2+1));
 		}
-
+		this.bossBar.setColor(BossBar.Color.BLUE);
 		this.dataTracker.set(WILD_FIRE_FLAGS, b);
 	}
 
@@ -275,6 +318,15 @@ public class WildFireEntity extends HostileEntity {
 	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		if(this == source.getAttacker())return false;
+		if (!isOnFire()) {
+			Entity entity = source.getSource();
+			if (entity instanceof PersistentProjectileEntity || entity instanceof WindChargeEntity) {
+				if (random.nextInt(4)<getShieldsActive()) {
+					world.playSoundFromEntity(null, this, SoundEvents.ITEM_SHIELD_BLOCK.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+					return false;
+				}
+			}
+		}
 		return super.damage(world,source,amount);
 	}
 }

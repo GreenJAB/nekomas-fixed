@@ -8,4 +8,4 @@ accessible class net/minecraft/structure/NetherFortressGenerator$Piece
 accessible method net/minecraft/structure/StructurePiece fillWithOutline (Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/util/math/BlockBox;IIIIIILnet/minecraft/block/BlockState;Lnet/minecraft/block/BlockState;Z)V
 accessible method net/minecraft/structure/StructurePiece addBlock (Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/block/BlockState;IIILnet/minecraft/util/math/BlockBox;)V
 accessible method net/minecraft/structure/StructurePiece offsetPos (III)Lnet/minecraft/util/math/BlockPos$Mutable;
-accessible field net/minecraft/block/spawner/TrialSpawnerData totalSpawnedMobs I
+accessible class net/minecraft/block/spawner/TrialSpawnerConfigs$ConfigKeyPair
