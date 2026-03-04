@@ -13,10 +13,13 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.FireworkStarRecipe;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import oshi.jna.platform.mac.SystemConfiguration;
 
 @Mixin(FireworkStarRecipe.class)
 public class FireworkStarRecipeMixin {
@@ -35,7 +38,7 @@ public class FireworkStarRecipeMixin {
         }return false;
     }
     @Inject(method = "craft" , at = @At("HEAD"), cancellable = true)
-    public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public void craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup, CallbackInfoReturnable<ItemStack> cir) {
         FireworkExplosionComponent.Type type = FireworkExplosionComponent.Type.SMALL_BALL;
         boolean bl = false;
         boolean bl2 = false;
@@ -67,6 +70,6 @@ public class FireworkStarRecipeMixin {
 
         ItemStack itemStack2 = new ItemStack(Items.FIREWORK_STAR);
         itemStack2.set(DataComponentTypes.FIREWORK_EXPLOSION, new FireworkExplosionComponent(type, intList, IntList.of(), bl2, bl));
-        return itemStack2;
+        cir.setReturnValue(itemStack2);
     }
 }

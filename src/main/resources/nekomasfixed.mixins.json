@@ -27,7 +27,6 @@
     "RecipeBookTypeInvoker",
 
     "SignTextMixin",
-    "SmallFireballEntityMixin",
 
     "SnifferEntityAccessor",
     "SnifferEntityMixin",
