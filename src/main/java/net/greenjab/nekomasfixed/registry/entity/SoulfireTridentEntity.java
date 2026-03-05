@@ -139,7 +139,7 @@ public class SoulfireTridentEntity extends PersistentProjectileEntity {
 
 			if (entity instanceof LivingEntity livingEntity) {
 				this.knockback(livingEntity, damageSource);
-				entity.setOnFire(false);
+				entity.setOnFireForTicks(20*3);
 				this.onHit(livingEntity);
 			}
 		}
