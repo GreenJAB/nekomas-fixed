@@ -7,6 +7,7 @@ package net.greenjab.nekomasfixed.registry.recipe;
 
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
+import net.greenjab.nekomasfixed.util.ModRecipeBookCategories;
 import net.greenjab.nekomasfixed.util.ModRecipeType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,11 +39,11 @@ public class KilnRecipe extends AbstractCookingRecipe {
         RecipeBookCategory var10000;
         switch (this.getCategory()) {
             case BLOCKS:
-                var10000 = RecipeBookCategories.BLAST_FURNACE_BLOCKS;
+                var10000 = ModRecipeBookCategories.KILNING_MISC;
                 break;
             case FOOD:
             case MISC:
-                var10000 = RecipeBookCategories.BLAST_FURNACE_MISC;
+                var10000 = ModRecipeBookCategories.KILNING_MISC;
                 break;
             default:
                 try {
