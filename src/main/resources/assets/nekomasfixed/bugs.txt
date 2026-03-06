@@ -1,0 +1,4 @@
+failed
+:runClient
+java.lang.IllegalStateException: Registry is already frozen (trying to add key ResourceKey[minecraft:recipe_type / minecraft:kilning])
+Process 'command 'C:\Program Files\Java\jdk-21.0.10\bin\java.exe'' finished with non-zero exit value -1
