@@ -1,9 +1,7 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": {
-    "item": "minecraft:cobblestone"
-  },
+  "ingredient": "minecraft:cobblestone",
   "result": {
     "id": "minecraft:stone",
     "count": 1
