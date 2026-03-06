@@ -46,11 +46,7 @@ public class KilnRecipe extends AbstractCookingRecipe {
                 var10000 = ModRecipeBookCategories.KILNING_MISC;
                 break;
             default:
-                try {
-                    throw new Exception();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                return ModRecipeBookCategories.KILNING_MISC;
         }
 
         return var10000;
