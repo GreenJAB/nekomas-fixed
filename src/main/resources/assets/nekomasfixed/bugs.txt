@@ -1,7 +1,1 @@
-failed
-:compileJava
-RecipeRegistry.java
-uses or overrides a deprecated API.
-:runClient
-java.lang.IllegalStateException: Registry is already frozen (trying to add key ResourceKey[minecraft:recipe_type / minecraft:kilning])
-Process 'command 'C:\Program Files\Java\jdk-21.0.10\bin\java.exe'' finished with non-zero exit value -1
+[19:26:11] [Worker-Main-1/ERROR] (Minecraft) Couldn't parse data file 'nekomasfixed:stone' from 'nekomasfixed:recipe/stone.json': DataResult.Error['Not a JSON object: "minecraft:stone"; Failed to parse either. First: No key fabric:type in MapLike[{"item":"minecraft:cobblestone"}]; Second: Failed to parse either. First: Not a string: {"item":"minecraft:cobblestone"}; Second: Failed to parse either. First: Not a json array: {"item":"minecraft:cobblestone"}; Second: Not a string: {"item":"minecraft:cobblestone"}']
