@@ -5,8 +5,10 @@ import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registries.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
+import net.greenjab.nekomasfixed.util.ModRecipeBookCategories;
 import net.minecraft.client.render.entity.ItemFrameEntityRenderer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
+import net.minecraft.recipe.book.RecipeBookCategories;
 import net.minecraft.util.Identifier;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 
@@ -19,7 +21,6 @@ public class NekomasFixedClient implements ClientModInitializer {
 		EntityRendererRegistry.registerEntityRenderer();
 		EntityModelLayerRegistry.registerEntityModelLayer();
 		TextureRegistry.registerTextureRegistry();
-
 
 		ClientSyncHandler.init();
 	}

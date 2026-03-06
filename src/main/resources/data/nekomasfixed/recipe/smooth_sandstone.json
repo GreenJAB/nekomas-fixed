@@ -1,0 +1,11 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "minecraft:sand",
+  "result": {
+    "id": "minecraft:smooth_sandstone",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}

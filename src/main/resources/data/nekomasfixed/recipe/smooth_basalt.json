@@ -1,0 +1,11 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "minecraft:basalt",
+  "result": {
+    "id": "minecraft:smooth_basalt",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}

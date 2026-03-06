@@ -1,0 +1,14 @@
+
+
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "nekomasfixed:indigo_terracotta",
+  "result": {
+    "id": "nekomasfixed:indigo_glazed_terracotta",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}
+

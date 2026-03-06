@@ -1,3 +1,5 @@
+
+
 {
   "type": "minecraft:block",
   "pools": [
@@ -19,3 +21,4 @@
   ],
   "random_sequence": "nekomasfixed:blocks/aqua_glazed_terracotta"
 }
+

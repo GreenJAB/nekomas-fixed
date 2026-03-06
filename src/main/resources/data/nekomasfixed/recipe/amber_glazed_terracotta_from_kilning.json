@@ -1,0 +1,14 @@
+
+
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "nekomasfixed:amber_terracotta",
+  "result": {
+    "id": "nekomasfixed:amber_glazed_terracotta",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}
+

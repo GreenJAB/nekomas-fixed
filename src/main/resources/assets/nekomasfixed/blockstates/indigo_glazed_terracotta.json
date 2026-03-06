@@ -1,0 +1,20 @@
+
+{
+  "variants": {
+    "facing=east": {
+      "model": "nekomasfixed:block/indigo_glazed_terracotta",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "nekomasfixed:block/indigo_glazed_terracotta",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "nekomasfixed:block/indigo_glazed_terracotta"
+    },
+    "facing=west": {
+      "model": "nekomasfixed:block/indigo_glazed_terracotta",
+      "y": 90
+    }
+  }
+}

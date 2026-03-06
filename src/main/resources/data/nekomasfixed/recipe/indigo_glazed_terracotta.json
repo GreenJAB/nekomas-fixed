@@ -1,0 +1,11 @@
+
+{
+  "type": "minecraft:smelting",
+  "category": "building",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "nekomasfixed:indigo_terracotta",
+  "result": {
+    "id": "nekomasfixed:indigo_glazed_terracotta"
+  }
+}

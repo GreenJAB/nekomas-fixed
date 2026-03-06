@@ -1,7 +1,9 @@
 package net.greenjab.nekomasfixed.registry.block.entity;
 
+import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
+import net.greenjab.nekomasfixed.util.ModRecipeType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -18,7 +20,7 @@ public class KilnBlockEntity extends AbstractFurnaceBlockEntity {
     private static final Text CONTAINER_NAME_TEXT = Text.translatable("container.nekomasfixed.kiln");
 
     public KilnBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityTypeRegistry.KILN_BLOCK_ENTITY, pos, state, RecipeRegistry.KILN_RECIPE_TYPE);
+        super( BlockEntityTypeRegistry.KILN_BLOCK_ENTITY, pos, state, ModRecipeType.KILNING);
     }
 
     @Override

@@ -1,0 +1,12 @@
+
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "minecraft:netherrack",
+  "result": {
+    "id": "minecraft:nether_brick",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}

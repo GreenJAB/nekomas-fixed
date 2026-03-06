@@ -1,0 +1,11 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "minecraft:deepslate_tiles",
+  "result": {
+    "id": "minecraft:cracked_deepslate_tiles",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}
