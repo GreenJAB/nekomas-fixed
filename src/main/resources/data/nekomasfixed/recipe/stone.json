@@ -1,0 +1,10 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:cobblestone"
+  },
+  "result": "minecraft:stone",
+  "experience": 0.3,
+  "cookingtime": 100
+}
