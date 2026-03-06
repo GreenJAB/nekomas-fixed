@@ -2,9 +2,9 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "minecraft:amber_terracotta",
+  "ingredient": "nekomasfixed:amber_terracotta",
   "result": {
-    "id": "minecraft:amber_glazed_terracotta",
+    "id": "nekomasfixed:amber_glazed_terracotta",
     "count": 1
   },
   "experience": 0.4,

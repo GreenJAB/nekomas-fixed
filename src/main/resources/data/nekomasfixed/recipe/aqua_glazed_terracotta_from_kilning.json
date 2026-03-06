@@ -2,9 +2,9 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "minecraft:aqua_terracotta",
+  "ingredient": "nekomasfixed:aqua_terracotta",
   "result": {
-    "id": "minecraft:aqua_glazed_terracotta",
+    "id": "nekomasfixed:aqua_glazed_terracotta",
     "count": 1
   },
   "experience": 0.4,
