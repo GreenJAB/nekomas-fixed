@@ -25,10 +25,12 @@ import net.minecraft.util.Identifier;
 public class RecipeRegistry {
 
 
-   public static final RecipeSerializer<KilnRecipe> KILNING_RECIPE_SERIALIZER = register("kilning", new AbstractCookingRecipe.Serializer(KilnRecipe::new, 100));
-
-
-
+    public static final RecipeSerializer<KilnRecipe> KILNING_RECIPE_SERIALIZER =
+            Registry.register(
+                    Registries.RECIPE_SERIALIZER,
+                    Identifier.of("nekomasfixed", "kilning"),
+                    new AbstractCookingRecipe.Serializer<>(KilnRecipe::new, 100)
+            );
     public static final RecipeSerializer<ZombieNautilusRecipe> ZOMBIE_NAUTILUS_SERIALIZER = Registry.register(
             Registries.RECIPE_SERIALIZER,
             Identifier.of("nekomasfixed", "zombie_nautilus"),
