@@ -1,9 +1,9 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "minecraft:cobblestone",
+  "ingredient": "minecraft:clay_ball",
   "result": {
-    "id": "minecraft:stone",
+    "id": "minecraft:brick",
     "count": 1
   },
   "experience": 0.4,

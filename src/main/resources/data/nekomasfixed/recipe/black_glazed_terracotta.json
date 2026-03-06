@@ -1,9 +1,10 @@
+
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "minecraft:cobblestone",
+  "ingredient": "minecraft:black_terracotta",
   "result": {
-    "id": "minecraft:stone",
+    "id": "minecraft:black_glazed_terracotta",
     "count": 1
   },
   "experience": 0.4,

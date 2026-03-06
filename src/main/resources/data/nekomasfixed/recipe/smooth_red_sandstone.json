@@ -1,9 +1,9 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "minecraft:cobblestone",
+  "ingredient": "minecraft:red_sand",
   "result": {
-    "id": "minecraft:stone",
+    "id": "minecraft:smooth_red_sandstone",
     "count": 1
   },
   "experience": 0.4,

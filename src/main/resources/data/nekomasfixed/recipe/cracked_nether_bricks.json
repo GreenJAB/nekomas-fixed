@@ -1,9 +1,9 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "minecraft:cobblestone",
+  "ingredient": "minecraft:nether_bricks",
   "result": {
-    "id": "minecraft:stone",
+    "id": "minecraft:cracked_nether_bricks",
     "count": 1
   },
   "experience": 0.4,

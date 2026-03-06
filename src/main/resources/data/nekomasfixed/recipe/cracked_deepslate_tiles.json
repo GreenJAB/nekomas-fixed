@@ -1,9 +1,9 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "minecraft:cobblestone",
+  "ingredient": "minecraft:deepslate_tiles",
   "result": {
-    "id": "minecraft:stone",
+    "id": "minecraft:cracked_deepslate_tiles",
     "count": 1
   },
   "experience": 0.4,

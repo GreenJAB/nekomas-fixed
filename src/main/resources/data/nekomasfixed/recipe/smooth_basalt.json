@@ -1,9 +1,9 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "minecraft:cobblestone",
+  "ingredient": "minecraft:basalt",
   "result": {
-    "id": "minecraft:stone",
+    "id": "minecraft:smooth_basalt",
     "count": 1
   },
   "experience": 0.4,
