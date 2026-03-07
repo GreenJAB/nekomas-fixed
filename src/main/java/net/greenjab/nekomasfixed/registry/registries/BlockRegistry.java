@@ -213,6 +213,34 @@ public class BlockRegistry {
                     .instrument(NoteBlockInstrument.SNARE)
                     .strength(0.5F).sounds(BlockSoundGroup.SAND));
 
+    public static final Block AMBER_CARPET = register("amber_carpet", (settings) -> new DyedCarpetBlock(DyeColor.YELLOW, settings),
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.YELLOW)
+                    .strength(0.1F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .burnable());
+
+    public static final Block AQUA_CARPET = register("aqua_carpet", (settings) -> new DyedCarpetBlock(DyeColor.LIGHT_BLUE, settings),
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.LIGHT_BLUE)
+                    .strength(0.1F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .burnable());
+
+    public static final Block CRIMSON_CARPET = register("crimson_carpet", (settings) -> new DyedCarpetBlock(DyeColor.RED, settings),
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.RED)
+                    .strength(0.1F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .burnable());
+
+    public static final Block INDIGO_CARPET = register("indigo_carpet", (settings) -> new DyedCarpetBlock(DyeColor.MAGENTA, settings),
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.MAGENTA)
+                    .strength(0.1F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .burnable());
+
     public static final Block HONEY_CAULDRON = register(
             "honey_cauldron",
             HoneyCauldronBlock::new,
