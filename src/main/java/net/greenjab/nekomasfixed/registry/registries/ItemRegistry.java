@@ -89,13 +89,6 @@ public class ItemRegistry {
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
 
-    /*Added By CyberModder
-    1. Wild Fire Smithing Template
-    2. Dyes: Amber, Aqua, Indigo, Crimson
-    3. Terracotta: Amber, ...
-     */
-
-
     public static final Item WILD_FIRE_SMITHING_TEMPLATE = register(
             "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
@@ -114,8 +107,6 @@ public class ItemRegistry {
     public static final Item DIAMOND_SICKLE = register("diamond_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.DIAMOND, SickleItem.SPEED));
     public static final Item NETHERITE_SICKLE = register("netherite_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.NETHERITE, SickleItem.SPEED).fireproof());
 
-
-
     public static final Item AMBER_TERRACOTTA = register(BlockRegistry.AMBER_TERRACOTTA);
     public static final Item INDIGO_TERRACOTTA = register(BlockRegistry.INDIGO_TERRACOTTA);
     public static final Item AQUA_TERRACOTTA = register(BlockRegistry.AQUA_TERRACOTTA);
@@ -125,6 +116,28 @@ public class ItemRegistry {
 
     public static final Item AQUA_GLAZED_TERRACOTTA = register(BlockRegistry.AQUA_GLAZED_TERRACOTTA);
     public static final Item AMBER_GLAZED_TERRACOTTA = register(BlockRegistry.AMBER_GLAZED_TERRACOTTA);
+    public static final Item CRIMSON_GLAZED_TERRACOTTA = register(BlockRegistry.CRIMSON_GLAZED_TERRACOTTA);
+    public static final Item INDIGO_GLAZED_TERRACOTTA = register(BlockRegistry.INDIGO_GLAZED_TERRACOTTA);
+
+    public static final Item AQUA_WOOL = register(BlockRegistry.AQUA_WOOL);
+    public static final Item AMBER_WOOL = register(BlockRegistry.AMBER_WOOL);
+    public static final Item CRIMSON_WOOL = register(BlockRegistry.CRIMSON_WOOL);
+    public static final Item INDIGO_WOOL = register(BlockRegistry.INDIGO_WOOL);
+
+    public static final Item AQUA_CONCRETE = register(BlockRegistry.AQUA_CONCRETE);
+    public static final Item AMBER_CONCRETE = register(BlockRegistry.AMBER_CONCRETE);
+    public static final Item CRIMSON_CONCRETE = register(BlockRegistry.CRIMSON_CONCRETE);
+    public static final Item INDIGO_CONCRETE = register(BlockRegistry.INDIGO_CONCRETE);
+
+    public static final Item AQUA_CONCRETE_POWDER = register(BlockRegistry.AQUA_CONCRETE_POWDER);
+    public static final Item AMBER_CONCRETE_POWDER = register(BlockRegistry.AMBER_CONCRETE_POWDER);
+    public static final Item CRIMSON_CONCRETE_POWDER = register(BlockRegistry.CRIMSON_CONCRETE_POWDER);
+    public static final Item INDIGO_CONCRETE_POWDER = register(BlockRegistry.INDIGO_CONCRETE_POWDER);
+
+    public static final Item AQUA_CARPET = register(BlockRegistry.AQUA_CARPET);
+    public static final Item AMBER_CARPET = register(BlockRegistry.AMBER_CARPET);
+    public static final Item CRIMSON_CARPET = register(BlockRegistry.CRIMSON_CARPET);
+    public static final Item INDIGO_CARPET = register(BlockRegistry.INDIGO_CARPET);
 
 //    ------------------------------------------------------------------------------------------
 

@@ -1,66 +1,54 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package net.greenjab.nekomasfixed.registry.recipe;
 
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
+import net.greenjab.nekomasfixed.util.ModRecipeBookCategories;
+import net.greenjab.nekomasfixed.util.ModRecipeType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CookingRecipeCategory;
+import net.minecraft.recipe.book.RecipeBookCategories;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
+
 
 public class KilnRecipe extends AbstractCookingRecipe {
-
-    public KilnRecipe(String group, CookingRecipeCategory category, Ingredient ingredient,
-                      ItemStack result, float experience, int cookingTime) {
-        super(
-                group, category, ingredient, result, experience, cookingTime);
+    public KilnRecipe(String string, CookingRecipeCategory cookingRecipeCategory, Ingredient ingredient, ItemStack itemStack, float f, int i) {
+        super(string, cookingRecipeCategory, ingredient, itemStack, f, i);
     }
 
-    @Override
-    public RecipeSerializer<? extends AbstractCookingRecipe> getSerializer() {
-        return RecipeRegistry.KILN_RECIPE_SERIALIZER;
-    }
-
-    @Override
-    public RecipeType<? extends AbstractCookingRecipe> getType() {
-        return RecipeRegistry.KILN_RECIPE_TYPE;
-    }
-
-    @Override
-    public RecipeBookCategory getRecipeBookCategory() {
-        return null;
-    }
-
-    @Override
     protected Item getCookerItem() {
-        return null;
+        return ItemRegistry.KILN;
     }
 
-
-    @Override
-    public boolean matches(SingleStackRecipeInput input, World world) {
-        return this.ingredient().test(input.item());
+    public RecipeSerializer<KilnRecipe> getSerializer() {
+        return RecipeRegistry.KILNING_RECIPE_SERIALIZER;
     }
 
-    @Override
-    public ItemStack craft(SingleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
-        return this.result().copy();
+    public RecipeType<KilnRecipe> getType() {
+        return ModRecipeType.KILNING;
     }
 
+    public RecipeBookCategory getRecipeBookCategory() {
+        RecipeBookCategory var10000;
+        switch (this.getCategory()) {
+            case BLOCKS:
+                var10000 = ModRecipeBookCategories.KILNING_MISC;
+                break;
+            case FOOD:
+            case MISC:
+                var10000 = ModRecipeBookCategories.KILNING_MISC;
+                break;
+            default:
+                return ModRecipeBookCategories.KILNING_MISC;
+        }
 
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-
-    public ItemStack getResult() {
-        return this.result();
-    }
-
-
-    public Ingredient getIngredient() {
-        return this.ingredient();
+        return var10000;
     }
 }

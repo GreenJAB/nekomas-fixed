@@ -1,0 +1,9 @@
+
+
+{
+  "parent": "minecraft:block/template_glazed_terracotta",
+  "textures": {
+    "all": "nekomasfixed:block/indigo_glazed_terracotta"
+  }
+}
+

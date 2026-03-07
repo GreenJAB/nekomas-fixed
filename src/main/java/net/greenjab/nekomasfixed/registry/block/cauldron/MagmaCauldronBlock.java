@@ -5,6 +5,9 @@ import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.entity.CollisionEvent;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
@@ -28,6 +31,12 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         super(settings, createBehaviorMap());
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(MAGMA_LEVEL, MAX_LEVEL));
+    }
+
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        handler.addEvent(CollisionEvent.CLEAR_FREEZE);
+        handler.addEvent(CollisionEvent.LAVA_IGNITE);
+        handler.addPostCallback(CollisionEvent.LAVA_IGNITE, Entity::setOnFireFromLava);
     }
 
     @Override
@@ -54,7 +63,6 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         return behaviorMap;
     }
 
-    // New method to increment honey level
     public static void incrementMagmaLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand) {
         if (world.isClient()) return;
 
@@ -67,7 +75,6 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         }
     }
 
-    // Overloaded method without player (for automatic filling)
     public static void incrementMagmaLevel(BlockState state, World world, BlockPos pos) {
         if (world.isClient()) return;
 

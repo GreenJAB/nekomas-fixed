@@ -1,0 +1,52 @@
+
+
+
+
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:amber_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:white_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:amber_wool"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dye",
+      "has_wool"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:aqua_terracotta"
+    ]
+  }
+}
+
+
+
+
+

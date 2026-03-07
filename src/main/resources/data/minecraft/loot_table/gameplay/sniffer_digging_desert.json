@@ -31,7 +31,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:dune_armour_trim",
+          "name": "minecraft:dune_armor_trim_smithing_template",
           "weight": 1
         },
         {
@@ -50,12 +50,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:spruce_sapling",
+          "name": "minecraft:string",
           "weight": 30
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:sweet_berries",
+          "name": "minecraft:sand",
           "weight": 20
         }
       ]

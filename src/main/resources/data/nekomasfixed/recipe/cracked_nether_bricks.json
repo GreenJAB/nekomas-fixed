@@ -1,0 +1,11 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "minecraft:nether_bricks",
+  "result": {
+    "id": "minecraft:cracked_nether_bricks",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}

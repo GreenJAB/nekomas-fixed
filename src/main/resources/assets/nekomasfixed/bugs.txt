@@ -1,0 +1,11 @@
+[19:32:37] [Worker-Main-1/ERROR] (Minecraft) Couldn't parse data file 'nekomasfixed:stone' from 'nekomasfixed:recipe/stone.json': DataResult.Error['Failed to parse either. First: No key fabric:type in MapLike[{"item":"minecraft:cobblestone"}]; Second: Failed to parse either. First: Not a string: {"item":"minecraft:cobblestone"}; Second: Failed to parse either. First: Not a json array: {"item":"minecraft:cobblestone"}; Second: Not a string: {"item":"minecraft:cobblestone"}']
+
+Twinkle twinkle little star - Total internal relfection of light
+dyes done, dyes not done, dyes donning?!
+j + 2a + v = java
+therefore, j + 2a  + v= j*Math.pow(a,2)*v
+therefore, i broke math!!!
+--dnf-dfjdfndlfdfdfdkfdlfjsdfldfj
+nekoma nekoma nekoma nekoma nekoma nekoma nekoma nekoma
+WHy is MOAJNG LAzy? End Update???
+JDFSDMsknddnnfjdnfjdjfsjdfjdskfjjdfsjkfjdsfjdfjsd

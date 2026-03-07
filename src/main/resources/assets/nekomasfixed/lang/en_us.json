@@ -1,12 +1,16 @@
 {
   "itemgroup.nekomasfixed": "Nekomas' Fixed Ideas",
+
   "block.nekomasfixed.clam": "Clam",
   "block.nekomasfixed.clam_blue": "Blue Clam",
   "block.nekomasfixed.clam_pink": "Pink Clam",
   "block.nekomasfixed.clam_purple": "Purple Clam",
+
   "block.nekomasfixed.pearl_block": "Pearl Block",
   "item.nekomasfixed.pearl": "Pearl",
+
   "block.nekomasfixed.glow_torch": "Glow Torch",
+
   "block.nekomasfixed.glow_wall_torch": "Glow Wall Torch",
   "item.nekomasfixed.big_acacia_boat": "Big Acacia Boat",
   "entity.nekomasfixed.big_acacia_boat": "Big Acacia Boat",
@@ -49,37 +53,74 @@
   "item.nekomasfixed.huge_spruce_boat": "Huge Spruce Boat",
   "entity.nekomasfixed.huge_spruce_boat": "Huge Spruce Boat",
   "item.nekomasfixed.boat_upgrade_template": "Boat Upgrade Template",
+
   "item.nekomasfixed.boat": "Boats",
+
   "item.nekomasfixed.planks": "Wooden Planks",
+
   "block.nekomasfixed.glistering_melon": "Glistering Melon",
+
   "block.nekomasfixed.nautilus_block": "Nautilus Block",
   "block.nekomasfixed.zombie_nautilus_block": "Zombified Nautilus Block",
   "block.nekomasfixed.coral_nautilus_block": "Coral Nautilus Block",
+
   "container.nautilus": "Holding: %s%s%s%s",
+
   "component.nekomasfixed.storedtime": "Recorded Time: %s",
+
   "item.nekomasfixed.turtle_chestplate": "Turtle Chestplate",
   "item.nekomasfixed.turtle_leggings": "Turtle Leggings",
   "item.nekomasfixed.turtle_boots": "Turtle Boots",
+
   "item.nekomasfixed.target_dummy": "Target Dummy",
   "entity.nekomasfixed.target_dummy": "Target Dummy",
   "block.nekomasfixed.enderman_head": "Enderman Head",
+
   "item.nekomasfixed.slingshot": "Slingshot",
+
   "entity.nekomasfixed.wild_fire": "Wild Fire",
   "item.nekomasfixed.wild_fire_spawn_egg": "Wild Fire Spawn Egg",
   "item.nekomasfixed.nether_heart": "Heart Of The Nether",
+
   "item.nekomasfixed.wild_fire_smithing_template": "Wild Fire Armor Trim",
   "item.nekomasfixed.wild_fire_smithing_template.new": "Wild Fire Armor Trim",
   "trim_pattern.nekomasfixed.wild_fire_trim": "Wild Fire Armor Trim",
+
   "item.nekomasfixed.amber_dye": "Amber Dye",
   "item.nekomasfixed.indigo_dye": "Indigo Dye",
   "item.nekomasfixed.crimson_dye": "Crimson Dye",
   "item.nekomasfixed.aqua_dye": "Aqua Dye",
+
   "block.nekomasfixed.amber_terracotta": "Amber Terracotta",
   "block.nekomasfixed.indigo_terracotta": "Indigo Terracotta",
   "block.nekomasfixed.aqua_terracotta": "Aqua Terracotta",
   "block.nekomasfixed.crimson_terracotta": "Crimson Terracotta",
+
   "block.nekomasfixed.aqua_glazed_terracotta": "Aqua Glazed Terracotta",
+  "block.nekomasfixed.crimson_glazed_terracotta": "Crimson Glazed Terracotta",
+  "block.nekomasfixed.indigo_glazed_terracotta": "Indigo Glazed Terracotta",
   "block.nekomasfixed.amber_glazed_terracotta": "Amber Glazed Terracotta",
+
+  "block.nekomasfixed.amber_wool": "Amber Wool",
+  "block.nekomasfixed.aqua_wool": "Aqua Wool",
+  "block.nekomasfixed.crimson_wool": "Crimson Wool",
+  "block.nekomasfixed.indigo_wool": "Indigo Wool",
+
+  "block.nekomasfixed.amber_concrete": "Amber Concrete",
+  "block.nekomasfixed.aqua_concrete": "Aqua Concrete",
+  "block.nekomasfixed.crimson_concrete": "Crimson Concrete",
+  "block.nekomasfixed.indigo_concrete": "Indigo Concrete",
+
+  "block.nekomasfixed.amber_concrete_powder": "Amber Concrete Powder",
+  "block.nekomasfixed.aqua_concrete_powder": "Aqua Concrete Powder",
+  "block.nekomasfixed.crimson_concrete_powder": "Crimson Concrete Powder",
+  "block.nekomasfixed.indigo_concrete_powder": "Indigo Concrete Powder",
+
+  "block.nekomasfixed.amber_carpet": "Amber Carpet",
+  "block.nekomasfixed.aqua_carpet": "Aqua Carpet",
+  "block.nekomasfixed.crimson_carpet": "Crimson Carpet",
+  "block.nekomasfixed.indigo_carpet": "Indigo Carpet",
+
   "item.nekomasfixed.iron_sickle": "Iron Sickle",
   "item.nekomasfixed.wooden_sickle": "Wooden Sickle",
   "item.nekomasfixed.stone_sickle": "Stone Sickle",
@@ -87,11 +128,16 @@
   "item.nekomasfixed.copper_sickle": "Copper Sickle",
   "item.nekomasfixed.diamond_sickle": "Diamond Sickle",
   "item.nekomasfixed.netherite_sickle": "Netherite Sickle",
+
   "enchantment.nekomasfixed.leeching": "Leeching",
+
   "block.nekomasfixed.kiln": "Kiln Apparatus",
   "container.nekomasfixed.kiln": "Kiln",
-  "item.nekomasfixed.soulfire_trident": "Soulfire Trident"
 
+  "item.nekomasfixed.soulfire_trident": "Soulfire Trident",
 
-
+  "item.minecraft.firework_star.indigo": "Indigo",
+  "item.minecraft.firework_star.aqua": "Aqua",
+  "item.minecraft.firework_star.amber": "Amber",
+  "item.minecraft.firework_star.crimson": "Crimson"
 }
