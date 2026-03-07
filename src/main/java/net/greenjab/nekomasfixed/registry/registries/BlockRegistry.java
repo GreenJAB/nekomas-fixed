@@ -17,6 +17,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
@@ -167,6 +168,30 @@ public class BlockRegistry {
                     .strength(0.8F)
                     .sounds(BlockSoundGroup.WOOL)
                     .burnable());
+
+    public static final Block AMBER_CONCRETE = register("amber_concrete",
+            AbstractBlock.Settings.create()
+                    .mapColor(DyeColor.WHITE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool().strength(1.8F));
+
+    public static final Block AQUA_CONCRETE = register("aqua_concrete",
+            AbstractBlock.Settings.create()
+                    .mapColor(DyeColor.WHITE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool().strength(1.8F));
+
+    public static final Block INDIGO_CONCRETE = register("indigo_concrete",
+            AbstractBlock.Settings.create()
+                    .mapColor(DyeColor.WHITE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool().strength(1.8F));
+
+    public static final Block CRIMSON_CONCRETE = register("crimson_concrete",
+            AbstractBlock.Settings.create()
+                    .mapColor(DyeColor.WHITE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool().strength(1.8F));
 
     public static final Block HONEY_CAULDRON = register(
             "honey_cauldron",

@@ -106,6 +106,11 @@
   "block.nekomasfixed.crimson_wool": "Crimson Wool",
   "block.nekomasfixed.indigo_wool": "Indigo Wool",
 
+  "block.nekomasfixed.amber_concrete": "Amber Concrete",
+  "block.nekomasfixed.aqua_concrete": "Aqua Concrete",
+  "block.nekomasfixed.crimson_concrete": "Crimson Concrete",
+  "block.nekomasfixed.indigo_concrete": "Indigo Concrete",
+
   "item.nekomasfixed.iron_sickle": "Iron Sickle",
   "item.nekomasfixed.wooden_sickle": "Wooden Sickle",
   "item.nekomasfixed.stone_sickle": "Stone Sickle",
