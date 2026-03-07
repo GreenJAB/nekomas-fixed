@@ -13,12 +13,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "nekomasfixed:amber_glazed_terracotta"
+          "name": "nekomasfixed:crimson_glazed_terracotta"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "nekomasfixed:blocks/amber_glazed_terracotta"
+  "random_sequence": "nekomasfixed:blocks/crimson_glazed_terracotta"
 }
 

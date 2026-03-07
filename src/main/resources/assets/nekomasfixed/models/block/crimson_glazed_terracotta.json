@@ -2,6 +2,6 @@
 {
   "parent": "minecraft:block/template_glazed_terracotta",
   "textures": {
-    "pattern": "nekomasfixed:block/aqua_glazed_terracotta"
+    "pattern": "nekomasfixed:block/crimson_glazed_terracotta"
   }
 }

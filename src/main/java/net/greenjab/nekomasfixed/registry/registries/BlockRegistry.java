@@ -88,15 +88,6 @@ public class BlockRegistry {
             copyLootTable(ENDERMAN_HEAD, true).mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY)
     );
 
-    /*
-    Added By CyberModder:
-    1. Amber Terracotta
-    2. Aqua Terracotta
-    3. Indigo Terracotta
-    4. Crimson Terracotta
-    5. Aqua Glazed Terracotta
-     */
-
     public static final Block AMBER_TERRACOTTA = register("amber_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_YELLOW).instrument(NoteBlockInstrument.BASEDRUM)
             .strength(0.70F).resistance(4.2F).requiresTool());
 
@@ -110,7 +101,7 @@ public class BlockRegistry {
             .strength(0.70F).resistance(4.2F).requiresTool());
 
     public static final Block AQUA_GLAZED_TERRACOTTA = register("aqua_glazed_terracotta",
-            GlazedTerracottaBlock::new,  // Required for creating a glazed terracotte block
+            GlazedTerracottaBlock::new,
             AbstractBlock.Settings.create()
                     .mapColor(MapColor.TERRACOTTA_LIGHT_BLUE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
@@ -119,9 +110,27 @@ public class BlockRegistry {
                     .requiresTool());
 
     public static final Block AMBER_GLAZED_TERRACOTTA = register("amber_glazed_terracotta",
-            GlazedTerracottaBlock::new,  // Required for creating a glazed terracotta block
+            GlazedTerracottaBlock::new,
             AbstractBlock.Settings.create()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .strength(1.4F)
+                    .resistance(4.2F)
+                    .requiresTool());
+
+    public static final Block CRIMSON_GLAZED_TERRACOTTA = register("crimson_glazed_terracotta",
+            GlazedTerracottaBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.TERRACOTTA_RED)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .strength(1.4F)
+                    .resistance(4.2F)
+                    .requiresTool());
+
+    public static final Block INDIGO_GLAZED_TERRACOTTA = register("indigo_glazed_terracotta",
+            GlazedTerracottaBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.TERRACOTTA_MAGENTA)
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .strength(1.4F)
                     .resistance(4.2F)

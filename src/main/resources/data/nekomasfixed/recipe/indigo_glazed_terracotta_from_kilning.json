@@ -3,9 +3,9 @@
 {
   "type": "nekomasfixed:kilning",
   "category": "misc",
-  "ingredient": "nekomasfixed:aqua_terracotta",
+  "ingredient": "nekomasfixed:indigo_terracotta",
   "result": {
-    "id": "nekomasfixed:aqua_glazed_terracotta",
+    "id": "nekomasfixed:indigo_glazed_terracotta",
     "count": 1
   },
   "experience": 0.4,
