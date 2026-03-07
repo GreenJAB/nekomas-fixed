@@ -1,7 +1,11 @@
 
+
+
 {
   "model": {
     "type": "minecraft:model",
-    "model": "nekomasfixed:item/crimson_glazed_terracotta"
+    "model": "nekomasfixed:block/crimson_glazed_terracotta"
   }
 }
+
+
