@@ -101,6 +101,26 @@
   "block.nekomasfixed.indigo_glazed_terracotta": "Indigo Glazed Terracotta",
   "block.nekomasfixed.amber_glazed_terracotta": "Amber Glazed Terracotta",
 
+  "block.nekomasfixed.amber_wool": "Amber Wool",
+  "block.nekomasfixed.aqua_wool": "Aqua Wool",
+  "block.nekomasfixed.crimson_wool": "Crimson Wool",
+  "block.nekomasfixed.indigo_wool": "Indigo Wool",
+
+  "block.nekomasfixed.amber_concrete": "Amber Concrete",
+  "block.nekomasfixed.aqua_concrete": "Aqua Concrete",
+  "block.nekomasfixed.crimson_concrete": "Crimson Concrete",
+  "block.nekomasfixed.indigo_concrete": "Indigo Concrete",
+
+  "block.nekomasfixed.amber_concrete_powder": "Amber Concrete Powder",
+  "block.nekomasfixed.aqua_concrete_powder": "Aqua Concrete Powder",
+  "block.nekomasfixed.crimson_concrete_powder": "Crimson Concrete Powder",
+  "block.nekomasfixed.indigo_concrete_powder": "Indigo Concrete Powder",
+
+  "block.nekomasfixed.amber_carpet": "Amber Carpet",
+  "block.nekomasfixed.aqua_carpet": "Aqua Carpet",
+  "block.nekomasfixed.crimson_carpet": "Crimson Carpet",
+  "block.nekomasfixed.indigo_carpet": "Indigo Carpet",
+
   "item.nekomasfixed.iron_sickle": "Iron Sickle",
   "item.nekomasfixed.wooden_sickle": "Wooden Sickle",
   "item.nekomasfixed.stone_sickle": "Stone Sickle",

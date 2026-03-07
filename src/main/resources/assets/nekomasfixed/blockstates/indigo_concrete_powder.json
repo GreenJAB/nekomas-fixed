@@ -1,0 +1,23 @@
+
+{
+  "variants": {
+    "": [
+      {
+        "model": "nekomasfixed:block/indigo_concrete_powder"
+      },
+      {
+        "model": "nekomasfixed:block/indigo_concrete_powder",
+        "y": 90
+      },
+      {
+        "model": "nekomasfixed:block/indigo_concrete_powder",
+        "y": 180
+      },
+      {
+        "model": "nekomasfixed:block/indigo_concrete_powder",
+        "y": 270
+      }
+    ]
+  }
+}
+

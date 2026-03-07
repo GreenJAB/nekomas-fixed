@@ -6,6 +6,8 @@ import net.greenjab.nekomasfixed.registry.item.SlingshotItem;
 import net.greenjab.nekomasfixed.registry.item.SoulfireTridentItem;
 import net.greenjab.nekomasfixed.registry.item.TargetDummyItem;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
+import net.greenjab.nekomasfixed.util.HarnessHelper;
+import net.greenjab.nekomasfixed.util.ModColors;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
@@ -118,6 +120,32 @@ public class ItemRegistry {
     public static final Item AMBER_GLAZED_TERRACOTTA = register(BlockRegistry.AMBER_GLAZED_TERRACOTTA);
     public static final Item CRIMSON_GLAZED_TERRACOTTA = register(BlockRegistry.CRIMSON_GLAZED_TERRACOTTA);
     public static final Item INDIGO_GLAZED_TERRACOTTA = register(BlockRegistry.INDIGO_GLAZED_TERRACOTTA);
+
+    public static final Item AQUA_WOOL = register(BlockRegistry.AQUA_WOOL);
+    public static final Item AMBER_WOOL = register(BlockRegistry.AMBER_WOOL);
+    public static final Item CRIMSON_WOOL = register(BlockRegistry.CRIMSON_WOOL);
+    public static final Item INDIGO_WOOL = register(BlockRegistry.INDIGO_WOOL);
+
+    public static final Item AQUA_CONCRETE = register(BlockRegistry.AQUA_CONCRETE);
+    public static final Item AMBER_CONCRETE = register(BlockRegistry.AMBER_CONCRETE);
+    public static final Item CRIMSON_CONCRETE = register(BlockRegistry.CRIMSON_CONCRETE);
+    public static final Item INDIGO_CONCRETE = register(BlockRegistry.INDIGO_CONCRETE);
+
+    public static final Item AQUA_CONCRETE_POWDER = register(BlockRegistry.AQUA_CONCRETE_POWDER);
+    public static final Item AMBER_CONCRETE_POWDER = register(BlockRegistry.AMBER_CONCRETE_POWDER);
+    public static final Item CRIMSON_CONCRETE_POWDER = register(BlockRegistry.CRIMSON_CONCRETE_POWDER);
+    public static final Item INDIGO_CONCRETE_POWDER = register(BlockRegistry.INDIGO_CONCRETE_POWDER);
+
+    public static final Item AQUA_CARPET = register(BlockRegistry.AQUA_CARPET);
+    public static final Item AMBER_CARPET = register(BlockRegistry.AMBER_CARPET);
+    public static final Item CRIMSON_CARPET = register(BlockRegistry.CRIMSON_CARPET);
+    public static final Item INDIGO_CARPET = register(BlockRegistry.INDIGO_CARPET);
+
+    public static final Item AMBER_HARNESS = register("amber_harness",
+            (new Item.Settings())
+                    .maxCount(1)
+                    .component(DataComponentTypes.EQUIPPABLE,
+                            HarnessHelper.ofHarness(ModColors.AMBER)));
 
 //    ------------------------------------------------------------------------------------------
 
