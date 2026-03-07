@@ -1,7 +1,9 @@
 
+
 {
-  "parent": "minecraft:block/template_glazed_terracotta",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "pattern": "nekomasfixed:block/indigo_glazed_terracotta"
+    "all": "nekomasfixed:block/indigo_terracotta"
   }
 }
+
