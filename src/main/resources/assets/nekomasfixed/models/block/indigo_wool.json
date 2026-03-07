@@ -1,6 +1,6 @@
 
 {
-  "parent": "nekomasfixed:block/cube_all",
+  "parent": "minecraft:block/cube_all",
   "textures": {
     "all": "nekomasfixed:block/indigo_wool"
   }
