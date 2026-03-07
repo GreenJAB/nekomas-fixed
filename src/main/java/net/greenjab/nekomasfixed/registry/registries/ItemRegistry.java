@@ -129,6 +129,11 @@ public class ItemRegistry {
     public static final Item CRIMSON_CONCRETE = register(BlockRegistry.CRIMSON_CONCRETE);
     public static final Item INDIGO_CONCRETE = register(BlockRegistry.INDIGO_CONCRETE);
 
+    public static final Item AQUA_CONCRETE_POWDER = register(BlockRegistry.AQUA_CONCRETE_POWDER);
+    public static final Item AMBER_CONCRETE_POWDER = register(BlockRegistry.AMBER_CONCRETE_POWDER);
+    public static final Item CRIMSON_CONCRETE_POWDER = register(BlockRegistry.CRIMSON_CONCRETE_POWDER);
+    public static final Item INDIGO_CONCRETE_POWDER = register(BlockRegistry.INDIGO_CONCRETE_POWDER);
+
 //    ------------------------------------------------------------------------------------------
 
 

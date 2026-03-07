@@ -76,6 +76,11 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.INDIGO_CONCRETE);
                          entries.add(ItemRegistry.CRIMSON_CONCRETE);
 
+                         entries.add(ItemRegistry.AMBER_CONCRETE_POWDER);
+                         entries.add(ItemRegistry.AQUA_CONCRETE_POWDER);
+                         entries.add(ItemRegistry.INDIGO_CONCRETE_POWDER);
+                         entries.add(ItemRegistry.CRIMSON_CONCRETE_POWDER);
+
                         entries.add(ItemRegistry.AQUA_GLAZED_TERRACOTTA);
                         entries.add(ItemRegistry.WOODEN_SICKLE);
                         entries.add(ItemRegistry.STONE_SICKLE);

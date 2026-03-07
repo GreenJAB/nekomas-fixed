@@ -111,6 +111,11 @@
   "block.nekomasfixed.crimson_concrete": "Crimson Concrete",
   "block.nekomasfixed.indigo_concrete": "Indigo Concrete",
 
+  "block.nekomasfixed.amber_concrete_powder": "Amber Concrete Powder",
+  "block.nekomasfixed.aqua_concrete_powder": "Aqua Concrete Powder",
+  "block.nekomasfixed.crimson_concrete_powder": "Crimson Concrete Powder",
+  "block.nekomasfixed.indigo_concrete_powder": "Indigo Concrete Powder",
+
   "item.nekomasfixed.iron_sickle": "Iron Sickle",
   "item.nekomasfixed.wooden_sickle": "Wooden Sickle",
   "item.nekomasfixed.stone_sickle": "Stone Sickle",

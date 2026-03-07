@@ -193,6 +193,26 @@ public class BlockRegistry {
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresTool().strength(1.8F));
 
+    public static final Block AMBER_CONCRETE_POWDER = register("amber_concrete_powder", (settings) -> new ConcretePowderBlock(AMBER_CONCRETE, settings),
+            AbstractBlock.Settings.create().mapColor(DyeColor.YELLOW)
+                    .instrument(NoteBlockInstrument.SNARE)
+                    .strength(0.5F).sounds(BlockSoundGroup.SAND));
+
+    public static final Block AQUA_CONCRETE_POWDER = register("aqua_concrete_powder", (settings) -> new ConcretePowderBlock(AQUA_CONCRETE, settings),
+            AbstractBlock.Settings.create().mapColor(DyeColor.LIGHT_BLUE)
+                    .instrument(NoteBlockInstrument.SNARE)
+                    .strength(0.5F).sounds(BlockSoundGroup.SAND));
+
+    public static final Block CRIMSON_CONCRETE_POWDER = register("crimson_concrete_powder", (settings) -> new ConcretePowderBlock(CRIMSON_CONCRETE, settings),
+            AbstractBlock.Settings.create().mapColor(DyeColor.RED)
+                    .instrument(NoteBlockInstrument.SNARE)
+                    .strength(0.5F).sounds(BlockSoundGroup.SAND));
+
+    public static final Block INDIGO_CONCRETE_POWDER = register("indigo_concrete_powder", (settings) -> new ConcretePowderBlock(INDIGO_CONCRETE, settings),
+            AbstractBlock.Settings.create().mapColor(DyeColor.MAGENTA)
+                    .instrument(NoteBlockInstrument.SNARE)
+                    .strength(0.5F).sounds(BlockSoundGroup.SAND));
+
     public static final Block HONEY_CAULDRON = register(
             "honey_cauldron",
             HoneyCauldronBlock::new,

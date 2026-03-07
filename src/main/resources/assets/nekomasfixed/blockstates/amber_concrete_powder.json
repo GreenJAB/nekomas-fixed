@@ -1,0 +1,23 @@
+
+{
+  "variants": {
+    "": [
+      {
+        "model": "nekomasfixed:block/amber_concrete_powder"
+      },
+      {
+        "model": "nekomasfixed:block/amber_concrete_powder",
+        "y": 90
+      },
+      {
+        "model": "nekomasfixed:block/amber_concrete_powder",
+        "y": 180
+      },
+      {
+        "model": "nekomasfixed:block/amber_concrete_powder",
+        "y": 270
+      }
+    ]
+  }
+}
+
