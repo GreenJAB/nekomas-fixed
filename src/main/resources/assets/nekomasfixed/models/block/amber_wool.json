@@ -1,0 +1,7 @@
+
+{
+  "parent": "nekomasfixed:block/cube_all",
+  "textures": {
+    "all": "nekomasfixed:block/amber_wool"
+  }
+}

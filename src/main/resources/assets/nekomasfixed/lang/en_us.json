@@ -101,6 +101,11 @@
   "block.nekomasfixed.indigo_glazed_terracotta": "Indigo Glazed Terracotta",
   "block.nekomasfixed.amber_glazed_terracotta": "Amber Glazed Terracotta",
 
+  "block.nekomasfixed.amber_wool": "Amber Wool",
+  "block.nekomasfixed.aqua_wool": "Aqua Wool",
+  "block.nekomasfixed.crimson_wool": "Crimson Wool",
+  "block.nekomasfixed.indigo_wool": "Indigo Wool",
+
   "item.nekomasfixed.iron_sickle": "Iron Sickle",
   "item.nekomasfixed.wooden_sickle": "Wooden Sickle",
   "item.nekomasfixed.stone_sickle": "Stone Sickle",
