@@ -136,6 +136,38 @@ public class BlockRegistry {
                     .resistance(4.2F)
                     .requiresTool());
 
+    public static final Block AMBER_WOOL = register("amber_wool",
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.YELLOW)
+                    .instrument(NoteBlockInstrument.GUITAR)
+                    .strength(0.8F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .burnable());
+
+    public static final Block AQUA_WOOL = register("aqua_wool",
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.LIGHT_BLUE)
+                    .instrument(NoteBlockInstrument.GUITAR)
+                    .strength(0.8F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .burnable());
+
+    public static final Block CRIMSON_WOOL = register("crimson_wool",
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.RED)
+                    .instrument(NoteBlockInstrument.GUITAR)
+                    .strength(0.8F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .burnable());
+
+    public static final Block INDIGO_WOOL = register("indigo_wool",
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.MAGENTA)
+                    .instrument(NoteBlockInstrument.GUITAR)
+                    .strength(0.8F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .burnable());
+
     public static final Block HONEY_CAULDRON = register(
             "honey_cauldron",
             HoneyCauldronBlock::new,

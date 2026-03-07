@@ -119,6 +119,11 @@ public class ItemRegistry {
     public static final Item CRIMSON_GLAZED_TERRACOTTA = register(BlockRegistry.CRIMSON_GLAZED_TERRACOTTA);
     public static final Item INDIGO_GLAZED_TERRACOTTA = register(BlockRegistry.INDIGO_GLAZED_TERRACOTTA);
 
+    public static final Item AQUA_WOOL = register(BlockRegistry.AQUA_WOOL);
+    public static final Item AMBER_WOOL = register(BlockRegistry.AMBER_WOOL);
+    public static final Item CRIMSON_WOOL = register(BlockRegistry.CRIMSON_WOOL);
+    public static final Item INDIGO_WOOL = register(BlockRegistry.INDIGO_WOOL);
+
 //    ------------------------------------------------------------------------------------------
 
 
