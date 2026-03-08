@@ -147,6 +147,24 @@ public class ItemRegistry {
                     .component(DataComponentTypes.EQUIPPABLE,
                             HarnessHelper.ofHarness(ModColors.AMBER)));
 
+    public static final Item AQUA_HARNESS = register("aqua_harness",
+            (new Item.Settings())
+                    .maxCount(1)
+                    .component(DataComponentTypes.EQUIPPABLE,
+                            HarnessHelper.ofHarness(ModColors.AQUA)));
+
+    public static final Item CRIMSON_HARNESS = register("crimson_harness",
+            (new Item.Settings())
+                    .maxCount(1)
+                    .component(DataComponentTypes.EQUIPPABLE,
+                            HarnessHelper.ofHarness(ModColors.CRIMSON)));
+
+    public static final Item INDIGO_HARNESS = register("indigo_harness",
+            (new Item.Settings())
+                    .maxCount(1)
+                    .component(DataComponentTypes.EQUIPPABLE,
+                            HarnessHelper.ofHarness(ModColors.INDIGO)));
+
 //    ------------------------------------------------------------------------------------------
 
 
