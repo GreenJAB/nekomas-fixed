@@ -6,6 +6,8 @@ import net.greenjab.nekomasfixed.registry.item.SlingshotItem;
 import net.greenjab.nekomasfixed.registry.item.SoulfireTridentItem;
 import net.greenjab.nekomasfixed.registry.item.TargetDummyItem;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
+import net.greenjab.nekomasfixed.util.HarnessHelper;
+import net.greenjab.nekomasfixed.util.ModColors;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
@@ -138,6 +140,12 @@ public class ItemRegistry {
     public static final Item AMBER_CARPET = register(BlockRegistry.AMBER_CARPET);
     public static final Item CRIMSON_CARPET = register(BlockRegistry.CRIMSON_CARPET);
     public static final Item INDIGO_CARPET = register(BlockRegistry.INDIGO_CARPET);
+
+    public static final Item AMBER_HARNESS = register("amber_harness",
+            (new Item.Settings())
+                    .maxCount(1)
+                    .component(DataComponentTypes.EQUIPPABLE,
+                            HarnessHelper.ofHarness(ModColors.AMBER)));
 
 //    ------------------------------------------------------------------------------------------
 
