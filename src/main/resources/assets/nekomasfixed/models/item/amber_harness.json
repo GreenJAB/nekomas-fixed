@@ -1,6 +1,6 @@
 {
-  "model": {
-    "type": "minecraft:model",
-    "model": "nekomasfixed:item/amber_harness"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/black_harness"
   }
 }
