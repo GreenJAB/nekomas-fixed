@@ -264,6 +264,9 @@ public class BlockRegistry {
             IceCauldronBlock::new,
             AbstractBlock.Settings.copy(Blocks.CAULDRON)
     );
+
+
+
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
     }

@@ -10,6 +10,7 @@ import net.greenjab.nekomasfixed.util.HarnessHelper;
 import net.greenjab.nekomasfixed.util.ModColors;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
 import net.minecraft.entity.EntityType;

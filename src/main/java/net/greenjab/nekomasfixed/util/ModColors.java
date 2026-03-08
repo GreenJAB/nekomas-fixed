@@ -1,5 +1,7 @@
 package net.greenjab.nekomasfixed.util;
 
+import net.minecraft.block.MapColor;
+
 public class ModColors {
     public static final ModColors AMBER = new ModColors("amber", 0xE0AF0B);
     public static final ModColors AQUA = new ModColors("aqua", 0xA6CEC7);
@@ -8,6 +10,7 @@ public class ModColors {
 
     private final String name;
     private final int color;
+
 
     public ModColors(String name, int color){
         this.name = name;
@@ -21,4 +24,5 @@ public class ModColors {
     public  int getColor(){
         return color;
     }
+
 }
