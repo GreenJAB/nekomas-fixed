@@ -64,10 +64,8 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.IRON_SICKLE);
                         entries.add(ItemRegistry.GOLDEN_SICKLE);
                         entries.add(ItemRegistry.DIAMOND_SICKLE);
-                        entries.add(ItemRegistry.NETHERITE_SICKLE);
-
-
-                        entries.add(ItemRegistry.AMBER_DYE);
+						
+						entries.add(ItemRegistry.AMBER_DYE);
                         entries.add(ItemRegistry.INDIGO_DYE);
                         entries.add(ItemRegistry.CRIMSON_DYE);
                         entries.add(ItemRegistry.AQUA_DYE);

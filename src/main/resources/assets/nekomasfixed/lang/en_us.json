@@ -89,6 +89,7 @@
   "item.nekomasfixed.soulfire_trident": "Soulfire Trident",
   "item.nekomasfixed.soulfire_shield": "Soulfire Shield",
 
+
   "item.nekomasfixed.iron_sickle": "Iron Sickle",
   "item.nekomasfixed.wooden_sickle": "Wooden Sickle",
   "item.nekomasfixed.stone_sickle": "Stone Sickle",
@@ -101,8 +102,6 @@
 
   "block.nekomasfixed.kiln": "Kiln Apparatus",
   "container.nekomasfixed.kiln": "Kiln",
-
-
 
 
   "item.nekomasfixed.amber_dye": "Amber Dye",
@@ -139,6 +138,7 @@
   "block.nekomasfixed.aqua_carpet": "Aqua Carpet",
   "block.nekomasfixed.crimson_carpet": "Crimson Carpet",
   "block.nekomasfixed.indigo_carpet": "Indigo Carpet",
+
 
   "item.minecraft.firework_star.indigo": "Indigo",
   "item.minecraft.firework_star.aqua": "Aqua",
