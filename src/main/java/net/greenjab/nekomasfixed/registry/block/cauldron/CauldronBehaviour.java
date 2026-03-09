@@ -16,15 +16,9 @@ import java.util.Map;
 public class CauldronBehaviour {
 
     public static void register() {
-        Map<Item, CauldronBehavior> waterMap = CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map();
-
-
-
-            Map<Item, CauldronBehavior> emptyMap = CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.map();
-
-
+        
+        Map<Item, CauldronBehavior> emptyMap = CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.map();
         Map<Item, CauldronBehavior> magmaMap = CauldronBehavior.createMap("magma").map();
-
 
         magmaMap.put(Items.MAGMA_CREAM, (state, world, pos, player, hand, stack) -> {
 

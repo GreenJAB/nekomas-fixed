@@ -1,10 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.item.SickleItem;
-import net.greenjab.nekomasfixed.registry.item.SlingshotItem;
-import net.greenjab.nekomasfixed.registry.item.SoulfireTridentItem;
-import net.greenjab.nekomasfixed.registry.item.TargetDummyItem;
+import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.HarnessHelper;
 import net.greenjab.nekomasfixed.util.ModColors;
@@ -18,6 +15,9 @@ import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.*;
+import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.Direction;
@@ -25,6 +25,7 @@ import net.minecraft.world.waypoint.Waypoint;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -96,6 +97,54 @@ public class ItemRegistry {
     );
 
 
+
+//    ------------------------------------------------------------------------------------------
+
+
+
+    public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
+
+    public static final Item ENDERMAN_HEAD = register(BlockRegistry.ENDERMAN_HEAD,
+            (block, settings) -> new VerticallyAttachableBlockItem(
+            block, BlockRegistry.WALL_ENDERMAN_HEAD, Direction.DOWN, Waypoint.disableTracking(settings)
+    ),new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
+
+    public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384));
+    public static final Item NETHER_HEART = register("nether_heart",  new Item.Settings().fireproof().rarity(Rarity.UNCOMMON));
+    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings()
+            .rarity(Rarity.RARE)
+            .maxDamage(250)
+            .attributeModifiers(SoulfireTridentItem.createAttributeModifiers())
+            .repairable(ItemTags.REPAIRS_NETHERITE_ARMOR)
+            .component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent())
+            .enchantable(1)
+            .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
+    public static final Item SOULFIRE_SHIELD = register(
+            "soulfire_shield",
+            SoulfireShieldItem::new,
+            new Item.Settings()
+                    .rarity(Rarity.RARE)
+                    .maxDamage(336)
+                    .repairable(ItemTags.REPAIRS_NETHERITE_ARMOR)
+                    .equippableUnswappable(EquipmentSlot.OFFHAND)
+                    .component(
+                            DataComponentTypes.BLOCKS_ATTACKS,
+                            new BlocksAttacksComponent(
+                                    0.25F,
+                                    1.0F,
+                                    List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                                    new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F),
+                                    Optional.of(DamageTypeTags.BYPASSES_SHIELD),
+                                    Optional.of(SoundEvents.ITEM_SHIELD_BLOCK),
+                                    Optional.of(SoundEvents.ITEM_SHIELD_BREAK)
+                            )
+                    )
+                    .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof()
+    );
+    public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
+
+
+
     public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
     public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
     public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
@@ -146,28 +195,6 @@ public class ItemRegistry {
                     .maxCount(1)
                     .component(DataComponentTypes.EQUIPPABLE,
                             HarnessHelper.ofHarness(ModColors.AMBER)));
-
-//    ------------------------------------------------------------------------------------------
-
-
-
-    public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
-
-    public static final Item ENDERMAN_HEAD = register(BlockRegistry.ENDERMAN_HEAD,
-            (block, settings) -> new VerticallyAttachableBlockItem(
-            block, BlockRegistry.WALL_ENDERMAN_HEAD, Direction.DOWN, Waypoint.disableTracking(settings)
-    ),new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
-
-    public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384));
-    public static final Item NETHER_HEART = register("nether_heart",  new Item.Settings().fireproof().rarity(Rarity.UNCOMMON));
-    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings()
-            .rarity(Rarity.RARE)
-            .maxDamage(250)
-            .attributeModifiers(SoulfireTridentItem.createAttributeModifiers())
-            .component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent())
-            .enchantable(1)
-            .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
-    public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);

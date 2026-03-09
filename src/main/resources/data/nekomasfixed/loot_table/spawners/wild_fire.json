@@ -9,6 +9,15 @@
           "name": "nekomasfixed:nether_heart"
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_scrap"
+        }
+      ]
     }
   ],
   "random_sequence": "nekomasfixed:spawners/wild_fire"

@@ -49,6 +49,7 @@ public class ItemStackMixin {
 		ItemStack stack = (ItemStack)(Object)this;
 		stack.appendComponentTooltip(OtherRegistry.ANIMAL, context, displayComponent, textConsumer, type);
 		stack.appendComponentTooltip(OtherRegistry.STORED_TIME, context, displayComponent, textConsumer, type);
+		stack.appendComponentTooltip(OtherRegistry.COMBO_MULTIPLIER, context, displayComponent, textConsumer, type);
 	}
 
 	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
