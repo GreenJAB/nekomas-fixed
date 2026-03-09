@@ -22,6 +22,8 @@ public class BlocksMixin {
         return register(key, settings -> new MelonBlock(false, settings), settings2);
     }
 
+
+
     @Unique
     private static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = factory.apply(settings.registryKey(key));

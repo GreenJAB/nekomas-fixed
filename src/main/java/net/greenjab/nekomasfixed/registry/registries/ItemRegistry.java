@@ -166,6 +166,24 @@ public class ItemRegistry {
                     .component(DataComponentTypes.EQUIPPABLE,
                             HarnessHelper.ofHarness(ModColors.INDIGO)));
 
+    public static final Item WHITE_FROGLIGHT = register(BlockRegistry.WHITE_FROGLIGHT);
+    public static final Item LIGHT_GRAY_FROGLIGHT = register(BlockRegistry.LIGHT_GRAY_FROGLIGHT);
+    public static final Item GRAY_FROGLIGHT = register(BlockRegistry.GRAY_FROGLIGHT);
+    public static final Item BLACK_FROGLIGHT = register(BlockRegistry.BLACK_FROGLIGHT);
+    public static final Item BROWN_FROGLIGHT = register(BlockRegistry.BROWN_FROGLIGHT);
+    public static final Item RED_FROGLIGHT = register(BlockRegistry.RED_FROGLIGHT);
+    public static final Item ORANGE_FROGLIGHT = register(BlockRegistry.ORANGE_FROGLIGHT);
+    public static final Item LIME_FROGLIGHT = register(BlockRegistry.LIME_FROGLIGHT);
+    public static final Item CYAN_FROGLIGHT = register(BlockRegistry.CYAN_FROGLIGHT);
+    public static final Item LIGHT_BLUE_FROGLIGHT = register(BlockRegistry.LIGHT_BLUE_FROGLIGHT);
+    public static final Item BLUE_FROGLIGHT = register(BlockRegistry.BLUE_FROGLIGHT);
+    public static final Item PURPLE_FROGLIGHT = register(BlockRegistry.PURPLE_FROGLIGHT);
+    public static final Item PINK_FROGLIGHT = register(BlockRegistry.PINK_FROGLIGHT);
+    public static final Item AMBER_FROGLIGHT = register(BlockRegistry.AMBER_FROGLIGHT);
+    public static final Item AQUA_FROGLIGHT = register(BlockRegistry.AQUA_FROGLIGHT);
+    public static final Item CRIMSON_FROGLIGHT = register(BlockRegistry.CRIMSON_FROGLIGHT);
+    public static final Item INDIGO_FROGLIGHT = register(BlockRegistry.INDIGO_FROGLIGHT);
+
 //    ------------------------------------------------------------------------------------------
 
 

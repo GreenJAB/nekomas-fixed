@@ -241,6 +241,24 @@ public class BlockRegistry {
                     .sounds(BlockSoundGroup.WOOL)
                     .burnable());
 
+    public static final Block WHITE_FROGLIGHT = register("white_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block LIGHT_GRAY_FROGLIGHT = register("light_gray_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block GRAY_FROGLIGHT = register("gray_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GRAY).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block BLACK_FROGLIGHT = register("black_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.BLACK).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block BROWN_FROGLIGHT = register("brown_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.BROWN).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block RED_FROGLIGHT = register("red_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.RED).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block ORANGE_FROGLIGHT = register("orange_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block LIME_FROGLIGHT = register("lime_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIME).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block CYAN_FROGLIGHT = register("cyan_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.CYAN).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block LIGHT_BLUE_FROGLIGHT = register("light_blue_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block BLUE_FROGLIGHT = register("blue_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.BLUE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block PURPLE_FROGLIGHT = register("purple_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block PINK_FROGLIGHT = register("pink_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block AMBER_FROGLIGHT = register("amber_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_YELLOW).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block AQUA_FROGLIGHT = register("aqua_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TEAL).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block CRIMSON_FROGLIGHT = register("crimson_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_RED).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+    public static final Block INDIGO_FROGLIGHT = register("indigo_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_DULL_PINK).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
+
     public static final Block HONEY_CAULDRON = register(
             "honey_cauldron",
             HoneyCauldronBlock::new,
