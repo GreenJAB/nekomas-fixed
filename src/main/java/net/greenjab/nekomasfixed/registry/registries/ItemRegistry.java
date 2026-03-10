@@ -96,6 +96,7 @@ public class ItemRegistry {
             "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
+    public static final Item NETHERITE_CROWN = register("netherite_crown", (new Item.Settings()).armor(ArmorMaterials.NETHERITE, EquipmentType.HELMET));
 
     public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
     public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);

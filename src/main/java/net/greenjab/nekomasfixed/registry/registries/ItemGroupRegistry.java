@@ -81,6 +81,24 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.INDIGO_CONCRETE);
                          entries.add(ItemRegistry.CRIMSON_CONCRETE);
 
+                         entries.add(ItemRegistry.WHITE_FROGLIGHT);
+                         entries.add(ItemRegistry.LIGHT_GRAY_FROGLIGHT);
+                         entries.add(ItemRegistry.GRAY_FROGLIGHT);
+                         entries.add(ItemRegistry.BLACK_FROGLIGHT);
+                         entries.add(ItemRegistry.BROWN_FROGLIGHT);
+                         entries.add(ItemRegistry.RED_FROGLIGHT);
+                         entries.add(ItemRegistry.ORANGE_FROGLIGHT);
+                         entries.add(ItemRegistry.LIME_FROGLIGHT);
+                         entries.add(ItemRegistry.CYAN_FROGLIGHT);
+                         entries.add(ItemRegistry.LIGHT_BLUE_FROGLIGHT);
+                         entries.add(ItemRegistry.BLUE_FROGLIGHT);
+                         entries.add(ItemRegistry.PURPLE_FROGLIGHT);
+                         entries.add(ItemRegistry.PINK_FROGLIGHT);
+                         entries.add(ItemRegistry.AMBER_FROGLIGHT);
+                         entries.add(ItemRegistry.AQUA_FROGLIGHT);
+                         entries.add(ItemRegistry.CRIMSON_FROGLIGHT);
+                         entries.add(ItemRegistry.INDIGO_FROGLIGHT);
+
                          entries.add(ItemRegistry.AMBER_CONCRETE_POWDER);
                          entries.add(ItemRegistry.AQUA_CONCRETE_POWDER);
                          entries.add(ItemRegistry.INDIGO_CONCRETE_POWDER);
@@ -90,6 +108,8 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.AQUA_HARNESS);
                          entries.add(ItemRegistry.CRIMSON_HARNESS);
                          entries.add(ItemRegistry.INDIGO_HARNESS);
+                         entries.add(ItemRegistry.NETHERITE_CROWN);
+
 
                         entries.add(ItemRegistry.AQUA_GLAZED_TERRACOTTA);
                         entries.add(ItemRegistry.WOODEN_SICKLE);

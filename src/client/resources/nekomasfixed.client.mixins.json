@@ -11,6 +11,7 @@
     "EquipmentRendererMixin",
     "FireCommandRendererMixin",
     "HeldItemRendererMixin",
+    "HeadFeatureRendererMixin",
     "LabelCommandRendererCommandMixin",
     "LabelCommandRendererMixin",
     "MinecraftClientMixin",
