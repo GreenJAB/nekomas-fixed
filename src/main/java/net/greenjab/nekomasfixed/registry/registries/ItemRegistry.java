@@ -1,10 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.item.SickleItem;
-import net.greenjab.nekomasfixed.registry.item.SlingshotItem;
-import net.greenjab.nekomasfixed.registry.item.SoulfireTridentItem;
-import net.greenjab.nekomasfixed.registry.item.TargetDummyItem;
+import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.HarnessHelper;
 import net.greenjab.nekomasfixed.util.ModColors;
@@ -19,6 +16,9 @@ import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.*;
+import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.Direction;
@@ -26,6 +26,7 @@ import net.minecraft.world.waypoint.Waypoint;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -102,6 +103,29 @@ public class ItemRegistry {
     public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
     public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
     public static final Item AQUA_DYE = registerDye("aqua_dye", DyeColor.LIGHT_BLUE);
+
+    public static final Item SOULFIRE_SHIELD = register(
+            "soulfire_shield",
+            SoulfireShieldItem::new,
+            new Item.Settings()
+                    .rarity(Rarity.RARE)
+                    .maxDamage(336)
+                    .repairable(ItemTags.REPAIRS_NETHERITE_ARMOR)
+                    .equippableUnswappable(EquipmentSlot.OFFHAND)
+                    .component(
+                            DataComponentTypes.BLOCKS_ATTACKS,
+                            new BlocksAttacksComponent(
+                                    0.25F,
+                                    1.0F,
+                                    List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                                    new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F),
+                                    Optional.of(DamageTypeTags.BYPASSES_SHIELD),
+                                    Optional.of(SoundEvents.ITEM_SHIELD_BLOCK),
+                                    Optional.of(SoundEvents.ITEM_SHIELD_BREAK)
+                            )
+                    )
+                    .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof()
+    );
 
     public static final Item WOODEN_SICKLE = register("wooden_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.WOOD, SickleItem.SPEED));
     public static final Item STONE_SICKLE = register("stone_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.STONE, SickleItem.SPEED));
