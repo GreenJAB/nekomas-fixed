@@ -7,8 +7,8 @@ import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireAttackablesSen
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireDebugData;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.other.ClamFeature;
+import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
-import net.minecraft.block.Block;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
@@ -45,8 +45,11 @@ public class OtherRegistry {
     public static final ComponentType<Integer> CLAM_STATE = registerComponent(
             "clam_state", builder -> builder.codec(Codecs.rangedInt(0, 3)).packetCodec(PacketCodecs.INTEGER)
     );
-    public static final ComponentType<StoredTimeComponent> STORED_TIME = registerComponent("stored_time", (builder) -> builder.codec(StoredTimeComponent.CODEC).packetCodec(StoredTimeComponent.PACKET_CODEC).cache());
+    public static final ComponentType<StoredTimeComponent> STORED_TIME = registerComponent("stored_time", builder -> builder.codec(StoredTimeComponent.CODEC).packetCodec(StoredTimeComponent.PACKET_CODEC).cache());
 
+    public static final ComponentType<ComboComponent> COMBO_MULTIPLIER = registerComponent(
+            "combo_multiplier", builder -> builder.codec(ComboComponent.CODEC).packetCodec(ComboComponent.PACKET_CODEC).cache()
+    );
     private static <T> ComponentType<T> registerComponent(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, id, builderOperator.apply(ComponentType.builder()).build());
     }

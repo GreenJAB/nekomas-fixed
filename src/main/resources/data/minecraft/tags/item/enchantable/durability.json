@@ -1,6 +1,9 @@
 {
     "replace": false,
     "values": [
-        "nekomasfixed:slingshot"
+        "nekomasfixed:slingshot",
+        "nekomasfixed:soulfire_shield",
+        "nekomasfixed:soulfire_trident",
+        "#nekomasfixed:sickles"
     ]
 }

@@ -19,21 +19,21 @@ public class SickleItem extends Item {
 
 
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (hand == Hand.MAIN_HAND)  return ActionResult.PASS;
+        if (hand == Hand.MAIN_HAND) return ActionResult.PASS;
         if (!user.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES))  return ActionResult.PASS;
         if (user.getAttackCooldownProgress(0)<0.5) return ActionResult.PASS;
         user.getItemCooldownManager().set(user.getStackInHand(hand), 12);
-        if(user.ticksSinceLastAttack>5)user.ticksSinceLastAttack = 5;
+        if (user.ticksSinceLastAttack>5) user.ticksSinceLastAttack = 5;
         return ActionResult.SUCCESS;
     }
 
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        if (hand == Hand.MAIN_HAND)  return ActionResult.PASS;
+        if (hand == Hand.MAIN_HAND) return ActionResult.PASS;
         if (!user.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES))  return ActionResult.PASS;
         if (user.getAttackCooldownProgress(0)<0.5) return ActionResult.PASS;
         if (user.getItemCooldownManager().getCooldownProgress(user.getStackInHand(hand), 0)>0) return ActionResult.PASS;
         user.getItemCooldownManager().set(stack, 12);
-        if(user.ticksSinceLastAttack>5)user.ticksSinceLastAttack = 5;
+        if (user.ticksSinceLastAttack>5) user.ticksSinceLastAttack = 5;
         if (user.getEntityWorld().isClient()) return ActionResult.SUCCESS;
 
         int tt = user.ticksSinceLastAttack;
