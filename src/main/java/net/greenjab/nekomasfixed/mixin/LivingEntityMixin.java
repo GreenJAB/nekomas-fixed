@@ -64,8 +64,8 @@ public class LivingEntityMixin {
                 if (player.getHealth() <= 6.0f) {
                     attacker.setOnFireForTicks(20 * 3);
                     attacker.takeKnockback(1.0,
-                            attacker.getX() - player.getX(),
-                            attacker.getZ() - player.getZ());
+                            attacker.getX() + player.getX(),
+                            attacker.getZ() + player.getZ());
                 } else {
                     attacker.setOnFireForTicks(20 * 1);
                 }
