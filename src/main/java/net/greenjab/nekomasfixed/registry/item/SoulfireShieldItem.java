@@ -21,6 +21,7 @@ public class SoulfireShieldItem extends ShieldItem {
             entity.knockbackTarget(entity, 3f, velocity);
         }else{
             entity.setOnFireForTicks(20*1);
+
         }
 
         return ActionResult.PASS;
