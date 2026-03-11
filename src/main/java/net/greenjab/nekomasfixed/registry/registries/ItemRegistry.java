@@ -126,7 +126,7 @@ public class ItemRegistry {
                     )
                     .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof()
     );
-
+//Items
     public static final Item WOODEN_SICKLE = register("wooden_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.WOOD, SickleItem.SPEED));
     public static final Item STONE_SICKLE = register("stone_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.STONE, SickleItem.SPEED));
     public static final Item COPPER_SICKLE = register("copper_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.COPPER, SickleItem.SPEED));
