@@ -8,10 +8,11 @@
     "BipedEntityRendererMixin",
     "ClientPlayerInteractionManagerMixin",
     "EntityModelsMixin",
+    "EquipmentAssetProviderMixin",
     "EquipmentRendererMixin",
     "FireCommandRendererMixin",
-    "HeldItemRendererMixin",
     "HeadFeatureRendererMixin",
+    "HeldItemRendererMixin",
     "LabelCommandRendererCommandMixin",
     "LabelCommandRendererMixin",
     "MinecraftClientMixin",
@@ -22,5 +23,7 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+  ]
 }
