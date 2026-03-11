@@ -70,6 +70,7 @@ public class LivingEntityMixin {
                     attacker.setOnFireForTicks(20 * 1);
                 }
             }
+
         }
     }
 
