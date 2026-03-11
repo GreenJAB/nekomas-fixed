@@ -24,6 +24,7 @@ public class EquipmentRendererMixin {
     private EquipmentModel useNewArmorModel(EquipmentModel original, @Local(argsOnly = true) RegistryKey<EquipmentAsset> assetKey, @Local(argsOnly = true)
                                             ItemStack stack, @Local(argsOnly = true) EquipmentModel.LayerType layerType) {
         if (assetKey.getValue().toString().toLowerCase().contains("turtle_scute")) return NekomasFixedClient.turtleArmorModel;
+        if(assetKey.getValue().toString().toLowerCase().contains("netherite_crown")) return NekomasFixedClient.netheriteCrownModel;
         return original;
     }
 

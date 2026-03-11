@@ -17,7 +17,6 @@ public class HeadFeatureRendererMixin {
     private static void customTranslate(MatrixStack matrices, HeadFeatureRenderer.HeadTransformation transformation, CallbackInfo cir) {
         System.out.println("[NekomasFixed] translate called with yOffset: " + transformation.yOffset());
 
-        // Your custom translation
         matrices.translate(0.2F, -0.99F + transformation.yOffset() + (15F / 16F), 0.5F);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
         matrices.scale(1.99F, -0.99F, -0.99F);
