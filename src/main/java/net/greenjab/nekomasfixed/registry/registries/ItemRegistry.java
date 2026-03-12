@@ -18,6 +18,7 @@ import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.*;
 import net.minecraft.registry.tag.DamageTypeTags;
@@ -126,6 +127,7 @@ public class ItemRegistry {
             new Item.Settings()
                     .armor(NETHERITE_CROWN_MATERIAL, EquipmentType.HELMET)
                     .maxCount(1)
+                    .trimMaterial(ArmorTrimMaterials.NETHERITE)
 
     );
 
