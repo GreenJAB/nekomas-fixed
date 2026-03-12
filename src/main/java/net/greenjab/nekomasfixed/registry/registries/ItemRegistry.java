@@ -107,27 +107,26 @@ public class ItemRegistry {
     public static final TagKey<Item> NETHERITE_REPAIR_TAG =
             TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "netherite_ingots")); // or use vanilla tag
 
-    // Create custom armor material
     public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(
-            37, // durability multiplier for helmet
+            37,
             Map.of(
-                    EquipmentType.HELMET, 3  // protection for helmet
+                    EquipmentType.HELMET, 3
             ),
-            15, // enchantability
-            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,  // equip sound
-            3.0F, // toughness
-            0.1F, // knockback resistance
-            ItemTags.NETHERITE_TOOL_MATERIALS,  // ← TagKey (you can use vanilla tag)
-            ModEquipmentAssetKeys.NETHERITE_CROWN  // ← Your custom asset key
+            15,
+            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
+            3.0F,
+            0.1F,
+            ItemTags.NETHERITE_TOOL_MATERIALS,
+            ModEquipmentAssetKeys.NETHERITE_CROWN
     );
 
-    // Register your item
     public static final Item NETHERITE_CROWN = register(
             "netherite_crown",
             Item::new,
             new Item.Settings()
                     .armor(NETHERITE_CROWN_MATERIAL, EquipmentType.HELMET)
                     .maxCount(1)
+
     );
 
 
