@@ -1,24 +1,7 @@
 {
-  "layers": {
-    "horse_body": [
-      {
-        "texture": "nekomasfixed:netherite_crown"
-      }
-    ],
-    "humanoid": [
-      {
-        "texture": "minecraft:netherite_crown"
-      }
-    ],
-    "humanoid_leggings": [
-      {
-        "texture": "nekomasfixed:netherite_crown"
-      }
-    ],
-    "nautilus_body": [
-      {
-        "texture": "nekomasfixed:netherite_crown"
-      }
-    ]
-  }
+  "layers": [
+    {
+      "texture": "yourmod:equipment/netherite_crown"
+    }
+  ]
 }

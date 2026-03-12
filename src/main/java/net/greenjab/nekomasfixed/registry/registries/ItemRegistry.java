@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.HarnessHelper;
 import net.greenjab.nekomasfixed.util.ModColors;
+import net.greenjab.nekomasfixed.util.ModEquipmentAssetKeys;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -12,12 +13,16 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.*;
+import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.*;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
@@ -26,6 +31,7 @@ import net.minecraft.world.waypoint.Waypoint;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -97,7 +103,34 @@ public class ItemRegistry {
             "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
-    public static final Item NETHERITE_CROWN = register("netherite_crown", (new Item.Settings()).armor(ArmorMaterials.NETHERITE, EquipmentType.HELMET));
+    // Create a repair tag for netherite items
+    public static final TagKey<Item> NETHERITE_REPAIR_TAG =
+            TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "netherite_ingots")); // or use vanilla tag
+
+    // Create custom armor material
+    public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(
+            37, // durability multiplier for helmet
+            Map.of(
+                    EquipmentType.HELMET, 3  // protection for helmet
+            ),
+            15, // enchantability
+            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,  // equip sound
+            3.0F, // toughness
+            0.1F, // knockback resistance
+            ItemTags.NETHERITE_TOOL_MATERIALS,  // ← TagKey (you can use vanilla tag)
+            ModEquipmentAssetKeys.NETHERITE_CROWN  // ← Your custom asset key
+    );
+
+    // Register your item
+    public static final Item NETHERITE_CROWN = register(
+            "netherite_crown",
+            Item::new,
+            new Item.Settings()
+                    .armor(NETHERITE_CROWN_MATERIAL, EquipmentType.HELMET)
+                    .maxCount(1)
+    );
+
+
 
     public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
     public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
