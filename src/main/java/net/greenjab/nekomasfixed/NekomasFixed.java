@@ -1,11 +1,13 @@
 package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModRecipeBookCategories;
 import net.greenjab.nekomasfixed.util.ModRecipeType;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +33,8 @@ public class NekomasFixed implements ModInitializer {
 		EntityTypeRegistry.init();
 		SyncHandler.init();
 		CauldronBehaviour.register();
-
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
+				.register(entries -> entries.add(ItemRegistry.NETHERITE_CROWN));
 	}
 
 
