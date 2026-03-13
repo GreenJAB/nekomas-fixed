@@ -27,7 +27,7 @@ public class NekomasFixed implements ModInitializer {
 		ItemGroupRegistry.registerItemGroup();
 		EntityTypeRegistry.registerEntityType();
 		OtherRegistry.registerOther();
-		ModRecipeType.KILNING.toString();//just to load this class
+		ModRecipeType.KILNING.toString();
 		ModRecipeBookCategories.init();
 		RecipeRegistry.registerRecipes();
 		EntityTypeRegistry.init();
