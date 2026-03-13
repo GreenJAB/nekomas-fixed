@@ -119,8 +119,12 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.AQUA_HARNESS);
                          entries.add(ItemRegistry.CRIMSON_HARNESS);
                          entries.add(ItemRegistry.INDIGO_HARNESS);
-                         entries.add(ItemRegistry.NETHERITE_CROWN);
 
+                         entries.add(ItemRegistry.NETHERITE_CROWN);
+                         entries.add(ItemRegistry.COPPER_CROWN);
+                         entries.add(ItemRegistry.IRON_CROWN);
+                         entries.add(ItemRegistry.GOLDEN_CROWN);
+                         entries.add(ItemRegistry.DIAMOND_CROWN);
 
                         entries.add(ItemRegistry.AQUA_GLAZED_TERRACOTTA);
 

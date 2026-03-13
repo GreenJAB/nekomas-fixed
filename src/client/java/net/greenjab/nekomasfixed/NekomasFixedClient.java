@@ -15,6 +15,10 @@ import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 public class NekomasFixedClient implements ClientModInitializer {
 	public static EquipmentModel turtleArmorModel = createHumanoidOnlyModel("turtle_scute");
 	public static EquipmentModel netheriteCrownModel = createHumanoidOnlyModel("netherite_crown");
+	public static EquipmentModel copperCrownModel = createHumanoidOnlyModel("copper_crown");
+	public static EquipmentModel ironCrownModel = createHumanoidOnlyModel("iron_crown");
+	public static EquipmentModel goldenCrownModel = createHumanoidOnlyModel("golden_crown");
+	public static EquipmentModel diamondCrownModel = createHumanoidOnlyModel("diamond_crown");
 
 	@Override
 	public void onInitializeClient() {

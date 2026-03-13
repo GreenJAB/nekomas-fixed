@@ -104,8 +104,8 @@ public class ItemRegistry {
             "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
-    public static final TagKey<Item> NETHERITE_REPAIR_TAG =
-            TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "netherite_ingots")); // or use vanilla tag
+//    public static final TagKey<Item> NETHERITE_REPAIR_TAG =
+//            TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "netherite_ingots")); // or use vanilla tag
 
     public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(
             37,
@@ -132,6 +132,121 @@ public class ItemRegistry {
                             .createAttributeModifiers(EquipmentType.HELMET)).enchantable(NETHERITE_CROWN_MATERIAL
                             .enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot())
                             .equipSound(NETHERITE_CROWN_MATERIAL.equipSound()).model(NETHERITE_CROWN_MATERIAL.assetId()).build()).repairable(NETHERITE_CROWN_MATERIAL.repairIngredient())
+
+    );
+
+
+
+
+    public static final ArmorMaterial COPPER_CROWN_MATERIAL = new ArmorMaterial(
+            37,
+            Map.of(
+                    EquipmentType.HELMET, 3
+            ),
+            15,
+            SoundEvents.ITEM_ARMOR_EQUIP_COPPER,
+            3.0F,
+            0.1F,
+            ItemTags.COPPER_TOOL_MATERIALS,
+            ModEquipmentAssetKeys.COPPER_CROWN
+    );
+
+    public static final Item COPPER_CROWN = register(
+            "copper_crown",
+            Item::new,
+            new Item.Settings()
+                    .armor(COPPER_CROWN_MATERIAL, EquipmentType.HELMET)
+                    .maxCount(1)
+                    .trimMaterial(ArmorTrimMaterials.COPPER)
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(COPPER_CROWN_MATERIAL
+                            .durability())).attributeModifiers(COPPER_CROWN_MATERIAL
+                            .createAttributeModifiers(EquipmentType.HELMET)).enchantable(COPPER_CROWN_MATERIAL
+                            .enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot())
+                            .equipSound(COPPER_CROWN_MATERIAL.equipSound()).model(COPPER_CROWN_MATERIAL.assetId()).build()).repairable(COPPER_CROWN_MATERIAL.repairIngredient())
+
+    );
+
+    public static final ArmorMaterial IRON_CROWN_MATERIAL = new ArmorMaterial(
+            37,
+            Map.of(
+                    EquipmentType.HELMET, 3
+            ),
+            15,
+            SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            3.0F,
+            0.1F,
+            ItemTags.IRON_TOOL_MATERIALS,
+            ModEquipmentAssetKeys.IRON_CROWN
+    );
+
+    public static final Item IRON_CROWN = register(
+            "iron_crown",
+            Item::new,
+            new Item.Settings()
+                    .armor(IRON_CROWN_MATERIAL, EquipmentType.HELMET)
+                    .maxCount(1)
+                    .trimMaterial(ArmorTrimMaterials.IRON)
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(IRON_CROWN_MATERIAL
+                            .durability())).attributeModifiers(IRON_CROWN_MATERIAL
+                            .createAttributeModifiers(EquipmentType.HELMET)).enchantable(IRON_CROWN_MATERIAL
+                            .enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot())
+                            .equipSound(IRON_CROWN_MATERIAL.equipSound()).model(IRON_CROWN_MATERIAL.assetId()).build()).repairable(IRON_CROWN_MATERIAL.repairIngredient())
+
+    );
+
+    public static final ArmorMaterial GOLDEN_CROWN_MATERIAL = new ArmorMaterial(
+            37,
+            Map.of(
+                    EquipmentType.HELMET, 3
+            ),
+            15,
+            SoundEvents.ITEM_ARMOR_EQUIP_GOLD,
+            3.0F,
+            0.1F,
+            ItemTags.GOLD_TOOL_MATERIALS,
+            ModEquipmentAssetKeys.GOLDEN_CROWN
+    );
+
+    public static final Item GOLDEN_CROWN = register(
+            "golden_crown",
+            Item::new,
+            new Item.Settings()
+                    .armor(GOLDEN_CROWN_MATERIAL, EquipmentType.HELMET)
+                    .maxCount(1)
+                    .trimMaterial(ArmorTrimMaterials.GOLD)
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(GOLDEN_CROWN_MATERIAL
+                            .durability())).attributeModifiers(GOLDEN_CROWN_MATERIAL
+                            .createAttributeModifiers(EquipmentType.HELMET)).enchantable(GOLDEN_CROWN_MATERIAL
+                            .enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot())
+                            .equipSound(GOLDEN_CROWN_MATERIAL.equipSound()).model(GOLDEN_CROWN_MATERIAL.assetId()).build()).repairable(GOLDEN_CROWN_MATERIAL.repairIngredient())
+
+    );
+
+    public static final ArmorMaterial DIAMOND_CROWN_MATERIAL = new ArmorMaterial(
+            37,
+            Map.of(
+                    EquipmentType.HELMET, 3
+            ),
+            15,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
+            3.0F,
+            0.1F,
+            ItemTags.DIAMOND_TOOL_MATERIALS,
+            ModEquipmentAssetKeys.DIAMOND_CROWN
+    );
+
+    public static final Item DIAMOND_CROWN = register(
+            "diamond_crown",
+            Item::new,
+            new Item.Settings()
+                    .armor(DIAMOND_CROWN_MATERIAL, EquipmentType.HELMET)
+                    .maxCount(1)
+                    .trimMaterial(ArmorTrimMaterials.DIAMOND)
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(DIAMOND_CROWN_MATERIAL
+                            .durability())).attributeModifiers(DIAMOND_CROWN_MATERIAL
+                            .createAttributeModifiers(EquipmentType.HELMET)).enchantable(DIAMOND_CROWN_MATERIAL
+                            .enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot())
+                            .equipSound(DIAMOND_CROWN_MATERIAL.equipSound()).model(DIAMOND_CROWN_MATERIAL.assetId()).build()).repairable(DIAMOND_CROWN_MATERIAL.repairIngredient())
 
     );
 
@@ -330,18 +445,6 @@ public class ItemRegistry {
         return register(
                 RegistryKey.of(RegistryKeys.ITEM, EntityType.getId(type).withSuffixedPath("_spawn_egg")), SpawnEggItem::new, new Item.Settings().spawnEgg(type)
         );
-    }
-
-
-
-    static {
-        System.out.println("=== DEBUG: Checking NETHERITE_CROWN components ===");
-        ItemStack stack = new ItemStack(NETHERITE_CROWN);
-        System.out.println("Has PROVIDES_TRIM_MATERIAL: " +
-                stack.contains(DataComponentTypes.PROVIDES_TRIM_MATERIAL));
-        System.out.println("Has EQUIPPABLE: " +
-                stack.contains(DataComponentTypes.EQUIPPABLE));
-        System.out.println("All components: " + stack.getComponents());
     }
 
 
