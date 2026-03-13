@@ -33,8 +33,7 @@ public class NekomasFixed implements ModInitializer {
 		EntityTypeRegistry.init();
 		SyncHandler.init();
 		CauldronBehaviour.register();
-		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-				.register(entries -> entries.add(ItemRegistry.NETHERITE_CROWN));
+
 	}
 
 
