@@ -104,7 +104,6 @@ public class ItemRegistry {
             "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
-    // Create a repair tag for netherite items
     public static final TagKey<Item> NETHERITE_REPAIR_TAG =
             TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "netherite_ingots")); // or use vanilla tag
 
@@ -330,7 +329,15 @@ public class ItemRegistry {
 
 
 
-
+    static {
+        System.out.println("=== DEBUG: Checking NETHERITE_CROWN components ===");
+        ItemStack stack = new ItemStack(NETHERITE_CROWN);
+        System.out.println("Has PROVIDES_TRIM_MATERIAL: " +
+                stack.contains(DataComponentTypes.PROVIDES_TRIM_MATERIAL));
+        System.out.println("Has EQUIPPABLE: " +
+                stack.contains(DataComponentTypes.EQUIPPABLE));
+        System.out.println("All components: " + stack.getComponents());
+    }
 
 
 }
