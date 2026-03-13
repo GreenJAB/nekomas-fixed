@@ -73,6 +73,8 @@
   "item.nekomasfixed.turtle_leggings": "Turtle Leggings",
   "item.nekomasfixed.turtle_boots": "Turtle Boots",
 
+  "item_nekomasfixed.netherite_crown": "Netherite Crown",
+
   "item.nekomasfixed.target_dummy": "Target Dummy",
   "entity.nekomasfixed.target_dummy": "Target Dummy",
   "block.nekomasfixed.enderman_head": "Enderman Head",
@@ -89,6 +91,7 @@
   "item.nekomasfixed.soulfire_trident": "Soulfire Trident",
   "item.nekomasfixed.soulfire_shield": "Soulfire Shield",
 
+  "item.nekomasfixed.netherite_crown": "Netherite Crown",
 
   "item.nekomasfixed.iron_sickle": "Iron Sickle",
   "item.nekomasfixed.wooden_sickle": "Wooden Sickle",
@@ -109,6 +112,24 @@
   "item.nekomasfixed.crimson_dye": "Crimson Dye",
   "item.nekomasfixed.aqua_dye": "Aqua Dye",
 
+  "block.nekomasfixed.white_froglight": "White Froglight",
+  "block.nekomasfixed.light_gray_froglight": "Light_gray Froglight",
+  "block.nekomasfixed.gray_froglight": "Gray Froglight",
+  "block.nekomasfixed.black_froglight": "Black Froglight",
+  "block.nekomasfixed.brown_froglight": "Brown Froglight",
+  "block.nekomasfixed.red_froglight": "Red Froglight",
+  "block.nekomasfixed.orange_froglight": "Orange Froglight",
+  "block.nekomasfixed.lime_froglight": "Lime Froglight",
+  "block.nekomasfixed.cyan_froglight": "Cyan Froglight",
+  "block.nekomasfixed.light_blue_froglight": "Light_blue Froglight",
+  "block.nekomasfixed.blue_froglight": "Blue Froglight",
+  "block.nekomasfixed.purple_froglight": "Purple Froglight",
+  "block.nekomasfixed.pink_froglight": "Pink Froglight",
+  "block.nekomasfixed.amber_froglight": "Amber Froglight",
+  "block.nekomasfixed.aqua_froglight": "Aqua Froglight",
+  "block.nekomasfixed.crimson_froglight": "Crimson Froglight",
+  "block.nekomasfixed.indigo_froglight": "Indigo Froglight",
+
   "block.nekomasfixed.amber_terracotta": "Amber Terracotta",
   "block.nekomasfixed.indigo_terracotta": "Indigo Terracotta",
   "block.nekomasfixed.aqua_terracotta": "Aqua Terracotta",
@@ -128,6 +149,11 @@
   "block.nekomasfixed.aqua_concrete": "Aqua Concrete",
   "block.nekomasfixed.crimson_concrete": "Crimson Concrete",
   "block.nekomasfixed.indigo_concrete": "Indigo Concrete",
+
+  "item.nekomasfixed.amber_harness": "Amber Harness",
+  "item.nekomasfixed.aqua_harness": "Aqua Harness",
+  "item.nekomasfixed.crimson_harness": "Crimson Harness",
+  "item.nekomasfixed.indigo_harness": "Indigo Harness",
 
   "block.nekomasfixed.amber_concrete_powder": "Amber Concrete Powder",
   "block.nekomasfixed.aqua_concrete_powder": "Aqua Concrete Powder",

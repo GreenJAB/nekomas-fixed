@@ -41,7 +41,6 @@ public class EntityModelLayerRegistry {
     public static final EntityModelLayer WILD_FIRE = new EntityModelLayer(NekomasFixed.id("wild_fire"), "main");
     public static final EntityModelLayer SOULFIRE_TRIDENT = new EntityModelLayer(NekomasFixed.id("soulfire_trident"), "main");
 
-
     private static EquipmentModelData<EntityModelLayer> registerEquipment(Identifier id) {
         return new EquipmentModelData<>(new EntityModelLayer(id, "helmet"), new EntityModelLayer(id, "chestplate"), new EntityModelLayer(id, "leggings"), new EntityModelLayer(id, "boots"));
     }

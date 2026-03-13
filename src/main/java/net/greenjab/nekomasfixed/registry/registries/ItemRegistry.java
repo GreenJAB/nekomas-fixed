@@ -5,18 +5,25 @@ import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.HarnessHelper;
 import net.greenjab.nekomasfixed.util.ModColors;
+import net.greenjab.nekomasfixed.util.ModEquipmentAssetKeys;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.*;
+import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.*;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
@@ -25,6 +32,7 @@ import net.minecraft.world.waypoint.Waypoint;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -96,28 +104,44 @@ public class ItemRegistry {
             "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
+    public static final TagKey<Item> NETHERITE_REPAIR_TAG =
+            TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "netherite_ingots")); // or use vanilla tag
 
-//    ------------------------------------------------------------------------------------------
+    public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(
+            37,
+            Map.of(
+                    EquipmentType.HELMET, 3
+            ),
+            15,
+            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
+            3.0F,
+            0.1F,
+            ItemTags.NETHERITE_TOOL_MATERIALS,
+            ModEquipmentAssetKeys.NETHERITE_CROWN
+    );
+
+    public static final Item NETHERITE_CROWN = register(
+            "netherite_crown",
+            Item::new,
+            new Item.Settings()
+                    .armor(NETHERITE_CROWN_MATERIAL, EquipmentType.HELMET)
+                    .maxCount(1)
+                    .trimMaterial(ArmorTrimMaterials.NETHERITE)
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(NETHERITE_CROWN_MATERIAL
+                            .durability())).attributeModifiers(NETHERITE_CROWN_MATERIAL
+                            .createAttributeModifiers(EquipmentType.HELMET)).enchantable(NETHERITE_CROWN_MATERIAL
+                            .enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot())
+                            .equipSound(NETHERITE_CROWN_MATERIAL.equipSound()).model(NETHERITE_CROWN_MATERIAL.assetId()).build()).repairable(NETHERITE_CROWN_MATERIAL.repairIngredient())
+
+    );
 
 
 
-    public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
+    public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
+    public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
+    public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
+    public static final Item AQUA_DYE = registerDye("aqua_dye", DyeColor.LIGHT_BLUE);
 
-    public static final Item ENDERMAN_HEAD = register(BlockRegistry.ENDERMAN_HEAD,
-            (block, settings) -> new VerticallyAttachableBlockItem(
-            block, BlockRegistry.WALL_ENDERMAN_HEAD, Direction.DOWN, Waypoint.disableTracking(settings)
-    ),new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
-
-    public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384));
-    public static final Item NETHER_HEART = register("nether_heart",  new Item.Settings().fireproof().rarity(Rarity.UNCOMMON));
-    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings()
-            .rarity(Rarity.RARE)
-            .maxDamage(250)
-            .attributeModifiers(SoulfireTridentItem.createAttributeModifiers())
-            .repairable(ItemTags.REPAIRS_NETHERITE_ARMOR)
-            .component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent())
-            .enchantable(1)
-            .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
     public static final Item SOULFIRE_SHIELD = register(
             "soulfire_shield",
             SoulfireShieldItem::new,
@@ -140,15 +164,7 @@ public class ItemRegistry {
                     )
                     .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof()
     );
-    public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
-
-
-
-    public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
-    public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
-    public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
-    public static final Item AQUA_DYE = registerDye("aqua_dye", DyeColor.LIGHT_BLUE);
-
+//Items
     public static final Item WOODEN_SICKLE = register("wooden_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.WOOD, SickleItem.SPEED));
     public static final Item STONE_SICKLE = register("stone_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.STONE, SickleItem.SPEED));
     public static final Item COPPER_SICKLE = register("copper_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.COPPER, SickleItem.SPEED));
@@ -194,6 +210,64 @@ public class ItemRegistry {
                     .maxCount(1)
                     .component(DataComponentTypes.EQUIPPABLE,
                             HarnessHelper.ofHarness(ModColors.AMBER)));
+
+    public static final Item AQUA_HARNESS = register("aqua_harness",
+            (new Item.Settings())
+                    .maxCount(1)
+                    .component(DataComponentTypes.EQUIPPABLE,
+                            HarnessHelper.ofHarness(ModColors.AQUA)));
+
+    public static final Item CRIMSON_HARNESS = register("crimson_harness",
+            (new Item.Settings())
+                    .maxCount(1)
+                    .component(DataComponentTypes.EQUIPPABLE,
+                            HarnessHelper.ofHarness(ModColors.CRIMSON)));
+
+    public static final Item INDIGO_HARNESS = register("indigo_harness",
+            (new Item.Settings())
+                    .maxCount(1)
+                    .component(DataComponentTypes.EQUIPPABLE,
+                            HarnessHelper.ofHarness(ModColors.INDIGO)));
+
+    public static final Item WHITE_FROGLIGHT = register(BlockRegistry.WHITE_FROGLIGHT);
+    public static final Item LIGHT_GRAY_FROGLIGHT = register(BlockRegistry.LIGHT_GRAY_FROGLIGHT);
+    public static final Item GRAY_FROGLIGHT = register(BlockRegistry.GRAY_FROGLIGHT);
+    public static final Item BLACK_FROGLIGHT = register(BlockRegistry.BLACK_FROGLIGHT);
+    public static final Item BROWN_FROGLIGHT = register(BlockRegistry.BROWN_FROGLIGHT);
+    public static final Item RED_FROGLIGHT = register(BlockRegistry.RED_FROGLIGHT);
+    public static final Item ORANGE_FROGLIGHT = register(BlockRegistry.ORANGE_FROGLIGHT);
+    public static final Item LIME_FROGLIGHT = register(BlockRegistry.LIME_FROGLIGHT);
+    public static final Item CYAN_FROGLIGHT = register(BlockRegistry.CYAN_FROGLIGHT);
+    public static final Item LIGHT_BLUE_FROGLIGHT = register(BlockRegistry.LIGHT_BLUE_FROGLIGHT);
+    public static final Item BLUE_FROGLIGHT = register(BlockRegistry.BLUE_FROGLIGHT);
+    public static final Item PURPLE_FROGLIGHT = register(BlockRegistry.PURPLE_FROGLIGHT);
+    public static final Item PINK_FROGLIGHT = register(BlockRegistry.PINK_FROGLIGHT);
+    public static final Item AMBER_FROGLIGHT = register(BlockRegistry.AMBER_FROGLIGHT);
+    public static final Item AQUA_FROGLIGHT = register(BlockRegistry.AQUA_FROGLIGHT);
+    public static final Item CRIMSON_FROGLIGHT = register(BlockRegistry.CRIMSON_FROGLIGHT);
+    public static final Item INDIGO_FROGLIGHT = register(BlockRegistry.INDIGO_FROGLIGHT);
+
+//    ------------------------------------------------------------------------------------------
+
+
+
+    public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
+
+    public static final Item ENDERMAN_HEAD = register(BlockRegistry.ENDERMAN_HEAD,
+            (block, settings) -> new VerticallyAttachableBlockItem(
+            block, BlockRegistry.WALL_ENDERMAN_HEAD, Direction.DOWN, Waypoint.disableTracking(settings)
+    ),new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
+
+    public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384));
+    public static final Item NETHER_HEART = register("nether_heart",  new Item.Settings().fireproof().rarity(Rarity.UNCOMMON));
+    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings()
+            .rarity(Rarity.RARE)
+            .maxDamage(250)
+            .attributeModifiers(SoulfireTridentItem.createAttributeModifiers())
+            .component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent())
+            .enchantable(1)
+            .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
+    public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);
@@ -260,7 +334,15 @@ public class ItemRegistry {
 
 
 
-
+    static {
+        System.out.println("=== DEBUG: Checking NETHERITE_CROWN components ===");
+        ItemStack stack = new ItemStack(NETHERITE_CROWN);
+        System.out.println("Has PROVIDES_TRIM_MATERIAL: " +
+                stack.contains(DataComponentTypes.PROVIDES_TRIM_MATERIAL));
+        System.out.println("Has EQUIPPABLE: " +
+                stack.contains(DataComponentTypes.EQUIPPABLE));
+        System.out.println("All components: " + stack.getComponents());
+    }
 
 
 }
