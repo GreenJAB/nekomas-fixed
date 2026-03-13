@@ -127,6 +127,11 @@ public class ItemRegistry {
                     .armor(NETHERITE_CROWN_MATERIAL, EquipmentType.HELMET)
                     .maxCount(1)
                     .trimMaterial(ArmorTrimMaterials.NETHERITE)
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(NETHERITE_CROWN_MATERIAL
+                            .durability())).attributeModifiers(NETHERITE_CROWN_MATERIAL
+                            .createAttributeModifiers(EquipmentType.HELMET)).enchantable(NETHERITE_CROWN_MATERIAL
+                            .enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot())
+                            .equipSound(NETHERITE_CROWN_MATERIAL.equipSound()).model(NETHERITE_CROWN_MATERIAL.assetId()).build()).repairable(NETHERITE_CROWN_MATERIAL.repairIngredient())
 
     );
 
