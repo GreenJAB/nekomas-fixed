@@ -1,7 +1,9 @@
 {
-  "layers": [
-    {
-      "texture": "yourmod:equipment/netherite_crown"
-    }
-  ]
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "nekomasfixed:netherite_crown"
+      }
+    ]
+  }
 }
