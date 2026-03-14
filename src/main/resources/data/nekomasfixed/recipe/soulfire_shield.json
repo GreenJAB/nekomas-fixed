@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:netherite_scrap",
+    "H": "nekomasfixed:nether_heart"
+  },
+  "pattern": [
+    "#T#",
+    "###",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:soulfire_shield"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "aqua_dye",
+  "ingredients": [
+    "nekomasfixed:aqua_dye",
+    "minecraft:candle"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:aqua_candle"
+  }
+}

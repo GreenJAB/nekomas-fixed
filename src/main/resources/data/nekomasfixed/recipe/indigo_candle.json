@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "indigo_dye",
+  "ingredients": [
+    "nekomasfixed:indigo_dye",
+    "minecraft:candle"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:indigo_candle"
+  }
+}
