@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "nekomasfixed:nether_heart",
+  "base": "minecraft:copper_helmet",
+  "result": {
+    "id": "nekomasfixed:copper_crown"
+  },
+  "template": "nekomasfixed:crown_smithing_template"
+}
