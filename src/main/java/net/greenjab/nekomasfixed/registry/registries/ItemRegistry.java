@@ -102,8 +102,8 @@ public class ItemRegistry {
                     ).formatted(Formatting.BLUE),
                     Text.of(""),
                     Text.of(""),
-                    List.of(NekomasFixed.id("container/slot/boat")),
-                    List.of(NekomasFixed.id("container/slot/planks")),
+                    List.of(NekomasFixed.id("container/slot/helmet")),
+                    List.of(NekomasFixed.id("container/slot/nether_heart")),
                     settings),new Item.Settings().rarity(Rarity.UNCOMMON)
     );
 
