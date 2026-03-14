@@ -330,7 +330,18 @@ public class BlockRegistry {
     }
 
     private static Block registerBedBlock(String id, DyeColor color) {
-        return register(id, AbstractBlock.Settings.create().mapColor((state) -> state.get(BedBlock.PART) == BedPart.FOOT ? color.getMapColor() : MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD).strength(0.2F).nonOpaque().burnable().pistonBehavior(PistonBehavior.DESTROY));
+        return register(id,
+                settings -> new BedBlock(color, settings),
+                AbstractBlock.Settings.create()
+                        .mapColor((state) -> state.get(BedBlock.PART) == BedPart.FOOT
+                                ? color.getMapColor()
+                                : MapColor.WHITE_GRAY)
+                        .sounds(BlockSoundGroup.WOOD)
+                        .strength(0.2F)
+                        .nonOpaque()
+                        .burnable()
+                        .pistonBehavior(PistonBehavior.DESTROY)
+        );
     }
 
 
