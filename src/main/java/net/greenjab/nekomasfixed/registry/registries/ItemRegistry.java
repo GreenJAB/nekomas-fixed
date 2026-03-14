@@ -304,6 +304,9 @@ public class ItemRegistry {
     public static final Item INDIGO_WOOL = register(BlockRegistry.INDIGO_WOOL);
 
     public static final Item AMBER_CANDLE = register(BlockRegistry.AMBER_CANDLE);
+    public static final Item AQUA_CANDLE = register(BlockRegistry.AQUA_CANDLE);
+    public static final Item INDIGO_CANDLE = register(BlockRegistry.INDIGO_CANDLE);
+    public static final Item CRIMSON_CANDLE = register(BlockRegistry.CRIMSON_CANDLE);
 
     public static final Item AQUA_CONCRETE = register(BlockRegistry.AQUA_CONCRETE);
     public static final Item AMBER_CONCRETE = register(BlockRegistry.AMBER_CONCRETE);

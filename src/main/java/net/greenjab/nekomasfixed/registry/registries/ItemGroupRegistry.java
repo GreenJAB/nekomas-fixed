@@ -111,6 +111,9 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.INDIGO_FROGLIGHT);
 
                          entries.add(ItemRegistry.AMBER_CANDLE);
+                         entries.add(ItemRegistry.AQUA_CANDLE);
+                         entries.add(ItemRegistry.CRIMSON_CANDLE);
+                         entries.add(ItemRegistry.INDIGO_CANDLE);
 
                          entries.add(ItemRegistry.AMBER_CONCRETE_POWDER);
                          entries.add(ItemRegistry.AQUA_CONCRETE_POWDER);

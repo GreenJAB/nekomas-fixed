@@ -260,6 +260,9 @@ public class BlockRegistry {
     public static final Block INDIGO_FROGLIGHT = register("indigo_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_DULL_PINK).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
 
     public static final Block AMBER_CANDLE = register("amber_candle", CandleBlock::new, createCandleSettings(MapColor.YELLOW));
+    public static final Block AQUA_CANDLE = register("aqua_candle", CandleBlock::new, createCandleSettings(MapColor.TEAL));
+    public static final Block CRIMSON_CANDLE = register("crimson_candle", CandleBlock::new, createCandleSettings(MapColor.DARK_CRIMSON));
+    public static final Block INDIGO_CANDLE = register("indigo_candle", CandleBlock::new, createCandleSettings(MapColor.PALE_PURPLE));
 
     public static final Block HONEY_CAULDRON = register(
             "honey_cauldron",
