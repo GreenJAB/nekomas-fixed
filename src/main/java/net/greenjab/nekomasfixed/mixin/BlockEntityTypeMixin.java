@@ -22,7 +22,7 @@ public abstract class BlockEntityTypeMixin{
     }
 
     @Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice( from = @At(value = "FIELD",
-            target = "Lnet/minecraft/block/entity/BlockEntityType;DROPPER:Lnet/minecraft/block/entity/BlockEntityType;")))
+            target = "Lnet/minecraft/block/entity/BlockEntityType;SHULKER_BOX:Lnet/minecraft/block/entity/BlockEntityType;")))
     private static BlockEntityType<BedBlockEntity> sign(String id, BlockEntityType.BlockEntityFactory<? extends BedBlockEntity> factory, Block[] blocks) {
         return create("bed", BedBlockEntity::new,
                 Blocks.RED_BED, Blocks.BLACK_BED, Blocks.BLUE_BED, Blocks.BROWN_BED, Blocks.CYAN_BED, Blocks.GRAY_BED, Blocks.GREEN_BED, Blocks.LIGHT_BLUE_BED, Blocks.LIGHT_GRAY_BED, Blocks.LIME_BED, Blocks.MAGENTA_BED, Blocks.ORANGE_BED, Blocks.PINK_BED, Blocks.PURPLE_BED, Blocks.WHITE_BED, Blocks.YELLOW_BED,
