@@ -250,8 +250,6 @@ public class ItemRegistry {
 
     );
 
-
-
     public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
     public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
     public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
