@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:sand",
+    "G": "minecraft:gravel",
+    "D": "nekomasfixed:amber_dye"
+  },
+  "pattern": [
+    "###",
+    "#DG",
+    "GGG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:amber_concrete_powder"
+  }
+}
