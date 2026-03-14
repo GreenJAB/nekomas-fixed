@@ -92,6 +92,21 @@ public class ItemRegistry {
                     settings),new Item.Settings().rarity(Rarity.UNCOMMON)
     );
 
+    public static final Item CROWN_SMITHING_TEMPLATE = register(
+            "crown_smithing_template", settings -> new SmithingTemplateItem(
+                    Text.translatable(
+                            Util.createTranslationKey("item", NekomasFixed.id("boat"))
+                    ).formatted(Formatting.BLUE),
+                    Text.translatable(
+                            Util.createTranslationKey("item", NekomasFixed.id("planks"))
+                    ).formatted(Formatting.BLUE),
+                    Text.of(""),
+                    Text.of(""),
+                    List.of(NekomasFixed.id("container/slot/boat")),
+                    List.of(NekomasFixed.id("container/slot/planks")),
+                    settings),new Item.Settings().rarity(Rarity.UNCOMMON)
+    );
+
     public static final Item GLISTERING_MELON = register(BlockRegistry.GLISTERING_MELON, new Item.Settings());
 
     public static final Item NAUTILUS_BLOCK = register(BlockRegistry.NAUTILUS_BLOCK, new Item.Settings().maxCount(64).component(OtherRegistry.ANIMAL, AnimalComponent.DEFAULT));

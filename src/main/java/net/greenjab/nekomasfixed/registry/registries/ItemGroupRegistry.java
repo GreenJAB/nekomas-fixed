@@ -138,6 +138,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.INDIGO_BED);
                         entries.add(ItemRegistry.CRIMSON_BED);
 
+                        entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
 
                     }).build();
 
