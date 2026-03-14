@@ -259,6 +259,8 @@ public class BlockRegistry {
     public static final Block CRIMSON_FROGLIGHT = register("crimson_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_RED).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
     public static final Block INDIGO_FROGLIGHT = register("indigo_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_DULL_PINK).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
 
+    public static final Block AMBER_CANDLE = register("amber_candle", CandleBlock::new, createCandleSettings(MapColor.YELLOW));
+
     public static final Block HONEY_CAULDRON = register(
             "honey_cauldron",
             HoneyCauldronBlock::new,
@@ -303,6 +305,9 @@ public class BlockRegistry {
     public static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = factory.apply(settings.registryKey(key));
         return Registry.register(Registries.BLOCK, key, block);
+    }
+    public static AbstractBlock.Settings createCandleSettings(MapColor mapColor) {
+        return AbstractBlock.Settings.create().mapColor(mapColor).nonOpaque().strength(0.1F).sounds(BlockSoundGroup.CANDLE).luminance(CandleBlock.STATE_TO_LUMINANCE).pistonBehavior(PistonBehavior.DESTROY);
     }
     private static AbstractBlock.Settings copyLootTable(Block block, boolean copyTranslationKey) {
         AbstractBlock.Settings settings = AbstractBlock.Settings.create().lootTable(block.getLootTableKey());
