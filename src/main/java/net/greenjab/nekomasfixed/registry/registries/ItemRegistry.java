@@ -367,6 +367,11 @@ public class ItemRegistry {
     public static final Item CRIMSON_FROGLIGHT = register(BlockRegistry.CRIMSON_FROGLIGHT);
     public static final Item INDIGO_FROGLIGHT = register(BlockRegistry.INDIGO_FROGLIGHT);
 
+    public static final Item AMBER_BED = register(BlockRegistry.AMBER_BED, BedItem::new, (new Item.Settings()).maxCount(1));
+    public static final Item AQUA_BED = register(BlockRegistry.AQUA_BED, BedItem::new, (new Item.Settings()).maxCount(1));
+    public static final Item INDIGO_BED = register(BlockRegistry.INDIGO_BED, BedItem::new, (new Item.Settings()).maxCount(1));
+    public static final Item CRIMSON_BED = register(BlockRegistry.CRIMSON_BED, BedItem::new, (new Item.Settings()).maxCount(1));
+
 
 
 //    ------------------------------------------------------------------------------------------

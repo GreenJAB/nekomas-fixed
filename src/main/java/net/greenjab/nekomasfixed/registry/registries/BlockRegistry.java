@@ -8,7 +8,9 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.MagmaCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.SlimeCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
+import net.greenjab.nekomasfixed.util.ModColors;
 import net.minecraft.block.*;
+import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.registry.Registries;
@@ -288,6 +290,12 @@ public class BlockRegistry {
             AbstractBlock.Settings.copy(Blocks.CAULDRON)
     );
 
+    public static final Block AMBER_BED = registerBedBlock("amber_bed", DyeColor.YELLOW);
+    public static final Block AQUA_BED = registerBedBlock("aqua_bed", DyeColor.LIGHT_BLUE);
+    public static final Block INDIGO_BED = registerBedBlock("indigo_bed", DyeColor.MAGENTA);
+    public static final Block CRIMSON_BED = registerBedBlock("crimson_bed", DyeColor.RED);
+
+
 
 
     private static Block register(String id, AbstractBlock.Settings settings) {
@@ -320,6 +328,12 @@ public class BlockRegistry {
 
         return settings;
     }
+
+    private static Block registerBedBlock(String id, DyeColor color) {
+        return register(id, AbstractBlock.Settings.create().mapColor((state) -> state.get(BedBlock.PART) == BedPart.FOOT ? color.getMapColor() : MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD).strength(0.2F).nonOpaque().burnable().pistonBehavior(PistonBehavior.DESTROY));
+    }
+
+
 
     public static void registerBlocks() {
         System.out.println("register Blocks");

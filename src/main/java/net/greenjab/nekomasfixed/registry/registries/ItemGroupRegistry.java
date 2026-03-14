@@ -133,6 +133,11 @@ public class ItemGroupRegistry {
 
                         entries.add(ItemRegistry.AQUA_GLAZED_TERRACOTTA);
 
+                        entries.add(ItemRegistry.AMBER_BED);
+                        entries.add(ItemRegistry.AQUA_BED);
+                        entries.add(ItemRegistry.INDIGO_BED);
+                        entries.add(ItemRegistry.CRIMSON_BED);
+
 
                     }).build();
 
