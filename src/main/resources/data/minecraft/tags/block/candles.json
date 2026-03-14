@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "nekomasfixed:amber_candle",
+    "nekomasfixed:aqua_candle",
+    "nekomasfixed:indigo_candle",
+    "nekomasfixed:crimson_candle"
+
+  ]
+}
