@@ -7,8 +7,9 @@ import net.greenjab.nekomasfixed.util.HarnessHelper;
 import net.greenjab.nekomasfixed.util.ModColors;
 import net.greenjab.nekomasfixed.util.ModEquipmentAssetKeys;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
+import net.minecraft.block.enums.BedPart;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
 import net.minecraft.entity.EntityType;
@@ -24,6 +25,7 @@ import net.minecraft.registry.*;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
@@ -365,6 +367,8 @@ public class ItemRegistry {
     public static final Item CRIMSON_FROGLIGHT = register(BlockRegistry.CRIMSON_FROGLIGHT);
     public static final Item INDIGO_FROGLIGHT = register(BlockRegistry.INDIGO_FROGLIGHT);
 
+
+
 //    ------------------------------------------------------------------------------------------
 
 
@@ -449,6 +453,7 @@ public class ItemRegistry {
                 RegistryKey.of(RegistryKeys.ITEM, EntityType.getId(type).withSuffixedPath("_spawn_egg")), SpawnEggItem::new, new Item.Settings().spawnEgg(type)
         );
     }
+
 
 
 }
