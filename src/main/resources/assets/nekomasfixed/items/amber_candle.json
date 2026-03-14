@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "nekomasfixed:item/amber_candle"
+    "model": "nekomasfixed:block/amber_candle"
   }
 }
