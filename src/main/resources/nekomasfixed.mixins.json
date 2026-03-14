@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BeehiveBlockEntityMixin",
+    "BlockEntityTypeMixin",
     "BlockItemMixin",
     "BlocksMixin",
     "CauldronMixin",
