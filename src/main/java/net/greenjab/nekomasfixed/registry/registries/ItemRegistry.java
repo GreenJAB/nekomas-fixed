@@ -95,10 +95,10 @@ public class ItemRegistry {
     public static final Item CROWN_SMITHING_TEMPLATE = register(
             "crown_smithing_template", settings -> new SmithingTemplateItem(
                     Text.translatable(
-                            Util.createTranslationKey("item", NekomasFixed.id("boat"))
+                            Util.createTranslationKey("item", NekomasFixed.id("helmets"))
                     ).formatted(Formatting.BLUE),
                     Text.translatable(
-                            Util.createTranslationKey("item", NekomasFixed.id("planks"))
+                            Util.createTranslationKey("item", NekomasFixed.id("nether_heart"))
                     ).formatted(Formatting.BLUE),
                     Text.of(""),
                     Text.of(""),
