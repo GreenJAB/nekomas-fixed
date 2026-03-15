@@ -245,8 +245,7 @@ public class BlockRegistry {
                     .sounds(BlockSoundGroup.WOOL)
                     .burnable());
 
-    public static final Block AMBER_SHULKER_BOX = register("amber_shulker_box", (settings) -> new ShulkerBoxBlock(DyeColor.YELLOW, settings),
-            createShulkerBoxSettings(MapColor.YELLOW));
+
 
 
     public static final Block WHITE_FROGLIGHT = register("white_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
