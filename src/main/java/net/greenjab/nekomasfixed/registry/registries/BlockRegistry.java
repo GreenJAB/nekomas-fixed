@@ -10,6 +10,8 @@ import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.greenjab.nekomasfixed.util.ModColors;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
@@ -243,6 +245,10 @@ public class BlockRegistry {
                     .sounds(BlockSoundGroup.WOOL)
                     .burnable());
 
+    public static final Block AMBER_SHULKER_BOX = register("amber_shulker_box", (settings) -> new ShulkerBoxBlock(DyeColor.YELLOW, settings),
+            createShulkerBoxSettings(MapColor.YELLOW));
+
+
     public static final Block WHITE_FROGLIGHT = register("white_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
     public static final Block LIGHT_GRAY_FROGLIGHT = register("light_gray_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
     public static final Block GRAY_FROGLIGHT = register("gray_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GRAY).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
@@ -342,6 +348,19 @@ public class BlockRegistry {
                         .burnable()
                         .pistonBehavior(PistonBehavior.DESTROY)
         );
+    }
+
+    private static final AbstractBlock.ContextPredicate SHULKER_BOX_SUFFOCATES_PREDICATE = (state, world, pos) -> {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
+            return shulkerBoxBlockEntity.suffocates();
+        } else {
+            return true;
+        }
+    };
+
+    private static AbstractBlock.Settings createShulkerBoxSettings(MapColor mapColor) {
+        return AbstractBlock.Settings.create().mapColor(mapColor).solid().strength(2.0F).dynamicBounds().nonOpaque().suffocates(SHULKER_BOX_SUFFOCATES_PREDICATE).blockVision(SHULKER_BOX_SUFFOCATES_PREDICATE).pistonBehavior(PistonBehavior.DESTROY);
     }
 
 

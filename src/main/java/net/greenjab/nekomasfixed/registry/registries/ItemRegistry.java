@@ -263,6 +263,8 @@ public class ItemRegistry {
     public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
     public static final Item AQUA_DYE = registerDye("aqua_dye", DyeColor.LIGHT_BLUE);
 
+    public static final Item AMBER_SHULKER_BOX = register(BlockRegistry.AMBER_SHULKER_BOX);
+
     public static final Item SOULFIRE_SHIELD = register(
             "soulfire_shield",
             SoulfireShieldItem::new,
