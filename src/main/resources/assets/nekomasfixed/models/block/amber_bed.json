@@ -1,5 +1,6 @@
 {
   "textures": {
+    "bed": "nekomasfixed:amber",
     "particle": "minecraft:block/oak_planks"
   }
 }
