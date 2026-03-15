@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "T": "minecraft:trident",
+    "N": "minecraft:netherite_ingot",
+    "H": "nekomasfixed:nether_heart"
+  },
+  "pattern": [
+    "TH ",
+    "N  ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:soulfire_trident"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "#S#",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "#": "minecraft:diamond",
+    "C": "minecraft:blaze_rod",
+    "S": "nekomasfixed:jewel_armor_trim_smithing_template"
+  },
+  "result": {
+    "id": "nekomasfixed:jewel_armor_trim_smithing_template",
+    "count": 2
+  }
+}

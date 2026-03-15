@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crimson_dye",
+  "ingredients": [
+    "nekomasfixed:crimson_dye",
+    "minecraft:candle"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:crimson_candle"
+  }
+}

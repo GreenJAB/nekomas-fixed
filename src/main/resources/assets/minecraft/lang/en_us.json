@@ -1,3 +1,6 @@
 {
-  "block.minecraft.clock": "Clock"
+  "block.minecraft.clock": "Clock",
+  "block.minecraft.ochre_froglight": "Yellow Froglight",
+  "block.minecraft.pearlescent_froglight": "Magenta Froglight",
+  "block.minecraft.verdant_froglight": "Green Froglight"
 }

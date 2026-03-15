@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "amber_dye",
+  "ingredients": [
+    "nekomasfixed:amber_dye",
+    "minecraft:candle"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:amber_candle"
+  }
+}

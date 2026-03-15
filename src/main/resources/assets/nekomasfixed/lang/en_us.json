@@ -55,6 +55,7 @@
   "item.nekomasfixed.boat_upgrade_template": "Boat Upgrade Template",
 
   "item.nekomasfixed.boat": "Boats",
+  "item.nekomasfixed.helmets": "Helmets",
 
   "item.nekomasfixed.planks": "Wooden Planks",
 
@@ -73,6 +74,8 @@
   "item.nekomasfixed.turtle_leggings": "Turtle Leggings",
   "item.nekomasfixed.turtle_boots": "Turtle Boots",
 
+  "item_nekomasfixed.netherite_crown": "Netherite Crown",
+
   "item.nekomasfixed.target_dummy": "Target Dummy",
   "entity.nekomasfixed.target_dummy": "Target Dummy",
   "block.nekomasfixed.enderman_head": "Enderman Head",
@@ -83,12 +86,17 @@
   "item.nekomasfixed.wild_fire_spawn_egg": "Wild Fire Spawn Egg",
   "item.nekomasfixed.nether_heart": "Heart Of The Nether",
 
-  "item.nekomasfixed.wild_fire_smithing_template": "Wild Fire Armor Trim",
-  "item.nekomasfixed.wild_fire_smithing_template.new": "Wild Fire Armor Trim",
-  "trim_pattern.nekomasfixed.wild_fire_trim": "Wild Fire Armor Trim",
+  "item.nekomasfixed.jewel_armor_trim_smithing_template": "Jewel Armor Trim",
+  "item.nekomasfixed.jewel_armor_trim_smithing_template.new": "Jewel Armor Trim",
+  "trim_pattern.nekomasfixed:jewel": "Jewel Armor Trim",
   "item.nekomasfixed.soulfire_trident": "Soulfire Trident",
   "item.nekomasfixed.soulfire_shield": "Soulfire Shield",
 
+  "item.nekomasfixed.netherite_crown": "Netherite Crown",
+  "item.nekomasfixed.copper_crown": "Copper Crown",
+  "item.nekomasfixed.iron_crown": "Iron Crown",
+  "item.nekomasfixed.diamond_crown": "Diamond Crown",
+  "item.nekomasfixed.golden_crown": "Golden Crown",
 
   "item.nekomasfixed.iron_sickle": "Iron Sickle",
   "item.nekomasfixed.wooden_sickle": "Wooden Sickle",
@@ -108,6 +116,24 @@
   "item.nekomasfixed.indigo_dye": "Indigo Dye",
   "item.nekomasfixed.crimson_dye": "Crimson Dye",
   "item.nekomasfixed.aqua_dye": "Aqua Dye",
+
+  "block.nekomasfixed.white_froglight": "White Froglight",
+  "block.nekomasfixed.light_gray_froglight": "Light gray Froglight",
+  "block.nekomasfixed.gray_froglight": "Gray Froglight",
+  "block.nekomasfixed.black_froglight": "Black Froglight",
+  "block.nekomasfixed.brown_froglight": "Brown Froglight",
+  "block.nekomasfixed.red_froglight": "Red Froglight",
+  "block.nekomasfixed.orange_froglight": "Orange Froglight",
+  "block.nekomasfixed.lime_froglight": "Lime Froglight",
+  "block.nekomasfixed.cyan_froglight": "Cyan Froglight",
+  "block.nekomasfixed.light_blue_froglight": "Light blue Froglight",
+  "block.nekomasfixed.blue_froglight": "Blue Froglight",
+  "block.nekomasfixed.purple_froglight": "Purple Froglight",
+  "block.nekomasfixed.pink_froglight": "Pink Froglight",
+  "block.nekomasfixed.amber_froglight": "Amber Froglight",
+  "block.nekomasfixed.aqua_froglight": "Aqua Froglight",
+  "block.nekomasfixed.crimson_froglight": "Crimson Froglight",
+  "block.nekomasfixed.indigo_froglight": "Indigo Froglight",
 
   "block.nekomasfixed.amber_terracotta": "Amber Terracotta",
   "block.nekomasfixed.indigo_terracotta": "Indigo Terracotta",
@@ -129,6 +155,26 @@
   "block.nekomasfixed.crimson_concrete": "Crimson Concrete",
   "block.nekomasfixed.indigo_concrete": "Indigo Concrete",
 
+  "item.nekomasfixed.amber_harness": "Amber Harness",
+  "item.nekomasfixed.aqua_harness": "Aqua Harness",
+  "item.nekomasfixed.crimson_harness": "Crimson Harness",
+  "item.nekomasfixed.indigo_harness": "Indigo Harness",
+
+  "item.nekomasfixed.amber_candle": "Amber Harness",
+  "item.nekomasfixed.Aqua_candle": "Aqua Harness",
+  "item.nekomasfixed.indigo_candle": "Indigo Harness",
+  "item.nekomasfixed.crimson_candle": "Crimson Harness",
+
+  "block.nekomasfixed.amber_candle": "Amber Candle",
+  "block.nekomasfixed.aqua_candle": "Aqua Candle",
+  "block.nekomasfixed.indigo_candle": "Indigo Candle",
+  "block.nekomasfixed.crimson_candle": "Crimson Candle",
+
+  "block.nekomasfixed.amber_bed": "Amber Bed",
+  "block.nekomasfixed.aqua_bed": "Aqua Bed",
+  "block.nekomasfixed.indigo_bed": "Indigo Bed",
+  "block.nekomasfixed.crimson_bed": "Crimson Bed",
+
   "block.nekomasfixed.amber_concrete_powder": "Amber Concrete Powder",
   "block.nekomasfixed.aqua_concrete_powder": "Aqua Concrete Powder",
   "block.nekomasfixed.crimson_concrete_powder": "Crimson Concrete Powder",
@@ -138,6 +184,8 @@
   "block.nekomasfixed.aqua_carpet": "Aqua Carpet",
   "block.nekomasfixed.crimson_carpet": "Crimson Carpet",
   "block.nekomasfixed.indigo_carpet": "Indigo Carpet",
+
+  "item.nekomasfixed.crown_smithing_template": "Crown Smithing Template",
 
 
   "item.minecraft.firework_star.indigo": "Indigo",

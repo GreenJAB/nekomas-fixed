@@ -4,10 +4,13 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "AbstractFurnaceScreenMixin",
+    "BedBlockEntityRendererMixin",
+    "BedBlockEntityRenderStateMixin",
     "BipedEntityModelMixin",
     "BipedEntityRendererMixin",
     "ClientPlayerInteractionManagerMixin",
     "EntityModelsMixin",
+    "EquipmentAssetProviderMixin",
     "EquipmentRendererMixin",
     "FireCommandRendererMixin",
     "HeldItemRendererMixin",
@@ -21,5 +24,7 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+  ]
 }

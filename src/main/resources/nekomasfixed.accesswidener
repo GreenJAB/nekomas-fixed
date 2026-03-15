@@ -9,3 +9,4 @@ accessible method net/minecraft/structure/StructurePiece fillWithOutline (Lnet/m
 accessible method net/minecraft/structure/StructurePiece addBlock (Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/block/BlockState;IIILnet/minecraft/util/math/BlockBox;)V
 accessible method net/minecraft/structure/StructurePiece offsetPos (III)Lnet/minecraft/util/math/BlockPos$Mutable;
 accessible class net/minecraft/block/spawner/TrialSpawnerConfigs$ConfigKeyPair
+accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory

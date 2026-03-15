@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "nekomasfixed:item/indigo_bed",
+    "model": {
+      "type": "minecraft:bed",
+      "texture": "nekomasfixed:indigo"
+    }
+  }
+}

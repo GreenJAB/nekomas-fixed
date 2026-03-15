@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "nekomasfixed:netherite_crown",
+    "nekomasfixed:copper_crown",
+    "nekomasfixed:golden_crown",
+    "nekomasfixed:iron_crown",
+    "nekomasfixed:diamond_crown"
+  ]
+}

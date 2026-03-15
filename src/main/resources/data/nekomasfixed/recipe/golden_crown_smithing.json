@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "nekomasfixed:nether_heart",
+  "base": "minecraft:golden_helmet",
+  "result": {
+    "id": "nekomasfixed:golden_crown"
+  },
+  "template": "nekomasfixed:crown_smithing_template"
+}

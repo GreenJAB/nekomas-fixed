@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "axis=x": {
+            "model": "minecraft:block/blue_froglight_horizontal",
+            "x": 90,
+            "y": 90
+        },
+        "axis=y": {
+            "model": "minecraft:block/blue_froglight"
+        },
+        "axis=z": {
+            "model": "minecraft:block/blue_froglight_horizontal",
+            "x": 90
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "axis=x": {
+            "model": "minecraft:block/lime_froglight_horizontal",
+            "x": 90,
+            "y": 90
+        },
+        "axis=y": {
+            "model": "minecraft:block/lime_froglight"
+        },
+        "axis=z": {
+            "model": "minecraft:block/lime_froglight_horizontal",
+            "x": 90
+        }
+    }
+}
