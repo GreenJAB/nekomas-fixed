@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/template_bed",
+  "textures": {
+    "bed": "nekomasfixed:entity/bed/aqua",
+    "particle": "minecraft:block/oak_planks"
+  }
+}
