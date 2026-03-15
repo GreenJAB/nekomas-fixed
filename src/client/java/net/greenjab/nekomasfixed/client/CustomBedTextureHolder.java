@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.mixin.client;
+package net.greenjab.nekomasfixed.client;
 
 import net.minecraft.client.util.SpriteIdentifier;
 

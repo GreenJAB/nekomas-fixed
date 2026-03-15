@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
+import net.greenjab.nekomasfixed.client.CustomBedTextureHolder;
 import net.minecraft.client.render.block.entity.state.BedBlockEntityRenderState;
 import net.minecraft.client.util.SpriteIdentifier;
 import org.spongepowered.asm.mixin.Mixin;

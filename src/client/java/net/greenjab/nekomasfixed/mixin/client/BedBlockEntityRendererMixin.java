@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 
+import net.greenjab.nekomasfixed.client.CustomBedTextureHolder;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.client.render.TexturedRenderLayers;
