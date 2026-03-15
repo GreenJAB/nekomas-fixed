@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "AbstractFurnaceScreenMixin",
+    "BedBlockEntityRendererMixin",
+    "BedBlockEntityRenderStateMixin",
     "BipedEntityModelMixin",
     "BipedEntityRendererMixin",
     "ClientPlayerInteractionManagerMixin",
