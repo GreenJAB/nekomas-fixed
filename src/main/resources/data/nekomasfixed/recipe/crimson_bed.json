@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "#minecraft:planks",
+    "D": "nekomasfixed:crimson_wool"
+  },
+  "pattern": [
+    "DDD",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nekomasfixed:crimson_bed"
+  }
+}
