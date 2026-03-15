@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "nekomasfixed:block/amber_bed"
+      "model": "nekomasfixed:entity/bed/amber_bed"
     }
   }
 }
