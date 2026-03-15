@@ -6,7 +6,7 @@
     "H": "nekomasfixed:nether_heart"
   },
   "pattern": [
-    "#T#",
+    "#H#",
     "###",
     " # "
   ],

@@ -86,9 +86,9 @@
   "item.nekomasfixed.wild_fire_spawn_egg": "Wild Fire Spawn Egg",
   "item.nekomasfixed.nether_heart": "Heart Of The Nether",
 
-  "item.nekomasfixed.wild_fire_smithing_template": "Wild Fire Armor Trim",
-  "item.nekomasfixed.wild_fire_smithing_template.new": "Wild Fire Armor Trim",
-  "trim_pattern.nekomasfixed.wild_fire_trim": "Wild Fire Armor Trim",
+  "item.nekomasfixed.jewel_armor_trim_smithing_template": "Jewel Armor Trim",
+  "item.nekomasfixed.jewel_armor_trim_smithing_template.new": "Jewel Armor Trim",
+  "trim_pattern.nekomasfixed:jewel": "Jewel Armor Trim",
   "item.nekomasfixed.soulfire_trident": "Soulfire Trident",
   "item.nekomasfixed.soulfire_shield": "Soulfire Shield",
 
