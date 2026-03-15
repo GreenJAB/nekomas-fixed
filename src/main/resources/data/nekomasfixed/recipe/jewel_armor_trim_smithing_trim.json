@@ -2,7 +2,7 @@
   "type": "minecraft:smithing_trim",
   "addition": "#minecraft:trim_materials",
   "base": "#minecraft:trimmable_armor",
-  "pattern": "nekomasfixed:wild_fire_trim",
-  "template": "nekomasfixed:wild_fire_smithing_template"
+  "pattern": "nekomasfixed:jewel",
+  "template": "nekomasfixed:jewel_armor_trim_smithing_template"
 
 }

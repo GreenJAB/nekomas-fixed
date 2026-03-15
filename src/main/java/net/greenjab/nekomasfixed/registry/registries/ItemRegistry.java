@@ -8,30 +8,23 @@ import net.greenjab.nekomasfixed.util.ModColors;
 import net.greenjab.nekomasfixed.util.ModEquipmentAssetKeys;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.BedPart;
-import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.*;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.waypoint.Waypoint;
-
 
 import java.util.List;
 import java.util.Map;
@@ -117,12 +110,10 @@ public class ItemRegistry {
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
 
-    public static final Item WILD_FIRE_SMITHING_TEMPLATE = register(
-            "wild_fire_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
+    public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register(
+            "jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
-//    public static final TagKey<Item> NETHERITE_REPAIR_TAG =
-//            TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "netherite_ingots")); // or use vanilla tag
 
     public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(
             37,

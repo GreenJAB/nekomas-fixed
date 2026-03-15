@@ -9,10 +9,10 @@
   "key": {
     "#": "minecraft:diamond",
     "C": "minecraft:blaze_rod",
-    "S": "nekomasfixed:wild_fire_smithing_template"
+    "S": "nekomasfixed:jewel_armor_trim_smithing_template"
   },
   "result": {
-    "id": "nekomasfixed:wild_fire_smithing_template",
+    "id": "nekomasfixed:jewel_armor_trim_smithing_template",
     "count": 2
   }
 }

@@ -53,7 +53,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.SLINGSHOT);
 
                         entries.add(ItemRegistry.WILD_FIRE_SPAWN_EGG);
-                        entries.add(ItemRegistry.WILD_FIRE_SMITHING_TEMPLATE);
+                        entries.add(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE);
                         entries.add(ItemRegistry.NETHER_HEART);
                         entries.add(ItemRegistry.SOULFIRE_TRIDENT);
                         entries.add(ItemRegistry.SOULFIRE_SHIELD);

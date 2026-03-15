@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "nekomasfixed:item/golded_crown"
+    "layer0": "nekomasfixed:item/golden_crown"
   }
 }
