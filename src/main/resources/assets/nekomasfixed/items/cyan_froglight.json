@@ -1,6 +1,6 @@
 {
     "model": {
         "type": "minecraft:model",
-        "model": "minecraft:block/cyan_froglight"
+        "model": "nekomasfixed:block/cyan_froglight"
     }
 }

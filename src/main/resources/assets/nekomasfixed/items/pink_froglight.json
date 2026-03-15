@@ -1,6 +1,6 @@
 {
     "model": {
         "type": "minecraft:model",
-        "model": "minecraft:block/pink_froglight"
+        "model": "nekomasfixed:block/pink_froglight"
     }
 }

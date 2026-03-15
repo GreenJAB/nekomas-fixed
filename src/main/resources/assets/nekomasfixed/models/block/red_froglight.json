@@ -1,7 +1,7 @@
 {
     "parent": "minecraft:block/cube_column",
     "textures": {
-        "end": "minecraft:block/red_froglight_top",
-        "side": "minecraft:block/red_froglight_side"
+        "end": "nekomasfixed:block/red_froglight_top",
+        "side": "nekomasfixed:block/red_froglight_side"
     }
 }
