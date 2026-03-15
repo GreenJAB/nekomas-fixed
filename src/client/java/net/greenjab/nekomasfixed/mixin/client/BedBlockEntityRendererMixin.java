@@ -41,6 +41,33 @@ public class BedBlockEntityRendererMixin {
                     )
             );
         }
+        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AQUA_BED) {
+
+            ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
+                    new SpriteIdentifier(
+                            TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
+                            Identifier.of("nekomasfixed","entity/bed/aqua")
+                    )
+            );
+        }
+        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.CRIMSON_BED) {
+
+            ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
+                    new SpriteIdentifier(
+                            TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
+                            Identifier.of("nekomasfixed","entity/bed/crimson")
+                    )
+            );
+        }
+        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.INDIGO_BED) {
+
+            ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
+                    new SpriteIdentifier(
+                            TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
+                            Identifier.of("nekomasfixed","entity/bed/indigo")
+                    )
+            );
+        }
     }
 
     @Inject(method = "render", at = @At("HEAD"))
@@ -55,7 +82,7 @@ public class BedBlockEntityRendererMixin {
                 ((CustomBedTextureHolder) state).nekomasfixed$getCustomTexture();
 
         if (custom != null) {
-            System.out.println("Rendering amber bed with custom texture");
+            System.out.println("Rendering custom textures");
         }
     }
 
