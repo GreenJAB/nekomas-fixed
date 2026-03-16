@@ -43,6 +43,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
                 player.equipStack(EquipmentSlot.FEET, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
+            if(!armorStandEntity.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() && !player.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty()){
+                ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.MAINHAND);
+                armorStandEntity.equipStack(EquipmentSlot.MAINHAND, player.getEquippedStack(EquipmentSlot.MAINHAND));
+                player.equipStack(EquipmentSlot.MAINHAND, tempItem);
+                cir.setReturnValue(ActionResult.SUCCESS);
+            }
         }
     }
 }
