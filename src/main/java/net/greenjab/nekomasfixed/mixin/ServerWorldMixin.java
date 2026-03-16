@@ -7,6 +7,8 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -29,6 +31,9 @@ abstract
 class ServerWorldMixin {
     @Shadow
     public abstract @Nullable ServerPlayerEntity getRandomAlivePlayer();
+
+    @Shadow
+    public abstract <T extends ParticleEffect> int spawnParticles(T parameters, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double speed);
 
     @Inject(method = "tickThunder", at = @At("HEAD"), cancellable = true)
     private void tickThunder(WorldChunk chunk, CallbackInfo ci) {
@@ -54,6 +59,7 @@ class ServerWorldMixin {
                     StatusEffectInstance stH = new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1*20, 3, false, false, false);
                     player.addStatusEffect(st);
                     player.addStatusEffect(stH);
+                    this.spawnParticles(ParticleTypes.CRIT, player.getX(), player.getY(), player.getZ(), 8, player.getX()+2.0, player.getY()-2.0, player.getZ()+2.0, 1.0d);
                     serverWorld.spawnEntity(lightningEntity);
                 }
             }
