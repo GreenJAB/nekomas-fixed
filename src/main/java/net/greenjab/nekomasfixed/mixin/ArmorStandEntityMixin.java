@@ -19,25 +19,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
     private void interactAt(PlayerEntity player, Vec3d hitPos, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if(player!=null && player.isSneaking()){
             ArmorStandEntity armorStandEntity = (ArmorStandEntity) (Object) this;
-            if(armorStandEntity.getEquippedStack(EquipmentSlot.HEAD).isIn(ItemTags.HEAD_ARMOR)){
+            if(armorStandEntity.getEquippedStack(EquipmentSlot.HEAD).isIn(ItemTags.HEAD_ARMOR) || player.getEquippedStack(EquipmentSlot.HEAD).isIn(ItemTags.HEAD_ARMOR)){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.HEAD);
                 armorStandEntity.equipStack(EquipmentSlot.HEAD, player.getEquippedStack(EquipmentSlot.HEAD));
                 player.equipStack(EquipmentSlot.HEAD, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-            if(armorStandEntity.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR) ){
+            if(armorStandEntity.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR) || player.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR)){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.CHEST);
                 armorStandEntity.equipStack(EquipmentSlot.CHEST, player.getEquippedStack(EquipmentSlot.CHEST));
                 player.equipStack(EquipmentSlot.CHEST, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-            if(armorStandEntity.getEquippedStack(EquipmentSlot.LEGS).isIn(ItemTags.LEG_ARMOR) ){
+            if(armorStandEntity.getEquippedStack(EquipmentSlot.LEGS).isIn(ItemTags.LEG_ARMOR) || player.getEquippedStack(EquipmentSlot.LEGS).isIn(ItemTags.LEG_ARMOR)){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.LEGS);
                 armorStandEntity.equipStack(EquipmentSlot.LEGS, player.getEquippedStack(EquipmentSlot.LEGS));
                 player.equipStack(EquipmentSlot.LEGS, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-            if(armorStandEntity.getEquippedStack(EquipmentSlot.FEET).isIn(ItemTags.FOOT_ARMOR)){
+            if(armorStandEntity.getEquippedStack(EquipmentSlot.FEET).isIn(ItemTags.FOOT_ARMOR) || player.getEquippedStack(EquipmentSlot.FEET).isIn(ItemTags.FOOT_ARMOR)){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.FEET);
                 armorStandEntity.equipStack(EquipmentSlot.FEET, player.getEquippedStack(EquipmentSlot.FEET));
                 player.equipStack(EquipmentSlot.FEET, tempItem);
