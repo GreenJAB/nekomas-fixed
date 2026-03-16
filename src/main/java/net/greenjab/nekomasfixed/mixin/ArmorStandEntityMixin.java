@@ -43,7 +43,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
                 player.equipStack(EquipmentSlot.FEET, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-            cir.setReturnValue(ActionResult.FAIL);
         }
     }
 }
