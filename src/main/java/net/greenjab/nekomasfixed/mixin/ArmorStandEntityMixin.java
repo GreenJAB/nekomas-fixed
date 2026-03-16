@@ -43,6 +43,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
                 player.equipStack(EquipmentSlot.FEET, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
+            //this doesnt works but at the moment i am too lazy to remove it - plz let it stay
             if(!armorStandEntity.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() && !player.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty()){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.MAINHAND);
                 armorStandEntity.equipStack(EquipmentSlot.MAINHAND, player.getEquippedStack(EquipmentSlot.MAINHAND));
