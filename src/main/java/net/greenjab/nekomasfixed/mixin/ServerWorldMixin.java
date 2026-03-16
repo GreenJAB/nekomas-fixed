@@ -1,10 +1,12 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +27,6 @@ import java.util.Objects;
 @Mixin(ServerWorld.class)
 abstract
 class ServerWorldMixin {
-
     @Shadow
     public abstract @Nullable ServerPlayerEntity getRandomAlivePlayer();
 
@@ -36,8 +37,16 @@ class ServerWorldMixin {
         boolean bl = serverWorld.isRaining();
         Profiler profiler = Profilers.get();
         profiler.push("thunder");
-        if (bl && serverWorld.isThundering() && serverWorld.random.nextInt(10000) == 0) {
-            BlockPos blockPos = Objects.requireNonNull(this.getRandomAlivePlayer()).getBlockPos();
+        ServerPlayerEntity player = this.getRandomAlivePlayer();
+        if (bl && serverWorld.isThundering() && serverWorld.random.nextInt(10000) == 0 &&
+               player.getEquippedStack(EquipmentSlot.HEAD).isOf(Items.COPPER_HELMET)&&
+               player.getEquippedStack(EquipmentSlot.CHEST).isOf(Items.COPPER_CHESTPLATE)&&
+               player.getEquippedStack(EquipmentSlot.LEGS).isOf(Items.COPPER_LEGGINGS)&&
+               player.getEquippedStack(EquipmentSlot.FEET).isOf(Items.COPPER_BOOTS)
+
+        )
+        {
+            BlockPos blockPos = Objects.requireNonNull(player).getBlockPos();
             if (serverWorld.hasRain(blockPos)) {
                 LightningEntity lightningEntity = (LightningEntity)EntityType.LIGHTNING_BOLT.create(serverWorld, SpawnReason.EVENT);
                 if (lightningEntity != null) {
