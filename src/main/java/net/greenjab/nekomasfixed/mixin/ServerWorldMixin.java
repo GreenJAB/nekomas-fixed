@@ -43,7 +43,6 @@ class ServerWorldMixin {
                player.getEquippedStack(EquipmentSlot.CHEST).isOf(Items.COPPER_CHESTPLATE)&&
                player.getEquippedStack(EquipmentSlot.LEGS).isOf(Items.COPPER_LEGGINGS)&&
                player.getEquippedStack(EquipmentSlot.FEET).isOf(Items.COPPER_BOOTS)
-
         )
         {
             BlockPos blockPos = Objects.requireNonNull(player).getBlockPos();
@@ -52,7 +51,9 @@ class ServerWorldMixin {
                 if (lightningEntity != null) {
                     lightningEntity.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(blockPos));
                     StatusEffectInstance st = new StatusEffectInstance(StatusEffects.SPEED, 10*20, 4, false, false, false);
-                    this.getRandomAlivePlayer().addStatusEffect(st);
+                    StatusEffectInstance stH = new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1*20, 3, false, false, false);
+                    player.addStatusEffect(st);
+                    player.addStatusEffect(stH);
                     serverWorld.spawnEntity(lightningEntity);
                 }
             }
