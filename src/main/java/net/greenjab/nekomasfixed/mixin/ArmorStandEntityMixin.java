@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
                 player.equipStack(EquipmentSlot.HEAD, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-            if(armorStandEntity.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.HEAD_ARMOR)){
+            if(armorStandEntity.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR)){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.CHEST);
                 armorStandEntity.equipStack(EquipmentSlot.CHEST, player.getEquippedStack(EquipmentSlot.CHEST));
                 player.equipStack(EquipmentSlot.CHEST, tempItem);
@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
                 player.equipStack(EquipmentSlot.LEGS, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-            if(armorStandEntity.getEquippedStack(EquipmentSlot.FEET).isIn(ItemTags.FOOT_ARMOR) && player.getEquippedStack(EquipmentSlot.HEAD).isIn(ItemTags.FOOT_ARMOR)){
+            if(armorStandEntity.getEquippedStack(EquipmentSlot.FEET).isIn(ItemTags.FOOT_ARMOR) && player.getEquippedStack(EquipmentSlot.FEET).isIn(ItemTags.FOOT_ARMOR)){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.FEET);
                 armorStandEntity.equipStack(EquipmentSlot.FEET, player.getEquippedStack(EquipmentSlot.FEET));
                 player.equipStack(EquipmentSlot.FEET, tempItem);
