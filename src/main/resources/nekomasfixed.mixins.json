@@ -27,6 +27,7 @@
     "PlayerEntityInterfaceMixin",
     "PlayerEntityMixin",
     "RecipeBookTypeInvoker",
+    "ServerWorldMixin",
     "SignTextMixin",
     "SnifferEntityAccessor",
     "SnifferEntityMixin",
