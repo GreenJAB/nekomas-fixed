@@ -34,8 +34,6 @@ class ServerWorldMixin {
         ChunkPos chunkPos = chunk.getPos();
         ServerWorld serverWorld = (ServerWorld) (Object)this;
         boolean bl = serverWorld.isRaining();
-        int i = chunkPos.getStartX();
-        int j = chunkPos.getStartZ();
         Profiler profiler = Profilers.get();
         profiler.push("thunder");
         if (bl && serverWorld.isThundering() && serverWorld.random.nextInt(10000) == 0) {
