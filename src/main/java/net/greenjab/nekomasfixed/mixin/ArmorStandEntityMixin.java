@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
                 player.equipStack(EquipmentSlot.HEAD, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-            if(armorStandEntity.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR)){
+            if(armorStandEntity.getEquippedStack(EquipmentSlot.CHEST).isIn(ItemTags.CHEST_ARMOR) ){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.CHEST);
                 armorStandEntity.equipStack(EquipmentSlot.CHEST, player.getEquippedStack(EquipmentSlot.CHEST));
                 player.equipStack(EquipmentSlot.CHEST, tempItem);
