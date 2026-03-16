@@ -59,7 +59,6 @@ class ServerWorldMixin {
                     StatusEffectInstance stH = new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1*20, 3, false, false, false);
                     player.addStatusEffect(st);
                     player.addStatusEffect(stH);
-                    this.spawnParticles(ParticleTypes.CRIT, player.getX(), player.getY(), player.getZ(), 8, player.getX()+2.0, player.getY()-2.0, player.getZ()+2.0, 1.0d);
                     serverWorld.spawnEntity(lightningEntity);
                 }
             }
