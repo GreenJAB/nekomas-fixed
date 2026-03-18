@@ -379,6 +379,7 @@ public class ItemRegistry {
     public static final Item INDIGO_BED = register(BlockRegistry.INDIGO_BED, BedItem::new, (new Item.Settings()).maxCount(1));
     public static final Item CRIMSON_BED = register(BlockRegistry.CRIMSON_BED, BedItem::new, (new Item.Settings()).maxCount(1));
 
+    public  static final Item LIGHTNING_BOTLE = register("lightning_bottle", PotionItem::new ,(new Item.Settings()).maxCount(1).component(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT));
 
 
 //    ------------------------------------------------------------------------------------------

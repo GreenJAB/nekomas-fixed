@@ -56,7 +56,7 @@ class ServerWorldMixin {
                 if (lightningEntity != null) {
                     lightningEntity.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(blockPos));
                     StatusEffectInstance st = new StatusEffectInstance(StatusEffects.SPEED, 10*20, 4, false, false, false);
-                    StatusEffectInstance stH = new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1*20, 3, false, false, false);
+                    StatusEffectInstance stH = new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1*20, 2, false, false, false);
                     player.addStatusEffect(st);
                     player.addStatusEffect(stH);
                     serverWorld.spawnEntity(lightningEntity);
