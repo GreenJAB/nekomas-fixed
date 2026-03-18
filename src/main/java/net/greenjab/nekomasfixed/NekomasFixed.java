@@ -7,6 +7,7 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModRecipeBookCategories;
 import net.greenjab.nekomasfixed.util.ModRecipeType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
