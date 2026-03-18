@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -142,7 +143,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.INDIGO_BED);
                         entries.add(ItemRegistry.CRIMSON_BED);
 
-                        entries.add(ItemRegistry.LIGHTNING_BOTLE);
+                        entries.add((ItemConvertible) ItemRegistry.LIGHTNING_BOTTLE);
 
 
 

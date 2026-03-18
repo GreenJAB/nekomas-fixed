@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.effect.LightningEffect;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.HarnessHelper;
@@ -12,15 +13,21 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
+import net.minecraft.potion.Potion;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stat;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.Direction;
@@ -379,8 +386,23 @@ public class ItemRegistry {
     public static final Item INDIGO_BED = register(BlockRegistry.INDIGO_BED, BedItem::new, (new Item.Settings()).maxCount(1));
     public static final Item CRIMSON_BED = register(BlockRegistry.CRIMSON_BED, BedItem::new, (new Item.Settings()).maxCount(1));
 
-    public  static final Item LIGHTNING_BOTLE = register("lightning_bottle", PotionItem::new ,(new Item.Settings()).maxCount(1).component(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT));
+    //Status Effect for this - idk where to put this
+    public static final StatusEffect LIGHTNING_EFFECT = Registry.register(
+            Registries.STATUS_EFFECT,
+            Identifier.of("nekomasfixed", "lightning"),
+            new LightningEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00)
+    );
 
+    public static final Potion LIGHTNING_BOTTLE = Registry.register(
+            Registries.POTION,
+            Identifier.of("nekomasfixed", "lightning_bottle"),
+            new Potion(
+                    new StatusEffectInstance(
+                            Registries.STATUS_EFFECT.getEntry(LIGHTNING_EFFECT),
+                            1
+                    ).toString()
+            )
+    );
 
 //    ------------------------------------------------------------------------------------------
 
