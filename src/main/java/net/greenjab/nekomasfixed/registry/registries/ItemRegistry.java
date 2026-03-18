@@ -386,23 +386,7 @@ public class ItemRegistry {
     public static final Item INDIGO_BED = register(BlockRegistry.INDIGO_BED, BedItem::new, (new Item.Settings()).maxCount(1));
     public static final Item CRIMSON_BED = register(BlockRegistry.CRIMSON_BED, BedItem::new, (new Item.Settings()).maxCount(1));
 
-    //Status Effect for this - idk where to put this
-    public static final StatusEffect LIGHTNING_EFFECT = Registry.register(
-            Registries.STATUS_EFFECT,
-            Identifier.of("nekomasfixed", "lightning"),
-            new LightningEffect(StatusEffectCategory.BENEFICIAL, 0xFFFF00)
-    );
-
-    public static final Potion LIGHTNING_BOTTLE = Registry.register(
-            Registries.POTION,
-            Identifier.of("nekomasfixed", "lightning_bottle"),
-            new Potion(
-                    new StatusEffectInstance(
-                            Registries.STATUS_EFFECT.getEntry(LIGHTNING_EFFECT),
-                            1
-                    ).toString()
-            )
-    );
+    public static final Item LIGHTNING_BOTTLE = register("lightning_bottle", SplashPotionItem::new, new Item.Settings().maxCount(1).component(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT));
 
 //    ------------------------------------------------------------------------------------------
 
