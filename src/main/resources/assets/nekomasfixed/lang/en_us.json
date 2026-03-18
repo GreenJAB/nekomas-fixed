@@ -186,7 +186,7 @@
   "block.nekomasfixed.indigo_carpet": "Indigo Carpet",
 
   "item.nekomasfixed.crown_smithing_template": "Crown Smithing Template",
-  "item.nekomasfixed.lightning_bottle": "Bottle Of Lightning",
+  "item.nekomasfixed.lightning_bottle.effect.empty": "Bottle Of Lightning",
 
 
   "item.minecraft.firework_star.indigo": "Indigo",
