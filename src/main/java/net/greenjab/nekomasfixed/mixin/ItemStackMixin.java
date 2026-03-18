@@ -22,6 +22,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.util.math.random.RandomSplitter;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -81,6 +83,58 @@ public class ItemStackMixin {
 	@Inject(method = "useOnBlock", at = @At("HEAD"),cancellable = true)
 	public void useOnBlockCustom(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
 		ItemStack stack = (ItemStack)(Object)this;
+		Random rand = new Random() {
+			@Override
+			public Random split() {
+				return null;
+			}
+
+			@Override
+			public RandomSplitter nextSplitter() {
+				return null;
+			}
+
+			@Override
+			public void setSeed(long seed) {
+
+			}
+
+			@Override
+			public int nextInt() {
+				return 0;
+			}
+
+			@Override
+			public int nextInt(int bound) {
+				return 0;
+			}
+
+			@Override
+			public long nextLong() {
+				return 0;
+			}
+
+			@Override
+			public boolean nextBoolean() {
+				return false;
+			}
+
+			@Override
+			public float nextFloat() {
+				return 0;
+			}
+
+			@Override
+			public double nextDouble() {
+				return 0;
+			}
+
+			@Override
+			public double nextGaussian() {
+				return 0;
+			}
+		};
+
 		if(stack.isOf(Items.GLASS_BOTTLE)
 				&& context.getWorld().isRaining() &&
 				context.getWorld().isSkyVisible(context.getBlockPos()) &&
@@ -95,7 +149,7 @@ public class ItemStackMixin {
 				ItemStack stackNew = new ItemStack(ItemRegistry.LIGHTNING_BOTTLE);
 
                 assert player != null;
-				player.setStackInHand(Hand.MAIN_HAND,new ItemStack(Items.GLASS_BOTTLE));
+				player.clearActiveItem();
                 player.giveOrDropStack(stackNew);
 				cir.setReturnValue(ActionResult.PASS);
 			}

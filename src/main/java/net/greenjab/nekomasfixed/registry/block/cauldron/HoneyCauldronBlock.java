@@ -73,7 +73,6 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
         return behaviorMap;
     }
 
-    // New method to increment honey level
     public static void incrementHoneyLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand) {
         if (world.isClient()) return;
 
@@ -86,7 +85,6 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
         }
     }
 
-    // Overloaded method without player (for automatic filling)
     public static void incrementHoneyLevel(BlockState state, World world, BlockPos pos) {
         if (world.isClient()) return;
 
