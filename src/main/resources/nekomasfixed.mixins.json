@@ -31,6 +31,7 @@
     "SignTextMixin",
     "SnifferEntityAccessor",
     "SnifferEntityMixin",
+    "SplashPotionItemMixin",
     "TradeOffersMixin",
     "accessor.MobEntityAccessor",
     "boat.AbstractBoatEntityMixin",
