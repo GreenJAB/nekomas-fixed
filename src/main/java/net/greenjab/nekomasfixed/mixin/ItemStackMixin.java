@@ -3,18 +3,25 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.other.AnimalTooltipData;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LightningEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipData;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -67,6 +74,30 @@ public class ItemStackMixin {
 				stack.remove(OtherRegistry.STORED_TIME);
 			} else {
 				stack.set(OtherRegistry.STORED_TIME, new StoredTimeComponent((int) ((world.getTimeOfDay() + 6000) % 24000)));
+			}
+		}
+	}
+
+	@Inject(method = "useOnBlock", at = @At("HEAD"),cancellable = true)
+	public void useOnBlockCustom(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
+		ItemStack stack = (ItemStack)(Object)this;
+		if(stack.isOf(Items.GLASS_BOTTLE)
+				&& context.getWorld().isRaining() &&
+				context.getWorld().isSkyVisible(context.getBlockPos()) &&
+				context.getWorld().getBlockState(context.getBlockPos()).isOf(Blocks.LIGHTNING_ROD)){
+			LightningEntity lightningEntity = (LightningEntity) EntityType.LIGHTNING_BOLT.create(context.getWorld(), SpawnReason.EVENT);
+			if(lightningEntity!=null) {
+				lightningEntity.refreshPositionAfterTeleport(context.getHitPos());
+
+				context.getWorld().spawnEntity(lightningEntity);
+
+				PlayerEntity player = context.getPlayer();
+				ItemStack stackNew = new ItemStack(ItemRegistry.LIGHTNING_BOTTLE);
+
+                assert player != null;
+				player.setStackInHand(Hand.MAIN_HAND,new ItemStack(Items.GLASS_BOTTLE));
+                player.giveOrDropStack(stackNew);
+				cir.setReturnValue(ActionResult.PASS);
 			}
 		}
 	}
