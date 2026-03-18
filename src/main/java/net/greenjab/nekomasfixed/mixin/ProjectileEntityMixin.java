@@ -36,7 +36,9 @@ Vec3d pos = hitResult.getPos();
             lightningEntity.refreshPositionAfterTeleport(pos);
             world.spawnEntity(lightningEntity);
             if(projectileEntity.getOwner() instanceof PlayerEntity player){
+                System.out.println("yes its the player");
                 if(player.getBlockPos().isWithinDistance(projectileEntity.getVelocityAffectingPos(), 1.0d)){
+                    System.out.println("same block");
                     if(player.getEquippedStack(EquipmentSlot.HEAD).isOf(Items.COPPER_HELMET)&&
                             player.getEquippedStack(EquipmentSlot.CHEST).isOf(Items.COPPER_CHESTPLATE)&&
                             player.getEquippedStack(EquipmentSlot.LEGS).isOf(Items.COPPER_LEGGINGS)&&
