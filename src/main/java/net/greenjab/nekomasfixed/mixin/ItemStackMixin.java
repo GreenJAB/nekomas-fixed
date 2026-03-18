@@ -134,13 +134,12 @@ public class ItemStackMixin {
 				return 0;
 			}
 		};
-		rand.nextBetween(1,0);
 		if(stack.isOf(Items.GLASS_BOTTLE)
-				&& context.getWorld().isRaining() &&
+				&& context.getWorld().isThundering() &&
 				context.getWorld().isSkyVisible(context.getBlockPos()) &&
 				context.getWorld().getBlockState(context.getBlockPos()).isOf(Blocks.LIGHTNING_ROD)){
 			LightningEntity lightningEntity = (LightningEntity) EntityType.LIGHTNING_BOLT.create(context.getWorld(), SpawnReason.EVENT);
-			if(lightningEntity!=null && rand.equals((Object) 1)) {
+			if(lightningEntity!=null && rand.nextInt(4) == 0) {
 				lightningEntity.refreshPositionAfterTeleport(context.getHitPos());
 
 				context.getWorld().spawnEntity(lightningEntity);
