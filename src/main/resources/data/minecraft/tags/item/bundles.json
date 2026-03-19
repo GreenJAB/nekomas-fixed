@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "nekomasfixed:amber_bundle",
+    "nekomasfixed:aqua_bundle",
+    "nekomasfixed:indigo_bundle",
+    "nekomasfixed:crimson_bundle"
+  ]
+}

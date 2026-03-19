@@ -150,6 +150,8 @@ public class ItemGroupRegistry {
 
                         entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
 
+
+
                     }).build();
 
 

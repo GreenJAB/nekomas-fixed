@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ArmorStandEntityMixin",
+    "ArrowEntityMixin",
     "BeehiveBlockEntityMixin",
     "BlockEntityTypeMixin",
     "BlockItemMixin",
