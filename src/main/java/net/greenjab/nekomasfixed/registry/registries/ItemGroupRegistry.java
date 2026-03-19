@@ -142,6 +142,11 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.INDIGO_BED);
                         entries.add(ItemRegistry.CRIMSON_BED);
 
+                         entries.add(ItemRegistry.AMBER_BUNDLE);
+                         entries.add(ItemRegistry.AQUA_BUNDLE);
+                         entries.add(ItemRegistry.INDIGO_BUNDLE);
+                         entries.add(ItemRegistry.CRIMSON_BUNDLE);
+
 
                         entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
 

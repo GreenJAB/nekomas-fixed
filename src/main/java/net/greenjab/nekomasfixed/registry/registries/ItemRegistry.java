@@ -386,8 +386,11 @@ public class ItemRegistry {
     private static RegistryEntry<Potion> register(String name, Potion potion) {
         return Registry.registerReference(Registries.POTION, NekomasFixed.id(name), potion);
     }
-//amber
+
     public static final Item AMBER_BUNDLE = register("amber_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
+    public static final Item AQUA_BUNDLE = register("aqua_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
+    public static final Item INDIGO_BUNDLE = register("indigo_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
+    public static final Item CRIMSON_BUNDLE = register("crimson_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
 
 
 //    ------------------------------------------------------------------------------------------
