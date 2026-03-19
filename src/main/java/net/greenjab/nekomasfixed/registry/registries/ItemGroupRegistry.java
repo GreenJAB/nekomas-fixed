@@ -143,6 +143,9 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.INDIGO_BED);
                         entries.add(ItemRegistry.CRIMSON_BED);
 
+                         entries.add(ItemRegistry.AMBER_BUNDLE);
+
+
                         entries.add((ItemConvertible) ItemRegistry.LIGHTNING_BOTTLE);
 
 

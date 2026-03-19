@@ -388,6 +388,9 @@ public class ItemRegistry {
 
     public static final Item LIGHTNING_BOTTLE = register("lightning_bottle", SplashPotionItem::new, new Item.Settings().maxCount(1).component(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT));
 
+    public static final Item AMBER_BUNDLE = register("amber_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
+
+
 //    ------------------------------------------------------------------------------------------
 
 
