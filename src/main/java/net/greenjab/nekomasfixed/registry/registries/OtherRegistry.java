@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.other.LightningEffect;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireAttackablesSensor;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireDebugData;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
@@ -12,6 +13,8 @@ import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
@@ -23,6 +26,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.biome.BiomeKeys;
@@ -105,5 +109,12 @@ public class OtherRegistry {
     public static final DebugSubscriptionType<WildFireDebugData> WILDFIRES = registerDebug("wild_fires", WildFireDebugData.PACKET_CODEC);
     private static <T> DebugSubscriptionType<T> registerDebug(String id, PacketCodec<? super RegistryByteBuf, T> packetCodec) {
         return Registry.register(Registries.DEBUG_SUBSCRIPTION, NekomasFixed.id(id), new DebugSubscriptionType<>(packetCodec));
+    }
+
+    //status effect
+    public static RegistryEntry<StatusEffect> LIGHTNING = registerStatusEffect("lightning", new LightningEffect(StatusEffectCategory.BENEFICIAL,0x98D982));
+
+    private static RegistryEntry<StatusEffect> registerStatusEffect(String name, StatusEffect statusEffect) {
+        return Registry.registerReference(Registries.STATUS_EFFECT, NekomasFixed.id(name), statusEffect);
     }
 }

@@ -26,7 +26,6 @@
     "NoteBlockMixin",
     "PlayerEntityInterfaceMixin",
     "PlayerEntityMixin",
-    "ProjectileEntityMixin",
     "RecipeBookTypeInvoker",
     "ServerWorldMixin",
     "SignTextMixin",
