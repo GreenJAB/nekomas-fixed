@@ -23,8 +23,8 @@ public class ArrowEntityMixin {
 
         if(arrow!=null && contents!=null && contents != PotionContentsComponent.DEFAULT){
             AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(target.getEntityWorld(), target.getX(), target.getY(), target.getZ());
-            areaEffectCloudEntity.setRadius(3.0F);
-            areaEffectCloudEntity.setRadiusOnUse(-0.5F);
+            areaEffectCloudEntity.setRadius(5.0F);
+            areaEffectCloudEntity.setRadiusOnUse(-1F);
             areaEffectCloudEntity.setDuration(600);
             areaEffectCloudEntity.setWaitTime(10);
             areaEffectCloudEntity.setPotionContents(contents);
