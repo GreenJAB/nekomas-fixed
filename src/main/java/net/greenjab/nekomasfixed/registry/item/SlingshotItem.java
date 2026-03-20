@@ -37,9 +37,10 @@ public class SlingshotItem extends RangedWeaponItem {
             if (itemStack.isEmpty()) {
                 return false;
             } else {
+                if (itemStack.isOf(Items.ARROW)) itemStack = Items.IRON_NUGGET.getDefaultStack();
                 int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
                 float f = getPullProgress(i);
-                if (f < 1) {
+                if (f < 0.99) {
                     return false;
                 } else {
                     List<ItemStack> list = load(stack, itemStack, playerEntity);
@@ -66,7 +67,7 @@ public class SlingshotItem extends RangedWeaponItem {
 
     @Override
     protected ProjectileEntity createArrowEntity(World world, LivingEntity shooter, ItemStack weaponStack, ItemStack projectileStack, boolean critical) {
-        return new SlingshotProjectileEntity(world, shooter, projectileStack);
+        return new SlingshotProjectileEntity(world, shooter, projectileStack, weaponStack);
     }
 
     @Override

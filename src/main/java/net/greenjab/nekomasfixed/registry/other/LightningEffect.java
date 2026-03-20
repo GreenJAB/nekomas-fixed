@@ -14,10 +14,12 @@ public class LightningEffect extends InstantStatusEffect {
 
     @Override
     public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
-        LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world, SpawnReason.EVENT);
-        if (lightning != null) {
-            lightning.refreshPositionAfterTeleport(entity.getX(), entity.getY(), entity.getZ());
-            world.spawnEntity(lightning);
+        if (world.isSkyVisible(entity.getBlockPos())) {
+            LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world, SpawnReason.EVENT);
+            if (lightning != null) {
+                lightning.refreshPositionAfterTeleport(entity.getX(), entity.getY(), entity.getZ());
+                world.spawnEntity(lightning);
+            }
         }
         return true;
     }
@@ -26,10 +28,12 @@ public class LightningEffect extends InstantStatusEffect {
     public void applyInstantEffect(
             ServerWorld world, @org.jspecify.annotations.Nullable Entity effectEntity, @Nullable Entity attacker, LivingEntity target, int amplifier, double proximity
     ) {
-        LightningEntity lightning =(LightningEntity) EntityType.LIGHTNING_BOLT.create(world, SpawnReason.EVENT);
-        if (lightning != null) {
-            lightning.refreshPositionAfterTeleport(target.getX(), target.getY(), target.getZ());
-            world.spawnEntity(lightning);
+        if (world.isSkyVisible(target.getBlockPos())) {
+            LightningEntity lightning =EntityType.LIGHTNING_BOLT.create(world, SpawnReason.EVENT);
+            if (lightning != null) {
+                lightning.refreshPositionAfterTeleport(target.getX(), target.getY(), target.getZ());
+                world.spawnEntity(lightning);
+            }
         }
     }
 }

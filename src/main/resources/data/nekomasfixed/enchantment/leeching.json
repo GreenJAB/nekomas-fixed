@@ -1,19 +1,9 @@
 {
-  "anvil_cost": 2,
+  "anvil_cost": 6,
   "description": {
     "translate": "enchantment.nekomasfixed.leeching"
   },
-  "effects": {
-    "minecraft:post_attack": [
-      {
-        "affected": "victim",
-        "effect": {
-          "type": "nekomasfixed:leeching"
-        },
-        "enchanted": "attacker"
-      }
-    ]
-  },
+  "effects": {},
   "max_cost": {
     "base": 20,
     "per_level_above_first": 10

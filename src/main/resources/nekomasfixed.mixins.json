@@ -4,7 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ArmorStandEntityMixin",
-    "ArrowEntityMixin",
+    "PersistentProjectileEntityMixin",
     "BeehiveBlockEntityMixin",
     "BlockEntityTypeMixin",
     "BlockItemMixin",
@@ -22,6 +22,7 @@
     "ItemsMixin",
     "ItemStackMixin",
     "LeveledCauldronBlockMixin",
+    "LightningRodBlockMixin",
     "LivingEntityMixin",
     "NautilusStackMixin",
     "NoteBlockMixin",

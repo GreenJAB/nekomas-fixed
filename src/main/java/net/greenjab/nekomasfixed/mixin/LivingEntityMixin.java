@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.SoulfireShieldItem;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.entity.EquipmentSlot;
@@ -67,7 +68,7 @@ public class LivingEntityMixin {
                             attacker.getX() + player.getX(),
                             attacker.getZ() + player.getZ());
                 } else {
-                    attacker.setOnFireForTicks(20 * 1);
+                    attacker.setOnFireForTicks(20);
                 }
             }
 
@@ -77,6 +78,14 @@ public class LivingEntityMixin {
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getActiveItem()Lnet/minecraft/item/ItemStack;"), cancellable = true)
     private void cancel0Damage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (amount<=0)cir.setReturnValue(true);
+    }
+
+    @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;becomeAngry(Lnet/minecraft/entity/damage/DamageSource;)V"))
+    private void leechingEnchant(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source.getAttacker() instanceof PlayerEntity PE) {
+            int i = NekomasFixed.enchantLevel(PE.getMainHandStack(), "leeching");
+            if (i != 0) PE.heal((i * 0.025f + 0.025f) * amount);
+        }
     }
 
 

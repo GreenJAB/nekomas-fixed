@@ -3,7 +3,6 @@ package net.greenjab.nekomasfixed.client.screen;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.screen.KilnScreenHandler;
 import net.minecraft.client.gui.ScreenPos;import net.minecraft.client.gui.screen.ingame.AbstractFurnaceScreen;
-import net.minecraft.client.gui.screen.recipebook.FurnaceRecipeBookWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -11,7 +10,7 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class KilnScreen extends AbstractFurnaceScreen<KilnScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(NekomasFixed.MOD_ID, "textures/gui/container/kiln.png");
+    private static final Identifier TEXTURE = NekomasFixed.id("textures/gui/container/kiln.png");
     private static final Identifier LIT_PROGRESS_TEXTURE = Identifier.ofVanilla("container/furnace/lit_progress");
     private static final Identifier BURN_PROGRESS_TEXTURE = Identifier.ofVanilla("container/furnace/burn_progress");
 

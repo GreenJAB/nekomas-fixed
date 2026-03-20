@@ -10,3 +10,4 @@ accessible method net/minecraft/structure/StructurePiece addBlock (Lnet/minecraf
 accessible method net/minecraft/structure/StructurePiece offsetPos (III)Lnet/minecraft/util/math/BlockPos$Mutable;
 accessible class net/minecraft/block/spawner/TrialSpawnerConfigs$ConfigKeyPair
 accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory
+accessible field net/minecraft/block/entity/BrewingStandBlockEntity inventory Lnet/minecraft/util/collection/DefaultedList;

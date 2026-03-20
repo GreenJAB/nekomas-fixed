@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.item.SickleItem;
+import net.greenjab.nekomasfixed.registry.item.SlingshotItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,15 @@ public class EnchantmentMixin {
         Item item = stack.getItem();
         if (item instanceof SickleItem) {
             cir.setReturnValue(enchantment.isAcceptableItem(Items.DIAMOND_SWORD.getDefaultStack()) && enchantment.getMaxLevel()!=5);
+            cir.cancel();
+        }
+        if (item instanceof SlingshotItem) {
+            cir.setReturnValue(enchantment.isAcceptableItem(Items.FLINT_AND_STEEL.getDefaultStack())
+                            || enchantment.description().copyContentOnly().toString().contains("multishot")
+                            || enchantment.description().copyContentOnly().toString().contains("power")
+                            || enchantment.description().copyContentOnly().toString().contains("punch")
+                            || enchantment.description().copyContentOnly().toString().contains("shatter")
+            );
             cir.cancel();
         }
     }

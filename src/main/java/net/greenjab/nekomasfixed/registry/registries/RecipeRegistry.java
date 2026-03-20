@@ -7,20 +7,14 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.recipe.CoralNautilusRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.ZombieNautilusRecipe;
-import net.greenjab.nekomasfixed.registry.recipe.book.KilnRecipeBookCategory;
-import net.greenjab.nekomasfixed.registry.recipe.book.KilnRecipeBookTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.CookingRecipeCategory;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.book.RecipeBookType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
 public class RecipeRegistry {
 
@@ -28,12 +22,12 @@ public class RecipeRegistry {
     public static final RecipeSerializer<KilnRecipe> KILNING_RECIPE_SERIALIZER =
             Registry.register(
                     Registries.RECIPE_SERIALIZER,
-                    Identifier.of("nekomasfixed", "kilning"),
+                    NekomasFixed.id("kilning"),
                     new AbstractCookingRecipe.Serializer<>(KilnRecipe::new, 100)
             );
     public static final RecipeSerializer<ZombieNautilusRecipe> ZOMBIE_NAUTILUS_SERIALIZER = Registry.register(
             Registries.RECIPE_SERIALIZER,
-            Identifier.of("nekomasfixed", "zombie_nautilus"),
+            NekomasFixed.id("zombie_nautilus"),
             new RecipeSerializer<ZombieNautilusRecipe>() {
 
                 private final MapCodec<ZombieNautilusRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -71,7 +65,7 @@ public class RecipeRegistry {
 
     public static final RecipeSerializer<CoralNautilusRecipe> CORAL_NAUTILUS_SERIALIZER = Registry.register(
             Registries.RECIPE_SERIALIZER,
-            Identifier.of("nekomasfixed", "coral_nautilus"),
+            NekomasFixed.id("coral_nautilus"),
             new RecipeSerializer<CoralNautilusRecipe>() {
 
                 private final MapCodec<CoralNautilusRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

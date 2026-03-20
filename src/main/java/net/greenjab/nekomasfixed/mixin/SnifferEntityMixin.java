@@ -41,16 +41,16 @@ public class SnifferEntityMixin {
 
                 if (temperature <= 0.15f) {
                     lootTableKey = RegistryKey.of(RegistryKeys.LOOT_TABLE,
-                            Identifier.of("minecraft", "gameplay/sniffer_digging_snowy"));
+                            Identifier.ofVanilla("gameplay/sniffer_digging_snowy"));
                 }
                 else {
                     if (biomeName.contains("des")) {
                         lootTableKey = RegistryKey.of(RegistryKeys.LOOT_TABLE,
-                                Identifier.of("minecraft", "gameplay/sniffer_digging_desert"));
+                                Identifier.ofVanilla("gameplay/sniffer_digging_desert"));
                     }
                     else if (biomeName.contains("badlands")) {
                         lootTableKey = RegistryKey.of(RegistryKeys.LOOT_TABLE,
-                                Identifier.of("minecraft", "gameplay/sniffer_digging_badlands"));
+                                Identifier.ofVanilla("gameplay/sniffer_digging_badlands"));
                     }
                     else {
                         lootTableKey = LootTables.SNIFFER_DIGGING_GAMEPLAY;

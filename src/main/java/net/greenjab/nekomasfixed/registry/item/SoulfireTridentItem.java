@@ -63,7 +63,7 @@ public class SoulfireTridentItem extends Item implements ProjectileItem {
                 return false;
             } else {
                 float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, playerEntity);
-                if (f > 0.0F && !playerEntity.isTouchingWaterOrRain()) {
+                if (f > 0.0F && !playerEntity.isOnFire()) {
                     return false;
                 } else if (stack.willBreakNextUse()) {
                     return false;
@@ -116,7 +116,7 @@ public class SoulfireTridentItem extends Item implements ProjectileItem {
         ItemStack itemStack = user.getStackInHand(hand);
         if (itemStack.willBreakNextUse()) {
             return ActionResult.FAIL;
-        } else if (EnchantmentHelper.getTridentSpinAttackStrength(itemStack, user) > 0.0F && !user.isTouchingWaterOrRain()) {
+        } else if (EnchantmentHelper.getTridentSpinAttackStrength(itemStack, user) > 0.0F && !user.isOnFire()) {
             return ActionResult.FAIL;
         } else {
             user.setCurrentHand(hand);
