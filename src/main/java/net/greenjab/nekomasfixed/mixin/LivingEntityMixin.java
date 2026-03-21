@@ -60,7 +60,7 @@ public class LivingEntityMixin {
         LivingEntity defender = (LivingEntity)(Object)this;
         ItemStack activeItem = defender.getActiveItem();
 
-        if (activeItem.getItem() instanceof SoulfireShieldItem shield) {
+        if (activeItem.getItem() instanceof SoulfireShieldItem) {
             if (defender instanceof PlayerEntity player) {
                 if (player.getHealth() <= 6.0f) {
                     attacker.setOnFireForTicks(20 * 3);
@@ -84,7 +84,7 @@ public class LivingEntityMixin {
     private void leechingEnchant(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source.getAttacker() instanceof PlayerEntity PE) {
             int i = NekomasFixed.enchantLevel(PE.getMainHandStack(), "leeching");
-            if (i != 0) PE.heal((i * 0.025f + 0.025f) * amount);
+            if (i != 0) PE.heal((i * 0.0125f + 0.0125f) * amount);
         }
     }
 

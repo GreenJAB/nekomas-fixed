@@ -1,8 +1,6 @@
-
-
 {
   "type": "nekomasfixed:kilning",
-  "category": "misc",
+  "category": "blocks",
   "ingredient": "nekomasfixed:aqua_terracotta",
   "result": {
     "id": "nekomasfixed:aqua_glazed_terracotta",

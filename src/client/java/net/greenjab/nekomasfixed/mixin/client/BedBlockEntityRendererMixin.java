@@ -2,17 +2,14 @@ package net.greenjab.nekomasfixed.mixin.client;
 
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.client.CustomBedTextureHolder;
+import net.greenjab.nekomasfixed.util.CustomBedTextureHolder;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BedBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.state.BedBlockEntityRenderState;
 import net.minecraft.client.render.command.ModelCommandRenderer;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -67,22 +64,6 @@ public class BedBlockEntityRendererMixin {
                             NekomasFixed.id("entity/bed/indigo")
                     )
             );
-        }
-    }
-
-    @Inject(method = "render(Lnet/minecraft/client/render/block/entity/state/BedBlockEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V", at = @At("HEAD"))
-    private void useCustomTexture(
-            BedBlockEntityRenderState state,
-            MatrixStack matrices,
-            OrderedRenderCommandQueue queue,
-            CameraRenderState camera,
-            CallbackInfo ci) {
-
-        SpriteIdentifier custom =
-                ((CustomBedTextureHolder) state).nekomasfixed$getCustomTexture();
-
-        if (custom != null) {
-            System.out.println("Rendering custom textures");
         }
     }
 

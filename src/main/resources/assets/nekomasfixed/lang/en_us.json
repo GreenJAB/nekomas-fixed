@@ -85,6 +85,7 @@
   "entity.nekomasfixed.wild_fire": "Wild Fire",
   "item.nekomasfixed.wild_fire_spawn_egg": "Wild Fire Spawn Egg",
   "item.nekomasfixed.nether_heart": "Heart Of The Nether",
+  "item.nekomasfixed.smithing_template.ingredients_shield_trident": "Shields & Tridents",
 
   "item.nekomasfixed.jewel_armor_trim_smithing_template": "Jewel Armor Trim",
   "item.nekomasfixed.jewel_armor_trim_smithing_template.new": "Jewel Armor Trim",
@@ -111,6 +112,7 @@
 
   "block.nekomasfixed.kiln": "Kiln Apparatus",
   "container.nekomasfixed.kiln": "Kiln",
+  "gui.recipebook.toggleRecipes.kilnable": "Showing Kilnable",
 
 
   "item.nekomasfixed.amber_dye": "Amber Dye",

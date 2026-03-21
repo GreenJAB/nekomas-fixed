@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.screen;
 
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
-import net.greenjab.nekomasfixed.util.ModRecipeType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -23,8 +22,8 @@ public class KilnScreenHandler extends AbstractFurnaceScreenHandler {
                              Inventory inventory, PropertyDelegate propertyDelegate) {
         super(
                 ScreenHandlerRegistry.KILN_SCREEN_HANDLER,
-                ModRecipeType.KILNING,
-                null,
+                RecipeRegistry.KILN,
+                RecipeRegistry.KILN_INPUT,
                 RecipeBookType.FURNACE,
                 syncId,
                 playerInventory,

@@ -55,7 +55,7 @@ public class KilnBlock extends AbstractFurnaceBlock {
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if ((Boolean)state.get(LIT)) {
+        if (state.get(LIT)) {
             double d = pos.getX() + 0.5;
             double e = pos.getY();
             double f = pos.getZ() + 0.5;
@@ -65,7 +65,6 @@ public class KilnBlock extends AbstractFurnaceBlock {
 
             Direction direction = state.get(FACING);
             Direction.Axis axis = direction.getAxis();
-            double g = 0.52;
             double h = random.nextDouble() * 0.6 - 0.3;
             double i = axis == Direction.Axis.X ? direction.getOffsetX() * 0.52 : h;
             double j = random.nextDouble() * 9.0 / 16.0;

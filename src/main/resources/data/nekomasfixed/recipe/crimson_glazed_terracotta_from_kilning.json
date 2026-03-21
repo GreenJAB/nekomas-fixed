@@ -1,8 +1,6 @@
-
-
 {
   "type": "nekomasfixed:kilning",
-  "category": "misc",
+  "category": "blocks",
   "ingredient": "nekomasfixed:crimson_terracotta",
   "result": {
     "id": "nekomasfixed:crimson_glazed_terracotta",

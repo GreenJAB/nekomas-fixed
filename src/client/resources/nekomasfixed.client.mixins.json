@@ -9,6 +9,7 @@
     "BipedEntityModelMixin",
     "BipedEntityRendererMixin",
     "ClientPlayerInteractionManagerMixin",
+    "ClientRecipeBookMixin",
     "EntityModelsMixin",
     "EquipmentAssetProviderMixin",
     "EquipmentRendererMixin",

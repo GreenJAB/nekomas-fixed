@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.item;
 import java.util.List;
 import java.util.function.Predicate;
 
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectileEntity;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.entity.LivingEntity;
@@ -67,7 +68,7 @@ public class SlingshotItem extends RangedWeaponItem {
 
     @Override
     protected ProjectileEntity createArrowEntity(World world, LivingEntity shooter, ItemStack weaponStack, ItemStack projectileStack, boolean critical) {
-        return new SlingshotProjectileEntity(world, shooter, projectileStack, weaponStack);
+        return new SlingshotProjectileEntity(world, shooter, projectileStack, weaponStack, NekomasFixed.enchantLevel(weaponStack, "shatter")!=0);
     }
 
     @Override

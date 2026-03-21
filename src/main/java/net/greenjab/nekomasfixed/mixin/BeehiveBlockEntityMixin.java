@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.cauldron.HoneyCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.util.HoneyCauldronUtil;
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -14,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -38,7 +38,7 @@ public class BeehiveBlockEntityMixin {
             i++;
         }
         if (belowState.getBlock() == BlockRegistry.HONEY_CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5) {
-            HoneyCauldronUtil.incrementHoneyLevel(world, belowPos, belowState);
+            incrementHoneyLevel(world, belowPos, belowState);
         }
         else if (belowState.getBlock() == Blocks.CAULDRON && state.get(BeehiveBlock.HONEY_LEVEL) == 5) {
             world.setBlockState(belowPos, BlockRegistry.HONEY_CAULDRON.getDefaultState()
@@ -46,5 +46,17 @@ public class BeehiveBlockEntityMixin {
             world.playSound(null, belowPos, SoundEvents.BLOCK_BEEHIVE_DRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
         }
+    }
+
+    @Unique
+    private static void incrementHoneyLevel(World world, BlockPos pos, BlockState state) {
+        if (world.isClient()) return;
+        if (state.getBlock() != BlockRegistry.HONEY_CAULDRON) return;
+
+        int currentLevel = state.get(HoneyCauldronBlock.HONEY_LEVEL);
+        if (currentLevel >= HoneyCauldronBlock.MAX_LEVEL) return;
+
+        world.setBlockState(pos, state.with(HoneyCauldronBlock.HONEY_LEVEL, currentLevel + 1));
+        world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
     }
 }

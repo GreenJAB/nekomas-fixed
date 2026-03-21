@@ -1,0 +1,12 @@
+
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "minecraft:resin_clump",
+  "result": {
+    "id": "minecraft:resin_brick",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}

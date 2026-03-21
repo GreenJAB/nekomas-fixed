@@ -100,7 +100,7 @@ public class ItemRegistry {
                     Text.of(""),
                     List.of(NekomasFixed.id("container/slot/helmet")),
                     List.of(NekomasFixed.id("container/slot/nether_heart")),
-                    settings),new Item.Settings().rarity(Rarity.UNCOMMON)
+                    settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
     public static final Item GLISTERING_MELON = register(BlockRegistry.GLISTERING_MELON, new Item.Settings());
@@ -393,10 +393,6 @@ public class ItemRegistry {
     public static final Item CRIMSON_BUNDLE = register("crimson_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
 
 
-//    ------------------------------------------------------------------------------------------
-
-
-
     public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
 
     public static final Item ENDERMAN_HEAD = register(BlockRegistry.ENDERMAN_HEAD,
@@ -405,7 +401,22 @@ public class ItemRegistry {
     ),new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
 
     public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Settings().maxDamage(384));
-    public static final Item NETHER_HEART = register("nether_heart",  new Item.Settings().fireproof().rarity(Rarity.UNCOMMON));
+    public static final Item NETHER_HEART = register(
+            "nether_heart", settings -> new SmithingTemplateItem(
+                    Text.translatable(
+                            Util.createTranslationKey("item", NekomasFixed.id("smithing_template.ingredients_shield_trident"))
+                    ).formatted(Formatting.BLUE),
+                    Text.translatable(
+                            Util.createTranslationKey("item", Identifier.ofVanilla("smithing_template.netherite_upgrade.ingredients"))
+                    ).formatted(Formatting.BLUE),
+                    Text.of(""),
+                    Text.of(""),
+                    List.of(NekomasFixed.id("container/slot/trident"),NekomasFixed.id("container/slot/shield")),
+                    List.of(Identifier.ofVanilla("container/slot/ingot")),
+                    settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
+    );
+
+
     public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings()
             .rarity(Rarity.RARE)
             .maxDamage(250)

@@ -1,16 +1,15 @@
 package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registries.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
-import net.greenjab.nekomasfixed.util.ModRecipeBookCategories;
-import net.minecraft.client.render.entity.ItemFrameEntityRenderer;
+import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
-import net.minecraft.recipe.book.RecipeBookCategories;
 import net.minecraft.util.Identifier;
-import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 
 public class NekomasFixedClient implements ClientModInitializer {
 	public static EquipmentModel turtleArmorModel = createHumanoidOnlyModel("turtle_scute");
@@ -28,6 +27,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 		TextureRegistry.registerTextureRegistry();
 
 		ClientSyncHandler.init();
+
+		HandledScreens.register(ScreenHandlerRegistry.KILN_SCREEN_HANDLER, KilnScreen::new);
 	}
 
 	private static EquipmentModel createHumanoidOnlyModel(String id) {

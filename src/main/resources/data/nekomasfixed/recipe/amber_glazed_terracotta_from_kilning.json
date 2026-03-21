@@ -1,8 +1,6 @@
-
-
 {
   "type": "nekomasfixed:kilning",
-  "category": "misc",
+  "category": "blocks",
   "ingredient": "nekomasfixed:amber_terracotta",
   "result": {
     "id": "nekomasfixed:amber_glazed_terracotta",

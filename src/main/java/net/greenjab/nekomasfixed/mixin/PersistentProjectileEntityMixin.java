@@ -5,7 +5,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -27,14 +26,12 @@ public abstract class PersistentProjectileEntityMixin {
 
     @Inject(method = "onHit", at = @At("HEAD"))
     private void onHit(LivingEntity target, CallbackInfo ci) {
-        if (((PersistentProjectileEntity)(Object) this) instanceof ArrowEntity arrowEntity) {
+        if (((PersistentProjectileEntity)(Object) this) instanceof ArrowEntity arrowEntity && !arrowEntity.getCommandTags().contains("areaEffect")) {
             ItemStack arrow = arrowEntity.getItemStack();
             PotionContentsComponent contents = arrow.getOrDefault(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT);
             if (contents != null && contents != PotionContentsComponent.DEFAULT) {
                 AreaEffectCloudEntity areaEffectCloudEntity = makeAreaEffectCloudEntity(target.getEntityWorld(), target.getX(), target.getY(), target.getZ(), contents);
                 target.getEntityWorld().spawnEntity(areaEffectCloudEntity);
-
-                arrowEntity.setComponent(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT);
                 arrowEntity.addCommandTag("areaEffect");
             }
         }
@@ -42,14 +39,12 @@ public abstract class PersistentProjectileEntityMixin {
 
     @Inject(method = "setInGround", at = @At("HEAD"))
     private void onHit(boolean inGround, CallbackInfo ci) {
-        if (((PersistentProjectileEntity)(Object) this) instanceof ArrowEntity arrowEntity) {
+        if (((PersistentProjectileEntity)(Object) this) instanceof ArrowEntity arrowEntity && !arrowEntity.getCommandTags().contains("areaEffect")) {
             ItemStack arrow = arrowEntity.getItemStack();
             PotionContentsComponent contents = arrow.getOrDefault(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT);
             if (contents != null && contents != PotionContentsComponent.DEFAULT) {
                 AreaEffectCloudEntity areaEffectCloudEntity = makeAreaEffectCloudEntity(arrowEntity.getEntityWorld(), arrowEntity.getX(), arrowEntity.getY(), arrowEntity.getZ(), contents);
                 arrowEntity.getEntityWorld().spawnEntity(areaEffectCloudEntity);
-
-                arrowEntity.setComponent(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT);
                 arrowEntity.addCommandTag("areaEffect");
             }
         }
@@ -58,9 +53,8 @@ public abstract class PersistentProjectileEntityMixin {
     @ModifyExpressionValue(method = "tryPickup", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;asItemStack()Lnet/minecraft/item/ItemStack;"))
     private ItemStack removeEffectsIfPiecing(ItemStack original) {
         PersistentProjectileEntity PPE = (PersistentProjectileEntity)(Object) this;
-        if (!this.getItemStack().isOf(Items.TIPPED_ARROW)) return PPE.getItemStack().copy();
-        if (PPE.getCommandTags().contains("areaEffect")) return Items.ARROW.getDefaultStack();
-        return PPE.getItemStack().copy();
+        if (PPE instanceof ArrowEntity) return Items.ARROW.getDefaultStack();
+        return original;
     }
 
     @Unique
@@ -76,8 +70,4 @@ public abstract class PersistentProjectileEntityMixin {
         return areaEffectCloudEntity;
     }
 
-    @Inject(method = "knockback", at = @At("HEAD"))
-    private void test(LivingEntity target, DamageSource source, CallbackInfo ci){
-        System.out.println("test");
-    }
 }

@@ -1,0 +1,12 @@
+
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "minecraft:wet_sponge",
+  "result": {
+    "id": "minecraft:sponge",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}

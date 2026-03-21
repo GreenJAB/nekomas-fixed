@@ -7,14 +7,17 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.recipe.CoralNautilusRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.ZombieNautilusRecipe;
+import net.greenjab.nekomasfixed.util.ModRecipeBookType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 
 public class RecipeRegistry {
 
@@ -101,14 +104,41 @@ public class RecipeRegistry {
             }
     );
 
-    static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(String id, S serializer) {
-        return (S)(Registry.register(Registries.RECIPE_SERIALIZER, id, serializer));
-    }
-
-
-
-    public static void registerRecipeBookGroups() {}
     public static void registerRecipes() {
         System.out.println("Registering Mod Recipes");
     }
+
+
+    public static final RegistryKey<RecipePropertySet> KILN_INPUT = registerRecipePropertySet("kiln_input");
+    private static RegistryKey<RecipePropertySet> registerRecipePropertySet(String id) {
+        return RegistryKey.of(RecipePropertySet.REGISTRY, NekomasFixed.id(id));
+    }
+
+    public static final RecipeType<KilnRecipe> KILN = registerRecipeType("kiln");
+
+    static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String id) {
+        return Registry.register(
+                Registries.RECIPE_TYPE,
+                NekomasFixed.id(id),
+                new RecipeType<>() {
+                    @Override
+                    public String toString() {
+                        return "nekomasfixed:" + id;
+                    }
+                }
+        );
+    }
+
+    public static RecipeBookCategory KILNING_BLOCK = Registry.register(
+            Registries.RECIPE_BOOK_CATEGORY,
+            NekomasFixed.id("kilning_block"),
+            new RecipeBookCategory()
+    );
+    public static RecipeBookCategory KILNING_MISC = Registry.register(
+            Registries.RECIPE_BOOK_CATEGORY,
+            NekomasFixed.id("kilning_misc"),
+            new RecipeBookCategory()
+    );
+    public static final ModRecipeBookType KILNING = new ModRecipeBookType(RecipeRegistry.KILNING_BLOCK, RecipeRegistry.KILNING_MISC);
+
 }

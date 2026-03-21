@@ -29,10 +29,10 @@ public class SlingshotProjectileEntity extends ThrownItemEntity {
     private int ticksStuck = 0;
     private ItemStack weapon = ItemStack.EMPTY;
 
-    public SlingshotProjectileEntity(World world, LivingEntity owner, ItemStack stack, ItemStack weapon) {
+    public SlingshotProjectileEntity(World world, LivingEntity owner, ItemStack stack, ItemStack weapon, boolean shatter) {
         super(EntityTypeRegistry.SLINGSHOT_PROJECTILE, owner, world, stack);
         this.weapon = weapon.copy();
-        shatter = NekomasFixed.enchantLevel(weapon, "shatter")!=0;
+        this.shatter = shatter;
     }
 
     public SlingshotProjectileEntity(EntityType<SlingshotProjectileEntity> entityType, World world) {
@@ -113,7 +113,7 @@ public class SlingshotProjectileEntity extends ThrownItemEntity {
         if (shatter && getOwner() instanceof LivingEntity entity) {
             shatter = false;
             for (int i = 0;i<3;i++) {
-                SlingshotProjectileEntity newSlingshotProjectileEntity = new SlingshotProjectileEntity(this.getEntityWorld(), entity, getStack(), ItemStack.EMPTY);
+                SlingshotProjectileEntity newSlingshotProjectileEntity = new SlingshotProjectileEntity(this.getEntityWorld(), entity, getStack(), weapon, false);
                 if (hitResult instanceof BlockHitResult blockHitResult) {
                     newSlingshotProjectileEntity.setPosition(this.getX(), this.getY(), this.getZ());
                     Direction.Axis axis = blockHitResult.getSide().getAxis();

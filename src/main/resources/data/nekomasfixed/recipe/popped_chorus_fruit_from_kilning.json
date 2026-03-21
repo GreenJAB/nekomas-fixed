@@ -1,0 +1,12 @@
+
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "ingredient": "minecraft:chorus_fruit",
+  "result": {
+    "id": "minecraft:popped_chorus_fruit",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}

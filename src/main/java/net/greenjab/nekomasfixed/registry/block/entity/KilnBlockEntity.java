@@ -1,17 +1,13 @@
 package net.greenjab.nekomasfixed.registry.block.entity;
 
-import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
-import net.greenjab.nekomasfixed.util.ModRecipeType;
+import net.greenjab.nekomasfixed.screen.KilnScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.FuelRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.screen.BlastFurnaceScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +16,7 @@ public class KilnBlockEntity extends AbstractFurnaceBlockEntity {
     private static final Text CONTAINER_NAME_TEXT = Text.translatable("container.nekomasfixed.kiln");
 
     public KilnBlockEntity(BlockPos pos, BlockState state) {
-        super( BlockEntityTypeRegistry.KILN_BLOCK_ENTITY, pos, state, ModRecipeType.KILNING);
+        super( BlockEntityTypeRegistry.KILN_BLOCK_ENTITY, pos, state, RecipeRegistry.KILN);
     }
 
     @Override
@@ -35,6 +31,6 @@ public class KilnBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new BlastFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return new KilnScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 }
