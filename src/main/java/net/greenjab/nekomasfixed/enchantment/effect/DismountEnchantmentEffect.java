@@ -16,7 +16,7 @@ public record DismountEnchantmentEffect() implements EnchantmentEntityEffect {
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity target, Vec3d pos) {
         LivingEntity attacker = context.owner();
         if (target instanceof LivingEntity victim) {
-            if(victim.hasVehicle()){
+            if(victim.hasVehicle() || target.hasVehicle()){
                 victim.stopRiding();
                 target.stopRiding();
             }
