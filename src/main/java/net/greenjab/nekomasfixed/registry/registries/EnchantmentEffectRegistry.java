@@ -11,7 +11,7 @@ public class EnchantmentEffectRegistry {
     public static void register() {
         Registry.register(
                 Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE,
-                Identifier.of("nekomasfixed", "leeching"),
+                Identifier.of("nekomasfixed", "dismount"),
                 DismountEnchantmentEffect.CODEC
         );
 
