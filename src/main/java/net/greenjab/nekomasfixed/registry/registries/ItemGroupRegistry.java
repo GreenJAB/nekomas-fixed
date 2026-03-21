@@ -147,6 +147,7 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.INDIGO_BUNDLE);
                          entries.add(ItemRegistry.CRIMSON_BUNDLE);
 
+                         entries.add(ItemRegistry.AMBER_STAINED_GLASS);
 
                         entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
 

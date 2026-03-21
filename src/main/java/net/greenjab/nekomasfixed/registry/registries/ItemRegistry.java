@@ -424,7 +424,10 @@ public class ItemRegistry {
             .component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent())
             .enchantable(1)
             .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
+
     public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
+
+    public static final Item AMBER_STAINED_GLASS = register(BlockRegistry.AMBER_STAINED_GLASS);
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);

@@ -300,7 +300,7 @@ public class BlockRegistry {
     public static final Block INDIGO_BED = registerBedBlock("indigo_bed", DyeColor.MAGENTA);
     public static final Block CRIMSON_BED = registerBedBlock("crimson_bed", DyeColor.RED);
 
-
+    public static final Block AMBER_STAINED_GLASS = registerStainedGlassBlock("amber_stained_glass", DyeColor.YELLOW);
 
 
     private static Block register(String id, AbstractBlock.Settings settings) {
@@ -332,6 +332,10 @@ public class BlockRegistry {
         }
 
         return settings;
+    }
+
+    private static Block registerStainedGlassBlock(String id, DyeColor color) {
+        return register(id, (settings) -> new StainedGlassBlock(color, settings), AbstractBlock.Settings.create().mapColor(color).instrument(NoteBlockInstrument.HAT).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never));
     }
 
     private static Block registerBedBlock(String id, DyeColor color) {
