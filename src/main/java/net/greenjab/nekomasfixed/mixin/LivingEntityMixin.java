@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.fabricmc.fabric.impl.object.builder.FabricEntityTypeImpl;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.SoulfireShieldItem;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
@@ -14,6 +15,7 @@ import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,7 +25,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin {
+public abstract class LivingEntityMixin {
+
+    @Shadow
+    public abstract void stopRiding();
 
     @ModifyVariable(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isSleeping()Z"), ordinal = 0, argsOnly = true)
     private float turtleChestplateBlock(float amount, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) DamageSource source) {
@@ -87,6 +92,19 @@ public class LivingEntityMixin {
             if (i != 0) PE.heal((i * 0.0125f + 0.0125f) * amount);
         }
     }
+
+    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
+    private void dismountEnchant(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source.getAttacker() instanceof PlayerEntity PE) {
+            int i = NekomasFixed.enchantLevel(PE.getMainHandStack(), "dismount");
+            if(!source.getWeaponStack().isEmpty() && i==1){
+                LivingEntity livingEntity = (LivingEntity) (Object)this;
+                this.stopRiding();
+            }
+        }
+    }
+
+
 
 
     @Unique
