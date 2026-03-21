@@ -1,17 +1,18 @@
 {
-  "anvil_cost": 6,
+  "anvil_cost": 8,
   "description": {
     "translate": "enchantment.nekomasfixed.dismount"
   },
   "effects": {},
   "max_cost": {
-    "base": 20,
-    "per_level_above_first": 10
+    "base": 50,
+    "per_level_above_first": 0
   },
+  "exclusive_set": "#minecraft:exclusive_set/crossbow",
   "max_level": 1,
   "min_cost": {
-    "base": 5,
-    "per_level_above_first": 8
+    "base": 20,
+    "per_level_above_first": 0
   },
   "slots": [
     "mainhand"
