@@ -1,0 +1,22 @@
+{
+  "anvil_cost": 6,
+  "description": {
+    "translate": "enchantment.nekomasfixed.dismount"
+  },
+  "effects": {},
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 10
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#nekomasfixed:spears",
+  "weight": 5,
+  "treasure": true
+}
