@@ -20,6 +20,8 @@
     "MinecraftClientMixin",
     "ParticleManagerMixin",
     "ParticleSpriteManagerMixin",
+    "ShulkerBoxBlockEntityRendererMixin",
+    "ShulkerBoxBlockEntityRenderStateMixin",
     "SpecialModelTypesMixin",
     "TooltipComponentMixin"
   ],

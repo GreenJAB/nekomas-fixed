@@ -175,6 +175,20 @@
   "item.nekomasfixed.indigo_bundle": "Indigo Bundle",
   "item.nekomasfixed.crimson_bundle": "Crimson Bundle",
 
+  "block.nekomasfixed.amber_shulker_box": "Amber Shulker Box",
+  "block.nekomasfixed.aqua_shulker_box": "Aqua Shulker Box",
+  "block.nekomasfixed.indigo_shulker_box": "Indigo Shulker Box",
+  "block.nekomasfixed.crimson_shulker_box": "Crimson Shulker Box",
+
+  "block.nekomasfixed.amber_stained_glass": "Amber Stained Glass",
+  "block.nekomasfixed.aqua_stained_glass": "Aqua Stained Glass",
+  "block.nekomasfixed.indigo_stained_glass": "Indigo Stained Glass",
+  "block.nekomasfixed.crimson_stained_glass": "Crimson Stained Glass",
+
+  "block.nekomasfixed.amber_stained_glass_pane": "Amber Stained Glass Pane",
+  "block.nekomasfixed.aqua_stained_glass_pane": "Aqua Stained Glass Pane",
+  "block.nekomasfixed.indigo_stained_glass_pane": "Indigo Stained Glass Pane",
+  "block.nekomasfixed.crimson_stained_glass_pane": "Crimson Stained Glass Pane",
 
   "block.nekomasfixed.amber_candle": "Amber Candle",
   "block.nekomasfixed.aqua_candle": "Aqua Candle",
