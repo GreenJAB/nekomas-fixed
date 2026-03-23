@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:husbandry/plant_any_sniffer_seed",
+  "criteria": {
+    "ancient_dyes": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:amber_dye"
+          },
+          {
+            "items": "nekomasfixed:aqua_dye"
+          }
+        ,
+          {
+            "items": "nekomasfixed:crimson_dye"
+          }
+        ,
+          {
+            "items": "nekomasfixed:indigo_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.husbandry.ancient_dyes.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "nekomasfixed:crimson_dye"
+    },
+    "title": {
+      "translate": "advancements.husbandry.ancient_dyes.title"
+    }
+  },
+  "requirements": [
+    [
+      "ancient_dyes"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
