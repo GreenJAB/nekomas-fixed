@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/template_bundle_open_front",
+  "textures": {
+    "layer0": "nekomasfixed:item/amber_bundle_open_front"
+  }
+}

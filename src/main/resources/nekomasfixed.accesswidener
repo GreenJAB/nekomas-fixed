@@ -11,3 +11,4 @@ accessible method net/minecraft/structure/StructurePiece offsetPos (III)Lnet/min
 accessible class net/minecraft/block/spawner/TrialSpawnerConfigs$ConfigKeyPair
 accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory
 accessible field net/minecraft/block/entity/BrewingStandBlockEntity inventory Lnet/minecraft/util/collection/DefaultedList;
+accessible method net/minecraft/block/Blocks createShulkerBoxSettings (Lnet/minecraft/block/MapColor;)Lnet/minecraft/block/AbstractBlock$Settings;

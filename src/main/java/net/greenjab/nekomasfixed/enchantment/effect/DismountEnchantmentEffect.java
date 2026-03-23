@@ -20,7 +20,7 @@ public record DismountEnchantmentEffect() implements EnchantmentEntityEffect {
                 victim.stopRiding();
                 target.stopRiding();
             }
-
+//i tried random stuff so if uu feel this unnecessary u may delete it
         }
     }
 

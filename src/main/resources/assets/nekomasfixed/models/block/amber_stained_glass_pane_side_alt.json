@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side_alt",
+  "textures": {
+    "edge": "nekomasfixed:block/amber_stained_glass_pane_top",
+    "pane": "nekomasfixed:block/amber_stained_glass"
+  }
+}

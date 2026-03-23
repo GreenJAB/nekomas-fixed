@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_post",
+  "textures": {
+    "edge": "nekomasfixed:block/aqua_stained_glass_pane_top",
+    "pane": "nekomasfixed:block/aqua_stained_glass"
+  }
+}
