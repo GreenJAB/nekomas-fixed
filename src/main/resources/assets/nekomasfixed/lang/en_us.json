@@ -117,7 +117,10 @@
   "gui.recipebook.toggleRecipes.kilnable": "Showing Kilnable",
 
   "advancements.husbandry.ancient_dyes.description": "Have all Ancient Dyes in your inventory",
-  "advancements.husbandry.ancient_dyes.title": "Sniffer-o-logist!",
+  "advancements.husbandry.ancient_dyes.title": "Ancient-o-logist!",
+
+  "advancements.husbandry.all_froglights.description": "Have all 20 froglights in your inventory",
+  "advancements.husbandry.all_froglights.title": "Power Overloaded!",
 
   "item.nekomasfixed.amber_dye": "Amber Dye",
   "item.nekomasfixed.indigo_dye": "Indigo Dye",

@@ -27,7 +27,6 @@
     "description": {
       "translate": "advancements.husbandry.ancient_dyes.description"
     },
-    "frame": "challenge",
     "icon": {
       "count": 1,
       "id": "nekomasfixed:crimson_dye"

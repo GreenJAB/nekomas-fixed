@@ -1,0 +1,51 @@
+{
+  "parent": "minecraft:husbandry/froglights",
+  "criteria": {
+    "all_froglights": {
+      "conditions": {
+        "items": [
+          {"items": "nekomasfixed:white_froglight"},
+          {"items": "nekomasfixed:light_gray_froglight"},
+          {"items": "nekomasfixed:gray_froglight"},
+          {"items": "nekomasfixed:black_froglight"},
+          {"items": "nekomasfixed:brown_froglight"},
+          {"items": "nekomasfixed:red_froglight"},
+          {"items": "nekomasfixed:orange_froglight"},
+          {"items": "nekomasfixed:lime_froglight"},
+          {"items": "nekomasfixed:cyan_froglight"},
+          {"items": "minecraft:ochre_froglight"},
+          {"items": "minecraft:verdant_froglight"},
+          {"items": "minecraft:pearlescent_froglight"},
+          {"items": "nekomasfixed:light_blue_froglight"},
+          {"items": "nekomasfixed:blue_froglight"},
+          {"items": "nekomasfixed:purple_froglight"},
+          {"items": "nekomasfixed:pink_froglight"},
+          {"items": "nekomasfixed:amber_froglight"},
+          {"items": "nekomasfixed:aqua_froglight"},
+          {"items": "nekomasfixed:crimson_froglight"},
+          {"items": "nekomasfixed:indigo_froglight"}
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.husbandry.all_froglights.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "nekomasfixed:white_froglight"
+    },
+    "title": {
+      "translate": "advancements.husbandry.all_froglights.title"
+    }
+  },
+  "requirements": [
+    [
+      "all_froglights"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
