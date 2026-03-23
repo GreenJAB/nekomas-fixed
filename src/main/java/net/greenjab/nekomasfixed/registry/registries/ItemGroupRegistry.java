@@ -148,6 +148,17 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.CRIMSON_BUNDLE);
 
                          entries.add(ItemRegistry.AMBER_STAINED_GLASS);
+                         entries.add(ItemRegistry.AQUA_STAINED_GLASS);
+                         entries.add(ItemRegistry.INDIGO_STAINED_GLASS);
+                         entries.add(ItemRegistry.CRIMSON_STAINED_GLASS);
+                         entries.add(ItemRegistry.AMBER_STAINED_GLASS_PANE);
+                         entries.add(ItemRegistry.AQUA_STAINED_GLASSS_PANE);
+                         entries.add(ItemRegistry.INDIGO_STAINED_GLASSS_PANE);
+                         entries.add(ItemRegistry.CRIMSON_STAINED_GLASSS_PANE);
+                         entries.add(ItemRegistry.AMBER_SHULKER_BOX);
+                         entries.add(ItemRegistry.AQUA_SHULKER_BOX);
+                         entries.add(ItemRegistry.INDIGO_SHULKER_BOX);
+                         entries.add(ItemRegistry.CRIMSON_SHULKER_BOX);
 
                         entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
 

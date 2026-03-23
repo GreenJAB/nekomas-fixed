@@ -8,10 +8,7 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.MagmaCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.SlimeCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
-import net.greenjab.nekomasfixed.util.ModColors;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
@@ -301,7 +298,19 @@ public class BlockRegistry {
     public static final Block CRIMSON_BED = registerBedBlock("crimson_bed", DyeColor.RED);
 
     public static final Block AMBER_STAINED_GLASS = registerStainedGlassBlock("amber_stained_glass", DyeColor.YELLOW);
+    public static final Block AQUA_STAINED_GLASS = registerStainedGlassBlock("aqua_stained_glass", DyeColor.LIGHT_BLUE);
+    public static final Block INDIGO_STAINED_GLASS = registerStainedGlassBlock("indigo_stained_glass", DyeColor.MAGENTA);
+    public static final Block CRIMSON_STAINED_GLASS = registerStainedGlassBlock("crimson_stained_glass", DyeColor.RED);
 
+    public static final Block AMBER_STAINED_GLASS_PANE = registerStainedGlassPaneBlock("amber_stained_glass_pane", DyeColor.YELLOW);
+    public static final Block AQUA_STAINED_GLASS_PANE = registerStainedGlassPaneBlock("aqua_stained_glass_pane", DyeColor.LIGHT_BLUE);
+    public static final Block INDIGO_STAINED_GLASS_PANE = registerStainedGlassPaneBlock("indigo_stained_glass_pane", DyeColor.MAGENTA);
+    public static final Block CRIMSON_STAINED_GLASS_PANE = registerStainedGlassPaneBlock("crimson_stained_glass_pane", DyeColor.RED);
+
+    public static final Block AMBER_SHULKER_BOX = registerShulkerBoxBlock("amber_shulker_box", DyeColor.YELLOW);
+    public static final Block AQUA_SHULKER_BOX = registerShulkerBoxBlock("aqua_shulker_box", DyeColor.LIGHT_BLUE);
+    public static final Block INDIGO_SHULKER_BOX = registerShulkerBoxBlock("indigo_shulker_box", DyeColor.MAGENTA);
+    public static final Block CRIMSON_SHULKER_BOX = registerShulkerBoxBlock("crimson_shulker_box", DyeColor.RED);
 
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
@@ -338,6 +347,14 @@ public class BlockRegistry {
         return register(id, (settings) -> new StainedGlassBlock(color, settings), AbstractBlock.Settings.create().mapColor(color).instrument(NoteBlockInstrument.HAT).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never));
     }
 
+    private static Block registerStainedGlassPaneBlock(String id, DyeColor color) {
+        return register(id, (settings) -> new StainedGlassPaneBlock(color, settings), AbstractBlock.Settings.create().mapColor(color).instrument(NoteBlockInstrument.HAT).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque());
+    }
+    private static Block registerShulkerBoxBlock(String id, DyeColor color) {
+        return register(id, settings -> new ShulkerBoxBlock(color, settings), Blocks.createShulkerBoxSettings(color.getMapColor()));
+    }
+
+
     private static Block registerBedBlock(String id, DyeColor color) {
         return register(id,
                 settings -> new BedBlock(color, settings),
@@ -352,21 +369,6 @@ public class BlockRegistry {
                         .pistonBehavior(PistonBehavior.DESTROY)
         );
     }
-
-    private static final AbstractBlock.ContextPredicate SHULKER_BOX_SUFFOCATES_PREDICATE = (state, world, pos) -> {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
-            return shulkerBoxBlockEntity.suffocates();
-        } else {
-            return true;
-        }
-    };
-
-    private static AbstractBlock.Settings createShulkerBoxSettings(MapColor mapColor) {
-        return AbstractBlock.Settings.create().mapColor(mapColor).solid().strength(2.0F).dynamicBounds().nonOpaque().suffocates(SHULKER_BOX_SUFFOCATES_PREDICATE).blockVision(SHULKER_BOX_SUFFOCATES_PREDICATE).pistonBehavior(PistonBehavior.DESTROY);
-    }
-
-
 
     public static void registerBlocks() {
         System.out.println("register Blocks");
