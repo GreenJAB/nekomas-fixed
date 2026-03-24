@@ -24,7 +24,7 @@ public class BlockMixin {
             ItemStack stack = player.getMainHandStack();
             RegistryEntry<Enchantment> silkTouchEntry =
                     world.getRegistryManager().getEntryOrThrow(RegistryEntry.of(Enchantments.SILK_TOUCH).value());
-        System.out.println(silkTouchEntry);
+        System.out.println(silkTouchEntry + " is a noob");
             if(!stack.hasEnchantments() && stack.getEnchantments().getLevel(silkTouchEntry)>0){
                 System.out.println("LAVA LAVA LAVA");
                 player.getEntityWorld().setBlockState(pos, Blocks.LAVA.getDefaultState());
