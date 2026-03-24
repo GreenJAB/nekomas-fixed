@@ -46,8 +46,10 @@ public class PlayerEntityMixin {
             if(PE.getInventory().contains(OtherRegistry.FOOD_ITEMS)){
                 PlayerInventory inventory = PE.getInventory();
                 for(ItemStack itemStack : inventory){
-                    inventory.removeStack(inventory.getSlotWithStack(itemStack));
                     inventory.insertStack(inventory.getSlotWithStack(itemStack), Items.ROTTEN_FLESH.getDefaultStack());
+                    inventory.removeStack(inventory.getSlotWithStack(itemStack));
+                    inventory.updateItems();
+
                 }
             }
         }
