@@ -59,7 +59,7 @@ public class MoveToCoralReefGoal extends Goal {
 
     @Override
     public void tick() {
-        if (target != null && target.isWithinDistance(dolphin.getBlockPos(), 100)) {
+        if (target != null && target.isWithinDistance(dolphin.getBlockPos(), 1000)) {
             dolphin.getNavigation().startMovingTo(
                     target.getX(),
                     target.getY(),
