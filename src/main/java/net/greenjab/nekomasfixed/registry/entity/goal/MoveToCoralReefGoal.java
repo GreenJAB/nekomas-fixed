@@ -24,10 +24,7 @@ public class MoveToCoralReefGoal extends Goal {
     private BlockPos searchCoralReef() {
         if (dolphin.getEntityWorld() instanceof ServerWorld serverWorld) {
 
-            RegistryKey<Biome> biomeSearch =
-                    serverWorld.random.nextBoolean()
-                            ? BiomeKeys.LUKEWARM_OCEAN
-                            : BiomeKeys.DEEP_LUKEWARM_OCEAN;
+            RegistryKey<Biome> biomeSearch = BiomeKeys.WARM_OCEAN;
 
             Predicate<RegistryEntry<Biome>> predicate =
                     entry -> entry.matchesKey(biomeSearch);
