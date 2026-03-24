@@ -14,6 +14,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BiomeTags;
@@ -41,11 +42,15 @@ public class PlayerEntityMixin {
                 PE.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 200, 0, false, false, true));
             }
         }
-//        }if(PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER) && PE!=null){
-//            if(PE.getInventory().contains(OtherRegistry.FOOD_ITEMS)){
-//                PE.getInventory().getStack(PE.getInventory().getSlotWithStack())
-//            }
-//        }
+        if(PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER) && PE!=null){
+            if(PE.getInventory().contains(OtherRegistry.FOOD_ITEMS)){
+                PlayerInventory inventory = PE.getInventory();
+                for(ItemStack itemStack : inventory){
+                    inventory.removeStack(inventory.getSlotWithStack(itemStack));
+                    inventory.insertStack(inventory.getSlotWithStack(itemStack), Items.ROTTEN_FLESH.getDefaultStack());
+                }
+            }
+        }
         if (ModData.combos.containsKey(PE.getUuid())){
             int comboTimer = ModData.combos.get(PE.getUuid())-1;
             if (comboTimer<=0) ModData.combos.remove(PE.getUuid());
