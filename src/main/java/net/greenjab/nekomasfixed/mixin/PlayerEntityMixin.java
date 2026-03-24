@@ -40,9 +40,13 @@ public class PlayerEntityMixin {
     @Final
     private PlayerInventory inventory;
 
+    @Unique
+    private int tickCount = 0;
+
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
     private void customTickLogics(CallbackInfo ci) {
         PlayerEntity PE = (PlayerEntity)(Object)this;
+        this.tickCount++;
         if (PE.isOnGround() && !PE.isTouchingWater()) {
             if (PE.getEquippedStack(EquipmentSlot.FEET).isOf(ItemRegistry.TURTLE_BOOTS)) {
                 PE.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 200, 0, false, false, true));
@@ -51,12 +55,13 @@ public class PlayerEntityMixin {
         if(PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER) && PE!=null){
                 PlayerInventory inventory = PE.getInventory();
                 for(ItemStack itemStack : inventory){
-                    if(itemStack.isIn(OtherRegistry.FOOD_ITEMS)){
+                    if(itemStack.isIn(OtherRegistry.FOOD_ITEMS) && tickCount>=200){
                         int prevSlot = inventory.getSlotWithStack(itemStack);
                         ItemStack rottenStack = new ItemStack(Items.ROTTEN_FLESH, itemStack.getCount());
                         inventory.removeStack(inventory.getSlotWithStack(itemStack));
                         inventory.insertStack(prevSlot, rottenStack);
                         inventory.updateItems();
+                        tickCount=0;
                     }
                 }
         }
