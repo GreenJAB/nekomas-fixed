@@ -37,6 +37,6 @@ public class DolphinEntityMixin {
     @Inject(method = "initGoals", at = @At("TAIL"))
     private void initCustomGoals(CallbackInfo ci){
         DolphinEntity dolphin = (DolphinEntity)(Object)this;
-        dolphin.goalSelector.add(7, new MoveToCoralReefGoal(dolphin, 4D, 32, 10));
+        dolphin.goalSelector.add(7, new MoveToCoralReefGoal(dolphin));
     }
 }
