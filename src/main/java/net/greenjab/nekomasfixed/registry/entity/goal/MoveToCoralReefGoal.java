@@ -28,10 +28,9 @@ public class MoveToCoralReefGoal extends MoveToTargetPosGoal {
         this.mob = mob;
     }
 
-    private BlockPos searchCoralReef(DolphinEntity dolphinEntity) {
-
+    private BlockPos searchCoralReef() {
         RegistryKey<Biome> biomeSearch = BiomeKeys.FOREST;
-        World world = dolphinEntity.getEntityWorld();
+        World world = mob.getEntityWorld();
         if (world instanceof ServerWorld serverWorld) {
             int map = serverWorld.random.nextInt(2);
             biomeSearch = switch (map) {
@@ -45,12 +44,12 @@ public class MoveToCoralReefGoal extends MoveToTargetPosGoal {
             Objects.requireNonNull(var10001);
             Predicate<RegistryEntry<Biome>> predicate = var10001::contains;
 
-            com.mojang.datafixers.util.Pair<BlockPos, RegistryEntry<Biome>> pair = serverWorld.locateBiome(predicate, dolphinEntity.getBlockPos(), 6400, 32, 64);
+            com.mojang.datafixers.util.Pair<BlockPos, RegistryEntry<Biome>> pair = serverWorld.locateBiome(predicate, mob.getBlockPos(), 6400, 32, 64);
             if (pair != null) {
                 return pair.getFirst();
             }
         }
-       return dolphinEntity.getBlockPos();
+        return mob.getBlockPos();
     }
 
     @Override
@@ -64,9 +63,8 @@ public class MoveToCoralReefGoal extends MoveToTargetPosGoal {
         return this.mob.isOnGround() && (biome.matchesKey(BiomeKeys.LUKEWARM_OCEAN) ||  biome.matchesKey(BiomeKeys.DEEP_LUKEWARM_OCEAN));
     }
 
-
-    public BlockPos getTargetPos(DolphinEntity de){
-        return searchCoralReef(de);
+    public BlockPos getTargetPos(){
+        return searchCoralReef();
     }
 
 
@@ -75,8 +73,8 @@ public class MoveToCoralReefGoal extends MoveToTargetPosGoal {
         return false;
     }
 
-    public void tick(DolphinEntity de){
-        BlockPos blockPos = this.getTargetPos(de);
+    public void tick(){
+        BlockPos blockPos = this.getTargetPos();
         if (!blockPos.isWithinDistance(this.mob.getEntityPos(), this.getDesiredDistanceToTarget())) {
             this.reached = false;
             ++this.tryingTime;
