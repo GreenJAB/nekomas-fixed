@@ -52,8 +52,9 @@ public class PlayerEntityMixin {
                 PlayerInventory inventory = PE.getInventory();
                 for(ItemStack itemStack : inventory){
                     if(itemStack.isIn(OtherRegistry.FOOD_ITEMS)){
+                        int prevSlot = inventory.getSlotWithStack(itemStack);
                         inventory.removeStack(inventory.getSlotWithStack(itemStack));
-                        inventory.insertStack(inventory.getSlotWithStack(itemStack), Items.ROTTEN_FLESH.getDefaultStack());
+                        inventory.insertStack(prevSlot, Items.ROTTEN_FLESH.getDefaultStack());
                         inventory.updateItems();
                     }
                 }
