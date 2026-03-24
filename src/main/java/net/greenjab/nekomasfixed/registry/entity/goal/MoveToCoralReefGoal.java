@@ -19,8 +19,6 @@ public class MoveToCoralReefGoal extends Goal {
         this.dolphin = dolphin;
     }
 
-    //this one is not working - plz check
-
     private BlockPos searchCoralReef() {
         if (dolphin.getEntityWorld() instanceof ServerWorld serverWorld) {
 
@@ -49,7 +47,12 @@ public class MoveToCoralReefGoal extends Goal {
     public boolean canStart() {
         return dolphin.getDataTracker().get(
                 IsTropicalFishFedDataTracker.IS_TROPICAL_FISH_FED
-        );
+        )&&!dolphin.isOnGround() && !dolphin.getEntityWorld().getBiome(dolphin.getBlockPos()).matchesKey(BiomeKeys.WARM_OCEAN);
+    }
+
+    @Override
+    public boolean canStop(){
+        return !dolphin.isOnGround() && dolphin.getEntityWorld().getBiome(dolphin.getBlockPos()).matchesKey(BiomeKeys.WARM_OCEAN);
     }
 
     @Override
