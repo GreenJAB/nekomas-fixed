@@ -49,15 +49,14 @@ public class PlayerEntityMixin {
             }
         }
         if(PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER) && PE!=null){
-            if(PE.getInventory().contains(itemstack -> inventory.contains(itemstack))){
                 PlayerInventory inventory = PE.getInventory();
                 for(ItemStack itemStack : inventory){
-                    inventory.removeStack(inventory.getSlotWithStack(itemStack));
-                    inventory.insertStack(inventory.getSlotWithStack(itemStack), Items.ROTTEN_FLESH.getDefaultStack());
-                    inventory.updateItems();
-
+                    if(itemStack.isIn(OtherRegistry.FOOD_ITEMS)){
+                        inventory.removeStack(inventory.getSlotWithStack(itemStack));
+                        inventory.insertStack(inventory.getSlotWithStack(itemStack), Items.ROTTEN_FLESH.getDefaultStack());
+                        inventory.updateItems();
+                    }
                 }
-            }
         }
         if (ModData.combos.containsKey(PE.getUuid())){
             int comboTimer = ModData.combos.get(PE.getUuid())-1;
