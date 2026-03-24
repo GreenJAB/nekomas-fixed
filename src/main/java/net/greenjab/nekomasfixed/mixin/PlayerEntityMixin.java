@@ -36,13 +36,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
 
-    @Shadow
-    @Final
-    private PlayerInventory inventory;
-
     @Unique
     private int tickCount = 0;
 
+    @Unique
+    private void checkForEdibles(PlayerInventory inventory){
+        if (tickCount < 200) return;
+        for (int i = 0; i < inventory.size(); i++) {
+            ItemStack stack = inventory.getStack(i);
+            if (!stack.isEmpty() && stack.isIn(OtherRegistry.FOOD_ITEMS)) {
+                ItemStack rotten = new ItemStack(Items.ROTTEN_FLESH, stack.getCount());
+                inventory.setStack(i, rotten);
+            }
+        }
+        tickCount = 0;
+    }
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
     private void customTickLogics(CallbackInfo ci) {
         PlayerEntity PE = (PlayerEntity)(Object)this;
@@ -52,19 +60,9 @@ public class PlayerEntityMixin {
                 PE.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 200, 0, false, false, true));
             }
         }
-        if(PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER) && PE!=null){
-                PlayerInventory inventory = PE.getInventory();
+        if (PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER)) {
             this.tickCount++;
-                for(ItemStack itemStack : inventory){
-                    if(itemStack.isIn(OtherRegistry.FOOD_ITEMS) && tickCount>=200){
-                        int prevSlot = inventory.getSlotWithStack(itemStack);
-                        ItemStack rottenStack = new ItemStack(Items.ROTTEN_FLESH, itemStack.getCount());
-                        inventory.removeStack(inventory.getSlotWithStack(itemStack));
-                        inventory.insertStack(prevSlot, rottenStack);
-                        inventory.updateItems();
-                        tickCount=0;
-                    }
-                }
+            this.checkForEdibles(PE.getInventory());
         }
         if (ModData.combos.containsKey(PE.getUuid())){
             int comboTimer = ModData.combos.get(PE.getUuid())-1;
