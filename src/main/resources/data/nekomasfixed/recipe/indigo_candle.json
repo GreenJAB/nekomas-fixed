@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "indigo_dye",
+  "group": "dyed_candle",
   "ingredients": [
     "nekomasfixed:indigo_dye",
     "minecraft:candle"
