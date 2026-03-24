@@ -19,6 +19,8 @@ public class MoveToCoralReefGoal extends Goal {
         this.dolphin = dolphin;
     }
 
+    //this one is not working - plz check
+
     private BlockPos searchCoralReef() {
         if (dolphin.getEntityWorld() instanceof ServerWorld serverWorld) {
 
