@@ -54,6 +54,7 @@ public class PlayerEntityMixin {
         }
         if(PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER) && PE!=null){
                 PlayerInventory inventory = PE.getInventory();
+                tickCount = 0;
                 for(ItemStack itemStack : inventory){
                     if(itemStack.isIn(OtherRegistry.FOOD_ITEMS) && tickCount>=200){
                         int prevSlot = inventory.getSlotWithStack(itemStack);
