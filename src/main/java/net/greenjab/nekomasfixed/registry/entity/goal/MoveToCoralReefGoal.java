@@ -23,10 +23,11 @@ public class MoveToCoralReefGoal extends MoveToTargetPosGoal {
     private final PathAwareEntity mob;
     private boolean reached = false;
 
-    public MoveToCoralReefGoal(PathAwareEntity mob,  double speed, int range, int maxYDifferenc) {
-        super(mob, speed, range, maxYDifferenc);
+    public MoveToCoralReefGoal(PathAwareEntity mob,  double speed, int range, int maxYDifference) {
+        super(mob, speed, range, maxYDifference);
         this.mob = mob;
     }
+
 
     private BlockPos searchCoralReef() {
         RegistryKey<Biome> biomeSearch = BiomeKeys.FOREST;
@@ -46,6 +47,7 @@ public class MoveToCoralReefGoal extends MoveToTargetPosGoal {
 
             com.mojang.datafixers.util.Pair<BlockPos, RegistryEntry<Biome>> pair = serverWorld.locateBiome(predicate, mob.getBlockPos(), 6400, 32, 64);
             if (pair != null) {
+                System.out.println(pair.getFirst() + " got the location \n");
                 return pair.getFirst();
             }
         }

@@ -13,3 +13,7 @@ accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory
 accessible field net/minecraft/block/entity/BrewingStandBlockEntity inventory Lnet/minecraft/util/collection/DefaultedList;
 accessible method net/minecraft/block/Blocks createShulkerBoxSettings (Lnet/minecraft/block/MapColor;)Lnet/minecraft/block/AbstractBlock$Settings;
 accessible field net/minecraft/entity/mob/MobEntity goalSelector Lnet/minecraft/entity/ai/goal/GoalSelector;
+accessible field net/minecraft/entity/mob/MobEntity targetSelector Lnet/minecraft/entity/ai/goal/GoalSelector;
+accessible class net/minecraft/entity/passive/DolphinEntity$LeadToNearbyTreasureGoal
+accessible class net/minecraft/entity/passive/DolphinEntity$SwimWithPlayerGoal
+accessible class net/minecraft/entity/passive/DolphinEntity$PlayWithItemsGoal

@@ -1,7 +1,8 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.entity.goal.MoveToCoralReefGoal;
 import net.greenjab.nekomasfixed.util.IsTropicalFishFedDataTracker;
-import net.minecraft.entity.ai.goal.MoveIntoWaterGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.passive.DolphinEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,9 +34,9 @@ public class DolphinEntityMixin {
         }
     }
 
-    @Inject(method = "initGoals", at = @At("TAIL"))
+    @Inject(method = "initGoals", at = @At("HEAD"))
     private void initCustomGoals(CallbackInfo ci){
         DolphinEntity dolphin = (DolphinEntity)(Object)this;
-        dolphin.goalSelector.add(10, new MoveIntoWaterGoal(dolphin));
+        dolphin.goalSelector.add(7, new MoveToCoralReefGoal(dolphin, 4D, 32, 10));
     }
 }
