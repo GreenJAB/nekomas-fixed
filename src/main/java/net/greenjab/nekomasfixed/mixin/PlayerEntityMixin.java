@@ -16,6 +16,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
@@ -33,13 +34,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PlayerEntityMixin {
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
-    private void turtleBootsSpeed(CallbackInfo ci) {
+    private void customTickLogics(CallbackInfo ci) {
         PlayerEntity PE = (PlayerEntity)(Object)this;
-        if (PE.isOnGround() && !PE.isTouchingWater()){
+        if (PE.isOnGround() && !PE.isTouchingWater()) {
             if (PE.getEquippedStack(EquipmentSlot.FEET).isOf(ItemRegistry.TURTLE_BOOTS)) {
                 PE.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 200, 0, false, false, true));
             }
         }
+//        }if(PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER) && PE!=null){
+//            if(PE.getInventory().contains(OtherRegistry.FOOD_ITEMS)){
+//                PE.getInventory().getStack(PE.getInventory().getSlotWithStack())
+//            }
+//        }
         if (ModData.combos.containsKey(PE.getUuid())){
             int comboTimer = ModData.combos.get(PE.getUuid())-1;
             if (comboTimer<=0) ModData.combos.remove(PE.getUuid());
