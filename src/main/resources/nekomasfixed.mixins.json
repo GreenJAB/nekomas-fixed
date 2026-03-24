@@ -11,6 +11,7 @@
     "CauldronMixin",
     "ContainerComponentMixin",
     "DispenserBlockMixin",
+    "DolphinEntityMixin",
     "DrownedEntityMixin",
     "DyeItemMixin",
     "EnchantmentMixin",
