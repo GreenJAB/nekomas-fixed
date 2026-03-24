@@ -23,15 +23,15 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Random;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
@@ -41,7 +41,9 @@ public class PlayerEntityMixin {
 
     @Unique
     private void checkForEdibles(PlayerInventory inventory){
-        if (tickCount < 200) return;
+        Random random = new Random();
+
+        if (tickCount < random.nextInt(20*40, 20*80)) return;
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
             if (!stack.isEmpty() && stack.isIn(OtherRegistry.FOOD_ITEMS)) {
