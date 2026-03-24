@@ -46,7 +46,7 @@ public class PlayerEntityMixin {
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
     private void customTickLogics(CallbackInfo ci) {
         PlayerEntity PE = (PlayerEntity)(Object)this;
-        this.tickCount++;
+
         if (PE.isOnGround() && !PE.isTouchingWater()) {
             if (PE.getEquippedStack(EquipmentSlot.FEET).isOf(ItemRegistry.TURTLE_BOOTS)) {
                 PE.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 200, 0, false, false, true));
@@ -54,7 +54,7 @@ public class PlayerEntityMixin {
         }
         if(PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER) && PE!=null){
                 PlayerInventory inventory = PE.getInventory();
-                tickCount = 0;
+            this.tickCount++;
                 for(ItemStack itemStack : inventory){
                     if(itemStack.isIn(OtherRegistry.FOOD_ITEMS) && tickCount>=200){
                         int prevSlot = inventory.getSlotWithStack(itemStack);
