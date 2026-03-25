@@ -59,10 +59,11 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int upperPart = height / 3 -1 ;
 
         int r = girthRadius+1;
+        int x,y,z = 0;
 
-        for (int y = 0; y < lowerPart; y++) {
-            for (int x = -r; x <= r; x++) {
-                for (int z = -r; z <= r; z++) {
+        for ( y = 0; y < lowerPart; y++) {
+            for ( x = -r; x <= r; x++) {
+                for ( z = -r; z <= r; z++) {
                    if(x*x + z*z <= r*r){
                        BlockPos pos = startPos.add(x, y, z);
                        this.getAndSetState(world, replacer, random, pos, config);
@@ -71,12 +72,14 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             }
         }
 
+
+
          r = girthRadius;
-        for (int y = lowerPart; y < midPart; y++) {
-            for (int x = -r; x <= r; x++) {
-                for (int z = -r; z <= r; z++) {
+        for ( y = lowerPart; y < midPart; y++) {
+            for ( x = -r; x <= r; x++) {
+                for ( z = -r; z <= r; z++) {
                     if(x*x + z*z <= r*r){
-                        BlockPos pos = startPos.add(x, y+lowerPart, z);
+                        BlockPos pos = new BlockPos(x, y+lowerPart, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
@@ -84,11 +87,11 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         }
 
         r = girthRadius-1;
-        for (int y = midPart; y < upperPart; y++) {
-            for (int x = -r; x <= r; x++) {
-                for (int z = -r; z <= r; z++) {
+        for ( y = midPart; y < upperPart; y++) {
+            for ( x = -r; x <= r; x++) {
+                for ( z = -r; z <= r; z++) {
                     if(x*x + z*z <= r*r){
-                        BlockPos pos = startPos.add(x, y+midPart, z);
+                        BlockPos pos = new BlockPos(x, y+midPart, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
