@@ -47,7 +47,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         Direction direction = Direction.Type.HORIZONTAL.random(random);
 
         //now getting into complicated stuff
-        int girthRadius = 3 ; //min 3, max 4 (6-8 blocks in diameter)
+        int girthRadius = 2 ; //min 3, max 4 (6-8 blocks in diameter)
 
         int X = startPos.getX();
         int startY = startPos.getY();
@@ -59,20 +59,37 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int upperPart = height / 3;
         int currentY = 0;
 
-        //lower think trunk
-        for (int y = currentY; y < lowerPart; ++y) {
-            for (int x = -girthRadius; x <= girthRadius; ++x) {
-                for (int z = -girthRadius; z <= girthRadius; ++z) {
-                        if((z<girthRadius && x<girthRadius) && (z>-girthRadius && x>-girthRadius)){continue;}
-                        if (Math.abs(x) == girthRadius && Math.abs(z) == girthRadius) {continue;}
-                            BlockPos pos = startPos.add(x, y, z);
-                            if (TreeFeature.isAirOrLeaves(world, pos)) {
-                                this.getAndSetState(world, replacer, random, pos, config);
-                            }
+        int r = girthRadius;
+        double n = 3.0; // 2 = circle, higher = more square-ish
 
+        for (int y = 0; y < height; y++) {
+            for (int x = -r; x <= r; x++) {
+                for (int z = -r; z <= r; z++) {
+
+                    double value = Math.pow(Math.abs(x), n) + Math.pow(Math.abs(z), n);
+
+                    if (value <= Math.pow(r, n)) {
+                        BlockPos pos = startPos.add(x, y, z);
+                        this.getAndSetState(world, replacer, random, pos, config);
+                    }
                 }
             }
         }
+
+        //lower think trunk
+//        for (int y = currentY; y < lowerPart; ++y) {
+//            for (int x = -girthRadius; x <= girthRadius; ++x) {
+//                for (int z = -girthRadius; z <= girthRadius; ++z) {
+//                        if((z<girthRadius && x<girthRadius) && (z>-girthRadius && x>-girthRadius)){continue;}
+//                        if (Math.abs(x) == girthRadius && Math.abs(z) == girthRadius) {continue;}
+//                            BlockPos pos = startPos.add(x, y, z);
+//                            if (TreeFeature.isAirOrLeaves(world, pos)) {
+//                                this.getAndSetState(world, replacer, random, pos, config);
+//                            }
+//
+//                }
+//            }
+//        }
 
 
 
