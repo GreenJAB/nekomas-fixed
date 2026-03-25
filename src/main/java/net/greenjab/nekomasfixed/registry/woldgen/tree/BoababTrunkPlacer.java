@@ -1,6 +1,10 @@
 package net.greenjab.nekomasfixed.registry.woldgen.tree;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -20,9 +24,14 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
     }
 
+    public static final MapCodec<BoababTrunkPlacer> CODEC =
+            RecordCodecBuilder.mapCodec(instance ->
+                    fillTrunkPlacerFields(instance).apply(instance, BoababTrunkPlacer::new)
+            );
+
     @Override
     protected TrunkPlacerType<?> getType() {
-        return null;
+        return ModTrunkPlacers.BOABAB_TRUNK_PLACER;
     }
 
     @Override
@@ -62,7 +71,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             }
         }
 
-
-        return List.of();
+        list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
+        return list;
     }
 }
