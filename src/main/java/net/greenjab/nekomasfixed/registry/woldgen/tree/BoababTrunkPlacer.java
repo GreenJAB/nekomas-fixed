@@ -65,29 +65,15 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         for (int y = 0; y < height; y++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
-                    int maxDist = Math.max(Math.abs(x), Math.abs(z));
-                    if (maxDist <= r && maxDist >= hollow) {
-                        BlockPos pos = startPos.add(x, y, z);
-                        this.getAndSetState(world, replacer, random, pos, config);
-                    }
+                   if(x*x + z*z == r*r){
+                       BlockPos pos = startPos.add(x, y, z);
+                       this.getAndSetState(world, replacer, random, pos, config);
+                   }
                 }
             }
         }
 
-        //lower think trunk
-//        for (int y = currentY; y < lowerPart; ++y) {
-//            for (int x = -girthRadius; x <= girthRadius; ++x) {
-//                for (int z = -girthRadius; z <= girthRadius; ++z) {
-//                        if((z<girthRadius && x<girthRadius) && (z>-girthRadius && x>-girthRadius)){continue;}
-//                        if (Math.abs(x) == girthRadius && Math.abs(z) == girthRadius) {continue;}
-//                            BlockPos pos = startPos.add(x, y, z);
-//                            if (TreeFeature.isAirOrLeaves(world, pos)) {
-//                                this.getAndSetState(world, replacer, random, pos, config);
-//                            }
-//
-//                }
-//            }
-//        }
+
 
 
 
