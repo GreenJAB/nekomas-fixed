@@ -56,11 +56,9 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int genHeight = startY + height - 1; // if I start of 0 and the height is 14, it outputs 13 (to start folliageGen)
         int lowerPart = height / 3;
         int midPart = height / 3;
-        int upperPart = height / 3;
-        int currentY = 0;
+        int upperPart = height / 3 -1 ;
 
         int r = girthRadius+1;
-        int hollow = 1;
 
         for (int y = 0; y < lowerPart; y++) {
             for (int x = -r; x <= r; x++) {
@@ -78,7 +76,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
                     if(x*x + z*z <= r*r){
-                        BlockPos pos = startPos.add(x+lowerPart, y+lowerPart, z+lowerPart);
+                        BlockPos pos = startPos.add(x, y+lowerPart, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
@@ -90,7 +88,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
                     if(x*x + z*z <= r*r){
-                        BlockPos pos = startPos.add(x+midPart, y+midPart, z+midPart);
+                        BlockPos pos = startPos.add(x, y+midPart, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
