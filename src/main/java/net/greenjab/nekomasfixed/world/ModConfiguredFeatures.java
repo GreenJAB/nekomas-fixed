@@ -28,7 +28,7 @@ public class ModConfiguredFeatures {
                 BlockStateProvider.of(Blocks.ACACIA_LEAVES),
                 new BlobFoliagePlacer(ConstantIntProvider.create(4), ConstantIntProvider.create(1), 3),
 
-                new TwoLayersFeatureSize(1, 0, 2)).build());
+                new TwoLayersFeatureSize(3, 1, 2)).build());
     }
 
 
