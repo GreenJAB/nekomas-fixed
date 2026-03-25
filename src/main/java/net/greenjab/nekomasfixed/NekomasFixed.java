@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.registries.*;
+import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.greenjab.nekomasfixed.world.gen.ModWorldGeneration;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -26,7 +27,9 @@ public class NekomasFixed implements ModInitializer {
 		ItemRegistry.registerItems();
 		ItemGroupRegistry.registerItemGroup();
 		EntityTypeRegistry.registerEntityType();
+		ModTrunkPlacers.register();
 		ModWorldGeneration.generateModWorldGen();
+
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
 		EntityTypeRegistry.init();
