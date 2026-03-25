@@ -23,7 +23,7 @@ public class ModConfiguredFeatures {
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         register(context, BOABAB_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(BlockRegistry.BOABAB_LOG),
-                new DarkOakTrunkPlacer(5, 6, 3) ,
+                new DarkOakTrunkPlacer(8, 3, 2),
 
                 BlockStateProvider.of(Blocks.ACACIA_LEAVES),
                 new BlobFoliagePlacer(ConstantIntProvider.create(4), ConstantIntProvider.create(1), 3),
