@@ -17,11 +17,9 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 public class ModConfiguredFeatures {
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> BOABAB_KEY = registerKey("boabab");
-
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
-
-
         register(context, BOABAB_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(BlockRegistry.BOABAB_LOG),
                 new StraightTrunkPlacer(5, 6, 3) ,
@@ -32,10 +30,11 @@ public class ModConfiguredFeatures {
                 new TwoLayersFeatureSize(1, 0, 2)).build());
     }
 
+
+
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of("nekomasfixed", name));
     }
-
     private static <FC extends FeatureConfig, F extends Feature<FC>> void register(Registerable<ConfiguredFeature<?, ?>> context,
                                                                                    RegistryKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
