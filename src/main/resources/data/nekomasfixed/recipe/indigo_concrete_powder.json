@@ -1,15 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": "minecraft:sand",
-    "G": "minecraft:gravel",
-    "D": "nekomasfixed:indigo_dye"
-  },
-  "pattern": [
-    "###",
-    "#DG",
-    "GGG"
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "concrete_powder",
+  "ingredients": [
+    "nekomasfixed:indigo_dye",
+    "minecraft:sand",
+    "minecraft:sand",
+    "minecraft:sand",
+    "minecraft:sand",
+    "minecraft:gravel",
+    "minecraft:gravel",
+    "minecraft:gravel",
+    "minecraft:gravel"
   ],
   "result": {
     "count": 8,

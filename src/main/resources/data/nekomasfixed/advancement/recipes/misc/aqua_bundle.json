@@ -1,10 +1,32 @@
 {
-  "type": "minecraft:crafting_transmute",
-  "category": "equipment",
-  "group": "bundle_dye",
-  "input": "#minecraft:bundles",
-  "material": "nekomasfixed:aqua_dye",
-  "result": {
-    "id": "nekomasfixed:aqua_bundle"
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:aqua_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:aqua_bundle"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_item"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:aqua_bundle"
+    ]
   }
 }

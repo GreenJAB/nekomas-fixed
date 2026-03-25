@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "misc",
+  "group": "carpet_dye",
+  "input": "#minecraft:wool_carpets",
+  "material": "nekomasfixed:aqua_dye",
+  "result": {
+    "id": "nekomasfixed:aqua_carpet"
+  }
+}

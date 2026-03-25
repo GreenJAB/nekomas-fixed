@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 public class MoveToCoralReefGoal extends Goal {
     private final DolphinEntity dolphin;
     private BlockPos target;
+    private int timer = 0;
 
     public MoveToCoralReefGoal(DolphinEntity dolphin) {
         this.dolphin = dolphin;
@@ -52,12 +53,13 @@ public class MoveToCoralReefGoal extends Goal {
 
     @Override
     public boolean canStop(){
-        return !dolphin.isOnGround() && dolphin.getEntityWorld().getBiome(dolphin.getBlockPos()).matchesKey(BiomeKeys.WARM_OCEAN);
+        return !dolphin.isOnGround() && dolphin.getEntityWorld().getBiome(dolphin.getBlockPos()).matchesKey(BiomeKeys.WARM_OCEAN) && timer < 20*10;
     }
 
     @Override
     public void start() {
         this.target = searchCoralReef();
+        this.timer = 0;
     }
 
     @Override
@@ -69,6 +71,9 @@ public class MoveToCoralReefGoal extends Goal {
                     target.getZ(),
                     1.2
             );
+            timer++;
+        } else {
+            timer = 100000;
         }
     }
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cyan_dye_from_pitcher_plant"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_torchflower": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:barrier"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_torchflower"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cyan_dye_from_pitcher_plant"
+    ]
+  }
+}

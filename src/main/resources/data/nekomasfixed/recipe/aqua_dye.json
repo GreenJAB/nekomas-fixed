@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "indigo_dye",
+  "group": "aqua_dye",
   "ingredients": [
     "nekomasfixed:indigo_dye",
     "minecraft:white_dye"

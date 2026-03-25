@@ -369,7 +369,7 @@ public class ItemRegistry {
     public static final Item BROWN_FROGLIGHT = register(BlockRegistry.BROWN_FROGLIGHT);
     public static final Item RED_FROGLIGHT = register(BlockRegistry.RED_FROGLIGHT);
     public static final Item ORANGE_FROGLIGHT = register(BlockRegistry.ORANGE_FROGLIGHT);
-    public static final Item LIME_FROGLIGHT = register(BlockRegistry.LIME_FROGLIGHT);
+    public static final Item GREEN_FROGLIGHT = register(BlockRegistry.GREEN_FROGLIGHT);
     public static final Item CYAN_FROGLIGHT = register(BlockRegistry.CYAN_FROGLIGHT);
     public static final Item LIGHT_BLUE_FROGLIGHT = register(BlockRegistry.LIGHT_BLUE_FROGLIGHT);
     public static final Item BLUE_FROGLIGHT = register(BlockRegistry.BLUE_FROGLIGHT);
