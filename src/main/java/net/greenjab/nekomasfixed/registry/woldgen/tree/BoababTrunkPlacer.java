@@ -62,7 +62,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for (int y = -girthRadius; y <= girthRadius; y++) {
                 for (int z = -girthRadius; z <= girthRadius; z++) {
                     if (x*x + y*y + z*z <= girthRadius*girthRadius) {
-                        BlockPos pos = new BlockPos(x, y, z);
+                        BlockPos pos = new BlockPos(x+X, y+startY, z+Z);
                         if (TreeFeature.isAirOrLeaves(world, pos)) {
                             this.getAndSetState(world, replacer, random, pos, config);
                         }
