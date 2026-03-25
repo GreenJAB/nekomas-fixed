@@ -244,7 +244,7 @@ public class BlockRegistry {
                     .burnable());
 
 
-    public static final Block BOABAB_LOG = register("boabab_log", AbstractBlock.Settings.copy(Blocks.OAK_LOG));
+    public static final Block BOABAB_LOG = register("boabab_log", (settings)->new PillarBlock(settings), AbstractBlock.Settings.copy(Blocks.OAK_LOG));
     public static final Block BOABAB_SAPLING = register("boabab_sapling",(settings) -> new SaplingBlock(ModSaplingGenerators.BOABAB,  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
 
 
