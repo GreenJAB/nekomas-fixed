@@ -33,7 +33,7 @@
       "lower_size": 1,
       "middle_size": 1,
       "upper_limit": 1,
-      "upper_size": 2
+      "upper_size": 10
     },
     "trunk_placer": {
       "type": "minecraft:dark_oak_trunk_placer",
