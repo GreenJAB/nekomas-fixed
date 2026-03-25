@@ -243,7 +243,8 @@ public class BlockRegistry {
                     .burnable());
 
 
-
+    public static final Block BOABAB_LOG = register("boabab_log", AbstractBlock.Settings.copy(Blocks.OAK_LOG));
+    public static final Block BOABAB_SAPLING = register("boabab_sapling", AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
 
     public static final Block WHITE_FROGLIGHT = register("white_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
     public static final Block LIGHT_GRAY_FROGLIGHT = register("light_gray_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));

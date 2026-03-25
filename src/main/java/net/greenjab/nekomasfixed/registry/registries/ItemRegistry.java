@@ -113,6 +113,8 @@ public class ItemRegistry {
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
 
+    public static final Item BOABAB_LOG = register(BlockRegistry.BOABAB_LOG);
+
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register(
             "jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );

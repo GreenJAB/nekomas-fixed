@@ -162,6 +162,8 @@ public class ItemGroupRegistry {
 
                         entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
 
+                        entries.add(ItemRegistry.BOABAB_LOG);
+
 
 
                     }).build();
