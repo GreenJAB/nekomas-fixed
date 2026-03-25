@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "equipment",
+  "group": "harness_dye",
+  "input": "#minecraft:harnesses",
+  "material": "nekomasfixed:amber_dye",
+  "result": {
+    "id": "nekomasfixed:amber_harness"
+  }
+}

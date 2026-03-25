@@ -1,10 +1,32 @@
 {
-  "type": "minecraft:crafting_transmute",
-  "category": "equipment",
-  "group": "bundle_dye",
-  "input": "#minecraft:bundles",
-  "material": "nekomasfixed:crimson_dye",
-  "result": {
-    "id": "nekomasfixed:crimson_bundle"
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:crimson_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:crimson_bundle"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_item"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:crimson_bundle"
+    ]
   }
 }

@@ -105,7 +105,7 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.BROWN_FROGLIGHT);
                          entries.add(ItemRegistry.RED_FROGLIGHT);
                          entries.add(ItemRegistry.ORANGE_FROGLIGHT);
-                         entries.add(ItemRegistry.LIME_FROGLIGHT);
+                         entries.add(ItemRegistry.GREEN_FROGLIGHT);
                          entries.add(ItemRegistry.CYAN_FROGLIGHT);
                          entries.add(ItemRegistry.LIGHT_BLUE_FROGLIGHT);
                          entries.add(ItemRegistry.BLUE_FROGLIGHT);

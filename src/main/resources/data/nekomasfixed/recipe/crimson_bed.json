@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
+  "group": "bed",
   "key": {
     "#": "#minecraft:planks",
     "D": "nekomasfixed:crimson_wool"

@@ -1,10 +1,32 @@
 {
-  "type": "minecraft:crafting_transmute",
-  "category": "equipment",
-  "group": "bundle_dye",
-  "input": "#minecraft:bundles",
-  "material": "nekomasfixed:amber_dye",
-  "result": {
-    "id": "nekomasfixed:amber_bundle"
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:amber_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:amber_bundle"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_item"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:amber_bundle"
+    ]
   }
 }
