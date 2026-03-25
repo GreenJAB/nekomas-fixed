@@ -14,7 +14,6 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 public class ModConfiguredFeatures {
@@ -25,7 +24,7 @@ public class ModConfiguredFeatures {
 
         register(context, BOABAB_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(BlockRegistry.BOABAB_LOG),
-                new DarkOakTrunkPlacer(5, 6, 3),
+                new StraightTrunkPlacer(5, 6, 3) ,
 
                 BlockStateProvider.of(Blocks.ACACIA_LEAVES),
                 new BlobFoliagePlacer(ConstantIntProvider.create(4), ConstantIntProvider.create(1), 3),
