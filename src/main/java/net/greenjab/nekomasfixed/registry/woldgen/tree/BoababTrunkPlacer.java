@@ -60,15 +60,13 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int currentY = 0;
 
         int r = girthRadius;
-        double n = 3.0; // 2 = circle, higher = more square-ish
+        int hollow = 1;
 
         for (int y = 0; y < height; y++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
-
-                    double value = Math.pow(Math.abs(x), n) + Math.pow(Math.abs(z), n);
-
-                    if (value <= Math.pow(r, n)) {
+                    int maxDist = Math.max(Math.abs(x), Math.abs(z));
+                    if (maxDist <= r && maxDist >= hollow) {
                         BlockPos pos = startPos.add(x, y, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
