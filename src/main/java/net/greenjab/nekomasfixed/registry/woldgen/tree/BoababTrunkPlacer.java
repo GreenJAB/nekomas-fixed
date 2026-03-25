@@ -29,6 +29,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                     fillTrunkPlacerFields(instance).apply(instance, BoababTrunkPlacer::new)
             );
 
+
     @Override
     protected TrunkPlacerType<?> getType() {
         return ModTrunkPlacers.BOABAB_TRUNK_PLACER;
@@ -55,8 +56,10 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int lowerPart = height / 3;
         int midPart = height / 3;
         int upperPart = height / 3;
+        int currentY = 0;
 
-        for (int y = 0; y < lowerPart; ++y) {
+        //lower think trunk
+        for (int y = currentY; y < lowerPart; ++y) {
             for (int x = -girthRadius; x <= girthRadius; ++x) {
                 for (int z = -girthRadius; z <= girthRadius; ++z) {
                     if (x * x + z * z <= girthRadius * girthRadius) {
@@ -68,6 +71,22 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 }
             }
         }
+
+        //middle trunk
+        for (int y = lowerPart-1; y < midPart; ++y) {
+            for (int x = -girthRadius-1; x <= girthRadius-1; ++x) {
+                for (int z = -girthRadius-1; z <= girthRadius-1; ++z) {
+                    if (x * x + z * z <= (girthRadius-1) * (girthRadius-1)) {
+                        BlockPos pos = startPos.add(x + X, y+startY, z + Z);
+                        if (TreeFeature.isAirOrLeaves(world, pos)) {
+                            this.getAndSetState(world, replacer, random, pos, config);
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
         return list;
