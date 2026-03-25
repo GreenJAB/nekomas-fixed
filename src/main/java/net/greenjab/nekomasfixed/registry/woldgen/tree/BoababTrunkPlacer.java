@@ -52,13 +52,13 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int Z = startPos.getZ();
 
         int genHeight = startY + height - 1; // if I start of 0 and the height is 14, it outputs 13 (to start folliageGen)
-        int lowerPart = genHeight/3; //bendHeight
-        int midPart = genHeight/3; //bendLength
-        int upperPart = genHeight/3;
+        int lowerPart = height / 3;
+        int midPart = height / 3;
+        int upperPart = height / 3;
 
-        for(int y = 0; y<=lowerPart; y++) {
-            for (int x = -girthRadius; x <= girthRadius; x++) {
-                for (int z = -girthRadius; z <= girthRadius; z++) {
+        for (int y = 0; y < lowerPart; ++y) {
+            for (int x = -girthRadius; x <= girthRadius; ++x) {
+                for (int z = -girthRadius; z <= girthRadius; ++z) {
                     if (x * x + z * z <= girthRadius * girthRadius) {
                         BlockPos pos = startPos.add(x + X, y+startY, z + Z);
                         if (TreeFeature.isAirOrLeaves(world, pos)) {
