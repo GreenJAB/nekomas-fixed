@@ -1,0 +1,68 @@
+package net.greenjab.nekomasfixed.registry.woldgen.tree;
+
+import com.google.common.collect.Lists;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.TestableWorld;
+import net.minecraft.world.gen.feature.TreeFeature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.foliage.FoliagePlacer;
+import net.minecraft.world.gen.trunk.TrunkPlacer;
+import net.minecraft.world.gen.trunk.TrunkPlacerType;
+
+import java.util.List;
+import java.util.function.BiConsumer;
+
+public class BoababTrunkPlacer extends TrunkPlacer {
+    public BoababTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
+        super(baseHeight, firstRandomHeight, secondRandomHeight);
+    }
+
+    @Override
+    protected TrunkPlacerType<?> getType() {
+        return null;
+    }
+
+    @Override
+    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
+        List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
+        BlockPos blockPos = startPos.down();
+        setToDirt(world, replacer, random, blockPos, config);
+        setToDirt(world, replacer, random, blockPos.east(), config);
+        setToDirt(world, replacer, random, blockPos.south(), config);
+        setToDirt(world, replacer, random, blockPos.south().east(), config);
+        Direction direction = Direction.Type.HORIZONTAL.random(random);
+
+        //now getting into complicated stuff
+        int girthRadius = 3 + random.nextInt(1); //min 3, max 4 (6-8 blocks in diameter)
+        int lowerPart = height/3; //bendHeight
+        int midPart = height/3; //bendLength
+        int upperPart = height/3;
+        int X = startPos.getX();
+        int startY = startPos.getY();
+        int Z = startPos.getZ();
+
+        int currentX = X;
+        int currentZ = Z;
+        int genHeight = startY + height - 1; // if I start of 0 and the height is 14, it outputs 13 (to start folliageGen)
+
+
+        for (int x = -girthRadius; x <= girthRadius; x++) {
+            for (int y = -girthRadius; y <= girthRadius; y++) {
+                for (int z = -girthRadius; z <= girthRadius; z++) {
+                    if (x*x + y*y + z*z <= girthRadius*girthRadius) {
+                        BlockPos pos = new BlockPos(x, y, z);
+                        if (TreeFeature.isAirOrLeaves(world, pos)) {
+                            this.getAndSetState(world, replacer, random, pos, config);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return List.of();
+    }
+}

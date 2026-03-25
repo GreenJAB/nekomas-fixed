@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.world;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.woldgen.tree.BoababTrunkPlacer;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -22,7 +23,7 @@ public class ModConfiguredFeatures {
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         register(context, BOABAB_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(BlockRegistry.BOABAB_LOG),
-                new DarkOakTrunkPlacer(8, 3, 2),
+                new BoababTrunkPlacer(8, 3, 2),
 
                 BlockStateProvider.of(Blocks.ACACIA_LEAVES),
                 new BlobFoliagePlacer(ConstantIntProvider.create(4), ConstantIntProvider.create(1), 3),
