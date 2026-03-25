@@ -163,6 +163,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
 
                         entries.add(ItemRegistry.BOABAB_LOG);
+                        entries.add(ItemRegistry.BOABAB_SAPLING);
 
 
 
