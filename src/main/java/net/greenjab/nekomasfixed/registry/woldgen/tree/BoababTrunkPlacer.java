@@ -79,7 +79,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for ( x = -r; x <= r; x++) {
                 for ( z = -r; z <= r; z++) {
                     if(x*x + z*z <= r*r){
-                        BlockPos pos = new BlockPos(x, y+lowerPart, z);
+                        BlockPos pos = new BlockPos(x+X, y+lowerPart+startY, z+Z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
@@ -91,7 +91,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for ( x = -r; x <= r; x++) {
                 for ( z = -r; z <= r; z++) {
                     if(x*x + z*z <= r*r){
-                        BlockPos pos = new BlockPos(x, y+midPart, z);
+                        BlockPos pos = new BlockPos(x+X, y+midPart+startY, z+Z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
