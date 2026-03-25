@@ -38,6 +38,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
     @Override
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
+        System.out.println("Generating Baobab Tree");
         BlockPos blockPos = startPos.down();
         setToDirt(world, replacer, random, blockPos, config);
         setToDirt(world, replacer, random, blockPos.east(), config);
