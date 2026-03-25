@@ -47,7 +47,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         Direction direction = Direction.Type.HORIZONTAL.random(random);
 
         //now getting into complicated stuff
-        int girthRadius = 3 + random.nextInt(1); //min 3, max 4 (6-8 blocks in diameter)
+        int girthRadius = 3 + random.nextInt(2); //min 3, max 4 (6-8 blocks in diameter)
 
         int X = startPos.getX();
         int startY = startPos.getY();
@@ -64,7 +64,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for (int x = -girthRadius; x <= girthRadius; ++x) {
                 for (int z = -girthRadius; z <= girthRadius; ++z) {
                     if (x * x + z * z <= girthRadius * girthRadius) {
-                        BlockPos pos = startPos.add(x + X, y+startY, z + Z);
+                        BlockPos pos = startPos.add(x, y, z);
                         if (TreeFeature.isAirOrLeaves(world, pos)) {
                             this.getAndSetState(world, replacer, random, pos, config);
                         }
@@ -73,19 +73,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             }
         }
 
-        //middle trunk
-        for (int y = lowerPart-1; y < midPart; ++y) {
-            for (int x = -girthRadius-1; x <= girthRadius-1; ++x) {
-                for (int z = -girthRadius-1; z <= girthRadius-1; ++z) {
-                    if (x * x + z * z <= (girthRadius-1) * (girthRadius-1)) {
-                        BlockPos pos = startPos.add(x + X, y+startY, z + Z);
-                        if (TreeFeature.isAirOrLeaves(world, pos)) {
-                            this.getAndSetState(world, replacer, random, pos, config);
-                        }
-                    }
-                }
-            }
-        }
+
 
 
 
