@@ -53,23 +53,32 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int startY = startPos.getY();
         int Z = startPos.getZ();
 
-        int currentX = X;
-        int currentZ = Z;
         int genHeight = startY + height - 1; // if I start of 0 and the height is 14, it outputs 13 (to start folliageGen)
 
-
-        for (int x = -girthRadius; x <= girthRadius; x++) {
-            for (int y = -girthRadius; y <= girthRadius; y++) {
-                for (int z = -girthRadius; z <= girthRadius; z++) {
-                    if (x*x + y*y + z*z <= girthRadius*girthRadius) {
-                        BlockPos pos = new BlockPos(x+X, y+startY, z+Z);
-                        if (TreeFeature.isAirOrLeaves(world, pos)) {
-                            this.getAndSetState(world, replacer, random, pos, config);
-                        }
-                    }
+//        for (int x = -girthRadius; x <= girthRadius; x++) {
+//            for (int y = -girthRadius; y <= girthRadius; y++) {
+//                for (int z = -girthRadius; z <= girthRadius; z++) {
+//                    if (x*x + y*y + z*z <= girthRadius*girthRadius) {
+//                        BlockPos pos = new BlockPos(x+X, y+startY, z+Z);
+//                        if (TreeFeature.isAirOrLeaves(world, pos)) {
+//                            this.getAndSetState(world, replacer, random, pos, config);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+for(int y = 0; y<=genHeight; y++) {
+    for (int x = -girthRadius; x <= girthRadius; x++) {
+        for (int z = -girthRadius; z <= girthRadius; z++) {
+            if (x * x + z * z <= girthRadius * girthRadius) {
+                BlockPos pos = startPos.add(x + X, y+startY, z + Z);
+                if (TreeFeature.isAirOrLeaves(world, pos)) {
+                    this.getAndSetState(world, replacer, random, pos, config);
                 }
             }
         }
+    }
+}
 
         list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
         return list;
