@@ -59,50 +59,50 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int upperPart = height / 3;
         int currentY = 0;
 
-        int r = girthRadius+1;
+        // Hollow center radius
         int hollow = 1;
 
+// Lower part
+        int r = girthRadius;
         for (int y = 0; y < lowerPart; y++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
-                   if(x*x + z*z <= r*r){
-                       BlockPos pos = startPos.add(x, y, z);
-                       this.getAndSetState(world, replacer, random, pos, config);
-                   }
+                    int maxDist = Math.max(Math.abs(x), Math.abs(z));
+                    if (maxDist <= r && maxDist >= hollow) {
+                        BlockPos pos = startPos.add(x, y, z);
+                        this.getAndSetState(world, replacer, random, pos, config);
+                    }
                 }
             }
         }
 
-         r = girthRadius;
+// Middle part
+        r = girthRadius;
         for (int y = lowerPart; y < midPart; y++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
-                    if(x*x + z*z <= r*r){
-                        BlockPos pos = startPos.add(x+lowerPart, y, z+lowerPart);
+                    int maxDist = Math.max(Math.abs(x), Math.abs(z));
+                    if (maxDist <= r && maxDist >= hollow) {
+                        BlockPos pos = startPos.add(x + lowerPart, y, z + lowerPart);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
             }
         }
 
-        r = girthRadius-1;
+// Upper part
+        r = girthRadius - 1;
         for (int y = midPart; y < upperPart; y++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
-                    if(x*x + z*z <= r*r){
-                        BlockPos pos = startPos.add(x+midPart, y, z+midPart);
+                    int maxDist = Math.max(Math.abs(x), Math.abs(z));
+                    if (maxDist <= r && maxDist >= hollow) {
+                        BlockPos pos = startPos.add(x + midPart, y, z + midPart);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
             }
         }
-
-
-
-
-
-
-
         list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
         return list;
     }
