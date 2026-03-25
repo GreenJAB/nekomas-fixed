@@ -47,7 +47,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         Direction direction = Direction.Type.HORIZONTAL.random(random);
 
         //now getting into complicated stuff
-        int girthRadius = 3 + random.nextInt(2); //min 3, max 4 (6-8 blocks in diameter)
+        int girthRadius = 3 ; //min 3, max 4 (6-8 blocks in diameter)
 
         int X = startPos.getX();
         int startY = startPos.getY();
@@ -64,7 +64,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for (int x = -girthRadius; x <= girthRadius; ++x) {
                 for (int z = -girthRadius; z <= girthRadius; ++z) {
                         if((z<girthRadius && x<girthRadius) && (z>-girthRadius && x>-girthRadius)){continue;}
-
+                        if (Math.abs(x) == girthRadius && Math.abs(z) == girthRadius) {continue;}
                             BlockPos pos = startPos.add(x, y, z);
                             if (TreeFeature.isAirOrLeaves(world, pos)) {
                                 this.getAndSetState(world, replacer, random, pos, config);
