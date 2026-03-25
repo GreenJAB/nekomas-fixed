@@ -63,11 +63,12 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         for (int y = currentY; y < lowerPart; ++y) {
             for (int x = -girthRadius; x <= girthRadius; ++x) {
                 for (int z = -girthRadius; z <= girthRadius; ++z) {
+                        if(z<girthRadius || x<girthRadius){continue;}
 
-                        BlockPos pos = startPos.add(x, y, z);
-                        if (TreeFeature.isAirOrLeaves(world, pos)) {
-                            this.getAndSetState(world, replacer, random, pos, config);
-                        }
+                            BlockPos pos = startPos.add(x, y, z);
+                            if (TreeFeature.isAirOrLeaves(world, pos)) {
+                                this.getAndSetState(world, replacer, random, pos, config);
+                            }
 
                 }
             }
