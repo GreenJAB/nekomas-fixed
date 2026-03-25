@@ -8,6 +8,7 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.MagmaCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.SlimeCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
+import net.greenjab.nekomasfixed.world.tree.ModSaplingGenerators;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -244,7 +245,8 @@ public class BlockRegistry {
 
 
     public static final Block BOABAB_LOG = register("boabab_log", AbstractBlock.Settings.copy(Blocks.OAK_LOG));
-    public static final Block BOABAB_SAPLING = register("boabab_sapling", AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
+    public static final Block BOABAB_SAPLING = register("boabab_sapling",(settings) -> new SaplingBlock(ModSaplingGenerators.BOABAB,  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
+
 
     public static final Block WHITE_FROGLIGHT = register("white_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
     public static final Block LIGHT_GRAY_FROGLIGHT = register("light_gray_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
