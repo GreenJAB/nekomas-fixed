@@ -67,10 +67,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
             // move toward center (0,0)
             if (offsetX > 0) offsetX--;
-            else if (offsetX < 0) offsetX++;
-
             if (offsetZ > 0) offsetZ--;
-            else if (offsetZ < 0) offsetZ++;
 
             for (x = -r; x <= r; x++) {
                 for (z = -r; z <= r; z++) {
