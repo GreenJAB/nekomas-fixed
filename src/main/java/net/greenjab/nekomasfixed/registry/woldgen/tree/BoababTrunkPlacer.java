@@ -41,21 +41,13 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         System.out.println("Generating Baobab Tree");
         BlockPos blockPos = startPos.down();
         setToDirt(world, replacer, random, blockPos, config);
-        setToDirt(world, replacer, random, blockPos.east(), config);
-        setToDirt(world, replacer, random, blockPos.south(), config);
-        setToDirt(world, replacer, random, blockPos.south().east(), config);
         Direction direction = Direction.Type.HORIZONTAL.random(random);
 
-        //now getting into complicated stuff
-        int girthRadius = 3 ; //min 3, max 4 (6-8 blocks in diameter)
-
-
+        int girthRadius = 3 ;
         int lowerPart = height / 3;
         int midPart = height / 3 + lowerPart;
         int upperPart = height / 3 +midPart ;
-
-
-        int x,y,z = 0;
+        int x,y,z = 0;// current<DIMENSION> values
 
         for (y = 0; y < height-1; y++) {
             int r = girthRadius + 1;
@@ -78,7 +70,6 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 }
             }
         }
-
 
         list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
         return list;
