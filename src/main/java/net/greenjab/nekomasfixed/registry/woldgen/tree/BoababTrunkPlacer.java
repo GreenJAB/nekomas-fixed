@@ -60,16 +60,18 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int r = girthRadius+1;
         int x,y,z = 0;
 
-        int offsetX = 0;
-        int offsetZ = 0;
+        int offsetX = 3;
+        int offsetZ = 2;
 
         for (y = 0; y < height; y++) {
 
+            // move toward center (0,0)
+            if (offsetX > 0) offsetX--;
+            else if (offsetX < 0) offsetX++;
 
-            if (y % 3 == 0) {
-                offsetX += random.nextInt(3) - 1; // -1, 0, 1
-                offsetZ += random.nextInt(3) - 1;
-            }
+            if (offsetZ > 0) offsetZ--;
+            else if (offsetZ < 0) offsetZ++;
+
             for (x = -r; x <= r; x++) {
                 for (z = -r; z <= r; z++) {
                     if (x*x + z*z <= r*r) {
@@ -78,6 +80,8 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                     }
                 }
             }
+
+            // your radius logic
             if (y < lowerPart) {
                 r = girthRadius + 1;
             } else if (y < midPart) {
