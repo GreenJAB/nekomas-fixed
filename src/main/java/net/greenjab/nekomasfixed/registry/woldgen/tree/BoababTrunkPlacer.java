@@ -79,7 +79,15 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 }
             }
 
-            System.out.println((X+x) + " " + y + " " + (Z+z));
+            int branchLength = 3+random.nextInt(3);
+
+            int dx = random.nextBoolean() ? 1 : -1;
+            int dz = random.nextBoolean() ? 1 : -1;
+
+            for (int i = 0; i < branchLength; i++) {
+                BlockPos pos = startPos.add(i * dx, y, i * dz);
+                this.getAndSetState(world, replacer, random, pos, config);
+            }
         }
 
         list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
