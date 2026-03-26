@@ -48,12 +48,11 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
         //now getting into complicated stuff
         int girthRadius = 2 ; //min 3, max 4 (6-8 blocks in diameter)
+//
+//        int X = startPos.getX();
+//        int startY = startPos.getY();
+//        int Z = startPos.getZ();
 
-        int X = startPos.getX();
-        int startY = startPos.getY();
-        int Z = startPos.getZ();
-
-        int genHeight = startY + height - 1; // if I start of 0 and the height is 14, it outputs 13 (to start folliageGen)
         int lowerPart = height / 3;
         int midPart = height / 3;
         int upperPart = height / 3 -1 ;
@@ -61,30 +60,32 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int r = girthRadius+1;
         int x,y,z = 0;
 
-        for ( y = 0; y < height; y++) {
-            for ( x = -r; x <= r; x++) {
-                for ( z = -r; z <= r; z++) {
-                   if(x*x + z*z <= r*r){
-                       BlockPos pos = startPos.add(x, y, z);
-                       this.getAndSetState(world, replacer, random, pos, config);
-                   }
+        int offsetX = 0;
+        int offsetZ = 0;
+
+        for (y = 0; y < height; y++) {
+
+
+            if (y % 3 == 0) {
+                offsetX += random.nextInt(3) - 1; // -1, 0, 1
+                offsetZ += random.nextInt(3) - 1;
+            }
+            for (x = -r; x <= r; x++) {
+                for (z = -r; z <= r; z++) {
+                    if (x*x + z*z <= r*r) {
+                        BlockPos pos = startPos.add(x + offsetX, y, z + offsetZ);
+                        this.getAndSetState(world, replacer, random, pos, config);
+                    }
                 }
             }
-            if(y<lowerPart){
-                r = girthRadius+1;
-            }else if( y<midPart){
+            if (y < lowerPart) {
+                r = girthRadius + 1;
+            } else if (y < midPart) {
                 r = girthRadius;
-            }
-            else if(y<upperPart){
-                r=girthRadius-1;
+            } else if (y < upperPart) {
+                r = girthRadius - 1;
             }
         }
-
-
-
-
-
-//try removing X and Z
 
 
         list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
