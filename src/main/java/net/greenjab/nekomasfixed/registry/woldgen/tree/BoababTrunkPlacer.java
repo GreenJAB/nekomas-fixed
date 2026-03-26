@@ -68,7 +68,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             } else if (y < midPart) {
                 r = girthRadius;
             } else if (y < upperPart) {
-                r = girthRadius - 2;
+                r = 0;
             }
 
             for (x = -r; x <= r; x++) {
