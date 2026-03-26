@@ -47,7 +47,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         Direction direction = Direction.Type.HORIZONTAL.random(random);
 
         //now getting into complicated stuff
-        int girthRadius = 2 ; //min 3, max 4 (6-8 blocks in diameter)
+        int girthRadius = 3 ; //min 3, max 4 (6-8 blocks in diameter)
 //
 //        int X = startPos.getX();
 //        int startY = startPos.getY();
@@ -65,9 +65,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
         for (y = 0; y < height; y++) {
 
-            // move toward center (0,0)
-            if (offsetX > 0) offsetX--;
-            if (offsetZ > 0) offsetZ--;
+
 
             for (x = -r; x <= r; x++) {
                 for (z = -r; z <= r; z++) {
@@ -83,8 +81,12 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 r = girthRadius + 1;
             } else if (y < midPart) {
                 r = girthRadius;
+                --offsetZ;
+                --offsetX;
             } else if (y < upperPart) {
                 r = girthRadius - 1;
+                --offsetX;
+                --offsetZ;
             }
         }
 
