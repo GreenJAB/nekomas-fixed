@@ -55,7 +55,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
         int lowerPart = height / 3;
         int midPart = height / 3;
-        int upperPart = height / 3 -1 ;
+        int upperPart = height / 3 ;
 
 
         int x,y,z = 0;
