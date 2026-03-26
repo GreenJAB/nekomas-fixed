@@ -48,10 +48,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
         //now getting into complicated stuff
         int girthRadius = 3 ; //min 3, max 4 (6-8 blocks in diameter)
-//
-//        int X = startPos.getX();
-//        int startY = startPos.getY();
-//        int Z = startPos.getZ();
+
 
         int lowerPart = height / 3;
         int midPart = height / 3 + lowerPart;
@@ -60,7 +57,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
         int x,y,z = 0;
 
-        for (y = 0; y < height; y++) {
+        for (y = 0; y < height-1; y++) {
             int r = girthRadius + 1;
 
             if (y < lowerPart) {
