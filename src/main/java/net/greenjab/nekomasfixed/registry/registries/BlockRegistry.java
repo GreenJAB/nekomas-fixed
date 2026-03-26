@@ -13,6 +13,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -169,6 +171,7 @@ public class BlockRegistry {
     private static Block register(String id, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         return register(keyOf(id), factory, settings);
     }
+
     private static Block registerVanilla(String id, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         return register(vanillaKeyOf(id), factory, settings);
     }
@@ -178,9 +181,24 @@ public class BlockRegistry {
     private static RegistryKey<Block> vanillaKeyOf(String id) {
         return RegistryKey.of(RegistryKeys.BLOCK, Identifier.ofVanilla(id));
     }
+//    public static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
+//        Block block = factory.apply(settings.registryKey(key));
+//        return Registry.register(Registries.BLOCK, key, block);
+//    }
+
     public static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = factory.apply(settings.registryKey(key));
-        return Registry.register(Registries.BLOCK, key, block);
+
+        Registry.register(Registries.BLOCK, key, block);
+        Registry.register(
+                Registries.ITEM,
+                key.getValue(),
+                new BlockItem(block, new Item.Settings().registryKey(
+                        RegistryKey.of(RegistryKeys.ITEM, key.getValue())
+                ))
+        );
+
+        return block;
     }
     public static AbstractBlock.Settings createCandleSettings(MapColor mapColor) {
         return AbstractBlock.Settings.create().mapColor(mapColor).nonOpaque().strength(0.1F).sounds(BlockSoundGroup.CANDLE).luminance(CandleBlock.STATE_TO_LUMINANCE).pistonBehavior(PistonBehavior.DESTROY);
@@ -204,7 +222,6 @@ public class BlockRegistry {
     private static Block registerShulkerBoxBlock(String id, DyeColor color) {
         return register(id, settings -> new ShulkerBoxBlock(color, settings), Blocks.createShulkerBoxSettings(color.getMapColor()));
     }
-
 
     private static Block registerBedBlock(String id, DyeColor color) {
         return register(id,

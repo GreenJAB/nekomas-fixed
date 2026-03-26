@@ -116,60 +116,19 @@ public class ItemRegistry {
     public static final Item BOABAB_LOG = register(BlockRegistry.BOABAB_LOG);
     public static final Item BOABAB_SAPLING = register(BlockRegistry.BOABAB_SAPLING);
 
-    public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register(
-            "jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
-    );
+    public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 
-    public static final Item ROPE = Registry.register(
-            Registries.ITEM,
-            Identifier.of("nekomasfixed", "rope"),
-            new BlockItem(BlockRegistry.ROPE, new Item.Settings().maxCount(64))
-    );
-
-
-    public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(
-            37,
-            Map.of(
-                    EquipmentType.HELMET, 3
-            ),
-            15,
-            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
-            3.0F,
-            0.1F,
-            ItemTags.NETHERITE_TOOL_MATERIALS,
-            ModEquipmentAssetKeys.NETHERITE_CROWN
-    );
-
-    public static final Item NETHERITE_CROWN = register(
-            "netherite_crown",
-            Item::new,
+    public static final Item ROPE_ITEM = register(
+            "rope",
+            settings -> new BlockItem(BlockRegistry.ROPE, settings),
             new Item.Settings()
-                    .armor(NETHERITE_CROWN_MATERIAL, EquipmentType.HELMET)
-                    .maxCount(1)
-                    .trimMaterial(ArmorTrimMaterials.NETHERITE)
-                    .maxDamage(EquipmentType.HELMET.getMaxDamage(NETHERITE_CROWN_MATERIAL
-                            .durability())).attributeModifiers(NETHERITE_CROWN_MATERIAL
-                            .createAttributeModifiers(EquipmentType.HELMET)).enchantable(NETHERITE_CROWN_MATERIAL
-                            .enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot())
-                            .equipSound(NETHERITE_CROWN_MATERIAL.equipSound()).model(NETHERITE_CROWN_MATERIAL.assetId()).build()).repairable(NETHERITE_CROWN_MATERIAL.repairIngredient())
-
     );
 
+    public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(37, Map.of(EquipmentType.HELMET, 3), 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, ItemTags.NETHERITE_TOOL_MATERIALS, ModEquipmentAssetKeys.NETHERITE_CROWN);
 
+    public static final Item NETHERITE_CROWN = register("netherite_crown", Item::new, new Item.Settings().armor(NETHERITE_CROWN_MATERIAL, EquipmentType.HELMET).maxCount(1).trimMaterial(ArmorTrimMaterials.NETHERITE).maxDamage(EquipmentType.HELMET.getMaxDamage(NETHERITE_CROWN_MATERIAL.durability())).attributeModifiers(NETHERITE_CROWN_MATERIAL.createAttributeModifiers(EquipmentType.HELMET)).enchantable(NETHERITE_CROWN_MATERIAL.enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot()).equipSound(NETHERITE_CROWN_MATERIAL.equipSound()).model(NETHERITE_CROWN_MATERIAL.assetId()).build()).repairable(NETHERITE_CROWN_MATERIAL.repairIngredient()));
 
-
-    public static final ArmorMaterial COPPER_CROWN_MATERIAL = new ArmorMaterial(
-            37,
-            Map.of(
-                    EquipmentType.HELMET, 3
-            ),
-            15,
-            SoundEvents.ITEM_ARMOR_EQUIP_COPPER,
-            3.0F,
-            0.1F,
-            ItemTags.COPPER_TOOL_MATERIALS,
-            ModEquipmentAssetKeys.COPPER_CROWN
-    );
+    public static final ArmorMaterial COPPER_CROWN_MATERIAL = new ArmorMaterial(37, Map.of(EquipmentType.HELMET, 3), 15, SoundEvents.ITEM_ARMOR_EQUIP_COPPER, 3.0F, 0.1F, ItemTags.COPPER_TOOL_MATERIALS, ModEquipmentAssetKeys.COPPER_CROWN);
 
     public static final Item COPPER_CROWN = register(
             "copper_crown",

@@ -9,12 +9,14 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.IntProperty;
 
 import java.util.Objects;
 
-public class RopeBlock extends ScaffoldingBlock {
-    public static final BooleanProperty IS_CONNECTED = null;
-    public static final BooleanProperty WATERLOGGED = null;
+public class RopeBlock extends  Block  {
+    public static final BooleanProperty IS_CONNECTED = BooleanProperty.of("is_connected");
+    public static final BooleanProperty WATERLOGGED = BooleanProperty.of("waterlogged");
+
     public RopeBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(IS_CONNECTED, false).with(WATERLOGGED, false));
