@@ -32,9 +32,9 @@ public class RopeBlock extends  Block  {
         BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos().up());
         BlockState blockState2 = ctx.getWorld().getBlockState(ctx.getBlockPos());
         if(!blockState.isAir()){
-            return blockState2.cycle(IS_CONNECTED);
+            return blockState2.getBlock().getDefaultState();
         }
-         if(!blockState.isAir() && !blockState2.get(IS_CONNECTED, false)){
+         else if(!blockState.isAir() && !blockState2.get(IS_CONNECTED, false)){
             return blockState2.with(IS_CONNECTED, true);
         }
         else{
