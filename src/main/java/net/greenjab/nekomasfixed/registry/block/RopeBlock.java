@@ -34,7 +34,7 @@ public class RopeBlock extends  Block  {
         if(!blockState.isAir() && !blockState2.get(IS_CONNECTED, true)){
             return blockState2.cycle(IS_CONNECTED);
         }else if(!blockState.isAir() && blockState2.get(IS_CONNECTED, false)){
-            return blockState2.cycle(IS_CONNECTED);
+            return blockState2.with(IS_CONNECTED, true);
         }
         else{
             FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
