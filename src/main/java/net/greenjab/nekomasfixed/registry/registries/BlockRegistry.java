@@ -181,25 +181,25 @@ public class BlockRegistry {
     private static RegistryKey<Block> vanillaKeyOf(String id) {
         return RegistryKey.of(RegistryKeys.BLOCK, Identifier.ofVanilla(id));
     }
-//    public static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-//        Block block = factory.apply(settings.registryKey(key));
-//        return Registry.register(Registries.BLOCK, key, block);
-//    }
-
     public static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = factory.apply(settings.registryKey(key));
-
-        Registry.register(Registries.BLOCK, key, block);
-        Registry.register(
-                Registries.ITEM,
-                key.getValue(),
-                new BlockItem(block, new Item.Settings().registryKey(
-                        RegistryKey.of(RegistryKeys.ITEM, key.getValue())
-                ))
-        );
-
-        return block;
+        return Registry.register(Registries.BLOCK, key, block);
     }
+
+//    public static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
+//        Block block = factory.apply(settings.registryKey(key));
+//
+//        Registry.register(Registries.BLOCK, key, block);
+//        Registry.register(
+//                Registries.ITEM,
+//                key.getValue(),
+//                new BlockItem(block, new Item.Settings().registryKey(
+//                        RegistryKey.of(RegistryKeys.ITEM, key.getValue())
+//                ))
+//        );
+//
+//        return block;
+//    }
     public static AbstractBlock.Settings createCandleSettings(MapColor mapColor) {
         return AbstractBlock.Settings.create().mapColor(mapColor).nonOpaque().strength(0.1F).sounds(BlockSoundGroup.CANDLE).luminance(CandleBlock.STATE_TO_LUMINANCE).pistonBehavior(PistonBehavior.DESTROY);
     }
