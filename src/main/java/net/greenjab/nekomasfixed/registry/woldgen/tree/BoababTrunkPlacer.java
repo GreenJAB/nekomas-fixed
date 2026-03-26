@@ -1,7 +1,6 @@
 package net.greenjab.nekomasfixed.registry.woldgen.tree;
 
 import com.google.common.collect.Lists;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
@@ -10,16 +9,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
-import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
-import net.minecraft.world.gen.stateprovider.NoiseBlockStateProvider;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class BoababTrunkPlacer extends TrunkPlacer {
@@ -31,21 +25,6 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             RecordCodecBuilder.mapCodec(instance ->
                     fillTrunkPlacerFields(instance).apply(instance, BoababTrunkPlacer::new)
             );
-
-    private int countNeighbors(TestableWorld world, BlockPos pos, Set<BlockPos> placed) {
-        int count = 0;
-
-        for (BlockPos offset : new BlockPos[]{
-                pos.up(), pos.down(), pos.north(), pos.south(), pos.east(), pos.west()
-        }) {
-            if (placed.contains(offset) ||
-                    !world.testBlockState(offset, BlockState::isAir)) {
-                count++;
-            }
-        }
-
-        return count;
-    }
 
 
     @Override
@@ -96,31 +75,20 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 }
             }
 
-            int branchLength = 3 + random.nextInt(3);
 
-            Set<BlockPos> placed = new HashSet<>();
+
             for (int y2 = 0; y2 < height - 1; ++y2) {
-
                 if (y2 <= midPart) continue;
-
                 if (random.nextInt(4) != 0) continue; // cleaner chance
-
                 int dx = random.nextInt(3) - 1;
+                int branchLength = 3 + random.nextInt(3);
                 int dz = random.nextInt(3) - 1;
-
                 if (dx == 0 && dz == 0) continue;
 
                 BlockPos branchStart = startPos.add(0, y2, 0);
-
                 for (int i = 0; i < branchLength; i++) {
                     BlockPos pos = branchStart.add(i * dx, 0, i * dz);
-
-                    if (countNeighbors(world, pos, placed) == 1) {
-                        this.getAndSetState(world, replacer, random, pos, config);
-                        placed.add(pos);
-                    } else {
-                        break; // stop branch if it collides
-                    }
+                    this.getAndSetState(world, replacer, random, pos, config);
                 }
             }
         }
