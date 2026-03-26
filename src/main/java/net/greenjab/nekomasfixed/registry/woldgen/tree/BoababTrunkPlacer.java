@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -38,62 +37,48 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         System.out.println("Generating Baobab Tree");
         BlockPos blockPos = startPos.down();
         setToDirt(world, replacer, random, blockPos, config);
-        Direction direction = Direction.Type.HORIZONTAL.random(random);
 
-        int girthRadius = 2 ;
-        int thickLowerPart = height/3 - 2;
-        int lowerPart = height / 3;
-        int midPart = height / 3 + lowerPart;
-        int upperPart = height / 3 +midPart ;
-        int x,y,z = 0;// current<DIMENSION> values
-        int X = startPos.getX();
-        int Z = startPos.getZ();
+        int x,y,z;
+        float X = random.nextFloat()-0.5f;
+        float Z = random.nextFloat()-0.5f;
 
         for (y = 0; y < height-1; y++) {
-            int r = girthRadius + 1;
-
-            if(y<thickLowerPart){
-                r = girthRadius + 2;
-            } else if (y < lowerPart) {
-                r = girthRadius + 1;
-            } else if (y < midPart) {
-                r = girthRadius;
-            } else if (y < upperPart) {
-                r = girthRadius - 1;
-            }
-
-            if(y>upperPart && r>girthRadius-1){continue;} //weird glitch fix
-
-            for (x = -r; x <= r; x++) {
-                for (z = -r; z <= r; z++) {
-                    int distSq = x*x + z*z;
-                    if(y<thickLowerPart && distSq==r*r){continue;}
-                    if (distSq <= r*r && distSq >= (r-1)*(r-1)) {
+            float r = -1.5f * (y / (height + 0f)) + 3.5f;
+            for (x = -4; x <= 4; x++) {
+                for (z = -4; z <= 4; z++) {
+                    float distSq = (x - X) * (x - X) + (z - Z) * (z - Z);
+                    if (distSq <= r * r && distSq >= (r - 1) * (r - 1)) {
                         BlockPos pos = startPos.add(x, y, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
             }
+        }
+        int b = random.nextInt(2)+4;
+        for (int i  = 0;i<b;i++) {
+            float rot =random.nextFloat()*30+i*360/(b+0f);
+            float k = startPos.getX()+(float) Math.sin(rot*Math.PI/180f)*0.5f;
+            float l = startPos.getZ()+(float) Math.cos(rot*Math.PI/180f)*0.5f;
 
+            int nx = height - random.nextInt(5) - 1;
+            int o = 4 + random.nextInt(4);
 
-
-            for (int y2 = 0; y2 < height - 1; ++y2) {
-                if (y2 <= midPart) continue;
-                if (random.nextInt(4) != 0) continue; // cleaner chance
-                int dx = random.nextInt(3) - 1;
-                int branchLength = 3 + random.nextInt(3);
-                int dz = random.nextInt(3) - 1;
-                if (dx == 0 && dz == 0) continue;
-
-                BlockPos branchStart = startPos.add(0, y2, 0);
-                for (int i = 0; i < branchLength; i++) {
-                    BlockPos pos = branchStart.add(i * dx, 0, i * dz);
-                    this.getAndSetState(world, replacer, random, pos, config);
+            for (int p = nx; p < height+5 && o > 0; o--) {
+                if (p >= 1) {
+                    int q = startPos.getY()+nx+(o<3?3-o:0);
+                    k += (float) Math.sin(rot*Math.PI/180f);
+                    l += (float) Math.cos(rot*Math.PI/180f);
+                    rot+=random.nextFloat()*20-10;
+                    BlockPos pos = new BlockPos((int)k, q, (int)l);
+                    if (this.getAndSetState(world, replacer, random, pos, config)) {
+                        //list.add(new FoliagePlacer.TreeNode(new BlockPos((int)k, optionalInt.getAsInt(), (int)l), 0, false));
+                    }
                 }
+                p++;
             }
         }
 
-        list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
+        //list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
         return list;
     }
 }
