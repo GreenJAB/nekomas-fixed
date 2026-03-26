@@ -17,7 +17,6 @@ import net.minecraft.world.gen.stateprovider.NoiseBlockStateProvider;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -52,52 +51,28 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int upperPart = height / 3 +midPart ;
         int x,y,z = 0;// current<DIMENSION> values
 
-        class Pillar {
-            int dx, dz;
-            int height;
-            int radius;
-        }
-
-        List<Pillar> pillars = new ArrayList<>();
-
-        for (int i = 0; i < 6; i++) {
-            Pillar p = new Pillar();
-
-            double angle = random.nextDouble() * Math.PI * 2;
-
-            int dist = girthRadius + random.nextInt(2); // outside trunk
-
-            p.dx = (int)(Math.cos(angle) * dist);
-            p.dz = (int)(Math.sin(angle) * dist);
-
-            p.height = height - random.nextInt(6); // different heights
-            p.radius = 1 + random.nextInt(2); // thickness
-
-            pillars.add(p);
-        }
-
         for (y = 0; y < height-1; y++) {
+            int r = girthRadius + 1;
 
-            int r = girthRadius;
-
-            // BASE TRUNK
-            for (x = -r; x <= r; x++) {
-                for (z = -r; z <= r; z++) {
-                    if (x*x + z*z <= r*r) {
-                        BlockPos pos = startPos.add(x, y, z);
-                        this.getAndSetState(world, replacer, random, pos, config);
-                    }
-                }
+            if(y<thickLowerPart){
+                r = girthRadius + 2;
+            } else if (y < lowerPart) {
+                r = girthRadius + 1;
+            } else if (y < midPart) {
+                r = girthRadius;
+            } else if (y < upperPart) {
+                r = girthRadius - 1;
             }
 
-            // ADD PILLARS
-            for (Pillar p : pillars) {
-                if (y < p.height) {
-                    for (x = -p.radius; x <= p.radius; x++) {
-                        for (z = -p.radius; z <= p.radius; z++) {
-                            BlockPos pos = startPos.add(p.dx + x, y, p.dz + z);
-                            this.getAndSetState(world, replacer, random, pos, config);
-                        }
+            for (x = -r; x <= r; x++) {
+                for (z = -r; z <= r; z++) {
+                    int distSq = x*x + z*z;
+                    if (distSq <= r*r && distSq >= (r-1)*(r-1)) {
+                        int randInt = random.nextBetween(0,4);
+
+                        if(distSq==r*r && y>=lowerPart-randInt){continue;}
+                        BlockPos pos = startPos.add(x, y, z);
+                        this.getAndSetState(world, replacer, random, pos, config);
                     }
                 }
             }
