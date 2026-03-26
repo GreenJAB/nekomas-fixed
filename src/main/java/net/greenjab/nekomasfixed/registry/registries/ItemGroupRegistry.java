@@ -164,6 +164,7 @@ public class ItemGroupRegistry {
 
                         entries.add(ItemRegistry.BOABAB_LOG);
                         entries.add(ItemRegistry.BOABAB_SAPLING);
+                        entries.add(ItemRegistry.ROPE);
 
 
 

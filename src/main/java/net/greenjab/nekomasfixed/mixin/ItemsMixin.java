@@ -26,7 +26,6 @@ public class ItemsMixin {
 				),
 				new Item.Settings()
 		);
-
 	}
 
 }

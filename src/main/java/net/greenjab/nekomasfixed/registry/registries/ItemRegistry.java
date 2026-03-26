@@ -120,6 +120,12 @@ public class ItemRegistry {
             "jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
 
+    public static final Item ROPE = Registry.register(
+            Registries.ITEM,
+            Identifier.of("nekomasfixed", "rope"),
+            new BlockItem(BlockRegistry.ROPE, new Item.Settings().maxCount(64))
+    );
+
 
     public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(
             37,

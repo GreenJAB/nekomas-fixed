@@ -1,0 +1,40 @@
+package net.greenjab.nekomasfixed.registry.block;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ScaffoldingBlock;
+
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+
+import java.util.Objects;
+
+public class RopeBlock extends ScaffoldingBlock {
+    public static final BooleanProperty IS_CONNECTED = null;
+    public static final BooleanProperty WATERLOGGED = null;
+    public RopeBlock(Settings settings) {
+        super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(IS_CONNECTED, false).with(WATERLOGGED, false));
+    }
+    
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(IS_CONNECTED, WATERLOGGED);
+    }
+    
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos().up());
+        if(!blockState.isAir() && !blockState.get(IS_CONNECTED, true)){
+            BlockState blockState2 = ctx.getWorld().getBlockState(ctx.getBlockPos());
+            return blockState2.cycle(IS_CONNECTED);
+        }else{
+            FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
+            boolean bl = fluidState.getFluid() == Fluids.WATER;
+            return Objects.requireNonNull(super.getPlacementState(ctx)).with(WATERLOGGED, bl);
+        }
+    }
+}

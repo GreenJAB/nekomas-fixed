@@ -65,186 +65,51 @@ public class BlockRegistry {
                     .pistonBehavior(PistonBehavior.DESTROY)
     );
 
-    public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings),
-            AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings), AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block NAUTILUS_BLOCK = register("nautilus_block", settings -> new NautilusBlock(NautilusBlockType.REGULAR, settings),
-            AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block NAUTILUS_BLOCK = register("nautilus_block", settings -> new NautilusBlock(NautilusBlockType.REGULAR, settings), AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block ZOMBIE_NAUTILUS_BLOCK = register("zombie_nautilus_block", settings -> new NautilusBlock(NautilusBlockType.ZOMBIE, settings),
-            AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block ZOMBIE_NAUTILUS_BLOCK = register("zombie_nautilus_block", settings -> new NautilusBlock(NautilusBlockType.ZOMBIE, settings), AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block",settings -> new NautilusBlock(NautilusBlockType.CORAL, settings),
-            AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block",settings -> new NautilusBlock(NautilusBlockType.CORAL, settings), AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block CLOCK = registerVanilla("clock", FloorClockBlock::new,
-            AbstractBlock.Settings.create().noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY));
-    public static final Block WALL_CLOCK = registerVanilla(
-            "wall_clock", WallClockBlock::new,
-            copyLootTable(CLOCK, true).noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY)
-    );
+    public static final Block CLOCK = registerVanilla("clock", FloorClockBlock::new, AbstractBlock.Settings.create().noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block WALL_CLOCK = registerVanilla("wall_clock", WallClockBlock::new, copyLootTable(CLOCK, true).noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block ENDERMAN_HEAD = register("enderman_head", FloorEndermanHeadHead::new,
-            AbstractBlock.Settings.create().mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY).instrument(NoteBlockInstrument.CUSTOM_HEAD));
-    public static final Block WALL_ENDERMAN_HEAD = register(
-            "wall_enderman_head", WallEndermanHeadHead::new,
-            copyLootTable(ENDERMAN_HEAD, true).mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY)
-    );
+    public static final Block ENDERMAN_HEAD = register("enderman_head", FloorEndermanHeadHead::new, AbstractBlock.Settings.create().mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY).instrument(NoteBlockInstrument.CUSTOM_HEAD));
+    public static final Block WALL_ENDERMAN_HEAD = register("wall_enderman_head", WallEndermanHeadHead::new, copyLootTable(ENDERMAN_HEAD, true).mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block AMBER_TERRACOTTA = register("amber_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_YELLOW).instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(0.70F).resistance(4.2F).requiresTool());
+    public static final Block AMBER_TERRACOTTA = register("amber_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_YELLOW).instrument(NoteBlockInstrument.BASEDRUM).strength(0.70F).resistance(4.2F).requiresTool());
+    public static final Block INDIGO_TERRACOTTA = register("indigo_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(0.70F).resistance(4.2F).requiresTool());
+    public static final Block AQUA_TERRACOTTA = register("aqua_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(0.70F).resistance(4.2F).requiresTool());
+    public static final Block CRIMSON_TERRACOTTA = register("crimson_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_RED).instrument(NoteBlockInstrument.BASEDRUM).strength(0.70F).resistance(4.2F).requiresTool());
 
-    public static final Block INDIGO_TERRACOTTA = register("indigo_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_BLUE).instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(0.70F).resistance(4.2F).requiresTool());
+    public static final Block AQUA_GLAZED_TERRACOTTA = register("aqua_glazed_terracotta", GlazedTerracottaBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.4F).resistance(4.2F).requiresTool());
+    public static final Block AMBER_GLAZED_TERRACOTTA = register("amber_glazed_terracotta", GlazedTerracottaBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.4F).resistance(4.2F).requiresTool());
+    public static final Block CRIMSON_GLAZED_TERRACOTTA = register("crimson_glazed_terracotta", GlazedTerracottaBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_RED).instrument(NoteBlockInstrument.BASEDRUM).strength(1.4F).resistance(4.2F).requiresTool());
+    public static final Block INDIGO_GLAZED_TERRACOTTA = register("indigo_glazed_terracotta", GlazedTerracottaBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_MAGENTA).instrument(NoteBlockInstrument.BASEDRUM).strength(1.4F).resistance(4.2F).requiresTool());
 
-    public static final Block AQUA_TERRACOTTA = register("aqua_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(0.70F).resistance(4.2F).requiresTool());
+    public static final Block AMBER_WOOL = register("amber_wool", AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block AQUA_WOOL = register("aqua_wool", AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block CRIMSON_WOOL = register("crimson_wool", AbstractBlock.Settings.create().mapColor(MapColor.RED).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block INDIGO_WOOL = register("indigo_wool", AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
 
-    public static final Block CRIMSON_TERRACOTTA = register("crimson_terracotta", AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_RED).instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(0.70F).resistance(4.2F).requiresTool());
+    public static final Block AMBER_CONCRETE = register("amber_concrete", AbstractBlock.Settings.create().mapColor(DyeColor.WHITE).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.8F));
+    public static final Block AQUA_CONCRETE = register("aqua_concrete", AbstractBlock.Settings.create().mapColor(DyeColor.WHITE).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.8F));
+    public static final Block INDIGO_CONCRETE = register("indigo_concrete", AbstractBlock.Settings.create().mapColor(DyeColor.WHITE).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.8F));
+    public static final Block CRIMSON_CONCRETE = register("crimson_concrete", AbstractBlock.Settings.create().mapColor(DyeColor.WHITE).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.8F));
 
-    public static final Block AQUA_GLAZED_TERRACOTTA = register("aqua_glazed_terracotta",
-            GlazedTerracottaBlock::new,
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.TERRACOTTA_LIGHT_BLUE)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .strength(1.4F)
-                    .resistance(4.2F)
-                    .requiresTool());
+    public static final Block AMBER_CONCRETE_POWDER = register("amber_concrete_powder", (settings) -> new ConcretePowderBlock(AMBER_CONCRETE, settings), AbstractBlock.Settings.create().mapColor(DyeColor.YELLOW).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.SAND));
+    public static final Block AQUA_CONCRETE_POWDER = register("aqua_concrete_powder", (settings) -> new ConcretePowderBlock(AQUA_CONCRETE, settings), AbstractBlock.Settings.create().mapColor(DyeColor.LIGHT_BLUE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.SAND));
+    public static final Block CRIMSON_CONCRETE_POWDER = register("crimson_concrete_powder", (settings) -> new ConcretePowderBlock(CRIMSON_CONCRETE, settings), AbstractBlock.Settings.create().mapColor(DyeColor.RED).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.SAND));
+    public static final Block INDIGO_CONCRETE_POWDER = register("indigo_concrete_powder", (settings) -> new ConcretePowderBlock(INDIGO_CONCRETE, settings), AbstractBlock.Settings.create().mapColor(DyeColor.MAGENTA).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.SAND));
 
-    public static final Block AMBER_GLAZED_TERRACOTTA = register("amber_glazed_terracotta",
-            GlazedTerracottaBlock::new,
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.TERRACOTTA_WHITE)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .strength(1.4F)
-                    .resistance(4.2F)
-                    .requiresTool());
+    public static final Block AMBER_CARPET = register("amber_carpet", (settings) -> new DyedCarpetBlock(DyeColor.YELLOW, settings), AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block AQUA_CARPET = register("aqua_carpet", (settings) -> new DyedCarpetBlock(DyeColor.LIGHT_BLUE, settings),AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block CRIMSON_CARPET = register("crimson_carpet", (settings) -> new DyedCarpetBlock(DyeColor.RED, settings), AbstractBlock.Settings.create().mapColor(MapColor.RED).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block INDIGO_CARPET = register("indigo_carpet", (settings) -> new DyedCarpetBlock(DyeColor.MAGENTA, settings), AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
 
-    public static final Block CRIMSON_GLAZED_TERRACOTTA = register("crimson_glazed_terracotta",
-            GlazedTerracottaBlock::new,
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.TERRACOTTA_RED)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .strength(1.4F)
-                    .resistance(4.2F)
-                    .requiresTool());
-
-    public static final Block INDIGO_GLAZED_TERRACOTTA = register("indigo_glazed_terracotta",
-            GlazedTerracottaBlock::new,
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.TERRACOTTA_MAGENTA)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .strength(1.4F)
-                    .resistance(4.2F)
-                    .requiresTool());
-
-    public static final Block AMBER_WOOL = register("amber_wool",
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.YELLOW)
-                    .instrument(NoteBlockInstrument.GUITAR)
-                    .strength(0.8F)
-                    .sounds(BlockSoundGroup.WOOL)
-                    .burnable());
-
-    public static final Block AQUA_WOOL = register("aqua_wool",
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.LIGHT_BLUE)
-                    .instrument(NoteBlockInstrument.GUITAR)
-                    .strength(0.8F)
-                    .sounds(BlockSoundGroup.WOOL)
-                    .burnable());
-
-    public static final Block CRIMSON_WOOL = register("crimson_wool",
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.RED)
-                    .instrument(NoteBlockInstrument.GUITAR)
-                    .strength(0.8F)
-                    .sounds(BlockSoundGroup.WOOL)
-                    .burnable());
-
-    public static final Block INDIGO_WOOL = register("indigo_wool",
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.MAGENTA)
-                    .instrument(NoteBlockInstrument.GUITAR)
-                    .strength(0.8F)
-                    .sounds(BlockSoundGroup.WOOL)
-                    .burnable());
-
-    public static final Block AMBER_CONCRETE = register("amber_concrete",
-            AbstractBlock.Settings.create()
-                    .mapColor(DyeColor.WHITE)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .requiresTool().strength(1.8F));
-
-    public static final Block AQUA_CONCRETE = register("aqua_concrete",
-            AbstractBlock.Settings.create()
-                    .mapColor(DyeColor.WHITE)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .requiresTool().strength(1.8F));
-
-    public static final Block INDIGO_CONCRETE = register("indigo_concrete",
-            AbstractBlock.Settings.create()
-                    .mapColor(DyeColor.WHITE)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .requiresTool().strength(1.8F));
-
-    public static final Block CRIMSON_CONCRETE = register("crimson_concrete",
-            AbstractBlock.Settings.create()
-                    .mapColor(DyeColor.WHITE)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .requiresTool().strength(1.8F));
-
-    public static final Block AMBER_CONCRETE_POWDER = register("amber_concrete_powder", (settings) -> new ConcretePowderBlock(AMBER_CONCRETE, settings),
-            AbstractBlock.Settings.create().mapColor(DyeColor.YELLOW)
-                    .instrument(NoteBlockInstrument.SNARE)
-                    .strength(0.5F).sounds(BlockSoundGroup.SAND));
-
-    public static final Block AQUA_CONCRETE_POWDER = register("aqua_concrete_powder", (settings) -> new ConcretePowderBlock(AQUA_CONCRETE, settings),
-            AbstractBlock.Settings.create().mapColor(DyeColor.LIGHT_BLUE)
-                    .instrument(NoteBlockInstrument.SNARE)
-                    .strength(0.5F).sounds(BlockSoundGroup.SAND));
-
-    public static final Block CRIMSON_CONCRETE_POWDER = register("crimson_concrete_powder", (settings) -> new ConcretePowderBlock(CRIMSON_CONCRETE, settings),
-            AbstractBlock.Settings.create().mapColor(DyeColor.RED)
-                    .instrument(NoteBlockInstrument.SNARE)
-                    .strength(0.5F).sounds(BlockSoundGroup.SAND));
-
-    public static final Block INDIGO_CONCRETE_POWDER = register("indigo_concrete_powder", (settings) -> new ConcretePowderBlock(INDIGO_CONCRETE, settings),
-            AbstractBlock.Settings.create().mapColor(DyeColor.MAGENTA)
-                    .instrument(NoteBlockInstrument.SNARE)
-                    .strength(0.5F).sounds(BlockSoundGroup.SAND));
-
-    public static final Block AMBER_CARPET = register("amber_carpet", (settings) -> new DyedCarpetBlock(DyeColor.YELLOW, settings),
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.YELLOW)
-                    .strength(0.1F)
-                    .sounds(BlockSoundGroup.WOOL)
-                    .burnable());
-
-    public static final Block AQUA_CARPET = register("aqua_carpet", (settings) -> new DyedCarpetBlock(DyeColor.LIGHT_BLUE, settings),
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.LIGHT_BLUE)
-                    .strength(0.1F)
-                    .sounds(BlockSoundGroup.WOOL)
-                    .burnable());
-
-    public static final Block CRIMSON_CARPET = register("crimson_carpet", (settings) -> new DyedCarpetBlock(DyeColor.RED, settings),
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.RED)
-                    .strength(0.1F)
-                    .sounds(BlockSoundGroup.WOOL)
-                    .burnable());
-
-    public static final Block INDIGO_CARPET = register("indigo_carpet", (settings) -> new DyedCarpetBlock(DyeColor.MAGENTA, settings),
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.MAGENTA)
-                    .strength(0.1F)
-                    .sounds(BlockSoundGroup.WOOL)
-                    .burnable());
-
-
-    public static final Block BOABAB_LOG = register("boabab_log", (settings)->new PillarBlock(settings), AbstractBlock.Settings.copy(Blocks.OAK_LOG));
+    public static final Block BOABAB_LOG = register("boabab_log", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG));
     public static final Block BOABAB_SAPLING = register("boabab_sapling",(settings) -> new SaplingBlock(ModSaplingGenerators.BOABAB,  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
 
 
@@ -271,29 +136,10 @@ public class BlockRegistry {
     public static final Block CRIMSON_CANDLE = register("crimson_candle", CandleBlock::new, createCandleSettings(MapColor.DARK_CRIMSON));
     public static final Block INDIGO_CANDLE = register("indigo_candle", CandleBlock::new, createCandleSettings(MapColor.PALE_PURPLE));
 
-    public static final Block HONEY_CAULDRON = register(
-            "honey_cauldron",
-            HoneyCauldronBlock::new,
-            AbstractBlock.Settings.copy(Blocks.CAULDRON)
-    );
-
-    public static final Block MAGMA_CAULDRON = register(
-            "magma_cauldron",
-            MagmaCauldronBlock::new,
-            AbstractBlock.Settings.copy(Blocks.CAULDRON)
-    );
-
-    public static final Block SLIME_CAULDRON = register(
-            "slime_cauldron",
-            SlimeCauldronBlock::new,
-            AbstractBlock.Settings.copy(Blocks.CAULDRON)
-    );
-
-    public static final Block ICE_CAULDRON = register(
-            "ice_cauldron",
-            IceCauldronBlock::new,
-            AbstractBlock.Settings.copy(Blocks.CAULDRON)
-    );
+    public static final Block HONEY_CAULDRON = register("honey_cauldron", HoneyCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+    public static final Block MAGMA_CAULDRON = register("magma_cauldron", MagmaCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+    public static final Block SLIME_CAULDRON = register("slime_cauldron", SlimeCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+    public static final Block ICE_CAULDRON = register("ice_cauldron", IceCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
 
     public static final Block AMBER_BED = registerBedBlock("amber_bed", DyeColor.YELLOW);
     public static final Block AQUA_BED = registerBedBlock("aqua_bed", DyeColor.LIGHT_BLUE);
@@ -314,6 +160,8 @@ public class BlockRegistry {
     public static final Block AQUA_SHULKER_BOX = registerShulkerBoxBlock("aqua_shulker_box", DyeColor.LIGHT_BLUE);
     public static final Block INDIGO_SHULKER_BOX = registerShulkerBoxBlock("indigo_shulker_box", DyeColor.MAGENTA);
     public static final Block CRIMSON_SHULKER_BOX = registerShulkerBoxBlock("crimson_shulker_box", DyeColor.RED);
+
+    public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solid().burnable());
 
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);

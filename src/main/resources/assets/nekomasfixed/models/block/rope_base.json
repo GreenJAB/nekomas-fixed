@@ -1,0 +1,33 @@
+{
+  "credit": "Converted from Blockbench groups",
+  "texture_size": [34, 51],
+  "textures": {
+    "0": "nekomasfixed:block/rope_base"
+  },
+  "elements": [
+    {
+      "from": [-3, 8, -3],
+      "to": [3, 16, 3],
+      "faces": {
+        "north": {"uv": [19, 7, 25, 15], "texture": "#0"},
+        "south": {"uv": [13, 7, 19, 15], "texture": "#0"},
+        "east":  {"uv": [1, 7, 7, 15], "texture": "#0"},
+        "west":  {"uv": [7, 7, 13, 15], "texture": "#0"},
+        "up":    {"uv": [13, 1, 19, 7], "texture": "#0"},
+        "down":  {"uv": [7, 1, 13, 7], "texture": "#0"}
+      }
+    },
+    {
+      "from": [-1, 0, -1],
+      "to": [1, 16, 1],
+      "faces": {
+        "north": {"uv": [1, 34, 3, 50], "texture": "#0"},
+        "south": {"uv": [1, 34, 3, 50], "texture": "#0"},
+        "east":  {"uv": [1, 34, 3, 50], "texture": "#0"},
+        "west":  {"uv": [1, 34, 3, 50], "texture": "#0"},
+        "up":    {"uv": [3, 36, 1, 34], "texture": "#0"},
+        "down":  {"uv": [3, 36, 1, 38], "texture": "#0"}
+      }
+    }
+  ]
+}
