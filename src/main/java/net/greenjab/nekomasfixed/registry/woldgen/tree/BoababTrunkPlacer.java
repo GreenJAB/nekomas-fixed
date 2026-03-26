@@ -61,7 +61,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int r = girthRadius+1;
         int x,y,z = 0;
 
-        for ( y = 0; y < lowerPart; y++) {
+        for ( y = 0; y < genHeight; y++) {
             for ( x = -r; x <= r; x++) {
                 for ( z = -r; z <= r; z++) {
                    if(x*x + z*z <= r*r){
@@ -70,33 +70,16 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                    }
                 }
             }
-        }
-
-
-
-         r = girthRadius;
-        for ( y = lowerPart; y < midPart; y++) {
-            for ( x = -r; x <= r; x++) {
-                for ( z = -r; z <= r; z++) {
-                    if(x*x + z*z <= r*r){
-                        BlockPos pos = new BlockPos(x+X, y+lowerPart+startY, z+Z);
-                        this.getAndSetState(world, replacer, random, pos, config);
-                    }
-                }
+            if(y<lowerPart){
+                r = girthRadius+1;
+            }else if( y<midPart){
+                r = girthRadius;
+            }
+            else if(y<upperPart){
+                r=girthRadius-1;
             }
         }
 
-        r = girthRadius-1;
-        for ( y = midPart; y < upperPart; y++) {
-            for ( x = -r; x <= r; x++) {
-                for ( z = -r; z <= r; z++) {
-                    if(x*x + z*z <= r*r){
-                        BlockPos pos = new BlockPos(x+X, y+midPart+startY, z+Z);
-                        this.getAndSetState(world, replacer, random, pos, config);
-                    }
-                }
-            }
-        }
 
 
 
