@@ -50,6 +50,8 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int midPart = height / 3 + lowerPart;
         int upperPart = height / 3 +midPart ;
         int x,y,z = 0;// current<DIMENSION> values
+        int X = startPos.getX();
+        int Z = startPos.getZ();
 
         for (y = 0; y < height-1; y++) {
             int r = girthRadius + 1;
@@ -76,6 +78,8 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                     }
                 }
             }
+
+            System.out.println((X+x) + " " + y + " " + (Z+z));
         }
 
         list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
