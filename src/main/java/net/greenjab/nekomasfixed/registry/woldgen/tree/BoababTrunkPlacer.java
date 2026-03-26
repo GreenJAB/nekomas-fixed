@@ -64,9 +64,12 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 r = girthRadius - 1;
             }
 
+            if(y>upperPart && r>girthRadius-1){continue;} //weird glitch fix
+
             for (x = -r; x <= r; x++) {
                 for (z = -r; z <= r; z++) {
                     int distSq = x*x + z*z;
+                    if(y<thickLowerPart && distSq==r*r){continue;}
                     if (distSq <= r*r && distSq >= (r-1)*(r-1)) {
                         BlockPos pos = startPos.add(x, y, z);
                         this.getAndSetState(world, replacer, random, pos, config);
