@@ -44,6 +44,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         Direction direction = Direction.Type.HORIZONTAL.random(random);
 
         int girthRadius = 3 ;
+        int thickLowerPart = height/3 - 2;
         int lowerPart = height / 3;
         int midPart = height / 3 + lowerPart;
         int upperPart = height / 3 +midPart ;
@@ -52,7 +53,9 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         for (y = 0; y < height-1; y++) {
             int r = girthRadius + 1;
 
-            if (y < lowerPart) {
+            if(y<thickLowerPart){
+                r = girthRadius + 2;
+            } else if (y < lowerPart) {
                 r = girthRadius + 1;
             } else if (y < midPart) {
                 r = girthRadius;
