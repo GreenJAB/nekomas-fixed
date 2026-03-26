@@ -50,15 +50,22 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int x,y,z = 0;// current<DIMENSION> values
 
         for (y = 0; y < height-1; y++) {
+            int r = girthRadius + 1;
 
-            float t = (float) y / height;
-            int baseR = (int)(girthRadius * (1.0f - t));
-            int variation = random.nextInt(3) - 1; // -1, 0, +1
-            int r = Math.max(1, baseR + variation);
+            if (y < lowerPart) {
+                r = girthRadius + 1;
+            } else if (y < midPart) {
+                r = girthRadius;
+            } else if (y < upperPart) {
+                r = girthRadius - 1;
+            }
+
             for (x = -r; x <= r; x++) {
                 for (z = -r; z <= r; z++) {
                     int distSq = x*x + z*z;
-                    if (distSq <= r*r + random.nextInt(2)) {
+                    if (distSq <= r*r && distSq >= (r-1)*(r-1)) {
+                        int randInt = random.nextBetween(0,4);
+                        if(randInt==3){continue;}
                         BlockPos pos = startPos.add(x, y, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
