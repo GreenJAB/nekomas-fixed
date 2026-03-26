@@ -101,7 +101,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
 
 
-
+//try removing X and Z
 
 
         list.add(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
