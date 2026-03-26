@@ -26,7 +26,7 @@ public class ModConfiguredFeatures {
                 new BoababTrunkPlacer(8, 3, 2),
 
                 BlockStateProvider.of(Blocks.ACACIA_LEAVES),
-                new BlobFoliagePlacer(ConstantIntProvider.create(4), ConstantIntProvider.create(1), 3),
+                new BlobFoliagePlacer(ConstantIntProvider.create(4), ConstantIntProvider.create(1), 4),
 
                 new TwoLayersFeatureSize(3, 1, 2)).build());
     }
