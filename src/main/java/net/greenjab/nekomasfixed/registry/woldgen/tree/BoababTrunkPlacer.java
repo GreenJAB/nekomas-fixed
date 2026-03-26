@@ -78,18 +78,22 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                     }
                 }
             }
-//bangar
-            int branchLength = 3+random.nextInt(3);
+
+            int branchLength = 3 + random.nextInt(3);
 
             int dx = random.nextBoolean() ? 1 : -1;
             int dz = random.nextBoolean() ? 1 : -1;
 
-            for(int y2 = 0; y2<height-1; ++y2){
-                if(y2>midPart){
-                    for (int i = 0; i < branchLength; i++) {
-                        BlockPos pos = startPos.add(i * dx, y, i * dz);
-                        this.getAndSetState(world, replacer, random, pos, config);
-                    }
+            for (int y2 = 0; y2 < height - 1; ++y2) {
+
+                if (y2 <= midPart) continue; // only above midPart
+
+                // start from trunk center at this height
+                BlockPos branchStart = startPos.add(0, y2, 0);
+
+                for (int i = 0; i < branchLength; i++) {
+                    BlockPos pos = branchStart.add(i * dx, 0, i * dz);
+                    this.getAndSetState(world, replacer, random, pos, config);
                 }
             }
         }
