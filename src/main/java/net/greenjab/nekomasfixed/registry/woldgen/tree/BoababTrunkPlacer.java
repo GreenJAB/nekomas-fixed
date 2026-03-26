@@ -65,7 +65,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                     int distSq = x*x + z*z;
                     if (distSq <= r*r && distSq >= (r-1)*(r-1)) {
                         int randInt = random.nextBetween(0,4);
-                        if(randInt==3){continue;}
+                        if(randInt==3 && distSq==r*r){continue;}
                         BlockPos pos = startPos.add(x, y, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
