@@ -30,6 +30,19 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                     fillTrunkPlacerFields(instance).apply(instance, BoababTrunkPlacer::new)
             );
 
+    private int countNeighbors(TestableWorld world, BlockPos pos) {
+        int count = 0;
+
+        if (!world.testBlockState(pos.up(), BlockState::isAir)) count++;
+        if (!world.testBlockState(pos.down(), BlockState::isAir)) count++;
+        if (!world.testBlockState(pos.north(), BlockState::isAir)) count++;
+        if (!world.testBlockState(pos.south(), BlockState::isAir)) count++;
+        if (!world.testBlockState(pos.east(), BlockState::isAir)) count++;
+        if (!world.testBlockState(pos.west(), BlockState::isAir)) count++;
+
+        return count;
+    }
+
 
     @Override
     protected TrunkPlacerType<?> getType() {
@@ -74,7 +87,9 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                     if(y<thickLowerPart && distSq==r*r){continue;}
                     if (distSq <= r*r && distSq >= (r-1)*(r-1)) {
                         BlockPos pos = startPos.add(x, y, z);
-                        this.getAndSetState(world, replacer, random, pos, config);
+                        if(this.countNeighbors(world, pos)<2){
+                            this.getAndSetState(world, replacer, random, pos, config);
+                        }
                     }
                 }
             }
@@ -93,7 +108,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 if(randInt==3){
                     for (int i = 0; i < branchLength; i++) {
                         BlockPos pos = branchStart.add(i * dx, 0, i * dz);
-                        this.getAndSetState(world, replacer, random, pos, config);
+
                     }
                 }
             }
