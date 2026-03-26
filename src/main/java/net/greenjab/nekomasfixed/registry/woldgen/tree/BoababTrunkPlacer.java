@@ -17,7 +17,9 @@ import net.minecraft.world.gen.stateprovider.NoiseBlockStateProvider;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class BoababTrunkPlacer extends TrunkPlacer {
@@ -30,15 +32,17 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                     fillTrunkPlacerFields(instance).apply(instance, BoababTrunkPlacer::new)
             );
 
-    private int countNeighbors(TestableWorld world, BlockPos pos) {
+    private int countNeighbors(TestableWorld world, BlockPos pos, Set<BlockPos> placed) {
         int count = 0;
 
-        if (!world.testBlockState(pos.up(), BlockState::isAir)) count++;
-        if (!world.testBlockState(pos.down(), BlockState::isAir)) count++;
-        if (!world.testBlockState(pos.north(), BlockState::isAir)) count++;
-        if (!world.testBlockState(pos.south(), BlockState::isAir)) count++;
-        if (!world.testBlockState(pos.east(), BlockState::isAir)) count++;
-        if (!world.testBlockState(pos.west(), BlockState::isAir)) count++;
+        for (BlockPos offset : new BlockPos[]{
+                pos.up(), pos.down(), pos.north(), pos.south(), pos.east(), pos.west()
+        }) {
+            if (placed.contains(offset) ||
+                    !world.testBlockState(offset, BlockState::isAir)) {
+                count++;
+            }
+        }
 
         return count;
     }
@@ -94,21 +98,28 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
             int branchLength = 3 + random.nextInt(3);
 
-            int dx = random.nextBoolean() ? 1 : -1;
-            int dz = random.nextBoolean() ? 1 : -1;
-
+            Set<BlockPos> placed = new HashSet<>();
             for (int y2 = 0; y2 < height - 1; ++y2) {
 
-                if (y2 <= midPart) continue; // only above midPart
-                int randInt = random.nextInt(4);
+                if (y2 <= midPart) continue;
+
+                if (random.nextInt(4) != 0) continue; // cleaner chance
+
+                int dx = random.nextInt(3) - 1;
+                int dz = random.nextInt(3) - 1;
+
+                if (dx == 0 && dz == 0) continue;
+
                 BlockPos branchStart = startPos.add(0, y2, 0);
 
-                if(randInt==3){
-                    for (int i = 0; i < branchLength; i++) {
-                        BlockPos pos = branchStart.add(i * dx, 0, i * dz);
-                        if(this.countNeighbors(world, pos)<2){
-                            this.getAndSetState(world, replacer, random, pos, config);
-                        }
+                for (int i = 0; i < branchLength; i++) {
+                    BlockPos pos = branchStart.add(i * dx, 0, i * dz);
+
+                    if (countNeighbors(world, pos, placed) == 1) {
+                        this.getAndSetState(world, replacer, random, pos, config);
+                        placed.add(pos);
+                    } else {
+                        break; // stop branch if it collides
                     }
                 }
             }
