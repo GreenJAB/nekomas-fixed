@@ -84,8 +84,8 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             int dx = random.nextBoolean() ? 1 : -1;
             int dz = random.nextBoolean() ? 1 : -1;
 
-            for(int y2 = 0; y2<height; ++y2){
-                if(y2<midPart){continue;}
+            for(int y2 = 0; y2<height-1; ++y2){
+                if(y2<midPart && y2<upperPart){continue;}
                 for (int i = 0; i < branchLength; i++) {
                     BlockPos pos = startPos.add(i * dx, y, i * dz);
                     this.getAndSetState(world, replacer, random, pos, config);
