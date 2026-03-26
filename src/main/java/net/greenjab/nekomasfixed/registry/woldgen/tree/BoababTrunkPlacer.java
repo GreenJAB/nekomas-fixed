@@ -13,6 +13,7 @@ import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
+import net.minecraft.world.gen.stateprovider.NoiseBlockStateProvider;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
@@ -51,25 +52,19 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int x,y,z = 0;// current<DIMENSION> values
 
         for (y = 0; y < height-1; y++) {
-            int r = girthRadius + 1;
 
-            if(y<thickLowerPart){
-                r = girthRadius + 2;
-            } else if (y < lowerPart) {
-                r = girthRadius + 1;
-            } else if (y < midPart) {
-                r = girthRadius;
-            } else if (y < upperPart) {
-                r = girthRadius - 1;
-            }
+            float t = (float) y / height;
+            int r = Math.max(2, (int)(girthRadius * (1.0f - t)));
+            for (x = -r-3; x <= r+3; x++) {
+                for (z = -r-3; z <= r+3; z++) {
 
-            for (x = -r; x <= r; x++) {
-                for (z = -r; z <= r; z++) {
-                    int distSq = x*x + z*z;
-                    if (distSq <= r*r && distSq >= (r-1)*(r-1)) {
-                        int randInt = random.nextBetween(0,4);
+                    double angle = Math.atan2(z, x);
+                    double ridges = Math.sin(angle * 5) * 1.5;
+                    double verticalNoise = Math.sin(y * 0.3) * 0.5;
+                    int localR = (int)(r + ridges + verticalNoise);
+                    double dist = Math.sqrt(x*x + z*z);
 
-                        if(distSq==r*r && y>=lowerPart-randInt){continue;}
+                    if (dist <= localR) {
                         BlockPos pos = startPos.add(x, y, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
