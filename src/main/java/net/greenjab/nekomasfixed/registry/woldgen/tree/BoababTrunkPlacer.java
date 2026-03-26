@@ -44,7 +44,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         setToDirt(world, replacer, random, blockPos, config);
         Direction direction = Direction.Type.HORIZONTAL.random(random);
 
-        int girthRadius = 3 ;
+        int girthRadius = 2 ;
         int thickLowerPart = height/3 - 2;
         int lowerPart = height / 3;
         int midPart = height / 3 + lowerPart;
@@ -68,9 +68,6 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 for (z = -r; z <= r; z++) {
                     int distSq = x*x + z*z;
                     if (distSq <= r*r && distSq >= (r-1)*(r-1)) {
-                        int randInt = random.nextBetween(0,4);
-
-                        if(distSq==r*r && y>=lowerPart-randInt){continue;}
                         BlockPos pos = startPos.add(x, y, z);
                         this.getAndSetState(world, replacer, random, pos, config);
                     }
