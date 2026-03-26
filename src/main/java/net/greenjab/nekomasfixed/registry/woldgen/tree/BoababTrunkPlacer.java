@@ -57,18 +57,18 @@ public class BoababTrunkPlacer extends TrunkPlacer {
         int midPart = height / 3;
         int upperPart = height / 3 -1 ;
 
-        int r = girthRadius+1;
+
         int x,y,z = 0;
 
         for (y = 0; y < height; y++) {
+            int r = girthRadius+1;
 
-            // ✅ set radius FIRST
             if (y < lowerPart) {
-                r = girthRadius + 1;
+                r = girthRadius + 2;
             } else if (y < midPart) {
                 r = girthRadius;
             } else if (y < upperPart) {
-                r = girthRadius - 1;
+                r = girthRadius - 2;
             }
 
             for (x = -r; x <= r; x++) {
