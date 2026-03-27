@@ -10,6 +10,8 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.Objects;
 
@@ -29,15 +31,9 @@ public class RopeBlock extends  Block  {
     
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos().up());
-        BlockState blockState2 = ctx.getWorld().getBlockState(ctx.getBlockPos());
-         if(!blockState.isAir() && !blockState2.get(IS_CONNECTED, false)){
-            return blockState2.with(IS_CONNECTED, true);
-        }
-        else{
-            FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-            boolean bl = fluidState.getFluid() == Fluids.WATER;
-            return Objects.requireNonNull(super.getPlacementState(ctx)).with(WATERLOGGED, bl);
-        }
+        World world = ctx.getWorld();
+        BlockPos pos = ctx.getBlockPos();
+        boolean connected = world.getBlockState(pos.down()).isOf(this);
+        return this.getDefaultState().with(IS_CONNECTED, connected);
     }
 }
