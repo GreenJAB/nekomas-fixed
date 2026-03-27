@@ -42,7 +42,7 @@ public class RopeBlock extends  Block  {
     }
 
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        if(!world.getBlockState(pos.up(2)).isOf(this)){
+        if(!world.getBlockState(pos.up(2)).isOf(this) && !world.getBlockState(pos.up(2)).isAir()){
             return this.getDefaultState();
         }
             if (!state.canPlaceAt(world, pos)) {
