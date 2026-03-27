@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.registry.item;
 
 import net.greenjab.nekomasfixed.registry.block.RopeBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ScaffoldingBlock;
@@ -20,7 +19,7 @@ import org.jspecify.annotations.Nullable;
 
 public class RopeItem extends BlockItem {
     public RopeItem(Block block, Item.Settings settings) {
-        super(block, settings);
+        super(BlockRegistry.ROPE, settings);
     }
 
     public @Nullable ItemPlacementContext getPlacementContext(ItemPlacementContext context) {
@@ -29,13 +28,13 @@ public class RopeItem extends BlockItem {
         BlockState clickedState = world.getBlockState(clickedPos);
         Block ropeBlock = this.getBlock();
 
-        if (!context.getPlayer().getMainHandStack().isOf(ItemRegistry.ROPE_ITEM)) {
+        if (!clickedState.isOf(ropeBlock)) {
             System.out.println(ropeBlock);
             return context;
         }
 
         BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
-        while (world.getBlockState(bottomPos.down()).isOf(BlockRegistry.ROPE)) {
+        while (world.getBlockState(bottomPos.down()).isOf(ropeBlock)) {
             System.out.println("is a rope ");
             bottomPos.move(Direction.DOWN);
         }
