@@ -1,8 +1,10 @@
 {
   "format_version": "1.21.11",
   "credit": "Made with Blockbench",
+  "parent": "block/block",
   "textures": {
-    "3": "nekomasfixed:block/rope_base"
+    "3": "nekomasfixed:block/rope_base",
+    "particle": "minecraft:block/oak_log"
   },
   "elements": [
     {
