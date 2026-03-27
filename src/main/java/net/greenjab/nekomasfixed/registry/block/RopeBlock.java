@@ -42,7 +42,7 @@ public class RopeBlock extends  Block  {
     }
 
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-            if (this.canPlaceAt(state, world, pos)) {
+            if (state.canPlaceAt(world, pos)) {
                 tickView.scheduleBlockTick(pos, this, 1);
             }return this.getDefaultState();
     }
@@ -53,8 +53,9 @@ public class RopeBlock extends  Block  {
         return blockState.isOf(BlockRegistry.ROPE) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
     }
 
+    @Override
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (this.canPlaceAt(state, world, pos)) {
+        if (state.canPlaceAt(world, pos)) {
             world.breakBlock(pos, true);
         }
     }
