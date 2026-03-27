@@ -38,7 +38,7 @@ public class RopeBlock extends  Block  {
         for(int i = pos.getY(); i>=pos.getY()-15; --i){
             BlockPos currentPos = new BlockPos(pos.getX(), i, pos.getZ());
             if(world.getBlockState(currentPos).isOf(this)){
-                world.setBlockState(currentPos, Blocks.AIR.getDefaultState(), 1);
+                world.setBlockState(currentPos, Blocks.AIR.getDefaultState(), 15);
             }
         }
     }
