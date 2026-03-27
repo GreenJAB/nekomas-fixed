@@ -1,17 +1,18 @@
 {
     "replace": false,
-    "_notes": "The blocks in this tag can be broken by pickaxe and can be dropped if mentioned in loot_table files. NOTE for green_jab: plz dont add new block into the created tags, we will add at the end of the mod...",
-
-    "_NOTE_NOTE_NOTE": "Green Jab, plz dont add the new blocks now, we will add at the end of the mod",
-
-
     "values": [
         "nekomasfixed:pearl_block",
-        "nekomasfixed:indigo_terracotta",
+        "nekomasfixed:amber_concrete",
         "nekomasfixed:amber_terracotta",
-        "nekomasfixed:aqua_terracotta",
         "nekomasfixed:amber_glazed_terracotta",
+        "nekomasfixed:aqua_concrete",
+        "nekomasfixed:aqua_terracotta",
+        "nekomasfixed:aqua_glazed_terracotta",
+        "nekomasfixed:crimson_concrete",
         "nekomasfixed:crimson_terracotta",
-        "nekomasfixed:aqua_glazed_terracotta"
+        "nekomasfixed:crimson_glazed_terracotta",
+        "nekomasfixed:indigo_concrete",
+        "nekomasfixed:indigo_terracotta",
+        "nekomasfixed:indigo_glazed_terracotta"
     ]
 }
