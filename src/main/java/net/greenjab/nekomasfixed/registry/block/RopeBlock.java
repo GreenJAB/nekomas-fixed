@@ -50,7 +50,7 @@ public class RopeBlock extends  Block  {
             if(world.getBlockState(new BlockPos(pos.getX(), i, pos.getZ())).isOf(BlockRegistry.ROPE)){
                 ++distance;
             }else{
-                break;
+                continue;
             }
         }
         return distance;
