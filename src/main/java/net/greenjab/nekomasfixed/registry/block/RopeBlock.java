@@ -3,11 +3,11 @@ package net.greenjab.nekomasfixed.registry.block;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -32,6 +32,7 @@ public class RopeBlock extends  Block  {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
+        System.out.println(this.getDistance(ctx.getWorld(), ctx.getBlockPos()));
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
         boolean connected = world.getBlockState(pos.up()).isOf(BlockRegistry.ROPE);
@@ -41,6 +42,18 @@ public class RopeBlock extends  Block  {
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if (!state.canPlaceAt(world, pos)) tickView.scheduleBlockTick(pos, this, 1);
         return state;
+    }
+
+    public int getDistance(World world, BlockPos pos){
+        int distance = 0;
+        for(int i = pos.getY(); i>319; --i){
+            if(world.getBlockState(new BlockPos(pos.getX(), i, pos.getZ())).isOf(this)){
+                ++distance;
+            }else{
+                break;
+            }
+        }
+        return distance;
     }
 
     @Override
