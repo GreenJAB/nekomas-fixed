@@ -52,7 +52,7 @@ public class RopeBlock extends  Block  {
                         return this.getDefaultState();
                     }
                 }
-            }return this.getDefaultState();
+            }return this.getDefaultState().with(IS_CONNECTED, true);
 
     }
 
