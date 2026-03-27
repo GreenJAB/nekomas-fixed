@@ -48,7 +48,7 @@ public class RopeBlock extends  Block  {
 
     protected boolean canPlaceAt(BlockPos pos, WorldView world){
         BlockState stateAbove = world.getBlockState(pos.up());
-        return stateAbove.isOf(Blocks.AIR);
+        return !stateAbove.isOf(Blocks.AIR);
     }
 
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
