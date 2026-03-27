@@ -24,7 +24,7 @@ public class RopeItem extends BlockItem {
         Block ropeBlock = this.getBlock();
 
         if (!clickedState.isOf(ropeBlock)) {
-            System.out.println("an item used " + ropeBlock);
+            System.out.println("an item used " + clickedState);
             return context;
         }
 
