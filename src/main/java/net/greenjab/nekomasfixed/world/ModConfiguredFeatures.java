@@ -1,43 +1,15 @@
 package net.greenjab.nekomasfixed.world;
 
-import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.woldgen.tree.BoababTrunkPlacer;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 
 public class ModConfiguredFeatures {
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> BOABAB_KEY = registerKey("boabab");
-    public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
-        register(context, BOABAB_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
-                BlockStateProvider.of(BlockRegistry.BOABAB_LOG),
-                new BoababTrunkPlacer(8, 3, 2),
-
-                BlockStateProvider.of(Blocks.ACACIA_LEAVES),
-                new BlobFoliagePlacer(ConstantIntProvider.create(4), ConstantIntProvider.create(1), 4),
-
-                new TwoLayersFeatureSize(3, 1, 2)).build());
-    }
-
-
-
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of("nekomasfixed", name));
     }
-    private static <FC extends FeatureConfig, F extends Feature<FC>> void register(Registerable<ConfiguredFeature<?, ?>> context,
-                                                                                   RegistryKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
-        context.register(key, new ConfiguredFeature<>(feature, configuration));
-    }
+
 }
