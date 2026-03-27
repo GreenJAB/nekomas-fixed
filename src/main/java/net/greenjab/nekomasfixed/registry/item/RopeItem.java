@@ -35,7 +35,7 @@ public class RopeItem extends BlockItem {
         if (targetState.isAir() || targetState.canReplace(context)) {
             return ItemPlacementContext.offset(context, placePos, Direction.DOWN);
         }
-        ++i;
+        --i;
         }
 
 //        BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
