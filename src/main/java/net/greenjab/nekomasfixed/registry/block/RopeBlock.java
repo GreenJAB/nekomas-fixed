@@ -50,7 +50,7 @@ public class RopeBlock extends  Block  {
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.up());
-        return blockState.isOf(BlockRegistry.ROPE) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
+        return !blockState.isOf(BlockRegistry.ROPE) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
     }
 
     @Override
