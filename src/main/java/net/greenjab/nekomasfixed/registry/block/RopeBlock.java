@@ -35,27 +35,12 @@ public class RopeBlock extends  Block  {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
         boolean connected = world.getBlockState(pos.up()).isOf(BlockRegistry.ROPE);
-        if(world.getBlockState(pos.up()).isAir()){
-           return null;
-        }
         return this.getDefaultState().with(IS_CONNECTED, connected);
     }
 
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if (!state.canPlaceAt(world, pos)) tickView.scheduleBlockTick(pos, this, 1);
         return state;
-    }
-
-    public static int getDistance(World world, BlockPos pos){
-        int distance = 1;
-        for(int i = pos.getY(); i<319; ++i){
-            if(world.getBlockState(new BlockPos(pos.getX(), i, pos.getZ())).isOf(BlockRegistry.ROPE)){
-                ++distance;
-            }else{
-                continue;
-            }
-        }
-        return distance;
     }
 
     @Override
