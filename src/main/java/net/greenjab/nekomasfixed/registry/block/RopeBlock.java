@@ -33,7 +33,7 @@ public class RopeBlock extends  Block  {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
-        boolean connected = world.getBlockState(pos.down()).isOf(this);
+        boolean connected = world.getBlockState(pos.up()).isOf(this);
         return this.getDefaultState().with(IS_CONNECTED, connected);
     }
 }
