@@ -23,6 +23,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 
 import java.util.function.Function;
 
@@ -163,7 +165,7 @@ public class BlockRegistry {
     public static final Block INDIGO_SHULKER_BOX = registerShulkerBoxBlock("indigo_shulker_box", DyeColor.MAGENTA);
     public static final Block CRIMSON_SHULKER_BOX = registerShulkerBoxBlock("crimson_shulker_box", DyeColor.RED);
 
-    public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solid().burnable());
+    public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
 
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
@@ -221,6 +223,9 @@ public class BlockRegistry {
     }
     private static Block registerShulkerBoxBlock(String id, DyeColor color) {
         return register(id, settings -> new ShulkerBoxBlock(color, settings), Blocks.createShulkerBoxSettings(color.getMapColor()));
+    }
+    public static boolean never(BlockState state, BlockView world, BlockPos pos) {
+        return false;
     }
 
     private static Block registerBedBlock(String id, DyeColor color) {
