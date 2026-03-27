@@ -28,11 +28,13 @@ public class RopeItem extends BlockItem {
         Block ropeBlock = this.getBlock();
 
         if (!clickedState.isOf(ropeBlock)) {
+            System.out.println("not a rope");
             return context;
         }
 
         BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
         while (world.getBlockState(bottomPos.down()).isOf(ropeBlock)) {
+            System.out.println("is a rope aye");
             bottomPos.move(Direction.DOWN);
         }
 
