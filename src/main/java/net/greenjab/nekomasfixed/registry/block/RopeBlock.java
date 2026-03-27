@@ -38,13 +38,13 @@ public class RopeBlock extends  Block  {
         if(world.getBlockState(pos.up()).isOf(Blocks.AIR)){
             return Blocks.AIR.getDefaultState();
         }
-        if(!world.getBlockState(pos.up(2)).isOf(this)){
-            return this.getDefaultState();
-        }
         return this.getDefaultState().with(IS_CONNECTED, connected);
     }
 
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        if(!world.getBlockState(pos.up(2)).isOf(this)){
+            return this.getDefaultState();
+        }
             if (!state.canPlaceAt(world, pos)) {
                 tickView.scheduleBlockTick(pos, this, 1);
             }return this.getDefaultState().with(IS_CONNECTED, true);
