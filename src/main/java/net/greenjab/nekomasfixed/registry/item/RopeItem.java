@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.item;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
@@ -22,27 +23,28 @@ public class RopeItem extends BlockItem {
         BlockState clickedState = world.getBlockState(clickedPos);
         Block ropeBlock = this.getBlock();
 
-        if (!clickedState.isOf(ropeBlock)) {
+        assert context.getPlayer() != null;
+        if (!context.getPlayer().getMainHandStack().isOf(ItemRegistry.ROPE_ITEM)) {
             System.out.println(ropeBlock);
             return context;
         }
 
         BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
-        while (world.getBlockState(bottomPos.down()).isOf(ropeBlock)) {
+        while (world.getBlockState(bottomPos.down()).isOf(BlockRegistry.ROPE)) {
             System.out.println("is a rope ");
             bottomPos.move(Direction.DOWN);
         }
 
         BlockPos placePos = bottomPos.down();
-        if (!world.isInBuildLimit(placePos)) {
+//        if (!world.isInBuildLimit(placePos)) {
 //            if (context.getPlayer() instanceof ServerPlayerEntity player) {
 //                player.sendMessageToClient(
 //                        Text.translatable("build.tooLow", placePos.getY()).formatted(Formatting.RED),
 //                        true
 //                );
 //            }
-            return null;
-        }
+//            return null;
+//        }
         BlockState targetState = world.getBlockState(placePos);
         if (targetState.isAir() || targetState.canReplace(context)) {
             return ItemPlacementContext.offset(context, placePos, Direction.DOWN);
