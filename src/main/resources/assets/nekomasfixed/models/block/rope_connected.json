@@ -1,20 +1,21 @@
 {
-  "credit": "Converted from Blockbench groups — Centered model",
-  "texture_size": [34, 51],
+  "format_version": "1.21.11",
+  "credit": "Made with Blockbench",
   "textures": {
-    "0": "nekomasfixed:block/rope_base"
+    "2": "nekomasfixed:block/rope_connected"
   },
   "elements": [
     {
-      "from": [-1, -8, -1],
-      "to": [1, 8, 1],
+      "from": [7, 0, 7],
+      "to": [9, 16, 9],
+      "rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
       "faces": {
-        "north": { "uv": [1, 34, 3, 50], "texture": "#0" },
-        "south": { "uv": [1, 34, 3, 50], "texture": "#0" },
-        "east":  { "uv": [1, 34, 3, 50], "texture": "#0" },
-        "west":  { "uv": [1, 34, 3, 50], "texture": "#0" },
-        "up":    { "uv": [3, 36, 1, 34], "texture": "#0" },
-        "down":  { "uv": [3, 36, 1, 38], "texture": "#0" }
+        "north": {"uv": [0, 0, 2, 16], "texture": "#2"},
+        "east": {"uv": [0, 0, 2, 16], "texture": "#2"},
+        "south": {"uv": [0, 0, 2, 16], "texture": "#2"},
+        "west": {"uv": [0, 0, 2, 16], "texture": "#2"},
+        "up": {"uv": [4, 2, 2, 0], "texture": "#2"},
+        "down": {"uv": [4, 0, 2, 2], "texture": "#2"}
       }
     }
   ]
