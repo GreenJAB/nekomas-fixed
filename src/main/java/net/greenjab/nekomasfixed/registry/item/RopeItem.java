@@ -25,7 +25,7 @@ public class RopeItem extends BlockItem {
 
         assert context.getPlayer() != null;
         if (!context.getPlayer().getMainHandStack().isOf(ItemRegistry.ROPE_ITEM)) {
-            System.out.println(ropeBlock);
+            System.out.println("an item used " + ropeBlock);
             return context;
         }
 
