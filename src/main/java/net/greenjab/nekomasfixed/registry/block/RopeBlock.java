@@ -44,7 +44,16 @@ public class RopeBlock extends  Block  {
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
             if (!state.canPlaceAt(world, pos)) {
                 tickView.scheduleBlockTick(pos, this, 1);
+            }else{
+                if(world.getBlockState(pos.up()).isOf(this)){
+                    if(world.getBlockState(pos.up()).get(IS_CONNECTED, false)){
+                        return this.getDefaultState().with(IS_CONNECTED, true);
+                    }else{
+                        return this.getDefaultState();
+                    }
+                }
             }return this.getDefaultState();
+
     }
 
     @Override
