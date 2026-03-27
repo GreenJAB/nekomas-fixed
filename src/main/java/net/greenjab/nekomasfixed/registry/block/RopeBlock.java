@@ -46,7 +46,7 @@ public class RopeBlock extends  Block  {
 
     public int getDistance(World world, BlockPos pos){
         int distance = 0;
-        for(int i = pos.getY(); i>319; --i){
+        for(int i = pos.getY(); i<319; ++i){
             if(world.getBlockState(new BlockPos(pos.getX(), i, pos.getZ())).isOf(this)){
                 ++distance;
             }else{
