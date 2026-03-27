@@ -30,6 +30,9 @@ public class RopeBlock extends  Block  {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
         boolean connected = world.getBlockState(pos.up()).isOf(this);
+        if(world.getBlockState(pos.up()).isOf(Blocks.AIR)){
+            return Blocks.AIR.getDefaultState();
+        }
         return this.getDefaultState().with(IS_CONNECTED, connected);
     }
 
