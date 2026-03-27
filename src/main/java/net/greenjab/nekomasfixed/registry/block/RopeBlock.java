@@ -29,26 +29,18 @@ public class RopeBlock extends  Block  {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(IS_CONNECTED, WATERLOGGED);
     }
-    
+
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
-        boolean connected = world.getBlockState(pos.up()).isOf(this);
-        if(world.getBlockState(pos.up()).isOf(Blocks.AIR)){
-            return Blocks.AIR.getDefaultState();
-        }
+        boolean connected = world.getBlockState(pos.up()).isOf(BlockRegistry.ROPE);
         return this.getDefaultState().with(IS_CONNECTED, connected);
     }
 
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        if(!world.getBlockState(pos.up(2)).isOf(this) && !world.getBlockState(pos.up(2)).isAir()){
-            return this.getDefaultState();
-        }
-            if (!state.canPlaceAt(world, pos)) {
-                tickView.scheduleBlockTick(pos, this, 1);
-            }return this.getDefaultState().with(IS_CONNECTED, true);
-
+        if (!state.canPlaceAt(world, pos)) tickView.scheduleBlockTick(pos, this, 1);
+        return state;
     }
 
     @Override
