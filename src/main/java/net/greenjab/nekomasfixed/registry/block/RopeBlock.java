@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.block;
 
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -48,8 +49,8 @@ public class RopeBlock extends  Block  {
 
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockState stateAbove = world.getBlockState(pos.up());
-        return !stateAbove.isOf(Blocks.AIR);
+        BlockState blockState = world.getBlockState(pos.up());
+        return blockState.isOf(BlockRegistry.ROPE) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
     }
 
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
