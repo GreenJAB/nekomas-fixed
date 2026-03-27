@@ -4,11 +4,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
 
 
 public class RopeBlock extends  Block  {
@@ -36,14 +40,21 @@ public class RopeBlock extends  Block  {
         return this.getDefaultState().with(IS_CONNECTED, connected);
     }
 
-    @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        for(int i = pos.getY(); i>=pos.getY()-15; --i){
-            BlockPos currentPos = new BlockPos(pos.getX(), i, pos.getZ());
-            if(world.getBlockState(currentPos).isOf(this)){
-                world.setBlockState(currentPos, Blocks.AIR.getDefaultState(), 15);
-                world.updateNeighbors(currentPos, Blocks.AIR);
-            }
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+            if (this.canPlaceAt(pos, world)) {
+                tickView.scheduleBlockTick(pos, this, 1);
+            }return this.getDefaultState();
+    }
+
+    protected boolean canPlaceAt(BlockPos pos, WorldView world){
+        BlockState stateAbove = world.getBlockState(pos.up());
+        return stateAbove.isOf(Blocks.AIR);
+    }
+
+    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if (this.canPlaceAt(pos, world)) {
+            world.breakBlock(pos, true);
         }
     }
+
 }
