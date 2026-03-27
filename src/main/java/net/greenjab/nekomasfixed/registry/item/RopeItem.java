@@ -1,6 +1,8 @@
 package net.greenjab.nekomasfixed.registry.item;
 
 import net.greenjab.nekomasfixed.registry.block.RopeBlock;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ScaffoldingBlock;
@@ -27,14 +29,14 @@ public class RopeItem extends BlockItem {
         BlockState clickedState = world.getBlockState(clickedPos);
         Block ropeBlock = this.getBlock();
 
-        if (!clickedState.isOf(ropeBlock)) {
-            System.out.println("not a rope");
+        if (!context.getPlayer().getMainHandStack().isOf(ItemRegistry.ROPE_ITEM)) {
+            System.out.println(ropeBlock);
             return context;
         }
 
         BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
-        while (world.getBlockState(bottomPos.down()).isOf(ropeBlock)) {
-            System.out.println("is a rope aye");
+        while (world.getBlockState(bottomPos.down()).isOf(BlockRegistry.ROPE)) {
+            System.out.println("is a rope ");
             bottomPos.move(Direction.DOWN);
         }
 
