@@ -73,35 +73,9 @@ public class ItemRegistry {
     public static final Item HUGE_PALE_OAK_BOAT = register("huge_pale_oak_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_PALE_OAK_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item HUGE_SPRUCE_BOAT = register("huge_spruce_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_SPRUCE_BOAT, settings), new Item.Settings().maxCount(1));
 
-    public static final Item BOAT_UPGRADE_TEMPLATE = register(
-            "boat_upgrade_template", settings -> new SmithingTemplateItem(
-                    Text.translatable(
-                            Util.createTranslationKey("item", NekomasFixed.id("boat"))
-                            ).formatted(Formatting.BLUE),
-                    Text.translatable(
-                            Util.createTranslationKey("item", NekomasFixed.id("planks"))
-                    ).formatted(Formatting.BLUE),
-                    Text.of(""),
-                    Text.of(""),
-                    List.of(NekomasFixed.id("container/slot/boat")),
-                    List.of(NekomasFixed.id("container/slot/planks")),
-                    settings),new Item.Settings().rarity(Rarity.UNCOMMON)
-    );
+    public static final Item BOAT_UPGRADE_TEMPLATE = register("boat_upgrade_template", settings -> new SmithingTemplateItem(Text.translatable(Util.createTranslationKey("item", NekomasFixed.id("boat"))).formatted(Formatting.BLUE), Text.translatable(Util.createTranslationKey("item", NekomasFixed.id("planks"))).formatted(Formatting.BLUE), Text.of(""), Text.of(""), List.of(NekomasFixed.id("container/slot/boat")), List.of(NekomasFixed.id("container/slot/planks")), settings),new Item.Settings().rarity(Rarity.UNCOMMON));
 
-    public static final Item CROWN_SMITHING_TEMPLATE = register(
-            "crown_smithing_template", settings -> new SmithingTemplateItem(
-                    Text.translatable(
-                            Util.createTranslationKey("item", NekomasFixed.id("helmets"))
-                    ).formatted(Formatting.BLUE),
-                    Text.translatable(
-                            Util.createTranslationKey("item", NekomasFixed.id("nether_heart"))
-                    ).formatted(Formatting.BLUE),
-                    Text.of(""),
-                    Text.of(""),
-                    List.of(NekomasFixed.id("container/slot/helmet")),
-                    List.of(NekomasFixed.id("container/slot/nether_heart")),
-                    settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
-    );
+    public static final Item CROWN_SMITHING_TEMPLATE = register("crown_smithing_template", settings -> new SmithingTemplateItem(Text.translatable(Util.createTranslationKey("item", NekomasFixed.id("helmets"))).formatted(Formatting.BLUE), Text.translatable(Util.createTranslationKey("item", NekomasFixed.id("nether_heart"))).formatted(Formatting.BLUE), Text.of(""), Text.of(""), List.of(NekomasFixed.id("container/slot/helmet")), List.of(NekomasFixed.id("container/slot/nether_heart")), settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 
     public static final Item GLISTERING_MELON = register(BlockRegistry.GLISTERING_MELON, new Item.Settings());
 
@@ -118,11 +92,7 @@ public class ItemRegistry {
 
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 
-    public static final Item ROPE_ITEM = register(
-            "rope",
-            settings -> new BlockItem(BlockRegistry.ROPE, settings),
-            new Item.Settings()
-    );
+    public static final Item ROPE_ITEM = register(BlockRegistry.ROPE, RopeItem::new);
 
     public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(37, Map.of(EquipmentType.HELMET, 3), 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, ItemTags.NETHERITE_TOOL_MATERIALS, ModEquipmentAssetKeys.NETHERITE_CROWN);
 

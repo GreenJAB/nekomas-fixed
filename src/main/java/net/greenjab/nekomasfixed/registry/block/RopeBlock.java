@@ -32,7 +32,6 @@ public class RopeBlock extends  Block  {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        System.out.println(this.getDistance(ctx.getWorld(), ctx.getBlockPos()));
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
         boolean connected = world.getBlockState(pos.up()).isOf(BlockRegistry.ROPE);
@@ -44,8 +43,8 @@ public class RopeBlock extends  Block  {
         return state;
     }
 
-    public int getDistance(World world, BlockPos pos){
-        int distance = 0;
+    public static int getDistance(World world, BlockPos pos){
+        int distance = 1;
         for(int i = pos.getY(); i<319; ++i){
             if(world.getBlockState(new BlockPos(pos.getX(), i, pos.getZ())).isOf(BlockRegistry.ROPE)){
                 ++distance;
