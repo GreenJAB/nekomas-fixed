@@ -28,26 +28,36 @@ public class RopeItem extends BlockItem {
             return context;
         }
 
-        BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
-        while (world.getBlockState(bottomPos.down()).isOf(BlockRegistry.ROPE)) {
-            System.out.println("is a rope ");
-            bottomPos.move(Direction.DOWN);
-        }
-
-        BlockPos placePos = bottomPos.down();
-//        if (!world.isInBuildLimit(placePos)) {
-//            if (context.getPlayer() instanceof ServerPlayerEntity player) {
-//                player.sendMessageToClient(
-//                        Text.translatable("build.tooLow", placePos.getY()).formatted(Formatting.RED),
-//                        true
-//                );
-//            }
-//            return null;
-//        }
-        BlockState targetState = world.getBlockState(placePos);
+        int i = clickedPos.getY();
+        while(!world.getBlockState(new BlockPos(clickedPos.getX(), i, clickedPos.getZ())).isOf(BlockRegistry.ROPE)){
+            BlockPos placePos = new BlockPos(clickedPos.getX(), i, clickedPos.getZ());
+            BlockState targetState = world.getBlockState(placePos);
         if (targetState.isAir() || targetState.canReplace(context)) {
             return ItemPlacementContext.offset(context, placePos, Direction.DOWN);
         }
+        ++i;
+        }
+
+//        BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
+//        while (world.getBlockState(bottomPos.down()).isOf(BlockRegistry.ROPE)) {
+//            System.out.println("is a rope ");
+//            bottomPos.move(Direction.DOWN);
+//        }
+//
+//        BlockPos placePos = bottomPos.down();
+////        if (!world.isInBuildLimit(placePos)) {
+////            if (context.getPlayer() instanceof ServerPlayerEntity player) {
+////                player.sendMessageToClient(
+////                        Text.translatable("build.tooLow", placePos.getY()).formatted(Formatting.RED),
+////                        true
+////                );
+////            }
+////            return null;
+////        }
+//        BlockState targetState = world.getBlockState(placePos);
+//        if (targetState.isAir() || targetState.canReplace(context)) {
+//            return ItemPlacementContext.offset(context, placePos, Direction.DOWN);
+//        }
 
         return null;
     }
