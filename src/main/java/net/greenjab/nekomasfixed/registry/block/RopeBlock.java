@@ -38,6 +38,9 @@ public class RopeBlock extends  Block  {
         if(world.getBlockState(pos.up()).isOf(Blocks.AIR)){
             return Blocks.AIR.getDefaultState();
         }
+        if(!world.getBlockState(pos.up(2)).isOf(this)){
+            return this.getDefaultState();
+        }
         return this.getDefaultState().with(IS_CONNECTED, connected);
     }
 
