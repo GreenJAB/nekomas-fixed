@@ -22,39 +22,36 @@ public class RopeItem extends BlockItem {
     }
 
     public @Nullable ItemPlacementContext getPlacementContext(ItemPlacementContext context) {
-        BlockPos blockPos = context.getBlockPos();
+        BlockPos clickedPos = context.getBlockPos();
         World world = context.getWorld();
-        BlockState blockState = world.getBlockState(blockPos);
-        Block block = this.getBlock();
+        BlockState clickedState = world.getBlockState(clickedPos);
+        Block ropeBlock = this.getBlock();
 
-        if(!blockState.isOf(block)){return context;}
-        else{
-            BlockPos.Mutable mutable = blockPos.mutableCopy().move(Direction.DOWN);
-            int i = blockPos.getY();
-            while(i>world.getDimension().minY()){
-                if (!world.isClient() && !world.isInBuildLimit(mutable)) {
-                    //this is just garbage and send a BUILD LIMIT msg
-                    PlayerEntity playerEntity = context.getPlayer();
-                    int j = world.getTopYInclusive();
-                    if (playerEntity instanceof ServerPlayerEntity && mutable.getY() > j) {
-                        ((ServerPlayerEntity)playerEntity).sendMessageToClient(Text.translatable("build.tooHigh", new Object[]{j}).formatted(Formatting.RED), true);
-                    }
-                    break;
-                }
-                blockState = world.getBlockState(mutable);
+        if (!clickedState.isOf(ropeBlock)) {
+            return context;
+        }
 
-                //MAIN STUFF
-                if (!blockState.isOf(this.getBlock())) {
-                    if (blockState.canReplace(context)) {
-                        return ItemPlacementContext.offset(context, mutable, Direction.DOWN);
-                    }
-                    break;
-                }
-                //moving down
-                mutable.move(Direction.DOWN);
-            }
+        BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
+        while (world.getBlockState(bottomPos.down()).isOf(ropeBlock)) {
+            bottomPos.move(Direction.DOWN);
+        }
+
+        BlockPos placePos = bottomPos.down();
+        if (!world.isInBuildLimit(placePos)) {
+//            if (context.getPlayer() instanceof ServerPlayerEntity player) {
+//                player.sendMessageToClient(
+//                        Text.translatable("build.tooLow", placePos.getY()).formatted(Formatting.RED),
+//                        true
+//                );
+//            }
             return null;
         }
+        BlockState targetState = world.getBlockState(placePos);
+        if (targetState.isAir() || targetState.canReplace(context)) {
+            return ItemPlacementContext.offset(context, placePos, Direction.DOWN);
+        }
+
+        return null;
     }
 
     protected boolean checkStatePlacement() {
