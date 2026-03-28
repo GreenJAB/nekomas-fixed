@@ -166,6 +166,7 @@ public class BlockRegistry {
     public static final Block CRIMSON_SHULKER_BOX = registerShulkerBoxBlock("crimson_shulker_box", DyeColor.RED);
 
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
+    public static final Block BOABAB_FRUIT = register("boabab_fruit", CropBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
 
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
