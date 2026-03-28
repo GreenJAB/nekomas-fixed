@@ -3,7 +3,10 @@ package net.greenjab.nekomasfixed.registry.woldgen.tree;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.sun.source.tree.Tree;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.tag.BlockTags;
@@ -14,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
+import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import java.util.List;
@@ -96,9 +100,22 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                 rot+=random.nextFloat()*30-15;
                 BlockPos pos = new BlockPos((int)k, q, (int)l);
                 this.getAndSetState(world, replacer, random, pos, config);
-                if (o==1) list.add(new FoliagePlacer.TreeNode(pos.up(1), 0, true));
+                if (o == 1) {
+                    BlockPos leafPos = pos.up(1);
+                    list.add(new FoliagePlacer.TreeNode(leafPos, 0, true));
+
+                    if (random.nextFloat() < 0.4f) {
+                        BlockPos fruitPos = leafPos.down();
+
+                        if (world.testBlockState(fruitPos, AbstractBlock.AbstractBlockState::isAir)) {
+                            replacer.accept(fruitPos, BlockRegistry.BOABAB_FRUIT.getDefaultState());
+                        }
+                    }
+                }
             }
         }
+
+
 
         return list;
     }
