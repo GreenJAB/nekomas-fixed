@@ -1,5 +1,5 @@
 {
-  "feature": "nekomasfixed:baobab",
+  "feature": "nekomasfixed:boabab",
   "placement": [
     {
       "type": "minecraft:count",
@@ -36,7 +36,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "nekomasfixed:baobab_sapling",
+          "Name": "nekomasfixed:boabab_sapling",
           "Properties": {
             "stage": "0"
           }
