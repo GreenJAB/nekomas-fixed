@@ -128,6 +128,7 @@ public class ItemGroupRegistry {
 
                          //new things
                          entries.add(ItemRegistry.BOABAB_FRUIT);
+                         entries.add(ItemRegistry.BOABAB_SEEDS);
 
                          entries.add(ItemRegistry.WHITE_FROGLIGHT);
                          entries.add(ItemRegistry.LIGHT_GRAY_FROGLIGHT);
