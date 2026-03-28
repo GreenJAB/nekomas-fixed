@@ -126,7 +126,7 @@
 
   "item.nekomasfixed.amber_dye": "Amber Dye",
   "item.nekomasfixed.indigo_dye": "Indigo Dye",
-  "item.nekomasfixed.crimson_dye": "Crimson Dye",
+  "item.nekomasfixed.crimson_dye": "Maroon Dye",
   "item.nekomasfixed.aqua_dye": "Aqua Dye",
 
   "block.nekomasfixed.rope": "Rope",
@@ -146,77 +146,77 @@
   "block.nekomasfixed.pink_froglight": "Pink Froglight",
   "block.nekomasfixed.amber_froglight": "Amber Froglight",
   "block.nekomasfixed.aqua_froglight": "Aqua Froglight",
-  "block.nekomasfixed.crimson_froglight": "Crimson Froglight",
+  "block.nekomasfixed.crimson_froglight": "Maroon Froglight",
   "block.nekomasfixed.indigo_froglight": "Indigo Froglight",
 
   "block.nekomasfixed.amber_terracotta": "Amber Terracotta",
   "block.nekomasfixed.indigo_terracotta": "Indigo Terracotta",
   "block.nekomasfixed.aqua_terracotta": "Aqua Terracotta",
-  "block.nekomasfixed.crimson_terracotta": "Crimson Terracotta",
+  "block.nekomasfixed.crimson_terracotta": "Maroon Terracotta",
 
   "block.nekomasfixed.aqua_glazed_terracotta": "Aqua Glazed Terracotta",
-  "block.nekomasfixed.crimson_glazed_terracotta": "Crimson Glazed Terracotta",
+  "block.nekomasfixed.crimson_glazed_terracotta": "Maroon Glazed Terracotta",
   "block.nekomasfixed.indigo_glazed_terracotta": "Indigo Glazed Terracotta",
   "block.nekomasfixed.amber_glazed_terracotta": "Amber Glazed Terracotta",
 
   "block.nekomasfixed.amber_wool": "Amber Wool",
   "block.nekomasfixed.aqua_wool": "Aqua Wool",
-  "block.nekomasfixed.crimson_wool": "Crimson Wool",
+  "block.nekomasfixed.crimson_wool": "Maroon Wool",
   "block.nekomasfixed.indigo_wool": "Indigo Wool",
 
   "block.nekomasfixed.amber_concrete": "Amber Concrete",
   "block.nekomasfixed.aqua_concrete": "Aqua Concrete",
-  "block.nekomasfixed.crimson_concrete": "Crimson Concrete",
+  "block.nekomasfixed.crimson_concrete": "Maroon Concrete",
   "block.nekomasfixed.indigo_concrete": "Indigo Concrete",
 
   "item.nekomasfixed.amber_harness": "Amber Harness",
   "item.nekomasfixed.aqua_harness": "Aqua Harness",
-  "item.nekomasfixed.crimson_harness": "Crimson Harness",
+  "item.nekomasfixed.crimson_harness": "Maroon Harness",
   "item.nekomasfixed.indigo_harness": "Indigo Harness",
 
   "item.nekomasfixed.amber_candle": "Amber Harness",
   "item.nekomasfixed.Aqua_candle": "Aqua Harness",
   "item.nekomasfixed.indigo_candle": "Indigo Harness",
-  "item.nekomasfixed.crimson_candle": "Crimson Harness",
+  "item.nekomasfixed.crimson_candle": "Maroon Harness",
 
   "item.nekomasfixed.amber_bundle": "Amber Bundle",
   "item.nekomasfixed.aqua_bundle": "Aqua Bundle",
   "item.nekomasfixed.indigo_bundle": "Indigo Bundle",
-  "item.nekomasfixed.crimson_bundle": "Crimson Bundle",
+  "item.nekomasfixed.crimson_bundle": "Maroon Bundle",
 
   "block.nekomasfixed.amber_shulker_box": "Amber Shulker Box",
   "block.nekomasfixed.aqua_shulker_box": "Aqua Shulker Box",
   "block.nekomasfixed.indigo_shulker_box": "Indigo Shulker Box",
-  "block.nekomasfixed.crimson_shulker_box": "Crimson Shulker Box",
+  "block.nekomasfixed.crimson_shulker_box": "Maroon Shulker Box",
 
   "block.nekomasfixed.amber_stained_glass": "Amber Stained Glass",
   "block.nekomasfixed.aqua_stained_glass": "Aqua Stained Glass",
   "block.nekomasfixed.indigo_stained_glass": "Indigo Stained Glass",
-  "block.nekomasfixed.crimson_stained_glass": "Crimson Stained Glass",
+  "block.nekomasfixed.crimson_stained_glass": "Maroon Stained Glass",
 
   "block.nekomasfixed.amber_stained_glass_pane": "Amber Stained Glass Pane",
   "block.nekomasfixed.aqua_stained_glass_pane": "Aqua Stained Glass Pane",
   "block.nekomasfixed.indigo_stained_glass_pane": "Indigo Stained Glass Pane",
-  "block.nekomasfixed.crimson_stained_glass_pane": "Crimson Stained Glass Pane",
+  "block.nekomasfixed.crimson_stained_glass_pane": "Maroon Stained Glass Pane",
 
   "block.nekomasfixed.amber_candle": "Amber Candle",
   "block.nekomasfixed.aqua_candle": "Aqua Candle",
   "block.nekomasfixed.indigo_candle": "Indigo Candle",
-  "block.nekomasfixed.crimson_candle": "Crimson Candle",
+  "block.nekomasfixed.crimson_candle": "Maroon Candle",
 
   "block.nekomasfixed.amber_bed": "Amber Bed",
   "block.nekomasfixed.aqua_bed": "Aqua Bed",
   "block.nekomasfixed.indigo_bed": "Indigo Bed",
-  "block.nekomasfixed.crimson_bed": "Crimson Bed",
+  "block.nekomasfixed.crimson_bed": "Maroon Bed",
 
   "block.nekomasfixed.amber_concrete_powder": "Amber Concrete Powder",
   "block.nekomasfixed.aqua_concrete_powder": "Aqua Concrete Powder",
-  "block.nekomasfixed.crimson_concrete_powder": "Crimson Concrete Powder",
+  "block.nekomasfixed.crimson_concrete_powder": "Maroon Concrete Powder",
   "block.nekomasfixed.indigo_concrete_powder": "Indigo Concrete Powder",
 
   "block.nekomasfixed.amber_carpet": "Amber Carpet",
   "block.nekomasfixed.aqua_carpet": "Aqua Carpet",
-  "block.nekomasfixed.crimson_carpet": "Crimson Carpet",
+  "block.nekomasfixed.crimson_carpet": "Maroon Carpet",
   "block.nekomasfixed.indigo_carpet": "Indigo Carpet",
 
   "item.nekomasfixed.crown_smithing_template": "Crown Smithing Template",
@@ -226,5 +226,5 @@
   "item.minecraft.firework_star.indigo": "Indigo",
   "item.minecraft.firework_star.aqua": "Aqua",
   "item.minecraft.firework_star.amber": "Amber",
-  "item.minecraft.firework_star.crimson": "Crimson"
+  "item.minecraft.firework_star.crimson": "Maroon"
 }
