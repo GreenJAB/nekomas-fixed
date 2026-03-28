@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
@@ -35,6 +36,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
         setToDirt(world, replacer, random, startPos.down(), config);
+        boolean isWaterInTrunk = random.nextInt(100) >= 50;
 
         int x,y,z;
         float X = random.nextFloat()-0.5f;
@@ -60,6 +62,16 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for (x = -4; x <= 4; x++) {
                 for (z = -4; z <= 4; z++) {
                     float distSq = (x - X) * (x - X) + (z - Z) * (z - Z);
+                    if(isWaterInTrunk && distSq <= r*r){
+                        if (distSq >= (r - 1) * (r - 1)) {
+                            BlockPos pos = startPos.add(x, y, z);
+                            this.getAndSetState(world, replacer, random, pos, config);
+                        }else if(y<3){
+                            BlockPos pos = startPos.add(x, y, z);
+                            replacer.accept(pos, Blocks.WATER.getDefaultState());
+                        }
+
+                    }
                     if (distSq <= r * r && distSq >= (r - 1) * (r - 1)) {
                         BlockPos pos = startPos.add(x, y, z);
                         this.getAndSetState(world, replacer, random, pos, config);

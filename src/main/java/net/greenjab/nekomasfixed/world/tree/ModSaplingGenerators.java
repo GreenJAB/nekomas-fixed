@@ -6,6 +6,6 @@ import net.minecraft.block.SaplingGenerator;
 import java.util.Optional;
 
 public class ModSaplingGenerators {
-    public static final SaplingGenerator BOABAB = new SaplingGenerator("nekomasfixed" + ":driftwood",
+    public static final SaplingGenerator BOABAB = new SaplingGenerator("nekomasfixed" + ":boabab",
             Optional.empty(), Optional.of(ModConfiguredFeatures.BOABAB_KEY), Optional.empty());
 }
