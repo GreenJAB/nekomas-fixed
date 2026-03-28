@@ -38,27 +38,6 @@ public class RopeItem extends BlockItem {
         --i;
         }
 
-//        BlockPos.Mutable bottomPos = clickedPos.mutableCopy();
-//        while (world.getBlockState(bottomPos.down()).isOf(BlockRegistry.ROPE)) {
-//            System.out.println("is a rope ");
-//            bottomPos.move(Direction.DOWN);
-//        }
-//
-//        BlockPos placePos = bottomPos.down();
-////        if (!world.isInBuildLimit(placePos)) {
-////            if (context.getPlayer() instanceof ServerPlayerEntity player) {
-////                player.sendMessageToClient(
-////                        Text.translatable("build.tooLow", placePos.getY()).formatted(Formatting.RED),
-////                        true
-////                );
-////            }
-////            return null;
-////        }
-//        BlockState targetState = world.getBlockState(placePos);
-//        if (targetState.isAir() || targetState.canReplace(context)) {
-//            return ItemPlacementContext.offset(context, placePos, Direction.DOWN);
-//        }
-
         return null;
     }
 
