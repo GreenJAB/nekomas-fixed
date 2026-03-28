@@ -1,8 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.entity.goal.MoveToCoralReefGoal;
-import net.greenjab.nekomasfixed.util.IsTropicalFishFedDataTracker;
-import net.minecraft.entity.ai.goal.*;
+import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.passive.DolphinEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +20,7 @@ public class DolphinEntityMixin {
 
     @Inject(method = "initDataTracker", at = @At("TAIL"))
     private void initCustomDataTracker(DataTracker.Builder builder, CallbackInfo ci) {
-        builder.add(IsTropicalFishFedDataTracker.IS_TROPICAL_FISH_FED, false);
+        builder.add(OtherRegistry.IS_TROPICAL_FISH_FED, false);
     }
 
     @Inject(method = "interactMob", at = @At("HEAD"))
@@ -29,7 +28,7 @@ public class DolphinEntityMixin {
         ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
         if(stack.isOf(Items.TROPICAL_FISH)){
             DolphinEntity dolphin = (DolphinEntity)(Object)this;
-            dolphin.getDataTracker().set(IsTropicalFishFedDataTracker.IS_TROPICAL_FISH_FED, true);
+            dolphin.getDataTracker().set(OtherRegistry.IS_TROPICAL_FISH_FED, true);
             stack.decrementUnlessCreative(1, player);
         }
     }

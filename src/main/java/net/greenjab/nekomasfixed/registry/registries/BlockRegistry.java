@@ -8,13 +8,11 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.MagmaCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.SlimeCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
-import net.greenjab.nekomasfixed.world.tree.ModSaplingGenerators;
+import net.greenjab.nekomasfixed.world.ModConfiguredFeatures;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -26,6 +24,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 public class BlockRegistry {
@@ -114,7 +113,8 @@ public class BlockRegistry {
     public static final Block INDIGO_CARPET = register("indigo_carpet", (settings) -> new DyedCarpetBlock(DyeColor.MAGENTA, settings), AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
 
     public static final Block BOABAB_LOG = register("boabab_log", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG));
-    public static final Block BOABAB_SAPLING = register("boabab_sapling",(settings) -> new SaplingBlock(ModSaplingGenerators.BOABAB,  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
+    public static final Block BOABAB_SAPLING = register("boabab_sapling",(settings) -> new SaplingBlock(new SaplingGenerator("nekomasfixed:boabab",
+            Optional.empty(), Optional.of(ModConfiguredFeatures.BOABAB_KEY), Optional.empty()),  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
 
 
     public static final Block WHITE_FROGLIGHT = register("white_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
@@ -188,20 +188,6 @@ public class BlockRegistry {
         return Registry.register(Registries.BLOCK, key, block);
     }
 
-//    public static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-//        Block block = factory.apply(settings.registryKey(key));
-//
-//        Registry.register(Registries.BLOCK, key, block);
-//        Registry.register(
-//                Registries.ITEM,
-//                key.getValue(),
-//                new BlockItem(block, new Item.Settings().registryKey(
-//                        RegistryKey.of(RegistryKeys.ITEM, key.getValue())
-//                ))
-//        );
-//
-//        return block;
-//    }
     public static AbstractBlock.Settings createCandleSettings(MapColor mapColor) {
         return AbstractBlock.Settings.create().mapColor(mapColor).nonOpaque().strength(0.1F).sounds(BlockSoundGroup.CANDLE).luminance(CandleBlock.STATE_TO_LUMINANCE).pistonBehavior(PistonBehavior.DESTROY);
     }

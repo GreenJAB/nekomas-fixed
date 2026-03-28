@@ -168,8 +168,9 @@ public class WildFireEntity extends HostileEntity {
 						);
 			}
 
-			for (int i = 0; i < 2; i++) {
+			if (this.getEntityWorld().getTime()%2==0) {
 				this.getEntityWorld().addParticleClient(ParticleTypes.LARGE_SMOKE, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), 0.0, 0.0, 0.0);
+				this.getEntityWorld().addParticleClient(isSoulActive()?ParticleTypes.SOUL:ParticleTypes.LAVA, this.getParticleX(1), this.getRandomBodyY(), this.getParticleZ(1), 0.0, 0.0, 0.0);
 			}
 
 			this.clientFireTime= MathHelper.clamp(this.clientFireTime +0.5f/20f*(this.isOnFire()?1:-1), 0, 1);
@@ -224,10 +225,8 @@ public class WildFireEntity extends HostileEntity {
 			int newShields = (int)MathHelper.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4);
 			setShieldsActive(newShields);
 			if (newShields < lastShields) {
-				//TODO shield gone particles/sound
 				world.playSoundFromEntity(null, this, SoundEvents.ITEM_WOLF_ARMOR_BREAK.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
 			} else if (newShields > lastShields) {
-				//shield regen particles/sound
 				world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 0.7F, 2.0F);
 			}
 		}

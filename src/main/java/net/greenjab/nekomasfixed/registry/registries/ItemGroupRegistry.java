@@ -19,47 +19,32 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.CLAM_PURPLE);
                         entries.add(ItemRegistry.PEARL);
                         entries.add(ItemRegistry.PEARL_BLOCK);
-                        entries.add(ItemRegistry.GLOW_TORCH);
-                        entries.add(ItemRegistry.BIG_ACACIA_BOAT);
-                        entries.add(ItemRegistry.HUGE_ACACIA_BOAT);
-                        entries.add(ItemRegistry.BIG_BAMBOO_BOAT);
-                        entries.add(ItemRegistry.HUGE_BAMBOO_BOAT);
-                        entries.add(ItemRegistry.BIG_BIRCH_BOAT);
-                        entries.add(ItemRegistry.HUGE_BIRCH_BOAT);
-                        entries.add(ItemRegistry.BIG_CHERRY_BOAT);
-                        entries.add(ItemRegistry.HUGE_CHERRY_BOAT);
-                        entries.add(ItemRegistry.BIG_DARK_OAK_BOAT);
-                        entries.add(ItemRegistry.HUGE_DARK_OAK_BOAT);
-                        entries.add(ItemRegistry.BIG_JUNGLE_BOAT);
-                        entries.add(ItemRegistry.HUGE_JUNGLE_BOAT);
-                        entries.add(ItemRegistry.BIG_MANGROVE_BOAT);
-                        entries.add(ItemRegistry.HUGE_MANGROVE_BOAT);
-                        entries.add(ItemRegistry.BIG_OAK_BOAT);
-                        entries.add(ItemRegistry.HUGE_OAK_BOAT);
-                        entries.add(ItemRegistry.BIG_PALE_OAK_BOAT);
-                        entries.add(ItemRegistry.HUGE_PALE_OAK_BOAT);
-                        entries.add(ItemRegistry.BIG_SPRUCE_BOAT);
-                        entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
-                        entries.add(ItemRegistry.BOAT_UPGRADE_TEMPLATE);
+                         entries.add(ItemRegistry.BOAT_UPGRADE_TEMPLATE);
+                         entries.add(ItemRegistry.BIG_OAK_BOAT);
+                         entries.add(ItemRegistry.HUGE_OAK_BOAT);
+
                         entries.add(ItemRegistry.GLISTERING_MELON);
                         entries.add(ItemRegistry.NAUTILUS_BLOCK);
                         entries.add(ItemRegistry.ZOMBIE_NAUTILUS_BLOCK);
                         entries.add(ItemRegistry.CORAL_NAUTILUS_BLOCK);
+                         entries.add(ItemRegistry.KILN);
+                         entries.add(ItemRegistry.BOABAB_SAPLING);
+                         entries.add(ItemRegistry.BOABAB_LOG);
+                         entries.add(ItemRegistry.ROPE_ITEM);
+                         entries.add(ItemRegistry.GLOW_TORCH);
                         entries.add(ItemRegistry.TURTLE_CHESTPLATE);
                         entries.add(ItemRegistry.TURTLE_LEGGINGS);
                         entries.add(ItemRegistry.TURTLE_BOOTS);
                         entries.add(ItemRegistry.TARGET_DUMMY);
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
-                        entries.add(ItemRegistry.SLINGSHOT);
 
                         entries.add(ItemRegistry.WILD_FIRE_SPAWN_EGG);
-                        entries.add(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE);
                         entries.add(ItemRegistry.NETHER_HEART);
                         entries.add(ItemRegistry.SOULFIRE_TRIDENT);
                         entries.add(ItemRegistry.SOULFIRE_SHIELD);
+                         entries.add(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE);
 
-                        entries.add(ItemRegistry.KILN);
-
+                         entries.add(ItemRegistry.SLINGSHOT);
                         entries.add(ItemRegistry.WOODEN_SICKLE);
                         entries.add(ItemRegistry.STONE_SICKLE);
                         entries.add(ItemRegistry.COPPER_SICKLE);
@@ -68,26 +53,23 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.DIAMOND_SICKLE);
                         entries.add(ItemRegistry.NETHERITE_SICKLE);
 
+                         entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
+                         entries.add(ItemRegistry.COPPER_CROWN);
+                         entries.add(ItemRegistry.IRON_CROWN);
+                         entries.add(ItemRegistry.GOLDEN_CROWN);
+                         entries.add(ItemRegistry.DIAMOND_CROWN);
+                         entries.add(ItemRegistry.NETHERITE_CROWN);
+
+
 						entries.add(ItemRegistry.AMBER_DYE);
                         entries.add(ItemRegistry.AQUA_DYE);
                         entries.add(ItemRegistry.INDIGO_DYE);
                         entries.add(ItemRegistry.CRIMSON_DYE);
 
-                        entries.add(ItemRegistry.AMBER_TERRACOTTA);
-                        entries.add(ItemRegistry.AQUA_TERRACOTTA);
-                        entries.add(ItemRegistry.INDIGO_TERRACOTTA);
-                        entries.add(ItemRegistry.CRIMSON_TERRACOTTA);
-
-                        entries.add(ItemRegistry.AMBER_GLAZED_TERRACOTTA);
-                        entries.add(ItemRegistry.AQUA_GLAZED_TERRACOTTA);
-                        entries.add(ItemRegistry.INDIGO_GLAZED_TERRACOTTA);
-                        entries.add(ItemRegistry.CRIMSON_GLAZED_TERRACOTTA);
-
-                        entries.add(ItemRegistry.AMBER_WOOL);
-                        entries.add(ItemRegistry.AQUA_WOOL);
-                        entries.add(ItemRegistry.INDIGO_WOOL);
-                        entries.add(ItemRegistry.CRIMSON_WOOL);
-
+                         entries.add(ItemRegistry.AMBER_WOOL);
+                         entries.add(ItemRegistry.AQUA_WOOL);
+                         entries.add(ItemRegistry.INDIGO_WOOL);
+                         entries.add(ItemRegistry.CRIMSON_WOOL);
                          entries.add(ItemRegistry.AMBER_CARPET);
                          entries.add(ItemRegistry.AQUA_CARPET);
                          entries.add(ItemRegistry.INDIGO_CARPET);
@@ -97,6 +79,53 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.AQUA_CONCRETE);
                          entries.add(ItemRegistry.INDIGO_CONCRETE);
                          entries.add(ItemRegistry.CRIMSON_CONCRETE);
+                         entries.add(ItemRegistry.AMBER_CONCRETE_POWDER);
+                         entries.add(ItemRegistry.AQUA_CONCRETE_POWDER);
+                         entries.add(ItemRegistry.INDIGO_CONCRETE_POWDER);
+                         entries.add(ItemRegistry.CRIMSON_CONCRETE_POWDER);
+
+                        entries.add(ItemRegistry.AMBER_TERRACOTTA);
+                        entries.add(ItemRegistry.AQUA_TERRACOTTA);
+                        entries.add(ItemRegistry.INDIGO_TERRACOTTA);
+                        entries.add(ItemRegistry.CRIMSON_TERRACOTTA);
+                        entries.add(ItemRegistry.AMBER_GLAZED_TERRACOTTA);
+                        entries.add(ItemRegistry.AQUA_GLAZED_TERRACOTTA);
+                        entries.add(ItemRegistry.INDIGO_GLAZED_TERRACOTTA);
+                        entries.add(ItemRegistry.CRIMSON_GLAZED_TERRACOTTA);
+
+                         entries.add(ItemRegistry.AMBER_STAINED_GLASS);
+                         entries.add(ItemRegistry.AQUA_STAINED_GLASS);
+                         entries.add(ItemRegistry.INDIGO_STAINED_GLASS);
+                         entries.add(ItemRegistry.CRIMSON_STAINED_GLASS);
+                         entries.add(ItemRegistry.AMBER_STAINED_GLASS_PANE);
+                         entries.add(ItemRegistry.AQUA_STAINED_GLASSS_PANE);
+                         entries.add(ItemRegistry.INDIGO_STAINED_GLASSS_PANE);
+                         entries.add(ItemRegistry.CRIMSON_STAINED_GLASSS_PANE);
+                         entries.add(ItemRegistry.AMBER_SHULKER_BOX);
+                         entries.add(ItemRegistry.AQUA_SHULKER_BOX);
+                         entries.add(ItemRegistry.INDIGO_SHULKER_BOX);
+                         entries.add(ItemRegistry.CRIMSON_SHULKER_BOX);
+
+                         entries.add(ItemRegistry.AMBER_BUNDLE);
+                         entries.add(ItemRegistry.AQUA_BUNDLE);
+                         entries.add(ItemRegistry.INDIGO_BUNDLE);
+                         entries.add(ItemRegistry.CRIMSON_BUNDLE);
+
+                         entries.add(ItemRegistry.AMBER_BED);
+                         entries.add(ItemRegistry.AQUA_BED);
+                         entries.add(ItemRegistry.INDIGO_BED);
+                         entries.add(ItemRegistry.CRIMSON_BED);
+
+                         entries.add(ItemRegistry.AMBER_CANDLE);
+                         entries.add(ItemRegistry.AQUA_CANDLE);
+                         entries.add(ItemRegistry.INDIGO_CANDLE);
+                         entries.add(ItemRegistry.CRIMSON_CANDLE);
+
+                         entries.add(ItemRegistry.AMBER_HARNESS);
+                         entries.add(ItemRegistry.AQUA_HARNESS);
+                         entries.add(ItemRegistry.INDIGO_HARNESS);
+                         entries.add(ItemRegistry.CRIMSON_HARNESS);
+
 
                          entries.add(ItemRegistry.WHITE_FROGLIGHT);
                          entries.add(ItemRegistry.LIGHT_GRAY_FROGLIGHT);
@@ -116,56 +145,24 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.INDIGO_FROGLIGHT);
                          entries.add(ItemRegistry.CRIMSON_FROGLIGHT);
 
-                         entries.add(ItemRegistry.AMBER_CANDLE);
-                         entries.add(ItemRegistry.AQUA_CANDLE);
-                         entries.add(ItemRegistry.INDIGO_CANDLE);
-                         entries.add(ItemRegistry.CRIMSON_CANDLE);
-
-                         entries.add(ItemRegistry.AMBER_CONCRETE_POWDER);
-                         entries.add(ItemRegistry.AQUA_CONCRETE_POWDER);
-                         entries.add(ItemRegistry.INDIGO_CONCRETE_POWDER);
-                         entries.add(ItemRegistry.CRIMSON_CONCRETE_POWDER);
-
-                         entries.add(ItemRegistry.AMBER_HARNESS);
-                         entries.add(ItemRegistry.AQUA_HARNESS);
-                         entries.add(ItemRegistry.INDIGO_HARNESS);
-                         entries.add(ItemRegistry.CRIMSON_HARNESS);
-
-                         entries.add(ItemRegistry.COPPER_CROWN);
-                         entries.add(ItemRegistry.IRON_CROWN);
-                         entries.add(ItemRegistry.GOLDEN_CROWN);
-                         entries.add(ItemRegistry.DIAMOND_CROWN);
-                         entries.add(ItemRegistry.NETHERITE_CROWN);
-
-                        entries.add(ItemRegistry.AMBER_BED);
-                        entries.add(ItemRegistry.AQUA_BED);
-                        entries.add(ItemRegistry.INDIGO_BED);
-                        entries.add(ItemRegistry.CRIMSON_BED);
-
-                         entries.add(ItemRegistry.AMBER_BUNDLE);
-                         entries.add(ItemRegistry.AQUA_BUNDLE);
-                         entries.add(ItemRegistry.INDIGO_BUNDLE);
-                         entries.add(ItemRegistry.CRIMSON_BUNDLE);
-
-                         entries.add(ItemRegistry.AMBER_STAINED_GLASS);
-                         entries.add(ItemRegistry.AQUA_STAINED_GLASS);
-                         entries.add(ItemRegistry.INDIGO_STAINED_GLASS);
-                         entries.add(ItemRegistry.CRIMSON_STAINED_GLASS);
-                         entries.add(ItemRegistry.AMBER_STAINED_GLASS_PANE);
-                         entries.add(ItemRegistry.AQUA_STAINED_GLASSS_PANE);
-                         entries.add(ItemRegistry.INDIGO_STAINED_GLASSS_PANE);
-                         entries.add(ItemRegistry.CRIMSON_STAINED_GLASSS_PANE);
-                         entries.add(ItemRegistry.AMBER_SHULKER_BOX);
-                         entries.add(ItemRegistry.AQUA_SHULKER_BOX);
-                         entries.add(ItemRegistry.INDIGO_SHULKER_BOX);
-                         entries.add(ItemRegistry.CRIMSON_SHULKER_BOX);
-
-                        entries.add(ItemRegistry.CROWN_SMITHING_TEMPLATE);
-
-                        entries.add(ItemRegistry.BOABAB_LOG);
-                        entries.add(ItemRegistry.BOABAB_SAPLING);
-                        entries.add(ItemRegistry.ROPE_ITEM);
-
+                         entries.add(ItemRegistry.BIG_ACACIA_BOAT);
+                         entries.add(ItemRegistry.HUGE_ACACIA_BOAT);
+                         entries.add(ItemRegistry.BIG_BAMBOO_BOAT);
+                         entries.add(ItemRegistry.HUGE_BAMBOO_BOAT);
+                         entries.add(ItemRegistry.BIG_BIRCH_BOAT);
+                         entries.add(ItemRegistry.HUGE_BIRCH_BOAT);
+                         entries.add(ItemRegistry.BIG_CHERRY_BOAT);
+                         entries.add(ItemRegistry.HUGE_CHERRY_BOAT);
+                         entries.add(ItemRegistry.BIG_DARK_OAK_BOAT);
+                         entries.add(ItemRegistry.HUGE_DARK_OAK_BOAT);
+                         entries.add(ItemRegistry.BIG_JUNGLE_BOAT);
+                         entries.add(ItemRegistry.HUGE_JUNGLE_BOAT);
+                         entries.add(ItemRegistry.BIG_MANGROVE_BOAT);
+                         entries.add(ItemRegistry.HUGE_MANGROVE_BOAT);
+                         entries.add(ItemRegistry.BIG_PALE_OAK_BOAT);
+                         entries.add(ItemRegistry.HUGE_PALE_OAK_BOAT);
+                         entries.add(ItemRegistry.BIG_SPRUCE_BOAT);
+                         entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
 
 
                     }).build();

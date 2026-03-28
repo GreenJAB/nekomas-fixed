@@ -1,20 +1,21 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.LightningEffect;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireAttackablesSensor;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireDebugData;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
-import net.greenjab.nekomasfixed.registry.other.ClamFeature;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.passive.DolphinEntity;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
@@ -25,21 +26,16 @@ import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.debug.DebugSubscriptionType;
-import net.minecraft.world.gen.CountConfig;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.PlacedFeature;
 
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 public class OtherRegistry {
+    public static void registerOther() {
+        System.out.println("register Other");
+    }
 
     //component
     public static final ComponentType<AnimalComponent> ANIMAL = registerComponent(
@@ -78,20 +74,11 @@ public class OtherRegistry {
         }
     }
 
-    //feature
-    public static final Feature<CountConfig> CLAM_FEATURE = registerFeature("clam", new ClamFeature(CountConfig.CODEC));
+    //status effect
+    public static RegistryEntry<StatusEffect> LIGHTNING = registerStatusEffect("lightning", new LightningEffect(StatusEffectCategory.BENEFICIAL,0x98D982));
 
-
-    private static <C extends FeatureConfig, F extends Feature<C>> F registerFeature(String name, F feature) {
-        return Registry.register(Registries.FEATURE, NekomasFixed.id(name), feature);
-    }
-    public static RegistryKey<PlacedFeature> featureOf(String id) {
-        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, NekomasFixed.id(id));
-    }
-
-    public static void registerOther() {
-        System.out.println("register Other");
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WARM_OCEAN), GenerationStep.Feature.VEGETAL_DECORATION, featureOf("clam"));
+    private static RegistryEntry<StatusEffect> registerStatusEffect(String name, StatusEffect statusEffect) {
+        return Registry.registerReference(Registries.STATUS_EFFECT, NekomasFixed.id(name), statusEffect);
     }
 
     //particle
@@ -100,6 +87,13 @@ public class OtherRegistry {
     private static SimpleParticleType registerParticle(String name, boolean alwaysShow) {
         return Registry.register(Registries.PARTICLE_TYPE, name, new SimpleParticleType(alwaysShow));
     }
+
+
+
+
+    //data tracker
+    public static final TrackedData<Boolean> IS_TROPICAL_FISH_FED =
+            DataTracker.registerData(DolphinEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     //sensor
     public static final SensorType<WildFireAttackablesSensor> WILD_FIRE_ATTACK_ENTITY_SENSOR = registerSensor("wild_fire_attack_entity_sensor", WildFireAttackablesSensor::new);
@@ -113,10 +107,4 @@ public class OtherRegistry {
         return Registry.register(Registries.DEBUG_SUBSCRIPTION, NekomasFixed.id(id), new DebugSubscriptionType<>(packetCodec));
     }
 
-    //status effect
-    public static RegistryEntry<StatusEffect> LIGHTNING = registerStatusEffect("lightning", new LightningEffect(StatusEffectCategory.BENEFICIAL,0x98D982));
-
-    private static RegistryEntry<StatusEffect> registerStatusEffect(String name, StatusEffect statusEffect) {
-        return Registry.registerReference(Registries.STATUS_EFFECT, NekomasFixed.id(name), statusEffect);
-    }
 }
