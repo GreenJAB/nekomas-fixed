@@ -1,15 +1,12 @@
 package net.greenjab.nekomasfixed.registry.block;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -32,11 +29,6 @@ public class RopeBlock extends  Block  {
         builder.add(IS_CONNECTED, WATERLOGGED);
     }
 
-
-
-    public BooleanProperty getIsConnected(){return IS_CONNECTED;}
-
-//made changes
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         World world = ctx.getWorld();

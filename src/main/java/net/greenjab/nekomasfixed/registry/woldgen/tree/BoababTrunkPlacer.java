@@ -62,7 +62,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
             for (x = -4; x <= 4; x++) {
                 for (z = -4; z <= 4; z++) {
                     float distSq = (x - X) * (x - X) + (z - Z) * (z - Z);
-                    if(isWaterInTrunk && distSq <= r*r){
+                    if(isWaterInTrunk && distSq <= r*r ){
                         if (distSq >= (r - 1) * (r - 1)) {
                             BlockPos pos = startPos.add(x, y, z);
                             this.getAndSetState(world, replacer, random, pos, config);
