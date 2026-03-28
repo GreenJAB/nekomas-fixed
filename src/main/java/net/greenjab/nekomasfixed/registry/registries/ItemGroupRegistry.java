@@ -127,10 +127,7 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.CRIMSON_HARNESS);
 
                          //new things
-                         entries.add(ItemRegistry.BOABAB_SAPLING);
-                         entries.add(ItemRegistry.BOABAB_LOG);
                          entries.add(ItemRegistry.BOABAB_FRUIT);
-                         entries.add(ItemRegistry.ROPE_ITEM);
 
                          entries.add(ItemRegistry.WHITE_FROGLIGHT);
                          entries.add(ItemRegistry.LIGHT_GRAY_FROGLIGHT);
