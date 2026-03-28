@@ -69,7 +69,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                         }else if(y<3){
                             BlockPos pos = startPos.add(x, y, z);
                             replacer.accept(pos, Blocks.WATER.getDefaultState());
-                        }
+                        }//water trunk
 
                     }
                     if (distSq <= r * r && distSq >= (r - 1) * (r - 1)) {
