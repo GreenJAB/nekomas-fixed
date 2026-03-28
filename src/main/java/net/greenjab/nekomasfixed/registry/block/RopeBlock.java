@@ -28,7 +28,7 @@ public class RopeBlock extends  Block  {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(IS_CONNECTED, WATERLOGGED);
     }
-
+//made changes
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         World world = ctx.getWorld();
