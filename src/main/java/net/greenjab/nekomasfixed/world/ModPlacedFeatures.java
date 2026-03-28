@@ -15,7 +15,7 @@ import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import java.util.List;
 
 public class ModPlacedFeatures {
-    public static final RegistryKey<PlacedFeature> BAOBAB_PLACED_KEY = registerKey("baobab");
+    public static final RegistryKey<PlacedFeature> BAOBAB_PLACED_KEY = registerKey("baobab_placed");
 
     //this can be removed
     public static void bootstrap(Registerable<PlacedFeature> context) {
