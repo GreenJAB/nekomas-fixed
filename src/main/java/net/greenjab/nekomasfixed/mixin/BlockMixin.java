@@ -24,7 +24,7 @@ public class BlockMixin {
             ItemStack stack = player.getMainHandStack();
             RegistryEntry<Enchantment> silkTouchEntry =
                     world.getRegistryManager().getEntryOrThrow(RegistryEntry.of(Enchantments.SILK_TOUCH).value());
-            if(!stack.hasEnchantments() && stack.getEnchantments().getLevel(silkTouchEntry)>0 || !stack.getEnchantments().getEnchantments().contains(silkTouchEntry)){
+            if(!stack.hasEnchantments() && stack.getEnchantments().getLevel(silkTouchEntry)>0 || !stack.getEnchantments().getEnchantments().contains(silkTouchEntry) || player.getMainHandStack().isEmpty()){
                 player.getEntityWorld().setBlockState(pos, Blocks.LAVA.getDefaultState());
             }
         }
