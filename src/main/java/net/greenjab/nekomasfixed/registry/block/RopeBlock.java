@@ -7,7 +7,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -46,7 +45,7 @@ public class RopeBlock extends  Block  {
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.up());
-        return blockState.isOf(BlockRegistry.ROPE) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
+        return !blockState.isAir() && (blockState.isOf(BlockRegistry.ROPE) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN));
     }
 
     @Override
