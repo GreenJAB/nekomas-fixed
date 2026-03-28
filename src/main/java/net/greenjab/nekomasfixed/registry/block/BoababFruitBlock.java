@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -18,12 +19,17 @@ import org.jspecify.annotations.Nullable;
 
 public class BoababFruitBlock extends Block implements Fertilizable {
     public static final MapCodec<BoababFruitBlock> CODEC = createCodec(BoababFruitBlock::new);
-    public static final int MAX_AGE = 2;
-    public static final IntProperty AGE = IntProperty.of("age", 0, 1);
+    public static final int MAX_AGE = 1;
+    public static final IntProperty AGE = IntProperty.of("age", 0, 2);
 
     public BoababFruitBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(AGE);
     }
 
     @Override
