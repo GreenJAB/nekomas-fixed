@@ -42,9 +42,15 @@ public class BoababFruitBlock extends Block implements Fertilizable {
         BlockState blockState = this.getDefaultState();
         WorldView worldView = ctx.getWorld();
         BlockPos blockPos = ctx.getBlockPos();
-        if(canPlaceAt(blockState, worldView, blockPos)){
+        if(canPlaceAt(blockState, worldView, blockPos) && worldView.getBlockState(blockPos.up()).isAir()) {
+            return this.getDefaultState().with(AGE, 1);
+        }else if(canPlaceAt(blockState, worldView, blockPos) && worldView.getBlockState(blockPos.down()).isAir()){
             return this.getDefaultState();
         }
+        else if(canPlaceAt(blockState, worldView, blockPos) && !worldView.getBlockState(blockPos.up()).isAir() && !worldView.getBlockState(blockPos.down()).isAir()){
+            return this.getDefaultState().with(AGE, 1);
+        }
+
         return null;
     }
 
