@@ -45,7 +45,7 @@ public class RopeBlock extends  Block  {
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.up());
-        return !blockState.isAir() && (blockState.isOf(BlockRegistry.ROPE) || blockState.isSolidBlock(world , pos.up()));
+        return !blockState.isAir() && (blockState.isOf(BlockRegistry.ROPE) || !blockState.isAir());
     }
 
     @Override
