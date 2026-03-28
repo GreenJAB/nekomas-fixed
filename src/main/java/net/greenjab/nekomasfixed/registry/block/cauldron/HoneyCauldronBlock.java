@@ -9,6 +9,8 @@ import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.CollisionEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCollisionHandler;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -22,6 +24,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+
+import java.util.Objects;
 
 public class HoneyCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<HoneyCauldronBlock> CODEC = createCodec(HoneyCauldronBlock::new);
@@ -100,9 +104,7 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
     }
 
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
-        handler.addEvent(CollisionEvent.CLEAR_FREEZE);
-        handler.addEvent(CollisionEvent.LAVA_IGNITE);
-        handler.addPostCallback(CollisionEvent.LAVA_IGNITE, Entity::setOnFireFromLava);
+        Objects.requireNonNull(entity.getEntity()).setStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 3*20), entity.getEntity());
     }
 
     @Override

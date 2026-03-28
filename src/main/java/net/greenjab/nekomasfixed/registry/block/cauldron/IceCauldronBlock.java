@@ -40,7 +40,8 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
     }
 
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
-        Objects.requireNonNull(entity.getEntity()).setStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 3*20), entity.getEntity());
+       handler.addEvent(CollisionEvent.CLEAR_FREEZE);
+       handler.addEvent(CollisionEvent.FREEZE);
     }
 
 
