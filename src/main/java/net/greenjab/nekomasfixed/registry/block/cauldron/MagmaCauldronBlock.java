@@ -19,10 +19,14 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class MagmaCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<MagmaCauldronBlock> CODEC = createCodec(MagmaCauldronBlock::new);
+    private static final VoxelShape LAVA_SHAPE = Block.createColumnShape((double)12.0F, (double)4.0F, (double)15.0F);
 
     public static final IntProperty MAGMA_LEVEL = IntProperty.of("magma_level", 1, 4);
     public static final int MAX_LEVEL = 4;
@@ -86,6 +90,8 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         }
     }
 
+
+
     @Override
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (!world.isClient()) {
@@ -115,4 +121,5 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
     public boolean isFull(BlockState state) {
         return state.get(MAGMA_LEVEL) == MAX_LEVEL;
     }
+
 }

@@ -6,6 +6,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.entity.CollisionEvent;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -94,6 +97,12 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
             world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
                     SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
+    }
+
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        handler.addEvent(CollisionEvent.CLEAR_FREEZE);
+        handler.addEvent(CollisionEvent.LAVA_IGNITE);
+        handler.addPostCallback(CollisionEvent.LAVA_IGNITE, Entity::setOnFireFromLava);
     }
 
     @Override
