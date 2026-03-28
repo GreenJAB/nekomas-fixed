@@ -1,8 +1,9 @@
 package net.greenjab.nekomasfixed.registry.entity.goal;
 
-import net.greenjab.nekomasfixed.util.IsTropicalFishFedDataTracker;
+import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.DolphinEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
@@ -31,13 +32,12 @@ public class MoveToCoralReefGoal extends Goal {
             var pair = serverWorld.locateBiome(
                     predicate,
                     dolphin.getBlockPos(),
-                    6400,
+                    5000,
                     32,
                     64
             );
 
             if (pair != null) {
-                System.out.println(pair.getFirst());
                 return pair.getFirst();
             }
         }
@@ -47,13 +47,13 @@ public class MoveToCoralReefGoal extends Goal {
     @Override
     public boolean canStart() {
         return dolphin.getDataTracker().get(
-                IsTropicalFishFedDataTracker.IS_TROPICAL_FISH_FED
+                OtherRegistry.IS_TROPICAL_FISH_FED
         )&&!dolphin.isOnGround() && !dolphin.getEntityWorld().getBiome(dolphin.getBlockPos()).matchesKey(BiomeKeys.WARM_OCEAN);
     }
 
     @Override
     public boolean canStop(){
-        return !dolphin.isOnGround() && dolphin.getEntityWorld().getBiome(dolphin.getBlockPos()).matchesKey(BiomeKeys.WARM_OCEAN) && timer < 20*10;
+        return !dolphin.isOnGround() || dolphin.getEntityWorld().getBiome(dolphin.getBlockPos()).matchesKey(BiomeKeys.WARM_OCEAN) || timer >= 30;
     }
 
     @Override
@@ -64,7 +64,9 @@ public class MoveToCoralReefGoal extends Goal {
 
     @Override
     public void tick() {
-        if (target != null && target.isWithinDistance(dolphin.getBlockPos(), 1000)) {
+        if (dolphin.getEntityWorld().isClient()) return;
+        ((ServerWorld)dolphin.getEntityWorld()).spawnParticles(ParticleTypes.GLOW, dolphin.getX(), dolphin.getY(), dolphin.getZ(), 1, 0, 0, 0, 0);
+        if (target != null && dolphin.getEntityWorld().getTime()%20==0&&target.isWithinDistance(dolphin.getBlockPos(), 5000) && dolphin.getVelocity().horizontalLength()>0.1) {
             dolphin.getNavigation().startMovingTo(
                     target.getX(),
                     target.getY(),
@@ -73,7 +75,7 @@ public class MoveToCoralReefGoal extends Goal {
             );
             timer++;
         } else {
-            timer = 100000;
+            timer = 30;
         }
     }
 }

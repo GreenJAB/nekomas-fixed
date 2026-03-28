@@ -44,6 +44,11 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRegistry.INDIGO_STAINED_GLASS_PANE,
 				BlockRegistry.CRIMSON_STAINED_GLASS_PANE
 		);
+
+		BlockRenderLayerMap.putBlocks(
+				BlockRenderLayer.CUTOUT,
+				BlockRegistry.BOABAB_SAPLING
+		);
 	}
 
 	private static EquipmentModel createHumanoidOnlyModel(String id) {

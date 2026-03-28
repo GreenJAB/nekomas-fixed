@@ -6,9 +6,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
+import net.minecraft.world.World;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
@@ -36,15 +39,15 @@ public class BoababTrunkPlacer extends TrunkPlacer {
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
         setToDirt(world, replacer, random, startPos.down(), config);
-        boolean isWaterInTrunk = random.nextInt(100) >= 50;
-
+        boolean water = random.nextBoolean();
+        if (world instanceof World world1 && world1.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, startPos)) water = false;
         int x,y,z;
         float X = random.nextFloat()-0.5f;
         float Z = random.nextFloat()-0.5f;
 
         //"roots"
         for (y = -4; y < 0; y++) {
-            float r = -1.5f * (y / (height + 0f)) + 3.5f;
+            float r = 3.5f -1.66f * (y / (height + 0f));
             for (x = -4; x <= 4; x++) {
                 for (z = -4; z <= 4; z++) {
                     float distSq = (x - X) * (x - X) + (z - Z) * (z - Z)+ y*y;
@@ -58,23 +61,20 @@ public class BoababTrunkPlacer extends TrunkPlacer {
 
         //trunk
         for (y = 0; y < height-1; y++) {
-            float r = 3.5f -2f * (y / (height + 0f));
+            float r = 3.5f -1.66f * (y / (height + 0f));
             for (x = -4; x <= 4; x++) {
                 for (z = -4; z <= 4; z++) {
                     float distSq = (x - X) * (x - X) + (z - Z) * (z - Z);
-                    if(isWaterInTrunk && distSq <= r*r ){
+                    if (distSq <= r*r) {
                         if (distSq >= (r - 1) * (r - 1)) {
                             BlockPos pos = startPos.add(x, y, z);
                             this.getAndSetState(world, replacer, random, pos, config);
-                        }else if(y<3){
+                        } else if (water && y < 3) {
                             BlockPos pos = startPos.add(x, y, z);
-                            replacer.accept(pos, Blocks.WATER.getDefaultState());
-                        }//water trunk
-
-                    }
-                    if (distSq <= r * r && distSq >= (r - 1) * (r - 1)) {
-                        BlockPos pos = startPos.add(x, y, z);
-                        this.getAndSetState(world, replacer, random, pos, config);
+                            if (world.testBlockState(pos,  state -> state.isIn(BlockTags.REPLACEABLE))) {
+                                replacer.accept(pos, Blocks.WATER.getDefaultState());
+                            }
+                        }
                     }
                 }
             }
