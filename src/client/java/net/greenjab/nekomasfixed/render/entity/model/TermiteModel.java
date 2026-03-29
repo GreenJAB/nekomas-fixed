@@ -101,13 +101,17 @@ public class TermiteModel<T extends AnimalEntity> extends EntityModel<TermiteRen
         ModelPartData cube_r7 = back_left_leg.addChild("cube_r7", ModelPartBuilder.create().uv(20, 2).cuboid(0.02F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new Dilation(-0.11F)), ModelTransform.of(-0.1F, -0.05F, 0.0F, 0.0F, 0.0F, 0.6109F));
         return TexturedModelData.of(modelData, 32, 32);
     }
-    public void setAngles(TermiteEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);// important to the power 1 decilion <- seriously
-        this.setHeadAngles(netHeadYaw, headPitch);
+    @Override
+    public void setAngles(TermiteRenderState state) {
+        this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.runAnimationState.applyWalking(entity.handSwingProgress, limbSwingAmount, 2f, 2.5f);
-        this.swipeAnimationState.apply(3, 1.5f);
-        this.idleAnimationState.apply(TermiteEntity.idleAnimationState, ageInTicks);
+        // Head rotation
+        this.setHeadAngles(state.bodyYaw, state.pitch);
+
+        // Animations
+        this.idleAnimationState.apply(state.idleAnimationState, state.age);
+        this.runAnimationState.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
+        this.swipeAnimationState.apply((long) state.age, 1.5f);
     }
 
 
