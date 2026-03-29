@@ -12,29 +12,54 @@ public class TermiteAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition ANIM_TERMITE_RUN = AnimationDefinition.Builder.create(0.0F)
-            .addBoneAnimation("front_right_leg", new Transformation(Transformation.Targets.ROTATE,
-                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 3.5994F, 0.0F), Transformation.Interpolations.LINEAR)
-            ))
-            .addBoneAnimation("middle_right_leg", new Transformation(Transformation.Targets.ROTATE,
-                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, -3.5994F, 0.0F), Transformation.Interpolations.LINEAR)
-            ))
-            .addBoneAnimation("back_right_leg", new Transformation(Transformation.Targets.ROTATE,
-                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 3.5994F, 0.0F), Transformation.Interpolations.LINEAR)
-            ))
-            .addBoneAnimation("back_left_leg", new Transformation(Transformation.Targets.ROTATE,
-                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 3.5994F, 0.0F), Transformation.Interpolations.LINEAR)
-            ))
-            .addBoneAnimation("front_left_leg", new Transformation(Transformation.Targets.ROTATE,
-                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 3.5994F, 0.0F), Transformation.Interpolations.LINEAR)
-            ))
-            .addBoneAnimation("middle_left_leg", new Transformation(Transformation.Targets.ROTATE,
-                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, -3.5994F, 0.0F), Transformation.Interpolations.LINEAR)
-            ))
-            .addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE,
-                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
-            ))
-            .build();
+    public static final AnimationDefinition ANIM_TERMITE_RUN =
+            AnimationDefinition.Builder.create(0.5F)
+                    .looping()
+
+                    .addBoneAnimation("front_right_leg", new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(0.0F,  AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.25F, AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5F,  AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR)
+                    ))
+
+                    .addBoneAnimation("middle_right_leg", new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(0.0F,  AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.25F, AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5F,  AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR)
+                    ))
+
+                    .addBoneAnimation("back_right_leg", new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(0.0F,  AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.25F, AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5F,  AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR)
+                    ))
+
+                    // Left side = opposite phase (important for walking)
+                    .addBoneAnimation("front_left_leg", new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(0.0F,  AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.25F, AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5F,  AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR)
+                    ))
+
+                    .addBoneAnimation("middle_left_leg", new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(0.0F,  AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.25F, AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5F,  AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR)
+                    ))
+
+                    .addBoneAnimation("back_left_leg", new Transformation(
+                            Transformation.Targets.ROTATE,
+                            new Keyframe(0.0F,  AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.25F, AnimationHelper.createRotationalVector(0, 20F, 0), Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5F,  AnimationHelper.createRotationalVector(0, -20F, 0), Transformation.Interpolations.LINEAR)
+                    ))
+
+                    .build();
 
     public static final AnimationDefinition ANIM_TERMITE_SWIPE = AnimationDefinition.Builder.create(0.5F)
             .addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE,
