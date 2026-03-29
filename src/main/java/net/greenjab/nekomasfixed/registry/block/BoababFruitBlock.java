@@ -34,7 +34,7 @@ public class BoababFruitBlock extends Block implements Fertilizable {
 
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return !world.getBlockState(pos.up()).isAir() || !world.getBlockState(pos.down()).isAir();
+        return !world.getBlockState(pos.up()).isAir() ;
     }
 
     @Override
@@ -65,6 +65,8 @@ public class BoababFruitBlock extends Block implements Fertilizable {
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1), 2);
+        if(this.getDefaultState().get(AGE) < 2){
+            world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1), 2);
+        }
     }
 }
