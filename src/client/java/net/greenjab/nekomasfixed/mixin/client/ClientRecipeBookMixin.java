@@ -18,7 +18,7 @@ import java.util.Map;
 public class ClientRecipeBookMixin {
 
     @Inject(method = "refresh", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/recipebook/RecipeBookType;values()[Lnet/minecraft/client/recipebook/RecipeBookType;"))
-    private void allowOffhandAttack(CallbackInfo ci, @Local(ordinal = 1) Map<RecipeBookGroup, List<RecipeResultCollection>> map2) {
+    private void kilnRecipeBookRefresh(CallbackInfo ci, @Local(ordinal = 1) Map<RecipeBookGroup, List<RecipeResultCollection>> map2) {
         map2.put(
                 RecipeRegistry.KILNING,
                 (List)RecipeRegistry.KILNING.getCategories()

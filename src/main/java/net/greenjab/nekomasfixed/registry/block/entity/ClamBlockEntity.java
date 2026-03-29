@@ -25,7 +25,6 @@ import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.HeldItemContext;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -143,7 +142,7 @@ public class ClamBlockEntity extends LootableContainerBlockEntity implements Lid
 
 	@Override
 	public float getBodyYaw() {
-		return ((Direction)this.getCachedState().get(ClamBlock.FACING)).getOpposite().getPositiveHorizontalDegrees();
+		return (this.getCachedState().get(ClamBlock.FACING)).getOpposite().getPositiveHorizontalDegrees();
 	}
 	public ItemStack swapStack(int slot, ItemStack stack) {
 		ItemStack itemStack = this.removeStack(slot);

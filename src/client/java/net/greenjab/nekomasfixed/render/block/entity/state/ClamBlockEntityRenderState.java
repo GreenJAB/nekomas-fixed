@@ -17,6 +17,6 @@ public class ClamBlockEntityRenderState extends BlockEntityRenderState {
 		BLUE,
 		PINK,
 		PURPLE,
-		REGULAR;
+		REGULAR
 	}
 }

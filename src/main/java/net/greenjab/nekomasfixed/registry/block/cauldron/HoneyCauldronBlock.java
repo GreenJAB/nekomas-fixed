@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.entity.CollisionEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -92,44 +91,23 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
         }
     }
 
-    public static void incrementHoneyLevel(BlockState state, World world, BlockPos pos) {
-        if (world.isClient()) return;
-
-        int level = state.get(HONEY_LEVEL);
-        if (level < MAX_LEVEL) {
-            world.setBlockState(pos, state.with(HONEY_LEVEL, level + 1));
-            world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
-                    SoundCategory.BLOCKS, 1.0F, 1.0F);
-        }
-    }
-
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
         Objects.requireNonNull(entity.getEntity()).setStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 3*20), entity.getEntity());
     }
 
     @Override
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-
-
         if (!world.isClient()) {
             boolean hasBeehive = isBeeHiveAbove(pos, world);
-
-
             if (hasBeehive) {
                 int currentLevel = state.get(HONEY_LEVEL);
-
-
                 if (currentLevel < MAX_LEVEL) {
-
                     world.setBlockState(pos, state.with(HONEY_LEVEL, currentLevel + 1));
                     world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
                             SoundCategory.BLOCKS, 1.0F, 1.0F);
-                } else {
-
                 }
             }
         }
-
 
         world.scheduleBlockTick(pos, this, 2000);
 

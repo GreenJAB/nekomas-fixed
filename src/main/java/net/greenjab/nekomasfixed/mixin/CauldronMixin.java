@@ -166,7 +166,6 @@ public class CauldronMixin {
                     player.getInventory().offerOrDrop(new ItemStack(Items.GLASS_BOTTLE));
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
-                return;
             }
         }
     }

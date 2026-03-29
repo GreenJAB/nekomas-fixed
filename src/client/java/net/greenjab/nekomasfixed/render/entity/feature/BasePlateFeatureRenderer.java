@@ -19,11 +19,11 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class BasePlateFeatureRenderer extends FeatureRenderer<TargetDummyEntityRenderState, TargetDummyArmorEntityModel> {
 	private static final Identifier TEXTURE = Identifier.ofVanilla("textures/entity/armorstand/wood.png");
-	private final BasePlateEntityModel<?> model;
+	private final BasePlateEntityModel model;
 
 	public BasePlateFeatureRenderer(FeatureRendererContext<TargetDummyEntityRenderState, TargetDummyArmorEntityModel> context, LoadedEntityModels entityModels) {
 		super(context);
-		this.model = new BasePlateEntityModel<>(entityModels.getModelPart(EntityModelLayerRegistry.TARGET_DUMMY_BASE));
+		this.model = new BasePlateEntityModel(entityModels.getModelPart(EntityModelLayerRegistry.TARGET_DUMMY_BASE));
 	}
 
 

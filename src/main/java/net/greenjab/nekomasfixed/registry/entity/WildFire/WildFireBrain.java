@@ -91,8 +91,7 @@ public class WildFireBrain {
 						Pair.of(2, new WildFireMeleeTask()),
 						Pair.of(3, new WildFireJumpTask()),
 						Pair.of(4, new WildFireBombTask()),
-						Pair.of(5, new WildFireShootIfStuckTask()),
-						Pair.of(6, new WildFireSlideTowardsTargetTask())
+						Pair.of(5, new WildFireSlideTowardsTargetTask())
 				),
 				ImmutableSet.of(
 						Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)

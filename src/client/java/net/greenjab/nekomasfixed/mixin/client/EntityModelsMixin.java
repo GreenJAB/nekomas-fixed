@@ -22,7 +22,7 @@ import java.util.Map;
 public class EntityModelsMixin {
 
     @Inject(method = "getModels", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/entity/SignBlockEntityRenderer;getTexturedModelData(Z)Lnet/minecraft/client/model/TexturedModelData;", ordinal = 0))
-    private static void addClamModel(CallbackInfoReturnable<Map<EntityModelLayer, TexturedModelData>> cir, @Local ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder) {
+    private static void addModels(CallbackInfoReturnable<Map<EntityModelLayer, TexturedModelData>> cir, @Local ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder) {
         builder.put(EntityModelLayerRegistry.CLAM, ClamBlockModel.getTexturedModelData());
         builder.put(EntityModelLayerRegistry.CLOCK, ClockBlockModel.getTexturedModelData());
         builder.put(EntityModelLayerRegistry.ENDERMAN_HEAD, EndermanHeadBlockModel.getTexturedModelData());
@@ -53,7 +53,6 @@ public class EntityModelsMixin {
         EquipmentModelData<TexturedModelData> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new Dilation(1.0F), new Dilation(0.5F));
         EntityModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.addTo(equipmentModelData6, builder);
         builder.put(EntityModelLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel.getTexturedModelData());
-
 
         builder.put(EntityModelLayerRegistry.WILD_FIRE, WildFireEntityModel.getTexturedModelData());
         builder.put(EntityModelLayerRegistry.SOULFIRE_TRIDENT, TridentEntityModel.getTexturedModelData());

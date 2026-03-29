@@ -6,16 +6,12 @@ import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.CollisionEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCollisionHandler;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-
-import java.util.Objects;
 
 public class IceCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<IceCauldronBlock> CODEC = createCodec(IceCauldronBlock::new);
@@ -32,15 +28,10 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
     }
 
     private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
-        var behaviorMap = CauldronBehavior.createMap("ice");
-        var map = behaviorMap.map();
-
-
-        return behaviorMap;
+        return CauldronBehavior.createMap("ice");
     }
 
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
-       handler.addEvent(CollisionEvent.CLEAR_FREEZE);
        handler.addEvent(CollisionEvent.FREEZE);
     }
 

@@ -25,13 +25,13 @@ public class ModItemSettings {
         else if(material.equals(ToolMaterial.IRON)){realDamage = 2f;}
         else if(material.equals(ToolMaterial.GOLD)){realDamage = 3f;}
         else if(material.equals(ToolMaterial.DIAMOND)){realDamage = 4.5f;}
-        else if(material.equals(ToolMaterial.NETHERITE)){realDamage = 5f;} // the damage is one less because one is added somewhere idk where
+        else if(material.equals(ToolMaterial.NETHERITE)){realDamage = 5f;}
         return new Item.Settings()
                 .maxDamage(material.durability())
                 .enchantable(15)
                 .repairable(Items.IRON_INGOT)
                 .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, createAttributes(realDamage, speed))
-                .component(DataComponentTypes.WEAPON, new WeaponComponent(1)) //NOTE: This tells that it is a weapon
+                .component(DataComponentTypes.WEAPON, new WeaponComponent(1))
                 .component(DataComponentTypes.MINIMUM_ATTACK_CHARGE, 1.0F)
                 .component(OtherRegistry.COMBO_MULTIPLIER, new ComboComponent((int) (10-material.attackDamageBonus())));
 

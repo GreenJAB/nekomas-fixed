@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.mixin;
+package net.greenjab.nekomasfixed.mixin.accessor;
 
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.passive.SnifferEntity;

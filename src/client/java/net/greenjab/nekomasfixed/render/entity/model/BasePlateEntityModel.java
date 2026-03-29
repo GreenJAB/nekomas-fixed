@@ -7,7 +7,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 
 @Environment(EnvType.CLIENT)
-public class BasePlateEntityModel<T extends TargetDummyEntityRenderState> extends TargetDummyArmorEntityModel {
+public class BasePlateEntityModel extends TargetDummyArmorEntityModel {
 
 	private final ModelPart basePlate;
 

@@ -8,7 +8,6 @@ import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.CollisionEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCollisionHandler;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -16,7 +15,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
@@ -26,7 +24,8 @@ import net.minecraft.world.World;
 
 public class MagmaCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<MagmaCauldronBlock> CODEC = createCodec(MagmaCauldronBlock::new);
-    private static final VoxelShape LAVA_SHAPE = Block.createColumnShape((double)12.0F, (double)4.0F, (double)15.0F);
+    private static final VoxelShape LAVA_SHAPE = Block.createColumnShape(12.0, 4.0, 15.0);
+    private static final VoxelShape INSIDE_COLLISION_SHAPE = VoxelShapes.union(AbstractCauldronBlock.OUTLINE_SHAPE, LAVA_SHAPE);
 
     public static final IntProperty MAGMA_LEVEL = IntProperty.of("magma_level", 1, 4);
     public static final int MAX_LEVEL = 4;
@@ -35,6 +34,11 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         super(settings, createBehaviorMap());
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(MAGMA_LEVEL, MAX_LEVEL));
+    }
+
+    @Override
+    protected VoxelShape getInsideCollisionShape(BlockState state, BlockView world, BlockPos pos, Entity entity) {
+        return INSIDE_COLLISION_SHAPE;
     }
 
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
@@ -65,18 +69,6 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         });
 
         return behaviorMap;
-    }
-
-    public static void incrementMagmaLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand) {
-        if (world.isClient()) return;
-
-        int level = state.get(MAGMA_LEVEL);
-        if (level < MAX_LEVEL) {
-            world.setBlockState(pos, state.with(MAGMA_LEVEL, level + 1));
-
-            world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
-                    SoundCategory.BLOCKS, 1.0F, 1.0F);
-        }
     }
 
     public static void incrementMagmaLevel(BlockState state, World world, BlockPos pos) {

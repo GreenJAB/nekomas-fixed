@@ -21,5 +21,4 @@ public class ModEquipmentAssetKeys {
     public static final RegistryKey<EquipmentAsset> DIAMOND_CROWN =
             RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, NekomasFixed.id("diamond_crown"));
 
-    public static void initialize() {}
 }

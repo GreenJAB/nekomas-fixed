@@ -57,9 +57,11 @@ public class NautilusBlockEntity extends BlockEntity {
 
 	public List<Entity> tryReleaseAnimal(BlockState state) {
 		List<Entity> list = Lists.newArrayList();
-		this.animal.removeIf( data -> releaseAnimal(this.world, this.pos, state, data, list));
-		if (!list.isEmpty()) {
-			super.markDirty();
+		if (this.world!=null) {
+			this.animal.removeIf(data -> releaseAnimal(this.world, this.pos, state, data, list));
+			if (!list.isEmpty()) {
+				super.markDirty();
+			}
 		}
 		return list;
 	}
@@ -98,9 +100,8 @@ public class NautilusBlockEntity extends BlockEntity {
 	protected void readData(ReadView view) {
 		super.readData(view);
 		this.animal.clear();
-		((List<AnimalComponent.StoredEntityData>) view.read("animal", AnimalComponent.StoredEntityData.LIST_CODEC)
-				.orElse(List.of()))
-				.forEach(this.animal::add);
+        this.animal.addAll((view.read("animal", AnimalComponent.StoredEntityData.LIST_CODEC)
+                .orElse(List.of())));
 	}
 
 	@Override

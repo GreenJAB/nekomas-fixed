@@ -20,7 +20,7 @@ public class EnchantmentMixin {
         Enchantment enchantment = (Enchantment)(Object)this;
         Item item = stack.getItem();
         if (item instanceof SickleItem) {
-            cir.setReturnValue(enchantment.isAcceptableItem(Items.DIAMOND_SWORD.getDefaultStack()) && enchantment.getMaxLevel()!=5);
+            cir.setReturnValue(enchantment.isAcceptableItem(Items.DIAMOND_SWORD.getDefaultStack()) && enchantment.getMaxLevel()!=5 && !enchantment.description().copyContentOnly().toString().contains("sweeping"));
             cir.cancel();
         }
         if (item instanceof SlingshotItem) {

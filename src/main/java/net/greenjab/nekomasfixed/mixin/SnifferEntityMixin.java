@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.mixin.accessor.SnifferEntityAccessor;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.passive.SnifferEntity;
 import net.minecraft.loot.LootTable;
@@ -23,11 +24,11 @@ public class SnifferEntityMixin {
     @Inject(method = "dropSeeds", at = @At("HEAD"), cancellable = true)
     private void dropCustomLoot(CallbackInfo ci) {
         SnifferEntity sniffer = (SnifferEntity)(Object)this;
-        net.greenjab.nekomasfixed.mixin.SnifferEntityAccessor accessor = (net.greenjab.nekomasfixed.mixin.SnifferEntityAccessor) sniffer;
+        SnifferEntityAccessor accessor = (SnifferEntityAccessor) sniffer;
 
         World world = sniffer.getEntityWorld();
         if (world instanceof ServerWorld serverWorld) {
-            if (sniffer.getDataTracker().get(net.greenjab.nekomasfixed.mixin.SnifferEntityAccessor.getFinishDigTime()) == sniffer.age) {
+            if (sniffer.getDataTracker().get(SnifferEntityAccessor.getFinishDigTime()) == sniffer.age) {
                 BlockPos blockPos = accessor.invokeGetDigPos();
 
                 Biome biome = serverWorld.getBiome(blockPos).value();
