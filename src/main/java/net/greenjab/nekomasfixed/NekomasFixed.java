@@ -1,8 +1,10 @@
 package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
+import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
@@ -33,10 +35,12 @@ public class NekomasFixed implements ModInitializer {
 		ModWorldGeneration.generateModWorldGen();
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
-		EntityTypeRegistry.init();
 		SyncHandler.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
+
+        LOGGER.info("TERMITE = {}", EntityTypeRegistry.TERMITE);
+		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.TERMITE, TermiteEntity.createAttributes());
 	}
 
 

@@ -131,6 +131,7 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.BOABAB_SEEDS);
                          entries.add(ItemRegistry.TERMITE_BLOCK);
                          entries.add(ItemRegistry.TERMITE_HIVE);
+                         entries.add(ItemRegistry.TERMITE_SPAWN_EGG);
 
                          entries.add(ItemRegistry.WHITE_FROGLIGHT);
                          entries.add(ItemRegistry.LIGHT_GRAY_FROGLIGHT);

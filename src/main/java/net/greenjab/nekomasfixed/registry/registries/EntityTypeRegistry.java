@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
+import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.item.Item;
@@ -67,6 +68,11 @@ public class EntityTypeRegistry {
         return (type, world) -> new HugeBoatEntity(type, world, itemSupplier);
     }
 
+    public static final EntityType<TermiteEntity> TERMITE = register(
+            "termite",
+            EntityType.Builder.create(TermiteEntity::new, SpawnGroup.MONSTER).dimensions(0.5f, 0.5f)
+    );
+
 
     public static final EntityType<TargetDummyEntity> TARGET_DUMMY = register(
             "target_dummy",
@@ -89,13 +95,6 @@ public class EntityTypeRegistry {
                     .maxTrackingRange(4)
                     .trackingTickInterval(20)
     );
-//    public static final EntityType<PiglinHoglinEntity> PIGLIN_HOGLIN = register(
-//            "piglin_hoglin",
-//            EntityType.Builder.create(PiglinHoglinEntity::new, SpawnGroup.MONSTER)
-//                    .dimensions(1.4f, 1.4f)
-//                    .maxTrackingRange(8)
-//                    .makeFireImmune()
-//    );
 
     public static final EntityType<SlingshotProjectileEntity> SLINGSHOT_PROJECTILE = register(
             "slingshot_projectile",

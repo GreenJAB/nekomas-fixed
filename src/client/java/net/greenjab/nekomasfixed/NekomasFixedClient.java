@@ -49,6 +49,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRenderLayer.CUTOUT,
 				BlockRegistry.BOABAB_SAPLING
 		);
+
 	}
 
 	private static EquipmentModel createHumanoidOnlyModel(String id) {
