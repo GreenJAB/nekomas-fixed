@@ -26,7 +26,7 @@ public class TermiteEntity extends AnimalEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new MeleeAttackGoal(this, 1.2, true));
+        this.goalSelector.add(1, new MeleeAttackGoal(this, 0.2, true));
         this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
         this.goalSelector.add(3, new LookAtEntityGoal(this, net.minecraft.entity.player.PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
@@ -38,7 +38,7 @@ public class TermiteEntity extends AnimalEntity {
                 .add(EntityAttributes.ATTACK_DAMAGE, 2d)
                 .add(EntityAttributes.ATTACK_SPEED, 1.6d)
                 .add(EntityAttributes.ATTACK_KNOCKBACK, 0.6d)
-                .add(EntityAttributes.MOVEMENT_SPEED, 1.3d)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.1d)
                 .add(EntityAttributes.SAFE_FALL_DISTANCE, 2d)
                 .add(EntityAttributes.STEP_HEIGHT, 1d);
     }
