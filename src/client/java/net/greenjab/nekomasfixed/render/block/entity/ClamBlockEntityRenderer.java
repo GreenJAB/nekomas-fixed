@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.block.entity;
 import it.unimi.dsi.fastutil.HashCommon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.block.ClamBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
@@ -42,7 +42,7 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidOpenable> implem
 
 	public ClamBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
 		this.materials = context.spriteHolder();
-		this.clamModel = new ClamBlockModel(context.getLayerModelPart(EntityModelLayerRegistry.CLAM));
+		this.clamModel = new ClamBlockModel(context.getLayerModelPart(ModEntityLayerRegistry.CLAM));
 		this.itemModelManager = context.itemModelManager();
 	}
 

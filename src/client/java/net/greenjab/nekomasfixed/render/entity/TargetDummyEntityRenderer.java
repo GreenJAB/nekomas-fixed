@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.entity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
 import net.greenjab.nekomasfixed.render.entity.feature.BasePlateFeatureRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyArmorEntityModel;
@@ -35,12 +35,12 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/targetdummy/zombie.png");
 
 	public TargetDummyEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new TargetDummyEntityModel(context.getPart(EntityModelLayerRegistry.TARGET_DUMMY)), 0.0F);
+		super(context, new TargetDummyEntityModel(context.getPart(ModEntityLayerRegistry.TARGET_DUMMY)), 0.0F);
 		this.skinCache = context.getPlayerSkinCache();
 		this.addFeature(
 				new ArmorFeatureRenderer<>(
 						this,
-						EquipmentModelData.mapToEntityModel(EntityModelLayerRegistry.TARGET_DUMMY_EQUIPMENT, context.getEntityModels(), TargetDummyArmorEntityModel::new),
+						EquipmentModelData.mapToEntityModel(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT, context.getEntityModels(), TargetDummyArmorEntityModel::new),
 						context.getEquipmentRenderer()
 				)
 		);

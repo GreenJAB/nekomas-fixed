@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.entity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registry.entity.SoulfireTridentEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -28,7 +28,7 @@ public class SoulfireTridentEntityRenderer extends EntityRenderer<SoulfireTriden
 
 	public SoulfireTridentEntityRenderer(EntityRendererFactory.Context context) {
 		super(context);
-		this.model = new TridentEntityModel(context.getPart(EntityModelLayerRegistry.SOULFIRE_TRIDENT));
+		this.model = new TridentEntityModel(context.getPart(ModEntityLayerRegistry.SOULFIRE_TRIDENT));
 	}
 
 	public void render(

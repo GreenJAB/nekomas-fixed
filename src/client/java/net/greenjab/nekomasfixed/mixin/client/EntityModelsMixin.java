@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.mixin.client;
 
 import com.google.common.collect.ImmutableMap;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClockBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanEyesBlockModel;
@@ -23,39 +23,39 @@ public class EntityModelsMixin {
 
     @Inject(method = "getModels", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/entity/SignBlockEntityRenderer;getTexturedModelData(Z)Lnet/minecraft/client/model/TexturedModelData;", ordinal = 0))
     private static void addClamModel(CallbackInfoReturnable<Map<EntityModelLayer, TexturedModelData>> cir, @Local ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder) {
-        builder.put(EntityModelLayerRegistry.CLAM, ClamBlockModel.getTexturedModelData());
-        builder.put(EntityModelLayerRegistry.CLOCK, ClockBlockModel.getTexturedModelData());
-        builder.put(EntityModelLayerRegistry.ENDERMAN_HEAD, EndermanHeadBlockModel.getTexturedModelData());
-        builder.put(EntityModelLayerRegistry.ENDERMAN_EYES, EndermanEyesBlockModel.getTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_ACACIA_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_BAMBOO_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_BIRCH_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_CHERRY_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_DARK_OAK_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_JUNGLE_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_MANGROVE_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_OAK_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_PALE_OAK_BOAT, BigBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.BIG_SPRUCE_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.CLAM, ClamBlockModel.getTexturedModelData());
+        builder.put(ModEntityLayerRegistry.CLOCK, ClockBlockModel.getTexturedModelData());
+        builder.put(ModEntityLayerRegistry.ENDERMAN_HEAD, EndermanHeadBlockModel.getTexturedModelData());
+        builder.put(ModEntityLayerRegistry.ENDERMAN_EYES, EndermanEyesBlockModel.getTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_ACACIA_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_BAMBOO_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_BIRCH_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_CHERRY_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_DARK_OAK_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_JUNGLE_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_MANGROVE_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_OAK_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_PALE_OAK_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_SPRUCE_BOAT, BigBoatEntityModel.getChestTexturedModelData());
 
-        builder.put(EntityModelLayerRegistry.HUGE_ACACIA_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_BAMBOO_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_BIRCH_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_CHERRY_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_DARK_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_JUNGLE_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_MANGROVE_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_PALE_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
-        builder.put(EntityModelLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_ACACIA_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_BAMBOO_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_BIRCH_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_CHERRY_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_DARK_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_JUNGLE_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_MANGROVE_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_PALE_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
 
-        builder.put(EntityModelLayerRegistry.TARGET_DUMMY, TargetDummyEntityModel.getTexturedModelData());
+        builder.put(ModEntityLayerRegistry.TARGET_DUMMY, TargetDummyEntityModel.getTexturedModelData());
         EquipmentModelData<TexturedModelData> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new Dilation(1.0F), new Dilation(0.5F));
-        EntityModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.addTo(equipmentModelData6, builder);
-        builder.put(EntityModelLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel.getTexturedModelData());
+        ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.addTo(equipmentModelData6, builder);
+        builder.put(ModEntityLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel.getTexturedModelData());
 
 
-        builder.put(EntityModelLayerRegistry.WILD_FIRE, WildFireEntityModel.getTexturedModelData());
-        builder.put(EntityModelLayerRegistry.SOULFIRE_TRIDENT, TridentEntityModel.getTexturedModelData());
+        builder.put(ModEntityLayerRegistry.WILD_FIRE, WildFireEntityModel.getTexturedModelData());
+        builder.put(ModEntityLayerRegistry.SOULFIRE_TRIDENT, TridentEntityModel.getTexturedModelData());
     }
 }

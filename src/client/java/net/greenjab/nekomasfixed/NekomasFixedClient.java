@@ -2,11 +2,16 @@ package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
+import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
+import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
-import net.greenjab.nekomasfixed.registries.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -25,8 +30,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		BlockEntityRendererRegistry.registerBlockEntityRenderer();
-		EntityRendererRegistry.registerEntityRenderer();
-		EntityModelLayerRegistry.registerEntityModelLayer();
+		ModEntityRendererRegistry.registerEntityRenderer();
+		ModEntityLayerRegistry.registerEntityModelLayer();
 		TextureRegistry.registerTextureRegistry();
 
 		ClientSyncHandler.init();
@@ -49,6 +54,9 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRenderLayer.CUTOUT,
 				BlockRegistry.BOABAB_SAPLING
 		);
+
+		EntityModelLayerRegistry.registerModelLayer(TermiteModel.TERMITE, TermiteModel::getTexturedModelData);
+		EntityRendererRegistry.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
 
 	}
 
