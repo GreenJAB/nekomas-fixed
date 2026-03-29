@@ -96,6 +96,9 @@ public class ItemRegistry {
     public static final Item BOABAB_FRUIT = register(BlockRegistry.BOABAB_FRUIT,  new Item.Settings().maxCount(64).food(new FoodComponent(10, 3.5f, true)));
     public static final Item BOABAB_SEEDS = register("boabab_seeds", Item::new, new Item.Settings().maxCount(64));
 
+    public static final Item TERMITE_BLOCK = register(BlockRegistry.TERMITE_BLOCK);
+    public static final Item TERMITE_HIVE = register(BlockRegistry.TERMITE_HIVE);
+
     public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(37, Map.of(EquipmentType.HELMET, 3), 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, ItemTags.NETHERITE_TOOL_MATERIALS, ModEquipmentAssetKeys.NETHERITE_CROWN);
 
     public static final Item NETHERITE_CROWN = register("netherite_crown", Item::new, new Item.Settings().armor(NETHERITE_CROWN_MATERIAL, EquipmentType.HELMET).maxCount(1).trimMaterial(ArmorTrimMaterials.NETHERITE).maxDamage(EquipmentType.HELMET.getMaxDamage(NETHERITE_CROWN_MATERIAL.durability())).attributeModifiers(NETHERITE_CROWN_MATERIAL.createAttributeModifiers(EquipmentType.HELMET)).enchantable(NETHERITE_CROWN_MATERIAL.enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot()).equipSound(NETHERITE_CROWN_MATERIAL.equipSound()).model(NETHERITE_CROWN_MATERIAL.assetId()).build()).repairable(NETHERITE_CROWN_MATERIAL.repairIngredient()));
