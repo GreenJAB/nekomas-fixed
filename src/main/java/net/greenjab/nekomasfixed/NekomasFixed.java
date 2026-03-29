@@ -37,7 +37,6 @@ public class NekomasFixed implements ModInitializer {
 		SyncHandler.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
-
 	}
 
 
