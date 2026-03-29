@@ -33,7 +33,7 @@ public class BoababTreeDecorator extends TreeDecorator {
         Random random = generator.getRandom();
         if (!(random.nextFloat() >= this.probability)) {
             List<BlockPos> list = generator.getLeavesPositions();
-            int scale = 3;
+            int scale = 1;
             if (!list.isEmpty()) {
                 for(BlockPos pos : list){
                     if (random.nextFloat() > 1f / scale) continue;
