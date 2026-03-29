@@ -25,9 +25,9 @@ public class TermiteEntity extends AnimalEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(0, new LookAroundGoal(this));
-        this.goalSelector.add(1, new AttackGoal(this));
-        this.goalSelector.add(2, new WanderNearTargetGoal(this, 1.3f, 32f));
+        this.goalSelector.add(0, new WanderNearTargetGoal(this, 1.3f, 32f));
+        this.goalSelector.add(1, new LookAroundGoal(this));
+        this.goalSelector.add(2, new AttackGoal(this));
     }
 
     public static DefaultAttributeContainer.Builder createAttributes(){
