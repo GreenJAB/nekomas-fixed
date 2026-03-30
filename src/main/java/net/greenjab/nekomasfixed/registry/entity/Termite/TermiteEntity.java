@@ -38,11 +38,11 @@ public class TermiteEntity extends HostileEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(1, new PowderSnowJumpGoal(this, this.getEntityWorld()));
-        this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
+        this.goalSelector.add(2, new WanderAroundGoal(this, 0.4d));
         this.goalSelector.add(2, new SearchForLogGoal(this));
         this.goalSelector.add(3, new LookAtEntityGoal(this, net.minecraft.entity.player.PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0F, false));
+        this.goalSelector.add(4, new MeleeAttackGoal(this, 0.6F, false));
         this.targetSelector.add(1, (new RevengeGoal(this)).setGroupRevenge());
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
@@ -51,7 +51,7 @@ public class TermiteEntity extends HostileEntity {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.ATTACK_DAMAGE, 2d)
                 .add(EntityAttributes.ATTACK_SPEED, 1.6d)
-                .add(EntityAttributes.ATTACK_KNOCKBACK, 0.6d)
+                .add(EntityAttributes.ATTACK_KNOCKBACK, 0.2d)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.4d)
                 .add(EntityAttributes.SAFE_FALL_DISTANCE, 2d)
                 .add(EntityAttributes.STEP_HEIGHT, 1d);
@@ -160,6 +160,7 @@ public class TermiteEntity extends HostileEntity {
                         8,
                         pos -> termtieEntity.getEntityWorld().getBlockState(pos).isIn(BlockTags.LOGS)
                 );
+                System.out.println(target + " nearest log");
 
                 target.ifPresent(pos -> termtieEntity.getNavigation().startMovingTo(
                         pos.getX(),
