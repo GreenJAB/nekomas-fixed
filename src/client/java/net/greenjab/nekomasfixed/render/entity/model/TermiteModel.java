@@ -109,7 +109,6 @@ public class TermiteModel<T extends HostileEntity> extends EntityModel<TermiteRe
         this.swipeAnimationState.apply(state.swipeAnimationState, state.age);
     }
 
-
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
         bone.render(matrices, vertexConsumer, light, overlay);
     }

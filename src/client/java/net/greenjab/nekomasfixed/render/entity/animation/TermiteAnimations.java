@@ -71,14 +71,15 @@ public class TermiteAnimations {
                     new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
             ))
             .addBoneAnimation("pincher", new Transformation(Transformation.Targets.MOVE_ORIGIN,
-                    new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
-                    new Keyframe(0.25F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
-                    new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
+                    new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0F, 0F, 0F), Transformation.Interpolations.LINEAR),
+                    new Keyframe(0.2F, AnimationHelper.createTranslationalVector(0F, 0F, -0.5F), Transformation.Interpolations.LINEAR),
+                    new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0F, 0F, 0F), Transformation.Interpolations.LINEAR)
             ))
             .addBoneAnimation("pincher", new Transformation(Transformation.Targets.SCALE,
                     new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
                     new Keyframe(0.25F, AnimationHelper.createScalingVector(1.0F, 1.0F, 2.5F), Transformation.Interpolations.LINEAR),
                     new Keyframe(0.5F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR)
             ))
+
             .build();
 }
