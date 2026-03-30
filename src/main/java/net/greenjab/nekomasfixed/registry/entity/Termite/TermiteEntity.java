@@ -7,6 +7,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class TermiteEntity extends HostileEntity {
@@ -20,12 +21,14 @@ public class TermiteEntity extends HostileEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new MeleeAttackGoal(this, 0.2, true));
+        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(1, new PowderSnowJumpGoal(this, this.getEntityWorld()));
         this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
         this.goalSelector.add(3, new LookAtEntityGoal(this, net.minecraft.entity.player.PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, net.minecraft.entity.player.PlayerEntity.class, true));
+        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0F, false));
+        this.targetSelector.add(1, (new RevengeGoal(this)).setGroupRevenge());
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     public static DefaultAttributeContainer.Builder createAttributes(){

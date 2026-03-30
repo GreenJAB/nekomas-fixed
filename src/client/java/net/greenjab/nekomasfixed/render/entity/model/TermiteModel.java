@@ -21,6 +21,12 @@ public class TermiteModel<T extends HostileEntity> extends EntityModel<TermiteRe
     private final ModelPart antler;
     private final ModelPart pincher;
     private final ModelPart legs;
+    private final ModelPart front_right_leg;
+    private final ModelPart front_left_leg;
+    private final ModelPart middle_right_leg;
+    private final ModelPart middle_left_leg;
+    private final ModelPart back_right_leg;
+    private final ModelPart back_left_leg;
     private final Animation runAnimationState;
     private final Animation swipeAnimationState;
     private final Animation idleAnimationState;
@@ -37,6 +43,12 @@ public class TermiteModel<T extends HostileEntity> extends EntityModel<TermiteRe
         this.antler = this.head.getChild("antler");
         this.pincher = this.head.getChild("pincher");
         this.legs = this.body.getChild("legs");
+        this.front_right_leg = this.legs.getChild("front_right_leg");
+        this.front_left_leg = this.legs.getChild("front_left_leg");
+        this.middle_right_leg = this.legs.getChild("middle_right_leg");
+        this.middle_left_leg = this.legs.getChild("middle_left_leg");
+        this.back_right_leg = this.legs.getChild("back_right_leg");
+        this.back_left_leg = this.legs.getChild("back_left_leg");
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -92,10 +104,12 @@ public class TermiteModel<T extends HostileEntity> extends EntityModel<TermiteRe
     public void setAngles(TermiteRenderState state) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
 
+        // Head rotation
         this.setHeadAngles(state.bodyYaw, state.pitch);
 
+        // Animations
         this.idleAnimationState.apply(state.idleAnimationState, state.age);
-        this.runAnimationState.apply(state.runAnimationState, state.age);
+        this.runAnimationState.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 5f, 2.5f);
         this.swipeAnimationState.apply((long) state.age, 1.5f);
     }
 
