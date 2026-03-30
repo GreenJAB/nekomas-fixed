@@ -47,7 +47,7 @@ public class BedBlockEntityRendererMixin {
                     )
             );
         }
-        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.CRIMSON_BED) {
+        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.MAROON_BED) {
 
             ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
                     new SpriteIdentifier(

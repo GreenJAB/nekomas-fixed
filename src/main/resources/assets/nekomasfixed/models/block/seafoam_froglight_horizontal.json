@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column_horizontal",
+    "textures": {
+        "end": "nekomasfixed:block/seafoam_froglight_top",
+        "side": "nekomasfixed:block/seafoam_froglight_side"
+    }
+}

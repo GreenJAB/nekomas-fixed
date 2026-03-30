@@ -35,8 +35,8 @@ public class DyeItemMixin {
             cir.setReturnValue(true);
         }
 
-        if (stack.isOf(ItemRegistry.CRIMSON_DYE)) {
-            applyDye(signBlockEntity, front, CRIMSON.color());
+        if (stack.isOf(ItemRegistry.MAROON_DYE)) {
+            applyDye(signBlockEntity, front, MAROON.color());
             cir.setReturnValue(true);
         }
 

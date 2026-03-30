@@ -112,7 +112,7 @@ public class ItemRegistry {
 
     public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
     public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
-    public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
+    public static final Item MAROON_DYE = registerDye("maroon_dye", DyeColor.RED);
     public static final Item AQUA_DYE = registerDye("aqua_dye", DyeColor.LIGHT_BLUE);
 
     public static final Item SOULFIRE_SHIELD = register("soulfire_shield", SoulfireShieldItem::new, new Item.Settings().rarity(Rarity.RARE).maxDamage(1000).repairable(ItemTags.REPAIRS_NETHERITE_ARMOR).equippableUnswappable(EquipmentSlot.OFFHAND).component(DataComponentTypes.BLOCKS_ATTACKS, new BlocksAttacksComponent(0.25F, 1.0F, List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)), new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD), Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK))).component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof());
@@ -128,38 +128,38 @@ public class ItemRegistry {
     public static final Item AMBER_TERRACOTTA = register(BlockRegistry.AMBER_TERRACOTTA);
     public static final Item INDIGO_TERRACOTTA = register(BlockRegistry.INDIGO_TERRACOTTA);
     public static final Item AQUA_TERRACOTTA = register(BlockRegistry.AQUA_TERRACOTTA);
-    public static final Item CRIMSON_TERRACOTTA = register(BlockRegistry.CRIMSON_TERRACOTTA);
+    public static final Item MAROON_TERRACOTTA = register(BlockRegistry.MAROON_TERRACOTTA);
 
     public static final Item KILN = register(BlockRegistry.KILN);
 
     public static final Item AQUA_GLAZED_TERRACOTTA = register(BlockRegistry.AQUA_GLAZED_TERRACOTTA);
     public static final Item AMBER_GLAZED_TERRACOTTA = register(BlockRegistry.AMBER_GLAZED_TERRACOTTA);
-    public static final Item CRIMSON_GLAZED_TERRACOTTA = register(BlockRegistry.CRIMSON_GLAZED_TERRACOTTA);
+    public static final Item MAROON_GLAZED_TERRACOTTA = register(BlockRegistry.MAROON_GLAZED_TERRACOTTA);
     public static final Item INDIGO_GLAZED_TERRACOTTA = register(BlockRegistry.INDIGO_GLAZED_TERRACOTTA);
 
     public static final Item AQUA_WOOL = register(BlockRegistry.AQUA_WOOL);
     public static final Item AMBER_WOOL = register(BlockRegistry.AMBER_WOOL);
-    public static final Item CRIMSON_WOOL = register(BlockRegistry.CRIMSON_WOOL);
+    public static final Item MAROON_WOOL = register(BlockRegistry.MAROON_WOOL);
     public static final Item INDIGO_WOOL = register(BlockRegistry.INDIGO_WOOL);
 
     public static final Item AMBER_CANDLE = register(BlockRegistry.AMBER_CANDLE);
     public static final Item AQUA_CANDLE = register(BlockRegistry.AQUA_CANDLE);
     public static final Item INDIGO_CANDLE = register(BlockRegistry.INDIGO_CANDLE);
-    public static final Item CRIMSON_CANDLE = register(BlockRegistry.CRIMSON_CANDLE);
+    public static final Item MAROON_CANDLE = register(BlockRegistry.MAROON_CANDLE);
 
     public static final Item AQUA_CONCRETE = register(BlockRegistry.AQUA_CONCRETE);
     public static final Item AMBER_CONCRETE = register(BlockRegistry.AMBER_CONCRETE);
-    public static final Item CRIMSON_CONCRETE = register(BlockRegistry.CRIMSON_CONCRETE);
+    public static final Item MAROON_CONCRETE = register(BlockRegistry.MAROON_CONCRETE);
     public static final Item INDIGO_CONCRETE = register(BlockRegistry.INDIGO_CONCRETE);
 
     public static final Item AQUA_CONCRETE_POWDER = register(BlockRegistry.AQUA_CONCRETE_POWDER);
     public static final Item AMBER_CONCRETE_POWDER = register(BlockRegistry.AMBER_CONCRETE_POWDER);
-    public static final Item CRIMSON_CONCRETE_POWDER = register(BlockRegistry.CRIMSON_CONCRETE_POWDER);
+    public static final Item MAROON_CONCRETE_POWDER = register(BlockRegistry.MAROON_CONCRETE_POWDER);
     public static final Item INDIGO_CONCRETE_POWDER = register(BlockRegistry.INDIGO_CONCRETE_POWDER);
 
     public static final Item AQUA_CARPET = register(BlockRegistry.AQUA_CARPET);
     public static final Item AMBER_CARPET = register(BlockRegistry.AMBER_CARPET);
-    public static final Item CRIMSON_CARPET = register(BlockRegistry.CRIMSON_CARPET);
+    public static final Item MAROON_CARPET = register(BlockRegistry.MAROON_CARPET);
     public static final Item INDIGO_CARPET = register(BlockRegistry.INDIGO_CARPET);
 
     public static final Item AMBER_HARNESS = register("amber_harness",
@@ -174,11 +174,11 @@ public class ItemRegistry {
                     .component(DataComponentTypes.EQUIPPABLE,
                             HarnessHelper.ofHarness(ModColors.AQUA)));
 
-    public static final Item CRIMSON_HARNESS = register("crimson_harness",
+    public static final Item MAROON_HARNESS = register("maroon_harness",
             (new Item.Settings())
                     .maxCount(1)
                     .component(DataComponentTypes.EQUIPPABLE,
-                            HarnessHelper.ofHarness(ModColors.CRIMSON)));
+                            HarnessHelper.ofHarness(ModColors.MAROON)));
 
     public static final Item INDIGO_HARNESS = register("indigo_harness",
             (new Item.Settings())
@@ -186,28 +186,28 @@ public class ItemRegistry {
                     .component(DataComponentTypes.EQUIPPABLE,
                             HarnessHelper.ofHarness(ModColors.INDIGO)));
 
-    public static final Item WHITE_FROGLIGHT = register(BlockRegistry.WHITE_FROGLIGHT);
-    public static final Item LIGHT_GRAY_FROGLIGHT = register(BlockRegistry.LIGHT_GRAY_FROGLIGHT);
-    public static final Item GRAY_FROGLIGHT = register(BlockRegistry.GRAY_FROGLIGHT);
-    public static final Item BLACK_FROGLIGHT = register(BlockRegistry.BLACK_FROGLIGHT);
-    public static final Item BROWN_FROGLIGHT = register(BlockRegistry.BROWN_FROGLIGHT);
-    public static final Item RED_FROGLIGHT = register(BlockRegistry.RED_FROGLIGHT);
-    public static final Item ORANGE_FROGLIGHT = register(BlockRegistry.ORANGE_FROGLIGHT);
-    public static final Item GREEN_FROGLIGHT = register(BlockRegistry.GREEN_FROGLIGHT);
-    public static final Item CYAN_FROGLIGHT = register(BlockRegistry.CYAN_FROGLIGHT);
-    public static final Item LIGHT_BLUE_FROGLIGHT = register(BlockRegistry.LIGHT_BLUE_FROGLIGHT);
-    public static final Item BLUE_FROGLIGHT = register(BlockRegistry.BLUE_FROGLIGHT);
-    public static final Item PURPLE_FROGLIGHT = register(BlockRegistry.PURPLE_FROGLIGHT);
-    public static final Item PINK_FROGLIGHT = register(BlockRegistry.PINK_FROGLIGHT);
-    public static final Item AMBER_FROGLIGHT = register(BlockRegistry.AMBER_FROGLIGHT);
-    public static final Item AQUA_FROGLIGHT = register(BlockRegistry.AQUA_FROGLIGHT);
-    public static final Item CRIMSON_FROGLIGHT = register(BlockRegistry.CRIMSON_FROGLIGHT);
-    public static final Item INDIGO_FROGLIGHT = register(BlockRegistry.INDIGO_FROGLIGHT);
+    public static final Item CLEAR_FROGLIGHT = register(BlockRegistry.CLEAR_FROGLIGHT);
+    public static final Item CLOUDY_FROGLIGHT = register(BlockRegistry.CLOUDY_FROGLIGHT);
+    public static final Item CASCADING_FROGLIGHT = register(BlockRegistry.CASCADING_FROGLIGHT);
+    public static final Item CLOUDBURST_FROGLIGHT = register(BlockRegistry.CLOUDBURST_FROGLIGHT);
+    public static final Item CHAMOISEE_FROGLIGHT = register(BlockRegistry.CHAMOISEE_FROGLIGHT);
+    public static final Item SANGUINE_FROGLIGHT = register(BlockRegistry.SANGUINE_FROGLIGHT);
+    public static final Item VERMILION_FROGLIGHT = register(BlockRegistry.VERMILION_FROGLIGHT);
+    public static final Item MANDARIN_FROGLIGHT = register(BlockRegistry.MANDARIN_FROGLIGHT);
+    public static final Item LEMON_FROGLIGHT = register(BlockRegistry.LEMON_FROGLIGHT);
+    public static final Item KIWI_FROGLIGHT = register(BlockRegistry.KIWI_FROGLIGHT);
+    public static final Item SEAFOAM_FROGLIGHT = register(BlockRegistry.SEAFOAM_FROGLIGHT);
+    public static final Item TEAL_FROGLIGHT = register(BlockRegistry.TEAL_FROGLIGHT);
+    public static final Item CERULEAN_FROGLIGHT = register(BlockRegistry.CERULEAN_FROGLIGHT);
+    public static final Item NAVY_FROGLIGHT = register(BlockRegistry.NAVY_FROGLIGHT);
+    public static final Item LAVENDER_FROGLIGHT = register(BlockRegistry.LAVENDER_FROGLIGHT);
+    public static final Item THULIAN_FROGLIGHT = register(BlockRegistry.THULIAN_FROGLIGHT);
+    public static final Item SAKURA_FROGLIGHT = register(BlockRegistry.SAKURA_FROGLIGHT);
 
     public static final Item AMBER_BED = register(BlockRegistry.AMBER_BED, BedItem::new, (new Item.Settings()).maxCount(1));
     public static final Item AQUA_BED = register(BlockRegistry.AQUA_BED, BedItem::new, (new Item.Settings()).maxCount(1));
     public static final Item INDIGO_BED = register(BlockRegistry.INDIGO_BED, BedItem::new, (new Item.Settings()).maxCount(1));
-    public static final Item CRIMSON_BED = register(BlockRegistry.CRIMSON_BED, BedItem::new, (new Item.Settings()).maxCount(1));
+    public static final Item MAROON_BED = register(BlockRegistry.MAROON_BED, BedItem::new, (new Item.Settings()).maxCount(1));
 
     public static final RegistryEntry<Potion> LIGHTNING = register("lightning", new Potion("lightning", new StatusEffectInstance(OtherRegistry.LIGHTNING, 1)));
     private static RegistryEntry<Potion> register(String name, Potion potion) {
@@ -217,7 +217,7 @@ public class ItemRegistry {
     public static final Item AMBER_BUNDLE = register("amber_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
     public static final Item AQUA_BUNDLE = register("aqua_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
     public static final Item INDIGO_BUNDLE = register("indigo_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
-    public static final Item CRIMSON_BUNDLE = register("crimson_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
+    public static final Item MAROON_BUNDLE = register("maroon_bundle", BundleItem::new, (new Item.Settings()).maxCount(1).component(DataComponentTypes.BUNDLE_CONTENTS, BundleContentsComponent.DEFAULT));
 
 
     public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
@@ -257,15 +257,15 @@ public class ItemRegistry {
     public static final Item AMBER_STAINED_GLASS = register(BlockRegistry.AMBER_STAINED_GLASS);
     public static final Item AQUA_STAINED_GLASS = register(BlockRegistry.AQUA_STAINED_GLASS);
     public static final Item INDIGO_STAINED_GLASS = register(BlockRegistry.INDIGO_STAINED_GLASS);
-    public static final Item CRIMSON_STAINED_GLASS = register(BlockRegistry.CRIMSON_STAINED_GLASS);
+    public static final Item MAROON_STAINED_GLASS = register(BlockRegistry.MAROON_STAINED_GLASS);
     public static final Item AMBER_STAINED_GLASS_PANE = register(BlockRegistry.AMBER_STAINED_GLASS_PANE);
     public static final Item AQUA_STAINED_GLASSS_PANE = register(BlockRegistry.AQUA_STAINED_GLASS_PANE);
     public static final Item INDIGO_STAINED_GLASSS_PANE = register(BlockRegistry.INDIGO_STAINED_GLASS_PANE);
-    public static final Item CRIMSON_STAINED_GLASSS_PANE = register(BlockRegistry.CRIMSON_STAINED_GLASS_PANE);
+    public static final Item MAROON_STAINED_GLASSS_PANE = register(BlockRegistry.MAROON_STAINED_GLASS_PANE);
     public static final Item AMBER_SHULKER_BOX = register(BlockRegistry.AMBER_SHULKER_BOX);
     public static final Item AQUA_SHULKER_BOX = register(BlockRegistry.AQUA_SHULKER_BOX);
     public static final Item INDIGO_SHULKER_BOX = register(BlockRegistry.INDIGO_SHULKER_BOX);
-    public static final Item CRIMSON_SHULKER_BOX = register(BlockRegistry.CRIMSON_SHULKER_BOX);
+    public static final Item MAROON_SHULKER_BOX = register(BlockRegistry.MAROON_SHULKER_BOX);
 
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);

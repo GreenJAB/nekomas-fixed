@@ -47,12 +47,12 @@ public class ShulkerBoxBlockEntityRendererMixin {
                     )
             );
         }
-        if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.CRIMSON_SHULKER_BOX) {
+        if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.MAROON_SHULKER_BOX) {
 
             ((CustomShulkerBoxTextureHolder) state).nekomasfixed$setCustomTexture(
                     new SpriteIdentifier(
                             TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/shulker/crimson")
+                            NekomasFixed.id("entity/shulker/maroon")
                     )
             );
         }

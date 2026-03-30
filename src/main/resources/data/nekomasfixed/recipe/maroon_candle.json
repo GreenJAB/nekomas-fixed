@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "dyed_candle",
+  "ingredients": [
+    "nekomasfixed:maroon_dye",
+    "minecraft:candle"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:maroon_candle"
+  }
+}

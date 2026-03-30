@@ -38,11 +38,11 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRegistry.AMBER_STAINED_GLASS,
 				BlockRegistry.AQUA_STAINED_GLASS,
 				BlockRegistry.INDIGO_STAINED_GLASS,
-				BlockRegistry.CRIMSON_STAINED_GLASS,
+				BlockRegistry.MAROON_STAINED_GLASS,
 				BlockRegistry.AMBER_STAINED_GLASS_PANE,
 				BlockRegistry.AQUA_STAINED_GLASS_PANE,
 				BlockRegistry.INDIGO_STAINED_GLASS_PANE,
-				BlockRegistry.CRIMSON_STAINED_GLASS_PANE
+				BlockRegistry.MAROON_STAINED_GLASS_PANE
 		);
 
 		BlockRenderLayerMap.putBlocks(

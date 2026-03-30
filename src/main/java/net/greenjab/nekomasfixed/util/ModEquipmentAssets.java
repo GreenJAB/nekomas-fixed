@@ -21,14 +21,14 @@ public class ModEquipmentAssets {
             RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY,
                     NekomasFixed.id("indigo_harness"));
 
-    public static final RegistryKey<EquipmentAsset> CRIMSON_HARNESS =
+    public static final RegistryKey<EquipmentAsset> MAROON_HARNESS =
             RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY,
-                    NekomasFixed.id("crimson_harness"));
+                    NekomasFixed.id("maroon_harness"));
 
     public static final Map<ModColors, RegistryKey<EquipmentAsset>> HARNESS_FROM_MOD_COLOR = Map.of(
             ModColors.AMBER, AMBER_HARNESS,
             ModColors.AQUA, AQUA_HARNESS,
             ModColors.INDIGO, INDIGO_HARNESS,
-            ModColors.CRIMSON, CRIMSON_HARNESS
+            ModColors.MAROON, MAROON_HARNESS
     );
 }

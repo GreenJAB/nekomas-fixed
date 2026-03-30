@@ -1,7 +1,0 @@
-{
-    "parent": "minecraft:block/cube_column",
-    "textures": {
-        "end": "nekomasfixed:block/light_blue_froglight_top",
-        "side": "nekomasfixed:block/light_blue_froglight_side"
-    }
-}

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "nekomasfixed:block/kiwi_froglight_top",
+        "side": "nekomasfixed:block/kiwi_froglight_side"
+    }
+}
