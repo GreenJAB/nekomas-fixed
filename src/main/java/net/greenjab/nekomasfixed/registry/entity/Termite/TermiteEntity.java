@@ -39,6 +39,7 @@ public class TermiteEntity extends HostileEntity {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(1, new PowderSnowJumpGoal(this, this.getEntityWorld()));
         this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
+        this.goalSelector.add(2, new SearchForLogGoal(this));
         this.goalSelector.add(3, new LookAtEntityGoal(this, net.minecraft.entity.player.PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
         this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0F, false));
