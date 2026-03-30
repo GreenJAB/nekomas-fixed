@@ -103,13 +103,9 @@ public class TermiteModel<T extends HostileEntity> extends EntityModel<TermiteRe
     @Override
     public void setAngles(TermiteRenderState state) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
-
-        // Head rotation
         this.setHeadAngles(state.bodyYaw, state.pitch);
-
-        // Animations
         this.idleAnimationState.apply(state.idleAnimationState, state.age);
-        this.runAnimationState.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 3.5f);
+        this.runAnimationState.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 10f, 3.5f);
         this.swipeAnimationState.apply((long) state.age, 1.5f);
     }
 

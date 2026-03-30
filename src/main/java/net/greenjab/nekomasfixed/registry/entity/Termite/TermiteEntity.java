@@ -36,7 +36,7 @@ public class TermiteEntity extends HostileEntity {
                 .add(EntityAttributes.ATTACK_DAMAGE, 2d)
                 .add(EntityAttributes.ATTACK_SPEED, 1.6d)
                 .add(EntityAttributes.ATTACK_KNOCKBACK, 0.6d)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.1d)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.4d)
                 .add(EntityAttributes.SAFE_FALL_DISTANCE, 2d)
                 .add(EntityAttributes.STEP_HEIGHT, 1d);
     }
