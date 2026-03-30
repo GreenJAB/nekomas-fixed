@@ -23,6 +23,7 @@ import net.minecraft.world.rule.GameRules;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TermiteEntity extends HostileEntity {
     public final AnimationState idleAnimationState = new AnimationState();
@@ -134,8 +135,8 @@ public class TermiteEntity extends HostileEntity {
 
                         pos.set(startX + x, y, startZ + z);
 
-                        if (chunk.getBlockState(pos).getBlock().getDefaultState().isIn(BlockTags.LOGS) ) {
-                            allPositions.add(pos);
+                        if (chunk.getBlockState(pos).isIn(BlockTags.LOGS)) {
+                            allPositions.add(pos.toImmutable());
                         }
                     }
                 }
@@ -143,44 +144,32 @@ public class TermiteEntity extends HostileEntity {
             return allPositions;
         }
 
+        @Override
+        public boolean shouldContinue() {
+            return false;
+        }
+
         public void tick() {
             --this.delay;
+
             if (this.delay <= 0) {
-                World world = this.termtieEntity.getEntityWorld();
-                Random random = this.termtieEntity.getRandom();
-                BlockPos blockPos = this.termtieEntity.getBlockPos();
-
-                ArrayList<Chunk> chunks = new ArrayList<>();
-                int chunkX = blockPos.getX() >> 4;
-                int chunkZ = blockPos.getZ() >> 4;
-                chunks.add(world.getChunk(chunkX, chunkZ));
-                chunks.add(world.getChunk(chunkX + 1, chunkZ));
-                chunks.add(world.getChunk(chunkX + 1, chunkZ + 1));
-                chunks.add(world.getChunk(chunkX, chunkZ + 1));
-
-                ArrayList<BlockPos> allLogs = new ArrayList<>();
-
-                for(Chunk chunk: chunks){
-                    if(chunkContainsBlock(chunk)){
-                        allLogs.addAll(getAllPositions(chunk));
-                    }
-                }
-                BlockPos leastToEntity = new BlockPos(allLogs.get(0));
-                for(BlockPos pos : allLogs){
-                    if(pos.isWithinDistance(pos, 15d)){
-                        leastToEntity = pos;
-                    }
-                }
-
-                termtieEntity.getNavigation().startMovingTo(
-                        leastToEntity.getX(),
-                        leastToEntity.getY(),
-                        leastToEntity.getZ(),
-                        0.4d
+                Optional<BlockPos> target = BlockPos.findClosest(
+                        termtieEntity.getBlockPos(),
+                        16,
+                        8,
+                        pos -> termtieEntity.getEntityWorld().getBlockState(pos).isIn(BlockTags.LOGS)
                 );
-            }
 
+                target.ifPresent(pos -> termtieEntity.getNavigation().startMovingTo(
+                        pos.getX(),
+                        pos.getY(),
+                        pos.getZ(),
+                        0.4
+                ));
+            }
         }
+
+
     }
 
 }
