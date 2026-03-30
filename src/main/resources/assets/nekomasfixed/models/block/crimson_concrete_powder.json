@@ -1,8 +1,0 @@
-
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "nekomasfixed:block/crimson_concrete_powder"
-  }
-}
-

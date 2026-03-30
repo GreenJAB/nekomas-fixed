@@ -1,8 +1,5 @@
 {
   "block.minecraft.clock": "Clock",
-  "block.minecraft.ochre_froglight": "Yellow Froglight",
-  "block.minecraft.pearlescent_froglight": "Magenta Froglight",
-  "block.minecraft.verdant_froglight": "Lime Froglight",
   "item.minecraft.tipped_arrow.effect.lightning": "Arrow of Lightning",
   "item.minecraft.lingering_potion.effect.lightning": "Lingering Potion of Lightning",
   "item.minecraft.potion.effect.lightning": "Potion of Lightning",

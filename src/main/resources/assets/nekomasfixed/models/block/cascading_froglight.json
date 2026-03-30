@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "nekomasfixed:block/cascading_froglight_top",
+        "side": "nekomasfixed:block/cascading_froglight_side"
+    }
+}

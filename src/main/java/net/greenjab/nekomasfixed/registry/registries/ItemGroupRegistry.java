@@ -64,86 +64,86 @@ public class ItemGroupRegistry {
 						entries.add(ItemRegistry.AMBER_DYE);
                         entries.add(ItemRegistry.AQUA_DYE);
                         entries.add(ItemRegistry.INDIGO_DYE);
-                        entries.add(ItemRegistry.CRIMSON_DYE);
+                        entries.add(ItemRegistry.MAROON_DYE);
 
                          entries.add(ItemRegistry.AMBER_WOOL);
                          entries.add(ItemRegistry.AQUA_WOOL);
                          entries.add(ItemRegistry.INDIGO_WOOL);
-                         entries.add(ItemRegistry.CRIMSON_WOOL);
+                         entries.add(ItemRegistry.MAROON_WOOL);
                          entries.add(ItemRegistry.AMBER_CARPET);
                          entries.add(ItemRegistry.AQUA_CARPET);
                          entries.add(ItemRegistry.INDIGO_CARPET);
-                         entries.add(ItemRegistry.CRIMSON_CARPET);
+                         entries.add(ItemRegistry.MAROON_CARPET);
 
                          entries.add(ItemRegistry.AMBER_CONCRETE);
                          entries.add(ItemRegistry.AQUA_CONCRETE);
                          entries.add(ItemRegistry.INDIGO_CONCRETE);
-                         entries.add(ItemRegistry.CRIMSON_CONCRETE);
+                         entries.add(ItemRegistry.MAROON_CONCRETE);
                          entries.add(ItemRegistry.AMBER_CONCRETE_POWDER);
                          entries.add(ItemRegistry.AQUA_CONCRETE_POWDER);
                          entries.add(ItemRegistry.INDIGO_CONCRETE_POWDER);
-                         entries.add(ItemRegistry.CRIMSON_CONCRETE_POWDER);
+                         entries.add(ItemRegistry.MAROON_CONCRETE_POWDER);
 
                         entries.add(ItemRegistry.AMBER_TERRACOTTA);
                         entries.add(ItemRegistry.AQUA_TERRACOTTA);
                         entries.add(ItemRegistry.INDIGO_TERRACOTTA);
-                        entries.add(ItemRegistry.CRIMSON_TERRACOTTA);
+                        entries.add(ItemRegistry.MAROON_TERRACOTTA);
                         entries.add(ItemRegistry.AMBER_GLAZED_TERRACOTTA);
                         entries.add(ItemRegistry.AQUA_GLAZED_TERRACOTTA);
                         entries.add(ItemRegistry.INDIGO_GLAZED_TERRACOTTA);
-                        entries.add(ItemRegistry.CRIMSON_GLAZED_TERRACOTTA);
+                        entries.add(ItemRegistry.MAROON_GLAZED_TERRACOTTA);
 
                          entries.add(ItemRegistry.AMBER_STAINED_GLASS);
                          entries.add(ItemRegistry.AQUA_STAINED_GLASS);
                          entries.add(ItemRegistry.INDIGO_STAINED_GLASS);
-                         entries.add(ItemRegistry.CRIMSON_STAINED_GLASS);
+                         entries.add(ItemRegistry.MAROON_STAINED_GLASS);
                          entries.add(ItemRegistry.AMBER_STAINED_GLASS_PANE);
                          entries.add(ItemRegistry.AQUA_STAINED_GLASSS_PANE);
                          entries.add(ItemRegistry.INDIGO_STAINED_GLASSS_PANE);
-                         entries.add(ItemRegistry.CRIMSON_STAINED_GLASSS_PANE);
+                         entries.add(ItemRegistry.MAROON_STAINED_GLASSS_PANE);
                          entries.add(ItemRegistry.AMBER_SHULKER_BOX);
                          entries.add(ItemRegistry.AQUA_SHULKER_BOX);
                          entries.add(ItemRegistry.INDIGO_SHULKER_BOX);
-                         entries.add(ItemRegistry.CRIMSON_SHULKER_BOX);
+                         entries.add(ItemRegistry.MAROON_SHULKER_BOX);
 
                          entries.add(ItemRegistry.AMBER_BUNDLE);
                          entries.add(ItemRegistry.AQUA_BUNDLE);
                          entries.add(ItemRegistry.INDIGO_BUNDLE);
-                         entries.add(ItemRegistry.CRIMSON_BUNDLE);
+                         entries.add(ItemRegistry.MAROON_BUNDLE);
 
                          entries.add(ItemRegistry.AMBER_BED);
                          entries.add(ItemRegistry.AQUA_BED);
                          entries.add(ItemRegistry.INDIGO_BED);
-                         entries.add(ItemRegistry.CRIMSON_BED);
+                         entries.add(ItemRegistry.MAROON_BED);
 
                          entries.add(ItemRegistry.AMBER_CANDLE);
                          entries.add(ItemRegistry.AQUA_CANDLE);
                          entries.add(ItemRegistry.INDIGO_CANDLE);
-                         entries.add(ItemRegistry.CRIMSON_CANDLE);
+                         entries.add(ItemRegistry.MAROON_CANDLE);
 
                          entries.add(ItemRegistry.AMBER_HARNESS);
                          entries.add(ItemRegistry.AQUA_HARNESS);
                          entries.add(ItemRegistry.INDIGO_HARNESS);
-                         entries.add(ItemRegistry.CRIMSON_HARNESS);
+                         entries.add(ItemRegistry.MAROON_HARNESS);
 
 
-                         entries.add(ItemRegistry.WHITE_FROGLIGHT);
-                         entries.add(ItemRegistry.LIGHT_GRAY_FROGLIGHT);
-                         entries.add(ItemRegistry.GRAY_FROGLIGHT);
-                         entries.add(ItemRegistry.BLACK_FROGLIGHT);
-                         entries.add(ItemRegistry.BROWN_FROGLIGHT);
-                         entries.add(ItemRegistry.RED_FROGLIGHT);
-                         entries.add(ItemRegistry.ORANGE_FROGLIGHT);
-                         entries.add(ItemRegistry.GREEN_FROGLIGHT);
-                         entries.add(ItemRegistry.CYAN_FROGLIGHT);
-                         entries.add(ItemRegistry.LIGHT_BLUE_FROGLIGHT);
-                         entries.add(ItemRegistry.BLUE_FROGLIGHT);
-                         entries.add(ItemRegistry.PURPLE_FROGLIGHT);
-                         entries.add(ItemRegistry.PINK_FROGLIGHT);
-                         entries.add(ItemRegistry.AMBER_FROGLIGHT);
-                         entries.add(ItemRegistry.AQUA_FROGLIGHT);
-                         entries.add(ItemRegistry.INDIGO_FROGLIGHT);
-                         entries.add(ItemRegistry.CRIMSON_FROGLIGHT);
+                         entries.add(ItemRegistry.CLEAR_FROGLIGHT);
+                         entries.add(ItemRegistry.CLOUDY_FROGLIGHT);
+                         entries.add(ItemRegistry.CASCADING_FROGLIGHT);
+                         entries.add(ItemRegistry.CLOUDBURST_FROGLIGHT);
+                         entries.add(ItemRegistry.CHAMOISEE_FROGLIGHT);
+                         entries.add(ItemRegistry.SANGUINE_FROGLIGHT);
+                         entries.add(ItemRegistry.VERMILION_FROGLIGHT);
+                         entries.add(ItemRegistry.MANDARIN_FROGLIGHT);
+                         entries.add(ItemRegistry.LEMON_FROGLIGHT);
+                         entries.add(ItemRegistry.KIWI_FROGLIGHT);
+                         entries.add(ItemRegistry.SEAFOAM_FROGLIGHT);
+                         entries.add(ItemRegistry.TEAL_FROGLIGHT);
+                         entries.add(ItemRegistry.CERULEAN_FROGLIGHT);
+                         entries.add(ItemRegistry.NAVY_FROGLIGHT);
+                         entries.add(ItemRegistry.LAVENDER_FROGLIGHT);
+                         entries.add(ItemRegistry.THULIAN_FROGLIGHT);
+                         entries.add(ItemRegistry.SAKURA_FROGLIGHT);
 
                          entries.add(ItemRegistry.BIG_ACACIA_BOAT);
                          entries.add(ItemRegistry.HUGE_ACACIA_BOAT);

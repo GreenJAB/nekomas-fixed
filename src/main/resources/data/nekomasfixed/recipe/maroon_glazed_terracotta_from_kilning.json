@@ -1,0 +1,12 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "blocks",
+  "ingredient": "nekomasfixed:maroon_terracotta",
+  "result": {
+    "id": "nekomasfixed:maroon_glazed_terracotta",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}
+

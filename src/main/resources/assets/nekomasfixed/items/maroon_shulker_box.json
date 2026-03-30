@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "nekomasfixed:item/maroon_shulker_box",
+    "model": {
+      "type": "minecraft:shulker_box",
+      "texture": "nekomasfixed:maroon"
+    }
+  }
+}

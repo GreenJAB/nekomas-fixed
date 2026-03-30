@@ -20,7 +20,7 @@ public class FireworkStarRecipeMixin {
         Item item = itemStack.getItem();
         if (item.equals(ItemRegistry.AMBER_DYE)) return intList.add(ModColors.AMBER.color());
         if (item.equals(ItemRegistry.AQUA_DYE)) return intList.add(ModColors.AQUA.color());
-        if (item.equals(ItemRegistry.CRIMSON_DYE)) return intList.add(ModColors.CRIMSON.color());
+        if (item.equals(ItemRegistry.MAROON_DYE)) return intList.add(ModColors.MAROON.color());
         if (item.equals(ItemRegistry.INDIGO_DYE)) return intList.add(ModColors.INDIGO.color());
         return intList.add(original);
     }

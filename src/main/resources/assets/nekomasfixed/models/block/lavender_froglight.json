@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "nekomasfixed:block/lavender_froglight_top",
+        "side": "nekomasfixed:block/lavender_froglight_side"
+    }
+}
