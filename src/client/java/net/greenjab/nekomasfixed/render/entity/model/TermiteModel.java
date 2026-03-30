@@ -105,7 +105,7 @@ public class TermiteModel<T extends HostileEntity> extends EntityModel<TermiteRe
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(state.bodyYaw, state.pitch);
         this.idleAnimationState.apply(state.idleAnimationState, state.age);
-        this.runAnimationState.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 10f, 3.5f);
+        this.runAnimationState.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 11f, 3.5f);
         this.swipeAnimationState.apply((long) state.age, 1.5f);
     }
 
