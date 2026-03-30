@@ -1,28 +1,17 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.InfestedBlock;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.brain.task.MoveToTargetTask;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.SilverfishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.rule.GameRules;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class TermiteEntity extends HostileEntity {
@@ -38,8 +27,8 @@ public class TermiteEntity extends HostileEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(1, new PowderSnowJumpGoal(this, this.getEntityWorld()));
-        this.goalSelector.add(2, new WanderAroundGoal(this, 0.4d));
         this.goalSelector.add(2, new SearchForLogGoal(this));
+        this.goalSelector.add(3, new WanderAroundGoal(this, 0.4d));
         this.goalSelector.add(3, new LookAtEntityGoal(this, net.minecraft.entity.player.PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
         this.goalSelector.add(4, new MeleeAttackGoal(this, 0.6F, false));
@@ -84,94 +73,39 @@ public class TermiteEntity extends HostileEntity {
 
     //custom goal for fetching on trees!!!
     static class SearchForLogGoal extends Goal {
-        private final TermiteEntity termtieEntity;
-        private int delay;
+        private final TermiteEntity termiteEntity;
+        private BlockPos targetPos;
 
         public SearchForLogGoal(TermiteEntity termiteEntity) {
-            this.termtieEntity = termiteEntity;
+            this.termiteEntity = termiteEntity;
         }
 
-        public void onHurt() {
-            if (this.delay == 0) {
-                this.delay = this.getTickCount(20);
-            }
-
-        }
-
+        @Override
         public boolean canStart() {
-            return this.delay > 0;
+            return termiteEntity.getRandom().nextInt(40) == 0;
         }
 
-        private static boolean chunkContainsBlock(Chunk chunk) {
-            BlockPos.Mutable pos = new BlockPos.Mutable();
+        @Override
+        public void start() {
+            Optional<BlockPos> target = BlockPos.findClosest(
+                    termiteEntity.getBlockPos(),
+                    16,
+                    8,
+                    pos -> termiteEntity.getEntityWorld().getBlockState(pos).isIn(BlockTags.LOGS)
+            );
 
-            int startX = chunk.getPos().getStartX();
-            int startZ = chunk.getPos().getStartZ();
-
-            for (int x = 0; x < 16; x++) {
-                for (int z = 0; z < 16; z++) {
-                    for (int y = chunk.getBottomY(); y < chunk.getHeight(); y++) {
-
-                        pos.set(startX + x, y, startZ + z);
-
-                        if (chunk.getBlockState(pos).getBlock().getDefaultState().isIn(BlockTags.LOGS) ) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
-        private static ArrayList<BlockPos> getAllPositions(Chunk chunk) {
-            ArrayList<BlockPos> allPositions = new ArrayList<>();
-            BlockPos.Mutable pos = new BlockPos.Mutable();
-
-            int startX = chunk.getPos().getStartX();
-            int startZ = chunk.getPos().getStartZ();
-
-            for (int x = 0; x < 16; x++) {
-                for (int z = 0; z < 16; z++) {
-                    for (int y = chunk.getBottomY(); y < chunk.getHeight(); y++) {
-
-                        pos.set(startX + x, y, startZ + z);
-
-                        if (chunk.getBlockState(pos).isIn(BlockTags.LOGS)) {
-                            allPositions.add(pos.toImmutable());
-                        }
-                    }
-                }
-            }
-            return allPositions;
+            target.ifPresent(pos -> {
+                targetPos = pos;
+                termiteEntity.getNavigation().startMovingTo(
+                        pos.getX(), pos.getY(), pos.getZ(), 0.4
+                );
+            });
         }
 
         @Override
         public boolean shouldContinue() {
-            return false;
+            return !termiteEntity.getNavigation().isIdle();
         }
-
-        public void tick() {
-            --this.delay;
-
-            if (this.delay <= 0) {
-                Optional<BlockPos> target = BlockPos.findClosest(
-                        termtieEntity.getBlockPos(),
-                        16,
-                        8,
-                        pos -> termtieEntity.getEntityWorld().getBlockState(pos).isIn(BlockTags.LOGS)
-                );
-                System.out.println(target + " nearest log");
-
-                target.ifPresent(pos -> termtieEntity.getNavigation().startMovingTo(
-                        pos.getX(),
-                        pos.getY(),
-                        pos.getZ(),
-                        0.4
-                ));
-            }
-        }
-
-
     }
 
 }
