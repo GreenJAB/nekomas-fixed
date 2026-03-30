@@ -50,6 +50,7 @@ public class TermiteEntity extends HostileEntity {
                 .add(EntityAttributes.STEP_HEIGHT, 1d);
     }
 
+    @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
         world.sendEntityStatus(this, (byte)10);
         this.playSound(SoundEvents.ENTITY_SILVERFISH_AMBIENT, 10.0F, this.getSoundPitch());
