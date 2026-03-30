@@ -57,8 +57,6 @@ public class TermiteEntity extends HostileEntity {
         return super.tryAttack(world, target);
     }
 
-
-
     @Override
     public void handleStatus(byte status) {
         if (status == 10) {
