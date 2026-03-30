@@ -93,10 +93,8 @@ public class TermiteModel<T extends AnimalEntity> extends EntityModel<TermiteRen
     public void setAngles(TermiteRenderState state) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-        // Head rotation
         this.setHeadAngles(state.bodyYaw, state.pitch);
 
-        // Animations
         this.idleAnimationState.apply(state.idleAnimationState, state.age);
         this.runAnimationState.apply(state.runAnimationState, state.age);
         this.swipeAnimationState.apply((long) state.age, 1.5f);

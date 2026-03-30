@@ -1,25 +1,20 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
-import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import org.jspecify.annotations.Nullable;
 
-public class TermiteEntity extends AnimalEntity {
-    public static final AnimationState idleAnimationState = new AnimationState();
+public class TermiteEntity extends HostileEntity {
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState runAnimationState = new AnimationState();
     int idleAnimationTimeout = 0;
 
-    public TermiteEntity(EntityType<? extends AnimalEntity> entityType, World world) {
+    public TermiteEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -57,17 +52,15 @@ public class TermiteEntity extends AnimalEntity {
         super.tick();
 
         if (this.getEntityWorld().isClient()) {
-            this.setupAnimationStates();
+
+            if (this.getVelocity().horizontalLengthSquared() > 0.0001) {
+                runAnimationState.startIfNotRunning(this.age);
+                idleAnimationState.stop();
+            } else {
+                idleAnimationState.startIfNotRunning(this.age);
+                runAnimationState.stop();
+            }
         }
     }
 
-    @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return false;
-    }
-
-    @Override
-    public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return EntityTypeRegistry.TERMITE.create(world, SpawnReason.BREEDING);
-    }
 }
