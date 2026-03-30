@@ -2,18 +2,17 @@ package net.greenjab.nekomasfixed.render.entity.model;
 
 import net.greenjab.nekomasfixed.render.entity.animation.TermiteAnimations;
 import net.greenjab.nekomasfixed.render.entity.state.TermiteRenderState;
-import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-public class TermiteModel<T extends AnimalEntity> extends EntityModel<TermiteRenderState> {
+public class TermiteModel<T extends HostileEntity> extends EntityModel<TermiteRenderState> {
     public static final EntityModelLayer TERMITE = new EntityModelLayer(Identifier.of("nekomasfixed", "termite"), "main");
     private final ModelPart bone;
     private final ModelPart body;
