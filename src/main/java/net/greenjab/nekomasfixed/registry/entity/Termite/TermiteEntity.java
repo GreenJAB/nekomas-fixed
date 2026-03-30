@@ -1,17 +1,30 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.InfestedBlock;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.brain.task.MoveToTargetTask;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.SilverfishEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.rule.GameRules;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TermiteEntity extends HostileEntity {
-    //custom goal
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     int idleAnimationTimeout = 0;
@@ -64,6 +77,109 @@ public class TermiteEntity extends HostileEntity {
                 idleAnimationState.startIfNotRunning(this.age);
                 runAnimationState.stop();
             }
+        }
+    }
+
+    //custom goal for fetching on trees!!!
+    static class SearchForLogGoal extends Goal {
+        private final TermiteEntity termtieEntity;
+        private int delay;
+
+        public SearchForLogGoal(TermiteEntity termiteEntity) {
+            this.termtieEntity = termiteEntity;
+        }
+
+        public void onHurt() {
+            if (this.delay == 0) {
+                this.delay = this.getTickCount(20);
+            }
+
+        }
+
+        public boolean canStart() {
+            return this.delay > 0;
+        }
+
+        private static boolean chunkContainsBlock(Chunk chunk) {
+            BlockPos.Mutable pos = new BlockPos.Mutable();
+
+            int startX = chunk.getPos().getStartX();
+            int startZ = chunk.getPos().getStartZ();
+
+            for (int x = 0; x < 16; x++) {
+                for (int z = 0; z < 16; z++) {
+                    for (int y = chunk.getBottomY(); y < chunk.getHeight(); y++) {
+
+                        pos.set(startX + x, y, startZ + z);
+
+                        if (chunk.getBlockState(pos).getBlock().getDefaultState().isIn(BlockTags.LOGS) ) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private static ArrayList<BlockPos> getAllPositions(Chunk chunk) {
+            ArrayList<BlockPos> allPositions = new ArrayList<>();
+            BlockPos.Mutable pos = new BlockPos.Mutable();
+
+            int startX = chunk.getPos().getStartX();
+            int startZ = chunk.getPos().getStartZ();
+
+            for (int x = 0; x < 16; x++) {
+                for (int z = 0; z < 16; z++) {
+                    for (int y = chunk.getBottomY(); y < chunk.getHeight(); y++) {
+
+                        pos.set(startX + x, y, startZ + z);
+
+                        if (chunk.getBlockState(pos).getBlock().getDefaultState().isIn(BlockTags.LOGS) ) {
+                            allPositions.add(pos);
+                        }
+                    }
+                }
+            }
+            return allPositions;
+        }
+
+        public void tick() {
+            --this.delay;
+            if (this.delay <= 0) {
+                World world = this.termtieEntity.getEntityWorld();
+                Random random = this.termtieEntity.getRandom();
+                BlockPos blockPos = this.termtieEntity.getBlockPos();
+
+                ArrayList<Chunk> chunks = new ArrayList<>();
+                int chunkX = blockPos.getX() >> 4;
+                int chunkZ = blockPos.getZ() >> 4;
+                chunks.add(world.getChunk(chunkX, chunkZ));
+                chunks.add(world.getChunk(chunkX + 1, chunkZ));
+                chunks.add(world.getChunk(chunkX + 1, chunkZ + 1));
+                chunks.add(world.getChunk(chunkX, chunkZ + 1));
+
+                ArrayList<BlockPos> allLogs = new ArrayList<>();
+
+                for(Chunk chunk: chunks){
+                    if(chunkContainsBlock(chunk)){
+                        allLogs.addAll(getAllPositions(chunk));
+                    }
+                }
+                BlockPos leastToEntity = new BlockPos(allLogs.get(0));
+                for(BlockPos pos : allLogs){
+                    if(pos.isWithinDistance(pos, 15d)){
+                        leastToEntity = pos;
+                    }
+                }
+
+                termtieEntity.getNavigation().startMovingTo(
+                        leastToEntity.getX(),
+                        leastToEntity.getY(),
+                        leastToEntity.getZ(),
+                        0.4d
+                );
+            }
+
         }
     }
 
