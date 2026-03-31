@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -8,12 +9,14 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 
 import java.util.Optional;
 
@@ -30,6 +33,7 @@ public class TermiteEntity extends HostileEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(1, new GoToNearestMound(this, 0.4d, 32));
         this.goalSelector.add(1, new PowderSnowJumpGoal(this, this.getEntityWorld()));
         this.goalSelector.add(2, new SearchForLogGoal(this));
         this.goalSelector.add(3, new WanderAroundGoal(this, 0.4d));
@@ -91,7 +95,31 @@ public class TermiteEntity extends HostileEntity {
         }
     }
 
-    //custom goal for fetching on trees!!!
+
+    static class GoToNearestMound extends MoveToTargetPosGoal {
+
+        public GoToNearestMound(PathAwareEntity mob, double speed, int range) {
+            super(mob, speed, range);
+        }
+
+        @Override
+        protected boolean isTargetPos(WorldView world, BlockPos pos) {
+            return world.getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE);
+        }
+
+        @Override
+        public boolean canStart() {
+            return this.mob.getRandom().nextInt(40) == 0;
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            return !this.hasReached();
+        }
+    }
+
+
+    //custom goal for fetching a tree!!!
     static class SearchForLogGoal extends Goal {
         private final TermiteEntity termiteEntity;
         private BlockPos targetPos;
