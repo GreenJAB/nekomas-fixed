@@ -175,9 +175,7 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            return this.termiteEntity.isInMound.filter(aBoolean -> this.termiteEntity.getEntityWorld().isNight()
-                    && !aBoolean
-                    && this.termiteEntity.getMoundPosition().isPresent()).isPresent();
+            return this.termiteEntity.getEntityWorld().isNight() && this.termiteEntity.getMoundPosition().isPresent();
         }
 
         @Override
