@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.entity.*;
+import net.greenjab.nekomasfixed.registry.entity.TermiteHiveBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -24,6 +25,9 @@ public class BlockEntityTypeRegistry {
 
     public static final BlockEntityType<KilnBlockEntity> KILN_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("kiln"),
             FabricBlockEntityTypeBuilder.create(KilnBlockEntity::new, BlockRegistry.KILN).build());
+
+    public static final BlockEntityType<TermiteHiveBlockEntity> TERMITE_HIVE_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("termite_hive"),
+            FabricBlockEntityTypeBuilder.create(TermiteHiveBlockEntity::new, BlockRegistry.TERMITE_HIVE).build());
 
 
     public static void registerBlockEntityType() {

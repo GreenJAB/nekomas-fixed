@@ -20,7 +20,7 @@ import org.jspecify.annotations.Nullable;
 public class BoababFruitBlock extends Block implements Fertilizable {
     public static final MapCodec<BoababFruitBlock> CODEC = createCodec(BoababFruitBlock::new);
     public static final int MAX_AGE = 1;
-    public static final IntProperty AGE = IntProperty.of("age", 0, 2);
+    public static final IntProperty AGE = IntProperty.of("age", 0, 1);
 
     public BoababFruitBlock(Settings settings) {
         super(settings);
