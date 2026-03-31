@@ -113,7 +113,7 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            return this.mob.getRandom().nextInt(40) == 0;
+            return this.termiteEntity.getEntityWorld().isNight();
         }
 
         @Override
