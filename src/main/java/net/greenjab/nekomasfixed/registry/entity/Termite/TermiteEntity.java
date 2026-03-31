@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -39,7 +40,7 @@ public class TermiteEntity extends HostileEntity {
         this.goalSelector.add(3, new WanderAroundGoal(this, 0.4d));
         this.goalSelector.add(3, new LookAtEntityGoal(this, net.minecraft.entity.player.PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 0.6F, false));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 0.6F, false));
         this.targetSelector.add(1, (new RevengeGoal(this)).setGroupRevenge());
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
@@ -99,9 +100,10 @@ public class TermiteEntity extends HostileEntity {
 
     //find the nearest mound and go towards it
     private static class GoToNearestMound extends MoveToTargetPosGoal {
-
-        public GoToNearestMound(PathAwareEntity mob, double speed, int range) {
+        private final TermiteEntity termiteEntity;
+        public GoToNearestMound(TermiteEntity mob, double speed, int range) {
             super(mob, speed, range);
+            this.termiteEntity = mob;
         }
 
         @Override
@@ -117,6 +119,23 @@ public class TermiteEntity extends HostileEntity {
         @Override
         public boolean shouldContinue() {
             return !this.hasReached();
+        }
+
+        @Override
+        public void start() {
+            Optional<BlockPos> target = BlockPos.findClosest(
+                    termiteEntity.getBlockPos(),
+                    16,
+                    8,
+                    pos -> termiteEntity.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
+            );
+
+            target.ifPresent(pos -> {
+                targetPos = pos;
+                termiteEntity.getNavigation().startMovingTo(
+                        pos.getX(), pos.getY(), pos.getZ(), 0.4
+                );
+            });
         }
     }
 
