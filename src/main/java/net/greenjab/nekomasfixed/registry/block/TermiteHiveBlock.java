@@ -54,12 +54,6 @@ public class TermiteHiveBlock extends BlockWithEntity {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockEntity blockEntity = ctx.getWorld().getBlockEntity(ctx.getBlockPos());
-        if(blockEntity instanceof TermiteHiveBlockEntity){
-            if(((TermiteHiveBlockEntity) blockEntity).getTermiteCount()>0){
-                return this.getDefaultState().with(TERMITES, ((TermiteHiveBlockEntity) blockEntity).getTermiteCount());
-            }
-        }
         return this.getDefaultState();
     }
 
@@ -77,6 +71,7 @@ public class TermiteHiveBlock extends BlockWithEntity {
             return (world1, pos, state1, blockEntity) -> {
                 if (blockEntity instanceof TermiteHiveBlockEntity hive) {
                     TermiteHiveBlockEntity.serverTick(world1, pos, state1, hive);
+                    world1.setBlockState(pos, state1.with(TERMITES, hive.getTermiteCount()), 3);
                 }
             };
         }
@@ -103,7 +98,6 @@ public class TermiteHiveBlock extends BlockWithEntity {
                 }
             }
         }
-
         return super.onBreak(world, pos, state, player);
     }
 

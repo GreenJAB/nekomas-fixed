@@ -185,7 +185,12 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public void start() {
-            Optional<BlockPos> target = findNearestMound(termiteEntity);
+            Optional<BlockPos> target = BlockPos.findClosest(
+                    termiteEntity.getBlockPos(),
+                    16,
+                    8,
+                    pos -> termiteEntity.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
+            );
 
             if(target.isPresent()){
                 target.ifPresent(pos -> {
@@ -234,14 +239,17 @@ public class TermiteEntity extends HostileEntity {
             return canTermiteStart();
         }
 
+        @Override
         public void start() {
-            TermiteHiveBlockEntity termiteHiveBlockEntity = TermiteEntity.this.getMound();
-            if (termiteHiveBlockEntity != null) {
-                termiteHiveBlockEntity.tryEnterMound(TermiteEntity.this);
-            }
-            TermiteEntity.this.setReachedHome(true);
+            TermiteHiveBlockEntity hive = TermiteEntity.this.getMound();
 
+            if (hive != null && !hive.isFullOfTermites()) {
+                if (hive.tryEnterMound(TermiteEntity.this)) {
+                    TermiteEntity.this.discard();
+                }
+            }
         }
+
     }
 
 
@@ -258,7 +266,7 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            return termiteEntity.isInMound.filter(aBoolean -> termiteEntity.getRandom().nextInt(40) == 0 && !aBoolean).isPresent();
+            return termiteEntity.getRandom().nextInt(40) == 0 && !termiteEntity.isInMound.get();
         }
 
         boolean isRunning() {
@@ -284,6 +292,7 @@ public class TermiteEntity extends HostileEntity {
                         pos.getX(), pos.getY(), pos.getZ(), 0.4
                 );
             });
+            this.stop();
         }
 
         @Override

@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
 import com.google.common.collect.Lists;
+import net.greenjab.nekomasfixed.registry.block.TermiteHiveBlock;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
@@ -49,20 +50,18 @@ public class TermiteHiveBlockEntity extends BlockEntity {
         termite.discard();
     }
 
-    public void tryEnterMound(TermiteEntity entity) {
-        if (termites.size() < 3) {
-            entity.stopRiding();
-            entity.removeAllPassengers();
-            entity.detachLeash();
-            this.addTermite(entity);
-            if (this.world != null) {
-               BlockPos blockPos = this.getPos();
-                this.world.playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                this.world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(entity, this.getCachedState()));
-            }
-
-            entity.discard();
+    public boolean tryEnterMound(TermiteEntity termite) {
+        if (termites.size() >= MAX_TERMITE_COUNT) return false;
+        NbtCompound nbt = new NbtCompound();
+        termite.writeCustomDataToNbt(nbt);
+        termites.add(nbt);
+        termite.discard();
+        if (world != null) {
+            BlockState state = world.getBlockState(pos);
+            world.setBlockState(pos, state.with(TermiteHiveBlock.TERMITES, termites.size()));
         }
+
+        return true;
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, TermiteHiveBlockEntity blockEntity) {
