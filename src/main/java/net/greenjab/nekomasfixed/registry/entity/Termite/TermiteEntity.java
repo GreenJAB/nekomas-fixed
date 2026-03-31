@@ -82,8 +82,6 @@ public class TermiteEntity extends HostileEntity {
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
-
-        if(this.isInMound.isEmpty()) return;
         nbt.putBoolean("IsInMound", this.isInMound.get());
 
         if (this.moundPosition.isPresent()) {
@@ -97,16 +95,14 @@ public class TermiteEntity extends HostileEntity {
         }
     }
 
-    public void readCustomDataFromNbt(@UnknownNullability NbtCompound nbt) {
-
+    public void readCustomDataFromNbt(NbtCompound nbt) {
         this.isInMound = nbt.getBoolean("IsInMound");
-        if (nbt.getBoolean("HasMoundPosition").isPresent() && nbt.getBoolean("HasMoundPosition").get()) {
-            Optional<Integer> x = nbt.getInt("MoundX");
-            Optional<Integer> y = nbt.getInt("MoundY");
-            Optional<Integer> z = nbt.getInt("MoundZ");
-            if(x.isPresent() && y.isPresent() && z.isPresent()){
-                this.moundPosition = Optional.of(new BlockPos(x.get(), y.get(), z.get()));
-            }
+
+        if (nbt.getBoolean("HasMoundPosition").get() && nbt.getBoolean("HasMoundPosition").isPresent() ) {
+            int x = nbt.getInt("MoundX").get();
+            int y = nbt.getInt("MoundY").get();
+            int z = nbt.getInt("MoundZ").get();
+            this.moundPosition = Optional.of(new BlockPos(x, y, z));
         } else {
             this.moundPosition = Optional.empty();
         }
@@ -179,8 +175,9 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            this.termiteEntity.getEntityWorld().isNight();
-            return false;
+            return this.termiteEntity.isInMound.filter(aBoolean -> this.termiteEntity.getEntityWorld().isNight()
+                    && !aBoolean
+                    && this.termiteEntity.getMoundPosition().isPresent()).isPresent();
         }
 
         @Override
@@ -199,7 +196,7 @@ public class TermiteEntity extends HostileEntity {
                             pos.getX(), pos.getY(), pos.getZ(), 0.4
                     );
                 });
-                termiteEntity.setReachedHome(true);
+
             }
 
 
@@ -210,7 +207,13 @@ public class TermiteEntity extends HostileEntity {
     private class EnterMoundGoal extends Goal {
 
         public boolean canTermiteStart() {
-            if (TermiteEntity.this.moundPosition.isPresent() && TermiteEntity.this.canEnterMound() && TermiteEntity.this.moundPosition.get().isWithinDistance(TermiteEntity.this.getEntityPos(), 2.0F)) {
+            if (TermiteEntity.this.moundPosition.isPresent()
+                    && TermiteEntity.this.canEnterMound()
+                    && TermiteEntity.this.squaredDistanceTo(
+                    TermiteEntity.this.moundPosition.get().getX() + 0.5,
+                    TermiteEntity.this.moundPosition.get().getY() + 0.5,
+                    TermiteEntity.this.moundPosition.get().getZ() + 0.5
+            ) < 4.0) {
                 TermiteHiveBlockEntity termiteHiveBlockEntity = TermiteEntity.this.getMound();
                 if (termiteHiveBlockEntity != null) {
                     if (!termiteHiveBlockEntity.isFullOfTermites()) {
@@ -238,6 +241,7 @@ public class TermiteEntity extends HostileEntity {
             if (termiteHiveBlockEntity != null) {
                 termiteHiveBlockEntity.tryEnterMound(TermiteEntity.this);
             }
+            TermiteEntity.this.setReachedHome(true);
 
         }
     }
@@ -256,8 +260,7 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            termiteEntity.getRandom().nextInt(40);
-            return false;
+            return termiteEntity.isInMound.filter(aBoolean -> termiteEntity.getRandom().nextInt(40) == 0 && !aBoolean).isPresent();
         }
 
         boolean isRunning() {
