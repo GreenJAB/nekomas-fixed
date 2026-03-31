@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
+import net.greenjab.nekomasfixed.registry.entity.TermiteHiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
@@ -29,6 +30,7 @@ public class TermiteEntity extends HostileEntity {
     int idleAnimationTimeout = 0;
     public Optional<Boolean> isInMound = Optional.of(false);
     private Optional<BlockPos> moundPosition = findNearestMound(this).isEmpty() ? Optional.empty() : findNearestMound(this);
+    SearchForLogGoal searchForLogGoal;
 
     public TermiteEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -36,10 +38,11 @@ public class TermiteEntity extends HostileEntity {
 
     @Override
     protected void initGoals() {
+        this.goalSelector.add(1, new EnterMoundGoal());
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(1, new GoToNearestMound(this, 0.4d, 32));
-        this.goalSelector.add(1, new PowderSnowJumpGoal(this, this.getEntityWorld()));
-        this.goalSelector.add(2, new SearchForLogGoal(this));
+        this.goalSelector.add(4, new GoToNearestMound(this, 0.4d, 32));
+        this.searchForLogGoal = new SearchForLogGoal(this);
+        this.goalSelector.add(2, this.searchForLogGoal);
         this.goalSelector.add(3, new WanderAroundGoal(this, 0.4d));
         this.goalSelector.add(3, new LookAtEntityGoal(this, net.minecraft.entity.player.PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
@@ -72,6 +75,10 @@ public class TermiteEntity extends HostileEntity {
         } else {
             super.handleStatus(status);
         }
+    }
+
+    boolean canEnterMound() {
+        return !this.searchForLogGoal.isRunning() && this.getTarget() == null && this.getEntityWorld().isNight();
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
@@ -132,6 +139,11 @@ public class TermiteEntity extends HostileEntity {
                 runAnimationState.stop();
             }
         }
+    }
+
+    public TermiteHiveBlockEntity getMound(){
+        if(this.getMoundPosition().isEmpty()){return null;}
+        return (TermiteHiveBlockEntity) this.getEntityWorld().getBlockEntity(this.getMoundPosition().get());
     }
 
     public Optional<BlockPos> getMoundPosition() {
@@ -195,11 +207,48 @@ public class TermiteEntity extends HostileEntity {
     }
 
 
+    private class EnterMoundGoal extends Goal {
+
+        public boolean canTermiteStart() {
+            if (TermiteEntity.this.moundPosition.isPresent() && TermiteEntity.this.canEnterMound() && TermiteEntity.this.moundPosition.get().isWithinDistance(TermiteEntity.this.getEntityPos(), 2.0F)) {
+                TermiteHiveBlockEntity termiteHiveBlockEntity = TermiteEntity.this.getMound();
+                if (termiteHiveBlockEntity != null) {
+                    if (!termiteHiveBlockEntity.isFullOfTermites()) {
+                        return true;
+                    }
+
+                    TermiteEntity.this.moundPosition = Optional.empty();
+                }
+            }
+
+            return false;
+        }
+
+        public boolean canTermiteContinue() {
+            return false;
+        }
+
+        @Override
+        public boolean canStart() {
+            return canTermiteStart();
+        }
+
+        public void start() {
+            TermiteHiveBlockEntity termiteHiveBlockEntity = TermiteEntity.this.getMound();
+            if (termiteHiveBlockEntity != null) {
+                termiteHiveBlockEntity.tryEnterMound(TermiteEntity.this);
+            }
+
+        }
+    }
+
+
 
     //custom goal for fetching a tree!!!
     private static class SearchForLogGoal extends Goal {
         private final TermiteEntity termiteEntity;
         private BlockPos targetPos;
+        private boolean running;
 
         public SearchForLogGoal(TermiteEntity termiteEntity) {
             this.termiteEntity = termiteEntity;
@@ -211,8 +260,16 @@ public class TermiteEntity extends HostileEntity {
             return false;
         }
 
+        boolean isRunning() {
+            return this.running;
+        }
+
+        @Override
+        public void stop(){this.running = false;}
+
         @Override
         public void start() {
+            this.running = true;
             Optional<BlockPos> target = BlockPos.findClosest(
                     termiteEntity.getBlockPos(),
                     16,

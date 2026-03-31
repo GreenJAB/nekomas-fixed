@@ -6,14 +6,17 @@ import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +49,22 @@ public class TermiteHiveBlockEntity extends BlockEntity {
         termite.writeCustomDataToNbt(nbt);
         termites.add(nbt);
         termite.discard();
+    }
+
+    public void tryEnterMound(TermiteEntity entity) {
+        if (termites.size() < 3) {
+            entity.stopRiding();
+            entity.removeAllPassengers();
+            entity.detachLeash();
+            this.addTermite(entity);
+            if (this.world != null) {
+               BlockPos blockPos = this.getPos();
+                this.world.playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_BEEHIVE_ENTER, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                this.world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(entity, this.getCachedState()));
+            }
+
+            entity.discard();
+        }
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, TermiteHiveBlockEntity blockEntity) {
