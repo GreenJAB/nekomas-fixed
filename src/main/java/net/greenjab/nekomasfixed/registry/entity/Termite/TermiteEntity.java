@@ -96,7 +96,9 @@ public class TermiteEntity extends HostileEntity {
     }
 
 
-    static class GoToNearestMound extends MoveToTargetPosGoal {
+
+    //find the nearest mound and go towards it
+    private static class GoToNearestMound extends MoveToTargetPosGoal {
 
         public GoToNearestMound(PathAwareEntity mob, double speed, int range) {
             super(mob, speed, range);
@@ -119,8 +121,9 @@ public class TermiteEntity extends HostileEntity {
     }
 
 
+
     //custom goal for fetching a tree!!!
-    static class SearchForLogGoal extends Goal {
+    private static class SearchForLogGoal extends Goal {
         private final TermiteEntity termiteEntity;
         private BlockPos targetPos;
 
