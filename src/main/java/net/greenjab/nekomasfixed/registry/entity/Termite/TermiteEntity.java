@@ -39,8 +39,8 @@ public class TermiteEntity extends HostileEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new EnterMoundGoal());
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(4, new GoToNearestMound(this, 0.4d, 32));
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new GoToNearestMound(this, 0.4d, 32));
         this.searchForLogGoal = new SearchForLogGoal(this);
         this.goalSelector.add(2, this.searchForLogGoal);
         this.goalSelector.add(3, new WanderAroundGoal(this, 0.4d));
@@ -210,12 +210,13 @@ public class TermiteEntity extends HostileEntity {
     private class EnterMoundGoal extends Goal {
 
         public boolean canTermiteStart() {
+            TermiteEntity.this.moundPosition = findNearestMound(TermiteEntity.this);
             if (TermiteEntity.this.moundPosition.isPresent()
                     && TermiteEntity.this.canEnterMound()
                     && TermiteEntity.this.squaredDistanceTo(
-                    TermiteEntity.this.moundPosition.get().getX() + 0.5,
-                    TermiteEntity.this.moundPosition.get().getY() + 0.5,
-                    TermiteEntity.this.moundPosition.get().getZ() + 0.5
+                    TermiteEntity.this.moundPosition.get().getX() + 2f,
+                    TermiteEntity.this.moundPosition.get().getY() + 2f,
+                    TermiteEntity.this.moundPosition.get().getZ() + 2f
             ) < 4.0) {
                 TermiteHiveBlockEntity termiteHiveBlockEntity = TermiteEntity.this.getMound();
                 if (termiteHiveBlockEntity != null) {
@@ -266,7 +267,7 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            return termiteEntity.getRandom().nextInt(40) == 0 && !termiteEntity.isInMound.get();
+            return termiteEntity.getRandom().nextInt(40) == 0 && !termiteEntity.isInMound.get() && termiteEntity.getEntityWorld().isDay();
         }
 
         boolean isRunning() {
