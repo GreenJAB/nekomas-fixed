@@ -185,7 +185,7 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public void start() {
-            Optional<BlockPos> target = termiteEntity.getMoundPosition();
+            Optional<BlockPos> target = findNearestMound(termiteEntity);
 
             if(target.isPresent()){
                 target.ifPresent(pos -> {
