@@ -35,7 +35,7 @@ import java.util.List;
 public class TermiteHiveBlock extends BlockWithEntity {
     public static final MapCodec<TermiteHiveBlock> CODEC = createCodec(TermiteHiveBlock::new);
     public static IntProperty TERMITES = IntProperty.of("termites", 0, 2);
-    protected TermiteHiveBlock(Settings settings) {
+    public TermiteHiveBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(TERMITES, 0));
     }

@@ -115,7 +115,7 @@ public class BlockRegistry {
     public static final Block BOABAB_LOG = register("boabab_log", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG));
     public static final Block BOABAB_SAPLING = register("boabab_sapling",(settings) -> new SaplingBlock(new SaplingGenerator("nekomasfixed:boabab", Optional.empty(), Optional.of(ModConfiguredFeatures.BOABAB_KEY), Optional.empty()),  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
 
-    public static final Block TERMITE_BLOCK = register("termite_block", AbstractBlock.Settings.create().strength(1f));
+    public static final Block TERMITE_BLOCK = register("termite_block",TermiteHiveBlock::new, AbstractBlock.Settings.create().strength(1f));
     public static final Block TERMITE_HIVE = register("termite_hive", AbstractBlock.Settings.create().strength(1f));
 
     public static final Block WHITE_FROGLIGHT = register("white_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
