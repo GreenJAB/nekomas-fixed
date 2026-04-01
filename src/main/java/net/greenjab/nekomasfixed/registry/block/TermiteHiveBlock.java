@@ -6,18 +6,14 @@ import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -25,14 +21,14 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.rule.GameRules;
-import net.minecraft.world.tick.ScheduledTickView;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
+
+import static net.greenjab.nekomasfixed.NekomasFixed.enchantLevel;
 
 public class TermiteHiveBlock extends BlockWithEntity {
     public static final MapCodec<TermiteHiveBlock> CODEC = createCodec(TermiteHiveBlock::new);
@@ -94,9 +90,15 @@ public class TermiteHiveBlock extends BlockWithEntity {
                     if (bl || i > 0) {
                         ItemStack itemStack = new ItemStack(this);
                         itemStack.applyComponentsFrom(termiteHiveBlockEntity.createComponentMap());
+                        if(!(enchantLevel(player.getMainHandStack(), "silk_touch") >0)){
+                            i=0;
+                        }
                         itemStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(TERMITES, i));
                         ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                         itemEntity.setToDefaultPickupDelay();
+                        if(world.getBlockEntity(pos) instanceof TermiteHiveBlockEntity termiteHive){
+                            termiteHive.releaseAllTermites(world, state);
+                        }
                         world.spawnEntity(itemEntity);
                     }
                 }
@@ -107,7 +109,6 @@ public class TermiteHiveBlock extends BlockWithEntity {
 
     @Override
     protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
-        Entity entity = builder.getOptional(LootContextParameters.THIS_ENTITY);
         return super.getDroppedStacks(state, builder);
     }
 
