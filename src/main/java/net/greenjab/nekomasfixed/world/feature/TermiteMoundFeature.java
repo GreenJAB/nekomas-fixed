@@ -23,18 +23,17 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         int height = random.nextInt(2)+4;
         BlockPos start = context.getOrigin();
         BlockPos.Mutable currentPos = start.mutableCopy();
-        int X = start.getX();
-        int Z = start.getZ();
         int x,y,z;
 
         for (y = 0; y < height - 1; y++) {
-            float r = 3.5f - 1.66f * (y / (height + 0f));
+            float r = 1.5f - 0.33f * (y / (height + 0f));
             for (x = -4; x <= 4; x++) {
                 for (z = -4; z <= 4; z++) {
                     float distSq = x * x + z * z;
                     if (distSq <= r * r) {
                         BlockPos pos = start.add(x, y, z);
                         world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 1);
+                        world.updateNeighbors(pos, BlockRegistry.TERMITE_BLOCK);
                     }
                 }
             }
