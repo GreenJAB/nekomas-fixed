@@ -27,12 +27,12 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         int Z = start.getZ();
         int x,y,z;
 
-        for (y = 0; y < height-1; y++) {
-            float r = 3.5f -1.66f * (y / (height + 0f));
+        for (y = 0; y < height - 1; y++) {
+            float r = 3.5f - 1.66f * (y / (height + 0f));
             for (x = -4; x <= 4; x++) {
                 for (z = -4; z <= 4; z++) {
-                    float distSq = (x - X) * (x - X) + (z - Z) * (z - Z);
-                    if (distSq <= r*r) {
+                    float distSq = x * x + z * z;
+                    if (distSq <= r * r) {
                         BlockPos pos = start.add(x, y, z);
                         world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 1);
                     }
@@ -44,7 +44,7 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
 
 
 //    @Unique
-//    private static boolean isExpsedToAir(World world, BlockPos pos){
+//    private static boolean isExposedToAir(World world, BlockPos pos){
 //        int airCount=0;
 //        if(world.getBlockState(pos).+=1;}
 //        return airCount>0;
