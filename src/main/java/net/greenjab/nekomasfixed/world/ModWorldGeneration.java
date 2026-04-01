@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.ClamFeature;
 import net.greenjab.nekomasfixed.world.feature.TermiteMoundFeature;
+import net.minecraft.entity.passive.PandaEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.biome.BiomeKeys;
@@ -18,6 +19,8 @@ public class ModWorldGeneration {
     public static void generateModWorldGen() {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SAVANNA, BiomeKeys.SAVANNA_PLATEAU, BiomeKeys.WINDSWEPT_SAVANNA),
                 GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BAOBAB_PLACED_KEY);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SAVANNA, BiomeKeys.SAVANNA_PLATEAU, BiomeKeys.WINDSWEPT_SAVANNA, BiomeKeys.DESERT),
+                GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.MOUND_PLACED_KEY);
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WARM_OCEAN), GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.CLAM_PLACED_KEY);
     }
