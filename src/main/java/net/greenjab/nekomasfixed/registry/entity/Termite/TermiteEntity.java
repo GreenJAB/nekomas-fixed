@@ -21,6 +21,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.UnknownNullability;
 import org.jspecify.annotations.NonNull;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class TermiteEntity extends HostileEntity {
@@ -30,6 +31,7 @@ public class TermiteEntity extends HostileEntity {
     int idleAnimationTimeout = 0;
     public Optional<Boolean> isInMound = Optional.of(false);
     private Optional<BlockPos> moundPosition = findNearestMound(this).isEmpty() ? Optional.empty() : findNearestMound(this);
+
     SearchForLogGoal searchForLogGoal;
 
     public TermiteEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -175,6 +177,11 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
+//            if(this.termiteEntity.getEntityWorld().getBlockEntity(this.termiteEntity.getMoundPosition().get()) instanceof TermiteHiveBlockEntity termiteHiveBlockEntity){
+//                if(termiteHiveBlockEntity.isFullOfTermites()){
+//                    this.termiteEntity.setMoundPosition(fin);
+//                }
+//            }
             return this.termiteEntity.getEntityWorld().isNight() && this.termiteEntity.getMoundPosition().isPresent();
         }
 
@@ -217,7 +224,7 @@ public class TermiteEntity extends HostileEntity {
                     TermiteEntity.this.moundPosition.get().getX() + 2f,
                     TermiteEntity.this.moundPosition.get().getY() + 2f,
                     TermiteEntity.this.moundPosition.get().getZ() + 2f
-            ) < 4.0) {
+            ) < 4.0 ) {
                 TermiteHiveBlockEntity termiteHiveBlockEntity = TermiteEntity.this.getMound();
                 if (termiteHiveBlockEntity != null) {
                     if (!termiteHiveBlockEntity.isFullOfTermites()) {
