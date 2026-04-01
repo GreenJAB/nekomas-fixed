@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.ClamFeature;
+import net.greenjab.nekomasfixed.world.feature.TermiteMoundFeature;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.biome.BiomeKeys;
@@ -11,6 +12,7 @@ import net.minecraft.world.gen.CountConfig;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
 
 public class ModWorldGeneration {
     public static void generateModWorldGen() {
@@ -21,6 +23,7 @@ public class ModWorldGeneration {
     }
 
     public static final Feature<CountConfig> CLAM_FEATURE = registerFeature("clam", new ClamFeature(CountConfig.CODEC));
+    public static final TermiteMoundFeature MOUND_FEATURE = registerFeature("mound", new TermiteMoundFeature(SimpleBlockFeatureConfig.CODEC));
     private static <C extends FeatureConfig, F extends Feature<C>> F registerFeature(String name, F feature) {
         return Registry.register(Registries.FEATURE, NekomasFixed.id(name), feature);
     }
