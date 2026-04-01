@@ -23,12 +23,13 @@ import java.util.Optional;
 
 public class TermiteHiveBlockEntity extends BlockEntity {
 
-    private static final List<NbtCompound> termites = Lists.newArrayList();
+    private  final List<NbtCompound> termites = Lists.newArrayList();
     public static final int MAX_TERMITE_COUNT = 2;
 
     public TermiteHiveBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityTypeRegistry.TERMITE_HIVE_BLOCK_ENTITY, pos, state);
     }
+    public boolean getTermites(){return this.termites.isEmpty();}
 
     public boolean hasNoTermites() {
         return termites.isEmpty();
@@ -65,7 +66,9 @@ public class TermiteHiveBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, TermiteHiveBlockEntity blockEntity) {
-        if (!termites.isEmpty() && world.getRandom().nextDouble() < 0.005) {
+        tickTermites(world, pos, state, blockEntity.termites);
+
+        if (!blockEntity.termites.isEmpty() && world.getRandom().nextDouble() < 0.005) {
             double d = pos.getX() + 0.5;
             double e = pos.getY();
             double f = pos.getZ() + 0.5;
@@ -93,7 +96,7 @@ public class TermiteHiveBlockEntity extends BlockEntity {
     }
 
     private static boolean releaseTermite(World world, BlockPos pos, BlockState state, NbtCompound nbt) {
-        Direction direction = state.get(BeehiveBlock.FACING);
+        Direction direction = state.get(TermiteHiveBlock.FACING);
         BlockPos front = pos.offset(direction);
 
         if (!world.getBlockState(front).getCollisionShape(world, front).isEmpty()) {
@@ -126,7 +129,7 @@ public class TermiteHiveBlockEntity extends BlockEntity {
     public boolean releaseAllTermites(World world, BlockState state) {
         if (termites.isEmpty()) return false;
 
-        Direction direction = state.get(BeehiveBlock.FACING);
+        Direction direction = state.get(TermiteHiveBlock.FACING);
         BlockPos front = pos.offset(direction);
 
         if (!world.getBlockState(front).getCollisionShape(world, front).isEmpty()) {

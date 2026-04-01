@@ -85,26 +85,28 @@ public class TermiteHiveBlock extends BlockWithEntity {
             if (player.shouldSkipBlockDrops() && !world.isClient() && serverWorld.getGameRules().getValue(GameRules.DO_TILE_DROPS)) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof TermiteHiveBlockEntity termiteHiveBlockEntity) {
-                    int i = state.get(TERMITES);
-                    boolean bl = !termiteHiveBlockEntity.hasNoTermites();
-                    if (bl || i > 0) {
+                    int i = termiteHiveBlockEntity.getTermiteCount();
+                    if ( i > 0) {
                         ItemStack itemStack = new ItemStack(this);
                         itemStack.applyComponentsFrom(termiteHiveBlockEntity.createComponentMap());
-                        if(!(enchantLevel(player.getMainHandStack(), "silk_touch") >0)){
-                            i=0;
+                        if (enchantLevel(player.getMainHandStack(), "silk_touch") <= 0) {
+//                            termiteHiveBlockEntity.();
+                            i = 0;
                         }
                         itemStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(TERMITES, i));
                         ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                         itemEntity.setToDefaultPickupDelay();
-                        if(world.getBlockEntity(pos) instanceof TermiteHiveBlockEntity termiteHive){
+                        if (world.getBlockEntity(pos) instanceof TermiteHiveBlockEntity termiteHive) {
                             termiteHive.releaseAllTermites(world, state);
                         }
+                        itemStack.applyComponentsFrom(termiteHiveBlockEntity.createComponentMap());
                         world.spawnEntity(itemEntity);
                     }
                 }
             }
         }
-        return super.onBreak(world, pos, state, player);
+        super.onBreak(world, pos, state, player);
+        return state;
     }
 
     @Override
