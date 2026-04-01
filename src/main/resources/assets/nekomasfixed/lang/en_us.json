@@ -84,6 +84,8 @@
 
   "entity.nekomasfixed.wild_fire": "Wild Fire",
   "entity.nekomasfixed.termite": "Termite",
+  "block.nekomasfixed.termite_hive": "Termite Hive",
+  "block.nekomasfixed.termite_block": "Termite Block",
   "item.nekomasfixed.wild_fire_spawn_egg": "Wild Fire Spawn Egg",
   "item.nekomasfixed.termite_spawn_egg": "Termite Spawn Egg",
   "item.nekomasfixed.nether_heart": "Heart Of The Nether",
