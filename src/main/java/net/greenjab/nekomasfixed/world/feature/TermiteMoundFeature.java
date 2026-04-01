@@ -32,8 +32,8 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
                     float distSq = x * x + z * z;
                     if (distSq <= r * r) {
                         BlockPos pos = start.add(x, y, z);
-                        world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 1);
-                        world.updateNeighbors(pos, BlockRegistry.TERMITE_BLOCK);
+                        world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
+
                     }
                 }
             }
