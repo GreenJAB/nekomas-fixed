@@ -8,9 +8,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.CountConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 import org.spongepowered.asm.mixin.Unique;
@@ -56,7 +54,6 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         }
         return true;
     }
-
 
     @Unique
     private static boolean isExposedToAir(World world, BlockPos pos) {
