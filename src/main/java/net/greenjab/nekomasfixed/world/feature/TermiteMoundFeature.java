@@ -29,13 +29,11 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         int x,y,z;
         float size = 1.5f;
 
-        int height = 3;
-
-        for (int y = 0; y < height; y++) {
+        for ( y = 0; y < height; y++) {
             float r = 2 - y * 0.6f;
 
-            for (int x = -2; x <= 2; x++) {
-                for (int z = -2; z <= 2; z++) {
+            for ( x = -2; x <= 2; x++) {
+                for ( z = -2; z <= 2; z++) {
 
                     float distSq = x * x + z * z;
 
