@@ -89,6 +89,7 @@ public class ItemRegistry {
 
     public static final Item BOABAB_LOG = register(BlockRegistry.BOABAB_LOG);
     public static final Item BOABAB_SAPLING = register(BlockRegistry.BOABAB_SAPLING);
+    public static final Item HOLLOW_OAK_LOG = register(BlockRegistry.HOLLOW_OAK_LOG);
 
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 
