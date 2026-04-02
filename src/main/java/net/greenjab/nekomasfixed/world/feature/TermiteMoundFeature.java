@@ -40,14 +40,12 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
             for (x = -2; x <= 2; x++) {
                 for (z = -2; z <= 2; z++) {
                     float distSq = x * x + z * z;
-                    if (distSq <= r * r) {
-                        BlockPos pos = start.add(x, y, z);
-                        boolean randomForHive = random.nextInt(3) == 0;
-                        if(randomForHive && isExposedToAir(world.toServerWorld(), pos)){
-                            world.setBlockState(pos, BlockRegistry.TERMITE_HIVE.getDefaultState(), 3);
-                        }else {
-                            world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
-                        }
+                    boolean isSurface = distSq >= (r - 1) * (r - 1);
+                    BlockPos pos = start.add(x, y, z);
+                    if (isSurface && random.nextInt(4) == 0) {
+                        world.setBlockState(pos, BlockRegistry.TERMITE_HIVE.getDefaultState(), 3);
+                    } else {
+                        world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
                     }
                 }
             }
