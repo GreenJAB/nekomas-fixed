@@ -12,8 +12,8 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
 public class HollowOakLogBlock extends PillarBlock {
-    private static final VoxelShape RAYCAST_SHAPE = Block.createColumnShape((double)12.0F, (double)4.0F, (double)16.0F);
-    public static final VoxelShape OUTLINE_SHAPE = (VoxelShape) Util.make(() -> {
+    private static final VoxelShape RAYCAST_SHAPE = Block.createColumnShape((double)12.0F, (double)0.0F, (double)16.0F);
+    public static final VoxelShape OUTLINE_SHAPE = Util.make(() -> {
         int i = 4;
         int j = 3;
         int k = 2;
