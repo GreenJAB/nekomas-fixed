@@ -1,11 +1,10 @@
-package net.greenjab.nekomasfixed.registry.entity;
+package net.greenjab.nekomasfixed.registry.block.entity;
 
 import com.google.common.collect.Lists;
 import net.greenjab.nekomasfixed.registry.block.TermiteHiveBlock;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -15,7 +14,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 
 import java.util.Iterator;
 import java.util.List;

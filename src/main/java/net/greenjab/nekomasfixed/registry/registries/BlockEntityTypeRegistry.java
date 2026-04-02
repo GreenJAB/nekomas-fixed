@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.entity.*;
-import net.greenjab.nekomasfixed.registry.entity.TermiteHiveBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

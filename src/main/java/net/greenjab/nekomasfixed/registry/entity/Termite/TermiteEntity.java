@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
-import net.greenjab.nekomasfixed.registry.entity.TermiteHiveBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
@@ -18,10 +18,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.UnknownNullability;
 import org.jspecify.annotations.NonNull;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class TermiteEntity extends HostileEntity {

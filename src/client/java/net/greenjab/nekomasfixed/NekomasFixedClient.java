@@ -52,7 +52,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.putBlocks(
 				BlockRenderLayer.CUTOUT,
-				BlockRegistry.BOABAB_SAPLING
+				BlockRegistry.BOABAB_SAPLING,
+				BlockRegistry.HOLLOW_OAK_LOG
 		);
 
 		EntityModelLayerRegistry.registerModelLayer(TermiteModel.TERMITE, TermiteModel::getTexturedModelData);
