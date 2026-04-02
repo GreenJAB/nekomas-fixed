@@ -29,24 +29,24 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         int x,y,z;
         float size = 1.5f;
 
-        for (y = 0; y < height - 1; y++) {
-            float r = size - 0.33f * (y / (height + 0f));
-            if(y==0){
-                r = size + 1;
-            }
-            if(y>height-2){
-                r = 1;
-            }
-            for (x = -4; x <= 4; x++) {
-                for (z = -4; z <= 4; z++) {
+        int height = 3;
+
+        for (int y = 0; y < height; y++) {
+            float r = 2 - y * 0.6f;
+
+            for (int x = -2; x <= 2; x++) {
+                for (int z = -2; z <= 2; z++) {
+
                     float distSq = x * x + z * z;
+
                     if (distSq <= r * r) {
-                        BlockPos pos = start.add(x, y, z);
-                        boolean randomForHive = random.nextInt(3) == 0;
-                        if(randomForHive && isExposedToAir(world.toServerWorld(), pos)){
-                            world.setBlockState(pos, BlockRegistry.TERMITE_HIVE.getDefaultState(), 3);
-                        }else {
-                            world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
+                        BlockPos pos = context.getOrigin().add(x, y, z);
+
+                        if (world.getBlockState(pos).isAir()) {
+                            world.setBlockState(pos,
+                                    context.getConfig().toPlace().get(random, pos),
+                                    3
+                            );
                         }
                     }
                 }
