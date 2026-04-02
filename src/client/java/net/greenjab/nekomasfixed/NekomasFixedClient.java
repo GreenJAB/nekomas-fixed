@@ -4,9 +4,11 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
+import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
+import net.greenjab.nekomasfixed.render.block.entity.HollowOakLogBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -16,6 +18,7 @@ import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.util.Identifier;
 
@@ -54,6 +57,11 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRenderLayer.CUTOUT,
 				BlockRegistry.BOABAB_SAPLING,
 				BlockRegistry.HOLLOW_OAK_LOG
+		);
+
+		BlockEntityRendererFactories.register(
+				BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE,
+				(ctx) -> new HollowOakLogBlockEntityRenderer()
 		);
 
 		EntityModelLayerRegistry.registerModelLayer(TermiteModel.TERMITE, TermiteModel::getTexturedModelData);
