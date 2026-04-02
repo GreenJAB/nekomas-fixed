@@ -18,7 +18,7 @@ public class HollowOakLogBlock extends PillarBlock {
         int i = 4;
         int j = 3;
         int k = 2;
-        return VoxelShapes.cuboid(new Box(0f, 0f, 0f, 13f, 16f, 16f));
+        return VoxelShapes.cuboid(new Box(0f, 0f, 0f, 1f, 1f, 1f));
     });
     public HollowOakLogBlock(Settings settings) {
         super(settings);
