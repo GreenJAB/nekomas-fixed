@@ -29,6 +29,14 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         int x,y,z;
         float size = 1.5f;
 
+        if (!world.getBlockState(start.down()).isSolidBlock(world, start.down())) {
+            return false;
+        }
+
+        if (!world.getBlockState(start).isAir()) {
+            return false;
+        }
+
         for (y = 0; y < height - 1; y++) {
             float r = size - 0.33f * (y / (height + 0f));
             if(y==0){
@@ -40,13 +48,17 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
             for (x = -2; x <= 2; x++) {
                 for (z = -2; z <= 2; z++) {
                     float distSq = x * x + z * z;
-                    boolean isSurface = distSq >= (r - 1) * (r - 1);
-                    BlockPos pos = start.add(x, y, z);
-                    if (isSurface && random.nextInt(4) == 0) {
-                        world.setBlockState(pos, BlockRegistry.TERMITE_HIVE.getDefaultState(), 3);
-                    } else {
-                        world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
+                    if (distSq <= r * r) {
+                        boolean isSurface = distSq >= (r - 1) * (r - 1);
+                        BlockPos pos = start.add(x, y, z);
+
+                        if (isSurface && random.nextInt(4) == 0) {
+                            world.setBlockState(pos, BlockRegistry.TERMITE_HIVE.getDefaultState(), 3);
+                        } else {
+                            world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
+                        }
                     }
+
                 }
             }
         }
