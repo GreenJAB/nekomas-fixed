@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.render.block.entity;
 
 import net.greenjab.nekomasfixed.registry.block.entity.HollowOakLogBlockEntity;
 import net.greenjab.nekomasfixed.render.block.entity.state.HollowOakLogBlockEntityRenderState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.block.BlockRenderManager;
@@ -21,13 +22,15 @@ public class HollowOakLogBlockEntityRenderer implements BlockEntityRenderer<Holl
     public void render(HollowOakLogBlockEntityRenderState state, MatrixStack matrixStack, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
         MinecraftClient client = MinecraftClient.getInstance();
         BlockRenderManager blockRenderManager = client.getBlockRenderManager();
+        BlockState stateOfBlock = state.blockState;
+        if(stateOfBlock==null)return;
 
         matrixStack.push();
         matrixStack.translate(0.5, 0.25, 0.5);
         matrixStack.scale(0.5f, 0.5f, 0.5f);
 
         blockRenderManager.renderBlockAsEntity(
-                state.blockState,
+                stateOfBlock,
                 matrixStack,
                 client.getBufferBuilders().getEntityVertexConsumers(),
                 state.lightmapCoordinates,
