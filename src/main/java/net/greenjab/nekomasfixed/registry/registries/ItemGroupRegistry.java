@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -163,6 +164,8 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.HUGE_PALE_OAK_BOAT);
                          entries.add(ItemRegistry.BIG_SPRUCE_BOAT);
                          entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
+
+                         entries.add(ItemRegistry.PYROTECHNICS_TABLE);
 
 
                     }).build();
