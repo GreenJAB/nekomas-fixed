@@ -25,8 +25,8 @@ public class HollowOakLogBlockEntityRenderer implements BlockEntityRenderer<Holl
         BlockState stateOfBlock = state.blockState;
         if(stateOfBlock==null)return;
         matrixStack.push();
-        matrixStack.translate(0.5, 0.25, 0.5);
-        matrixStack.scale(0.5f, 0.5f, 0.5f);
+        matrixStack.translate(0.5, 0.35, 0.5);
+        matrixStack.scale(0.9f, 0.9f, 0.9f);
 
         blockRenderManager.renderBlockAsEntity(
                 stateOfBlock,

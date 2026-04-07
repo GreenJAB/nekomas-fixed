@@ -13,7 +13,6 @@ public class HollowOakLogBlockEntity extends BlockEntity  {
         super(BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE, pos, state);
     }
 
-
     public BlockState getStoredBlock() {
         return this.storedBlock;
     }
