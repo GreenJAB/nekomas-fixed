@@ -31,20 +31,7 @@ public class HollowOakLogBlockEntityRenderer implements BlockEntityRenderer<Holl
         return new HollowOakLogBlockEntityRenderState();
     }
 
-    @Override
-    public void updateRenderState(CampfireBlockEntity campfireBlockEntity, CampfireBlockEntityRenderState campfireBlockEntityRenderState, float f, Vec3d vec3d, ModelCommandRenderer.@Nullable CrumblingOverlayCommand crumblingOverlayCommand) {
-        super.updateRenderState(campfireBlockEntity, campfireBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
-        campfireBlockEntityRenderState.facing = (Direction)campfireBlockEntity.getCachedState().get(CampfireBlock.FACING);
-        int i = (int)campfireBlockEntity.getPos().asLong();
-        campfireBlockEntityRenderState.cookedItemStates = new ArrayList();
 
-        for(int j = 0; j < campfireBlockEntity.getItemsBeingCooked().size(); ++j) {
-            ItemRenderState itemRenderState = new ItemRenderState();
-            this.itemModelManager.clearAndUpdate(itemRenderState, (ItemStack)campfireBlockEntity.getItemsBeingCooked().get(j), ItemDisplayContext.FIXED, campfireBlockEntity.getWorld(), (HeldItemContext)null, i + j);
-            campfireBlockEntityRenderState.cookedItemStates.add(itemRenderState);
-        }
-
-    }
 
     @Override
     public void render(HollowOakLogBlockEntityRenderState state, MatrixStack matrixStack, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
