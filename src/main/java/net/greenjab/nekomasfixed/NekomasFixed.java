@@ -63,8 +63,8 @@ public class NekomasFixed implements ModInitializer {
 
 					if (be instanceof HollowOakLogBlockEntity logBE) {
 						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem){
-							System.out.println("Its a click done by the player in order to change the block");
 							logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
+							world.updateListeners(pos, state, state, 3);
 						}
 						logBE.markDirty();
 					}
