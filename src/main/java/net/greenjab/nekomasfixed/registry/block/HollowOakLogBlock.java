@@ -32,6 +32,12 @@ public class HollowOakLogBlock extends PillarBlock implements BlockEntityProvide
         storedBlock = Blocks.AIR.getDefaultState();
     }
 
+    public void setStoredBlock(BlockState state){
+        this.storedBlock = state;
+    }
+
+    public BlockState getStoredBlock(){return this.storedBlock;}
+
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return OUTLINE_SHAPE;
