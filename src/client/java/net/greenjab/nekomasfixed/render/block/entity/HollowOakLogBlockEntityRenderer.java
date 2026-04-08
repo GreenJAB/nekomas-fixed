@@ -34,7 +34,7 @@ public class HollowOakLogBlockEntityRenderer implements BlockEntityRenderer<Holl
     public void render(HollowOakLogBlockEntityRenderState state, MatrixStack matrixStack, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
         MinecraftClient client = MinecraftClient.getInstance();
         BlockRenderManager blockRenderManager = client.getBlockRenderManager();
-        BlockState stateOfBlock = state.blockState;
+        BlockState stateOfBlock = this.state;
         if(stateOfBlock==null)return;
         matrixStack.push();
         matrixStack.translate(0.1, 0.35, 0.1);
