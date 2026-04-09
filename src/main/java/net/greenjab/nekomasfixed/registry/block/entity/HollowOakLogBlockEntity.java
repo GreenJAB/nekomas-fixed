@@ -10,7 +10,10 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
+import org.apache.commons.compress.harmony.pack200.Codec;
 
 public class HollowOakLogBlockEntity extends BlockEntity  {
     private BlockState storedBlock = Blocks.AIR.getDefaultState();
@@ -35,6 +38,21 @@ public class HollowOakLogBlockEntity extends BlockEntity  {
         if (world != null && !world.isClient()) {
             world.updateListeners(pos, getCachedState(), getCachedState(), 3);
         }
+    }
+
+    @Override
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+
+        view.put("StoredBlock", BlockState.CODEC, storedBlock);
+    }
+
+    @Override
+    protected void readData(ReadView view) {
+        super.readData(view);
+
+        storedBlock = view.read("StoredBlock", BlockState.CODEC)
+                .orElse(Blocks.AIR.getDefaultState());
     }
 
     @Override
