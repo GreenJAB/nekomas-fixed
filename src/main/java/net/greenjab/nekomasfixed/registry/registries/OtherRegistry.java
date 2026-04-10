@@ -7,6 +7,8 @@ import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireDebugData;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
@@ -58,6 +60,7 @@ public class OtherRegistry {
     public static final TagKey<Item> CLAMTAG = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("clams"));
     public static final TagKey<Item> SPEARS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("spears"));
     public static final TagKey<Item> SICKLES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("sickles"));
+    public static final TagKey<Block> HOLLOW_LOGS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("hollow_logs"));
     public static final TagKey<Item> FOOD_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("food_items"));
     public static final TagKey<Item> SLINGSHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("slingshot_projectiles"));
 

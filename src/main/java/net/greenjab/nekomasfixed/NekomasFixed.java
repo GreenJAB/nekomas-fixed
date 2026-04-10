@@ -4,9 +4,13 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.network.SyncHandler;
+import net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock;
 import net.greenjab.nekomasfixed.registry.block.HollowOakLogBlock;
+import net.greenjab.nekomasfixed.registry.block.HollowPaleOakLogBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
+import net.greenjab.nekomasfixed.registry.block.entity.AbstractHollowLogBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.HollowOakLogBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.HollowPaleOakLogBlockEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
@@ -61,7 +65,9 @@ public class NekomasFixed implements ModInitializer {
 				if (!world.isClient()) {
 					BlockEntity be = world.getBlockEntity(pos);
 
-					if (be instanceof HollowOakLogBlockEntity logBE) {
+                    assert be != null;
+                    if (be instanceof AbstractHollowLogBlockEntity logBE) {
+
 						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem){
 							logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
 							System.out.println(logBE.getStoredBlock());
