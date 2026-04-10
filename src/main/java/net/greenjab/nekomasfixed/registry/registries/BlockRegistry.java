@@ -167,15 +167,15 @@ public class BlockRegistry {
     public static final Block CRIMSON_SHULKER_BOX = registerShulkerBoxBlock("crimson_shulker_box", DyeColor.RED);
 
     public static final Block HOLLOW_OAK_LOG = register("hollow_oak_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.OAK_LOG));
-    public static final Block HOLLOW_DARK_OAK_LOG = register("hollow_dark_oak_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.DARK_OAK_LOG));
-    public static final Block HOLLOW_SPRUCE_LOG = register("hollow_spruce_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.SPRUCE_LOG));
-    public static final Block HOLLOW_JUNGLE_LOG = register("hollow_jungle_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.JUNGLE_LOG));
-    public static final Block HOLLOW_WARPED_LOG = register("hollow_warped_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.WARPED_HYPHAE));
-    public static final Block HOLLOW_CRIMSON_LOG = register("hollow_crimson_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.CRIMSON_HYPHAE));
-    public static final Block HOLLOW_ACACIA_LOG = register("hollow_acacia_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.ACACIA_LOG));
-    public static final Block HOLLOW_CHERRY_LOG = register("hollow_cherry_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.CHERRY_LOG));
-    public static final Block HOLLOW_BIRCH_LOG = register("hollow_birch_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.BIRCH_LOG));
-    public static final Block HOLLOW_PALE_OAK_LOG = register("hollow_pale_oak_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.PALE_OAK_LOG));
+    public static final Block HOLLOW_DARK_OAK_LOG = register("hollow_dark_oak_log", HollowDarkOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.DARK_OAK_LOG));
+    public static final Block HOLLOW_SPRUCE_LOG = register("hollow_spruce_log", HollowSpruceLogBlock::new , AbstractBlock.Settings.copy(Blocks.SPRUCE_LOG));
+    public static final Block HOLLOW_JUNGLE_LOG = register("hollow_jungle_log", HollowJungleLogBlock::new , AbstractBlock.Settings.copy(Blocks.JUNGLE_LOG));
+    public static final Block HOLLOW_WARPED_LOG = register("hollow_warped_log", HollowWarpedLogBlock::new , AbstractBlock.Settings.copy(Blocks.WARPED_HYPHAE));
+    public static final Block HOLLOW_CRIMSON_LOG = register("hollow_crimson_log", HollowCrimsonLogBlock::new , AbstractBlock.Settings.copy(Blocks.CRIMSON_HYPHAE));
+    public static final Block HOLLOW_ACACIA_LOG = register("hollow_acacia_log", HollowAcaciaLogBlock::new , AbstractBlock.Settings.copy(Blocks.ACACIA_LOG));
+    public static final Block HOLLOW_CHERRY_LOG = register("hollow_cherry_log", HollowCherryLogBlock::new , AbstractBlock.Settings.copy(Blocks.CHERRY_LOG));
+    public static final Block HOLLOW_BIRCH_LOG = register("hollow_birch_log", HollowBirchLogBlock::new , AbstractBlock.Settings.copy(Blocks.BIRCH_LOG));
+    public static final Block HOLLOW_PALE_OAK_LOG = register("hollow_pale_oak_log", HollowPaleOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.PALE_OAK_LOG));
 
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
     public static final Block BOABAB_FRUIT = register("boabab_fruit", BoababFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly().noBlockBreakParticles());
