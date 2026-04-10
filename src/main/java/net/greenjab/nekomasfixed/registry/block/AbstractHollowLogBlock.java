@@ -11,7 +11,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.jspecify.annotations.Nullable;
 
-public class AbstractHollowLogBlock extends PillarBlock implements BlockEntityProvider{
+public abstract class AbstractHollowLogBlock extends PillarBlock implements BlockEntityProvider{
     private static final VoxelShape RAYCAST_SHAPE = Block.createCuboidShape(2, 0, 2, 14, 16, 14);
     private static final VoxelShape OUTLINE_X = Block.createCuboidShape(0, 2, 2, 16, 14, 14);
     private static final VoxelShape OUTLINE_Z = Block.createCuboidShape(2, 2, 0, 14, 14, 16);

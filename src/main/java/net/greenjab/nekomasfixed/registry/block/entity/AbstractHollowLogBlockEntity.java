@@ -1,10 +1,9 @@
 package net.greenjab.nekomasfixed.registry.block.entity;
 
-import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
-import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
@@ -13,17 +12,21 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
-import org.apache.commons.compress.harmony.pack200.Codec;
 
-public class HollowOakLogBlockEntity extends AbstractHollowLogBlockEntity  {
+public abstract class AbstractHollowLogBlockEntity extends BlockEntity {
     private BlockState storedBlock = Blocks.AIR.getDefaultState();
 
-    public HollowOakLogBlockEntity( BlockPos pos, BlockState state) {
-        super(BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE, pos, state);
+    public AbstractHollowLogBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     public BlockState getStoredBlock() {
         return this.storedBlock;
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
+        return createNbt(registries);
     }
 
     public void setStoredBlock(BlockState state) {
@@ -50,4 +53,8 @@ public class HollowOakLogBlockEntity extends AbstractHollowLogBlockEntity  {
                 .orElse(Blocks.AIR.getDefaultState());
     }
 
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
 }
