@@ -18,6 +18,7 @@ import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.util.Identifier;
@@ -58,6 +59,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRegistry.BOABAB_SAPLING,
 				BlockRegistry.HOLLOW_OAK_LOG
 		);
+
 
 		BlockEntityRendererFactories.register(
 				BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE,
