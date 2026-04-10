@@ -7,11 +7,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 
-public class HollowOakLogBlockEntity extends AbstractHollowLogBlockEntity {
+public class HollowJungleLogBlockEntity extends AbstractHollowLogBlockEntity {
 
     private BlockState storedBlock = Blocks.AIR.getDefaultState();
 
-    public HollowOakLogBlockEntity(BlockPos pos, BlockState state) {
+    public HollowJungleLogBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE, pos, state);
     }
 

@@ -134,7 +134,15 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.TERMITE_SPAWN_EGG);
 
                          entries.add(ItemRegistry.HOLLOW_OAK_LOG);
-
+                         entries.add(ItemRegistry.HOLLOW_DARK_OAK_LOG);
+                         entries.add(ItemRegistry.HOLLOW_CRIMSON_LOG);
+                         entries.add(ItemRegistry.HOLLOW_ACACIA_LOG);
+                         entries.add(ItemRegistry.HOLLOW_BIRCH_LOG);
+                         entries.add(ItemRegistry.HOLLOW_JUNGLE_LOG);
+                         entries.add(ItemRegistry.HOLLOW_SPRUCE_LOG);
+                         entries.add(ItemRegistry.HOLLOW_WARPED_LOG);
+                         entries.add(ItemRegistry.HOLLOW_PALE_OAK_LOG);
+                         entries.add(ItemRegistry.HOLLOW_CHERRY_LOG);
 
                          entries.add(ItemRegistry.WHITE_FROGLIGHT);
                          entries.add(ItemRegistry.LIGHT_GRAY_FROGLIGHT);

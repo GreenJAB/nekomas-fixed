@@ -89,7 +89,17 @@ public class ItemRegistry {
 
     public static final Item BOABAB_LOG = register(BlockRegistry.BOABAB_LOG);
     public static final Item BOABAB_SAPLING = register(BlockRegistry.BOABAB_SAPLING);
+
     public static final Item HOLLOW_OAK_LOG = register(BlockRegistry.HOLLOW_OAK_LOG);
+    public static final Item HOLLOW_DARK_OAK_LOG = register(BlockRegistry.HOLLOW_DARK_OAK_LOG);
+    public static final Item HOLLOW_JUNGLE_LOG = register(BlockRegistry.HOLLOW_JUNGLE_LOG);
+    public static final Item HOLLOW_CHERRY_LOG = register(BlockRegistry.HOLLOW_CHERRY_LOG);
+    public static final Item HOLLOW_PALE_OAK_LOG = register(BlockRegistry.HOLLOW_PALE_LOG);
+    public static final Item HOLLOW_ACACIA_LOG = register(BlockRegistry.HOLLOW_ACACIA_LOG);
+    public static final Item HOLLOW_SPRUCE_LOG = register(BlockRegistry.HOLLOW_SPRUCE_LOG);
+    public static final Item HOLLOW_WARPED_LOG = register(BlockRegistry.HOLLOW_WARPED_LOG);
+    public static final Item HOLLOW_CRIMSON_LOG = register(BlockRegistry.HOLLOW_CRIMSON_LOG);
+    public static final Item HOLLOW_BIRCH_LOG = register(BlockRegistry.HOLLOW_BIRCH_LOG);
 
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 

@@ -5,10 +5,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 
-public class HollowOakLogBlockEntityRenderState extends BlockEntityRenderState {
+public class HollowPaleOakLogBlockEntityRenderState extends BlockEntityRenderState {
     public BlockState blockState;
 
-    public HollowOakLogBlockEntityRenderState() {
+    public HollowPaleOakLogBlockEntityRenderState() {
         this.blockState = Blocks.AIR.getDefaultState();
     }
 }
