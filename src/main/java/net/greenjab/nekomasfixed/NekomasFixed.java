@@ -60,14 +60,12 @@ public class NekomasFixed implements ModInitializer {
 			BlockPos pos = hit.getBlockPos();
 			BlockState state = world.getBlockState(pos);
 
-			if (state.getBlock() instanceof HollowOakLogBlock) {
+			if (state.getBlock() instanceof AbstractHollowLogBlock) {
 
 				if (!world.isClient()) {
 					BlockEntity be = world.getBlockEntity(pos);
 
-                    assert be != null;
                     if (be instanceof AbstractHollowLogBlockEntity logBE) {
-
 						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem){
 							logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
 							System.out.println(logBE.getStoredBlock());
