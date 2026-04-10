@@ -94,7 +94,7 @@ public class ItemRegistry {
     public static final Item HOLLOW_DARK_OAK_LOG = register(BlockRegistry.HOLLOW_DARK_OAK_LOG);
     public static final Item HOLLOW_JUNGLE_LOG = register(BlockRegistry.HOLLOW_JUNGLE_LOG);
     public static final Item HOLLOW_CHERRY_LOG = register(BlockRegistry.HOLLOW_CHERRY_LOG);
-    public static final Item HOLLOW_PALE_OAK_LOG = register(BlockRegistry.HOLLOW_PALE_LOG);
+    public static final Item HOLLOW_PALE_OAK_LOG = register(BlockRegistry.HOLLOW_PALE_OAK_LOG);
     public static final Item HOLLOW_ACACIA_LOG = register(BlockRegistry.HOLLOW_ACACIA_LOG);
     public static final Item HOLLOW_SPRUCE_LOG = register(BlockRegistry.HOLLOW_SPRUCE_LOG);
     public static final Item HOLLOW_WARPED_LOG = register(BlockRegistry.HOLLOW_WARPED_LOG);

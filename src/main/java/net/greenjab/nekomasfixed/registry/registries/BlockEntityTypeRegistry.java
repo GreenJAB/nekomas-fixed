@@ -32,6 +32,61 @@ public class BlockEntityTypeRegistry {
     public static final BlockEntityType<HollowOakLogBlockEntity> HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_oak_log"),
             FabricBlockEntityTypeBuilder.create(HollowOakLogBlockEntity::new, BlockRegistry.HOLLOW_OAK_LOG).build());
 
+    public static final BlockEntityType<HollowWarpedLogBlockEntity> HOLLOW_WARPED_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_warped_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowWarpedLogBlockEntity::new, BlockRegistry.HOLLOW_WARPED_LOG).build());
+
+
+
+    public static final BlockEntityType<HollowCrimsonLogBlockEntity> HOLLOW_CRIMSON_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_crimson_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowCrimsonLogBlockEntity::new, BlockRegistry.HOLLOW_CRIMSON_LOG).build());
+
+
+
+
+    public static final BlockEntityType<HollowDarkOakLogBlockEntity> HOLLOW_DARK_OAK_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_dark_oak_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowDarkOakLogBlockEntity::new, BlockRegistry.HOLLOW_DARK_OAK_LOG).build());
+
+
+
+    public static final BlockEntityType<HollowAcaciaLogBlockEntity> HOLLOW_ACACIA_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_acacia_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowAcaciaLogBlockEntity::new, BlockRegistry.HOLLOW_ACACIA_LOG).build());
+
+
+
+    public static final BlockEntityType<HollowBirchLogBlockEntity> HOLLOW_BIRCH_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_birch_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowBirchLogBlockEntity::new, BlockRegistry.HOLLOW_BIRCH_LOG).build());
+
+
+
+    public static final BlockEntityType<HollowJungleLogBlockEntity> HOLLOW_JUNGLE_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_jungle_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowJungleLogBlockEntity::new, BlockRegistry.HOLLOW_JUNGLE_LOG).build());
+
+
+
+    public static final BlockEntityType<HollowPaleOakLogBlockEntity> HOLLOW_PALE_OAK_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_pale_oak_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowPaleOakLogBlockEntity::new, BlockRegistry.HOLLOW_PALE_OAK_LOG).build());
+
+
+
+    public static final BlockEntityType<HollowCherryLogBlockEntity> HOLLOW_CHERRY_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_cherry_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowCherryLogBlockEntity::new, BlockRegistry.HOLLOW_CHERRY_LOG).build());
+
+
+
+    public static final BlockEntityType<HollowSpruceLogBlockEntity> HOLLOW_SPRUCE_LOG_BLOCK_ENTITY_TYPE =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_spruce_log"),
+                    FabricBlockEntityTypeBuilder.create(HollowSpruceLogBlockEntity::new, BlockRegistry.HOLLOW_SPRUCE_LOG).build());
+
+
+
     public static void registerBlockEntityType() {
         System.out.println("register BlockEntityType");
     }

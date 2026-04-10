@@ -12,7 +12,7 @@ public class HollowBirchLogBlockEntity extends AbstractHollowLogBlockEntity {
     private BlockState storedBlock = Blocks.AIR.getDefaultState();
 
     public HollowBirchLogBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE, pos, state);
+        super(BlockEntityTypeRegistry.HOLLOW_BIRCH_LOG_BLOCK_ENTITY_TYPE, pos, state);
     }
 
     public BlockState getStoredBlock() {
