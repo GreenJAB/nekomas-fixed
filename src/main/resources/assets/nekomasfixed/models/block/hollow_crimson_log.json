@@ -2,8 +2,8 @@
   "format_version": "1.21.11",
   "credit": "Made with Blockbench",
   "textures": {
-    "0": "minecraft:block/crimson_hyphae",
-    "2": "minecraft:block/stripped_crimson_hyphae"
+    "0": "minecraft:block/crimson_stem",
+    "2": "minecraft:block/stripped_crimson_stem"
   },
   "elements": [
     {
