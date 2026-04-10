@@ -12,7 +12,7 @@ import net.minecraft.world.BlockView;
 import org.jspecify.annotations.Nullable;
 
 public class HollowOakLogBlock extends PillarBlock implements BlockEntityProvider {
-    private static final VoxelShape RAYCAST_SHAPE = Block.createColumnShape(12.0F, 4.0F, 15.9F);
+    private static final VoxelShape RAYCAST_SHAPE = Block.createColumnShape(12.0F, 3.9F, 15.9F);
     public static final VoxelShape OUTLINE_SHAPE = Util.make(() -> VoxelShapes.combineAndSimplify(
             VoxelShapes.fullCube(),
             VoxelShapes.union(Block.createColumnShape(16.0F, 8.0F, 0.0F, 0.0F),
