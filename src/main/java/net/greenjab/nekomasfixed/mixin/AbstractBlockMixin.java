@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -36,7 +37,7 @@ public class AbstractBlockMixin {
             }
 
             if(stack.isOf(Items.SHEARS) && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity logBe){
-                world.setBlockState(pos, logBe.getCachedState());
+                logBe.setStoredBlock(Blocks.AIR.getDefaultState());
                 player.dropStack((ServerWorld) world, logBe.getStoredBlock().getPickStack(world, pos.south(), true));
             }
         }
