@@ -10,7 +10,7 @@ public class HollowOakLogBlock extends AbstractHollowLogBlock{
     public HollowOakLogBlock(Settings settings) {
         super(settings);
     }
-
+    //finished all the hollow logs
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new HollowOakLogBlockEntity(pos, state);
