@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.block;
 
 import net.greenjab.nekomasfixed.registry.block.entity.HollowDarkOakLogBlockEntity;
+import net.greenjab.nekomasfixed.registry.item.SoulfireTridentItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +24,9 @@ public class HollowDarkOakLogBlock extends AbstractHollowLogBlock{
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world,
                                          BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        System.out.println("clicked!!");
         if (!world.isClient() && stack.isOf(Items.SHEARS)) {
+            System.out.println("entered IFELSE");
             BlockEntity be = world.getBlockEntity(pos);
             if (be instanceof HollowDarkOakLogBlockEntity logBE) {
                 System.out.println("Stored: " +
@@ -37,7 +40,7 @@ public class HollowDarkOakLogBlock extends AbstractHollowLogBlock{
                 }
             }
         }
-        return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+        return ActionResult.PASS;
     }
 
     @Override
