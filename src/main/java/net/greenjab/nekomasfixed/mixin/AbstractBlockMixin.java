@@ -39,6 +39,7 @@ public class AbstractBlockMixin {
             if(stack.isOf(Items.SHEARS) && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity logBe){
                 logBe.setStoredBlock(Blocks.AIR.getDefaultState());
                 player.dropStack((ServerWorld) world, logBe.getStoredBlock().getPickStack(world, pos.south(), true));
+                world.updateListeners(pos, state, logBe.getCachedState(), 2);
             }
         }
     }
