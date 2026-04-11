@@ -21,9 +21,21 @@ public class HollowDarkOakLogBlock extends AbstractHollowLogBlock{
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(stack.isOf(Items.SHEARS) && !world.isClient() && !this.blockEntity.getStoredBlock().isAir()){
-            player.dropStack((ServerWorld) world, this.blockEntity.getStoredBlock().getPickStack(world, pos, true));
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world,
+                                         BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (!world.isClient() && stack.isOf(Items.SHEARS)) {
+            BlockEntity be = world.getBlockEntity(pos);
+            if (be instanceof HollowDarkOakLogBlockEntity logBE) {
+                System.out.println("Stored: " +
+                        net.minecraft.registry.Registries.BLOCK.getId(logBE.getStoredBlock().getBlock()));
+
+                if (!logBE.getStoredBlock().isAir()) {
+                    player.dropStack(
+                            (ServerWorld) world,
+                            logBE.getStoredBlock().getPickStack(world, pos, true)
+                    );
+                }
+            }
         }
         return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
     }
