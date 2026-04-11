@@ -38,7 +38,7 @@ public class HollowDarkOakLogBlockEntity extends AbstractHollowLogBlockEntity {
     protected void writeData(WriteView view) {
         super.writeData(view);
         view.put("StoredBlock", BlockState.CODEC, storedBlock);
-        System.out.println(view);
+        System.out.println(view.getList("StoredBlock"));
     }
 
     @Override
@@ -46,6 +46,6 @@ public class HollowDarkOakLogBlockEntity extends AbstractHollowLogBlockEntity {
         super.readData(view);
         storedBlock = view.read("StoredBlock", BlockState.CODEC)
                 .orElse(Blocks.AIR.getDefaultState());
-        System.out.println(view);
+        System.out.println(view.getReadView("StoredBlock"));
     }
 }
