@@ -66,7 +66,7 @@ public class NekomasFixed implements ModInitializer {
 
                     if (be instanceof AbstractHollowLogBlockEntity logBE) {
 						if(player.getMainHandStack().isOf(Items.SHEARS) && !world.isClient()){
-							player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos.north(), true))
+							player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos.north(), true));
 							logBE.setStoredBlock(Blocks.AIR.getDefaultState());
 							world.updateListeners(pos, state,state, 3);
 						}
