@@ -208,7 +208,6 @@ public class TermiteEntity extends HostileEntity {
         }
     }
 
-
     private class EnterMoundGoal extends Goal {
 
         public boolean canTermiteStart() {
@@ -230,10 +229,6 @@ public class TermiteEntity extends HostileEntity {
                 }
             }
 
-            return false;
-        }
-
-        public boolean canTermiteContinue() {
             return false;
         }
 
