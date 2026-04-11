@@ -1,7 +1,9 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
 import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.enums.HollowLogType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -203,6 +205,8 @@ public class TermiteEntity extends HostileEntity {
             }
 
 
+
+
         }
     }
 
@@ -253,8 +257,6 @@ public class TermiteEntity extends HostileEntity {
 
     }
 
-
-
     //custom goal for fetching a tree!!!
     private static class SearchForLogGoal extends Goal {
         private final TermiteEntity termiteEntity;
@@ -267,7 +269,9 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            return termiteEntity.getRandom().nextInt(40) == 0 && !termiteEntity.isInMound.get() && termiteEntity.getEntityWorld().isDay();
+            return termiteEntity.getRandom().nextInt(40) == 0
+                    && !termiteEntity.isInMound.get()
+                    && termiteEntity.getEntityWorld().isDay();
         }
 
         boolean isRunning() {
@@ -275,11 +279,9 @@ public class TermiteEntity extends HostileEntity {
         }
 
         @Override
-        public void stop(){this.running = false;}
-
-        @Override
         public void start() {
             this.running = true;
+
             Optional<BlockPos> target = BlockPos.findClosest(
                     termiteEntity.getBlockPos(),
                     16,
@@ -288,25 +290,37 @@ public class TermiteEntity extends HostileEntity {
             );
 
             target.ifPresent(pos -> {
-                targetPos = pos;
+                this.targetPos = pos;
                 termiteEntity.getNavigation().startMovingTo(
                         pos.getX(), pos.getY(), pos.getZ(), 0.4
                 );
             });
-            this.stop();
+        }
+
+        @Override
+        public void tick() {
+            if (targetPos == null) return;
+            if (termiteEntity.getBlockPos().isWithinDistance(targetPos, 1.5)) {
+
+                BlockState state = termiteEntity.getEntityWorld().getBlockState(targetPos);
+                termiteEntity.getEntityWorld().setBlockState(
+                        targetPos,
+                        HollowLogType.getHollowState(state.getBlock())
+                );
+
+                this.stop();
+            }
         }
 
         @Override
         public boolean shouldContinue() {
-            return !termiteEntity.getNavigation().isIdle();
+            return running && targetPos != null;
         }
 
-        public BlockPos getTargetPos() {
-            return targetPos;
-        }
-
-        public void setTargetPos(BlockPos targetPos) {
-            this.targetPos = targetPos;
+        @Override
+        public void stop() {
+            this.running = false;
+            this.targetPos = null;
         }
     }
 
