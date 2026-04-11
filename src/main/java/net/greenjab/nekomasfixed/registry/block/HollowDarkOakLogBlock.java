@@ -1,7 +1,6 @@
 package net.greenjab.nekomasfixed.registry.block;
 
 import net.greenjab.nekomasfixed.registry.block.entity.HollowDarkOakLogBlockEntity;
-import net.greenjab.nekomasfixed.registry.item.SoulfireTridentItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,12 +34,13 @@ public class HollowDarkOakLogBlock extends AbstractHollowLogBlock{
                 if (!logBE.getStoredBlock().isAir()) {
                     player.dropStack(
                             (ServerWorld) world,
-                            logBE.getStoredBlock().getPickStack(world, pos, true)
+                            logBE.getStoredBlock().getPickStack(world, pos.south(), true)
                     );
+                    return ActionResult.SUCCESS;
                 }
             }
         }
-        return ActionResult.PASS;
+        return ActionResult.FAIL;
     }
 
     @Override
