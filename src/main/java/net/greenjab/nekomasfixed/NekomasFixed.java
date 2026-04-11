@@ -70,7 +70,7 @@ public class NekomasFixed implements ModInitializer {
 							logBE.setStoredBlock(Blocks.AIR.getDefaultState());
 							world.updateListeners(pos, state,state, 3);
 						}
-						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem){
+						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem && logBE.getStoredBlock().isAir()){
 							logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
 							world.updateListeners(pos, state, state, 3);
 						}
