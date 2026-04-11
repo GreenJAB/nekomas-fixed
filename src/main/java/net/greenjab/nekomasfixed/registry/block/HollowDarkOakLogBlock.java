@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -21,26 +20,33 @@ public class HollowDarkOakLogBlock extends AbstractHollowLogBlock{
     }
 
     @Override
-    public ActionResult onUseWithItem(ItemStack stack, BlockState state, World world,
-                                         BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+
         System.out.println("clicked!!");
+
+        ItemStack stack = player.getStackInHand(player.getActiveHand());
+
         if (!world.isClient() && stack.isOf(Items.SHEARS)) {
-            System.out.println("entered IFELSE");
+            System.out.println("entered IF");
+
             BlockEntity be = world.getBlockEntity(pos);
+
             if (be instanceof HollowDarkOakLogBlockEntity logBE) {
+
                 System.out.println("Stored: " +
                         net.minecraft.registry.Registries.BLOCK.getId(logBE.getStoredBlock().getBlock()));
 
                 if (!logBE.getStoredBlock().isAir()) {
                     player.dropStack(
                             (ServerWorld) world,
-                            logBE.getStoredBlock().getPickStack(world, pos.south(), true)
+                            logBE.getStoredBlock().getPickStack(world, pos, true)
                     );
                     return ActionResult.SUCCESS;
                 }
             }
         }
-        return ActionResult.FAIL;
+
+        return ActionResult.PASS;
     }
 
     @Override
