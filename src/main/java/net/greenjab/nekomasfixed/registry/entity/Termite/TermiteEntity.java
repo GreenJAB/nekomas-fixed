@@ -100,7 +100,7 @@ public class TermiteEntity extends HostileEntity {
     public void readCustomDataFromNbt(NbtCompound nbt) {
         this.isInMound = nbt.getBoolean("IsInMound");
 
-        if (nbt.getBoolean("HasMoundPosition").get() && nbt.getBoolean("HasMoundPosition").isPresent() ) {
+        if (nbt.getBoolean("HasMoundPosition").get()) {
             int x = nbt.getInt("MoundX").get();
             int y = nbt.getInt("MoundY").get();
             int z = nbt.getInt("MoundZ").get();
@@ -262,6 +262,7 @@ public class TermiteEntity extends HostileEntity {
         private final TermiteEntity termiteEntity;
         private BlockPos targetPos;
         private boolean running;
+        private int tickForTarget = 0;
 
         public SearchForLogGoal(TermiteEntity termiteEntity) {
             this.termiteEntity = termiteEntity;
@@ -301,12 +302,14 @@ public class TermiteEntity extends HostileEntity {
         public void tick() {
             if (targetPos == null) return;
             if (termiteEntity.getBlockPos().isWithinDistance(targetPos, 1.5)) {
-
+                this.tickForTarget+=1;
                 BlockState state = termiteEntity.getEntityWorld().getBlockState(targetPos);
-                termiteEntity.getEntityWorld().setBlockState(
-                        targetPos,
-                        HollowLogType.getHollowState(state.getBlock())
-                );
+                if(this.tickForTarget >= 20){
+                    termiteEntity.getEntityWorld().setBlockState(
+                            targetPos,
+                            HollowLogType.getHollowState(state.getBlock())
+                    );
+                }
 
                 this.stop();
             }
