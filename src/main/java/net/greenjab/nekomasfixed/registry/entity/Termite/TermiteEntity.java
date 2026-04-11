@@ -304,13 +304,12 @@ public class TermiteEntity extends HostileEntity {
             if (termiteEntity.getBlockPos().isWithinDistance(targetPos, 1.5)) {
                 this.tickForTarget+=1;
                 BlockState state = termiteEntity.getEntityWorld().getBlockState(targetPos);
-                if(this.tickForTarget >= 20){
-                    System.out.println(this.tickForTarget);
+//                if(this.tickForTarget >= 20){
                     termiteEntity.getEntityWorld().setBlockState(
                             targetPos,
                             HollowLogType.getHollowState(state.getBlock())
                     );
-                }
+//                }
 
                 this.stop();
             }
