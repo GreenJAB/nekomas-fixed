@@ -282,7 +282,7 @@ public class TermiteEntity extends HostileEntity {
         @Override
         public void start() {
             this.running = true;
-
+            this.tickForTarget = 0;
             Optional<BlockPos> target = BlockPos.findClosest(
                     termiteEntity.getBlockPos(),
                     16,
