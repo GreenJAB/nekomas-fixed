@@ -35,13 +35,6 @@ public class AbstractBlockMixin {
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-
-            if(stack.isOf(Items.SHEARS) && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity logBe){
-                System.out.println("clicked on " + logBe);
-                logBe.setStoredBlock(Blocks.AIR.getDefaultState());
-                player.dropStack((ServerWorld) world, logBe.getStoredBlock().getPickStack(world, pos.south(), true));
-                world.updateListeners(pos, state, logBe.getCachedState(), 2);
-            }
         }
     }
 }

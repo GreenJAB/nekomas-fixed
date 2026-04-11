@@ -13,6 +13,7 @@ import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.greenjab.nekomasfixed.world.ModWorldGeneration;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -20,8 +21,10 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -62,9 +65,13 @@ public class NekomasFixed implements ModInitializer {
 					BlockEntity be = world.getBlockEntity(pos);
 
                     if (be instanceof AbstractHollowLogBlockEntity logBE) {
+						if(player.getMainHandStack().isOf(Items.SHEARS) && !world.isClient()){
+							player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos.north(), true))
+							logBE.setStoredBlock(Blocks.AIR.getDefaultState());
+							world.updateListeners(pos, state,state, 3);
+						}
 						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem){
 							logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
-							System.out.println(logBE.getStoredBlock());
 							world.updateListeners(pos, state, state, 3);
 						}
 						logBE.markDirty();
