@@ -161,7 +161,6 @@ public class TermiteEntity extends HostileEntity {
        );
     }
 
-
     //find the nearest mound and go towards it
     private static class GoToNearestMound extends MoveToTargetPosGoal {
         private final TermiteEntity termiteEntity;
@@ -203,10 +202,6 @@ public class TermiteEntity extends HostileEntity {
                 });
 
             }
-
-
-
-
         }
     }
 
@@ -262,7 +257,6 @@ public class TermiteEntity extends HostileEntity {
         private final TermiteEntity termiteEntity;
         private BlockPos targetPos;
         private boolean running;
-        private int tickForTarget = 0;
 
         public SearchForLogGoal(TermiteEntity termiteEntity) {
             this.termiteEntity = termiteEntity;
@@ -282,7 +276,6 @@ public class TermiteEntity extends HostileEntity {
         @Override
         public void start() {
             this.running = true;
-            this.tickForTarget = 0;
             Optional<BlockPos> target = BlockPos.findClosest(
                     termiteEntity.getBlockPos(),
                     16,
@@ -302,14 +295,11 @@ public class TermiteEntity extends HostileEntity {
         public void tick() {
             if (targetPos == null) return;
             if (termiteEntity.getBlockPos().isWithinDistance(targetPos, 1.5)) {
-                this.tickForTarget+=1;
                 BlockState state = termiteEntity.getEntityWorld().getBlockState(targetPos);
-//                if(this.tickForTarget >= 20){
                     termiteEntity.getEntityWorld().setBlockState(
                             targetPos,
                             HollowLogType.getHollowState(state.getBlock())
                     );
-//                }
 
                 this.stop();
             }

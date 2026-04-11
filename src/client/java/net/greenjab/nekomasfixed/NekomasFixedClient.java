@@ -55,6 +55,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.putBlocks(
 				BlockRenderLayer.CUTOUT,
+				BlockRegistry.BOABAB_FRUIT,
 				BlockRegistry.BOABAB_SAPLING,
 				BlockRegistry.HOLLOW_OAK_LOG,
 				BlockRegistry.HOLLOW_DARK_OAK_LOG,
