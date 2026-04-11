@@ -3,9 +3,15 @@ package net.greenjab.nekomasfixed.registry.block.entity;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.world.World;
 
 public class HollowDarkOakLogBlockEntity extends AbstractHollowLogBlockEntity {
 
@@ -32,6 +38,7 @@ public class HollowDarkOakLogBlockEntity extends AbstractHollowLogBlockEntity {
     protected void writeData(WriteView view) {
         super.writeData(view);
         view.put("StoredBlock", BlockState.CODEC, storedBlock);
+        System.out.println(view);
     }
 
     @Override
@@ -39,5 +46,6 @@ public class HollowDarkOakLogBlockEntity extends AbstractHollowLogBlockEntity {
         super.readData(view);
         storedBlock = view.read("StoredBlock", BlockState.CODEC)
                 .orElse(Blocks.AIR.getDefaultState());
+        System.out.println(view);
     }
 }
