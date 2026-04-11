@@ -309,7 +309,6 @@ public class TermiteEntity extends HostileEntity {
                             targetPos,
                             HollowLogType.getHollowState(state.getBlock())
                     );
-                    this.tickForTarget = 0;
                 }
 
                 this.stop();
