@@ -22,7 +22,7 @@ public class HollowDarkOakLogBlock extends AbstractHollowLogBlock{
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world,
+    public ActionResult onUseWithItem(ItemStack stack, BlockState state, World world,
                                          BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         System.out.println("clicked!!");
         if (!world.isClient() && stack.isOf(Items.SHEARS)) {
