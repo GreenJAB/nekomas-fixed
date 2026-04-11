@@ -4,9 +4,12 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.PillarBlock;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static net.minecraft.block.PillarBlock.AXIS;
 
 public enum HollowLogType {
 
@@ -40,11 +43,17 @@ public enum HollowLogType {
     }
 
     public static Block getHollowBlock(Block baseLog) {
-        return BASE_TO_HOLLOW.getOrDefault(baseLog, Blocks.AIR);
+        return BASE_TO_HOLLOW.getOrDefault(baseLog, Blocks.ACACIA_LOG);
     }
 
     public static BlockState getHollowState(Block baseLog) {
-        return getHollowBlock(baseLog).getDefaultState();
+        BlockState baseState = baseLog.getDefaultState();
+        BlockState hollowState = getHollowBlock(baseLog).getDefaultState();
+
+        if (baseState.contains(PillarBlock.AXIS)) {
+            return hollowState.with(PillarBlock.AXIS, baseState.get(PillarBlock.AXIS));
+        }
+        return hollowState;
     }
 
     public static Block getBaseBlock(Block hollowLog) {
