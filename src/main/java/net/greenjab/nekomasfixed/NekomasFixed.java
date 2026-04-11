@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.greenjab.nekomasfixed.mixin.accessor.FlowerPotBlockAccessor;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
@@ -12,8 +13,7 @@ import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.greenjab.nekomasfixed.world.ModWorldGeneration;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -70,11 +70,22 @@ public class NekomasFixed implements ModInitializer {
 							logBE.setStoredBlock(Blocks.AIR.getDefaultState());
 							world.updateListeners(pos, state,state, 3);
 						}
-						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem && logBE.getStoredBlock().isAir()){
-							logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
-							player.getMainHandStack().decrementUnlessCreative(1, player);
-							world.updateListeners(pos, state, state, 3);
+						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem){
+							if(blockItem.getBlock().getDefaultState().isIn(BlockTags.FLOWERS) && logBE.getStoredBlock().isIn(BlockTags.FLOWER_POTS)){
+								Block plant = blockItem.getBlock();
+								Block potted = FlowerPotBlockAccessor.getContentToPotted().get(plant);
+								if (potted != null) {
+									logBE.setStoredBlock(potted.getDefaultState());
+								}
+							}
+							if(logBE.getStoredBlock().isAir()){
+								logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
+								player.getMainHandStack().decrementUnlessCreative(1, player);
+								world.updateListeners(pos, state, state, 3);
+							}
+
 						}
+
 						logBE.markDirty();
 					}
 				}
@@ -82,7 +93,6 @@ public class NekomasFixed implements ModInitializer {
 			}
 			return ActionResult.PASS;
 		});
-
 
         LOGGER.info("TERMITE = {}", EntityTypeRegistry.TERMITE);
 		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.TERMITE, TermiteEntity.createAttributes());

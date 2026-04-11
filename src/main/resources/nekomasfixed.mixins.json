@@ -37,6 +37,7 @@
     "SnifferEntityAccessor",
     "SnifferEntityMixin",
     "TradeOffersMixin",
+    "accessor.FlowerPotBlockAccessor",
     "accessor.MobEntityAccessor",
     "boat.AbstractBoatEntityMixin",
     "boat.BodyControlMixin",
