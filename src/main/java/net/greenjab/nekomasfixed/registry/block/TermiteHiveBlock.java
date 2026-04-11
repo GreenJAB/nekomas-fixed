@@ -42,16 +42,6 @@ public class TermiteHiveBlock extends BlockWithEntity {
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {return CODEC;}
 
-    private boolean hasTermites(World world, BlockPos pos) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof TermiteHiveBlockEntity termiteHiveBlockEntity) {
-            return !termiteHiveBlockEntity.hasNoTermites();
-        } else {
-            return false;
-        }
-    }
-
-
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(TERMITES, FACING);

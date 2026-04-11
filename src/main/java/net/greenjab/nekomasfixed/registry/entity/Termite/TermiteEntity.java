@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
+import net.greenjab.nekomasfixed.registry.block.TermiteHiveBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.HollowLogType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
@@ -176,12 +177,14 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            return this.termiteEntity.getEntityWorld().isNight() && this.termiteEntity.getMoundPosition().isPresent();
+            return this.termiteEntity.getEntityWorld().isNight()
+                    && this.termiteEntity.getMoundPosition().isPresent()
+                    && this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermiteHiveBlock.TERMITES) < 2;
         }
 
         @Override
         public boolean shouldContinue() {
-            return !this.hasReached();
+            return !this.hasReached() || this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermiteHiveBlock.TERMITES) == 2;
         }
 
         @Override
