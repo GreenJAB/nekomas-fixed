@@ -34,6 +34,8 @@ import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.HAS_WATER;
+
 public class NekomasFixed implements ModInitializer {
 	public static final String MOD_NAME = "Nekomas' Fixed Minecraft";
 	public static final String NAMESPACE = "nekomasfixed";
@@ -70,6 +72,7 @@ public class NekomasFixed implements ModInitializer {
 							logBE.setStoredBlock(Blocks.AIR.getDefaultState());
 							world.updateListeners(pos, state,state, 3);
 						}
+
 						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem){
 							if(blockItem.getBlock().getDefaultState().isIn(BlockTags.FLOWERS) && logBE.getStoredBlock().isIn(BlockTags.FLOWER_POTS)){
 								Block plant = blockItem.getBlock();
@@ -82,6 +85,14 @@ public class NekomasFixed implements ModInitializer {
 								logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
 								player.getMainHandStack().decrementUnlessCreative(1, player);
 								world.updateListeners(pos, state, state, 3);
+							}
+							if(player.getMainHandStack().isOf(Items.WATER_BUCKET)){
+								if (state.get(PillarBlock.AXIS).isVertical()){
+									player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
+									world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
+									player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
+
+								}
 							}
 
 						}

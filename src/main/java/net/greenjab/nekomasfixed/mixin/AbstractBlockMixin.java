@@ -33,14 +33,7 @@ public class AbstractBlockMixin {
                     world.setBlockState(below, BlockRegistry.BOABAB_FRUIT.getDefaultState());
                     stack.decrementUnlessCreative(1, player);
                 }
-                if(stack.isOf(Items.WATER_BUCKET) && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity blockEntity){
-                    if (state.get(PillarBlock.AXIS).isVertical()){
-                        player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
-                        world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
-                        player.dropStack((ServerWorld) world, blockEntity.getStoredBlock().getPickStack(world, pos, true));
 
-                    }
-                }
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
         }
