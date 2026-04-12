@@ -12,7 +12,7 @@
       "model": "nekomasfixed:block/hollow_oak_log_horizontal",
       "x": 90
     },
-    "has_water=true": {
+    "axis=y,has_water=true": {
       "model": "nekomasfixed:block/hollow_oak_log_water"
     }
   }
