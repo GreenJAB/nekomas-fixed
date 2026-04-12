@@ -45,6 +45,7 @@ public abstract class AbstractHollowLogBlock extends PillarBlock implements Bloc
 
     @Override
     public ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        System.out.println("Hollow log has been clicked!!!");
         if(!world.isClient() && stack.isOf(Items.WATER_BUCKET) && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity blockEntity){
             if (state.get(PillarBlock.AXIS).isVertical()){
                 player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
@@ -56,13 +57,13 @@ public abstract class AbstractHollowLogBlock extends PillarBlock implements Bloc
         return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
     }
 
-    @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        if(!world.isClient() && world.getBlockState(pos.down()).isAir() && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity blockEntity){
-            return blockEntity.getCachedState().with(HAS_WATER, false);
-        }
-        return state;
-    }
+//    @Override
+//    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+//        if(!world.isClient() && world.getBlockState(pos.down()).isAir() && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity blockEntity){
+//            return blockEntity.getCachedState().with(HAS_WATER, false);
+//        }
+//        return state;
+//    }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
