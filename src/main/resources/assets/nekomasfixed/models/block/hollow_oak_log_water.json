@@ -4,7 +4,7 @@
   "textures": {
     "3": "minecraft:block/oak_log",
     "4": "minecraft:block/stripped_oak_log",
-    "5": "minecraft:block/water",
+    "5": "minecraft:block/magma_block",
     "particle": "minecraft:block/oak_log"
   },
   "elements": [
