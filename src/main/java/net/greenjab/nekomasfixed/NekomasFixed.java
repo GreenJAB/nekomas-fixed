@@ -17,6 +17,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.datafixer.fix.ChunkPalettedStorageFix;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -35,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.HAS_WATER;
+import static net.minecraft.block.PillarBlock.AXIS;
 
 public class NekomasFixed implements ModInitializer {
 	public static final String MOD_NAME = "Nekomas' Fixed Minecraft";
@@ -87,13 +89,15 @@ public class NekomasFixed implements ModInitializer {
 								world.updateListeners(pos, state, state, 3);
 							}
 							if(player.getMainHandStack().isOf(Items.WATER_BUCKET)){
+								System.out.println("enterred 1");
 								if (state.get(PillarBlock.AXIS).isVertical()){
+									System.out.println("entered 2");
 									player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
 									world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
 									player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
 
 								}
-							}
+                            }
 
 						}
 
