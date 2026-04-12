@@ -36,7 +36,7 @@ public abstract class AbstractHollowLogBlock extends PillarBlock implements Bloc
                     Block.createColumnShape(12.0F, 0.0F, 0.0F), RAYCAST_SHAPE),
             BooleanBiFunction.ONLY_FIRST));
 
-    public static BooleanProperty HAS_WATER = BooleanProperty.of("hasWater");
+    public static BooleanProperty HAS_WATER = BooleanProperty.of("has_water");
 
     public AbstractHollowLogBlock(AbstractBlock.Settings settings) {
         super(settings);
