@@ -44,7 +44,7 @@ public abstract class AbstractHollowLogBlock extends PillarBlock implements Bloc
     }
 
     @Override
-    public ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         System.out.println("Hollow log has been clicked!!!");
         if(!world.isClient() && stack.isOf(Items.WATER_BUCKET) && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity blockEntity){
             if (state.get(PillarBlock.AXIS).isVertical()){
