@@ -52,9 +52,12 @@ public abstract class AbstractHollowLogBlock extends PillarBlock implements Bloc
                 world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
                 player.dropStack((ServerWorld) world, blockEntity.getStoredBlock().getPickStack(world, pos, true));
                 return ActionResult.SUCCESS;
+            }else{
+                return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
             }
+        }else {
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
-        return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
     }
 
 //    @Override
