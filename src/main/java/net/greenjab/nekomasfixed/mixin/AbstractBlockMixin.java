@@ -3,9 +3,7 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.block.entity.AbstractHollowLogBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -22,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.HAS_WATER;
+
 @Mixin(AbstractBlock.class)
 public class AbstractBlockMixin {
     @Inject(method = "onUseWithItem", at= @At("HEAD"), cancellable = true)
@@ -32,6 +32,14 @@ public class AbstractBlockMixin {
                 if (world.getBlockState(below).isAir() || world.getBlockState(below).isIn(BlockTags.REPLACEABLE)) {
                     world.setBlockState(below, BlockRegistry.BOABAB_FRUIT.getDefaultState());
                     stack.decrementUnlessCreative(1, player);
+                }
+                if(stack.isOf(Items.WATER_BUCKET) && world.getBlockEntity(pos) instanceof AbstractHollowLogBlockEntity blockEntity){
+                    if (state.get(PillarBlock.AXIS).isVertical()){
+                        player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
+                        world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
+                        player.dropStack((ServerWorld) world, blockEntity.getStoredBlock().getPickStack(world, pos, true));
+
+                    }
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
