@@ -66,6 +66,7 @@ public abstract class AbstractHollowLogBlock extends PillarBlock implements Bloc
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
         builder.add(HAS_WATER);
     }
 
