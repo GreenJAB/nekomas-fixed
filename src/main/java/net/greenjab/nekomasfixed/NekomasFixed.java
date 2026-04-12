@@ -88,17 +88,18 @@ public class NekomasFixed implements ModInitializer {
 								player.getMainHandStack().decrementUnlessCreative(1, player);
 								world.updateListeners(pos, state, state, 3);
 							}
-							if(player.getMainHandStack().isOf(Items.WATER_BUCKET)){
-								System.out.println("enterred 1");
-								if (state.get(PillarBlock.AXIS).isVertical()){
-									System.out.println("entered 2");
-									player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
-									world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
-									player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
 
-								}
-                            }
 
+						}
+						else if(player.getMainHandStack().isOf(Items.WATER_BUCKET)){
+							System.out.println("enterred 1");
+							if (state.get(PillarBlock.AXIS).isVertical()){
+								System.out.println("entered 2");
+								player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
+								world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
+								player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
+
+							}
 						}
 
 						logBE.markDirty();
