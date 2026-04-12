@@ -166,7 +166,7 @@ public class BlockRegistry {
     public static final Block INDIGO_SHULKER_BOX = registerShulkerBoxBlock("indigo_shulker_box", DyeColor.MAGENTA);
     public static final Block CRIMSON_SHULKER_BOX = registerShulkerBoxBlock("crimson_shulker_box", DyeColor.RED);
 
-    public static final Block HOLLOW_OAK_LOG = register("hollow_oak_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.OAK_LOG));
+    public static final Block HOLLOW_OAK_LOG = register("hollow_oak_log", HollowOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.OAK_LOG).luminance(state -> state.get(AbstractHollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_DARK_OAK_LOG = register("hollow_dark_oak_log", HollowDarkOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.DARK_OAK_LOG));
     public static final Block HOLLOW_SPRUCE_LOG = register("hollow_spruce_log", HollowSpruceLogBlock::new , AbstractBlock.Settings.copy(Blocks.SPRUCE_LOG));
     public static final Block HOLLOW_JUNGLE_LOG = register("hollow_jungle_log", HollowJungleLogBlock::new , AbstractBlock.Settings.copy(Blocks.JUNGLE_LOG));

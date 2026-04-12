@@ -36,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.HAS_WATER;
+import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.LIGHT_LEVEL;
 import static net.minecraft.block.PillarBlock.AXIS;
 
 public class NekomasFixed implements ModInitializer {
@@ -88,20 +89,22 @@ public class NekomasFixed implements ModInitializer {
 								player.getMainHandStack().decrementUnlessCreative(1, player);
 								world.updateListeners(pos, state, state, 3);
 							}
-
+							if(blockItem.getBlock().getDefaultState().getLuminance()>0){
+								world.setBlockState(pos, state.with(LIGHT_LEVEL, blockItem.getBlock().getDefaultState().getLuminance()));
+							}
 
 						}
 						else if(player.getMainHandStack().isOf(Items.WATER_BUCKET)){
-							System.out.println("enterred 1");
-							if (state.get(PillarBlock.AXIS).isVertical()){
-								System.out.println("entered 2");
+							if (state.get(PillarBlock.AXIS).isVertical() && !world.getBlockState(pos.down()).isAir()){
 								player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
 								world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
 								player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
-
 							}
 						}
-
+						else if(player.getMainHandStack().isOf(Items.BUCKET) && logBE.getCachedState().get(HAS_WATER)){
+							player.setStackInHand(Hand.MAIN_HAND, Items.WATER_BUCKET.getDefaultStack());
+							world.setBlockState(pos, state.with(HAS_WATER, false), Block.NOTIFY_ALL);
+						}
 						logBE.markDirty();
 					}
 				}
