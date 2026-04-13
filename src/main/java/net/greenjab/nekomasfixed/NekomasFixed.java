@@ -20,11 +20,10 @@ import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.datafixer.fix.ChunkPalettedStorageFix;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -92,18 +91,45 @@ public class NekomasFixed implements ModInitializer {
 							if(blockItem.getBlock().getDefaultState().getLuminance()>0){
 								world.setBlockState(pos, state.with(LIGHT_LEVEL, blockItem.getBlock().getDefaultState().getLuminance()));
 							}
+							if (logBE.getStoredBlock().isOf(Blocks.FARMLAND) && blockItem.getBlock().getDefaultState().isIn(BlockTags.MAINTAINS_FARMLAND)) {
+
+
+							}
+
 
 						}
-						else if(player.getMainHandStack().isOf(Items.WATER_BUCKET)){
-							if (state.get(PillarBlock.AXIS).isVertical() && !world.getBlockState(pos.down()).isAir()){
-								player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
-								world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
-								player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
+						else if(player.getMainHandStack().getItem() instanceof Item){
+							ItemStack stack = player.getMainHandStack();
+							if(stack.isOf(Items.WATER_BUCKET)){
+								if (state.get(PillarBlock.AXIS).isVertical() && !world.getBlockState(pos.down()).isAir()){
+									player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
+									world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
+									player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
+								}
 							}
-						}
-						else if(player.getMainHandStack().isOf(Items.BUCKET) && logBE.getCachedState().get(HAS_WATER)){
-							player.setStackInHand(Hand.MAIN_HAND, Items.WATER_BUCKET.getDefaultStack());
-							world.setBlockState(pos, state.with(HAS_WATER, false), Block.NOTIFY_ALL);
+							else if(stack.isOf(Items.BUCKET) && logBE.getCachedState().get(HAS_WATER)){
+								player.setStackInHand(Hand.MAIN_HAND, Items.WATER_BUCKET.getDefaultStack());
+								world.setBlockState(pos, state.with(HAS_WATER, false), Block.NOTIFY_ALL);
+							}
+							else if(stack.isIn(ItemTags.HOES) && logBE.getStoredBlock().isIn(BlockTags.DIRT)) {
+								if (stack.isDamageable()) {
+									stack.damage(1, player, hand);
+								}
+								logBE.setStoredBlock(Blocks.FARMLAND.getDefaultState());
+								world.updateListeners(pos, state, state, 2);
+
+//							else if (stack.isOf(Items.BONE_MEAL)) {
+//								BlockState stored = logBE.getStoredBlock();
+//
+//								if (stored.getBlock() instanceof Fertilizable fertilizable) {
+//									if (fertilizable.isFertilizable(world, pos, stored)) {
+//										fertilizable.grow((ServerWorld) world, world.random, pos, stored);
+//										logBE.setStoredBlock(fertilizable.getStateAfterGrowth(world, world.random, pos, stored));
+//
+//										stack.decrementUnlessCreative(1, player);
+//									}
+//								}
+							}
 						}
 						logBE.markDirty();
 					}

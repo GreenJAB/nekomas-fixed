@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.block.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CropBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
@@ -12,6 +13,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public abstract class AbstractHollowLogBlockEntity extends BlockEntity {
     private BlockState storedBlock = Blocks.AIR.getDefaultState();
@@ -22,6 +24,21 @@ public abstract class AbstractHollowLogBlockEntity extends BlockEntity {
 
     public BlockState getStoredBlock() {
         return this.storedBlock;
+    }
+
+    public static void tick(World world, BlockPos pos, BlockState state, AbstractHollowLogBlockEntity be) {
+        if (world.isClient()) return;
+
+        BlockState stored = be.getStoredBlock();
+        if (stored.getBlock() instanceof CropBlock crop) {
+            if (world.random.nextInt(10) == 0) {
+                if (!crop.isMature(stored)) {
+                    BlockState newState = crop.withAge(crop.getAge(stored) + 1);
+                    be.setStoredBlock(newState);
+                    be.markDirty();
+                }
+            }
+        }
     }
 
     @Override
