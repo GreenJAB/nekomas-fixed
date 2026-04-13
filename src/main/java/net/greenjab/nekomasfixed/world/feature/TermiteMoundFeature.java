@@ -32,7 +32,6 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         if (!world.getBlockState(start.down()).isSolidBlock(world, start.down())) {
             return false;
         }
-
         if (!world.getBlockState(start).isAir()) {
             return false;
         }
