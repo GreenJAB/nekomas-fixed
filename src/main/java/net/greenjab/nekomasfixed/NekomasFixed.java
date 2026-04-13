@@ -76,7 +76,6 @@ public class NekomasFixed implements ModInitializer {
 							world.setBlockState(pos, state.with(LIGHT_LEVEL, 0));
 							world.updateListeners(pos, state,state, 3);
 						}
-
 						if(player.getMainHandStack().getItem() instanceof BlockItem blockItem){
 							if(blockItem.getBlock().getDefaultState().isIn(BlockTags.FLOWERS) && logBE.getStoredBlock().isIn(BlockTags.FLOWER_POTS)){
 								Block plant = blockItem.getBlock();
@@ -86,9 +85,7 @@ public class NekomasFixed implements ModInitializer {
 								}
 							}
 							if(AbstractHollowLogBlockEntity.canStoreABlock(logBE, blockItem)){
-								if(blockItem.getBlock().getDefaultState().isIn(OtherRegistry.FOLIAGE_REQUIRES_BASE) && !world.getBlockState(hit.getBlockPos().down()).isAir()){
-									return ActionResult.FAIL;
-								}
+								//theres more to do for the hollow logs, it will be continued some time later....
 								logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
 								player.getMainHandStack().decrementUnlessCreative(1, player);
 								world.updateListeners(pos, state, state, 3);
