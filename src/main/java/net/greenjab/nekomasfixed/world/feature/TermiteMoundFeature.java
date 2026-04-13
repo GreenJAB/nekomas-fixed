@@ -36,18 +36,31 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
             return false;
         }
 
+        int taperStart = 5;
+        int taperHeight = random.nextInt(3) + 2;
+
         for (y = 0; y < height - 1; y++) {
-            float r = (float) (size - 0.33f * (y / (height + 0f))*Math.cos(y));
-            if(y==0){
-                r = size + 1;
+            if (y >= taperStart && y < taperStart + taperHeight) {
+                BlockPos pos = start.up(y);
+
+                world.setBlockState(
+                        pos,
+                        context.getConfig().toPlace().get(random, pos),
+                        3
+                );
+                continue;
             }
-            if(y>height-3){
-                r = 1f;
+
+            float r = size - 1.33f * (y / (height + 0f));
+            if (y == 0) {
+                r = size + 1;
             }
             for (x = -2; x <= 2; x++) {
                 for (z = -2; z <= 2; z++) {
+
                     float distSq = x * x + z * z;
                     if (distSq <= r * r) {
+
                         boolean isSurface = distSq >= (r - 1) * (r - 1);
                         BlockPos pos = start.add(x, y, z);
 
@@ -57,7 +70,6 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
                             world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
                         }
                     }
-
                 }
             }
         }
