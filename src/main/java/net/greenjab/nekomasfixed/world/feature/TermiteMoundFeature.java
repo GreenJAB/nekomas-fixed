@@ -43,7 +43,7 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
                 r = size + 1;
             }
             if(y>height-3){
-                r = 0.3f;
+                r = 1f;
             }
             for (x = -2; x <= 2; x++) {
                 for (z = -2; z <= 2; z++) {
