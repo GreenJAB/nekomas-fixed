@@ -51,7 +51,7 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
                 continue;
             }
 
-            float r = size - 1.33f * (y / (height + 0f));
+            float r = size - 0.33f * (y / (height + 0f));
             if (y == 0) {
                 r = size + 1;
             }
