@@ -1,15 +1,20 @@
 package net.greenjab.nekomasfixed.registry.block.entity;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
@@ -26,20 +31,6 @@ public abstract class AbstractHollowLogBlockEntity extends BlockEntity {
         return this.storedBlock;
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, AbstractHollowLogBlockEntity be) {
-        if (world.isClient()) return;
-
-        BlockState stored = be.getStoredBlock();
-        if (stored.getBlock() instanceof CropBlock crop) {
-            if (world.random.nextInt(10) == 0) {
-                if (!crop.isMature(stored)) {
-                    BlockState newState = crop.withAge(crop.getAge(stored) + 1);
-                    be.setStoredBlock(newState);
-                    be.markDirty();
-                }
-            }
-        }
-    }
 
     @Override
     public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
@@ -73,5 +64,18 @@ public abstract class AbstractHollowLogBlockEntity extends BlockEntity {
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    private static boolean checkInTag(BlockState blockItemState, TagKey<Block> tags){
+        return blockItemState.isIn(tags);
+    }
+
+    public static boolean canStoreABlock(AbstractHollowLogBlockEntity logBE,BlockItem blockItem){
+        BlockState blockItemState = blockItem.getBlock().getDefaultState();
+        return logBE.getStoredBlock().isAir() && !blockItem.getDefaultStack().isIn(ItemTags.SKULLS)
+                && !checkInTag(blockItemState, BlockTags.BANNERS)
+                && !checkInTag(blockItemState, BlockTags.BEDS)
+                && !checkInTag(blockItemState, BlockTags.DOORS)
+                && !checkInTag(blockItemState, BlockTags.BUTTONS);
     }
 }

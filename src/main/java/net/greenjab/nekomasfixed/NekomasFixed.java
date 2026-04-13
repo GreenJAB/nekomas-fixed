@@ -83,7 +83,7 @@ public class NekomasFixed implements ModInitializer {
 									logBE.setStoredBlock(potted.getDefaultState());
 								}
 							}
-							if(logBE.getStoredBlock().isAir()){
+							if(AbstractHollowLogBlockEntity.canStoreABlock(logBE, blockItem)){
 								logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
 								player.getMainHandStack().decrementUnlessCreative(1, player);
 								world.updateListeners(pos, state, state, 3);
@@ -91,12 +91,6 @@ public class NekomasFixed implements ModInitializer {
 							if(blockItem.getBlock().getDefaultState().getLuminance()>0){
 								world.setBlockState(pos, state.with(LIGHT_LEVEL, blockItem.getBlock().getDefaultState().getLuminance()));
 							}
-							if (logBE.getStoredBlock().isOf(Blocks.FARMLAND) && blockItem.getBlock().getDefaultState().isIn(BlockTags.MAINTAINS_FARMLAND)) {
-
-
-							}
-
-
 						}
 						else if(player.getMainHandStack().getItem() instanceof Item){
 							ItemStack stack = player.getMainHandStack();

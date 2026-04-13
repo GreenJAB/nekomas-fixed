@@ -38,17 +38,6 @@ public abstract class AbstractHollowLogBlock extends PillarBlock implements Bloc
         this.setDefaultState(this.stateManager.getDefaultState().with(HAS_WATER, false));
     }
 
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (type == BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE) {
-            return (world1, pos, state1, be) -> {
-                if (be instanceof AbstractHollowLogBlockEntity logBE) {
-                    AbstractHollowLogBlockEntity.tick(world1, pos, state1, logBE);
-                }
-            };
-        }
-        return null;
-    }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
