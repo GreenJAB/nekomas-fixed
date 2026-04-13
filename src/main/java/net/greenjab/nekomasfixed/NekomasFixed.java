@@ -34,6 +34,8 @@ import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.print.attribute.standard.MediaSize;
+
 import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.HAS_WATER;
 import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.LIGHT_LEVEL;
 import static net.minecraft.block.PillarBlock.AXIS;
@@ -84,6 +86,9 @@ public class NekomasFixed implements ModInitializer {
 								}
 							}
 							if(AbstractHollowLogBlockEntity.canStoreABlock(logBE, blockItem)){
+								if(blockItem.getBlock().getDefaultState().isIn(OtherRegistry.FOLIAGE_REQUIRES_BASE) && !world.getBlockState(hit.getBlockPos().down()).isAir()){
+									return ActionResult.FAIL;
+								}
 								logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
 								player.getMainHandStack().decrementUnlessCreative(1, player);
 								world.updateListeners(pos, state, state, 3);

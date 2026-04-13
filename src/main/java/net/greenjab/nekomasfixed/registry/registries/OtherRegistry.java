@@ -60,7 +60,7 @@ public class OtherRegistry {
     public static final TagKey<Item> CLAMTAG = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("clams"));
     public static final TagKey<Item> SPEARS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("spears"));
     public static final TagKey<Item> SICKLES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("sickles"));
-    public static final TagKey<Block> HOLLOW_LOGS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("hollow_logs"));
+    public static final TagKey<Block> FOLIAGE_REQUIRES_BASE = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("foliage_requires_base"));
     public static final TagKey<Item> FOOD_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("food_items"));
     public static final TagKey<Item> SLINGSHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("slingshot_projectiles"));
 
