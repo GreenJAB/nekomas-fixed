@@ -38,12 +38,13 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         }
 
         for (y = 0; y < height - 1; y++) {
-            float r = size - 0.33f * (y / (height + 0f));
+            float t = y / (float) height;
+            float r = size * (1 - t) + 0.3f * (float)Math.sin(t * Math.PI);
             if(y==0){
-                r = (float) (size + 1 - (2*Math.sin(y)));
+                r = size + 1;
             }
             if(y>height-3){
-                r = 1;
+                r = 0.3f;
             }
             for (x = -2; x <= 2; x++) {
                 for (z = -2; z <= 2; z++) {
