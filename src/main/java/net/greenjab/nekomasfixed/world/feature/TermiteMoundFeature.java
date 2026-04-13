@@ -22,7 +22,7 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
     public boolean generate(FeatureContext<SimpleBlockFeatureConfig> context) {
         StructureWorldAccess world = context.getWorld();
         Random random = context.getRandom();
-        int height = random.nextInt(2)+4;
+        int height = random.nextInt(2)+6;
         BlockPos start = context.getOrigin();
         BlockPos.Mutable currentPos = start.mutableCopy();
 
@@ -40,9 +40,9 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         for (y = 0; y < height - 1; y++) {
             float r = size - 0.33f * (y / (height + 0f));
             if(y==0){
-                r = size + 1;
+                r = (float) (size + 1 - (2*Math.sin(y)));
             }
-            if(y>height-2){
+            if(y>height-3){
                 r = 1;
             }
             for (x = -2; x <= 2; x++) {

@@ -9,7 +9,6 @@ import net.minecraft.block.PillarBlock;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.minecraft.block.PillarBlock.AXIS;
 
 public enum HollowLogType {
 
@@ -54,21 +53,5 @@ public enum HollowLogType {
             return hollowState.with(PillarBlock.AXIS, baseState.get(PillarBlock.AXIS));
         }
         return hollowState;
-    }
-
-    public static Block getBaseBlock(Block hollowLog) {
-        return HOLLOW_TO_BASE.getOrDefault(hollowLog, Blocks.AIR);
-    }
-
-    public static BlockState getBaseState(Block hollowLog) {
-        return getBaseBlock(hollowLog).getDefaultState();
-    }
-
-    public Block getBaseLog() {
-        return baseLog;
-    }
-
-    public Block getHollowLog() {
-        return hollowLog;
     }
 }

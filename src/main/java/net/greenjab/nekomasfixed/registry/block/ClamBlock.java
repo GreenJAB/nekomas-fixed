@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.registry.block;
-//Block class of minecraft -
 // import net.minecraft.block.Blocks'
+//Block class of minecraft -
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
@@ -285,7 +285,8 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 					if (item.isOf(Items.SAND) || item.isOf(Items.GRAVEL) || item.isOf(Items.DIRT)) {
 						clamBlockEntity.setHeldStack(item.copyWithCount(item.getCount() - 1));
 						if (random.nextInt(16) == 0) {
-							LootTable lootTable = world.getServer()
+                            assert world.getServer() != null;
+                            LootTable lootTable = world.getServer()
 									.getReloadableRegistries()
 									.getLootTable(OtherRegistry.CLAM_LOOT_TABLE);
 
