@@ -43,7 +43,6 @@ class ServerWorldMixin {
         boolean bl = serverWorld.isRaining();
         Profiler profiler = Profilers.get();
         profiler.push("thunder");
-        System.out.println(ModConfigValues.enableCopperBuff);
         ServerPlayerEntity player = this.getRandomAlivePlayer();
         if (ModConfigValues.enableCopperBuff && bl && serverWorld.isThundering() && serverWorld.random.nextInt(10000) == 0
         ) {
