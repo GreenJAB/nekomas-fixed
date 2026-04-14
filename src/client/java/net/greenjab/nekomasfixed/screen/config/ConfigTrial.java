@@ -17,10 +17,10 @@ public class ConfigTrial {
 
         ConfigCategory emptyCategory = builder.getOrCreateCategory(Text.literal("Main Features"));
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-        AtomicReference<String> currentValue = new AtomicReference<>("option.namefield.optionA");
-        emptyCategory.addEntry(entryBuilder.startStrField(Text.literal("option.namefield.optionB"), currentValue.get())
-                .setDefaultValue("This is the default value")
-                .setTooltip(Text.literal("This option is awesome!"))
+        AtomicReference<String> currentValue = new AtomicReference<>("Name: ");
+        emptyCategory.addEntry(entryBuilder.startStrField(Text.literal("Enter your name"), currentValue.get())
+                .setDefaultValue("Your name")
+                .setTooltip(Text.literal("This option takes name as the user input!"))
                 .setSaveConsumer(currentValue::set)
                 .build());
 
