@@ -1,11 +1,7 @@
 package net.greenjab.nekomasfixed.registry.block;
 
-import net.greenjab.nekomasfixed.registry.block.entity.AbstractHollowLogBlockEntity;
-import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
@@ -16,7 +12,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import org.jspecify.annotations.Nullable;
 
 public abstract class AbstractHollowLogBlock extends PillarBlock implements BlockEntityProvider, Waterloggable{
