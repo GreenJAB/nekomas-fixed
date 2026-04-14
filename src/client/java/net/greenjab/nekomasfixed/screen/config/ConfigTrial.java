@@ -25,7 +25,6 @@ public class ConfigTrial {
                 .build());
 
 
-
         builder.setSavingRunnable(() -> System.out.println("Config saved! :" + currentValue));
 
         return builder.build();
