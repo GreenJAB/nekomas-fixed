@@ -24,7 +24,9 @@ public class ConfigTrial {
                 .setSaveConsumer(currentValue::set)
                 .build());
 
-        builder.setSavingRunnable(() -> System.out.println("Config saved! (Still nothing to save yet)"));
+
+
+        builder.setSavingRunnable(() -> System.out.println("Config saved! :" + currentValue));
 
         return builder.build();
     }
