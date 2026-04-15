@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -21,6 +22,10 @@ public class AbstractBlockMixin {
     @Inject(method = "onUseWithItem", at= @At("HEAD"), cancellable = true)
     private void customOnUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         if(!world.isClient()){
+            if(stack.isOf(Items.GOAT_HORN)){
+                stack.decrementUnlessCreative(1, player);
+                world.setBlockState(pos, BlockRegistry.GOAT_HORN.getDefaultState());
+            }
             if(stack.isOf(ItemRegistry.BOABAB_SEEDS) && state.isIn(BlockTags.LEAVES)){
                 BlockPos below = pos.down();
                 if (world.getBlockState(below).isAir() || world.getBlockState(below).isIn(BlockTags.REPLACEABLE)) {
