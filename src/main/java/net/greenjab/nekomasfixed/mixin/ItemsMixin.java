@@ -29,7 +29,7 @@ public class ItemsMixin {
 	}
 
 	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Items;register(Ljava/lang/String;)Lnet/minecraft/item/Item;", ordinal = 0 ), slice = @Slice( from = @At(value = "FIELD",
-			target = "Lnet/minecraft/item/Items;TRIDENT:Lnet/minecraft/item/Item;")))
+			target = "Lnet/minecraft/item/Items;CROSSBOW:Lnet/minecraft/item/Item;")))
 	private static Item goatHornBlock(String id) {
 		return register(
 				BlockRegistry.GOAT_HORN,
