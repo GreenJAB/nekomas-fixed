@@ -1,9 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.VerticallyAttachableBlockItem;
@@ -32,7 +29,7 @@ public class ItemsMixin {
 	}
 
 	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Items;register(Ljava/lang/String;)Lnet/minecraft/item/Item;", ordinal = 0 ), slice = @Slice( from = @At(value = "FIELD",
-			target = "Lnet/minecraft/item/Items;GOAT_HORN:Lnet/minecraft/item/Item;")))
+			target = "Lnet/minecraft/item/Items;BORDURE_INDENTED_BANNER_PATTERN:Lnet/minecraft/item/Item;")))
 	private static Item goatHornBlock(String id) {
 		return register(
 				BlockRegistry.GOAT_HORN,
