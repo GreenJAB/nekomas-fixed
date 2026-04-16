@@ -1,6 +1,8 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.VerticallyAttachableBlockItem;
@@ -10,6 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
+
+import java.util.function.Function;
 
 import static net.minecraft.item.Items.register;
 
@@ -28,13 +32,14 @@ public class ItemsMixin {
 		);
 	}
 
-	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Items;register(Ljava/lang/String;)Lnet/minecraft/item/Item;", ordinal = 0 ), slice = @Slice( from = @At(value = "FIELD",
+	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Items;register(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/item/Item$Settings;)Lnet/minecraft/item/Item;", ordinal = 0 ), slice = @Slice( from = @At(value = "FIELD",
 			target = "Lnet/minecraft/item/Items;CROSSBOW:Lnet/minecraft/item/Item;")))
-	private static Item goatHornBlock(String id) {
+	private static Item goatHornBlock(String id, Function<Item.Settings, Item> factory, Item.Settings settings) {
 		return register(
-				BlockRegistry.GOAT_HORN,
-				(block, settings) -> new VerticallyAttachableBlockItem(
-						block, BlockRegistry.GOAT_HORN, Direction.DOWN, Waypoint.disableTracking(settings)
+                String.valueOf(BlockRegistry.GOAT_HORN),
+				(settings1) -> new BlockItem(
+						BlockRegistry.GOAT_HORN,
+						settings1
 				),
 				new Item.Settings()
 		);
