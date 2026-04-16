@@ -1,8 +1,8 @@
 {
   "variants": {
-    "facing=north": { "model": "nekomasfixed:block/goat_horn" },
-    "facing=south": { "model": "nekomasfixed:block/goat_horn", "y": 180 },
-    "facing=west":  { "model": "nekomasfixed:block/goat_horn", "y": 270 },
-    "facing=east":  { "model": "nekomasfixed:block/goat_horn", "y": 90 }
+    "facing=north": { "model": "nekomasfixed:block/horn" },
+    "facing=south": { "model": "nekomasfixed:block/horn", "y": 180 },
+    "facing=west":  { "model": "nekomasfixed:block/horn", "y": 270 },
+    "facing=east":  { "model": "nekomasfixed:block/horn", "y": 90 }
   }
 }
