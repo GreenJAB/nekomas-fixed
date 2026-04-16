@@ -36,7 +36,7 @@ public class ItemsMixin {
 			target = "Lnet/minecraft/item/Items;CROSSBOW:Lnet/minecraft/item/Item;")))
 	private static Item goatHornBlock(String id, Function<Item.Settings, Item> factory, Item.Settings settings) {
 		return register(
-                String.valueOf(BlockRegistry.GOAT_HORN),
+                "horn",
 				(settings1) -> new BlockItem(
 						BlockRegistry.GOAT_HORN,
 						settings1
