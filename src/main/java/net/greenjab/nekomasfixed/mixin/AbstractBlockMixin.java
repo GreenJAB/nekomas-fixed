@@ -1,8 +1,11 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
+import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.ItemStack;
@@ -20,6 +23,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
+
 @Mixin(AbstractBlock.class)
 public class AbstractBlockMixin {
     @Inject(method = "onUseWithItem", at= @At("HEAD"), cancellable = true)
@@ -30,9 +35,18 @@ public class AbstractBlockMixin {
                 Direction direction = hit.getSide();
                 BlockPos placePos = pos.offset(direction);
 
-                BlockState newState = BlockRegistry.GOAT_HORN.getDefaultState().with(HorizontalFacingBlock.FACING, direction.getOpposite());
+                var component = stack.get(DataComponentTypes.INSTRUMENT);
+                if (component == null) return;
+
+                GoatHornType hornType = GoatHornType.fromInstrument(component.instrument());
+
+                BlockState newState = BlockRegistry.GOAT_HORN.getDefaultState()
+                        .with(GoatHornBlock.HORN, hornType)
+                        .with(HorizontalFacingBlock.FACING, direction.getOpposite());
                 if (newState.contains(Properties.HORIZONTAL_FACING)) {
                     newState = newState.with(Properties.HORIZONTAL_FACING, direction.getOpposite());
+
+
                 }
                 if (world.getBlockState(placePos).isReplaceable()) {
                     if(stack.getItem() instanceof GoatHornItem goatHornItem){

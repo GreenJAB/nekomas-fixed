@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
+import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -9,6 +10,7 @@ import net.minecraft.item.Instruments;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +24,7 @@ import static net.minecraft.util.math.Direction.NORTH;
 public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggable {
     public static final MapCodec<GoatHornBlock> CODEC = createCodec(GoatHornBlock::new);
     public static final Property<Boolean> WATERLOGGED = Properties.WATERLOGGED;
-    public RegistryKey<Instrument> INSTRUMENT = Instruments.CALL_GOAT_HORN;
+    public static final EnumProperty<GoatHornType> HORN = EnumProperty.of("horn", GoatHornType.class);
     private static final VoxelShape NORTH_SHAPE = VoxelShapes.union(
             Block.createCuboidShape(7, 3, 0, 9, 5, 7),
             Block.createCuboidShape(6.5, 4, 4, 9.5, 6, 8),
@@ -36,9 +38,11 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(FACING, NORTH)
-                .with(WATERLOGGED, false));
+                .with(WATERLOGGED, false)
+                .with(HORN, GoatHornType.CALL));
 
     }
+
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -72,9 +76,10 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
         return getOutlineShape(state, world, pos, ShapeContext.absent());
     }
 
+
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WATERLOGGED);
+        builder.add(FACING, WATERLOGGED, HORN);
     }
 
     @Override
