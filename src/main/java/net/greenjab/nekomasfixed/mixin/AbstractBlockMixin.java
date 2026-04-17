@@ -31,7 +31,7 @@ public class AbstractBlockMixin {
 
                 BlockState newState = BlockRegistry.GOAT_HORN.getDefaultState().with(HorizontalFacingBlock.FACING, direction);
                 if (newState.contains(Properties.HORIZONTAL_FACING)) {
-                    newState = newState.with(Properties.HORIZONTAL_FACING, player.getHorizontalFacing());
+                    newState = newState.with(Properties.HORIZONTAL_FACING, direction);
                 }
                 if (world.getBlockState(placePos).isReplaceable()) {
                     world.setBlockState(placePos, newState);
