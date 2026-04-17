@@ -38,6 +38,7 @@ public class AbstractBlockMixin {
                     cir.setReturnValue(ActionResult.SUCCESS);
                 }
             }
+
             if(stack.isOf(ItemRegistry.BOABAB_SEEDS) && state.isIn(BlockTags.LEAVES)){
                 BlockPos below = pos.down();
                 if (world.getBlockState(below).isAir() || world.getBlockState(below).isIn(BlockTags.REPLACEABLE)) {
