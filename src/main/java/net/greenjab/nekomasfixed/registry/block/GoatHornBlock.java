@@ -54,6 +54,11 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
         };
     }
 
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return getOutlineShape(state, world, pos, context);
+    }
+
     private static VoxelShape rotateY(VoxelShape shape) {
         VoxelShape[] buffer = new VoxelShape[] { shape, VoxelShapes.empty() };
 
