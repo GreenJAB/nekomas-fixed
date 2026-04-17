@@ -4,6 +4,7 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
@@ -34,7 +35,11 @@ public class AbstractBlockMixin {
                     newState = newState.with(Properties.HORIZONTAL_FACING, direction.getOpposite());
                 }
                 if (world.getBlockState(placePos).isReplaceable()) {
+                    if(stack.getItem() instanceof GoatHornItem goatHornItem){
+
+                    }
                     world.setBlockState(placePos, newState);
+                    player.getMainHandStack().decrementUnlessCreative(1, player);
                     cir.setReturnValue(ActionResult.SUCCESS);
                 }
             }
