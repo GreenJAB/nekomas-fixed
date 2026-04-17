@@ -7,10 +7,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +25,19 @@ public class AbstractBlockMixin {
     private void customOnUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
 
         if(!world.isClient()){
+            if (stack.isOf(Items.GOAT_HORN)) {
+                Direction direction = hit.getSide();
+                BlockPos placePos = pos.offset(direction);
 
+                BlockState newState = BlockRegistry.GOAT_HORN.getDefaultState();
+                if (newState.contains(Properties.HORIZONTAL_FACING)) {
+                    newState = newState.with(Properties.HORIZONTAL_FACING, player.getHorizontalFacing().getOpposite());
+                }
+                if (world.getBlockState(placePos).isReplaceable()) {
+                    world.setBlockState(placePos, newState);
+                    cir.setReturnValue(ActionResult.SUCCESS);
+                }
+            }
             if(stack.isOf(ItemRegistry.BOABAB_SEEDS) && state.isIn(BlockTags.LEAVES)){
                 BlockPos below = pos.down();
                 if (world.getBlockState(below).isAir() || world.getBlockState(below).isIn(BlockTags.REPLACEABLE)) {

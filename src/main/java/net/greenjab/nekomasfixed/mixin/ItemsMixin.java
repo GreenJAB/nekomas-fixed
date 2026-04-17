@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -35,14 +34,16 @@ public class ItemsMixin {
 	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Items;register(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/item/Item$Settings;)Lnet/minecraft/item/Item;", ordinal = 0 ), slice = @Slice( from = @At(value = "FIELD",
 			target = "Lnet/minecraft/item/Items;CROSSBOW:Lnet/minecraft/item/Item;")))
 	private static Item goatHornBlock(String id, Function<Item.Settings, Item> factory, Item.Settings settings) {
-		return register(
-                "horn",
-				(settings1) -> new BlockItem(
-						BlockRegistry.GOAT_HORN,
-						settings1
-				),
-				new Item.Settings()
-		);
+		System.out.println(id + " =============================== ");
+		return register(id, factory, settings);
+//		return Items.register(
+//					BlockRegistry.GOAT_HORN,
+//				(settings1, item) -> new BlockItem(
+//						BlockRegistry.GOAT_HORN,
+//						settings
+//				),
+//				new Item.Settings()
+//		);
 	}
 
 
