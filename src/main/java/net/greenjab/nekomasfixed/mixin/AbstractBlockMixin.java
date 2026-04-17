@@ -29,7 +29,7 @@ public class AbstractBlockMixin {
                 Direction direction = hit.getSide();
                 BlockPos placePos = pos.offset(direction);
 
-                BlockState newState = BlockRegistry.GOAT_HORN.getDefaultState();
+                BlockState newState = BlockRegistry.GOAT_HORN.getDefaultState().with(HorizontalFacingBlock.FACING, direction.getOpposite());
                 if (newState.contains(Properties.HORIZONTAL_FACING)) {
                     newState = newState.with(Properties.HORIZONTAL_FACING, player.getHorizontalFacing().getOpposite());
                 }
