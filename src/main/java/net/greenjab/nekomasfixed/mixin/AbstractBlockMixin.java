@@ -30,9 +30,15 @@ public class AbstractBlockMixin {
     @Inject(method = "onUseWithItem", at= @At("HEAD"), cancellable = true)
     private void customOnUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
 
-        if(!world.isClient()){
+        if(!world.isClient() && !world.getBlockState(pos).isIn(BlockTags.REPLACEABLE) && state.isSideSolidFullSquare(world, pos, hit.getSide())){
             if (stack.isOf(Items.GOAT_HORN)) {
                 Direction direction = hit.getSide();
+
+                if (direction.getAxis().isVertical()) {
+                    direction = player.getHorizontalFacing();
+                }
+
+                Direction facing = direction.getOpposite();
                 BlockPos placePos = pos.offset(direction);
 
                 var component = stack.get(DataComponentTypes.INSTRUMENT);
@@ -42,16 +48,10 @@ public class AbstractBlockMixin {
 
                 BlockState newState = BlockRegistry.GOAT_HORN.getDefaultState()
                         .with(GoatHornBlock.HORN, hornType)
-                        .with(HorizontalFacingBlock.FACING, direction.getOpposite());
-                if (newState.contains(Properties.HORIZONTAL_FACING)) {
-                    newState = newState.with(Properties.HORIZONTAL_FACING, direction.getOpposite());
+                        .with(HorizontalFacingBlock.FACING, facing);
 
-
-                }
                 if (world.getBlockState(placePos).isReplaceable()) {
-                    if(stack.getItem() instanceof GoatHornItem goatHornItem){
-
-                    }
+                    GoatHornItem goatHornItem = (GoatHornItem) stack.getItem();
                     world.setBlockState(placePos, newState);
                     player.getMainHandStack().decrementUnlessCreative(1, player);
                     cir.setReturnValue(ActionResult.SUCCESS);
