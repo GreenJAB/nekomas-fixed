@@ -3,7 +3,6 @@ package net.greenjab.nekomasfixed.registry.block;
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornTorchType;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
-import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -66,8 +65,7 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
                 .with(HORN, GoatHornType.CALL)
                 .with(LIGHT_LEVEL, 0)
                 .with(HAS_TORCH, GoatHornTorchType.NONE)
-        )
-                ;
+        );
     }
 
     @Override
@@ -97,22 +95,29 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
                 BlockState newState = state
                         .with(HAS_TORCH, GoatHornTorchType.TORCH)
                         .with(LIGHT_LEVEL, 15);
-
                 world.setBlockState(pos, newState);
+                player.getMainHandStack().decrementUnlessCreative(1, player);
             }
             else if(stack.isOf(Items.COPPER_TORCH)){
                 BlockState newState = state
                         .with(HAS_TORCH, GoatHornTorchType.COPPER_TORCH)
                         .with(LIGHT_LEVEL, 13);
-
                 world.setBlockState(pos, newState);
+                player.getMainHandStack().decrementUnlessCreative(1, player);
             }
             else if(stack.isOf(Items.SOUL_TORCH)){
                 BlockState newState = state
                         .with(HAS_TORCH, GoatHornTorchType.SOULFIRE_TORCH)
                         .with(LIGHT_LEVEL, 10);
-
                 world.setBlockState(pos, newState);
+                player.getMainHandStack().decrementUnlessCreative(1, player);
+            }
+            else if(stack.isOf(Items.REDSTONE_TORCH)){
+                BlockState newState = state
+                        .with(HAS_TORCH, GoatHornTorchType.REDSTONE_TORCH)
+                        .with(LIGHT_LEVEL, 10);
+                world.setBlockState(pos, newState);
+                player.getMainHandStack().decrementUnlessCreative(1, player);
             }
             else if(stack.isOf(ItemRegistry.GLOW_TORCH)){
                 {
@@ -120,8 +125,15 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
                         BlockState newState = state
                                 .with(HAS_TORCH, GoatHornTorchType.GLOW_TORCH)
                                 .with(LIGHT_LEVEL, 15);
-
                         world.setBlockState(pos, newState);
+                        player.getMainHandStack().decrementUnlessCreative(1, player);
+                    }
+                    else{
+                        BlockState newState = state
+                                .with(HAS_TORCH, GoatHornTorchType.GLOW_TORCH_OFF)
+                                .with(LIGHT_LEVEL, 0);
+                        world.setBlockState(pos, newState);
+                        player.getMainHandStack().decrementUnlessCreative(1, player);
                     }
                 }
             }

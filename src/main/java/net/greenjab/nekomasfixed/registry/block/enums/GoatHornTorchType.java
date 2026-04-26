@@ -6,7 +6,9 @@ public enum GoatHornTorchType implements StringIdentifiable {
     TORCH,
     COPPER_TORCH,
     GLOW_TORCH,
+    GLOW_TORCH_OFF,
     SOULFIRE_TORCH,
+    REDSTONE_TORCH,
     NONE;
 
     @Override

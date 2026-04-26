@@ -3,7 +3,9 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [34, 51],
 	"textures": {
-		"0": "nekomasfixed:block/rope"
+		"0": "nekomasfixed:block/rope",
+		"particle": "nekomasfixed:block/rope"
+
 	},
 	"elements": [
 		{
