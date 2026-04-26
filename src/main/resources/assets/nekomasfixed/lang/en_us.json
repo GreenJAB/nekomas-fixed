@@ -228,5 +228,14 @@
   "item.minecraft.firework_star.indigo": "Indigo",
   "item.minecraft.firework_star.aqua": "Aqua",
   "item.minecraft.firework_star.amber": "Amber",
-  "item.minecraft.firework_star.maroon": "Maroon"
+  "item.minecraft.firework_star.maroon": "Maroon",
+
+  "container.pyrotechnics": "Pyrotechnics Table",
+  "block.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
+  "item.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
+
+  "item.nekomasfixed.jungle_zombie_spawn_egg": "Jungle Zombie Spawn Egg",
+  "item.nekomasfixed.snow_zombie_spawn_egg": "Snow Zombie Spawn Egg",
+
+  "title.nekomasfixed.config": "Config"
 }

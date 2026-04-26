@@ -167,6 +167,13 @@ public class BlockRegistry {
 
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
 
+    public static final Block BEETROOT_CAKE = register("beetroot_cake", CakeBlock::new, AbstractBlock.Settings.copy(Blocks.CAKE));
+    public static final Block APPLE_CAKE = register("apple_cake", CakeBlock::new, AbstractBlock.Settings.copy(Blocks.CAKE));
+    public static final Block GLOWBERRY_CAKE = register("glowberry_cake", CakeBlock::new, AbstractBlock.Settings.copy(Blocks.CAKE));
+    public static final Block HONEY_CAKE = register("honey_cake", CakeBlock::new, AbstractBlock.Settings.copy(Blocks.CAKE));
+    public static final Block COCOA_CAKE = register("cocoa_cake", CakeBlock::new, AbstractBlock.Settings.copy(Blocks.CAKE));
+    public static final Block COOKIE_CAKE = register("cookie_cake", CakeBlock::new, AbstractBlock.Settings.copy(Blocks.CAKE));
+
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
     }

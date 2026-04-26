@@ -42,9 +42,9 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.NETHER_HEART);
                         entries.add(ItemRegistry.SOULFIRE_TRIDENT);
                         entries.add(ItemRegistry.SOULFIRE_SHIELD);
-                         entries.add(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE);
+                        entries.add(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE);
 
-                         entries.add(ItemRegistry.SLINGSHOT);
+                        entries.add(ItemRegistry.SLINGSHOT);
                         entries.add(ItemRegistry.WOODEN_SICKLE);
                         entries.add(ItemRegistry.STONE_SICKLE);
                         entries.add(ItemRegistry.COPPER_SICKLE);
@@ -163,6 +163,18 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.HUGE_PALE_OAK_BOAT);
                          entries.add(ItemRegistry.BIG_SPRUCE_BOAT);
                          entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
+
+                         entries.add(ItemRegistry.PYROTECHNICS_TABLE);
+                         entries.add(ItemRegistry.JUNGLE_ZOMBIE_SPAWN_EGG);
+                         entries.add(ItemRegistry.SNOW_ZOMBIE_SPAWN_EGG);
+
+                         entries.add(ItemRegistry.BEETROOT_CAKE);
+                         entries.add(ItemRegistry.APPLE_CAKE);
+                         entries.add(ItemRegistry.HONEY_CAKE);
+                         entries.add(ItemRegistry.GLOWBERRY_CAKE);
+                         entries.add(ItemRegistry.COOKIE_CAKE);
+                         entries.add(ItemRegistry.COCOA_CAKE);
+
 
 
                     }).build();

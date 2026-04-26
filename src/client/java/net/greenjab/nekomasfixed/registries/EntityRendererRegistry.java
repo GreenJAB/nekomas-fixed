@@ -52,5 +52,8 @@ public class EntityRendererRegistry {
 
         EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
 
+        EntityRendererFactories.register(EntityTypeRegistry.JUNGLE_ZOMBIE, JungleZombieRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.SLOWNESS_SNOWBALL, FlyingItemEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.SNOW_ZOMBIE, SnowZombieRenderer::new);
     }
 }
