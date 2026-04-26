@@ -267,6 +267,17 @@ public class ItemRegistry {
     public static final Item INDIGO_SHULKER_BOX = register(BlockRegistry.INDIGO_SHULKER_BOX);
     public static final Item MAROON_SHULKER_BOX = register(BlockRegistry.MAROON_SHULKER_BOX);
 
+    public static final Item PYROTECHNICS_TABLE = register(BlockRegistry.PYROTECHNICS_TABLE);
+    public static final Item JUNGLE_ZOMBIE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.JUNGLE_ZOMBIE);
+    public static final Item SNOW_ZOMBIE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SNOW_ZOMBIE);
+    public static final Item BEETROOT_CAKE = register(BlockRegistry.BEETROOT_CAKE);
+    public static final Item APPLE_CAKE = register(BlockRegistry.APPLE_CAKE);
+    public static final Item HONEY_CAKE = register(BlockRegistry.HONEY_CAKE);
+    public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE);
+    public static final Item COOKIE_CAKE = register(BlockRegistry.COOKIE_CAKE);
+    public static final Item COCOA_CAKE = register(BlockRegistry.COCOA_CAKE);
+
+
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);
     }

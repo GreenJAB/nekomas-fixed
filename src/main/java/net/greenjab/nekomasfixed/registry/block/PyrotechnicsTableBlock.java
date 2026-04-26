@@ -1,0 +1,56 @@
+package net.greenjab.nekomasfixed.registry.block;
+
+import com.mojang.serialization.MapCodec;
+import net.greenjab.nekomasfixed.screen.PyrotechnicsTableScreenHandler;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Property;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
+public class PyrotechnicsTableBlock extends HorizontalFacingBlock {
+
+    public static final MapCodec<PyrotechnicsTableBlock> CODEC = createCodec(PyrotechnicsTableBlock::new);
+    private static final Text TITLE = Text.translatable("container.pyrotechnics");
+
+    public PyrotechnicsTableBlock(Settings settings) {
+        super(settings);
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+        return CODEC;
+    }
+
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (!world.isClient()) {
+            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+        }
+
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> new PyrotechnicsTableScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos)), TITLE);
+    }
+
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return (BlockState)this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+    }
+
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(new Property[]{FACING});
+    }
+}
+

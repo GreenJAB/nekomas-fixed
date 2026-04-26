@@ -9,6 +9,7 @@ import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registries.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
+import net.greenjab.nekomasfixed.screen.PyrotechnicsTableScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
@@ -32,6 +33,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 		ClientSyncHandler.init();
 
 		HandledScreens.register(ScreenHandlerRegistry.KILN_SCREEN_HANDLER, KilnScreen::new);
+		HandledScreens.register(ScreenHandlerRegistry.PYROTECHNICS_TABLE_HANDLER, PyrotechnicsTableScreen::new);
 
 		BlockRenderLayerMap.putBlocks(
 				BlockRenderLayer.TRANSLUCENT,
