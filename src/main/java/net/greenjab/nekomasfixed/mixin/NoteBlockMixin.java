@@ -6,9 +6,11 @@ import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.NoteBlock;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Instrument;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
@@ -16,13 +18,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Random;
+
 
 @Mixin(NoteBlock.class)
-public class NoteBlockMixin {
+public abstract class NoteBlockMixin {
+
+	@Shadow
+	protected abstract void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player);
 
 	@Inject(method = "onSyncedBlockEvent", at = @At("HEAD"), cancellable = true)
 	private void goatHornPlay(BlockState state, World world, BlockPos pos, int type, int data, CallbackInfoReturnable<Boolean> cir) {
@@ -46,22 +54,21 @@ public class NoteBlockMixin {
 						1.0F
 				);
 
-				if (world.isClient()) {
-					int note = state.get(NoteBlock.NOTE);
+				if (!world.isClient()) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					Random random = new Random();
 
-					world.addParticleClient(
+					serverWorld.spawnParticles(
 							ParticleTypes.NOTE,
-							pos.getX() + 0.5,
-							pos.getY() + 1.2,
-							pos.getZ() + 0.5,
-							note / 24.0,
-							0.0,
-							0.0
+							pos.offset(dir).getX(),
+							pos.offset(dir).getY() + 1 + random.nextDouble(0.5),
+							pos.offset(dir).getZ(),
+							2,
+							0.1, 0.1, 0.1,
+							0
 					);
 				}
 
-				cir.setReturnValue(true);
-				return;
 			}
 		}
 	}
