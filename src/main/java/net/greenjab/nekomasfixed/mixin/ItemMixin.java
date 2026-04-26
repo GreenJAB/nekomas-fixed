@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,19 +31,21 @@ public class ItemMixin {
 			int remainingUseTicks,
 			CallbackInfo ci
 	) {
-		if (!world.isClient() && !stack.isOf(Items.GOAT_HORN)) return;
+		if (!world.isClient() || !stack.isOf(Items.GOAT_HORN)) return;
 
-		if (user.age % 3 == 0 && !world.isClient()) {
+		if (user.age % 3 == 0 && !world.isClient() ) {
             ServerWorld serverWorld = (ServerWorld) world;
-			serverWorld.spawnParticles(
-					ParticleTypes.POOF,
-					user.getX(),
-					user.getY()+0.5,
-					user.getZ(),
-					20,
-					0.4,0.2,0.4,
-					0.05
-			);
+			if(serverWorld.getStructureAccessor().getStructureContaining(user.getBlockPos(), StructureTags.VILLAGE).hasChildren()) {
+				serverWorld.spawnParticles(
+						ParticleTypes.POOF,
+						user.getX(),
+						user.getY() + 0.5,
+						user.getZ(),
+						20,
+						0.4, 0.2, 0.4,
+						0.05
+				);
+			}
 		}
 	}
 }

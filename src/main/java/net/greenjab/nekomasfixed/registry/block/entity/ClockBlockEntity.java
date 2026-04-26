@@ -149,7 +149,8 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 			if (world instanceof ServerWorld serverWorld) {
 				world.updateComparators(pos, state.getBlock());
 				UpdateClockPayload payload = new UpdateClockPayload(pos.getX(), pos.getY(), pos.getZ(), blockEntity.getTimer(), blockEntity.hasBell(), blockEntity.getShowsTime());
-				sendToAround(serverWorld.getServer()
+                assert serverWorld.getServer() != null;
+                sendToAround(serverWorld.getServer()
 								.getPlayerManager(),
 						null,
 						pos.getX(),

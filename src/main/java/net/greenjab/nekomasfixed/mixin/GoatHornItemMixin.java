@@ -4,7 +4,10 @@ import net.greenjab.nekomasfixed.mixin.accessor.GoatHornItemInvoker;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.Instrument;
@@ -30,10 +33,19 @@ public class GoatHornItemMixin {
             Optional<? extends RegistryEntry<Instrument>> optional = item.invokeGetInstrument(itemStack, user.getRegistryManager());
             ServerWorld serverWorld = (ServerWorld) world;
             StatusEffectInstance status= GoatHornType.getStatusEffect((GoatHornItem) item);
+            StatusEffectInstance glow = new StatusEffectInstance(StatusEffects.GLOWING, 30 * 20);
                 for(Entity entity : serverWorld.iterateEntities()){
                     if(entity instanceof IronGolemEntity ironGolem){
-                       ironGolem.addStatusEffect(status);
-//                       serverWorld.spawnParticles(ParticleTypes.BUBBLE, pos.getX(), pos.getY()+3, pos.getZ(), 10,0.3 ,0.5 , 0.3, 0);
+                        if (user.hasStatusEffect(StatusEffects.RAID_OMEN) || user.hasStatusEffect(StatusEffects.BAD_OMEN)) {
+                            ironGolem.addStatusEffect(status);
+                        }
+                    }
+                    if (entity instanceof TameableEntity tameable && tameable.isTamed()) {
+                        tameable.addStatusEffect(glow);
+                    }
+
+                    if (entity instanceof AbstractHorseEntity horse && horse.isTame()) {
+                        horse.addStatusEffect(glow);
                     }
                 }
 
