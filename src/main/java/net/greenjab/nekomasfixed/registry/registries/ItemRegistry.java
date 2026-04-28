@@ -100,6 +100,7 @@ public class ItemRegistry {
     public static final Item HOLLOW_WARPED_LOG = register(BlockRegistry.HOLLOW_WARPED_LOG);
     public static final Item HOLLOW_CRIMSON_LOG = register(BlockRegistry.HOLLOW_CRIMSON_LOG);
     public static final Item HOLLOW_BIRCH_LOG = register(BlockRegistry.HOLLOW_BIRCH_LOG);
+    public static final Item GEYSER = register(BlockRegistry.GEYSER);
 
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 

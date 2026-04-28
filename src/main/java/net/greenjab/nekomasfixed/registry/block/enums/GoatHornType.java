@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.registry.block.enums;
 
-import net.greenjab.nekomasfixed.mixin.accessor.GoatHornItemInvoker;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -9,9 +8,6 @@ import net.minecraft.item.Instrument;
 import net.minecraft.item.Instruments;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.LazyRegistryEntryReference;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stat;
 import net.minecraft.util.StringIdentifiable;
 import org.jspecify.annotations.Nullable;
 
@@ -23,6 +19,7 @@ public enum GoatHornType implements StringIdentifiable {
     SEEK,
     FEEL,
     ADMIRE,
+    YEARN,
     DREAM;
 
 
@@ -33,6 +30,7 @@ public enum GoatHornType implements StringIdentifiable {
             case SEEK -> Instruments.SEEK_GOAT_HORN;
             case FEEL -> Instruments.FEEL_GOAT_HORN;
             case ADMIRE -> Instruments.ADMIRE_GOAT_HORN;
+            case YEARN -> Instruments.YEARN_GOAT_HORN;
             case DREAM -> Instruments.DREAM_GOAT_HORN;
         };
     }
@@ -52,6 +50,7 @@ public enum GoatHornType implements StringIdentifiable {
             case FEEL -> effect = new StatusEffectInstance(StatusEffects.ABSORPTION, dur, rand);
             case ADMIRE -> effect = new StatusEffectInstance(StatusEffects.REGENERATION, dur, rand+3);
             case DREAM ->  effect = new StatusEffectInstance(StatusEffects.INVISIBILITY, dur, rand);
+            case YEARN ->  effect = new StatusEffectInstance(StatusEffects.STRENGTH, dur, rand+1);
         }
         return effect;
     }
@@ -66,6 +65,7 @@ public enum GoatHornType implements StringIdentifiable {
         if (key == Instruments.FEEL_GOAT_HORN) return FEEL;
         if (key == Instruments.ADMIRE_GOAT_HORN) return ADMIRE;
         if (key == Instruments.DREAM_GOAT_HORN) return DREAM;
+        if (key == Instruments.YEARN_GOAT_HORN) return YEARN;
 
         return CALL;
     }

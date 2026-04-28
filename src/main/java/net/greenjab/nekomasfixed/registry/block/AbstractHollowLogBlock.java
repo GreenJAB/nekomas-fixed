@@ -12,6 +12,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
 import org.jspecify.annotations.Nullable;
 
 public abstract class AbstractHollowLogBlock extends PillarBlock implements BlockEntityProvider, Waterloggable{
@@ -53,6 +55,21 @@ public abstract class AbstractHollowLogBlock extends PillarBlock implements Bloc
     @Override
     public VoxelShape getRaycastShape(BlockState state, BlockView world, BlockPos pos) {
         return RAYCAST_SHAPE;
+    }
+
+    @Override
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
+        if(state.get(HAS_WATER) && world.getBlockState(pos.down()).isAir()){
+            if(state.get(AXIS).isVertical() ){
+                world.setBlockState(pos, state.with(HAS_WATER, false));
+                world.setBlockState(pos.down(), Blocks.WATER.getDefaultState());
+            }
+            else if(state.get(AXIS).isHorizontal()){
+                world.setBlockState(pos, state.with(HAS_WATER, false));
+                world.setBlockState(pos.offset(state.get(AXIS).getPositiveDirection()), Blocks.WATER.getDefaultState());
+                world.setBlockState(pos.offset(state.get(AXIS).getNegativeDirection()), Blocks.WATER.getDefaultState());
+            }
+        }
     }
 
     @Override

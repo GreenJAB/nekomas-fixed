@@ -97,11 +97,15 @@ public class NekomasFixed implements ModInitializer {
 						else if(player.getMainHandStack().getItem() instanceof Item){
 							ItemStack stack = player.getMainHandStack();
 							if(stack.isOf(Items.WATER_BUCKET)){
-								if (state.get(PillarBlock.AXIS).isVertical() && !world.getBlockState(pos.down()).isAir()){
 									player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
 									world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
+									if(state.get(AXIS).isHorizontal()){
+										world.setBlockState(pos, state.with(HAS_WATER, false));
+										world.setBlockState(pos.offset(state.get(AXIS).getPositiveDirection()), Blocks.WATER.getDefaultState());
+										world.setBlockState(pos.offset(state.get(AXIS).getNegativeDirection()), Blocks.WATER.getDefaultState());
+									}
 									player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
-								}
+
 							}
 							else if(stack.isOf(Items.BUCKET) && logBE.getCachedState().get(HAS_WATER)){
 								player.setStackInHand(Hand.MAIN_HAND, Items.WATER_BUCKET.getDefaultStack());

@@ -178,6 +178,8 @@ public class BlockRegistry {
     public static final Block HOLLOW_BIRCH_LOG = register("hollow_birch_log", HollowBirchLogBlock::new , AbstractBlock.Settings.copy(Blocks.BIRCH_LOG));
     public static final Block HOLLOW_PALE_OAK_LOG = register("hollow_pale_oak_log", HollowPaleOakLogBlock::new , AbstractBlock.Settings.copy(Blocks.PALE_OAK_LOG));
 
+    public static final Block GEYSER = register("geyser", GeyserBlock::new , AbstractBlock.Settings.create().ticksRandomly().luminance(state -> Blocks.LAVA.getDefaultState().getLuminance()));
+
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
     public static final Block BOABAB_FRUIT = register("boabab_fruit", BoababFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly().noBlockBreakParticles());
 

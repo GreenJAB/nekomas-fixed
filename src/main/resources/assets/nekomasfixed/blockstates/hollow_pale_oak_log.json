@@ -1,6 +1,6 @@
 {
   "variants": {
-    "axis=x": {
+    "axis=z": {
       "model": "nekomasfixed:block/hollow_pale_oak_log_horizontal",
       "x": 90,
       "y": 90
@@ -8,7 +8,7 @@
     "axis=y": {
       "model": "nekomasfixed:block/hollow_pale_oak_log"
     },
-    "axis=z": {
+    "axis=x": {
       "model": "nekomasfixed:block/hollow_pale_oak_log_horizontal",
       "x": 90
     }
