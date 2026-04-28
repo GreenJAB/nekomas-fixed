@@ -2,10 +2,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.*;
-import net.greenjab.nekomasfixed.registry.block.cauldron.HoneyCauldronBlock;
-import net.greenjab.nekomasfixed.registry.block.cauldron.IceCauldronBlock;
-import net.greenjab.nekomasfixed.registry.block.cauldron.MagmaCauldronBlock;
-import net.greenjab.nekomasfixed.registry.block.cauldron.SlimeCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.greenjab.nekomasfixed.world.ModConfiguredFeatures;
@@ -145,6 +142,7 @@ public class BlockRegistry {
     public static final Block HONEY_CAULDRON = register("honey_cauldron", HoneyCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
     public static final Block MAGMA_CAULDRON = register("magma_cauldron", MagmaCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
     public static final Block SLIME_CAULDRON = register("slime_cauldron", SlimeCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+    public static final Block SOUP_CAULDRON = register("soup_cauldron", SoupCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
     public static final Block ICE_CAULDRON = register("ice_cauldron", IceCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
 
     public static final Block AMBER_BED = registerBedBlock("amber_bed", DyeColor.YELLOW);

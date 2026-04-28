@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
+import com.mojang.serialization.Codec;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.LightningEffect;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireAttackablesSensor;
@@ -19,6 +20,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.passive.DolphinEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.network.RegistryByteBuf;
@@ -31,6 +33,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.debug.DebugSubscriptionType;
 
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -51,10 +54,10 @@ public class OtherRegistry {
     public static final ComponentType<ComboComponent> COMBO_MULTIPLIER = registerComponent(
             "combo_multiplier", builder -> builder.codec(ComboComponent.CODEC).packetCodec(ComboComponent.PACKET_CODEC).cache()
     );
+    public static final ComponentType<List<ItemStack>> SOUP_INGREDIENTS = Registry.register(Registries.DATA_COMPONENT_TYPE, NekomasFixed.id("soup_ingredients"), ComponentType.<List<ItemStack>>builder().codec(ItemStack.CODEC.listOf()).packetCodec(ItemStack.PACKET_CODEC.collect(PacketCodecs.toList())).build());
     private static <T> ComponentType<T> registerComponent(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, id, builderOperator.apply(ComponentType.builder()).build());
     }
-
 
     //tag
     public static final TagKey<Item> CLAMTAG = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("clams"));

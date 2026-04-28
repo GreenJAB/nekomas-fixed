@@ -8,7 +8,9 @@ import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.block.entity.AbstractHollowLogBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
+import net.greenjab.nekomasfixed.registry.item.SpecialSoupItem;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
@@ -17,7 +19,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.datafixer.fix.ChunkPalettedStorageFix;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -34,7 +35,7 @@ import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.print.attribute.standard.MediaSize;
+import java.util.List;
 
 import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.HAS_WATER;
 import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.LIGHT_LEVEL;
@@ -64,6 +65,32 @@ public class NekomasFixed implements ModInitializer {
 		UseBlockCallback.EVENT.register((PlayerEntity player, World world, Hand hand, BlockHitResult hit) -> {
 			BlockPos pos = hit.getBlockPos();
 			BlockState state = world.getBlockState(pos);
+
+			if (!world.isClient() && !player.getMainHandStack().isOf(Items.AIR) && state.isOf(Blocks.WATER_CAULDRON) && (player.getMainHandStack().isIn(ItemTags.MEAT) || player.getMainHandStack().isOf(Items.POTION))) {
+				world.setBlockState(pos, BlockRegistry.SOUP_CAULDRON.getDefaultState());
+				if (world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soup ) {
+					soup.addInput(player.getMainHandStack().copyWithCount(1));
+				}
+
+				player.getMainHandStack().decrementUnlessCreative(1, player);
+				return ActionResult.SUCCESS;
+			}
+			if(!world.isClient() && world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity blockEntity){
+				ItemStack stack = player.getMainHandStack();
+				if(player.getMainHandStack().isIn(ItemTags.MEAT) || player.getMainHandStack().isOf(Items.POTION)){
+					blockEntity.addInput(stack.copyWithCount(1));
+				}
+				if(blockEntity.getInputs().size()==4 && stack.isOf(Items.STICK)){
+					blockEntity.setHasStirred(true);
+				}
+				if(stack.isOf(Items.BOWL)){
+					blockEntity.setHasStirred(false);
+					ItemStack soup = new ItemStack(ItemRegistry.SPECIAL_STEW);
+					List<ItemStack> copiedInputs = blockEntity.getInputs().stream().map(ItemStack::copy).toList();
+					soup.set(OtherRegistry.SOUP_INGREDIENTS, copiedInputs);
+					player.setStackInHand(Hand.MAIN_HAND, soup);
+				}
+			}
 
 			if (state.getBlock() instanceof AbstractHollowLogBlock) {
 				if (!world.isClient()) {

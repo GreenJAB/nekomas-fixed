@@ -1,16 +1,20 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
+import net.greenjab.nekomasfixed.registry.block.cauldron.SoupCauldronBlock;
+import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -28,8 +32,8 @@ import java.util.Objects;
 public class AbstractBlockMixin {
     @Inject(method = "onUseWithItem", at= @At("HEAD"), cancellable = true)
     private void customOnUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-
         if(!world.isClient() && !world.getBlockState(pos).isIn(BlockTags.REPLACEABLE) && state.isSideSolidFullSquare(world, pos, hit.getSide())){
+
             if (stack.isOf(Items.GOAT_HORN)) {
                 Direction direction = hit.getSide();
 
@@ -50,7 +54,6 @@ public class AbstractBlockMixin {
                         .with(HorizontalFacingBlock.FACING, facing);
 
                 if (world.getBlockState(placePos).isReplaceable()) {
-                    GoatHornItem goatHornItem = (GoatHornItem) stack.getItem();
                     world.setBlockState(placePos, newState);
                     player.getMainHandStack().decrementUnlessCreative(1, player);
                     cir.setReturnValue(ActionResult.SUCCESS);

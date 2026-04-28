@@ -39,8 +39,6 @@ public class GeyserBlock extends Block {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {return VoxelShapes.fullCube();}
 
-
-
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
             entity.setOnFireFor(3);

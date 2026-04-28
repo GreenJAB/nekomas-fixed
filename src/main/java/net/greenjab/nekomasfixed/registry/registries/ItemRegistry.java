@@ -102,6 +102,8 @@ public class ItemRegistry {
     public static final Item HOLLOW_BIRCH_LOG = register(BlockRegistry.HOLLOW_BIRCH_LOG);
     public static final Item GEYSER = register(BlockRegistry.GEYSER);
 
+    public static final Item SPECIAL_STEW = register("special_stew",SpecialSoupItem::new, new Item.Settings().food((new FoodComponent.Builder()).nutrition(1).saturationModifier(0.3F).build()));
+
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 
     public static final Item ROPE_ITEM = register(BlockRegistry.ROPE, RopeItem::new);
