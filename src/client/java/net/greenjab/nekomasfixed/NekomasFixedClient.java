@@ -92,6 +92,11 @@ public class NekomasFixedClient implements ClientModInitializer {
 		);
 
 		BlockEntityRendererFactories.register(
+				BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,
+                SoupCauldronBlockEntityRenderer::new
+		);
+
+		BlockEntityRendererFactories.register(
 				BlockEntityTypeRegistry.HOLLOW_ACACIA_LOG_BLOCK_ENTITY_TYPE,
 				(ctx) -> new HollowAcaciaLogBlockEntityRenderer()
 		);
