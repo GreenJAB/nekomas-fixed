@@ -14,16 +14,41 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SoupCauldronBlockEntity extends BlockEntity {
     private final List<ItemStack> inputs = new ArrayList<>();
-    private boolean hasStirred = false;
+    public boolean hasStirred = false;
+    private int stirTicks = 0;
 
     public SoupCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY, pos, state);
+    }
+
+    public void startStirAnimation() {
+        stirTicks = 40;
+        markDirty();
+
+        if(world != null && !world.isClient()) {
+            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        }
+    }
+
+    public int getStirTicks() {
+        return stirTicks;
+    }
+
+    public static void tick(World world, BlockPos pos, BlockState state, SoupCauldronBlockEntity be) {
+        if (be.stirTicks > 0) {
+            be.stirTicks--;
+
+            if(!world.isClient() && be.stirTicks % 2 == 0) {
+                world.updateListeners(pos,state,state,3);
+            }
+        }
     }
 
     @Override
@@ -58,6 +83,7 @@ public class SoupCauldronBlockEntity extends BlockEntity {
 
         view.putBoolean("HasStirred", hasStirred);
         view.put("inputs", ItemStack.CODEC.listOf(), inputs);
+        view.putInt("stir_ticks", stirTicks);
     }
 
     @Override
@@ -66,6 +92,7 @@ public class SoupCauldronBlockEntity extends BlockEntity {
         hasStirred = view.getBoolean("HasStirred", false);
         inputs.clear();
         inputs.addAll(view.read("inputs", ItemStack.CODEC.listOf()).orElse(List.of()));
+        stirTicks = view.getInt("stir_ticks", 0);
     }
 
     @Override
@@ -73,7 +100,7 @@ public class SoupCauldronBlockEntity extends BlockEntity {
         return createNbt(registries);
     }
 
-    public boolean canBePicked(){return this.hasStirred;}
+    public boolean canBePicked(){return this.hasStirred && this.inputs.size()<4;}
     public void setHasStirred(boolean val){ this.hasStirred = val;}
 
     public List<ItemStack> getInputs() {return inputs;}

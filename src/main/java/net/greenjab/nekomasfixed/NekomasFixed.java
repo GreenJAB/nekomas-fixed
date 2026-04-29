@@ -79,16 +79,22 @@ public class NekomasFixed implements ModInitializer {
 				ItemStack stack = player.getMainHandStack();
 				if(player.getMainHandStack().isIn(ItemTags.MEAT) || player.getMainHandStack().isOf(Items.POTION)){
 					blockEntity.addInput(stack.copyWithCount(1));
+					player.getMainHandStack().decrementUnlessCreative(1, player);
+					return ActionResult.SUCCESS;
 				}
-				if(blockEntity.getInputs().size()==4 && stack.isOf(Items.STICK)){
+				else if(!blockEntity.canBePicked() && stack.isOf(Items.STICK)){
 					blockEntity.setHasStirred(true);
+					System.out.println(blockEntity.hasStirred);
+					return ActionResult.SUCCESS;
 				}
-				if(stack.isOf(Items.BOWL)){
+				else if(stack.isOf(Items.BOWL) && blockEntity.hasStirred){
 					blockEntity.setHasStirred(false);
 					ItemStack soup = new ItemStack(ItemRegistry.SPECIAL_STEW);
 					List<ItemStack> copiedInputs = blockEntity.getInputs().stream().map(ItemStack::copy).toList();
 					soup.set(OtherRegistry.SOUP_INGREDIENTS, copiedInputs);
 					player.setStackInHand(Hand.MAIN_HAND, soup);
+					world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState());
+					return ActionResult.SUCCESS;
 				}
 			}
 

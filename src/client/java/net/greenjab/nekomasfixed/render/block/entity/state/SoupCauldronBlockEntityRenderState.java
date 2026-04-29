@@ -9,6 +9,7 @@ import java.util.List;
 public class SoupCauldronBlockEntityRenderState extends BlockEntityRenderState {
     public List<ItemRenderState> inputItems = Collections.emptyList();
     public float animationTime;
+    public float stirProgress;
 
     public SoupCauldronBlockEntityRenderState() {}
 }

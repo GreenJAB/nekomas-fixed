@@ -40,6 +40,7 @@ public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<Soup
         state.inputItems = new ArrayList<>();
         assert blockEntity.getWorld() != null;
         state.animationTime = blockEntity.getWorld().getTime() + f;
+        state.stirProgress = blockEntity.getStirTicks()-f*10;
 
         for(int j = 0; j < blockEntity.getInputs().size(); ++j) {
             ItemRenderState itemRenderState = new ItemRenderState();
@@ -63,9 +64,10 @@ public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<Soup
                 float f = -direction2.getPositiveHorizontalDegrees();
                 matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(f));
                 matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(-70.0F));
-                matrices.translate(-0.23F, -0.1F, 0.0F);
-
+                matrices.translate(-0.23, -0.1, 0.0F);
+                System.out.println(state.stirProgress);
                 matrices.scale(0.275F, 0.375F, 0.275F);
+
                 itemRenderState.render(matrices, queue, state.lightmapCoordinates, OverlayTexture.DEFAULT_UV, 0);
                 matrices.pop();
             }

@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_cauldron_full",
+  "parent": "block/block",
   "textures": {
     "bottom": "minecraft:block/cauldron_bottom",
     "content": "minecraft:block/water_still",
@@ -7,5 +7,18 @@
     "particle": "minecraft:block/cauldron_side",
     "side": "minecraft:block/cauldron_side",
     "top": "minecraft:block/cauldron_top"
-  }
+  },
+  "elements": [
+    {
+      "from": [2, 4, 2],
+      "to": [14, 16, 14],
+      "faces": {
+        "up": {
+          "uv": [2, 2, 14, 14],
+          "texture": "#content",
+          "tintindex": 0
+        }
+      }
+    }
+  ]
 }

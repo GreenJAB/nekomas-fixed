@@ -9,6 +9,7 @@ import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -35,6 +36,17 @@ public class SoupCauldronBlock extends AbstractCauldronBlock implements BlockEnt
             return ActionResult.SUCCESS;
         }
         return ActionResult.FAIL;
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if(player.getMainHandStack().isOf(Items.STICK)) {
+            if(world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity be) {
+                be.startStirAnimation();
+            }
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
     }
 
 

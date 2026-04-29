@@ -2,8 +2,10 @@ package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
+import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -16,11 +18,17 @@ import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockRenderView;
+
+import java.util.List;
 
 public class NekomasFixedClient implements ClientModInitializer {
 	public static EquipmentModel turtleArmorModel = createHumanoidOnlyModel("turtle_scute");
@@ -101,6 +109,15 @@ public class NekomasFixedClient implements ClientModInitializer {
 				(ctx) -> new HollowAcaciaLogBlockEntityRenderer()
 		);
 
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+            if (state != null) {
+                assert world != null;
+                return getTintIndex(state, world, pos, tintIndex);
+            } else {
+                return 0;
+            }
+        }, BlockRegistry.SOUP_CAULDRON);
+
 		BlockEntityRendererFactories.register(
 				BlockEntityTypeRegistry.HOLLOW_DARK_OAK_LOG_BLOCK_ENTITY_TYPE,
 				(ctx) -> new HollowDarkOakLogBlockEntityRenderer()
@@ -135,6 +152,42 @@ public class NekomasFixedClient implements ClientModInitializer {
 		return EquipmentModel.builder()
 				.addHumanoidLayers(Identifier.ofVanilla(id))
 				.build();
+	}
+
+	private static int getTintIndex(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex){
+		if(world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soupCauldronBlockEntity){
+			return tintIndex == 0 ? getSoupColor(soupCauldronBlockEntity.getInputs()) : -1;
+		}else{
+			return -1;
+		}
+	}
+
+	public static int getSoupColor(List<ItemStack> inputs) {
+		if (inputs.isEmpty()) return 0xC68642;
+
+		int r = 0;
+		int g = 0;
+		int b = 0;
+
+		for (ItemStack stack : inputs) {
+			int h = stack.getItem().toString().hashCode();
+
+			r += (h >> 16) & 255;
+			g += (h >> 8) & 255;
+			b += h & 255;
+		}
+
+		int count = inputs.size();
+
+		r /= count;
+		g /= count;
+		b /= count;
+
+		r = Math.min(255, (int)(r * 0.7 + 90));
+		g = Math.min(255, (int)(g * 0.5 + 60));
+		b = Math.min(255, (int)(b * 0.3 + 30));
+
+		return (r << 16) | (g << 8) | b;
 	}
 
 }
