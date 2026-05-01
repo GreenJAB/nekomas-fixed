@@ -2,7 +2,7 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:block/stick"
+    "model": "nekomasfixed:item/special_stew"
   }
 }
 

@@ -23,12 +23,17 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class NekomasFixedClient implements ClientModInitializer {
 	public static EquipmentModel turtleArmorModel = createHumanoidOnlyModel("turtle_scute");
@@ -37,6 +42,16 @@ public class NekomasFixedClient implements ClientModInitializer {
 	public static EquipmentModel ironCrownModel = createHumanoidOnlyModel("iron_crown");
 	public static EquipmentModel goldenCrownModel = createHumanoidOnlyModel("golden_crown");
 	public static EquipmentModel diamondCrownModel = createHumanoidOnlyModel("diamond_crown");
+	private static final Map<Item, Integer> FOOD_COLORS = Map.ofEntries(
+			Map.entry(Items.APPLE, 0xFF3B3B),
+			Map.entry(Items.CARROT, 0xFFA500),
+			Map.entry(Items.BREAD, 0xD2B48C),
+			Map.entry(Items.MELON_SLICE, 0xFF6B6B),
+			Map.entry(Items.POTATO, 0xC8A060),
+			Map.entry(Items.BEEF, 0x8B2E2E),
+			Map.entry(Items.COOKED_BEEF, 0x5A2C2C),
+			Map.entry(Items.GOLDEN_APPLE, 0xFFD700)
+	);
 
 	@Override
 	public void onInitializeClient() {
@@ -156,38 +171,76 @@ public class NekomasFixedClient implements ClientModInitializer {
 
 	private static int getTintIndex(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex){
 		if(world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soupCauldronBlockEntity){
-			return tintIndex == 0 ? getSoupColor(soupCauldronBlockEntity.getInputs()) : -1;
+			return tintIndex == 0 ? blendFoodColors(soupCauldronBlockEntity.getInputs()) : 0xFFFFFFFF;
 		}else{
 			return -1;
 		}
 	}
 
-	public static int getSoupColor(List<ItemStack> inputs) {
-		if (inputs.isEmpty()) return 0xC68642;
+	public static Optional<Integer> getFoodColor(ItemStack stack) {
+		if (stack == null || stack.isEmpty()) return Optional.empty();
 
-		int r = 0;
-		int g = 0;
-		int b = 0;
-
-		for (ItemStack stack : inputs) {
-			int h = stack.getItem().toString().hashCode();
-
-			r += (h >> 16) & 255;
-			g += (h >> 8) & 255;
-			b += h & 255;
+		Item item = stack.getItem();
+		Integer foodColor = FOOD_COLORS.get(item);
+		if (foodColor != null) {
+			return Optional.of(foodColor);
+		}
+		if (stack.contains(DataComponentTypes.POTION_CONTENTS)) {
+			var contents = stack.get(DataComponentTypes.POTION_CONTENTS);
+			if (contents != null) {
+				return Optional.of(contents.getColor());
+			}
 		}
 
-		int count = inputs.size();
+		return Optional.empty();
+	}
 
-		r /= count;
-		g /= count;
-		b /= count;
+	public static int blendFoodColors(List<ItemStack> items) {
+		float totalR = 0.0F;
+		float totalG = 0.0F;
+		float totalB = 0.0F;
+		float totalWeight = 0.0F;
 
-		r = Math.min(255, (int)(r * 0.7 + 90));
-		g = Math.min(255, (int)(g * 0.5 + 60));
-		b = Math.min(255, (int)(b * 0.3 + 30));
+		for (ItemStack stack : items) {
+			if (stack.isEmpty()) continue;
 
-		return (r << 16) | (g << 8) | b;
+			Optional<Integer> colorOpt = getFoodColor(stack);
+			if (colorOpt.isEmpty()) continue;
+
+			int color = colorOpt.get();
+
+			float r = (float)(color >> 16 & 255) / 255.0F;
+			float g = (float)(color >> 8 & 255) / 255.0F;
+			float b = (float)(color & 255) / 255.0F;
+
+			float weight = stack.getCount();
+
+			totalR += r * weight;
+			totalG += g * weight;
+			totalB += b * weight;
+			totalWeight += weight;
+		}
+
+		if (totalWeight == 0) return 0x385DC6; // fallback
+
+		float r = totalR / totalWeight;
+		float g = totalG / totalWeight;
+		float b = totalB / totalWeight;
+
+		// optional brightness normalization (potion feel)
+		float max = Math.max(r, Math.max(g, b));
+		if (max > 0) {
+			float scale = 1.0F / max;
+			r *= scale;
+			g *= scale;
+			b *= scale;
+		}
+
+		int finalR = (int)(r * 255.0F);
+		int finalG = (int)(g * 255.0F);
+		int finalB = (int)(b * 255.0F);
+
+		return (finalR << 16) | (finalG << 8) | finalB;
 	}
 
 }

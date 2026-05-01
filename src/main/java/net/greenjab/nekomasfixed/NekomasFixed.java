@@ -10,7 +10,6 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.block.entity.AbstractHollowLogBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
-import net.greenjab.nekomasfixed.registry.item.SpecialSoupItem;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
@@ -66,7 +65,12 @@ public class NekomasFixed implements ModInitializer {
 			BlockPos pos = hit.getBlockPos();
 			BlockState state = world.getBlockState(pos);
 
-			if (!world.isClient() && !player.getMainHandStack().isOf(Items.AIR) && state.isOf(Blocks.WATER_CAULDRON) && (player.getMainHandStack().isIn(ItemTags.MEAT) || player.getMainHandStack().isOf(Items.POTION))) {
+			if (!world.isClient() &&
+					!player.getMainHandStack().isOf(Items.AIR) &&
+					(world.getBlockState(pos.down()).isIn(BlockTags.FIRE) || world.getBlockState(pos.down()).isIn(BlockTags.CAMPFIRES)) &&
+					state.isOf(Blocks.WATER_CAULDRON)
+					&& (player.getMainHandStack().isIn(ItemTags.MEAT) || player.getMainHandStack().isOf(Items.POTION))) {
+
 				world.setBlockState(pos, BlockRegistry.SOUP_CAULDRON.getDefaultState());
 				if (world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soup ) {
 					soup.addInput(player.getMainHandStack().copyWithCount(1));
@@ -82,7 +86,8 @@ public class NekomasFixed implements ModInitializer {
 					player.getMainHandStack().decrementUnlessCreative(1, player);
 					return ActionResult.SUCCESS;
 				}
-				else if(!blockEntity.canBePicked() && stack.isOf(Items.STICK)){
+				else if(!blockEntity.canBePicked() && stack.isOf(Items.STICK) && (world.getBlockState(pos.down()).isIn(BlockTags.FIRE) || world.getBlockState(pos.down()).isIn(BlockTags.CAMPFIRES))){
+					//i am putting the condition here too -> if the player breaks the fire block... the soup cauldron can still be filled with ingredients but for mixing he should a fire block beneath the soup cauldron
 					blockEntity.setHasStirred(true);
 					System.out.println(blockEntity.hasStirred);
 					return ActionResult.SUCCESS;
@@ -93,7 +98,7 @@ public class NekomasFixed implements ModInitializer {
 					List<ItemStack> copiedInputs = blockEntity.getInputs().stream().map(ItemStack::copy).toList();
 					soup.set(OtherRegistry.SOUP_INGREDIENTS, copiedInputs);
 					player.setStackInHand(Hand.MAIN_HAND, soup);
-					world.setBlockState(pos, Blocks.WATER_CAULDRON.getDefaultState());
+					world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
 					return ActionResult.SUCCESS;
 				}
 			}

@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.block.entity;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
@@ -33,7 +34,7 @@ public class SoupCauldronBlockEntity extends BlockEntity {
         markDirty();
 
         if(world != null && !world.isClient()) {
-            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+            world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
         }
     }
 
@@ -73,7 +74,11 @@ public class SoupCauldronBlockEntity extends BlockEntity {
 
         if (inputs.size() < 4) {
             inputs.add(stack.copyWithCount(1));
+
             markDirty();
+            if(world != null && !world.isClient()) {
+                world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+            }
         }
     }
 
@@ -101,7 +106,14 @@ public class SoupCauldronBlockEntity extends BlockEntity {
     }
 
     public boolean canBePicked(){return this.hasStirred && this.inputs.size()<4;}
-    public void setHasStirred(boolean val){ this.hasStirred = val;}
+    public void setHasStirred(boolean val) {
+        this.hasStirred = val;
+        markDirty();
+
+        if (world != null && !world.isClient()) {
+            world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+        }
+    }
 
     public List<ItemStack> getInputs() {return inputs;}
 }
