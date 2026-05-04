@@ -19,6 +19,7 @@
     "EnchantmentMixin",
     "FarmlandBlockMixin",
     "FireworkStarRecipeMixin",
+    "FoxEntityMixin",
     "GoatHornItemMixin",
     "ItemDispenserBehaviorMixin",
     "ItemMixin",
