@@ -131,7 +131,7 @@ public class EntityTypeRegistry {
 
     public static final EntityType<DrenchedEntity> DRENCHED = register(
            "drenched",
-            EntityType.Builder.<DrenchedEntity>create(DrenchedEntity::new, SpawnGroup.MONSTER)
+            EntityType.Builder.create(DrenchedEntity::new, SpawnGroup.MONSTER)
                     .dimensions(0.6f, 1.99f)
     );
 

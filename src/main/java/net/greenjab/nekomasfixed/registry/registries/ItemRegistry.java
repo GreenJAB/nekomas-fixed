@@ -244,15 +244,9 @@ public class ItemRegistry {
     );
 
 
-    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings()
-            .rarity(Rarity.RARE)
-            .maxDamage(1000)
-            .attributeModifiers(SoulfireTridentItem.createAttributeModifiers())
-            .component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent())
-            .enchantable(1)
-            .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
-
+    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings().rarity(Rarity.RARE).maxDamage(1000).attributeModifiers(SoulfireTridentItem.createAttributeModifiers()).component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent()).enchantable(1).component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
     public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
+    public static final Item DRENCHED_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DRENCHED);
 
     public static final Item AMBER_STAINED_GLASS = register(BlockRegistry.AMBER_STAINED_GLASS);
     public static final Item AQUA_STAINED_GLASS = register(BlockRegistry.AQUA_STAINED_GLASS);

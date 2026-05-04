@@ -176,7 +176,7 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.COOKIE_CAKE);
                          entries.add(ItemRegistry.COCOA_CAKE);
 
-
+                        entries.add(ItemRegistry.DRENCHED_SPAWN_EGG);
 
                     }).build();
 

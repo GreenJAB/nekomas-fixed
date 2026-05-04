@@ -41,7 +41,6 @@ public class EntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.HUGE_PALE_OAK_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_PALE_OAK_BOAT));
         EntityRendererFactories.register(EntityTypeRegistry.HUGE_SPRUCE_BOAT, context -> new HugeBoatEntityRenderer(context, EntityModelLayerRegistry.HUGE_SPRUCE_BOAT));
 
-
         EntityRendererFactories.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyEntityRenderer::new);
 
         EntityRendererFactories.register(EntityTypeRegistry.SPEAR, SpearEntityRenderer::new);
@@ -53,6 +52,7 @@ public class EntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
 
         EntityRendererFactories.register(EntityTypeRegistry.JUNGLE_ZOMBIE, JungleZombieRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.DRENCHED, DrenchedEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.SLOWNESS_SNOWBALL, FlyingItemEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.SNOW_ZOMBIE, SnowZombieRenderer::new);
     }

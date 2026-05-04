@@ -15,6 +15,15 @@ public class SnowZombieEntity extends ZombieEntity implements RangedAttackMob {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+
+        if (this.isAlive() && this.isAffectedByDaylight()) {
+            this.setOnFireFor(8);
+        }
+    }
+
+    @Override
     protected void initCustomGoals() {
         super.initCustomGoals();
         this.goalSelector.add(2, new ProjectileAttackGoal(this, 1.0D, 40, 40, 15.0F));
@@ -30,9 +39,7 @@ public class SnowZombieEntity extends ZombieEntity implements RangedAttackMob {
         double distance = Math.sqrt(dX * dX + dZ * dZ);
 
         snowball.setVelocity(dX, dY + distance * 0.2D, dZ, 1.6F, 14.0F);
-
         this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-
         this.getEntityWorld().spawnEntity(snowball);
     }
 }

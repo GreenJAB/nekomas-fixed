@@ -3,13 +3,11 @@ package net.greenjab.nekomasfixed.render.entity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
-import net.greenjab.nekomasfixed.render.entity.model.DrenchedEntityModel;
 import net.greenjab.nekomasfixed.render.entity.state.DrenchedEntityRenderState;
 import net.minecraft.client.render.entity.AbstractSkeletonEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.EquipmentModelData;
+import net.minecraft.client.render.entity.model.SkeletonEntityModel;
 import net.minecraft.util.Identifier;
 import net.greenjab.nekomasfixed.registry.entity.DrenchedEntity;
 
@@ -18,8 +16,8 @@ public class DrenchedEntityRenderer extends AbstractSkeletonEntityRenderer<Drenc
 
     private static final Identifier TEXTURE = Identifier.of("nekomasfixed", "textures/entity/drenched/purple.png");
 
-    public DrenchedEntityRenderer(EntityRendererFactory.Context context, EntityModelLayer layer, EquipmentModelData<EntityModelLayer> model) {
-        super(context, layer, model);
+    public DrenchedEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, EntityModelLayers.SKELETON_EQUIPMENT, new SkeletonEntityModel<>(context.getPart(EntityModelLayerRegistry.DRENCHED)));
     }
 
     @Override

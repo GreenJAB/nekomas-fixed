@@ -24,6 +24,9 @@ public class JungleZombieEntity extends ZombieEntity {
         if (this.cloudCooldown > 0) {
             this.cloudCooldown--;
         }
+        if (this.isAlive() && this.isAffectedByDaylight()) {
+            this.setOnFireFor(8);
+        }
     }
 
     @Override

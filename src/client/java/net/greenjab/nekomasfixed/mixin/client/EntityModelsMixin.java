@@ -53,6 +53,8 @@ public class EntityModelsMixin {
         EquipmentModelData<TexturedModelData> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new Dilation(1.0F), new Dilation(0.5F));
         EntityModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.addTo(equipmentModelData6, builder);
         builder.put(EntityModelLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel.getTexturedModelData());
+        builder.put(EntityModelLayerRegistry.DRENCHED, DrenchedEntityModel.getTexturedModelData());
+        builder.put(EntityModelLayerRegistry.JUNGLE_ZOMBIE, DrenchedEntityModel.getTexturedModelData());
 
         builder.put(EntityModelLayerRegistry.WILD_FIRE, WildFireEntityModel.getTexturedModelData());
         builder.put(EntityModelLayerRegistry.SOULFIRE_TRIDENT, TridentEntityModel.getTexturedModelData());
