@@ -74,7 +74,7 @@ public class TermiteEntity extends HostileEntity {
     @Override
     public void handleStatus(byte status) {
         if (status == 10) {
-            this.swipeAnimationState.start(this.age);
+            this.swipeAnimationState.startIfNotRunning(this.age);
         } else {
             super.handleStatus(status);
         }

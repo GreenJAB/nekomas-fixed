@@ -5,6 +5,7 @@
   "mixins": [
     "AbstractBlockMixin",
     "ArmorStandEntityMixin",
+    "BeeEntityMixin",
     "BeehiveBlockEntityMixin",
     "BlockEntityTypeMixin",
     "BlockItemMixin",

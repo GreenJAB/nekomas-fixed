@@ -11,7 +11,9 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.*;
+import net.greenjab.nekomasfixed.render.entity.MoobloomEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
+import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
@@ -22,6 +24,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
@@ -159,7 +162,9 @@ public class NekomasFixedClient implements ClientModInitializer {
 		);
 
 		EntityModelLayerRegistry.registerModelLayer(TermiteModel.TERMITE, TermiteModel::getTexturedModelData);
-		EntityRendererRegistry.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
+		EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(MoobloomEntityModel.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
+		EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
 
 	}
 

@@ -3,10 +3,12 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
+import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.minecraft.entity.*;
+import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -71,6 +73,11 @@ public class EntityTypeRegistry {
     public static final EntityType<TermiteEntity> TERMITE = register(
             "termite",
             EntityType.Builder.create(TermiteEntity::new, SpawnGroup.MONSTER).dimensions(0.5f, 0.5f)
+    );
+
+    public static final EntityType<MoobloomEntity> MOOBLOOM = register(
+            "moobloom",
+            EntityType.Builder.create(MoobloomEntity::new, SpawnGroup.AMBIENT).dimensions(1f, 1f)
     );
 
 

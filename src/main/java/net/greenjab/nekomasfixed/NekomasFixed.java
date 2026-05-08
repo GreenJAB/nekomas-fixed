@@ -9,6 +9,7 @@ import net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.block.entity.AbstractHollowLogBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
+import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
@@ -179,6 +180,7 @@ public class NekomasFixed implements ModInitializer {
 
         LOGGER.info("TERMITE = {}", EntityTypeRegistry.TERMITE);
 		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.TERMITE, TermiteEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntity.createAttributes());
 	}
 
 
