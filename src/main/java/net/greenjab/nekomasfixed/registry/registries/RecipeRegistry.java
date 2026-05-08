@@ -139,6 +139,6 @@ public class RecipeRegistry {
             NekomasFixed.id("kilning_misc"),
             new RecipeBookCategory()
     );
-    public static final ModRecipeBookType KILNING = new ModRecipeBookType(RecipeRegistry.KILNING_BLOCK, RecipeRegistry.KILNING_MISC);
+   public static final ModRecipeBookType KILNING = new ModRecipeBookType(RecipeRegistry.KILNING_BLOCK, RecipeRegistry.KILNING_MISC);
 
 }

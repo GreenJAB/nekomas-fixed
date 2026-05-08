@@ -1,5 +1,7 @@
 package net.greenjab.nekomasfixed.registry.entity.Moobloom;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.data.DataTracker;
@@ -22,6 +24,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MoobloomEntity extends CowEntity {
     public final AnimationState idleAnimationState = new AnimationState();
@@ -77,7 +81,21 @@ public class MoobloomEntity extends CowEntity {
             }
 
             return ActionResult.CONSUME;
-        } else {
+        }
+        else if (itemStack.isOf(Items.BOWL)) {
+            World world = this.getEntityWorld();
+
+            if (!world.isClient() && world instanceof ServerWorld) {
+                ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
+                stew.set(DataComponentTypes.SUSPICIOUS_STEW_EFFECTS, new SuspiciousStewEffectsComponent(List.of(MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT)).effect)));
+                player.getStackInHand(Hand.MAIN_HAND).decrementUnlessCreative(1, player);
+                player.giveOrDropStack( stew);
+
+            }
+
+            return ActionResult.CONSUME;
+        }
+                else {
             return super.interactMob(player, hand);
         }
     }

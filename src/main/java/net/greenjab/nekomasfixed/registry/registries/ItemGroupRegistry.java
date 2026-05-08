@@ -133,6 +133,7 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.TERMITE_HIVE);
                          entries.add(ItemRegistry.TERMITE_SPAWN_EGG);
                          entries.add(ItemRegistry.GEYSER);
+                         entries.add(ItemRegistry.MOOBLOOM_SPAWN_EGG);
 
                          entries.add(ItemRegistry.HOLLOW_OAK_LOG);
                          entries.add(ItemRegistry.HOLLOW_DARK_OAK_LOG);
