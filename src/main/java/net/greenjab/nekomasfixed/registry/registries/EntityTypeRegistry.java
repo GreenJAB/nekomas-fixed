@@ -10,6 +10,7 @@ import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
+import net.minecraft.entity.vehicle.MinecartEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -85,6 +86,9 @@ public class EntityTypeRegistry {
             "target_dummy",
             EntityType.Builder.create(TargetDummyEntity::new, SpawnGroup.MISC).dimensions(0.5F, 1.975F).eyeHeight(1.7775F).maxTrackingRange(10)
     );
+
+    public static final EntityType<CustomMinecartEntity> CUSTOM_MINECART = register("custom_minecart",EntityType.Builder.create(CustomMinecartEntity::new, SpawnGroup.MISC).dropsNothing().dimensions(0.98F, 0.7F).passengerAttachments(0.1875F).maxTrackingRange(8));
+
 
     public static final EntityType<SpearEntity> SPEAR = register(
             "spear", EntityType.Builder.create(SpearEntity::new, SpawnGroup.MISC)
