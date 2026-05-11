@@ -29,7 +29,7 @@ public class CustomMinecartEntityModel extends EntityModel<CustomMinecartEntityR
         super(root);
 
         this.root = root;
-
+//this is the problem
         this.group = root.getChild("group");
         this.base = this.group.getChild("base");
         this.top = this.group.getChild("top");
