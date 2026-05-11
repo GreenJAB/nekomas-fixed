@@ -1,11 +1,13 @@
 package net.greenjab.nekomasfixed.render.block.entity;
 
-import net.greenjab.nekomasfixed.registry.block.entity.HollowDarkOakLogBlockEntity;
-import net.greenjab.nekomasfixed.render.block.entity.state.HollowDarkOakLogBlockEntityRenderState;
+import net.greenjab.nekomasfixed.registry.block.entity.HollowLogBlockEntity;
+import net.greenjab.nekomasfixed.render.block.entity.state.HollowLogBlockEntityRenderState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 import net.minecraft.client.render.command.ModelCommandRenderer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
@@ -14,16 +16,19 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
 import org.jspecify.annotations.Nullable;
 
-public class HollowDarkOakLogBlockEntityRenderer implements BlockEntityRenderer<HollowDarkOakLogBlockEntity, HollowDarkOakLogBlockEntityRenderState>{
+public class HollowLogBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<HollowLogBlockEntity, HollowLogBlockEntityRenderState>{
 
-    @Override
-    public HollowDarkOakLogBlockEntityRenderState createRenderState() {
-        return new HollowDarkOakLogBlockEntityRenderState();
+    public HollowLogBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
     }
 
     @Override
-    public void updateRenderState(HollowDarkOakLogBlockEntity blockEntity,
-                                  HollowDarkOakLogBlockEntityRenderState state,
+    public HollowLogBlockEntityRenderState createRenderState() {
+        return new HollowLogBlockEntityRenderState();
+    }
+
+    @Override
+    public void updateRenderState(HollowLogBlockEntity blockEntity,
+                                  HollowLogBlockEntityRenderState state,
                                   float tickProgress,
                                   Vec3d cameraPos,
                                   ModelCommandRenderer.@Nullable CrumblingOverlayCommand crumblingOverlay) {
@@ -33,7 +38,7 @@ public class HollowDarkOakLogBlockEntityRenderer implements BlockEntityRenderer<
     }
 
     @Override
-    public void render(HollowDarkOakLogBlockEntityRenderState state,
+    public void render(HollowLogBlockEntityRenderState state,
                        MatrixStack matrixStack,
                        OrderedRenderCommandQueue queue,
                        CameraRenderState cameraState) {

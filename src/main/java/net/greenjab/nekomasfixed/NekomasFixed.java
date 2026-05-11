@@ -5,9 +5,9 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.mixin.accessor.FlowerPotBlockAccessor;
 import net.greenjab.nekomasfixed.network.SyncHandler;
-import net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock;
+import net.greenjab.nekomasfixed.registry.block.HollowLogBlock;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
-import net.greenjab.nekomasfixed.registry.block.entity.AbstractHollowLogBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.HollowLogBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
@@ -37,8 +37,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.HAS_WATER;
-import static net.greenjab.nekomasfixed.registry.block.AbstractHollowLogBlock.LIGHT_LEVEL;
+import static net.greenjab.nekomasfixed.registry.block.HollowLogBlock.LIGHT_LEVEL;
+import static net.greenjab.nekomasfixed.registry.block.HollowLogBlock.WATERLOGGED;
 import static net.minecraft.block.PillarBlock.AXIS;
 
 public class NekomasFixed implements ModInitializer {
@@ -104,11 +104,11 @@ public class NekomasFixed implements ModInitializer {
 				}
 			}
 
-			if (state.getBlock() instanceof AbstractHollowLogBlock) {
+			if (state.getBlock() instanceof HollowLogBlock) {
 				if (!world.isClient()) {
 					BlockEntity be = world.getBlockEntity(pos);
 
-                    if (be instanceof AbstractHollowLogBlockEntity logBE) {
+                    if (be instanceof HollowLogBlockEntity logBE) {
 						if(player.getMainHandStack().isOf(Items.SHEARS) && !world.isClient()){
 							player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos.north(), true));
 							logBE.setStoredBlock(Blocks.AIR.getDefaultState());
@@ -123,7 +123,7 @@ public class NekomasFixed implements ModInitializer {
 									logBE.setStoredBlock(potted.getDefaultState());
 								}
 							}
-							if(AbstractHollowLogBlockEntity.canStoreABlock(logBE, blockItem)){
+							if(HollowLogBlockEntity.canStoreABlock(logBE, blockItem)){
 								//theres more to do for the hollow logs, it will be continued some time later....
 								logBE.setStoredBlock(blockItem.getBlock().getDefaultState());
 								player.getMainHandStack().decrementUnlessCreative(1, player);
@@ -137,18 +137,18 @@ public class NekomasFixed implements ModInitializer {
 							ItemStack stack = player.getMainHandStack();
 							if(stack.isOf(Items.WATER_BUCKET)){
 									player.setStackInHand(Hand.MAIN_HAND, Items.BUCKET.getDefaultStack());
-									world.setBlockState(pos, state.with(HAS_WATER, true), Block.NOTIFY_ALL);
+									world.setBlockState(pos, state.with(WATERLOGGED, true), Block.NOTIFY_ALL);
 									if(state.get(AXIS).isHorizontal()){
-										world.setBlockState(pos, state.with(HAS_WATER, false));
+										world.setBlockState(pos, state.with(WATERLOGGED, false));
 										world.setBlockState(pos.offset(state.get(AXIS).getPositiveDirection()), Blocks.WATER.getDefaultState());
 										world.setBlockState(pos.offset(state.get(AXIS).getNegativeDirection()), Blocks.WATER.getDefaultState());
 									}
 									player.dropStack((ServerWorld) world, logBE.getStoredBlock().getPickStack(world, pos, true));
 
 							}
-							else if(stack.isOf(Items.BUCKET) && logBE.getCachedState().get(HAS_WATER)){
+							else if(stack.isOf(Items.BUCKET) && logBE.getCachedState().get(WATERLOGGED)){
 								player.setStackInHand(Hand.MAIN_HAND, Items.WATER_BUCKET.getDefaultStack());
-								world.setBlockState(pos, state.with(HAS_WATER, false), Block.NOTIFY_ALL);
+								world.setBlockState(pos, state.with(WATERLOGGED, false), Block.NOTIFY_ALL);
 							}
 							else if(stack.isIn(ItemTags.HOES) && logBE.getStoredBlock().isIn(BlockTags.DIRT)) {
 								if (stack.isDamageable()) {

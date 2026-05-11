@@ -29,7 +29,6 @@
     "LeveledCauldronBlockMixin",
     "LightningRodBlockMixin",
     "LivingEntityMixin",
-    "MinecartItemMixin",
     "NautilusStackMixin",
     "NoteBlockMixin",
     "PersistentProjectileEntityMixin",
