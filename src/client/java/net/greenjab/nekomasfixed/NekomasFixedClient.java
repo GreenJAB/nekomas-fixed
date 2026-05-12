@@ -101,35 +101,35 @@ public class NekomasFixedClient implements ClientModInitializer {
 		);
 
 
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowOakLogBlockEntityRenderer()
-		);
-
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_SPRUCE_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowSpruceLogBlockEntityRenderer()
-		);
-
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_BIRCH_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowBirchLogBlockEntityRenderer()
-		);
-
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_JUNGLE_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowJungleLogBlockEntityRenderer()
-		);
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowOakLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_SPRUCE_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowSpruceLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_BIRCH_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowBirchLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_JUNGLE_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowJungleLogBlockEntityRenderer()
+//		);
 
 		BlockEntityRendererFactories.register(
 				BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,
                 SoupCauldronBlockEntityRenderer::new
 		);
 
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_ACACIA_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowAcaciaLogBlockEntityRenderer()
-		);
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_ACACIA_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowAcaciaLogBlockEntityRenderer()
+//		);
 
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
             if (state != null) {
@@ -140,37 +140,37 @@ public class NekomasFixedClient implements ClientModInitializer {
             }
         }, BlockRegistry.SOUP_CAULDRON);
 
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_DARK_OAK_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowDarkOakLogBlockEntityRenderer()
-		);
-
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_CRIMSON_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowCrimsonLogBlockEntityRenderer()
-		);
-
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_WARPED_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowWarpedLogBlockEntityRenderer()
-		);
-
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_CHERRY_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowCherryLogBlockEntityRenderer()
-		);
-
-		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.HOLLOW_PALE_OAK_LOG_BLOCK_ENTITY_TYPE,
-				(ctx) -> new HollowPaleOakLogBlockEntityRenderer()
-		);
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_DARK_OAK_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowDarkOakLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_CRIMSON_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowCrimsonLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_WARPED_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowWarpedLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_CHERRY_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowCherryLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_PALE_OAK_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowPaleOakLogBlockEntityRenderer()
+//		);
 
 		EntityModelLayerRegistry.registerModelLayer(TermiteModel.TERMITE, TermiteModel::getTexturedModelData);
 		EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MoobloomEntityModel.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
 		EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(CustomMinecartEntityModel.CUSTOM_MINECART, CustomMinecartEntityModel::getTexturedModelData);
-		EntityRendererRegistry.register(EntityTypeRegistry.CUSTOM_MINECART, CustomMinecartEntityRenderer::new);
+//		EntityModelLayerRegistry.registerModelLayer(CustomMinecartEntityModel.CUSTOM_MINECART, CustomMinecartEntityModel::getTexturedModelData);
+//		EntityRendererRegistry.register(EntityTypeRegistry.CUSTOM_MINECART, CustomMinecartEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(SuspiciousSpiderEntityModel.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
 
