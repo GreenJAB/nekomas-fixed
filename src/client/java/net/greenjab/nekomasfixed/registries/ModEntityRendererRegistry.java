@@ -1,12 +1,7 @@
 package net.greenjab.nekomasfixed.registries;
 
-import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.greenjab.nekomasfixed.render.block.entity.ClamBlockEntityRenderer;
-import net.greenjab.nekomasfixed.render.block.entity.ClockBlockEntityRenderer;
-import net.greenjab.nekomasfixed.render.block.entity.EndermanHeadBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.*;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
@@ -14,10 +9,6 @@ public class ModEntityRendererRegistry {
 
     public static void registerEntityRenderer() {
         System.out.println("register EntityRenderer");
-        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, ClockBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.ENDERMAN_HEAD_BLOCK_ENTITY, EndermanHeadBlockEntityRenderer::new);
-
         EntityRendererFactories.register(EntityTypeRegistry.FAKE_BOAT, FakeBoatEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.BIG_ACACIA_BOAT, context -> new BigBoatEntityRenderer<>(context, ModEntityLayerRegistry.BIG_ACACIA_BOAT));
         EntityRendererFactories.register(EntityTypeRegistry.BIG_BAMBOO_BOAT, context -> new BigBoatEntityRenderer<>(context, ModEntityLayerRegistry.BIG_BAMBOO_BOAT));
@@ -48,7 +39,7 @@ public class ModEntityRendererRegistry {
 
         EntityRendererFactories.register(EntityTypeRegistry.WILD_FIRE, WildFireEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
-//        EntityRendererFactories.register(EntityTypeRegistry.CUSTOM_MINECART, CustomMinecartEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.FIRE_BOMB, FireBombEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.SOULFIRE_TRIDENT, SoulfireTridentEntityRenderer::new);
 
