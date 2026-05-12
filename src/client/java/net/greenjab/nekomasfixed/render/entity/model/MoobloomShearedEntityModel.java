@@ -123,16 +123,6 @@ public class MoobloomShearedEntityModel extends QuadrupedEntityModel<MoobloomEnt
     }
 
 
-//    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int red, int green, int blue, int alpha) {
-//        this.head.render(matrices, vertexConsumer, light, overlay);
-//        this.body.render(matrices, vertexConsumer, light, overlay);
-//        this.right_hind_leg.render(matrices, vertexConsumer, light, overlay);
-//        this.left_hind_leg.render(matrices, vertexConsumer, light, overlay);
-//        this.right_front_leg.render(matrices, vertexConsumer, light, overlay);
-//        this.left_front_leg.render(matrices, vertexConsumer, light, overlay);
-//    }
-
-
 
     public ModelPart getHead() {
         return this.head;

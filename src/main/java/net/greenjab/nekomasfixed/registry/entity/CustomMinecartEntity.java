@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
-import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.vehicle.MinecartEntity;
 import net.minecraft.world.World;
@@ -17,8 +16,7 @@ public class CustomMinecartEntity extends MinecartEntity {
 
         double speed = this.getVelocity().horizontalLength();
         this.wheelRotation += (float)(speed * 25.0);
-        this.wheelRotation %= (Math.PI * 2);
+        this.wheelRotation %= (float) (Math.PI * 2);
 
-//june branch
     }
 }

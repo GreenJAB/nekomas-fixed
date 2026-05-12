@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
+import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider.SuspiciousSpiderEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
@@ -79,6 +80,11 @@ public class EntityTypeRegistry {
     public static final EntityType<MoobloomEntity> MOOBLOOM = register(
             "moobloom",
             EntityType.Builder.create(MoobloomEntity::new, SpawnGroup.AMBIENT).dimensions(1f, 1f)
+    );
+
+    public static final EntityType<SuspiciousSpiderEntity> SUS_SPIDER = register(
+            "sus_spider",
+            EntityType.Builder.create(SuspiciousSpiderEntity::new, SpawnGroup.MONSTER).dimensions(1f, 1f)
     );
 
 

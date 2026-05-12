@@ -114,6 +114,7 @@ public class ItemRegistry {
     public static final Item TERMITE_HIVE = register(BlockRegistry.TERMITE_HIVE);
 
     public static final Item TERMITE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.TERMITE);
+    public static final Item SUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUS_SPIDER);
 
     public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(37, Map.of(EquipmentType.HELMET, 3), 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, ItemTags.NETHERITE_TOOL_MATERIALS, ModEquipmentAssetKeys.NETHERITE_CROWN);
 

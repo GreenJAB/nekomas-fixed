@@ -10,12 +10,14 @@ import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
+import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.*;
 import net.greenjab.nekomasfixed.render.entity.CustomMinecartEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.MoobloomEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.CustomMinecartEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
+import net.greenjab.nekomasfixed.render.entity.model.SuspiciousSpiderEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
@@ -169,6 +171,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 		EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(CustomMinecartEntityModel.CUSTOM_MINECART, CustomMinecartEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(EntityTypeRegistry.CUSTOM_MINECART, CustomMinecartEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(SuspiciousSpiderEntityModel.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
+		EntityRendererRegistry.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
 
 	}
 
