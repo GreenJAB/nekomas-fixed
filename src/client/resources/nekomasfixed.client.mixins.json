@@ -19,6 +19,7 @@
     "LabelCommandRendererCommandMixin",
     "LabelCommandRendererMixin",
     "MinecartEntityModelMixin",
+    "MinecartEntityRendererMixin",
     "MinecraftClientMixin",
     "ParticleManagerMixin",
     "ParticleSpriteManagerMixin",
