@@ -8,16 +8,12 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, MoobloomEntityRenderState, MoobloomEntityModel> {
-
-
     public MoobloomEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new MoobloomEntityModel(context.getPart(MoobloomEntityModel.MOOBLOOM)), 0.5f);
     }
 
-
     @Override
     public Identifier getTexture(MoobloomEntityRenderState state) {
-
         String PATH = "textures/entity/moobloom/".concat(state.variantPath).concat(".png");
         String PATH_SHEARED = "textures/entity/moobloom/".concat(state.variantPath).concat("_sheared.png");
         return state.sheared ? Identifier.of("nekomasfixed", PATH_SHEARED) : Identifier.of("nekomasfixed", PATH);

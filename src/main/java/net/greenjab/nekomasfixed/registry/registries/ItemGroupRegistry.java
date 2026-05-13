@@ -39,6 +39,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
 
                         entries.add(ItemRegistry.WILD_FIRE_SPAWN_EGG);
+                        entries.add(ItemRegistry.SUS_SPIDER_SPAWN_EGG);
                         entries.add(ItemRegistry.NETHER_HEART);
                         entries.add(ItemRegistry.SOULFIRE_TRIDENT);
                         entries.add(ItemRegistry.SOULFIRE_SHIELD);

@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.entity.Moobloom;
 
+import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.*;
@@ -12,6 +13,7 @@ import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -30,6 +32,7 @@ import java.util.List;
 public class MoobloomEntity extends CowEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
+    private static final EntityDimensions BABY_BASE_DIMENSIONS;
     private int flowerRegrowTimer = 20 * 60 * 5;
     public static final TrackedData<String> VARIANT = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.STRING);
     public static final TrackedData<Boolean> SHEARED = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -84,15 +87,12 @@ public class MoobloomEntity extends CowEntity {
         }
         else if (itemStack.isOf(Items.BOWL)) {
             World world = this.getEntityWorld();
-
             if (!world.isClient() && world instanceof ServerWorld) {
                 ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
                 stew.set(DataComponentTypes.SUSPICIOUS_STEW_EFFECTS, new SuspiciousStewEffectsComponent(List.of(MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT)).effect)));
                 player.getStackInHand(Hand.MAIN_HAND).decrementUnlessCreative(1, player);
                 player.giveOrDropStack( stew);
-
             }
-
             return ActionResult.CONSUME;
         }
                 else {
@@ -114,7 +114,6 @@ public class MoobloomEntity extends CowEntity {
         this.setSheared(true);
     }
 
-
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
@@ -125,6 +124,7 @@ public class MoobloomEntity extends CowEntity {
     public void setSheared(boolean val){
         this.dataTracker.set(SHEARED, val);
         this.flowerRegrowTimer = 20 * 60 * 5;}
+
     public boolean isShearable(){return !this.dataTracker.get(SHEARED);}
 
     public void regrowFlowers(){
@@ -132,6 +132,10 @@ public class MoobloomEntity extends CowEntity {
         this.setSheared(false);
     }
 
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return stack.isOf(MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT)).flower.getItem());
+    }
 
     @Override
     public void mobTick(ServerWorld world) {
@@ -141,7 +145,6 @@ public class MoobloomEntity extends CowEntity {
             if (this.flowerRegrowTimer > 0) {
                 this.flowerRegrowTimer--;
             }
-
             if (this.flowerRegrowTimer <= 0) {
                 this.regrowFlowers();
             }
@@ -162,5 +165,14 @@ public class MoobloomEntity extends CowEntity {
                 runAnimationState.stop();
             }
         }
+    }
+
+    @Override
+    public EntityDimensions getBaseDimensions(EntityPose pose) {
+        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
+    }
+
+    static {
+        BABY_BASE_DIMENSIONS = EntityTypeRegistry.MOOBLOOM.getDimensions().scaled(0.5F).withEyeHeight(0.665F);
     }
 }

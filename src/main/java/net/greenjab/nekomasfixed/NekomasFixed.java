@@ -10,6 +10,7 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.block.entity.HollowLogBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
+import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider.SuspiciousSpiderEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
@@ -20,6 +21,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -52,6 +55,7 @@ public class NekomasFixed implements ModInitializer {
 		BlockRegistry.registerBlocks();
 		ItemRegistry.registerItems();
 		ItemGroupRegistry.registerItemGroup();
+		CustomTrackedDataHandlerRegistry.init();
 		EntityTypeRegistry.registerEntityType();
 		ModTrunkPlacers.register();
 		ModTreeDecorators.register();
@@ -61,6 +65,8 @@ public class NekomasFixed implements ModInitializer {
 		SyncHandler.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
+
+		System.out.println(new StatusEffectInstance(StatusEffects.STRENGTH, 20*15, 1, false, false) + " \n");
 
 		UseBlockCallback.EVENT.register((PlayerEntity player, World world, Hand hand, BlockHitResult hit) -> {
 			BlockPos pos = hit.getBlockPos();
@@ -181,6 +187,7 @@ public class NekomasFixed implements ModInitializer {
         LOGGER.info("TERMITE = {}", EntityTypeRegistry.TERMITE);
 		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.TERMITE, TermiteEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntity.createPoisenousSpiderAttributes());
 	}
 
 

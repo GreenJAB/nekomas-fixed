@@ -6,11 +6,20 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
+import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
+import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.*;
+import net.greenjab.nekomasfixed.render.entity.CustomMinecartEntityRenderer;
+import net.greenjab.nekomasfixed.render.entity.MoobloomEntityRenderer;
+import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
+import net.greenjab.nekomasfixed.render.entity.model.CustomMinecartEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
+import net.greenjab.nekomasfixed.render.entity.model.SuspiciousSpiderEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
@@ -18,6 +27,8 @@ import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
@@ -90,6 +101,36 @@ public class NekomasFixedClient implements ClientModInitializer {
 		);
 
 
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowOakLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_SPRUCE_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowSpruceLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_BIRCH_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowBirchLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_JUNGLE_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowJungleLogBlockEntityRenderer()
+//		);
+
+		BlockEntityRendererFactories.register(
+				BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,
+                SoupCauldronBlockEntityRenderer::new
+		);
+
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_ACACIA_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowAcaciaLogBlockEntityRenderer()
+//		);
+
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
             if (state != null) {
                 assert world != null;
@@ -99,12 +140,39 @@ public class NekomasFixedClient implements ClientModInitializer {
             }
         }, BlockRegistry.SOUP_CAULDRON);
 
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_DARK_OAK_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowDarkOakLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_CRIMSON_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowCrimsonLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_WARPED_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowWarpedLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_CHERRY_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowCherryLogBlockEntityRenderer()
+//		);
+//
+//		BlockEntityRendererFactories.register(
+//				BlockEntityTypeRegistry.HOLLOW_PALE_OAK_LOG_BLOCK_ENTITY_TYPE,
+//				(ctx) -> new HollowPaleOakLogBlockEntityRenderer()
+//		);
 
 		EntityModelLayerRegistry.registerModelLayer(TermiteModel.TERMITE, TermiteModel::getTexturedModelData);
+		EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MoobloomEntityModel.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
-		//EntityModelLayerRegistry.registerModelLayer(CustomMinecartEntityModel.CUSTOM_MINECART, CustomMinecartEntityModel::getTexturedModelData);
-
-
+		EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
+//		EntityModelLayerRegistry.registerModelLayer(CustomMinecartEntityModel.CUSTOM_MINECART, CustomMinecartEntityModel::getTexturedModelData);
+//		EntityRendererRegistry.register(EntityTypeRegistry.CUSTOM_MINECART, CustomMinecartEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(SuspiciousSpiderEntityModel.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
+		EntityRendererRegistry.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
 
 	}
 

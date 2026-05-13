@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.ClamFeature;
+import net.greenjab.nekomasfixed.registry.woldgen.gen.ModEntitySpawns;
 import net.greenjab.nekomasfixed.world.feature.TermiteMoundFeature;
 import net.minecraft.entity.passive.PandaEntity;
 import net.minecraft.registry.Registries;
@@ -23,6 +24,8 @@ public class ModWorldGeneration {
                 GenerationStep.Feature.LOCAL_MODIFICATIONS, ModPlacedFeatures.MOUND_PLACED_KEY);
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WARM_OCEAN), GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.CLAM_PLACED_KEY);
+
+        ModEntitySpawns.addSpawns();
     }
 
     public static final Feature<CountConfig> CLAM_FEATURE = registerFeature("clam", new ClamFeature(CountConfig.CODEC));
