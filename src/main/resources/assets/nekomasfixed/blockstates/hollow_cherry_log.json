@@ -1,15 +1,15 @@
 {
   "variants": {
-    "axis=z": {
-      "model": "nekomasfixed:block/hollow_cherry_log_horizontal",
+    "axis=x": {
+      "model": "nekomasfixed:block/hollow_cherry_log",
       "x": 90,
       "y": 90
     },
     "axis=y": {
       "model": "nekomasfixed:block/hollow_cherry_log"
     },
-    "axis=x": {
-      "model": "nekomasfixed:block/hollow_cherry_log_horizontal",
+    "axis=z": {
+      "model": "nekomasfixed:block/hollow_cherry_log",
       "x": 90
     }
   }

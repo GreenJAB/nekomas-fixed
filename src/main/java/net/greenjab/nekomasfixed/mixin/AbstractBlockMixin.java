@@ -1,20 +1,15 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
-import net.greenjab.nekomasfixed.registry.block.cauldron.SoupCauldronBlock;
-import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -25,8 +20,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Objects;
 
 @Mixin(AbstractBlock.class)
 public class AbstractBlockMixin {
@@ -60,10 +53,10 @@ public class AbstractBlockMixin {
                 }
             }
 
-            if(stack.isOf(ItemRegistry.BOABAB_SEEDS) && state.isIn(BlockTags.LEAVES)){
+            if(stack.isOf(ItemRegistry.BAOBAB_SEEDS) && state.isIn(BlockTags.LEAVES)){
                 BlockPos below = pos.down();
                 if (world.getBlockState(below).isAir() || world.getBlockState(below).isIn(BlockTags.REPLACEABLE)) {
-                    world.setBlockState(below, BlockRegistry.BOABAB_FRUIT.getDefaultState());
+                    world.setBlockState(below, BlockRegistry.BAOBAB_FRUIT.getDefaultState());
                     stack.decrementUnlessCreative(1, player);
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);

@@ -54,7 +54,6 @@ public class EntityModelsMixin {
         ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.addTo(equipmentModelData6, builder);
         builder.put(ModEntityLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel.getTexturedModelData());
 
-        builder.put(ModEntityLayerRegistry.CUSTOM_MINECART, CustomMinecartEntityModel.getTexturedModelData());
         builder.put(ModEntityLayerRegistry.WILD_FIRE, WildFireEntityModel.getTexturedModelData());
         builder.put(ModEntityLayerRegistry.SOULFIRE_TRIDENT, TridentEntityModel.getTexturedModelData());
     }

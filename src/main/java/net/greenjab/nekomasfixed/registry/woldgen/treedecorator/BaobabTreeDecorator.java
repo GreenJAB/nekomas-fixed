@@ -12,20 +12,20 @@ import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 import java.util.List;
 
-import static net.greenjab.nekomasfixed.registry.block.BoababFruitBlock.AGE;
+import static net.greenjab.nekomasfixed.registry.block.BaobabFruitBlock.AGE;
 
-public class BoababTreeDecorator extends TreeDecorator {
+public class BaobabTreeDecorator extends TreeDecorator {
 
     private final float probability;
-    public static final MapCodec<BoababTreeDecorator> CODEC = Codec.floatRange(0.0F, 1.0F).fieldOf("probability").xmap(BoababTreeDecorator::new, (decorator) -> decorator.probability);
+    public static final MapCodec<BaobabTreeDecorator> CODEC = Codec.floatRange(0.0F, 1.0F).fieldOf("probability").xmap(BaobabTreeDecorator::new, (decorator) -> decorator.probability);
 
-    public BoababTreeDecorator(float probability) {
+    public BaobabTreeDecorator(float probability) {
         this.probability = probability;
     }
 
     @Override
     protected TreeDecoratorType<?> getType() {
-        return ModTreeDecorators.BOABAB_TREE_DECORATOR;
+        return ModTreeDecorators.BAOBAB_TREE_DECORATOR;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class BoababTreeDecorator extends TreeDecorator {
                     if (random.nextFloat() > 1f / scale) continue;
                     BlockPos down = pos.down();
                     if(generator.getWorld().testBlockState(down, (AbstractBlock.AbstractBlockState::isAir))){
-                        generator.replace(down, BlockRegistry.BOABAB_FRUIT.getDefaultState().with(AGE, 1));
+                        generator.replace(down, BlockRegistry.BAOBAB_FRUIT.getDefaultState().with(AGE, 1));
                     }
                 }
             }

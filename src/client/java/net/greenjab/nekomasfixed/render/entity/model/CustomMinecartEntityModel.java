@@ -1,9 +1,9 @@
 package net.greenjab.nekomasfixed.render.entity.model;
 
-import net.greenjab.nekomasfixed.render.entity.state.CustomMinecartEntityRenderState;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.MinecartEntityModel;
 import net.minecraft.client.render.entity.state.MinecartEntityRenderState;
+import net.minecraft.util.math.MathHelper;
 
 public class CustomMinecartEntityModel extends MinecartEntityModel {
 
@@ -58,16 +58,16 @@ public class CustomMinecartEntityModel extends MinecartEntityModel {
 
         ModelPartData chain = group.addChild("chain", ModelPartBuilder.create(), ModelTransform.origin(-2.4375F, 4.7569F, 0.5F));
 
-        chain.addChild("chain_w_hook", ModelPartBuilder.create().uv(10, 22).mirrored().cuboid(-3.875F, -0.5F, 0.5F, 4.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(12, 22).cuboid(-3.875F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
-                .uv(10, 22).mirrored().cuboid(-3.875F, -0.5F, -1.5F, 4.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(12, 22).cuboid(-1.875F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new Dilation(0.0F)), ModelTransform.origin(-6.6875F, -0.2569F, 0.0F));
+        chain.addChild("chain_w_hook", ModelPartBuilder.create().uv(10, 18).mirrored().cuboid(-3.875F, -0.5F, 0.5F, 4.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
+                .uv(12, 18).cuboid(-3.875F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+                .uv(10, 18).mirrored().cuboid(-3.875F, -0.5F, -1.5F, 4.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
+                .uv(12, 18).cuboid(-1.875F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new Dilation(0.0F)), ModelTransform.origin(-6.6875F, -0.2569F, 0.0F));
 
         ModelPartData separate_chain = chain.addChild("separate_chain", ModelPartBuilder.create(), ModelTransform.origin(13.6042F, 0.7431F, 0.0F));
 
-        separate_chain.addChild("cube_r9", ModelPartBuilder.create().uv(11, 22).mirrored().cuboid(-0.75F, -0.5F, -1.5F, 2.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(12, 22).cuboid(-0.75F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
-                .uv(11, 22).mirrored().cuboid(-0.75F, -0.5F, 0.5F, 2.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(1.0833F, 0.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
+        separate_chain.addChild("cube_r9", ModelPartBuilder.create().uv(11, 18).mirrored().cuboid(-0.75F, -0.5F, -1.5F, 2.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
+                .uv(12, 18).cuboid(-0.75F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+                .uv(11, 18).mirrored().cuboid(-0.75F, -0.5F, 0.5F, 2.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(1.0833F, 0.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
 
         chain.addChild("hook", ModelPartBuilder.create().uv(0, 15).cuboid(-0.5F, 0.5F, -0.5F, 1.0F, 3.0F, 1.0F, new Dilation(0.0F))
                 .uv(0, 15).cuboid(-0.5F, 0.0F, -1.0F, 1.0F, 0.5F, 2.0F, new Dilation(0.0F))
@@ -99,14 +99,13 @@ public class CustomMinecartEntityModel extends MinecartEntityModel {
 
     public void setAngles(MinecartEntityRenderState state) {
         super.setAngles(state);
-        if (state instanceof CustomMinecartEntityRenderState c) {
-            double rotation = c.wheelRotation;
-            float rotationRadians = (float) Math.toRadians(rotation);
+        double rotation = 360 * ((state.x-(int)state.x) * (MathHelper.angleBetween(state.lerpedYaw, 180)<90?1:-1) +
+                (state.z-(int)state.z) * (MathHelper.angleBetween(state.lerpedYaw, 90)<90?1:-1));
+        float rotationRadians = (float) Math.toRadians(rotation);
 
-            this.wheel1.roll = rotationRadians;
-            this.wheel2.roll = rotationRadians;
-            this.wheel3.roll = rotationRadians;
-            this.wheel4.roll = rotationRadians;
-        }
+        this.wheel1.roll = rotationRadians;
+        this.wheel2.roll = rotationRadians;
+        this.wheel3.roll = rotationRadians;
+        this.wheel4.roll = rotationRadians;
     }
 }

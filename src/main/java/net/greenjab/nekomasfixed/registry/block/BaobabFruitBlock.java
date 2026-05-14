@@ -16,29 +16,22 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jspecify.annotations.Nullable;
 
-public class BoababFruitBlock extends Block implements Fertilizable {
-    public static final MapCodec<BoababFruitBlock> CODEC = createCodec(BoababFruitBlock::new);
-    private static final VoxelShape RAYCAST_SHAPE_AGE0 = Block.createCuboidShape(5, 0, 5, 11, 9, 11);
-    private static final VoxelShape OUTLINE_SHAPE_AGE0 = Block.createCuboidShape(5, 0, 5, 11, 9, 11);
-    private static final VoxelShape RAYCAST_SHAPE_AGE1 = Block.createCuboidShape(6, 6, 6, 10, 10, 10);
-    private static final VoxelShape OUTLINE_SHAPE_AGE1 = Block.createCuboidShape(6, 6, 6, 10, 16, 10);
-    public static final int MAX_AGE = 1;
+public class BaobabFruitBlock extends Block implements Fertilizable {
+    public static final MapCodec<BaobabFruitBlock> CODEC = createCodec(BaobabFruitBlock::new);
+    private static final VoxelShape SHAPE_AGE_0 = Block.createCuboidShape(5, 0, 5, 11, 9, 11);
+    private static final VoxelShape SHAPE_AGE_1 = Block.createCuboidShape(6, 6, 6, 10, 16, 10);
     public static final IntProperty AGE = IntProperty.of("age", 0, 1);
 
-    public BoababFruitBlock(Settings settings) {
+    public BaobabFruitBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return this.getDefaultState().get(AGE, 1) == 0 ? OUTLINE_SHAPE_AGE0 : OUTLINE_SHAPE_AGE1;
+        return this.getDefaultState().get(AGE, 1) == 0 ? SHAPE_AGE_0 : SHAPE_AGE_1;
     }
 
-    @Override
-    public VoxelShape getRaycastShape(BlockState state, BlockView world, BlockPos pos) {
-        return this.getDefaultState().get(AGE, 1) == 0 ? RAYCAST_SHAPE_AGE0 : RAYCAST_SHAPE_AGE1;
-    }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -78,7 +71,7 @@ public class BoababFruitBlock extends Block implements Fertilizable {
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        if(this.getDefaultState().get(AGE) < 2){
+        if(this.getDefaultState().get(AGE) < 1){
             world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1), 2);
         }
     }

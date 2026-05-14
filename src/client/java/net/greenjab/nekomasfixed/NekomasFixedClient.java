@@ -12,10 +12,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.*;
-import net.greenjab.nekomasfixed.render.entity.CustomMinecartEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.MoobloomEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
-import net.greenjab.nekomasfixed.render.entity.model.CustomMinecartEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.SuspiciousSpiderEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
@@ -85,8 +83,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.putBlocks(
 				BlockRenderLayer.CUTOUT,
-				BlockRegistry.BOABAB_FRUIT,
-				BlockRegistry.BOABAB_SAPLING,
+				BlockRegistry.BAOBAB_FRUIT,
+				BlockRegistry.BAOBAB_SAPLING,
 				BlockRegistry.HOLLOW_OAK_LOG,
 				BlockRegistry.HOLLOW_DARK_OAK_LOG,
 				BlockRegistry.HOLLOW_ACACIA_LOG,
@@ -95,41 +93,15 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRegistry.HOLLOW_JUNGLE_LOG,
 				BlockRegistry.HOLLOW_SPRUCE_LOG,
 				BlockRegistry.HOLLOW_PALE_OAK_LOG,
-				BlockRegistry.HOLLOW_CRIMSON_LOG,
-				BlockRegistry.HOLLOW_WARPED_LOG
+				BlockRegistry.HOLLOW_CRIMSON_STEM,
+				BlockRegistry.HOLLOW_WARPED_STEM
 
 		);
-
-
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_OAK_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowOakLogBlockEntityRenderer()
-//		);
-//
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_SPRUCE_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowSpruceLogBlockEntityRenderer()
-//		);
-//
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_BIRCH_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowBirchLogBlockEntityRenderer()
-//		);
-//
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_JUNGLE_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowJungleLogBlockEntityRenderer()
-//		);
 
 		BlockEntityRendererFactories.register(
 				BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,
                 SoupCauldronBlockEntityRenderer::new
 		);
-
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_ACACIA_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowAcaciaLogBlockEntityRenderer()
-//		);
 
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
             if (state != null) {
@@ -140,37 +112,10 @@ public class NekomasFixedClient implements ClientModInitializer {
             }
         }, BlockRegistry.SOUP_CAULDRON);
 
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_DARK_OAK_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowDarkOakLogBlockEntityRenderer()
-//		);
-//
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_CRIMSON_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowCrimsonLogBlockEntityRenderer()
-//		);
-//
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_WARPED_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowWarpedLogBlockEntityRenderer()
-//		);
-//
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_CHERRY_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowCherryLogBlockEntityRenderer()
-//		);
-//
-//		BlockEntityRendererFactories.register(
-//				BlockEntityTypeRegistry.HOLLOW_PALE_OAK_LOG_BLOCK_ENTITY_TYPE,
-//				(ctx) -> new HollowPaleOakLogBlockEntityRenderer()
-//		);
-
 		EntityModelLayerRegistry.registerModelLayer(TermiteModel.TERMITE, TermiteModel::getTexturedModelData);
 		EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MoobloomEntityModel.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
 		EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
-//		EntityModelLayerRegistry.registerModelLayer(CustomMinecartEntityModel.CUSTOM_MINECART, CustomMinecartEntityModel::getTexturedModelData);
-//		EntityRendererRegistry.register(EntityTypeRegistry.CUSTOM_MINECART, CustomMinecartEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(SuspiciousSpiderEntityModel.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
 

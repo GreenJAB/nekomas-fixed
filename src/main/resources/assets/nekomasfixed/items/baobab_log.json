@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "nekomasfixed:item/boabab_seeds"
+    "model": "nekomasfixed:block/baobab_log"
   }
 }

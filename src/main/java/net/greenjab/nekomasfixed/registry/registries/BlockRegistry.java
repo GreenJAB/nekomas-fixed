@@ -110,8 +110,8 @@ public class BlockRegistry {
     public static final Block CRIMSON_CARPET = register("crimson_carpet", (settings) -> new DyedCarpetBlock(DyeColor.RED, settings), AbstractBlock.Settings.create().mapColor(MapColor.RED).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
     public static final Block INDIGO_CARPET = register("indigo_carpet", (settings) -> new DyedCarpetBlock(DyeColor.MAGENTA, settings), AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
 
-    public static final Block BOABAB_LOG = register("boabab_log", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG));
-    public static final Block BOABAB_SAPLING = register("boabab_sapling",(settings) -> new SaplingBlock(new SaplingGenerator("nekomasfixed:boabab", Optional.empty(), Optional.of(ModConfiguredFeatures.BOABAB_KEY), Optional.empty()),  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
+    public static final Block BAOBAB_LOG = register("baobab_log", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG));
+    public static final Block BAOBAB_SAPLING = register("baobab_sapling",(settings) -> new SaplingBlock(new SaplingGenerator("nekomasfixed:baobab", Optional.empty(), Optional.of(ModConfiguredFeatures.BAOBAB_KEY), Optional.empty()),  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
 
     public static final Block TERMITE_BLOCK = register("termite_block", AbstractBlock.Settings.create().strength(1f));
     public static final Block TERMITE_HIVE = register("termite_hive",TermiteHiveBlock::new, AbstractBlock.Settings.create().strength(1f));
@@ -169,8 +169,8 @@ public class BlockRegistry {
     public static final Block HOLLOW_DARK_OAK_LOG = register("hollow_dark_oak_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.DARK_OAK_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_SPRUCE_LOG = register("hollow_spruce_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.SPRUCE_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_JUNGLE_LOG = register("hollow_jungle_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.JUNGLE_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
-    public static final Block HOLLOW_WARPED_LOG = register("hollow_warped_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.WARPED_HYPHAE).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
-    public static final Block HOLLOW_CRIMSON_LOG = register("hollow_crimson_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.CRIMSON_HYPHAE).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
+    public static final Block HOLLOW_WARPED_STEM = register("hollow_warped_stem", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.WARPED_HYPHAE).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
+    public static final Block HOLLOW_CRIMSON_STEM = register("hollow_crimson_stem", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.CRIMSON_HYPHAE).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_ACACIA_LOG = register("hollow_acacia_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.ACACIA_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_CHERRY_LOG = register("hollow_cherry_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.CHERRY_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_BIRCH_LOG = register("hollow_birch_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.BIRCH_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
@@ -179,7 +179,7 @@ public class BlockRegistry {
     public static final Block GEYSER = register("geyser", GeyserBlock::new , AbstractBlock.Settings.create().ticksRandomly().luminance(state -> Blocks.LAVA.getDefaultState().getLuminance()));
 
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
-    public static final Block BOABAB_FRUIT = register("boabab_fruit", BoababFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly().noBlockBreakParticles());
+    public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly().noBlockBreakParticles());
 
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
