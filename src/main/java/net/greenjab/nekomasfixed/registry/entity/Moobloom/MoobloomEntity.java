@@ -142,7 +142,7 @@ public class MoobloomEntity extends CowEntity {
         Random random = new Random();
         MoobloomEntity child = EntityTypeRegistry.MOOBLOOM.create(world, SpawnReason.BREEDING);
         assert child != null;
-        child.getDataTracker().set(VARIANT, random.nextBoolean() ? thisVariant.path : secondVariant.path);
+        child.getDataTracker().set(VARIANT, ModMath);
         child.getDataTracker().set(SHEARED, true);
         return child;
     }
