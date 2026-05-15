@@ -1,15 +1,15 @@
 {
   "variants": {
-    "axis=z": {
-      "model": "nekomasfixed:block/hollow_warped_log_horizontal",
+    "axis=x": {
+      "model": "nekomasfixed:block/hollow_warped_stem",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "nekomasfixed:block/hollow_warped_log"
+      "model": "nekomasfixed:block/hollow_warped_stem"
     },
-    "axis=x": {
-      "model": "nekomasfixed:block/hollow_warped_log_horizontal",
+    "axis=z": {
+      "model": "nekomasfixed:block/hollow_warped_stem",
       "x": 90
     }
   }

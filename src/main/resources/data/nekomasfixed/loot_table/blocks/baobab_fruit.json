@@ -11,7 +11,7 @@
               "add": false,
               "conditions": [
                 {
-                  "block": "nekomasfixed:boabab_fruit",
+                  "block": "nekomasfixed:baobab_fruit",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "age": "1"
@@ -25,11 +25,11 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "nekomasfixed:boabab_seeds"
+          "name": "nekomasfixed:baobab_seeds"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "nekomasfixed:blocks/boabab_fruit"
+  "random_sequence": "nekomasfixed:blocks/baobab_fruit"
 }

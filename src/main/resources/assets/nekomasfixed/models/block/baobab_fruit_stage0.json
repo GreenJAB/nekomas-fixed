@@ -3,7 +3,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [34, 51],
 	"textures": {
-		"0": "nekomasfixed:block/boabab_fruit"
+		"0": "nekomasfixed:block/baobab_fruit"
 	},
 	"elements": [
 		{

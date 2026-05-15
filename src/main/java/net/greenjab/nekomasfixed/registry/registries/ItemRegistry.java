@@ -87,8 +87,8 @@ public class ItemRegistry {
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
 
-    public static final Item BOABAB_LOG = register(BlockRegistry.BOABAB_LOG);
-    public static final Item BOABAB_SAPLING = register(BlockRegistry.BOABAB_SAPLING);
+    public static final Item BAOBAB_LOG = register(BlockRegistry.BAOBAB_LOG);
+    public static final Item BAOBAB_SAPLING = register(BlockRegistry.BAOBAB_SAPLING);
 
     public static final Item HOLLOW_OAK_LOG = register(BlockRegistry.HOLLOW_OAK_LOG);
     public static final Item HOLLOW_DARK_OAK_LOG = register(BlockRegistry.HOLLOW_DARK_OAK_LOG);
@@ -97,8 +97,8 @@ public class ItemRegistry {
     public static final Item HOLLOW_PALE_OAK_LOG = register(BlockRegistry.HOLLOW_PALE_OAK_LOG);
     public static final Item HOLLOW_ACACIA_LOG = register(BlockRegistry.HOLLOW_ACACIA_LOG);
     public static final Item HOLLOW_SPRUCE_LOG = register(BlockRegistry.HOLLOW_SPRUCE_LOG);
-    public static final Item HOLLOW_WARPED_LOG = register(BlockRegistry.HOLLOW_WARPED_LOG);
-    public static final Item HOLLOW_CRIMSON_LOG = register(BlockRegistry.HOLLOW_CRIMSON_LOG);
+    public static final Item HOLLOW_WARPED_LOG = register(BlockRegistry.HOLLOW_WARPED_STEM);
+    public static final Item HOLLOW_CRIMSON_LOG = register(BlockRegistry.HOLLOW_CRIMSON_STEM);
     public static final Item HOLLOW_BIRCH_LOG = register(BlockRegistry.HOLLOW_BIRCH_LOG);
     public static final Item GEYSER = register(BlockRegistry.GEYSER);
 
@@ -107,8 +107,8 @@ public class ItemRegistry {
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 
     public static final Item ROPE_ITEM = register(BlockRegistry.ROPE, RopeItem::new);
-    public static final Item BOABAB_FRUIT = register(BlockRegistry.BOABAB_FRUIT,  new Item.Settings().maxCount(64).food(new FoodComponent(10, 3.5f, true)));
-    public static final Item BOABAB_SEEDS = register("boabab_seeds", Item::new, new Item.Settings().maxCount(64));
+    public static final Item BAOBAB_FRUIT = register(BlockRegistry.BAOBAB_FRUIT,  new Item.Settings().maxCount(64).food(new FoodComponent(10, 3.5f, true)));
+    public static final Item BAOBAB_SEEDS = register("baobab_seeds", Item::new, new Item.Settings().maxCount(64));
 
     public static final Item TERMITE_BLOCK = register(BlockRegistry.TERMITE_BLOCK);
     public static final Item TERMITE_HIVE = register(BlockRegistry.TERMITE_HIVE);

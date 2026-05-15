@@ -14,8 +14,6 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Util;
-import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -26,17 +24,18 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Map;
+
 public class HollowLogBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable{
-    private static final VoxelShape RAYCAST_SHAPE = Block.createCuboidShape(2, 0, 2, 14, 16, 14);
-    private static final VoxelShape OUTLINE_X = Block.createCuboidShape(0, 2, 2, 16, 14, 14);
-    private static final VoxelShape OUTLINE_Z = Block.createCuboidShape(2, 2, 0, 14, 14, 16);
     public static final IntProperty LIGHT_LEVEL = IntProperty.of("light_level", 0, 15);
-    public static final VoxelShape OUTLINE_Y = Util.make(() -> VoxelShapes.combineAndSimplify(
-            VoxelShapes.fullCube(),
-            VoxelShapes.union(Block.createColumnShape(16.0F, 8.0F, 0.0F, 0.0F),
-                    Block.createColumnShape(8.0F, 16.0F, 0.0F, 0.0F),
-                    Block.createColumnShape(12.0F, 0.0F, 0.0F), RAYCAST_SHAPE),
-            BooleanBiFunction.ONLY_FIRST));
+    private static final Map<Direction.Axis, VoxelShape> SHAPES_BY_AXIS = VoxelShapes.createAxisShapeMap(
+            VoxelShapes.union(
+                    Block.createColumnShape(16.0, 0.0, 2.0),
+                    Block.createColumnShape(16.0, 14.0, 16.0),
+                    Block.createCuboidShape(0.0, 0.0, 0.0, 2.0, 16.0, 16.0),
+                    Block.createCuboidShape(14.0, 0.0, 0.0, 16.0, 16.0, 16.0)
+            )
+    );
     public static final EnumProperty<Direction.Axis> AXIS = Properties.AXIS;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
@@ -87,7 +86,6 @@ public class HollowLogBlock extends BlockWithEntity implements BlockEntityProvid
         };
     }
 
-
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
@@ -106,33 +104,9 @@ public class HollowLogBlock extends BlockWithEntity implements BlockEntityProvid
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction.Axis axis = state.get(AXIS);
-        return switch (axis) {
-            case X -> OUTLINE_X;
-            case Y -> OUTLINE_Y;
-            case Z -> OUTLINE_Z;
-        };
+        return SHAPES_BY_AXIS.get(state.get(AXIS));
     }
 
-    @Override
-    public VoxelShape getRaycastShape(BlockState state, BlockView world, BlockPos pos) {
-        return RAYCAST_SHAPE;
-    }
-
-    /*@Override
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-        if(state.get(WATERLOGGED) && world.getBlockState(pos.down()).isAir()){
-            if(state.get(AXIS).isVertical() ){
-                world.setBlockState(pos, state.with(WATERLOGGED, false));
-                world.setBlockState(pos.down(), Blocks.WATER.getDefaultState());
-            }
-            else if(state.get(AXIS).isHorizontal()){
-                world.setBlockState(pos, state.with(WATERLOGGED, false));
-                world.setBlockState(pos.offset(state.get(AXIS).getPositiveDirection()), Blocks.WATER.getDefaultState());
-                world.setBlockState(pos.offset(state.get(AXIS).getNegativeDirection()), Blocks.WATER.getDefaultState());
-            }
-        }
-    }*/
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {

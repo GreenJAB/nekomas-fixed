@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "nekomasfixed:block/baobab_fruit_stage0"
+    },
+    "age=1": {
+      "model": "nekomasfixed:block/baobab_fruit_stage1"
+    }
+  }
+}

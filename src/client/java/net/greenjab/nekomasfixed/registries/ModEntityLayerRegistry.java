@@ -41,7 +41,6 @@ public class ModEntityLayerRegistry {
     public static final EntityModelLayer WILD_FIRE = new EntityModelLayer(NekomasFixed.id("wild_fire"), "main");
     public static final EntityModelLayer TERMITE = new EntityModelLayer(NekomasFixed.id("termite"), "main");
     public static final EntityModelLayer MOOBLOOM = new EntityModelLayer(NekomasFixed.id("moobloom"), "main");
-    public static final EntityModelLayer CUSTOM_MINECART = new EntityModelLayer(NekomasFixed.id("custom_minecart"), "main");
     public static final EntityModelLayer SOULFIRE_TRIDENT = new EntityModelLayer(NekomasFixed.id("soulfire_trident"), "main");
 
     private static EquipmentModelData<EntityModelLayer> registerEquipment(Identifier id) {

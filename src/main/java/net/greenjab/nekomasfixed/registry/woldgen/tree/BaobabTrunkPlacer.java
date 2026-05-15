@@ -21,20 +21,20 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class BoababTrunkPlacer extends TrunkPlacer {
-    public BoababTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
+public class BaobabTrunkPlacer extends TrunkPlacer {
+    public BaobabTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
     }
 
-    public static final MapCodec<BoababTrunkPlacer> CODEC =
+    public static final MapCodec<BaobabTrunkPlacer> CODEC =
             RecordCodecBuilder.mapCodec(instance ->
-                    fillTrunkPlacerFields(instance).apply(instance, BoababTrunkPlacer::new)
+                    fillTrunkPlacerFields(instance).apply(instance, BaobabTrunkPlacer::new)
             );
 
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModTrunkPlacers.BOABAB_TRUNK_PLACER;
+        return ModTrunkPlacers.BAOBAB_TRUNK_PLACER;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class BoababTrunkPlacer extends TrunkPlacer {
                         BlockPos fruitPos = leafPos.down();
 
                         if (world.testBlockState(fruitPos, AbstractBlock.AbstractBlockState::isAir)) {
-                            replacer.accept(fruitPos, BlockRegistry.BOABAB_FRUIT.getDefaultState());
+                            replacer.accept(fruitPos, BlockRegistry.BAOBAB_FRUIT.getDefaultState());
                         }
                     }
                 }

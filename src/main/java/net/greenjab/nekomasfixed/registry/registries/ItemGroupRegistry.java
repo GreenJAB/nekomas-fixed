@@ -28,8 +28,8 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.ZOMBIE_NAUTILUS_BLOCK);
                         entries.add(ItemRegistry.CORAL_NAUTILUS_BLOCK);
                          entries.add(ItemRegistry.KILN);
-                         entries.add(ItemRegistry.BOABAB_SAPLING);
-                         entries.add(ItemRegistry.BOABAB_LOG);
+                         entries.add(ItemRegistry.BAOBAB_SAPLING);
+                         entries.add(ItemRegistry.BAOBAB_LOG);
                          entries.add(ItemRegistry.ROPE_ITEM);
                          entries.add(ItemRegistry.GLOW_TORCH);
                         entries.add(ItemRegistry.TURTLE_CHESTPLATE);
@@ -128,8 +128,8 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.CRIMSON_HARNESS);
 
                          //new things
-                         entries.add(ItemRegistry.BOABAB_FRUIT);
-                         entries.add(ItemRegistry.BOABAB_SEEDS);
+                         entries.add(ItemRegistry.BAOBAB_FRUIT);
+                         entries.add(ItemRegistry.BAOBAB_SEEDS);
                          entries.add(ItemRegistry.TERMITE_BLOCK);
                          entries.add(ItemRegistry.TERMITE_HIVE);
                          entries.add(ItemRegistry.TERMITE_SPAWN_EGG);

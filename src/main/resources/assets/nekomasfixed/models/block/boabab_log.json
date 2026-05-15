@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "nekomasfixed:block/boabab_log_top",
-    "side": "nekomasfixed:block/boabab_log"
-  }
-}
