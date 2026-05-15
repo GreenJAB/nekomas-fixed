@@ -17,3 +17,5 @@ accessible field net/minecraft/entity/mob/MobEntity targetSelector Lnet/minecraf
 accessible class net/minecraft/entity/passive/DolphinEntity$LeadToNearbyTreasureGoal
 accessible class net/minecraft/entity/passive/DolphinEntity$SwimWithPlayerGoal
 accessible class net/minecraft/entity/passive/DolphinEntity$PlayWithItemsGoal
+accessible method net/minecraft/entity/mob/AbstractSkeletonEntity getStepSound ()Lnet/minecraft/sound/SoundEvent;
+accessible method net/minecraft/entity/mob/MobEntity isAffectedByDaylight ()Z

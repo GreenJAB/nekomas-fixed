@@ -56,5 +56,6 @@ public class EntityModelsMixin {
 
         builder.put(EntityModelLayerRegistry.WILD_FIRE, WildFireEntityModel.getTexturedModelData());
         builder.put(EntityModelLayerRegistry.SOULFIRE_TRIDENT, TridentEntityModel.getTexturedModelData());
+        builder.put(EntityModelLayerRegistry.DRENCHED, DrenchedEntityModel.getTexturedModelData());
     }
 }

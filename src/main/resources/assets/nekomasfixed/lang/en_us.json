@@ -237,5 +237,8 @@
   "item.nekomasfixed.jungle_zombie_spawn_egg": "Jungle Zombie Spawn Egg",
   "item.nekomasfixed.snow_zombie_spawn_egg": "Snow Zombie Spawn Egg",
 
-  "title.nekomasfixed.config": "Config"
+  "title.nekomasfixed.config": "Config",
+  "item.nekomasfixed.anchor": "Anchor",
+  "entity.nekomasfixed.drenched": "Drenched",
+  "item.nekomasfixed.drenched_spawn_egg": "Drenched Spawn Egg"
 }

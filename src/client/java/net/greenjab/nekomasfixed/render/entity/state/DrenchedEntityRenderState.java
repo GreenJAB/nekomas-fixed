@@ -6,4 +6,5 @@ import net.minecraft.client.render.entity.state.SkeletonEntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class DrenchedEntityRenderState extends SkeletonEntityRenderState {
+    public int variant = 0;
 }

@@ -50,7 +50,8 @@
     "wildfire.LongJumpUtilMixin",
     "wildfire.NetherFortressGeneratorMixin",
     "wildfire.SmallFireballEntityMixin",
-    "wildfire.SnowballEntityMixin"
+    "wildfire.SnowballEntityMixin",
+    "SkeletonEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
