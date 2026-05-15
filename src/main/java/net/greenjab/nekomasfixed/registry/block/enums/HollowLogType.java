@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.block.enums;
 
+import net.greenjab.nekomasfixed.registry.block.HollowLogBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -40,15 +41,13 @@ public enum HollowLogType {
     }
 
     public static Block getHollowBlock(Block baseLog) {
-        return BASE_TO_HOLLOW.getOrDefault(baseLog, Blocks.ACACIA_LOG);
+        return BASE_TO_HOLLOW.getOrDefault(baseLog, Blocks.AIR);
     }
 
-    public static BlockState getHollowState(Block baseLog) {
-        BlockState baseState = baseLog.getDefaultState();
-        BlockState hollowState = getHollowBlock(baseLog).getDefaultState();
-
-        if (baseState.contains(PillarBlock.AXIS)) {
-            return hollowState.with(PillarBlock.AXIS, baseState.get(PillarBlock.AXIS));
+    public static BlockState getHollowState(BlockState baseLog) {
+        BlockState hollowState = getHollowBlock(baseLog.getBlock()).getDefaultState();
+        if (!hollowState.isOf(Blocks.AIR) && hollowState.contains(PillarBlock.AXIS)) {
+            return hollowState.with(HollowLogBlock.AXIS, baseLog.get(PillarBlock.AXIS));
         }
         return hollowState;
     }
