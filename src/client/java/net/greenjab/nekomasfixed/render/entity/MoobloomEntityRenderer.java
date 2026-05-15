@@ -49,7 +49,7 @@ public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, Mo
         state.baby = entity.isBaby();
     }
 
-    //done a lot of stuff
+    //done a lot of stuff x 2
 
     @Override
     public MoobloomEntityRenderState createRenderState() {
