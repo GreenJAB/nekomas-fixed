@@ -30,7 +30,6 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Random;
 
 public class MoobloomEntity extends CowEntity {
     public final AnimationState idleAnimationState = new AnimationState();
@@ -81,7 +80,6 @@ public class MoobloomEntity extends CowEntity {
         this.setSheared(view.getBoolean("Sheared", false));
         this.flowerRegrowTimer = view.getInt("FlowerRegrowTimer", 20 * 60 * 5);
         this.dataTracker.set(VARIANT, view.getString("VariantPath", "ancient_cow_1"));
-
     }
 
     @Override
@@ -97,7 +95,6 @@ public class MoobloomEntity extends CowEntity {
                     return ActionResult.SUCCESS_SERVER;
                 }
             }
-
             return ActionResult.SUCCESS;
         }
         else if (itemStack.isOf(Items.BOWL) && !this.isBaby()) {

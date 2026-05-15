@@ -3,10 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
-import net.greenjab.nekomasfixed.util.HarnessHelper;
-import net.greenjab.nekomasfixed.util.ModColors;
-import net.greenjab.nekomasfixed.util.ModEquipmentAssetKeys;
-import net.greenjab.nekomasfixed.util.ModItemSettings;
+import net.greenjab.nekomasfixed.util.*;
 import net.minecraft.block.*;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
@@ -132,10 +129,10 @@ public class ItemRegistry {
     public static final ArmorMaterial DIAMOND_CROWN_MATERIAL = new ArmorMaterial(37, Map.of(EquipmentType.HELMET, 3), 15, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0F, 0.1F, ItemTags.DIAMOND_TOOL_MATERIALS, ModEquipmentAssetKeys.DIAMOND_CROWN);
     public static final Item DIAMOND_CROWN = register("diamond_crown", Item::new, new Item.Settings().armor(DIAMOND_CROWN_MATERIAL, EquipmentType.HELMET).maxCount(1).trimMaterial(ArmorTrimMaterials.DIAMOND).maxDamage(EquipmentType.HELMET.getMaxDamage(DIAMOND_CROWN_MATERIAL.durability())).attributeModifiers(DIAMOND_CROWN_MATERIAL.createAttributeModifiers(EquipmentType.HELMET)).enchantable(DIAMOND_CROWN_MATERIAL.enchantmentValue()).component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot()).equipSound(DIAMOND_CROWN_MATERIAL.equipSound()).model(DIAMOND_CROWN_MATERIAL.assetId()).build()).repairable(DIAMOND_CROWN_MATERIAL.repairIngredient()));
 
-    public static final Item AMBER_DYE = registerDye("amber_dye", DyeColor.YELLOW);
-    public static final Item INDIGO_DYE = registerDye("indigo_dye", DyeColor.PURPLE);
-    public static final Item CRIMSON_DYE = registerDye("crimson_dye", DyeColor.RED);
-    public static final Item AQUA_DYE = registerDye("aqua_dye", DyeColor.LIGHT_BLUE);
+    public static final Item AMBER_DYE = registerDye("amber_dye", ModColors.AMBER);
+    public static final Item INDIGO_DYE = registerDye("indigo_dye", ModColors.INDIGO);
+    public static final Item CRIMSON_DYE = registerDye("crimson_dye", ModColors.CRIMSON);
+    public static final Item AQUA_DYE = registerDye("aqua_dye", ModColors.AQUA);
 
     public static final Item SOULFIRE_SHIELD = register("soulfire_shield", SoulfireShieldItem::new, new Item.Settings().rarity(Rarity.RARE).maxDamage(336).repairable(ItemTags.REPAIRS_NETHERITE_ARMOR).equippableUnswappable(EquipmentSlot.OFFHAND).component(DataComponentTypes.BLOCKS_ATTACKS, new BlocksAttacksComponent(0.25F, 1.0F, List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)), new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD), Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK))).component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof());
 //Items
@@ -320,12 +317,8 @@ public class ItemRegistry {
     public static Item register(Block block, BiFunction<Block, Item.Settings, Item> factory) {
         return register(block, factory, new Item.Settings());
     }
-    public static DyeItem registerDye(String id, DyeColor color) {
-        return (DyeItem) register(
-                keyOf(id),
-                settings -> new DyeItem(color, settings),
-                new Item.Settings()
-        );
+    public static DyeItem registerDye(String id, ModColors color) {
+        return (DyeItem) register(keyOf(id), settings -> new ModDyeItems(color, settings), new Item.Settings());
     }
     public static void registerItems() {
         NekomasFixed.LOGGER.info("Registering items...");

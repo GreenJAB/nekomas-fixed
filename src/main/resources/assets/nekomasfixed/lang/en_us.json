@@ -81,7 +81,9 @@
   "item_nekomasfixed.netherite_crown": "Netherite Crown",
 
   "item.nekomasfixed.target_dummy": "Target Dummy",
+  "item.nekomasfixed.moobloom_spawn_egg": "Moobloom Spawn Egg",
   "entity.nekomasfixed.target_dummy": "Target Dummy",
+  "entity.nekomasfixed.moobloom": "Moobloom",
   "block.nekomasfixed.enderman_head": "Enderman Head",
 
   "item.nekomasfixed.slingshot": "Slingshot",
@@ -241,8 +243,8 @@
   "block.nekomasfixed.hollow_spruce_log": "Hollow Spruce Log",
   "block.nekomasfixed.hollow_pale_oak_log": "Hollow Pale Oak Log",
   "block.nekomasfixed.hollow_birch_log": "Hollow Birch Log",
-  "block.nekomasfixed.hollow_crimson_log": "Hollow Crimson Log",
-  "block.nekomasfixed.hollow_warped_log": "Hollow Warped Log",
+  "block.nekomasfixed.hollow_crimson_stem": "Hollow Crimson Stem",
+  "block.nekomasfixed.hollow_warped_stem": "Hollow Warped Stem",
   "block.nekomasfixed.hollow_jungle_log": "Hollow Jungle Log",
   "block.nekomasfixed.hollow_cherry_log": "Hollow Cherry Log",
   "block.nekomasfixed.hollow_acacia_log": "Hollow Acacia Log",
