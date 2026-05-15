@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.entity.Moobloom;
 
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
+import net.greenjab.nekomasfixed.util.ModMathHelper;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.*;
@@ -138,11 +139,18 @@ public class MoobloomEntity extends CowEntity {
     public MoobloomEntity createChild(ServerWorld world, PassiveEntity mate) {
         MoobloomEntityVariants thisVariant = MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT));
         MoobloomEntityVariants secondVariant = MoobloomEntityVariants.fromPath(mate.getDataTracker().get(VARIANT));
-
-        Random random = new Random();
+        String result = MoobloomEntityVariants.getRandomVariant().path;
         MoobloomEntity child = EntityTypeRegistry.MOOBLOOM.create(world, SpawnReason.BREEDING);
         assert child != null;
-        child.getDataTracker().set(VARIANT, ModMath);
+        double random = ModMathHelper.getDouble();
+
+        if(random <= 0.35){
+            result = thisVariant.path;
+        }else if(random <= 0.7){
+            result = secondVariant.path;
+        }
+
+        child.getDataTracker().set(VARIANT,result);
         child.getDataTracker().set(SHEARED, true);
         return child;
     }
