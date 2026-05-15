@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.HollowLogType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -101,10 +102,10 @@ public class TermiteEntity extends HostileEntity {
     public void readCustomDataFromNbt(NbtCompound nbt) {
         this.isInMound = nbt.getBoolean("IsInMound");
 
-        if (nbt.getBoolean("HasMoundPosition").get()) {
-            int x = nbt.getInt("MoundX").get();
-            int y = nbt.getInt("MoundY").get();
-            int z = nbt.getInt("MoundZ").get();
+        if (nbt.getBoolean("HasMoundPosition", false)) {
+            int x = nbt.getInt("MoundX",0);
+            int y = nbt.getInt("MoundY",0);
+            int z = nbt.getInt("MoundZ",0);
             this.moundPosition = Optional.of(new BlockPos(x, y, z));
         } else {
             this.moundPosition = Optional.empty();
@@ -294,9 +295,11 @@ public class TermiteEntity extends HostileEntity {
             if (targetPos == null) return;
             if (termiteEntity.getBlockPos().isWithinDistance(targetPos, 1.5)) {
                 BlockState state = termiteEntity.getEntityWorld().getBlockState(targetPos);
+                BlockState newState = HollowLogType.getHollowState(state);
+                if (newState != Blocks.AIR.getDefaultState())
                     termiteEntity.getEntityWorld().setBlockState(
                             targetPos,
-                            HollowLogType.getHollowState(state.getBlock())
+                            newState
                     );
 
                 this.stop();

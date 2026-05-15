@@ -49,6 +49,7 @@ public class WildFireEntity extends HostileEntity {
 	public float clientFireTime = 0;
 	public float clientExtraSpin = 0;
 	private final ServerBossBar bossBar;
+	private BlockPos spawnPos;
 	private static final TrackedData<Byte> WILD_FIRE_FLAGS = DataTracker.registerData(WildFireEntity.class, TrackedDataHandlerRegistry.BYTE);
 
 	public WildFireEntity(EntityType<? extends WildFireEntity> entityType, World world) {
@@ -71,16 +72,24 @@ public class WildFireEntity extends HostileEntity {
 		return world.doesNotIntersectEntities(this);
 	}
 
+	public BlockPos getSpawnPos(){
+		return spawnPos;
+	}
+
 	@Override
 	protected void writeCustomData(WriteView view) {
 		super.writeCustomData(view);
 		view.putInt("State", this.dataTracker.get(WILD_FIRE_FLAGS));
+		view.putInt("spawnX", spawnPos.getX());
+		view.putInt("spawnY", spawnPos.getY());
+		view.putInt("spawnZ", spawnPos.getZ());
 	}
 
 	@Override
 	protected void readCustomData(ReadView view) {
 		super.readCustomData(view);
 		this.dataTracker.set(WILD_FIRE_FLAGS, (byte)view.getInt("State", 0));
+		spawnPos = new BlockPos(view.getInt("spawnX", 0), view.getInt("spawnY", 0), view.getInt("spawnZ", 0));
 		if (this.hasCustomName()) {
 			this.bossBar.setName(this.getDisplayName());
 		}
@@ -149,6 +158,8 @@ public class WildFireEntity extends HostileEntity {
 
 	@Override
 	public void tickMovement() {
+		if (spawnPos == null || spawnPos.isWithinDistance(new BlockPos(0, 0 ,0), 1))
+			spawnPos = new BlockPos(this.getBlockX(), this.getBlockY(), this.getBlockZ());
 		if (!this.isOnGround() && this.getVelocity().y < 0.0) {
 			this.setVelocity(this.getVelocity().multiply(1.0, (this.eyeOffset > -1?0.85:0.6), 1.0));
 		}

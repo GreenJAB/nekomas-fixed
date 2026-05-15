@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.render.block.entity;
 
 import net.greenjab.nekomasfixed.registry.block.entity.HollowLogBlockEntity;
 import net.greenjab.nekomasfixed.render.block.entity.state.HollowLogBlockEntityRenderState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.block.BlockRenderManager;
@@ -16,7 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
 import org.jspecify.annotations.Nullable;
 
-public class HollowLogBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<HollowLogBlockEntity, HollowLogBlockEntityRenderState>{
+public class HollowLogBlockEntityRenderer implements BlockEntityRenderer<HollowLogBlockEntity, HollowLogBlockEntityRenderState>{
 
     public HollowLogBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
     }
@@ -49,8 +48,8 @@ public class HollowLogBlockEntityRenderer<T extends BlockEntity> implements Bloc
         if (state.blockState == null) return;
 
         matrixStack.push();
-        matrixStack.translate(0.02, 0.15, 0.02);
-        matrixStack.scale(0.90f, 0.7f, 0.90f);
+        matrixStack.translate(0.125, 0.125, 0.125);
+        matrixStack.scale(0.75f, 0.75f, 0.75f);
 
         blockRenderManager.renderBlockAsEntity(
                 state.blockState,

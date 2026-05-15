@@ -98,7 +98,7 @@ public class MoobloomEntity extends CowEntity {
                 }
             }
 
-            return ActionResult.CONSUME;
+            return ActionResult.SUCCESS;
         }
         else if (itemStack.isOf(Items.BOWL) && !this.isBaby()) {
             World world = this.getEntityWorld();
@@ -108,7 +108,7 @@ public class MoobloomEntity extends CowEntity {
                 player.getStackInHand(Hand.MAIN_HAND).decrementUnlessCreative(1, player);
                 player.giveOrDropStack( stew);
             }
-            return ActionResult.CONSUME;
+            return ActionResult.SUCCESS;
         }
                 else {
             return super.interactMob(player, hand);
