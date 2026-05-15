@@ -4,16 +4,17 @@ import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractCowEntity;
 import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -28,6 +29,7 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Random;
 
 public class MoobloomEntity extends CowEntity {
     public final AnimationState idleAnimationState = new AnimationState();
@@ -46,6 +48,18 @@ public class MoobloomEntity extends CowEntity {
         EntityData data = super.initialize(world, difficulty, spawnReason, entityData);
         this.dataTracker.set(VARIANT, MoobloomEntityVariants.getRandomVariant().path);
         return data;
+    }
+
+    @Override
+    protected void initGoals() {
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0F));
+        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0F));
+        this.goalSelector.add(3, new TemptGoal(this, 1.25F, (stack) -> stack.isOf(MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT)).flower.getItem()), false));
+        this.goalSelector.add(4, new FollowParentGoal(this, 1.25F));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0F));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(7, new LookAroundGoal(this));
     }
 
     public static DefaultAttributeContainer.Builder createAttributes(){
@@ -72,7 +86,7 @@ public class MoobloomEntity extends CowEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isOf(Items.SHEARS)) {
+        if (itemStack.isOf(Items.SHEARS) && !this.isBaby()) {
             World var5 = this.getEntityWorld();
             if (var5 instanceof ServerWorld serverWorld) {
                 if (this.isShearable()) {
@@ -85,7 +99,7 @@ public class MoobloomEntity extends CowEntity {
 
             return ActionResult.CONSUME;
         }
-        else if (itemStack.isOf(Items.BOWL)) {
+        else if (itemStack.isOf(Items.BOWL) && !this.isBaby()) {
             World world = this.getEntityWorld();
             if (!world.isClient() && world instanceof ServerWorld) {
                 ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
@@ -119,6 +133,18 @@ public class MoobloomEntity extends CowEntity {
         super.initDataTracker(builder);
         builder.add(SHEARED, false);
         builder.add(VARIANT, "ancient_cow_1");
+    }
+    @Override
+    public MoobloomEntity createChild(ServerWorld world, PassiveEntity mate) {
+        MoobloomEntityVariants thisVariant = MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT));
+        MoobloomEntityVariants secondVariant = MoobloomEntityVariants.fromPath(mate.getDataTracker().get(VARIANT));
+
+        Random random = new Random();
+        MoobloomEntity child = EntityTypeRegistry.MOOBLOOM.create(world, SpawnReason.BREEDING);
+        assert child != null;
+        child.getDataTracker().set(VARIANT, random.nextBoolean() ? thisVariant.path : secondVariant.path);
+        child.getDataTracker().set(SHEARED, true);
+        return child;
     }
 
     public void setSheared(boolean val){

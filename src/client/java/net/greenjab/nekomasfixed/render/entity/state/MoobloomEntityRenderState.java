@@ -10,6 +10,7 @@ public class MoobloomEntityRenderState extends LivingEntityRenderState {
     public final AnimationState crouchAnimationState;
     public boolean sheared;
     public String variantPath;
+    public boolean baby;
 
     public  MoobloomEntityRenderState() {
         this.idleAnimationState = new AnimationState();

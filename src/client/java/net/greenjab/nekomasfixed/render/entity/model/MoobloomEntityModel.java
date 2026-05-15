@@ -5,14 +5,22 @@ import net.greenjab.nekomasfixed.render.entity.state.MoobloomEntityRenderState;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.model.BabyModelTransformer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.Set;
+
 public class MoobloomEntityModel extends QuadrupedEntityModel<MoobloomEntityRenderState> {
     public static final EntityModelLayer MOOBLOOM = new EntityModelLayer(Identifier.of("nekomasfixed", "moobloom"), "main");
+    public static final EntityModelLayer MOOBLOOM_BABY = new EntityModelLayer(Identifier.of("nekomasfixed", "moobloom"), "baby");
+    public static final ModelTransformer BABY_TRANSFORMER = new BabyModelTransformer(false, 8.0F, 6.0F, Set.of("head"));
+
+
     private final Animation idleAnim;
     private final Animation runAnim;
     private final ModelPart bone;
@@ -22,6 +30,7 @@ public class MoobloomEntityModel extends QuadrupedEntityModel<MoobloomEntityRend
     private final ModelPart flower2;
     private final ModelPart head;
     private final ModelPart flower3;
+    protected boolean child;
     private final ModelPart right_hind_leg;
     private final ModelPart left_hind_leg;
     private final ModelPart right_front_leg;
@@ -44,9 +53,21 @@ public class MoobloomEntityModel extends QuadrupedEntityModel<MoobloomEntityRend
         this.idleAnim = Animation.of(root, MoobloomAnimations.ANIM_MOOBLOOM_IDLE);
         this.runAnim = Animation.of(root, MoobloomAnimations.ANIM_MOOBLOOM_CROUCHING);
     }
+
     public static TexturedModelData getTexturedModelData() {
+        return TexturedModelData.of(getModelData(), 64, 64);
+    }
+
+    public static TexturedModelData getBabyTexturedModelData() {
+        ModelData modelData = getModelData();
+        modelData.transform(BABY_TRANSFORMER);
+        return TexturedModelData.of(modelData, 64, 64);
+    }
+
+    public static ModelData getModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
+
         ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 2.0F));
 
         ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create().uv(22, 0).cuboid(-5.0F, -5.0F, -4.0F, 1.0F, 3.0F, 1.0F, new Dilation(0.0F))
@@ -106,25 +127,26 @@ public class MoobloomEntityModel extends QuadrupedEntityModel<MoobloomEntityRend
                 .uv(0, 32).cuboid(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -8.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
 
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return modelData;
     }
 
-@Override
-public void setAngles(MoobloomEntityRenderState state) {
-//    this.getPart().traverse().forEach(ModelPart::resetTransform);
-    super.setAngles(state);
+    @Override
+    public void setAngles(MoobloomEntityRenderState state) {
+        this.child = state.baby; // ← THIS activates baby transformation
 
-    float swing = state.limbSwingAnimationProgress;
-    float amount = state.limbSwingAmplitude;
+        super.setAngles(state);
 
-    this.right_hind_leg.pitch = MathHelper.cos(swing * 0.6662F) * 1.4F * amount;
-    this.left_hind_leg.pitch  = MathHelper.cos(swing * 0.6662F + (float)Math.PI) * 1.4F * amount;
+        float swing = state.limbSwingAnimationProgress;
+        float amount = state.limbSwingAmplitude;
 
-    this.right_front_leg.pitch = MathHelper.cos(swing * 0.6662F + (float)Math.PI) * 1.4F * amount;
-    this.left_front_leg.pitch  = MathHelper.cos(swing * 0.6662F) * 1.4F * amount;
+        this.right_hind_leg.pitch = MathHelper.cos(swing * 0.6662F) * 1.4F * amount;
+        this.left_hind_leg.pitch  = MathHelper.cos(swing * 0.6662F + (float)Math.PI) * 1.4F * amount;
 
-    this.setHeadAngles(state.bodyYaw, state.pitch);
-}
+        this.right_front_leg.pitch = MathHelper.cos(swing * 0.6662F + (float)Math.PI) * 1.4F * amount;
+        this.left_front_leg.pitch  = MathHelper.cos(swing * 0.6662F) * 1.4F * amount;
+
+        this.setHeadAngles(state.bodyYaw, state.pitch);
+    }
 
     private void setHeadAngles(float headYaw, float headPitch) {
         headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
@@ -136,13 +158,8 @@ public void setAngles(MoobloomEntityRenderState state) {
 
 
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        bone.render(matrices, vertexConsumer, light, overlay);
+        this.root.render(matrices, vertexConsumer, light, overlay);
     }
-
-//    public ModelPart getPart(){
-//        return this.root;
-//    }
-
 
     public ModelPart getHead() {
         return this.head;

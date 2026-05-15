@@ -169,8 +169,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 		EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MoobloomEntityModel.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
 		EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
-//		EntityModelLayerRegistry.registerModelLayer(CustomMinecartEntityModel.CUSTOM_MINECART, CustomMinecartEntityModel::getTexturedModelData);
-//		EntityRendererRegistry.register(EntityTypeRegistry.CUSTOM_MINECART, CustomMinecartEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(MoobloomEntityModel.MOOBLOOM_BABY, MoobloomEntityModel::getBabyTexturedModelData);
+
 		EntityModelLayerRegistry.registerModelLayer(SuspiciousSpiderEntityModel.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
 
