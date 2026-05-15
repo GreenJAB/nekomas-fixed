@@ -163,6 +163,7 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.HUGE_PALE_OAK_BOAT);
                          entries.add(ItemRegistry.BIG_SPRUCE_BOAT);
                          entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
+                         entries.add(ItemRegistry.ANCHOR);
 
                          entries.add(ItemRegistry.PYROTECHNICS_TABLE);
                          entries.add(ItemRegistry.JUNGLE_ZOMBIE_SPAWN_EGG);
@@ -174,6 +175,7 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.GLOWBERRY_CAKE);
                          entries.add(ItemRegistry.COOKIE_CAKE);
                          entries.add(ItemRegistry.COCOA_CAKE);
+                         entries.add(ItemRegistry.DRENCHED_SPAWN_EGG);
 
 
 
