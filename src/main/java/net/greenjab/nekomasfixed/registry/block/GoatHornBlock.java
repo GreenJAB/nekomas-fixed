@@ -5,13 +5,27 @@ import net.greenjab.nekomasfixed.registry.block.enums.GoatHornTorchType;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.*;
 import net.minecraft.util.ActionResult;
@@ -19,6 +33,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -28,7 +43,10 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jspecify.annotations.Nullable;
 
-import static net.minecraft.util.math.Direction.NORTH;
+import java.util.Collections;
+import java.util.List;
+
+import static net.minecraft.util.math.Direction.*;
 
 public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggable {
     public static final MapCodec<GoatHornBlock> CODEC = createCodec(GoatHornBlock::new);
@@ -91,33 +109,42 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if(!world.isClient()){
+            if (stack.isOf(Items.SHEARS) && state.get(HAS_TORCH) != GoatHornTorchType.NONE) {
+                world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), GoatHornTorchType.getItem(state.get(HAS_TORCH))));
+                BlockState newState = state.with(HAS_TORCH, GoatHornTorchType.NONE).with(LIGHT_LEVEL, 0);
+                world.setBlockState(pos, newState);
+                world.playSoundFromEntity(null, player, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
+                stack.damage(1, player);
+            }
+            if(state.get(HAS_TORCH) != GoatHornTorchType.NONE) return ActionResult.FAIL;
             if(stack.isOf(Items.TORCH)){
                 BlockState newState = state
                         .with(HAS_TORCH, GoatHornTorchType.TORCH)
                         .with(LIGHT_LEVEL, 15);
                 world.setBlockState(pos, newState);
-                player.getMainHandStack().decrementUnlessCreative(1, player);
+                stack.decrementUnlessCreative(1, player);
             }
             else if(stack.isOf(Items.COPPER_TORCH)){
                 BlockState newState = state
                         .with(HAS_TORCH, GoatHornTorchType.COPPER_TORCH)
                         .with(LIGHT_LEVEL, 13);
                 world.setBlockState(pos, newState);
-                player.getMainHandStack().decrementUnlessCreative(1, player);
+                stack.decrementUnlessCreative(1, player);
             }
             else if(stack.isOf(Items.SOUL_TORCH)){
                 BlockState newState = state
                         .with(HAS_TORCH, GoatHornTorchType.SOULFIRE_TORCH)
                         .with(LIGHT_LEVEL, 10);
                 world.setBlockState(pos, newState);
-                player.getMainHandStack().decrementUnlessCreative(1, player);
+                stack.decrementUnlessCreative(1, player);
             }
             else if(stack.isOf(Items.REDSTONE_TORCH)){
                 BlockState newState = state
                         .with(HAS_TORCH, GoatHornTorchType.REDSTONE_TORCH)
                         .with(LIGHT_LEVEL, 10);
                 world.setBlockState(pos, newState);
-                player.getMainHandStack().decrementUnlessCreative(1, player);
+                stack.decrementUnlessCreative(1, player);
             }
             else if(stack.isOf(ItemRegistry.GLOW_TORCH)){
                 {
@@ -126,20 +153,62 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
                                 .with(HAS_TORCH, GoatHornTorchType.GLOW_TORCH)
                                 .with(LIGHT_LEVEL, 15);
                         world.setBlockState(pos, newState);
-                        player.getMainHandStack().decrementUnlessCreative(1, player);
+                        stack.decrementUnlessCreative(1, player);
                     }
                     else{
                         BlockState newState = state
                                 .with(HAS_TORCH, GoatHornTorchType.GLOW_TORCH_OFF)
                                 .with(LIGHT_LEVEL, 0);
                         world.setBlockState(pos, newState);
-                        player.getMainHandStack().decrementUnlessCreative(1, player);
+                        stack.decrementUnlessCreative(1, player);
                     }
                 }
             }
-            //different states of oxidation states are remaining
         }
-        return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        Direction facing = state.get(FACING);
+        double d = pos.getX() + 0.5;
+        double e = pos.getY() + 1;
+        double f = pos.getZ() + 0.5;
+
+        switch (facing){
+            case SOUTH -> f+= 0.1;
+            case NORTH -> f =(f-0.1) + 0.03;
+            case EAST -> d += 0.1;
+            case WEST -> d = (d-0.1) + 0.03;
+        }
+
+        GoatHornTorchType type = state.get(HAS_TORCH);
+        if (type == GoatHornTorchType.NONE || type == GoatHornTorchType.GLOW_TORCH_OFF) {return;}
+        world.addParticleClient(ParticleTypes.SMOKE, d, e, f, 0, 0, 0);
+        var particle = state.get(HAS_TORCH) == GoatHornTorchType.REDSTONE_TORCH ? DustParticleEffect.DEFAULT : GoatHornTorchType.getTorchParticle(type);
+        world.addParticleClient(particle, d, e, f, 0, 0, 0);
+    }
+
+    @Override
+    protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
+        if (this.lootTableKey.isEmpty()) {
+            return Collections.emptyList();
+        } else {
+            LootWorldContext lootWorldContext = builder.add(LootContextParameters.BLOCK_STATE, state).build(LootContextTypes.BLOCK);
+            ServerWorld serverWorld = lootWorldContext.getWorld();
+            assert serverWorld.getServer() != null;
+            LootTable lootTable = serverWorld.getServer().getReloadableRegistries().getLootTable(this.lootTableKey.get());
+            List<ItemStack> drops = lootTable.generateLoot(lootWorldContext);
+
+            if (state.get(HAS_TORCH) != GoatHornTorchType.NONE) {
+                drops.add(GoatHornTorchType.getItem(state.get(HAS_TORCH)));
+            }
+
+            RegistryEntry<Instrument> entry = serverWorld.getRegistryManager().getOrThrow(RegistryKeys.INSTRUMENT).getOrThrow(GoatHornType.getInstrument(state.get(HORN)));
+            drops.add(GoatHornItem.getStackForInstrument(Items.GOAT_HORN, entry));
+
+            return drops;
+        }
     }
 
     @Override
