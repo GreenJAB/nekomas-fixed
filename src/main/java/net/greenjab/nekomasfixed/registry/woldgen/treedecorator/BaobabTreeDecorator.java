@@ -31,12 +31,11 @@ public class BaobabTreeDecorator extends TreeDecorator {
     @Override
     public void generate(TreeDecorator.Generator generator) {
         Random random = generator.getRandom();
-        if (!(random.nextFloat() >= this.probability)) {
+        if (random.nextBoolean()) {
             List<BlockPos> list = generator.getLeavesPositions();
-            int scale = 1;
             if (!list.isEmpty()) {
                 for(BlockPos pos : list){
-                    if (random.nextFloat() > 1f / scale) continue;
+                    if (!(Math.sin(random.nextDouble() * 100) >= 0.809)) continue;
                     BlockPos down = pos.down();
                     if(generator.getWorld().testBlockState(down, (AbstractBlock.AbstractBlockState::isAir))){
                         generator.replace(down, BlockRegistry.BAOBAB_FRUIT.getDefaultState().with(AGE, 1));

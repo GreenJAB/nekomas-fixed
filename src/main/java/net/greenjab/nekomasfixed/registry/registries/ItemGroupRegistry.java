@@ -130,6 +130,9 @@ public class ItemGroupRegistry {
                          //new things
                          entries.add(ItemRegistry.BAOBAB_FRUIT);
                          entries.add(ItemRegistry.BAOBAB_SEEDS);
+                         entries.add(ItemRegistry.BAOBAB_PLANKS);
+                         entries.add(ItemRegistry.BAOBAB_FENCE);
+                         entries.add(ItemRegistry.BAOBAB_WOOD);
                          entries.add(ItemRegistry.TERMITE_BLOCK);
                          entries.add(ItemRegistry.TERMITE_HIVE);
                          entries.add(ItemRegistry.TERMITE_SPAWN_EGG);

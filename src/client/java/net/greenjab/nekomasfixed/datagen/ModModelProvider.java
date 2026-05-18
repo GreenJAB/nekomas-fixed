@@ -2,10 +2,12 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.ItemModelGenerator;
 import net.minecraft.client.data.Models;
+import net.minecraft.client.render.model.json.WeightedVariant;
 import org.jspecify.annotations.NonNull;
 
 
@@ -16,7 +18,8 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(@NonNull BlockStateModelGenerator blockStateModelGenerator) {
-
+        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BAOBAB_PLANKS);
+        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BAOBAB_WOOD);
     }
 
     @Override

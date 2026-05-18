@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
+import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
@@ -86,6 +87,9 @@ public class ItemRegistry {
 
     public static final Item BAOBAB_LOG = register(BlockRegistry.BAOBAB_LOG);
     public static final Item BAOBAB_SAPLING = register(BlockRegistry.BAOBAB_SAPLING);
+    public static final Item BAOBAB_PLANKS = register(BlockRegistry.BAOBAB_PLANKS);
+    public static final Item BAOBAB_WOOD = register(BlockRegistry.BAOBAB_WOOD);
+    public static final Item BAOBAB_FENCE = register(BlockRegistry.BAOBAB_FENCE);
 
     public static final Item HOLLOW_OAK_LOG = register(BlockRegistry.HOLLOW_OAK_LOG);
     public static final Item HOLLOW_DARK_OAK_LOG = register(BlockRegistry.HOLLOW_DARK_OAK_LOG);

@@ -160,6 +160,10 @@ public class BlockRegistry {
     public static final Block INDIGO_STAINED_GLASS_PANE = registerStainedGlassPaneBlock("indigo_stained_glass_pane", DyeColor.MAGENTA);
     public static final Block CRIMSON_STAINED_GLASS_PANE = registerStainedGlassPaneBlock("crimson_stained_glass_pane", DyeColor.RED);
 
+    public static final Block BAOBAB_PLANKS = register("baobab_planks", AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+    public static final Block BAOBAB_WOOD = register("baobab_wood", AbstractBlock.Settings.copy(Blocks.OAK_WOOD));
+    public static final Block BAOBAB_FENCE = register("baobab_fence", AbstractBlock.Settings.copy(Blocks.OAK_FENCE));
+
     public static final Block AMBER_SHULKER_BOX = registerShulkerBoxBlock("amber_shulker_box", DyeColor.YELLOW);
     public static final Block AQUA_SHULKER_BOX = registerShulkerBoxBlock("aqua_shulker_box", DyeColor.LIGHT_BLUE);
     public static final Block INDIGO_SHULKER_BOX = registerShulkerBoxBlock("indigo_shulker_box", DyeColor.MAGENTA);

@@ -1,5 +1,11 @@
 // 1.21.11	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Model Definitions
+9abe8434f1db87e80116dd0d4cc9f818250f33e3 assets/nekomasfixed/blockstates/baobab_planks.json
+bcfe6df5a6bec280db9afc28e06165039e3b58bd assets/nekomasfixed/blockstates/baobab_wood.json
+4d18f815590d3917d390eedfda6e3685ce7f0fe0 assets/nekomasfixed/items/baobab_planks.json
+2dbbb3a9430ab59687472a4d78feafe2cc6c440c assets/nekomasfixed/items/baobab_wood.json
 2220873d574279b41600fd667d02ebc493b9d822 assets/nekomasfixed/items/moobloom_spawn_egg.json
 4e78500ad51a70a4b4a361c0e4dfa29d3bcd89f6 assets/nekomasfixed/items/sus_spider_spawn_egg.json
+bf49eeb877918b61898b0deb1e4055b8433ecb0e assets/nekomasfixed/models/block/baobab_planks.json
+52ac74f42d84e6d3396c799f37f4860a5b5c8acc assets/nekomasfixed/models/block/baobab_wood.json
 53f52ca1d7d03d1149dc2955eb7da5377668361b assets/nekomasfixed/models/item/moobloom_spawn_egg.json
 3c4cd086cebb4ce02db6d2da3a49539a624b4b4d assets/nekomasfixed/models/item/sus_spider_spawn_egg.json
