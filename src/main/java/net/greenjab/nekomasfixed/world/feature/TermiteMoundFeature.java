@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
@@ -24,11 +25,8 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
         Random random = context.getRandom();
         int height = random.nextInt(2)+6;
         BlockPos start = context.getOrigin();
-        BlockPos.Mutable currentPos = start.mutableCopy();
 
         int x,y,z;
-        float size = 1.5f;
-
         if (!world.getBlockState(start.down()).isSolidBlock(world, start.down())) {
             return false;
         }
@@ -36,42 +34,28 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
             return false;
         }
 
-        int taperStart = 5;
-        int taperHeight = random.nextInt(3) + 2;
+        float maxRadius = 3.5f - random.nextFloat() * 1.5f;
 
-        for (y = 0; y < height - 1; y++) {
-            if (y >= taperStart && y < taperStart + taperHeight) {
-                BlockPos pos = start.up(y);
-
-                world.setBlockState(
-                        pos,
-                        context.getConfig().toPlace().get(random, pos),
-                        3
-                );
-                continue;
-            }
-
-            float r = size - 0.33f * (y / (height + 0f));
-            if (y == 0) {
-                r = size + 1;
-            }
-            for (x = -2; x <= 2; x++) {
-                for (z = -2; z <= 2; z++) {
-
+        for (y = 0; y < height-2; y++) {
+            float r = maxRadius * (1 - (y / (float) height) ) - (y/(float)height);
+            for (x = -(int)maxRadius; x <= maxRadius; x++) {
+                for (z = -(int)maxRadius; z <= maxRadius; z++) {
                     float distSq = x * x + z * z;
                     if (distSq <= r * r) {
-
-                        boolean isSurface = distSq >= (r - 1) * (r - 1);
                         BlockPos pos = start.add(x, y, z);
 
-                        if (isSurface && random.nextInt(4) == 0) {
+                        boolean isSurface = distSq >= (r - 1) * (r - 1);
+                        boolean isSupported = !world.getBlockState(pos.down()).isSolidBlock(world, pos.down());
+
+                        if (isSurface && random.nextInt(4) == 0 && isSupported) {
                             world.setBlockState(pos, BlockRegistry.TERMITE_HIVE.getDefaultState(), 3);
-                        } else {
+                        } else if(isSupported){
                             world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
                         }
                     }
                 }
             }
+            r -= (float) (0.9 * Math.abs(MathHelper.sin(y)));
         }
         return true;
     }
