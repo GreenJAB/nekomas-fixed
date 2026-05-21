@@ -1,9 +1,11 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
+import io.netty.buffer.ByteBuf;
 import net.greenjab.nekomasfixed.registry.block.TermiteHiveBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.HollowLogType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.CustomTrackedDataHandlerRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.AnimationState;
@@ -12,25 +14,34 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.SnifferEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.function.ValueLists;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
+import java.util.function.IntFunction;
 
 public class TermiteEntity extends HostileEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     public final AnimationState swipeAnimationState = new AnimationState();
-    int idleAnimationTimeout = 0;
+    private static final TrackedData<TermiteEntity.State> STATE;
+    private int swipeStartTick = -1;
     public Optional<Boolean> isInMound = Optional.of(false);
     private Optional<BlockPos> moundPosition = findNearestMound(this).isEmpty() ? Optional.empty() : findNearestMound(this);
 
@@ -48,12 +59,24 @@ public class TermiteEntity extends HostileEntity {
         this.searchForLogGoal = new SearchForLogGoal(this);
         this.goalSelector.add(2, this.searchForLogGoal);
         this.goalSelector.add(3, new WanderAroundGoal(this, 0.4d));
-        this.goalSelector.add(3, new LookAtEntityGoal(this, net.minecraft.entity.player.PlayerEntity.class, 6.0f));
+        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 0.6F, false));
         this.targetSelector.add(1, (new RevengeGoal(this)).setGroupRevenge());
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
+    
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(STATE, State.IDLING);
+    }
+
+//    @Override
+//    public boolean isAttacking() {
+//        this.setState(State.IDLING);
+//        return super.isAttacking();
+//    }
 
     public static DefaultAttributeContainer.Builder createAttributes(){
         return MobEntity.createMobAttributes()
@@ -67,19 +90,58 @@ public class TermiteEntity extends HostileEntity {
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        world.sendEntityStatus(this, (byte)10);
-        this.playSound(SoundEvents.ENTITY_SILVERFISH_AMBIENT, 10.0F, this.getSoundPitch());
+        this.setState(State.IDLING);
+        this.setState(State.SWIPING);
+        this.swipeStartTick = this.age;
         return super.tryAttack(world, target);
+    }
+    
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        this.startState(State.IDLING);
+        super.onDeath(damageSource);
+    }
+
+    private void setState(State state) {
+        this.dataTracker.set(STATE, state);
+    }
+
+    
+    public void startState(TermiteEntity.State state) {
+        switch (state.ordinal()) {
+            case 0 -> this.setState(State.IDLING);
+            case 1 -> this.setState(State.SWIPING);
+        }
+    }
+
+    private void stopAnimations(){
+        this.idleAnimationState.stop();
+        this.swipeAnimationState.stop();
     }
 
     @Override
-    public void handleStatus(byte status) {
-        if (status == 10) {
-            this.swipeAnimationState.startIfNotRunning(this.age);
-        } else {
-            super.handleStatus(status);
+    public void onTrackedDataSet(TrackedData<?> data) {
+        if (STATE.equals(data)) {
+            State state = this.dataTracker.get(STATE);
+
+            if (state == State.SWIPING) {
+                this.swipeAnimationState.stop();
+                this.swipeAnimationState.startIfNotRunning(this.age);
+            }
+
+            this.calculateDimensions();
         }
+        super.onTrackedDataSet(data);
     }
+
+//    @Override
+//    public void handleStatus(byte status) {
+//        if (status == 10) {
+//            this.swipeAnimationState.startIfNotRunning(this.age);
+//        } else {
+//            super.handleStatus(status);
+//        }
+//    }
 
     boolean canEnterMound() {
         return !this.searchForLogGoal.isRunning() && this.getTarget() == null && this.getEntityWorld().isNight();
@@ -116,29 +178,26 @@ public class TermiteEntity extends HostileEntity {
         this.isInMound = Optional.of(b);
     }
 
-    private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = 40;
-            idleAnimationState.start(this.age);
-        } else {
-            --this.idleAnimationTimeout;
-        }
-    }
-
     @Override
     public void tick() {
         super.tick();
 
-        if (this.getEntityWorld().isClient()) {
 
-            if (this.getVelocity().horizontalLengthSquared() > 0.0001) {
-                runAnimationState.startIfNotRunning(this.age);
-                idleAnimationState.stop();
-            } else {
-                idleAnimationState.startIfNotRunning(this.age);
-                runAnimationState.stop();
+        if (this.dataTracker.get(STATE) == State.SWIPING) {
+            if (this.age - swipeStartTick > 20) {
+                this.setState(State.IDLING);
             }
         }
+//        if (this.getEntityWorld().isClient()) {
+//
+//            if (this.getVelocity().horizontalLengthSquared() > 0.0001) {
+//                runAnimationState.startIfNotRunning(this.age);
+//                idleAnimationState.stop();
+//            } else {
+//                idleAnimationState.startIfNotRunning(this.age);
+//                runAnimationState.stop();
+//            }
+//        }
     }
 
     public TermiteHiveBlockEntity getMound(){
@@ -161,6 +220,10 @@ public class TermiteEntity extends HostileEntity {
                8,
                pos -> termiteEntity.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
        );
+    }
+
+    static {
+        STATE = DataTracker.registerData(TermiteEntity.class, CustomTrackedDataHandlerRegistry.TERMITE_STATE);
     }
 
     //find the nearest mound and go towards it
@@ -315,6 +378,23 @@ public class TermiteEntity extends HostileEntity {
         public void stop() {
             this.running = false;
             this.targetPos = null;
+        }
+    }
+
+    public static enum State {
+        IDLING(0),
+        SWIPING(1);
+
+        public static final IntFunction<State> INDEX_TO_VALUE = ValueLists.createIndexToValueFunction(State::getIndex, values(), ValueLists.OutOfBoundsHandling.ZERO);
+        public static final PacketCodec<ByteBuf, State> PACKET_CODEC = PacketCodecs.indexed(INDEX_TO_VALUE, State::getIndex);
+        private final int index;
+
+        State(final int index) {
+            this.index = index;
+        }
+
+        public int getIndex() {
+            return this.index;
         }
     }
 

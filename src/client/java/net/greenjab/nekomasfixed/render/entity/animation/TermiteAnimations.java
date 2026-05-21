@@ -61,7 +61,7 @@ public class TermiteAnimations {
 
                     .build();
 
-    public static final AnimationDefinition ANIM_TERMITE_SWIPE = AnimationDefinition.Builder.create(0.5F)
+    public static final AnimationDefinition ANIM_TERMITE_SWIPE = AnimationDefinition.Builder.create(1F)
             .addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE,
                     new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
             ))

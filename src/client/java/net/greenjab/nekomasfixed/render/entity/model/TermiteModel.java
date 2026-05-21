@@ -1,7 +1,10 @@
 package net.greenjab.nekomasfixed.render.entity.model;
 
+import net.greenjab.nekomasfixed.render.entity.animation.TermiteAnimations;
 import net.greenjab.nekomasfixed.render.entity.state.TermiteRenderState;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.SnifferAnimations;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
@@ -23,6 +26,8 @@ public class TermiteModel extends EntityModel<TermiteRenderState> {
     private final ModelPart middle_left_leg;
     private final ModelPart back_right_leg;
     private final ModelPart back_left_leg;
+
+    private final Animation swipingAnimation;
     public TermiteModel(ModelPart root) {
         super(root);
         this.bone = root.getChild("bone");
@@ -38,6 +43,8 @@ public class TermiteModel extends EntityModel<TermiteRenderState> {
         this.middle_left_leg = this.legs.getChild("middle_left_leg");
         this.back_right_leg = this.legs.getChild("back_right_leg");
         this.back_left_leg = this.legs.getChild("back_left_leg");
+
+        this.swipingAnimation = TermiteAnimations.ANIM_TERMITE_SWIPE.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -108,6 +115,8 @@ public class TermiteModel extends EntityModel<TermiteRenderState> {
         this.back_left_leg.pitch = MathHelper.cos(swing * speed + (float)Math.PI) * degree * amount;
 
         this.setHeadAngles(state.bodyYaw, state.pitch);
+
+        this.swipingAnimation.apply(state.swipeAnimationState, state.age);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
