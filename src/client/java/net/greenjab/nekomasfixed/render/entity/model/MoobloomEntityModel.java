@@ -132,7 +132,7 @@ public class MoobloomEntityModel extends QuadrupedEntityModel<MoobloomEntityRend
 
     @Override
     public void setAngles(MoobloomEntityRenderState state) {
-        this.child = state.baby; // ← THIS activates baby transformation
+        this.child = state.baby;
 
         super.setAngles(state);
 
