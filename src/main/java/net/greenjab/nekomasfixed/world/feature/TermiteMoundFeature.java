@@ -58,48 +58,6 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
             }
             r -= (float) (0.9 * Math.abs(MathHelper.sin(y)));
         }
-        return true;
-    }
-
-
-/**    @Override
-    public boolean generate(FeatureContext<SimpleBlockFeatureConfig> context) {
-        StructureWorldAccess world = context.getWorld();
-        Random random = context.getRandom();
-        int height = random.nextInt(2)+6;
-        BlockPos start = context.getOrigin();
-
-        int x,y,z;
-        if (!world.getBlockState(start.down()).isSolidBlock(world, start.down())) {
-            return false;
-        }
-        if (!world.getBlockState(start).isAir()) {
-            return false;
-        }
-
-        float maxRadius = 3.5f - random.nextFloat() * 1.5f;
-
-        for (y = 0; y < height-2; y++) {
-            float r = maxRadius * (1 - (y / (float) height) ) - (y/(float)height);
-            for (x = -(int)maxRadius; x <= maxRadius; x++) {
-                for (z = -(int)maxRadius; z <= maxRadius; z++) {
-                    float distSq = x * x + z * z;
-                    if (distSq <= r * r) {
-                        BlockPos pos = start.add(x, y, z);
-
-                        boolean isSurface = distSq >= (r - 1) * (r - 1);
-                        boolean isSupported = !world.getBlockState(pos.down()).isSolidBlock(world, pos.down());
-
-                        if (isSurface && random.nextInt(4) == 0 && isSupported) {
-                            world.setBlockState(pos, BlockRegistry.TERMITE_HIVE.getDefaultState(), 3);
-                        } else if(isSupported){
-                            world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
-                        }
-                    }
-                }
-            }
-        }
-
 
         if (world instanceof ServerWorld serverWorld) {
 
@@ -143,8 +101,8 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
                 }
             }
         }
-
         return true;
-    }**/
+    }
+
 
 }
