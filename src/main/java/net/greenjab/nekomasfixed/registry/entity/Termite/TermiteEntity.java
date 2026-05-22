@@ -6,6 +6,7 @@ import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.HollowLogType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.CustomTrackedDataHandlerRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.AnimationState;
@@ -29,10 +30,14 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.function.ValueLists;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jspecify.annotations.NonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.IntFunction;
 
@@ -53,7 +58,7 @@ public class TermiteEntity extends HostileEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new EnterMoundGoal());
+        this.goalSelector.add(1, new EnterMoundGoal(this));
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new GoToNearestMound(this, 0.4d, 32));
         this.searchForLogGoal = new SearchForLogGoal(this);
@@ -71,12 +76,6 @@ public class TermiteEntity extends HostileEntity {
         super.initDataTracker(builder);
         builder.add(STATE, State.IDLING);
     }
-
-//    @Override
-//    public boolean isAttacking() {
-//        this.setState(State.IDLING);
-//        return super.isAttacking();
-//    }
 
     public static DefaultAttributeContainer.Builder createAttributes(){
         return MobEntity.createMobAttributes()
@@ -134,15 +133,6 @@ public class TermiteEntity extends HostileEntity {
         super.onTrackedDataSet(data);
     }
 
-//    @Override
-//    public void handleStatus(byte status) {
-//        if (status == 10) {
-//            this.swipeAnimationState.startIfNotRunning(this.age);
-//        } else {
-//            super.handleStatus(status);
-//        }
-//    }
-
     boolean canEnterMound() {
         return !this.searchForLogGoal.isRunning() && this.getTarget() == null && this.getEntityWorld().isNight();
     }
@@ -182,22 +172,11 @@ public class TermiteEntity extends HostileEntity {
     public void tick() {
         super.tick();
 
-
         if (this.dataTracker.get(STATE) == State.SWIPING) {
             if (this.age - swipeStartTick > 20) {
                 this.setState(State.IDLING);
             }
         }
-//        if (this.getEntityWorld().isClient()) {
-//
-//            if (this.getVelocity().horizontalLengthSquared() > 0.0001) {
-//                runAnimationState.startIfNotRunning(this.age);
-//                idleAnimationState.stop();
-//            } else {
-//                idleAnimationState.startIfNotRunning(this.age);
-//                runAnimationState.stop();
-//            }
-//        }
     }
 
     public TermiteHiveBlockEntity getMound(){
@@ -226,7 +205,6 @@ public class TermiteEntity extends HostileEntity {
         STATE = DataTracker.registerData(TermiteEntity.class, CustomTrackedDataHandlerRegistry.TERMITE_STATE);
     }
 
-    //find the nearest mound and go towards it
     private static class GoToNearestMound extends MoveToTargetPosGoal {
         private final TermiteEntity termiteEntity;
         public GoToNearestMound(TermiteEntity mob, double speed, int range) {
@@ -248,70 +226,90 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean shouldContinue() {
-            return !this.hasReached() || this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermiteHiveBlock.TERMITES) == 2;
+            return !this.hasReached() || !(this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermiteHiveBlock.TERMITES) == 2);
         }
 
         @Override
         public void start() {
             Optional<BlockPos> target = BlockPos.findClosest(
                     termiteEntity.getBlockPos(),
-                    16,
-                    8,
-                    pos -> termiteEntity.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
+                    5, 5,
+                    pos -> {
+                        BlockState state = termiteEntity.getEntityWorld().getBlockState(pos);
+                        return state.isOf(BlockRegistry.TERMITE_HIVE)
+                                && state.get(TermiteHiveBlock.TERMITES) < 2;
+                    }
             );
 
-            if(target.isPresent()){
-                target.ifPresent(pos -> {
-                    targetPos = pos;
-                    termiteEntity.getNavigation().startMovingTo(
-                            pos.getX(), pos.getY(), pos.getZ(), 0.4
-                    );
-                });
-
-            }
+            target.ifPresent(pos -> {
+                targetPos = pos;
+                termiteEntity.getNavigation().startMovingTo(
+                        pos.getX(), pos.getY(), pos.getZ(), 0.4
+                );
+            });
         }
     }
 
     private class EnterMoundGoal extends Goal {
-
-        public boolean canTermiteStart() {
-            TermiteEntity.this.moundPosition = findNearestMound(TermiteEntity.this);
-            if (TermiteEntity.this.moundPosition.isPresent()
-                    && TermiteEntity.this.canEnterMound()
-                    && TermiteEntity.this.squaredDistanceTo(
-                    TermiteEntity.this.moundPosition.get().getX() + 2f,
-                    TermiteEntity.this.moundPosition.get().getY() + 2f,
-                    TermiteEntity.this.moundPosition.get().getZ() + 2f
-            ) < 4.0 ) {
-                TermiteHiveBlockEntity termiteHiveBlockEntity = TermiteEntity.this.getMound();
-                if (termiteHiveBlockEntity != null) {
-                    if (!termiteHiveBlockEntity.isFullOfTermites()) {
-                        return true;
-                    }
-
-                    TermiteEntity.this.moundPosition = Optional.empty();
-                }
-            }
-
-            return false;
+        private final TermiteEntity termiteEntity;
+        EnterMoundGoal(TermiteEntity mob){
+            this.termiteEntity = mob;
         }
-
         @Override
         public boolean canStart() {
-            return canTermiteStart();
+            TermiteEntity.this.moundPosition = findNearestMound(TermiteEntity.this);
+
+            if (TermiteEntity.this.moundPosition.isEmpty()) return false;
+
+            TermiteHiveBlockEntity hive = TermiteEntity.this.getMound();
+            return hive != null
+                    && !hive.isFullOfTermites()
+                    && TermiteEntity.this.canEnterMound();
         }
 
         @Override
         public void start() {
-            TermiteHiveBlockEntity hive = TermiteEntity.this.getMound();
+            moundPosition.ifPresent(pos -> {
+                termiteEntity.getNavigation().startMovingTo(
+                        pos.getX(), pos.getY(), pos.getZ(), 0.4
+                );
+            });
+        }
 
-            if (hive != null && !hive.isFullOfTermites()) {
-                if (hive.tryEnterMound(TermiteEntity.this)) {
-                    TermiteEntity.this.discard();
+        @Override
+        public boolean shouldContinue() {
+            if (moundPosition.isEmpty()) return false;
+            TermiteHiveBlockEntity hive = TermiteEntity.this.getMound();
+            if (hive == null || hive.isFullOfTermites()) return false;
+            return TermiteEntity.this.squaredDistanceTo(
+                    moundPosition.get().getX() + 0.5,
+                    moundPosition.get().getY() + 0.5,
+                    moundPosition.get().getZ() + 0.5
+            ) > 4.0;
+        }
+
+        @Override
+        public void tick() {
+            if (moundPosition.isEmpty()) return;
+
+            BlockPos pos = moundPosition.get();
+
+            double dist = TermiteEntity.this.squaredDistanceTo(
+                    pos.getX() + 0.5,
+                    pos.getY() + 0.5,
+                    pos.getZ() + 0.5
+            );
+
+            if (dist < 4.0) {
+                TermiteHiveBlockEntity hive = TermiteEntity.this.getMound();
+
+                if (hive != null && !hive.isFullOfTermites()) {
+                    if (hive.tryEnterMound(TermiteEntity.this)) {
+                        TermiteEntity.this.discard();
+                    }
                 }
             }
         }
-
     }
 
     //custom goal for fetching a tree!!!

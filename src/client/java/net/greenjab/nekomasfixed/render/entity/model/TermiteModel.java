@@ -64,7 +64,7 @@ public class TermiteModel extends EntityModel<TermiteRenderState> {
 
         ModelPartData pincher = head.addChild("pincher", ModelPartBuilder.create().uv(1, 6).cuboid(-2.0F, -1.3333F, -0.9167F, 0.0F, 2.0F, 1.0F, new Dilation(0.0F))
                 .uv(1, 7).cuboid(-2.0F, -0.3333F, -1.9167F, 0.0F, 1.0F, 1.0F, new Dilation(0.0F))
-                .uv(0, 0).cuboid(-2.0F, -0.3333F, -1.9167F, 1.0F, 1.0F, 0.0F, new Dilation(0.0F))
+                .uv(1, 8).cuboid(-2.0F, -0.3333F, -1.9167F, 1.0F, 1.0F, 0.0F, new Dilation(0.0F))
                 .uv(1, 8).cuboid(1.0F, -0.3333F, -1.9167F, 1.0F, 1.0F, 0.0F, new Dilation(0.0F))
                 .uv(1, 7).cuboid(2.0F, -0.3333F, -1.9167F, 0.0F, 1.0F, 1.0F, new Dilation(0.0F))
                 .uv(1, 6).cuboid(2.0F, -1.3333F, -0.9167F, 0.0F, 2.0F, 1.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.8333F, -4.0833F));
