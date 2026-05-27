@@ -56,7 +56,6 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
                     }
                 }
             }
-            r -= (float) (0.9 * Math.abs(MathHelper.sin(y)));
         }
 
         if (world instanceof ServerWorld serverWorld) {
