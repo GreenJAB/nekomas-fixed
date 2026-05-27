@@ -140,8 +140,6 @@
   "advancements.husbandry.all_froglights.description": "Have all 20 froglights in your inventory",
   "advancements.husbandry.all_froglights.title": "Power Overloaded!",
 
-  "block.nekomasfixed.boabab_log": "Boabab Log",
-
   "item.nekomasfixed.amber_dye": "Amber Dye",
   "item.nekomasfixed.indigo_dye": "Indigo Dye",
   "item.nekomasfixed.crimson_dye": "Maroon Dye",
@@ -234,9 +232,9 @@
   "block.nekomasfixed.crimson_concrete_powder": "Maroon Concrete Powder",
   "block.nekomasfixed.indigo_concrete_powder": "Indigo Concrete Powder",
 
-  "block.nekomasfixed.boabab_sapling": "Baobab Sapling",
-  "block.nekomasfixed.boabab_fruit": "Baobab Fruit",
-  "item.nekomasfixed.boabab_seeds": "Baobab Seeds",
+  "block.nekomasfixed.baobab_sapling": "Baobab Sapling",
+  "block.nekomasfixed.baobab_fruit": "Baobab Fruit",
+  "item.nekomasfixed.baobab_seeds": "Baobab Seeds",
 
   "block.nekomasfixed.amber_carpet": "Amber Carpet",
   "block.nekomasfixed.aqua_carpet": "Aqua Carpet",
