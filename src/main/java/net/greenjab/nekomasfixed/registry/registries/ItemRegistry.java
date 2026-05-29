@@ -138,6 +138,7 @@ public class ItemRegistry {
     public static final Item CRIMSON_DYE = registerDye("crimson_dye", ModColors.CRIMSON);
     public static final Item AQUA_DYE = registerDye("aqua_dye", ModColors.AQUA);
 
+
     public static final Item REDSTONE_STRIKER = register("redstone_striker", RedstoneStrikerItem::new, new Item.Settings().maxCount(1));
     public static final Item SOULFIRE_SHIELD = register("soulfire_shield", SoulfireShieldItem::new, new Item.Settings().rarity(Rarity.RARE).maxDamage(336).repairable(ItemTags.REPAIRS_NETHERITE_ARMOR).equippableUnswappable(EquipmentSlot.OFFHAND).component(DataComponentTypes.BLOCKS_ATTACKS, new BlocksAttacksComponent(0.25F, 1.0F, List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)), new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD), Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK))).component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof());
 

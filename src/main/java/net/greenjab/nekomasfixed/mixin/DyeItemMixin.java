@@ -3,21 +3,14 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.SignBlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.SignChangingItem;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -51,6 +44,7 @@ public class DyeItemMixin {
 
 
 
+    @Unique
     private void applyDye(SignBlockEntity sign, boolean front, int color) {
         var signText = sign.getText(front);
         for (int i = 0; i < 4; i++) {
@@ -61,6 +55,7 @@ public class DyeItemMixin {
         }
         sign.setText(signText, front);
         sign.markDirty();
+        assert sign.getWorld() != null;
         sign.getWorld().updateListeners(
                 sign.getPos(),
                 sign.getCachedState(),

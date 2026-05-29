@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "is_messy=false": { "model": "minecraft:block/bed" },
+    "is_messy=true":  { "model": "nekomasfixed:block/red_messy_bed" }
+  }
+}

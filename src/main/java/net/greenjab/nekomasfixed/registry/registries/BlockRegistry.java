@@ -185,6 +185,7 @@ public class BlockRegistry {
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
     public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly().noBlockBreakParticles());
 
+
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
     }
@@ -246,6 +247,8 @@ public class BlockRegistry {
                         .pistonBehavior(PistonBehavior.DESTROY)
         );
     }
+
+
 
     public static void registerBlocks() {
         System.out.println("register Blocks");

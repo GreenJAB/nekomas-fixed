@@ -57,7 +57,6 @@ public class BedBlockEntityRendererMixin {
             );
         }
         if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.INDIGO_BED) {
-
             ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
                     new SpriteIdentifier(
                             TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
@@ -65,6 +64,7 @@ public class BedBlockEntityRendererMixin {
                     )
             );
         }
+
     }
 
     @ModifyVariable(

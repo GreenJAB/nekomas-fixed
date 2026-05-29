@@ -5,6 +5,7 @@
   "mixins": [
     "AbstractBlockMixin",
     "ArmorStandEntityMixin",
+    "BedBlockMixin",
     "BeeEntityMixin",
     "BeehiveBlockEntityMixin",
     "BlockEntityTypeMixin",
@@ -32,8 +33,10 @@
     "NautilusStackMixin",
     "NoteBlockMixin",
     "PersistentProjectileEntityMixin",
+    "PillagerEntityMixin",
     "PlayerEntityInterfaceMixin",
     "PlayerEntityMixin",
+    "PointOfInterestTypesMixin",
     "RedstoneControllerMixin",
     "ServerRecipeManagerMixin",
     "ServerWorldMixin",
