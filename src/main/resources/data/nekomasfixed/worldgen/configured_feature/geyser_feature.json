@@ -1,0 +1,11 @@
+{
+  "type": "nekomasfixed:geyser_feature",
+  "config": {
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "nekomasfixed:geyser"
+      }
+    }
+  }
+}
