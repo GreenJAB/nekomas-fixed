@@ -38,8 +38,6 @@ public class GeyserBlockFeature extends Feature<SimpleBlockFeatureConfig> {
             return false;
         }
 
-
-
         world.setBlockState(start.down(), BlockRegistry.GEYSER.getDefaultState(), 3);
         return true;
     }
