@@ -127,6 +127,23 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.INDIGO_HARNESS);
                          entries.add(ItemRegistry.CRIMSON_HARNESS);
 
+                         entries.add(ItemRegistry.WHITE_BRICKS);
+                         entries.add(ItemRegistry.ORANGE_BRICKS);
+                         entries.add(ItemRegistry.MAGENTA_BRICKS);
+                         entries.add(ItemRegistry.LIGHT_BLUE_BRICKS);
+                         entries.add(ItemRegistry.YELLOW_BRICKS);
+                         entries.add(ItemRegistry.LIME_BRICKS);
+                         entries.add(ItemRegistry.PINK_BRICKS);
+                         entries.add(ItemRegistry.GRAY_BRICKS);
+                         entries.add(ItemRegistry.LIGHT_GRAY_BRICKS);
+                         entries.add(ItemRegistry.CYAN_BRICKS);
+                         entries.add(ItemRegistry.PURPLE_BRICKS);
+                         entries.add(ItemRegistry.BLUE_BRICKS);
+                         entries.add(ItemRegistry.BROWN_BRICKS);
+                         entries.add(ItemRegistry.GREEN_BRICKS);
+                         entries.add(ItemRegistry.RED_BRICKS);
+                         entries.add(ItemRegistry.BLACK_BRICKS);
+
                          //new things
                          entries.add(ItemRegistry.BAOBAB_FRUIT);
                          entries.add(ItemRegistry.BAOBAB_SEEDS);
@@ -135,6 +152,24 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.TERMITE_BLOCK);
                          entries.add(ItemRegistry.TERMITE_HIVE);
                          entries.add(ItemRegistry.TERMITE_SPAWN_EGG);
+
+                         entries.add(ItemRegistry.WHITE_DYED_BRUSH);
+                         entries.add(ItemRegistry.ORANGE_DYED_BRUSH);
+                         entries.add(ItemRegistry.MAGENTA_DYED_BRUSH);
+                         entries.add(ItemRegistry.LIGHT_BLUE_DYED_BRUSH);
+                         entries.add(ItemRegistry.YELLOW_DYED_BRUSH);
+                         entries.add(ItemRegistry.LIME_DYED_BRUSH);
+                         entries.add(ItemRegistry.PINK_DYED_BRUSH);
+                         entries.add(ItemRegistry.GRAY_DYED_BRUSH);
+                         entries.add(ItemRegistry.LIGHT_GRAY_DYED_BRUSH);
+                         entries.add(ItemRegistry.CYAN_DYED_BRUSH);
+                         entries.add(ItemRegistry.PURPLE_DYED_BRUSH);
+                         entries.add(ItemRegistry.BLUE_DYED_BRUSH);
+                         entries.add(ItemRegistry.BROWN_DYED_BRUSH);
+                         entries.add(ItemRegistry.GREEN_DYED_BRUSH);
+                         entries.add(ItemRegistry.RED_DYED_BRUSH);
+                         entries.add(ItemRegistry.BLACK_DYED_BRUSH);
+
                          entries.add(ItemRegistry.REDSTONE_STRIKER);
                          entries.add(ItemRegistry.GEYSER);
                          entries.add(ItemRegistry.MOOBLOOM_SPAWN_EGG);

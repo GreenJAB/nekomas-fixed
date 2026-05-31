@@ -63,6 +63,14 @@ public class OtherRegistry {
     public static final TagKey<Item> CLAMTAG = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("clams"));
     public static final TagKey<Item> SPEARS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("spears"));
     public static final TagKey<Item> SICKLES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("sickles"));
+    public static final TagKey<Block> CAN_BE_DYED_WITH_BRUSH = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("can_be_dyed_with_brush"));
+    public static final TagKey<Block> STAINED_GLASSES = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("stained_glasses"));
+    public static final TagKey<Block> STAINED_GLASS_PANES = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("stained_glass_panes"));
+    public static final TagKey<Block> GLAZED_TERRACOTTAS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("glazed_terracottas"));
+    public static final TagKey<Block> CONCRETES = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("concretes"));
+    public static final TagKey<Block> CONCRETE_POWDERS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("concrete_powders"));
+
+    public static final TagKey<Block> DYED_BRICKS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_bricks"));
     public static final TagKey<Block> FOLIAGE_REQUIRES_BASE = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("foliage_requires_base"));
     public static final TagKey<Item> FOOD_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("food_items"));
     public static final TagKey<Item> SLINGSHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("slingshot_projectiles"));

@@ -91,6 +91,23 @@ public class ItemRegistry {
     public static final Item BAOBAB_WOOD = register(BlockRegistry.BAOBAB_WOOD);
     public static final Item BAOBAB_FENCE = register(BlockRegistry.BAOBAB_FENCE);
 
+    public static final Item WHITE_BRICKS = register(BlockRegistry.WHITE_BRICKS);
+    public static final Item ORANGE_BRICKS = register(BlockRegistry.ORANGE_BRICKS);
+    public static final Item MAGENTA_BRICKS = register(BlockRegistry.MAGENTA_BRICKS);
+    public static final Item LIGHT_BLUE_BRICKS = register(BlockRegistry.LIGHT_BLUE_BRICKS);
+    public static final Item YELLOW_BRICKS = register(BlockRegistry.YELLOW_BRICKS);
+    public static final Item LIME_BRICKS = register(BlockRegistry.LIME_BRICKS);
+    public static final Item PINK_BRICKS = register(BlockRegistry.PINK_BRICKS);
+    public static final Item GRAY_BRICKS = register(BlockRegistry.GRAY_BRICKS);
+    public static final Item LIGHT_GRAY_BRICKS = register(BlockRegistry.LIGHT_GRAY_BRICKS);
+    public static final Item CYAN_BRICKS = register(BlockRegistry.CYAN_BRICKS);
+    public static final Item PURPLE_BRICKS = register(BlockRegistry.PURPLE_BRICKS);
+    public static final Item BLUE_BRICKS = register(BlockRegistry.BLUE_BRICKS);
+    public static final Item BROWN_BRICKS = register(BlockRegistry.BROWN_BRICKS);
+    public static final Item GREEN_BRICKS = register(BlockRegistry.GREEN_BRICKS);
+    public static final Item RED_BRICKS = register(BlockRegistry.RED_BRICKS);
+    public static final Item BLACK_BRICKS = register(BlockRegistry.BLACK_BRICKS);
+
     public static final Item HOLLOW_OAK_LOG = register(BlockRegistry.HOLLOW_OAK_LOG);
     public static final Item HOLLOW_DARK_OAK_LOG = register(BlockRegistry.HOLLOW_DARK_OAK_LOG);
     public static final Item HOLLOW_JUNGLE_LOG = register(BlockRegistry.HOLLOW_JUNGLE_LOG);
@@ -110,6 +127,23 @@ public class ItemRegistry {
     public static final Item ROPE_ITEM = register(BlockRegistry.ROPE, RopeItem::new);
     public static final Item BAOBAB_FRUIT = register(BlockRegistry.BAOBAB_FRUIT,  new Item.Settings().maxCount(64).food(new FoodComponent(10, 3.5f, true)));
     public static final Item BAOBAB_SEEDS = register("baobab_seeds", Item::new, new Item.Settings().maxCount(64));
+
+    public static final Item WHITE_DYED_BRUSH = register("white_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.WHITE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item ORANGE_DYED_BRUSH = register("orange_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.ORANGE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item MAGENTA_DYED_BRUSH = register("magenta_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.MAGENTA, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item LIGHT_BLUE_DYED_BRUSH = register("light_blue_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.LIGHT_BLUE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item YELLOW_DYED_BRUSH = register("yellow_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.YELLOW, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item LIME_DYED_BRUSH = register("lime_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.LIME, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item PINK_DYED_BRUSH = register("pink_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.PINK, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item GRAY_DYED_BRUSH = register("gray_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.GRAY, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item LIGHT_GRAY_DYED_BRUSH = register("light_gray_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.LIGHT_GRAY, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item CYAN_DYED_BRUSH = register("cyan_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.CYAN, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item PURPLE_DYED_BRUSH = register("purple_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.PURPLE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item BLUE_DYED_BRUSH = register("blue_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.BLUE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item BROWN_DYED_BRUSH = register("brown_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.BROWN, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item GREEN_DYED_BRUSH = register("green_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.GREEN, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item RED_DYED_BRUSH = register("red_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.RED, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item BLACK_DYED_BRUSH = register("black_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.BLACK, settings), new Item.Settings().maxCount(1).maxDamage(64));
 
     public static final Item TERMITE_BLOCK = register(BlockRegistry.TERMITE_BLOCK);
     public static final Item TERMITE_HIVE = register(BlockRegistry.TERMITE_HIVE);
@@ -139,7 +173,7 @@ public class ItemRegistry {
     public static final Item AQUA_DYE = registerDye("aqua_dye", ModColors.AQUA);
 
 
-    public static final Item REDSTONE_STRIKER = register("redstone_striker", RedstoneStrikerItem::new, new Item.Settings().maxCount(1));
+    public static final Item REDSTONE_STRIKER = register("redstone_striker", RedstoneStrikerItem::new, new Item.Settings().maxCount(1).maxDamage(64));
     public static final Item SOULFIRE_SHIELD = register("soulfire_shield", SoulfireShieldItem::new, new Item.Settings().rarity(Rarity.RARE).maxDamage(336).repairable(ItemTags.REPAIRS_NETHERITE_ARMOR).equippableUnswappable(EquipmentSlot.OFFHAND).component(DataComponentTypes.BLOCKS_ATTACKS, new BlocksAttacksComponent(0.25F, 1.0F, List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)), new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD), Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK))).component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof());
 
 //Items

@@ -1,0 +1,195 @@
+package net.greenjab.nekomasfixed.util;
+
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.util.DyeColor;
+
+import java.util.EnumMap;
+
+public class DyedBrushableBlocksMappings {
+    public static final EnumMap<DyeColor, Block> BRICKS = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> TERRACOTTA = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> STAINED_GLASS = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> STAINED_GLASS_PANES = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> WOOL = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> CARPETS = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> GLAZED_TERRACOTTA = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> CANDLES = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> CONCRETE = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> CONCRETE_POWDER = new EnumMap<>(DyeColor.class);
+
+    //this class provides all the mappings for both datagen and server side logic... its used by tagProvider and DyedBRushItem
+
+    static {
+        WOOL.put(DyeColor.WHITE, Blocks.WHITE_WOOL);
+        WOOL.put(DyeColor.ORANGE, Blocks.ORANGE_WOOL);
+        WOOL.put(DyeColor.MAGENTA, Blocks.MAGENTA_WOOL);
+        WOOL.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_WOOL);
+        WOOL.put(DyeColor.YELLOW, Blocks.YELLOW_WOOL);
+        WOOL.put(DyeColor.LIME, Blocks.LIME_WOOL);
+        WOOL.put(DyeColor.PINK, Blocks.PINK_WOOL);
+        WOOL.put(DyeColor.GRAY, Blocks.GRAY_WOOL);
+        WOOL.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_WOOL);
+        WOOL.put(DyeColor.CYAN, Blocks.CYAN_WOOL);
+        WOOL.put(DyeColor.PURPLE, Blocks.PURPLE_WOOL);
+        WOOL.put(DyeColor.BLUE, Blocks.BLUE_WOOL);
+        WOOL.put(DyeColor.BROWN, Blocks.BROWN_WOOL);
+        WOOL.put(DyeColor.GREEN, Blocks.GREEN_WOOL);
+        WOOL.put(DyeColor.RED, Blocks.RED_WOOL);
+        WOOL.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
+
+        CONCRETE.put(DyeColor.WHITE, Blocks.WHITE_CONCRETE);
+        CONCRETE.put(DyeColor.ORANGE, Blocks.ORANGE_CONCRETE);
+        CONCRETE.put(DyeColor.MAGENTA, Blocks.MAGENTA_CONCRETE);
+        CONCRETE.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_CONCRETE);
+        CONCRETE.put(DyeColor.YELLOW, Blocks.YELLOW_CONCRETE);
+        CONCRETE.put(DyeColor.LIME, Blocks.LIME_CONCRETE);
+        CONCRETE.put(DyeColor.PINK, Blocks.PINK_CONCRETE);
+        CONCRETE.put(DyeColor.GRAY, Blocks.GRAY_CONCRETE);
+        CONCRETE.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_CONCRETE);
+        CONCRETE.put(DyeColor.CYAN, Blocks.CYAN_CONCRETE);
+        CONCRETE.put(DyeColor.PURPLE, Blocks.PURPLE_CONCRETE);
+        CONCRETE.put(DyeColor.BLUE, Blocks.BLUE_CONCRETE);
+        CONCRETE.put(DyeColor.BROWN, Blocks.BROWN_CONCRETE);
+        CONCRETE.put(DyeColor.GREEN, Blocks.GREEN_CONCRETE);
+        CONCRETE.put(DyeColor.RED, Blocks.RED_CONCRETE);
+        CONCRETE.put(DyeColor.BLACK, Blocks.BLACK_CONCRETE);
+
+        CONCRETE_POWDER.put(DyeColor.WHITE, Blocks.WHITE_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.ORANGE, Blocks.ORANGE_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.MAGENTA, Blocks.MAGENTA_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.YELLOW, Blocks.YELLOW_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.LIME, Blocks.LIME_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.PINK, Blocks.PINK_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.GRAY, Blocks.GRAY_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.CYAN, Blocks.CYAN_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.PURPLE, Blocks.PURPLE_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.BLUE, Blocks.BLUE_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.BROWN, Blocks.BROWN_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.GREEN, Blocks.GREEN_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.RED, Blocks.RED_CONCRETE_POWDER);
+        CONCRETE_POWDER.put(DyeColor.BLACK, Blocks.BLACK_CONCRETE_POWDER);
+
+        CARPETS.put(DyeColor.WHITE, Blocks.WHITE_CARPET);
+        CARPETS.put(DyeColor.ORANGE, Blocks.ORANGE_CARPET);
+        CARPETS.put(DyeColor.MAGENTA, Blocks.MAGENTA_CARPET);
+        CARPETS.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_CARPET);
+        CARPETS.put(DyeColor.YELLOW, Blocks.YELLOW_CARPET);
+        CARPETS.put(DyeColor.LIME, Blocks.LIME_CARPET);
+        CARPETS.put(DyeColor.PINK, Blocks.PINK_CARPET);
+        CARPETS.put(DyeColor.GRAY, Blocks.GRAY_CARPET);
+        CARPETS.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_CARPET);
+        CARPETS.put(DyeColor.CYAN, Blocks.CYAN_CARPET);
+        CARPETS.put(DyeColor.PURPLE, Blocks.PURPLE_CARPET);
+        CARPETS.put(DyeColor.BLUE, Blocks.BLUE_CARPET);
+        CARPETS.put(DyeColor.BROWN, Blocks.BROWN_CARPET);
+        CARPETS.put(DyeColor.GREEN, Blocks.GREEN_CARPET);
+        CARPETS.put(DyeColor.RED, Blocks.RED_CARPET);
+        CARPETS.put(DyeColor.BLACK, Blocks.BLACK_CARPET);
+
+        CANDLES.put(DyeColor.WHITE, Blocks.WHITE_CANDLE);
+        CANDLES.put(DyeColor.ORANGE, Blocks.ORANGE_CANDLE);
+        CANDLES.put(DyeColor.MAGENTA, Blocks.MAGENTA_CANDLE);
+        CANDLES.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_CANDLE);
+        CANDLES.put(DyeColor.YELLOW, Blocks.YELLOW_CANDLE);
+        CANDLES.put(DyeColor.LIME, Blocks.LIME_CANDLE);
+        CANDLES.put(DyeColor.PINK, Blocks.PINK_CANDLE);
+        CANDLES.put(DyeColor.GRAY, Blocks.GRAY_CANDLE);
+        CANDLES.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_CANDLE);
+        CANDLES.put(DyeColor.CYAN, Blocks.CYAN_CANDLE);
+        CANDLES.put(DyeColor.PURPLE, Blocks.PURPLE_CANDLE);
+        CANDLES.put(DyeColor.BLUE, Blocks.BLUE_CANDLE);
+        CANDLES.put(DyeColor.BROWN, Blocks.BROWN_CANDLE);
+        CANDLES.put(DyeColor.GREEN, Blocks.GREEN_CANDLE);
+        CANDLES.put(DyeColor.RED, Blocks.RED_CANDLE);
+        CANDLES.put(DyeColor.BLACK, Blocks.BLACK_CANDLE);
+
+        GLAZED_TERRACOTTA.put(DyeColor.WHITE, Blocks.WHITE_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.ORANGE, Blocks.ORANGE_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.MAGENTA, Blocks.MAGENTA_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.YELLOW, Blocks.YELLOW_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.LIME, Blocks.LIME_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.PINK, Blocks.PINK_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.GRAY, Blocks.GRAY_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.CYAN, Blocks.CYAN_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.PURPLE, Blocks.PURPLE_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.BLUE, Blocks.BLUE_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.BROWN, Blocks.BROWN_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.GREEN, Blocks.GREEN_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.RED, Blocks.RED_GLAZED_TERRACOTTA);
+        GLAZED_TERRACOTTA.put(DyeColor.BLACK, Blocks.BLACK_GLAZED_TERRACOTTA);
+
+        BRICKS.put(DyeColor.WHITE, BlockRegistry.WHITE_BRICKS);
+        BRICKS.put(DyeColor.ORANGE, BlockRegistry.ORANGE_BRICKS);
+        BRICKS.put(DyeColor.MAGENTA, BlockRegistry.MAGENTA_BRICKS);
+        BRICKS.put(DyeColor.LIGHT_BLUE, BlockRegistry.LIGHT_BLUE_BRICKS);
+        BRICKS.put(DyeColor.YELLOW, BlockRegistry.YELLOW_BRICKS);
+        BRICKS.put(DyeColor.LIME, BlockRegistry.LIME_BRICKS);
+        BRICKS.put(DyeColor.PINK, BlockRegistry.PINK_BRICKS);
+        BRICKS.put(DyeColor.GRAY, BlockRegistry.GRAY_BRICKS);
+        BRICKS.put(DyeColor.LIGHT_GRAY, BlockRegistry.LIGHT_GRAY_BRICKS);
+        BRICKS.put(DyeColor.CYAN, BlockRegistry.CYAN_BRICKS);
+        BRICKS.put(DyeColor.PURPLE, BlockRegistry.PURPLE_BRICKS);
+        BRICKS.put(DyeColor.BLUE, BlockRegistry.BLUE_BRICKS);
+        BRICKS.put(DyeColor.BROWN, BlockRegistry.BROWN_BRICKS);
+        BRICKS.put(DyeColor.GREEN, BlockRegistry.GREEN_BRICKS);
+        BRICKS.put(DyeColor.RED, BlockRegistry.RED_BRICKS);
+        BRICKS.put(DyeColor.BLACK, BlockRegistry.BLACK_BRICKS);
+
+        TERRACOTTA.put(DyeColor.WHITE, Blocks.WHITE_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.ORANGE, Blocks.ORANGE_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.MAGENTA, Blocks.MAGENTA_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.YELLOW, Blocks.YELLOW_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.LIME, Blocks.LIME_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.PINK, Blocks.PINK_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.GRAY, Blocks.GRAY_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.CYAN, Blocks.CYAN_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.PURPLE, Blocks.PURPLE_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.BLUE, Blocks.BLUE_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.BROWN, Blocks.BROWN_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.GREEN, Blocks.GREEN_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.RED, Blocks.RED_TERRACOTTA);
+        TERRACOTTA.put(DyeColor.BLACK, Blocks.BLACK_TERRACOTTA);
+
+        STAINED_GLASS.put(DyeColor.WHITE, Blocks.WHITE_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.ORANGE, Blocks.ORANGE_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.MAGENTA, Blocks.MAGENTA_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.YELLOW, Blocks.YELLOW_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.LIME, Blocks.LIME_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.PINK, Blocks.PINK_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.GRAY, Blocks.GRAY_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.CYAN, Blocks.CYAN_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.PURPLE, Blocks.PURPLE_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.BLUE, Blocks.BLUE_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.BROWN, Blocks.BROWN_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.GREEN, Blocks.GREEN_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.RED, Blocks.RED_STAINED_GLASS);
+        STAINED_GLASS.put(DyeColor.BLACK, Blocks.BLACK_STAINED_GLASS);
+
+        STAINED_GLASS_PANES.put(DyeColor.WHITE, Blocks.WHITE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.ORANGE, Blocks.ORANGE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.MAGENTA, Blocks.MAGENTA_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.YELLOW, Blocks.YELLOW_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.LIME, Blocks.LIME_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.PINK, Blocks.PINK_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.GRAY, Blocks.GRAY_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.CYAN, Blocks.CYAN_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.PURPLE, Blocks.PURPLE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.BLUE, Blocks.BLUE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.BROWN, Blocks.BROWN_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.GREEN, Blocks.GREEN_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.RED, Blocks.RED_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANES.put(DyeColor.BLACK, Blocks.BLACK_STAINED_GLASS_PANE);
+    }
+}

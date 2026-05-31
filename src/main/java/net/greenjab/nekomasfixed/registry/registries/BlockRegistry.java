@@ -164,6 +164,23 @@ public class BlockRegistry {
     public static final Block BAOBAB_WOOD = register("baobab_wood", AbstractBlock.Settings.copy(Blocks.OAK_WOOD));
     public static final Block BAOBAB_FENCE = register("baobab_fence", AbstractBlock.Settings.copy(Blocks.OAK_FENCE));
 
+    public static final Block WHITE_BRICKS = register("white_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block ORANGE_BRICKS = register("orange_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block MAGENTA_BRICKS = register("magenta_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block LIGHT_BLUE_BRICKS = register("light_blue_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block YELLOW_BRICKS = register("yellow_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block LIME_BRICKS = register("lime_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block PINK_BRICKS = register("pink_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block GRAY_BRICKS = register("gray_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block LIGHT_GRAY_BRICKS = register("light_gray_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block CYAN_BRICKS = register("cyan_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block PURPLE_BRICKS = register("purple_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block BLUE_BRICKS = register("blue_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block BROWN_BRICKS = register("brown_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block GREEN_BRICKS = register("green_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block RED_BRICKS = register("red_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+    public static final Block BLACK_BRICKS = register("black_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS));
+
     public static final Block AMBER_SHULKER_BOX = registerShulkerBoxBlock("amber_shulker_box", DyeColor.YELLOW);
     public static final Block AQUA_SHULKER_BOX = registerShulkerBoxBlock("aqua_shulker_box", DyeColor.LIGHT_BLUE);
     public static final Block INDIGO_SHULKER_BOX = registerShulkerBoxBlock("indigo_shulker_box", DyeColor.MAGENTA);
