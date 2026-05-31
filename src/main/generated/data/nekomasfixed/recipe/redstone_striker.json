@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "F": "minecraft:flint",
+    "G": "minecraft:gold_ingot",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "RG",
+    "FR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:redstone_striker"
+  }
+}

@@ -30,6 +30,7 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
         if(world.getBlockState(pos).isOf(Blocks.REDSTONE_WIRE)){
             world.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
             if (player != null) {
+                player.swingHand(player.getActiveHand(), true);
                 context.getStack().damage(1, player, context.getHand().getEquipmentSlot());
             }
             STRUCK_WIRES.put(pos.toImmutable(), world.getTime() + 10);

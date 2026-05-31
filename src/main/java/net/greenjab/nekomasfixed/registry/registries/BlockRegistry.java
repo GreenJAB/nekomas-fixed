@@ -197,10 +197,10 @@ public class BlockRegistry {
     public static final Block HOLLOW_BIRCH_LOG = register("hollow_birch_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.BIRCH_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_PALE_OAK_LOG = register("hollow_pale_oak_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.PALE_OAK_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
 
-    public static final Block GEYSER = register("geyser", GeyserBlock::new , AbstractBlock.Settings.create().ticksRandomly().luminance(state -> Blocks.LAVA.getDefaultState().getLuminance()));
+    public static final Block GEYSER = register("geyser", GeyserBlock::new , AbstractBlock.Settings.create().ticksRandomly().strength(0.5f, 0.5f).luminance(state -> Blocks.LAVA.getDefaultState().getLuminance()));
 
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
-    public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly().noBlockBreakParticles());
+    public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly());
 
 
     private static Block register(String id, AbstractBlock.Settings settings) {

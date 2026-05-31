@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:gray_dye",
+    "minecraft:brush"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:gray_dyed_brush"
+  }
+}

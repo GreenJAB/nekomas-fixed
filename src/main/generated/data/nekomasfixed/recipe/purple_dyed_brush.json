@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:purple_dye",
+    "minecraft:brush"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:purple_dyed_brush"
+  }
+}

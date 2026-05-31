@@ -5,12 +5,10 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.advancement.*;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jspecify.annotations.NonNull;
 
@@ -25,13 +23,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(RegistryWrapper.@NonNull WrapperLookup wrapperLookup, @NonNull Consumer<AdvancementEntry> consumer) {
-        AdvancementEntry recipeAdv = Advancement.Builder.create()
-                .criterion("has_baobab_log",
-                        InventoryChangedCriterion.Conditions.items(ItemRegistry.BAOBAB_LOG)
-                )
-                .rewards(AdvancementRewards.Builder.recipe(
-                        RegistryKey.of(RegistryKeys.RECIPE, Identifier.of("nekomasfixed:baobab_planks"))
-                ))
-                .build(consumer, "nekomasfixed/recipes/baobab_planks");
+
     }
 }

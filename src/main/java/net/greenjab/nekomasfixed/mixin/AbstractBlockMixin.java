@@ -54,6 +54,7 @@ public class AbstractBlockMixin {
                 if (world.getBlockState(placePos).isReplaceable()) {
                     world.setBlockState(placePos, newState);
                     player.getMainHandStack().decrementUnlessCreative(1, player);
+                    player.swingHand(hand, true);
                     cir.setReturnValue(ActionResult.SUCCESS);
                 }
             }
@@ -62,10 +63,12 @@ public class AbstractBlockMixin {
                 BlockPos below = pos.down();
                 if (world.getBlockState(below).isAir() || world.getBlockState(below).isIn(BlockTags.REPLACEABLE)) {
                     world.setBlockState(below, BlockRegistry.BAOBAB_FRUIT.getDefaultState());
+                    player.swingHand(hand, true);
                     stack.decrementUnlessCreative(1, player);
                 }
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
         }
     }
+
 }

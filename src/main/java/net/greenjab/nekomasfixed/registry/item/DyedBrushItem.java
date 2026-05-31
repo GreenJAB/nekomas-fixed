@@ -40,7 +40,7 @@ public class DyedBrushItem extends Item {
                     used = true;
                     this.afterUse(context);
                 }
-                else if(state.isIn(OtherRegistry.DYED_BRICKS) && !state.isOf(getBricks(color))){
+                else if(state.isIn(OtherRegistry.DYED_BRICKS) || state.isOf(Blocks.BRICKS) && !state.isOf(getBricks(color))){
                     world.setBlockState(pos, getBricks(color).getDefaultState());
                     used = true;
                     this.afterUse(context);
