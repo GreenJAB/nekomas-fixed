@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "key": {
-    "#": "minecraft:bricks",
-    "D": "minecraft:white_dye"
-  },
-  "pattern": [
-    "###",
-    "#D#",
-    "###"
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:white_dye",
+    "minecraft:brush"
   ],
   "result": {
-    "count": 8,
+    "count": 1,
     "id": "nekomasfixed:white_bricks"
   }
 }

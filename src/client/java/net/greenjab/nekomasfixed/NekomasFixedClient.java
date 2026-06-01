@@ -3,7 +3,8 @@ package net.greenjab.nekomasfixed;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.greenjab.nekomasfixed.registries.*;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
@@ -17,6 +18,8 @@ import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.SuspiciousSpiderEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
+import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
+import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -60,7 +63,6 @@ public class NekomasFixedClient implements ClientModInitializer {
 		ModEntityRendererRegistry.registerEntityRenderer();
 		ModEntityLayerRegistry.registerEntityModelLayer();
 		TextureRegistry.registerTextureRegistry();
-		TextureRenderLayerRegistry.init();
 
 		ClientSyncHandler.init();
 

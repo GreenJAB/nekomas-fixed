@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "nekomasfixed:green_bricks",
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:green_brick_stairs"
+  }
+}

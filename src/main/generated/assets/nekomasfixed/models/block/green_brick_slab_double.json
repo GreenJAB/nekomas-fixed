@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "nekomasfixed:block/green_bricks",
+    "side": "nekomasfixed:block/green_bricks"
+  }
+}

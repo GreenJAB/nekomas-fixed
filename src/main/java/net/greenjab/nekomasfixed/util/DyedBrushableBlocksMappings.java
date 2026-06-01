@@ -9,6 +9,9 @@ import java.util.EnumMap;
 
 public class DyedBrushableBlocksMappings {
     public static final EnumMap<DyeColor, Block> BRICKS = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> BRICK_SLAB = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> BRICK_STAIRS = new EnumMap<>(DyeColor.class);
+    public static final EnumMap<DyeColor, Block> BRICK_WALL = new EnumMap<>(DyeColor.class);
     public static final EnumMap<DyeColor, Block> TERRACOTTA = new EnumMap<>(DyeColor.class);
     public static final EnumMap<DyeColor, Block> STAINED_GLASS = new EnumMap<>(DyeColor.class);
     public static final EnumMap<DyeColor, Block> STAINED_GLASS_PANES = new EnumMap<>(DyeColor.class);
@@ -140,6 +143,57 @@ public class DyedBrushableBlocksMappings {
         BRICKS.put(DyeColor.GREEN, BlockRegistry.GREEN_BRICKS);
         BRICKS.put(DyeColor.RED, BlockRegistry.RED_BRICKS);
         BRICKS.put(DyeColor.BLACK, BlockRegistry.BLACK_BRICKS);
+
+        BRICK_SLAB.put(DyeColor.WHITE, BlockRegistry.WHITE_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.ORANGE, BlockRegistry.ORANGE_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.MAGENTA, BlockRegistry.MAGENTA_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.LIGHT_BLUE, BlockRegistry.LIGHT_BLUE_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.YELLOW, BlockRegistry.YELLOW_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.LIME, BlockRegistry.LIME_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.PINK, BlockRegistry.PINK_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.GRAY, BlockRegistry.GRAY_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.LIGHT_GRAY, BlockRegistry.LIGHT_GRAY_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.CYAN, BlockRegistry.CYAN_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.PURPLE, BlockRegistry.PURPLE_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.BLUE, BlockRegistry.BLUE_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.BROWN, BlockRegistry.BROWN_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.GREEN, BlockRegistry.GREEN_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.RED, BlockRegistry.RED_BRICK_SLAB);
+        BRICK_SLAB.put(DyeColor.BLACK, BlockRegistry.BLACK_BRICK_SLAB);
+
+        BRICK_STAIRS.put(DyeColor.WHITE, BlockRegistry.WHITE_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.ORANGE, BlockRegistry.ORANGE_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.MAGENTA, BlockRegistry.MAGENTA_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.LIGHT_BLUE, BlockRegistry.LIGHT_BLUE_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.YELLOW, BlockRegistry.YELLOW_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.LIME, BlockRegistry.LIME_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.PINK, BlockRegistry.PINK_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.GRAY, BlockRegistry.GRAY_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.LIGHT_GRAY, BlockRegistry.LIGHT_GRAY_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.CYAN, BlockRegistry.CYAN_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.PURPLE, BlockRegistry.PURPLE_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.BLUE, BlockRegistry.BLUE_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.BROWN, BlockRegistry.BROWN_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.GREEN, BlockRegistry.GREEN_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.RED, BlockRegistry.RED_BRICK_STAIRS);
+        BRICK_STAIRS.put(DyeColor.BLACK, BlockRegistry.BLACK_BRICK_STAIRS);
+
+        BRICK_WALL.put(DyeColor.WHITE, BlockRegistry.WHITE_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.ORANGE, BlockRegistry.ORANGE_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.MAGENTA, BlockRegistry.MAGENTA_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.LIGHT_BLUE, BlockRegistry.LIGHT_BLUE_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.YELLOW, BlockRegistry.YELLOW_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.LIME, BlockRegistry.LIME_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.PINK, BlockRegistry.PINK_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.GRAY, BlockRegistry.GRAY_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.LIGHT_GRAY, BlockRegistry.LIGHT_GRAY_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.CYAN, BlockRegistry.CYAN_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.PURPLE, BlockRegistry.PURPLE_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.BLUE, BlockRegistry.BLUE_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.BROWN, BlockRegistry.BROWN_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.GREEN, BlockRegistry.GREEN_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.RED, BlockRegistry.RED_BRICK_WALL);
+        BRICK_WALL.put(DyeColor.BLACK, BlockRegistry.BLACK_BRICK_WALL);
 
         TERRACOTTA.put(DyeColor.WHITE, Blocks.WHITE_TERRACOTTA);
         TERRACOTTA.put(DyeColor.ORANGE, Blocks.ORANGE_TERRACOTTA);

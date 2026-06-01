@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
-import com.mojang.serialization.Codec;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.LightningEffect;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireAttackablesSensor;
@@ -9,7 +8,6 @@ import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
@@ -71,6 +69,9 @@ public class OtherRegistry {
     public static final TagKey<Block> CONCRETE_POWDERS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("concrete_powders"));
 
     public static final TagKey<Block> DYED_BRICKS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_bricks"));
+    public static final TagKey<Block> DYED_BRICK_SLABS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_brick_slabs"));
+    public static final TagKey<Block> DYED_BRICK_STAIRS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_brick_stairs"));
+    public static final TagKey<Block> DYED_BRICK_WALLS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_brick_walls"));
     public static final TagKey<Block> FOLIAGE_REQUIRES_BASE = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("foliage_requires_base"));
     public static final TagKey<Item> FOOD_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("food_items"));
     public static final TagKey<Item> SLINGSHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("slingshot_projectiles"));

@@ -2,61 +2,80 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BedBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Mixin(BlockEntityType.class)
 public abstract class BlockEntityTypeMixin{
 
-    @Shadow
-    private static <T extends BlockEntity> BlockEntityType<T> create(String id, BlockEntityType.BlockEntityFactory<? extends T> factory,
-                                                                     Block... blocks) {
-        return null;
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @At(value = "CONSTANT", args = "stringValue=sign"), to =
+    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;SIGN:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    private static Block[] sign(Block[] validBlocks) {
+        ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
+        newBlocks.add(BlockRegistry.BAOBAB_SIGN);
+        newBlocks.add(BlockRegistry.BAOBAB_WALL_SIGN);
+        Block[] newBlocksArray = new Block[newBlocks.size()];
+        for (int i = 0;i<newBlocksArray.length;i++) { newBlocksArray[i]=newBlocks.get(i); }
+        return newBlocksArray;
     }
 
-    @Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice( from = @At(value = "FIELD",
-            target = "Lnet/minecraft/block/entity/BlockEntityType;SHULKER_BOX:Lnet/minecraft/block/entity/BlockEntityType;")))
-    private static BlockEntityType<BedBlockEntity> sign(String id, BlockEntityType.BlockEntityFactory<? extends BedBlockEntity> factory, Block[] blocks) {
-        return create("bed", BedBlockEntity::new,
-                Blocks.RED_BED, Blocks.BLACK_BED, Blocks.BLUE_BED, Blocks.BROWN_BED, Blocks.CYAN_BED, Blocks.GRAY_BED, Blocks.GREEN_BED, Blocks.LIGHT_BLUE_BED, Blocks.LIGHT_GRAY_BED, Blocks.LIME_BED, Blocks.MAGENTA_BED, Blocks.ORANGE_BED, Blocks.PINK_BED, Blocks.PURPLE_BED, Blocks.WHITE_BED, Blocks.YELLOW_BED,
-                BlockRegistry.AMBER_BED, BlockRegistry.AQUA_BED, BlockRegistry.INDIGO_BED, BlockRegistry.CRIMSON_BED
-
-        );
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @At(value = "CONSTANT", args = "stringValue=hanging_sign"), to =
+    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;HANGING_SIGN:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    private static Block[] hanging_sign(Block[] validBlocks) {
+        ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
+        newBlocks.add(BlockRegistry.BAOBAB_HANGING_SIGN);
+        newBlocks.add(BlockRegistry.BAOBAB_WALL_HANGING_SIGN);
+        Block[] newBlocksArray = new Block[newBlocks.size()];
+        for (int i = 0;i<newBlocksArray.length;i++) { newBlocksArray[i]=newBlocks.get(i); }
+        return newBlocksArray;
     }
 
-    @Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice( from = @At(value = "FIELD",
-            target = "Lnet/minecraft/block/entity/BlockEntityType;COMMAND_BLOCK:Lnet/minecraft/block/entity/BlockEntityType;")))
-    private static BlockEntityType<ShulkerBoxBlockEntity> shulker(String id, BlockEntityType.BlockEntityFactory<? extends ShulkerBoxBlockEntity> factory, Block[] blocks) {
-        return create("shulker_box",
-                ShulkerBoxBlockEntity::new,
-                Blocks.SHULKER_BOX,
-                Blocks.BLACK_SHULKER_BOX,
-                Blocks.BLUE_SHULKER_BOX,
-                Blocks.BROWN_SHULKER_BOX,
-                Blocks.CYAN_SHULKER_BOX,
-                Blocks.GRAY_SHULKER_BOX,
-                Blocks.GREEN_SHULKER_BOX,
-                Blocks.LIGHT_BLUE_SHULKER_BOX,
-                Blocks.LIGHT_GRAY_SHULKER_BOX,
-                Blocks.LIME_SHULKER_BOX,
-                Blocks.MAGENTA_SHULKER_BOX,
-                Blocks.ORANGE_SHULKER_BOX,
-                Blocks.PINK_SHULKER_BOX,
-                Blocks.PURPLE_SHULKER_BOX,
-                Blocks.RED_SHULKER_BOX,
-                Blocks.WHITE_SHULKER_BOX,
-                Blocks.YELLOW_SHULKER_BOX,
-                BlockRegistry.AMBER_SHULKER_BOX, BlockRegistry.AQUA_SHULKER_BOX, BlockRegistry.INDIGO_SHULKER_BOX, BlockRegistry.CRIMSON_SHULKER_BOX
-
-        );
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @At(value = "CONSTANT", args = "stringValue=shelf"), to =
+    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;SHELF:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    private static Block[] shelf(Block[] validBlocks) {
+        ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
+        newBlocks.add(BlockRegistry.BAOBAB_SHELF);
+        Block[] newBlocksArray = new Block[newBlocks.size()];
+        for (int i = 0;i<newBlocksArray.length;i++) { newBlocksArray[i]=newBlocks.get(i); }
+        return newBlocksArray;
     }
+
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @At(value = "CONSTANT", args = "stringValue=bed"), to =
+    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;BED:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    private static Block[] bed(Block[] validBlocks) {
+        ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
+        newBlocks.add(BlockRegistry.AMBER_BED);
+        newBlocks.add(BlockRegistry.AQUA_BED);
+        newBlocks.add(BlockRegistry.INDIGO_BED);
+        newBlocks.add(BlockRegistry.CRIMSON_BED);
+        Block[] newBlocksArray = new Block[newBlocks.size()];
+        for (int i = 0;i<newBlocksArray.length;i++) { newBlocksArray[i]=newBlocks.get(i); }
+        return newBlocksArray;
+    }
+
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @At(value = "CONSTANT", args = "stringValue=shulker_box"), to =
+    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;SHULKER_BOX:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    private static Block[] shulker(Block[] validBlocks) {
+        ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
+        newBlocks.add(BlockRegistry.AMBER_SHULKER_BOX);
+        newBlocks.add(BlockRegistry.AQUA_SHULKER_BOX);
+        newBlocks.add(BlockRegistry.INDIGO_SHULKER_BOX);
+        newBlocks.add(BlockRegistry.CRIMSON_SHULKER_BOX);
+        Block[] newBlocksArray = new Block[newBlocks.size()];
+        for (int i = 0;i<newBlocksArray.length;i++) { newBlocksArray[i]=newBlocks.get(i); }
+        return newBlocksArray;
+    }
+
 
 }

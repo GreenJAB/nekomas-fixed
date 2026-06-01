@@ -6,6 +6,7 @@ import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.greenjab.nekomasfixed.util.DyedBrushableBlocksMappings;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BlockTags;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,6 +21,18 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     protected void configure(RegistryWrapper.@NonNull WrapperLookup wrapperLookup) {
         valueLookupBuilder(OtherRegistry.DYED_BRICKS)
                 .add(DyedBrushableBlocksMappings.BRICKS.values());
+        valueLookupBuilder(OtherRegistry.DYED_BRICK_SLABS)
+                .add(DyedBrushableBlocksMappings.BRICK_SLAB.values());
+        valueLookupBuilder(BlockTags.SLABS)
+                .add(DyedBrushableBlocksMappings.BRICK_SLAB.values());
+        valueLookupBuilder(OtherRegistry.DYED_BRICK_STAIRS)
+                .add(DyedBrushableBlocksMappings.BRICK_STAIRS.values());
+        valueLookupBuilder(BlockTags.STAIRS)
+                .add(DyedBrushableBlocksMappings.BRICK_STAIRS.values());
+        valueLookupBuilder(OtherRegistry.DYED_BRICK_WALLS)
+                .add(DyedBrushableBlocksMappings.BRICK_WALL.values());
+        valueLookupBuilder(BlockTags.WALLS)
+                .add(DyedBrushableBlocksMappings.BRICK_WALL.values());
 
         valueLookupBuilder(OtherRegistry.STAINED_GLASSES)
                 .add(DyedBrushableBlocksMappings.STAINED_GLASS.values());
@@ -39,6 +52,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         valueLookupBuilder(OtherRegistry.CAN_BE_DYED_WITH_BRUSH)
                 .add(DyedBrushableBlocksMappings.BRICKS.values())
+                .add(DyedBrushableBlocksMappings.BRICK_SLAB.values())
+                .add(DyedBrushableBlocksMappings.BRICK_STAIRS.values())
+                .add(DyedBrushableBlocksMappings.BRICK_WALL.values())
                 .add(DyedBrushableBlocksMappings.STAINED_GLASS.values())
                 .add(DyedBrushableBlocksMappings.STAINED_GLASS_PANES.values())
                 .add(DyedBrushableBlocksMappings.TERRACOTTA.values())
@@ -50,9 +66,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(DyedBrushableBlocksMappings.CONCRETE_POWDER.values())
                 .add(Blocks.GLASS)
                 .add(Blocks.CANDLE)
-                .add(Blocks.GLASS_PANE);
-
-
+                .add(Blocks.GLASS_PANE)
+                .add(Blocks.BRICKS)
+                .add(Blocks.BRICK_SLAB)
+                .add(Blocks.BRICK_STAIRS)
+                .add(Blocks.BRICK_WALL);
     }
 
 }

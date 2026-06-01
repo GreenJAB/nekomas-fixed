@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
 import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
 import net.greenjab.nekomasfixed.render.entity.state.MoobloomEntityRenderState;
@@ -16,10 +17,10 @@ public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, Mo
     private final MoobloomEntityModel babyModel;
 
     public MoobloomEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new MoobloomEntityModel(context.getPart(MoobloomEntityModel.MOOBLOOM)), 0.5f);
+        super(context, new MoobloomEntityModel(context.getPart(ModEntityLayerRegistry.MOOBLOOM)), 0.5f);
 
-        this.adultModel = new MoobloomEntityModel(context.getPart(MoobloomEntityModel.MOOBLOOM));
-        this.babyModel = new MoobloomEntityModel(context.getPart(MoobloomEntityModel.MOOBLOOM_BABY));
+        this.adultModel = new MoobloomEntityModel(context.getPart(ModEntityLayerRegistry.MOOBLOOM));
+        this.babyModel = new MoobloomEntityModel(context.getPart(ModEntityLayerRegistry.MOOBLOOM_BABY));
     }
 
     @Override
