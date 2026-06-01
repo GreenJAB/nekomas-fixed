@@ -2,8 +2,11 @@ package net.greenjab.nekomasfixed.mixin.client;
 
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registries.TextureRenderLayerRegistry;
 import net.greenjab.nekomasfixed.util.CustomBedTextureHolder;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.util.MessyBedAccessor;
+import net.greenjab.nekomasfixed.util.MessyBedStateAccessor;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BedBlockEntityRenderer;
@@ -28,6 +31,10 @@ public class BedBlockEntityRendererMixin {
             Vec3d cameraPos,
             ModelCommandRenderer.CrumblingOverlayCommand overlay,
             CallbackInfo ci) {
+
+            if(bedBlockEntity.getCachedState().get(MessyBedAccessor.IS_MESSY)){
+                ((CustomBedTextureHolder)state).nekomasfixed$setCustomTexture(TextureRenderLayerRegistry.MESSY_BED_TEXTURES.get(state.dyeColor));
+            }
 
         if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AMBER_BED) {
 
