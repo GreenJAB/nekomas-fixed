@@ -8,8 +8,10 @@ import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.PillarBlock;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.World;
@@ -86,19 +88,21 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         int b = random.nextInt(2)+5;
         for (int i  = 0;i<b;i++) {
             float rot =random.nextFloat()*40+i*360/(b+0f);
-            float k = startPos.getX()+(float) Math.sin(rot*Math.PI/180f)*0.5f;
-            float l = startPos.getZ()+(float) Math.cos(rot*Math.PI/180f)*0.5f;
+            float dx = startPos.getX()+(float) Math.sin(rot*Math.PI/180f)*0.5f;
+            float dz = startPos.getZ()+(float) Math.cos(rot*Math.PI/180f)*0.5f;
 
             int by = height - random.nextInt(5) - 2;
-            int o = 4 + random.nextInt(4);
-            for (; o > 0; o--) {
-                int q = startPos.getY()+by+(o<3?3-o:0);
-                k += (float) Math.sin(rot*Math.PI/180f);
-                l += (float) Math.cos(rot*Math.PI/180f);
+            for (int length = 4 + random.nextInt(4); length >= 0; length--) {
+                int dy = startPos.getY()+by+(length <3?3- length :0);
                 rot+=random.nextFloat()*30-15;
-                BlockPos pos = new BlockPos((int)k, q, (int)l);
-                this.getAndSetState(world, replacer, random, pos, config);
-                if (o == 1) {
+                dx += (float) Math.sin(rot*Math.PI/180f);
+                dz += (float) Math.cos(rot*Math.PI/180f);
+                BlockPos pos = new BlockPos((int) dx, dy, (int) dz);
+                if (world.testBlockState(pos,  state -> state.isIn(BlockTags.REPLACEABLE))) {
+                    if (length < 3) replacer.accept(pos, BlockRegistry.BAOBAB_LOG.getDefaultState());
+                    else replacer.accept(pos, BlockRegistry.BAOBAB_LOG.getDefaultState().with(PillarBlock.AXIS, Direction.fromHorizontalDegrees(rot).getAxis()));
+                }
+                if (length == 0) {
                     BlockPos leafPos = pos.up(1);
                     list.add(new FoliagePlacer.TreeNode(leafPos, 0, true));
 

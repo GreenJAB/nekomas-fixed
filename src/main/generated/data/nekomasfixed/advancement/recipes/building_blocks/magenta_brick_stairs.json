@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_brick_stairs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:brick_stairs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_magenta_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:magenta_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:magenta_brick_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_magenta_dye",
+      "has_brick_stairs"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:magenta_brick_stairs"
+    ]
+  }
+}

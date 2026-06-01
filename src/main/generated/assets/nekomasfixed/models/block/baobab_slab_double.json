@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "nekomasfixed:block/baobab_planks",
+    "side": "nekomasfixed:block/baobab_planks"
+  }
+}

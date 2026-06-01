@@ -6,20 +6,15 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.BabyModelTransformer;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.Set;
 
 public class MoobloomEntityModel extends QuadrupedEntityModel<MoobloomEntityRenderState> {
-    public static final EntityModelLayer MOOBLOOM = new EntityModelLayer(Identifier.of("nekomasfixed", "moobloom"), "main");
-    public static final EntityModelLayer MOOBLOOM_BABY = new EntityModelLayer(Identifier.of("nekomasfixed", "moobloom"), "baby");
     public static final ModelTransformer BABY_TRANSFORMER = new BabyModelTransformer(false, 8.0F, 6.0F, Set.of("head"));
-
 
     private final Animation idleAnim;
     private final Animation runAnim;

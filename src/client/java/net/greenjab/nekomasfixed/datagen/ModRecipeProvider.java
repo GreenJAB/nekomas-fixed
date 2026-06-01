@@ -1,15 +1,19 @@
 package net.greenjab.nekomasfixed.datagen;
 
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import org.jspecify.annotations.NonNull;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
@@ -34,165 +38,128 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ItemRegistry.BAOBAB_LOG), conditionsFromItem(ItemRegistry.BAOBAB_LOG))
                         .offerTo(exporter);
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.WHITE_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.WHITE_DYE)
-                        .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
+                offerBoatRecipe(ItemRegistry.BAOBAB_BOAT, ItemRegistry.BAOBAB_PLANKS);
+                offerChestBoatRecipe(ItemRegistry.BAOBAB_CHEST_BOAT, ItemRegistry.BAOBAB_PLANKS);
+                offerShelfRecipe(ItemRegistry.BAOBAB_SHELF, ItemRegistry.BAOBAB_LOG);
+                offerHangingSignRecipe(ItemRegistry.BAOBAB_HANGING_SIGN, ItemRegistry.BAOBAB_LOG);
+
+                createFenceRecipe(ItemRegistry.BAOBAB_FENCE, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
+                        .offerTo(exporter);
+                createFenceGateRecipe(ItemRegistry.BAOBAB_FENCE_GATE, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
+                        .offerTo(exporter);
+                createButtonRecipe(ItemRegistry.BAOBAB_BUTTON, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
+                        .offerTo(exporter);
+                createDoorRecipe(ItemRegistry.BAOBAB_DOOR, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
+                        .offerTo(exporter);
+                createTrapdoorRecipe(ItemRegistry.BAOBAB_TRAPDOOR, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
+                        .offerTo(exporter);
+                createPressurePlateRecipe(RecipeCategory.REDSTONE, ItemRegistry.BAOBAB_PRESSURE_PLATE, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
+                        .offerTo(exporter);
+                createSignRecipe(ItemRegistry.BAOBAB_SIGN, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
+                        .offerTo(exporter);
+                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_SLAB, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
+                        .offerTo(exporter);
+                createStairsRecipe(ItemRegistry.BAOBAB_STAIRS, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
+                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
                         .offerTo(exporter);
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.ORANGE_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.ORANGE_DYE)
-                        .criterion(hasItem(Items.ORANGE_DYE), conditionsFromItem(Items.ORANGE_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.MAGENTA_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.MAGENTA_DYE)
-                        .criterion(hasItem(Items.MAGENTA_DYE), conditionsFromItem(Items.MAGENTA_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.LIGHT_BLUE_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.LIGHT_BLUE_DYE)
-                        .criterion(hasItem(Items.LIGHT_BLUE_DYE), conditionsFromItem(Items.LIGHT_BLUE_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
+                List< List<Item>> colours = List.of(
+                        List.of(Items.WHITE_DYE, ItemRegistry.WHITE_DYED_BRUSH, ItemRegistry.WHITE_BRICKS, ItemRegistry.WHITE_BRICK_SLAB, ItemRegistry.WHITE_BRICK_STAIRS, ItemRegistry.WHITE_BRICK_WALL),
+                        List.of(Items.ORANGE_DYE, ItemRegistry.ORANGE_DYED_BRUSH, ItemRegistry.ORANGE_BRICKS, ItemRegistry.ORANGE_BRICK_SLAB, ItemRegistry.ORANGE_BRICK_STAIRS, ItemRegistry.ORANGE_BRICK_WALL),
+                        List.of(Items.MAGENTA_DYE, ItemRegistry.MAGENTA_DYED_BRUSH, ItemRegistry.MAGENTA_BRICKS, ItemRegistry.MAGENTA_BRICK_SLAB, ItemRegistry.MAGENTA_BRICK_STAIRS, ItemRegistry.MAGENTA_BRICK_WALL),
+                        List.of(Items.LIGHT_BLUE_DYE, ItemRegistry.LIGHT_BLUE_DYED_BRUSH, ItemRegistry.LIGHT_BLUE_BRICKS, ItemRegistry.LIGHT_BLUE_BRICK_SLAB, ItemRegistry.LIGHT_BLUE_BRICK_STAIRS, ItemRegistry.LIGHT_BLUE_BRICK_WALL),
+                        List.of(Items.YELLOW_DYE, ItemRegistry.YELLOW_DYED_BRUSH, ItemRegistry.YELLOW_BRICKS, ItemRegistry.YELLOW_BRICK_SLAB, ItemRegistry.YELLOW_BRICK_STAIRS, ItemRegistry.YELLOW_BRICK_WALL),
+                        List.of(Items.LIME_DYE, ItemRegistry.LIME_DYED_BRUSH, ItemRegistry.LIME_BRICKS, ItemRegistry.LIME_BRICK_SLAB, ItemRegistry.LIME_BRICK_STAIRS, ItemRegistry.LIME_BRICK_WALL),
+                        List.of(Items.PINK_DYE, ItemRegistry.PINK_DYED_BRUSH, ItemRegistry.PINK_BRICKS, ItemRegistry.PINK_BRICK_SLAB, ItemRegistry.PINK_BRICK_STAIRS, ItemRegistry.PINK_BRICK_WALL),
+                        List.of(Items.GRAY_DYE, ItemRegistry.GRAY_DYED_BRUSH, ItemRegistry.GRAY_BRICKS, ItemRegistry.GRAY_BRICK_SLAB, ItemRegistry.GRAY_BRICK_STAIRS, ItemRegistry.GRAY_BRICK_WALL),
+                        List.of(Items.LIGHT_GRAY_DYE, ItemRegistry.LIGHT_GRAY_DYED_BRUSH, ItemRegistry.LIGHT_GRAY_BRICKS, ItemRegistry.LIGHT_GRAY_BRICK_SLAB, ItemRegistry.LIGHT_GRAY_BRICK_STAIRS, ItemRegistry.LIGHT_GRAY_BRICK_WALL),
+                        List.of(Items.CYAN_DYE, ItemRegistry.CYAN_DYED_BRUSH, ItemRegistry.CYAN_BRICKS, ItemRegistry.CYAN_BRICK_SLAB, ItemRegistry.CYAN_BRICK_STAIRS, ItemRegistry.CYAN_BRICK_WALL),
+                        List.of(Items.PURPLE_DYE, ItemRegistry.PURPLE_DYED_BRUSH, ItemRegistry.PURPLE_BRICKS, ItemRegistry.PURPLE_BRICK_SLAB, ItemRegistry.PURPLE_BRICK_STAIRS, ItemRegistry.PURPLE_BRICK_WALL),
+                        List.of(Items.BLUE_DYE, ItemRegistry.BLUE_DYED_BRUSH, ItemRegistry.BLUE_BRICKS, ItemRegistry.BLUE_BRICK_SLAB, ItemRegistry.BLUE_BRICK_STAIRS, ItemRegistry.BLUE_BRICK_WALL),
+                        List.of(Items.BROWN_DYE, ItemRegistry.BROWN_DYED_BRUSH, ItemRegistry.BROWN_BRICKS, ItemRegistry.BROWN_BRICK_SLAB, ItemRegistry.BROWN_BRICK_STAIRS, ItemRegistry.BROWN_BRICK_WALL),
+                        List.of(Items.GREEN_DYE, ItemRegistry.GREEN_DYED_BRUSH, ItemRegistry.GREEN_BRICKS, ItemRegistry.GREEN_BRICK_SLAB, ItemRegistry.GREEN_BRICK_STAIRS, ItemRegistry.GREEN_BRICK_WALL),
+                        List.of(Items.RED_DYE, ItemRegistry.RED_DYED_BRUSH, ItemRegistry.RED_BRICKS, ItemRegistry.RED_BRICK_SLAB, ItemRegistry.RED_BRICK_STAIRS, ItemRegistry.RED_BRICK_WALL),
+                        List.of(Items.BLACK_DYE, ItemRegistry.BLACK_DYED_BRUSH, ItemRegistry.BLACK_BRICKS, ItemRegistry.BLACK_BRICK_SLAB, ItemRegistry.BLACK_BRICK_STAIRS, ItemRegistry.BLACK_BRICK_WALL));
+                
+                for (List<Item> colour : colours){
+                    createShapeless(RecipeCategory.MISC, colour.get(1), 1)
+                            .input(colour.get(0))
+                            .input(Items.BRUSH)
+                            .criterion(hasItem(colour.get(0)), conditionsFromItem(colour.get(0)))
+                            .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
+                            .offerTo(exporter);
+                    createShaped(RecipeCategory.BUILDING_BLOCKS, colour.get(2), 8)
+                            .pattern("###")
+                            .pattern("#D#")
+                            .pattern("###")
+                            .input('#', Items.BRICKS)
+                            .input('D', colour.get(0))
+                            .criterion(hasItem(colour.get(0)), conditionsFromItem(colour.get(0)))
+                            .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
+                            .offerTo(exporter);
+                    createShaped(RecipeCategory.BUILDING_BLOCKS, colour.get(3), 8)
+                            .pattern("###")
+                            .pattern("#D#")
+                            .pattern("###")
+                            .input('#', Items.BRICK_SLAB)
+                            .input('D', colour.get(0))
+                            .criterion(hasItem(colour.get(0)), conditionsFromItem(colour.get(0)))
+                            .criterion(hasItem(Items.BRICK_SLAB), conditionsFromItem(Items.BRICK_SLAB))
+                            .offerTo(exporter);
+                    createShaped(RecipeCategory.BUILDING_BLOCKS, colour.get(4), 8)
+                            .pattern("###")
+                            .pattern("#D#")
+                            .pattern("###")
+                            .input('#', Items.BRICK_STAIRS)
+                            .input('D', colour.get(0))
+                            .criterion(hasItem(colour.get(0)), conditionsFromItem(colour.get(0)))
+                            .criterion(hasItem(Items.BRICK_STAIRS), conditionsFromItem(Items.BRICK_STAIRS))
+                            .offerTo(exporter);
+                    createShaped(RecipeCategory.BUILDING_BLOCKS, colour.get(5), 8)
+                            .pattern("###")
+                            .pattern("#D#")
+                            .pattern("###")
+                            .input('#', Items.BRICK_WALL)
+                            .input('D', colour.get(0))
+                            .criterion(hasItem(colour.get(0)), conditionsFromItem(colour.get(0)))
+                            .criterion(hasItem(Items.BRICK_WALL), conditionsFromItem(Items.BRICK_WALL))
+                            .offerTo(exporter);
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, colour.get(3), colour.get(2), 2);
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, colour.get(4), colour.get(2));
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, colour.get(5), colour.get(2));
+                    //offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, colour.get(3), colour.get(2));
+                    //createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, colour.get(4), Ingredient.ofItem(colour.get(2))).criterion(hasItem(colour.get(2)), this.conditionsFromItem(colour.get(2))).offerTo(this.exporter);
+                    //offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, colour.get(5), colour.get(2));
+                }
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.YELLOW_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.YELLOW_DYE)
-                        .criterion(hasItem(Items.YELLOW_DYE), conditionsFromItem(Items.YELLOW_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
+                List<Pair<Item,Item>> hollows = List.of(
+                        Pair.of(Items.OAK_PLANKS, ItemRegistry.HOLLOW_OAK_LOG),
+                        Pair.of(Items.SPRUCE_PLANKS, ItemRegistry.HOLLOW_SPRUCE_LOG),
+                        Pair.of(Items.BIRCH_PLANKS, ItemRegistry.HOLLOW_BIRCH_LOG),
+                        Pair.of(Items.JUNGLE_PLANKS, ItemRegistry.HOLLOW_JUNGLE_LOG),
+                        Pair.of(Items.ACACIA_PLANKS, ItemRegistry.HOLLOW_ACACIA_LOG),
+                        Pair.of(Items.DARK_OAK_PLANKS, ItemRegistry.HOLLOW_DARK_OAK_LOG),
+                        Pair.of(Items.CHERRY_PLANKS, ItemRegistry.HOLLOW_CHERRY_LOG),
+                        Pair.of(Items.PALE_OAK_PLANKS, ItemRegistry.HOLLOW_PALE_OAK_LOG),
+                        Pair.of(Items.CRIMSON_PLANKS, ItemRegistry.HOLLOW_CRIMSON_LOG),
+                        Pair.of(Items.WARPED_PLANKS, ItemRegistry.HOLLOW_WARPED_LOG));
+                for (Pair<Item,Item> hollow : hollows){
+                    createShapeless(RecipeCategory.BUILDING_BLOCKS, hollow.getFirst(), 1)
+                            .input(hollow.getSecond())
+                            .criterion(hasItem(hollow.getSecond()), conditionsFromItem(hollow.getSecond()))
+                            .offerTo(exporter);
+                }
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.LIME_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.LIME_DYE)
-                        .criterion(hasItem(Items.LIME_DYE), conditionsFromItem(Items.LIME_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.PINK_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.PINK_DYE)
-                        .criterion(hasItem(Items.PINK_DYE), conditionsFromItem(Items.PINK_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.GRAY_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.GRAY_DYE)
-                        .criterion(hasItem(Items.GRAY_DYE), conditionsFromItem(Items.GRAY_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.LIGHT_GRAY_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.LIGHT_GRAY_DYE)
-                        .criterion(hasItem(Items.LIGHT_GRAY_DYE), conditionsFromItem(Items.LIGHT_GRAY_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.CYAN_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.CYAN_DYE)
-                        .criterion(hasItem(Items.CYAN_DYE), conditionsFromItem(Items.CYAN_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.PURPLE_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.PURPLE_DYE)
-                        .criterion(hasItem(Items.PURPLE_DYE), conditionsFromItem(Items.PURPLE_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BLUE_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.BLUE_DYE)
-                        .criterion(hasItem(Items.BLUE_DYE), conditionsFromItem(Items.BLUE_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BROWN_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.BROWN_DYE)
-                        .criterion(hasItem(Items.BROWN_DYE), conditionsFromItem(Items.BROWN_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.GREEN_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.GREEN_DYE)
-                        .criterion(hasItem(Items.GREEN_DYE), conditionsFromItem(Items.GREEN_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.RED_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.RED_DYE)
-                        .criterion(hasItem(Items.RED_DYE), conditionsFromItem(Items.RED_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BLACK_BRICKS, 8)
-                        .pattern("###")
-                        .pattern("#D#")
-                        .pattern("###")
-                        .input('#', Items.BRICKS)
-                        .input('D', Items.BLACK_DYE)
-                        .criterion(hasItem(Items.BLACK_DYE), conditionsFromItem(Items.BLACK_DYE))
-                        .criterion(hasItem(Items.BRICKS), conditionsFromItem(Items.BRICKS))
-                        .offerTo(exporter);
 
                 createShaped(RecipeCategory.TOOLS, ItemRegistry.REDSTONE_STRIKER, 1)
                         .pattern("RG")
@@ -205,168 +172,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.FLINT), conditionsFromItem(Items.FLINT))
                         .offerTo(exporter);
 
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.OAK_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_OAK_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_OAK_LOG), conditionsFromItem(ItemRegistry.HOLLOW_OAK_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.SPRUCE_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_SPRUCE_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_SPRUCE_LOG), conditionsFromItem(ItemRegistry.HOLLOW_SPRUCE_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.BIRCH_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_BIRCH_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_BIRCH_LOG), conditionsFromItem(ItemRegistry.HOLLOW_BIRCH_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.JUNGLE_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_JUNGLE_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_JUNGLE_LOG), conditionsFromItem(ItemRegistry.HOLLOW_JUNGLE_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.ACACIA_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_ACACIA_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_ACACIA_LOG), conditionsFromItem(ItemRegistry.HOLLOW_ACACIA_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.DARK_OAK_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_DARK_OAK_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_DARK_OAK_LOG), conditionsFromItem(ItemRegistry.HOLLOW_DARK_OAK_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.CHERRY_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_CHERRY_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_CHERRY_LOG), conditionsFromItem(ItemRegistry.HOLLOW_CHERRY_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.PALE_OAK_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_PALE_OAK_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_PALE_OAK_LOG), conditionsFromItem(ItemRegistry.HOLLOW_PALE_OAK_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.CRIMSON_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_CRIMSON_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_CRIMSON_LOG), conditionsFromItem(ItemRegistry.HOLLOW_CRIMSON_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Items.WARPED_PLANKS, 1)
-                        .input(ItemRegistry.HOLLOW_WARPED_LOG)
-                        .criterion(hasItem(ItemRegistry.HOLLOW_WARPED_LOG), conditionsFromItem(ItemRegistry.HOLLOW_WARPED_LOG))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.WHITE_DYED_BRUSH, 1)
-                        .input(Items.WHITE_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.ORANGE_DYED_BRUSH, 1)
-                        .input(Items.ORANGE_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.ORANGE_DYE), conditionsFromItem(Items.ORANGE_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.MAGENTA_DYED_BRUSH, 1)
-                        .input(Items.MAGENTA_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.MAGENTA_DYE), conditionsFromItem(Items.MAGENTA_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.LIGHT_BLUE_DYED_BRUSH, 1)
-                        .input(Items.LIGHT_BLUE_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.LIGHT_BLUE_DYE), conditionsFromItem(Items.LIGHT_BLUE_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.YELLOW_DYED_BRUSH, 1)
-                        .input(Items.YELLOW_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.YELLOW_DYE), conditionsFromItem(Items.YELLOW_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.LIME_DYED_BRUSH, 1)
-                        .input(Items.LIME_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.LIME_DYE), conditionsFromItem(Items.LIME_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.PINK_DYED_BRUSH, 1)
-                        .input(Items.PINK_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.PINK_DYE), conditionsFromItem(Items.PINK_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.GRAY_DYED_BRUSH, 1)
-                        .input(Items.GRAY_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.GRAY_DYE), conditionsFromItem(Items.GRAY_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.LIGHT_GRAY_DYED_BRUSH, 1)
-                        .input(Items.LIGHT_GRAY_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.LIGHT_GRAY_DYE), conditionsFromItem(Items.LIGHT_GRAY_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.CYAN_DYED_BRUSH, 1)
-                        .input(Items.CYAN_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.CYAN_DYE), conditionsFromItem(Items.CYAN_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.PURPLE_DYED_BRUSH, 1)
-                        .input(Items.PURPLE_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.PURPLE_DYE), conditionsFromItem(Items.PURPLE_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.BLUE_DYED_BRUSH, 1)
-                        .input(Items.BLUE_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.BLUE_DYE), conditionsFromItem(Items.BLUE_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.BROWN_DYED_BRUSH, 1)
-                        .input(Items.BROWN_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.BROWN_DYE), conditionsFromItem(Items.BROWN_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.GREEN_DYED_BRUSH, 1)
-                        .input(Items.GREEN_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.GREEN_DYE), conditionsFromItem(Items.GREEN_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.RED_DYED_BRUSH, 1)
-                        .input(Items.RED_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.RED_DYE), conditionsFromItem(Items.RED_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC, ItemRegistry.BLACK_DYED_BRUSH, 1)
-                        .input(Items.BLACK_DYE)
-                        .input(Items.BRUSH)
-                        .criterion(hasItem(Items.BLACK_DYE), conditionsFromItem(Items.BLACK_DYE))
-                        .criterion(hasItem(Items.BRUSH), conditionsFromItem(Items.BRUSH))
-                        .offerTo(exporter);
             }
         };
     }

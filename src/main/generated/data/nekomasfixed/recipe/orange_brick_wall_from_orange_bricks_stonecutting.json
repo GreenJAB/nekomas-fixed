@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "nekomasfixed:orange_bricks",
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:orange_brick_wall"
+  }
+}

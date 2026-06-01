@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_purple_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:purple_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:purple_brick_wall_from_purple_bricks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_purple_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:purple_brick_wall_from_purple_bricks_stonecutting"
+    ]
+  }
+}

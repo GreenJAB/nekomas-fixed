@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_baobab_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:baobab_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:baobab_sign"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_baobab_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:baobab_sign"
+    ]
+  }
+}

@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
-import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
@@ -8,9 +7,13 @@ import net.greenjab.nekomasfixed.util.*;
 import net.minecraft.block.*;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
@@ -32,6 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class ItemRegistry {
 
@@ -85,11 +89,68 @@ public class ItemRegistry {
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
 
-    public static final Item BAOBAB_LOG = register(BlockRegistry.BAOBAB_LOG);
     public static final Item BAOBAB_SAPLING = register(BlockRegistry.BAOBAB_SAPLING);
     public static final Item BAOBAB_PLANKS = register(BlockRegistry.BAOBAB_PLANKS);
+    public static final Item BAOBAB_LOG = register(BlockRegistry.BAOBAB_LOG);
     public static final Item BAOBAB_WOOD = register(BlockRegistry.BAOBAB_WOOD);
+    public static final Item BAOBAB_SLAB = register(BlockRegistry.BAOBAB_SLAB);
     public static final Item BAOBAB_FENCE = register(BlockRegistry.BAOBAB_FENCE);
+    public static final Item BAOBAB_STAIRS = register(BlockRegistry.BAOBAB_STAIRS);
+    public static final Item BAOBAB_BUTTON = register(BlockRegistry.BAOBAB_BUTTON);
+    public static final Item BAOBAB_PRESSURE_PLATE = register(BlockRegistry.BAOBAB_PRESSURE_PLATE);
+    public static final Item BAOBAB_DOOR = register(BlockRegistry.BAOBAB_DOOR, TallBlockItem::new);
+    public static final Item BAOBAB_TRAPDOOR = register(BlockRegistry.BAOBAB_TRAPDOOR);
+    public static final Item BAOBAB_FENCE_GATE = register(BlockRegistry.BAOBAB_FENCE_GATE);
+    public static final Item BAOBAB_SHELF = register(BlockRegistry.BAOBAB_SHELF);
+
+    public static final Item BAOBAB_SIGN = register(
+            BlockRegistry.BAOBAB_SIGN, (block, settings) -> new SignItem(block, BlockRegistry.BAOBAB_WALL_SIGN, settings), new Item.Settings().maxCount(16)
+    );
+    public static final Item BAOBAB_HANGING_SIGN = register(
+            BlockRegistry.BAOBAB_HANGING_SIGN,
+            (block, settings) -> new HangingSignItem(block, BlockRegistry.BAOBAB_WALL_HANGING_SIGN, settings),
+            new Item.Settings().maxCount(16)
+    );
+
+    public static final EntityType<BoatEntity> BAOBAB_BOAT_ENTITY = register2(
+            "baobab_boat",
+            EntityType.Builder.create(getBoatFactory(() -> ItemRegistry.BAOBAB_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10)
+    );
+    public static final EntityType<ChestBoatEntity> BAOBAB_CHEST_BOAT_ENTITY = register2(
+            "baobab_chest_boat",
+            EntityType.Builder.create(getChestBoatFactory(() -> ItemRegistry.BAOBAB_CHEST_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10)
+    );
+
+    public static final Item BAOBAB_BOAT = register(
+            "baobab_boat", settings -> new BoatItem(BAOBAB_BOAT_ENTITY, settings), new Item.Settings().maxCount(1)
+    );
+    public static final Item BAOBAB_CHEST_BOAT = register(
+            "baobab_chest_boat", settings -> new BoatItem(BAOBAB_CHEST_BOAT_ENTITY, settings), new Item.Settings().maxCount(1)
+    );
+
+    private static EntityType.EntityFactory<BoatEntity> getBoatFactory(Supplier<Item> itemSupplier) {
+        return (type, world) -> new BoatEntity(type, world, itemSupplier);
+    }
+    private static EntityType.EntityFactory<ChestBoatEntity> getChestBoatFactory(Supplier<Item> itemSupplier) {
+        return (type, world) -> new ChestBoatEntity(type, world, itemSupplier);
+    }
+    private static <T extends Entity> EntityType<T> register2(String id, EntityType.Builder<T> type) {
+        return register2(keyOf2(id), type);
+    }
+    private static RegistryKey<EntityType<?>> keyOf2(String id) {
+        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, NekomasFixed.id(id));
+    }
+    private static <T extends Entity> EntityType<T> register2(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
+        return Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
+    }
 
     public static final Item WHITE_BRICKS = register(BlockRegistry.WHITE_BRICKS);
     public static final Item ORANGE_BRICKS = register(BlockRegistry.ORANGE_BRICKS);
@@ -107,6 +168,57 @@ public class ItemRegistry {
     public static final Item GREEN_BRICKS = register(BlockRegistry.GREEN_BRICKS);
     public static final Item RED_BRICKS = register(BlockRegistry.RED_BRICKS);
     public static final Item BLACK_BRICKS = register(BlockRegistry.BLACK_BRICKS);
+
+    public static final Item WHITE_BRICK_SLAB = register(BlockRegistry.WHITE_BRICK_SLAB);
+    public static final Item ORANGE_BRICK_SLAB = register(BlockRegistry.ORANGE_BRICK_SLAB);
+    public static final Item MAGENTA_BRICK_SLAB = register(BlockRegistry.MAGENTA_BRICK_SLAB);
+    public static final Item LIGHT_BLUE_BRICK_SLAB = register(BlockRegistry.LIGHT_BLUE_BRICK_SLAB);
+    public static final Item YELLOW_BRICK_SLAB = register(BlockRegistry.YELLOW_BRICK_SLAB);
+    public static final Item LIME_BRICK_SLAB = register(BlockRegistry.LIME_BRICK_SLAB);
+    public static final Item PINK_BRICK_SLAB = register(BlockRegistry.PINK_BRICK_SLAB);
+    public static final Item GRAY_BRICK_SLAB = register(BlockRegistry.GRAY_BRICK_SLAB);
+    public static final Item LIGHT_GRAY_BRICK_SLAB = register(BlockRegistry.LIGHT_GRAY_BRICK_SLAB);
+    public static final Item CYAN_BRICK_SLAB = register(BlockRegistry.CYAN_BRICK_SLAB);
+    public static final Item PURPLE_BRICK_SLAB = register(BlockRegistry.PURPLE_BRICK_SLAB);
+    public static final Item BLUE_BRICK_SLAB = register(BlockRegistry.BLUE_BRICK_SLAB);
+    public static final Item BROWN_BRICK_SLAB = register(BlockRegistry.BROWN_BRICK_SLAB);
+    public static final Item GREEN_BRICK_SLAB = register(BlockRegistry.GREEN_BRICK_SLAB);
+    public static final Item RED_BRICK_SLAB = register(BlockRegistry.RED_BRICK_SLAB);
+    public static final Item BLACK_BRICK_SLAB = register(BlockRegistry.BLACK_BRICK_SLAB);
+
+    public static final Item WHITE_BRICK_STAIRS = register(BlockRegistry.WHITE_BRICK_STAIRS);
+    public static final Item ORANGE_BRICK_STAIRS = register(BlockRegistry.ORANGE_BRICK_STAIRS);
+    public static final Item MAGENTA_BRICK_STAIRS = register(BlockRegistry.MAGENTA_BRICK_STAIRS);
+    public static final Item LIGHT_BLUE_BRICK_STAIRS = register(BlockRegistry.LIGHT_BLUE_BRICK_STAIRS);
+    public static final Item YELLOW_BRICK_STAIRS = register(BlockRegistry.YELLOW_BRICK_STAIRS);
+    public static final Item LIME_BRICK_STAIRS = register(BlockRegistry.LIME_BRICK_STAIRS);
+    public static final Item PINK_BRICK_STAIRS = register(BlockRegistry.PINK_BRICK_STAIRS);
+    public static final Item GRAY_BRICK_STAIRS = register(BlockRegistry.GRAY_BRICK_STAIRS);
+    public static final Item LIGHT_GRAY_BRICK_STAIRS = register(BlockRegistry.LIGHT_GRAY_BRICK_STAIRS);
+    public static final Item CYAN_BRICK_STAIRS = register(BlockRegistry.CYAN_BRICK_STAIRS);
+    public static final Item PURPLE_BRICK_STAIRS = register(BlockRegistry.PURPLE_BRICK_STAIRS);
+    public static final Item BLUE_BRICK_STAIRS = register(BlockRegistry.BLUE_BRICK_STAIRS);
+    public static final Item BROWN_BRICK_STAIRS = register(BlockRegistry.BROWN_BRICK_STAIRS);
+    public static final Item GREEN_BRICK_STAIRS = register(BlockRegistry.GREEN_BRICK_STAIRS);
+    public static final Item RED_BRICK_STAIRS = register(BlockRegistry.RED_BRICK_STAIRS);
+    public static final Item BLACK_BRICK_STAIRS = register(BlockRegistry.BLACK_BRICK_STAIRS);
+
+    public static final Item WHITE_BRICK_WALL = register(BlockRegistry.WHITE_BRICK_WALL);
+    public static final Item ORANGE_BRICK_WALL = register(BlockRegistry.ORANGE_BRICK_WALL);
+    public static final Item MAGENTA_BRICK_WALL = register(BlockRegistry.MAGENTA_BRICK_WALL);
+    public static final Item LIGHT_BLUE_BRICK_WALL = register(BlockRegistry.LIGHT_BLUE_BRICK_WALL);
+    public static final Item YELLOW_BRICK_WALL = register(BlockRegistry.YELLOW_BRICK_WALL);
+    public static final Item LIME_BRICK_WALL = register(BlockRegistry.LIME_BRICK_WALL);
+    public static final Item PINK_BRICK_WALL = register(BlockRegistry.PINK_BRICK_WALL);
+    public static final Item GRAY_BRICK_WALL = register(BlockRegistry.GRAY_BRICK_WALL);
+    public static final Item LIGHT_GRAY_BRICK_WALL = register(BlockRegistry.LIGHT_GRAY_BRICK_WALL);
+    public static final Item CYAN_BRICK_WALL = register(BlockRegistry.CYAN_BRICK_WALL);
+    public static final Item PURPLE_BRICK_WALL = register(BlockRegistry.PURPLE_BRICK_WALL);
+    public static final Item BLUE_BRICK_WALL = register(BlockRegistry.BLUE_BRICK_WALL);
+    public static final Item BROWN_BRICK_WALL = register(BlockRegistry.BROWN_BRICK_WALL);
+    public static final Item GREEN_BRICK_WALL = register(BlockRegistry.GREEN_BRICK_WALL);
+    public static final Item RED_BRICK_WALL = register(BlockRegistry.RED_BRICK_WALL);
+    public static final Item BLACK_BRICK_WALL = register(BlockRegistry.BLACK_BRICK_WALL);
 
     public static final Item HOLLOW_OAK_LOG = register(BlockRegistry.HOLLOW_OAK_LOG);
     public static final Item HOLLOW_DARK_OAK_LOG = register(BlockRegistry.HOLLOW_DARK_OAK_LOG);

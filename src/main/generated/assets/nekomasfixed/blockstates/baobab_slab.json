@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nekomasfixed:block/baobab_slab"
+    },
+    "type=double": {
+      "model": "nekomasfixed:block/baobab_slab_double"
+    },
+    "type=top": {
+      "model": "nekomasfixed:block/baobab_slab_top"
+    }
+  }
+}

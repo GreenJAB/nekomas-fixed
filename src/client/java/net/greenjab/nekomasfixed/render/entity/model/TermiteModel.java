@@ -4,15 +4,10 @@ import net.greenjab.nekomasfixed.render.entity.animation.TermiteAnimations;
 import net.greenjab.nekomasfixed.render.entity.state.TermiteRenderState;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.SnifferAnimations;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class TermiteModel extends EntityModel<TermiteRenderState> {
-    public static final EntityModelLayer TERMITE = new EntityModelLayer(Identifier.of("nekomasfixed", "termite"), "main");
-
     private final ModelPart bone;
     private final ModelPart body;
     private final ModelPart sack;

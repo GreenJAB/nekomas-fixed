@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "shelf",
+  "key": {
+    "#": "nekomasfixed:baobab_log"
+  },
+  "pattern": [
+    "###",
+    "   ",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "nekomasfixed:baobab_shelf"
+  }
+}

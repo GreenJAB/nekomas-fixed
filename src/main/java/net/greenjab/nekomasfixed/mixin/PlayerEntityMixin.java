@@ -14,7 +14,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BiomeTags;
@@ -40,18 +40,21 @@ public class PlayerEntityMixin {
     private int tickCount = 0;
 
     @Unique
-    private void checkForEdibles(PlayerInventory inventory){
+    private void checkForEdibles(PlayerEntity PE){
+        tickCount--;
+        if (tickCount > 0) return;
         Random random = new Random();
-
-        if (tickCount < random.nextInt(20*40, 20*80)) return;
-        for (int i = 0; i < inventory.size(); i++) {
-            ItemStack stack = inventory.getStack(i);
-            if (!stack.isEmpty() && stack.isIn(OtherRegistry.FOOD_ITEMS)) {
-                ItemStack rotten = new ItemStack(Items.ROTTEN_FLESH, stack.getCount());
-                inventory.setStack(i, rotten);
+        Inventory inventory = PE.getInventory();
+        int i = random.nextInt(inventory.size());
+        ItemStack food = inventory.getStack(i);
+        if (!food.isEmpty() && food.isIn(OtherRegistry.FOOD_ITEMS)) {
+            food.decrement(1);
+            ItemStack rotten = new ItemStack(Items.ROTTEN_FLESH, food.getCount());
+            if (!PE.getInventory().insertStack(rotten.copy())) {
+                PE.dropItem(rotten, false);
             }
         }
-        tickCount = 0;
+        tickCount = random.nextInt(20*40, 20*80);
     }
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
     private void customTickLogics(CallbackInfo ci) {
@@ -63,8 +66,9 @@ public class PlayerEntityMixin {
             }
         }
         if (PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER)) {
-            this.tickCount++;
-            this.checkForEdibles(PE.getInventory());
+            if (!PE.isCreative()&&!PE.isSpectator()){
+                this.checkForEdibles(PE);
+            }
         }
         if (ModData.combos.containsKey(PE.getUuid())){
             int comboTimer = ModData.combos.get(PE.getUuid())-1;
