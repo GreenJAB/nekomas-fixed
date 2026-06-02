@@ -16,6 +16,9 @@ accessible field net/minecraft/entity/mob/MobEntity goalSelector Lnet/minecraft/
 accessible field net/minecraft/entity/mob/MobEntity targetSelector Lnet/minecraft/entity/ai/goal/GoalSelector;
 accessible method net/minecraft/client/render/entity/animation/Animation of (Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/render/entity/animation/AnimationDefinition;)Lnet/minecraft/client/render/entity/animation/Animation;
 accessible method net/minecraft/block/Block setDefaultState (Lnet/minecraft/block/BlockState;)V
+accessible field net/minecraft/client/render/block/entity/BedBlockEntityRenderer bedHead Lnet/minecraft/client/model/Model$SinglePartModel;
+accessible method net/minecraft/client/render/block/entity/BedBlockEntityRenderer renderPart (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/model/Model$SinglePartModel;Lnet/minecraft/util/math/Direction;Lnet/minecraft/client/util/SpriteIdentifier;IIZLnet/minecraft/client/render/command/ModelCommandRenderer$CrumblingOverlayCommand;I)V
+accessible field net/minecraft/client/render/block/entity/BedBlockEntityRenderer bedFoot Lnet/minecraft/client/model/Model$SinglePartModel;
 accessible method net/minecraft/entity/passive/BeeEntity setHasNectar (Z)V
 accessible class net/minecraft/entity/passive/DolphinEntity$LeadToNearbyTreasureGoal
 accessible class net/minecraft/entity/passive/DolphinEntity$SwimWithPlayerGoal

@@ -6,14 +6,26 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
-import net.greenjab.nekomasfixed.registry.registries.*;
+import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
+import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.*;
+import net.greenjab.nekomasfixed.render.entity.MoobloomEntityRenderer;
+import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
+import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
+import net.greenjab.nekomasfixed.render.entity.model.SuspiciousSpiderEntityModel;
+import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
@@ -93,11 +105,19 @@ public class NekomasFixedClient implements ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
             if (state != null) {
                 assert world != null;
-                return getTintIndex(world, pos, tintIndex);
+                return getTintIndex(state, world, pos, tintIndex);
             } else {
                 return 0;
             }
         }, BlockRegistry.SOUP_CAULDRON);
+
+//		EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TERMITE, TermiteModel::getTexturedModelData);
+		EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
+//		EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
+//		EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM_BABY, MoobloomEntityModel::getBabyTexturedModelData);
+		EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
+//		EntityModelLayerRegistry.registerModelLayer(SuspiciousSpiderEntityModel.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
+		EntityRendererFactories.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
 
 	}
 
@@ -107,7 +127,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 				.build();
 	}
 
-	private static int getTintIndex(BlockRenderView world, BlockPos pos, int tintIndex){
+	private static int getTintIndex(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex){
 		if(world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soupCauldronBlockEntity){
 			return tintIndex == 0 ? blendFoodColors(soupCauldronBlockEntity.getInputs()) : 0xFFFFFFFF;
 		}else{
