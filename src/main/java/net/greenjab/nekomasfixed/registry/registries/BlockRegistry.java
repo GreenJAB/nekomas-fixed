@@ -13,6 +13,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -165,6 +167,48 @@ public class BlockRegistry {
     public static final Block INDIGO_SHULKER_BOX = registerShulkerBoxBlock("indigo_shulker_box", DyeColor.MAGENTA);
     public static final Block MAROON_SHULKER_BOX = registerShulkerBoxBlock("maroon_shulker_box", DyeColor.RED);
 
+    public static final Block AMBER_SPOTTED_WOOL = register("amber_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block AQUA_SPOTTED_WOOL = register("aqua_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block INDIGO_SPOTTED_WOOL = register("indigo_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block MAROON_SPOTTED_WOOL = register("maroon_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.RED).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block WHITE_SPOTTED_WOOL = register("white_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.WHITE).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block ORANGE_SPOTTED_WOOL = register("orange_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block MAGENTA_SPOTTED_WOOL = register("magenta_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block LIGHT_BLUE_SPOTTED_WOOL = register("light_blue_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block YELLOW_SPOTTED_WOOL = register("yellow_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block LIME_SPOTTED_WOOL = register("lime_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.LIME).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block PINK_SPOTTED_WOOL = register("pink_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.PINK).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block GRAY_SPOTTED_WOOL = register("gray_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block LIGHT_GRAY_SPOTTED_WOOL = register("light_gray_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block CYAN_SPOTTED_WOOL = register("cyan_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.CYAN).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block PURPLE_SPOTTED_WOOL = register("purple_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block BLUE_SPOTTED_WOOL = register("blue_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.BLUE).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block BROWN_SPOTTED_WOOL = register("brown_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.BROWN).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block GREEN_SPOTTED_WOOL = register("green_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.GREEN).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block RED_SPOTTED_WOOL = register("red_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.RED).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block BLACK_SPOTTED_WOOL = register("black_spotted_wool", AbstractBlock.Settings.create().mapColor(MapColor.BLACK).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+
+    public static final Block AMBER_SPOTTED_CARPET = register("amber_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block AQUA_SPOTTED_CARPET = register("aqua_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block INDIGO_SPOTTED_CARPET = register("indigo_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block MAROON_SPOTTED_CARPET = register("maroon_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.RED).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block WHITE_SPOTTED_CARPET = register("white_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block ORANGE_SPOTTED_CARPET = register("orange_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block MAGENTA_SPOTTED_CARPET = register("magenta_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block LIGHT_BLUE_SPOTTED_CARPET = register("light_blue_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block YELLOW_SPOTTED_CARPET = register("yellow_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block LIME_SPOTTED_CARPET = register("lime_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIME).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block PINK_SPOTTED_CARPET = register("pink_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PINK).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block GRAY_SPOTTED_CARPET = register("gray_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block LIGHT_GRAY_SPOTTED_CARPET = register("light_gray_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block CYAN_SPOTTED_CARPET = register("cyan_spotted_carpet", CarpetBlock::new,AbstractBlock.Settings.create().mapColor(MapColor.CYAN).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block PURPLE_SPOTTED_CARPET = register("purple_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block BLUE_SPOTTED_CARPET = register("blue_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.BLUE).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block BROWN_SPOTTED_CARPET = register("brown_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.BROWN).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block GREEN_SPOTTED_CARPET = register("green_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GREEN).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block RED_SPOTTED_CARPET = register("red_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.RED).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+    public static final Block BLACK_SPOTTED_CARPET = register("black_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.BLACK).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
 
     private static Block register(String id, AbstractBlock.Settings settings) {
@@ -228,7 +272,6 @@ public class BlockRegistry {
                         .pistonBehavior(PistonBehavior.DESTROY)
         );
     }
-
     public static void registerBlocks() {
         System.out.println("register Blocks");
     }

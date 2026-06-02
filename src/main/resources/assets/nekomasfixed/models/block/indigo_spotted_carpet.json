@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "nekomasfixed:block/indigo_spotted_wool"
+  }
+}

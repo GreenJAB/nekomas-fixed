@@ -51,6 +51,9 @@
     "wildfire.NetherFortressGeneratorMixin",
     "wildfire.SmallFireballEntityMixin",
     "wildfire.SnowballEntityMixin"
+    "SheepEntityMixin",
+    "EatGrassGoalMixin",
+    "EntityDropMixin",
   ],
   "injectors": {
     "defaultRequire": 1
