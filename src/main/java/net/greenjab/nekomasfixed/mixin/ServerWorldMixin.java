@@ -46,7 +46,7 @@ public abstract class ServerWorldMixin {
             if (world.getTime() > entry.getValue()) {
                 BlockPos pos = entry.getKey();
                 BlockState b = world.getBlockState(pos);
-                if (!b.isOf(Blocks.VOID_AIR)) {
+                if (!b.isAir()) {
                     wireIterator.remove();
                     b.neighborUpdate(world, pos, Blocks.AIR, null, true);
                     world.updateNeighbors(pos, b.getBlock());
