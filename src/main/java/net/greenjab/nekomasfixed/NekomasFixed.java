@@ -57,7 +57,7 @@ public class NekomasFixed implements ModInitializer {
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
 
-		System.out.println(new StatusEffectInstance(StatusEffects.STRENGTH, 20*15, 1, false, false) + " \n");
+		System.out.println(Blocks.RED_BED.getTranslationKey());
 
 		UseBlockCallback.EVENT.register((PlayerEntity player, World world, Hand hand, BlockHitResult hit) -> {
 			BlockPos pos = hit.getBlockPos();
@@ -87,7 +87,6 @@ public class NekomasFixed implements ModInitializer {
 				else if(!blockEntity.canBePicked() && stack.isOf(Items.STICK) && (world.getBlockState(pos.down()).isIn(BlockTags.FIRE) || world.getBlockState(pos.down()).isIn(BlockTags.CAMPFIRES))){
 					//i am putting the condition here too -> if the player breaks the fire block... the soup cauldron can still be filled with ingredients but for mixing he should a fire block beneath the soup cauldron
 					blockEntity.setHasStirred(true);
-					System.out.println(blockEntity.hasStirred);
 					return ActionResult.SUCCESS;
 				}
 				else if(stack.isOf(Items.BOWL) && blockEntity.hasStirred){

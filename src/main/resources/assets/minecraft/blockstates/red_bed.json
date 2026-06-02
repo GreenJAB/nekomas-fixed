@@ -4,7 +4,7 @@
       "model": "minecraft:block/bed"
     },
     "is_messy=true": {
-      "model": "nekomasfixed:entity/bed/red_messy"
+      "model": "minecraft:block/bed"
     }
   }
 }

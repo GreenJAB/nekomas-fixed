@@ -111,12 +111,12 @@ public class NekomasFixedClient implements ClientModInitializer {
             }
         }, BlockRegistry.SOUP_CAULDRON);
 
-		EntityModelLayerRegistry.registerModelLayer(TermiteModel.TERMITE, TermiteModel::getTexturedModelData);
+//		EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TERMITE, TermiteModel::getTexturedModelData);
 		EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(MoobloomEntityModel.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(MoobloomEntityModel.MOOBLOOM_BABY, MoobloomEntityModel::getBabyTexturedModelData);
+//		EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
+//		EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM_BABY, MoobloomEntityModel::getBabyTexturedModelData);
 		EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(SuspiciousSpiderEntityModel.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
+//		EntityModelLayerRegistry.registerModelLayer(SuspiciousSpiderEntityModel.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
 		EntityRendererFactories.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
 
 	}

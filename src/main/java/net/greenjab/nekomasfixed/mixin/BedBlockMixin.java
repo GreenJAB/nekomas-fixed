@@ -12,6 +12,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -46,6 +47,7 @@ public class BedBlockMixin implements MessyBedAccessor {
                 BlockState otherState = world.getBlockState(otherPos);
                 world.setBlockState(pos, state.with(MessyBedAccessor.IS_MESSY, false));
                 world.setBlockState(otherPos, otherState.with(MessyBedAccessor.IS_MESSY, false));
+                player.swingHand(Hand.MAIN_HAND, true);
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
             }

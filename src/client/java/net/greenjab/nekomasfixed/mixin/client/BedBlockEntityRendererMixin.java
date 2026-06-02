@@ -6,7 +6,6 @@ import net.greenjab.nekomasfixed.registries.TextureRenderLayerRegistry;
 import net.greenjab.nekomasfixed.util.CustomBedTextureHolder;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.MessyBedAccessor;
-import net.greenjab.nekomasfixed.util.MessyBedStateAccessor;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BedBlockEntityRenderer;
