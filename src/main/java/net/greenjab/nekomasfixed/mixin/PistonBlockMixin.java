@@ -1,22 +1,21 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.item.RedstoneStrikerItem;
+import net.minecraft.block.PistonBlock;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.RedstoneController;
-import net.minecraft.world.World;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.RedstoneView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(RedstoneController.class)
-public class RedstoneControllerMixin {
-    @Inject(method = "calculateWirePowerAt", at = @At("HEAD"), cancellable = true)
-    protected void powerWire(World world, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
+@Mixin(PistonBlock.class)
+public class PistonBlockMixin {
+    @Inject(method = "shouldExtend", at = @At("HEAD"), cancellable = true)
+    protected void powerPiston(RedstoneView world, BlockPos pos, Direction pistonFace, CallbackInfoReturnable<Boolean> cir) {
         if (RedstoneStrikerItem.STRUCK_WIRES.containsKey(pos)) {
-            cir.setReturnValue(15);
+            cir.setReturnValue(true);
         }
     }
-
-
 }

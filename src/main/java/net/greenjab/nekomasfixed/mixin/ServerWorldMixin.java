@@ -4,7 +4,6 @@ import net.greenjab.nekomasfixed.registry.item.RedstoneStrikerItem;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LightningEntity;
@@ -12,12 +11,10 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
@@ -28,56 +25,34 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
 @Mixin(ServerWorld.class)
-abstract class ServerWorldMixin {
+public abstract class ServerWorldMixin {
     @Shadow
     public abstract @Nullable ServerPlayerEntity getRandomAlivePlayer();
 
-    @Shadow
-    public abstract <T extends ParticleEffect> int spawnParticles(T parameters, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double speed);
-
     @Inject(method = "tick", at = @At("HEAD"))
-    private void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
+    private void depowerRedstoneStruckBlocks(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         ServerWorld world = ((ServerWorld)(Object)this);
         Iterator<Map.Entry<BlockPos, Long>> wireIterator =
                 RedstoneStrikerItem.STRUCK_WIRES.entrySet().iterator();
 
         while (wireIterator.hasNext()) {
             Map.Entry<BlockPos, Long> entry = wireIterator.next();
-            BlockPos pos = entry.getKey();
-            if (world.getTime() > entry.getValue() && world.getBlockState(pos).isOf(Blocks.REDSTONE_WIRE)) {
-                wireIterator.remove();
-                world.setBlockState(pos, world.getBlockState(pos).with(RedstoneWireBlock.POWER, 0));
-                world.updateNeighbors(pos, Blocks.REDSTONE_WIRE);
+            if (world.getTime() > entry.getValue()) {
+                BlockPos pos = entry.getKey();
+                BlockState b = world.getBlockState(pos);
+                if (!b.isOf(Blocks.VOID_AIR)) {
+                    wireIterator.remove();
+                    b.neighborUpdate(world, pos, Blocks.AIR, null, true);
+                    world.updateNeighbors(pos, b.getBlock());
+                }
             }
         }
-//        Iterator<Map.Entry<BlockPos, Long>> blockIterator = RedstoneStrikerItem.STRUCK_BLOCKS.entrySet().iterator();
-//
-//        while (blockIterator.hasNext()) {
-//            Map.Entry<BlockPos, Long> entry = blockIterator.next();
-//            BlockPos pos = entry.getKey();
-//
-//            if (world.getTime() > entry.getValue()) {
-//                blockIterator.remove();
-//                world.setBlockState(pos, world.getBlockState(pos));
-//                BlockState state = world.getBlockState(pos);
-//                world.shouldTickBlockAt(pos);
-//                System.out.println("REMOVED");
-//                for (Direction dir : Direction.values()) {
-//                    BlockPos neighborPos = pos.offset(dir);
-//                    world.updateNeighbor(neighborPos, world.getBlockState(neighborPos).getBlock(), null);
-//                    world.updateNeighborsAlways(neighborPos, world.getBlockState(neighborPos).getBlock(), null);
-//                }
-//                world.updateNeighborsAlways(pos, state.getBlock(), null);
-//            }
-//        }
-
     }
 
     @Inject(method = "tickThunder", at = @At("HEAD"))
