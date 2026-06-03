@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=north,torch=none": { "model": "nekomasfixed:block/horn" },
+    "facing=south,torch=none": { "model": "nekomasfixed:block/horn", "y": 180 },
+    "facing=west,torch=none":  { "model": "nekomasfixed:block/horn", "y": 270 },
+    "facing=east,torch=none":  { "model": "nekomasfixed:block/horn", "y": 90 },
+
+    "facing=north,torch=torch": { "model": "nekomasfixed:block/horn_torch" },
+    "facing=south,torch=torch": { "model": "nekomasfixed:block/horn_torch", "y": 180 },
+    "facing=west,torch=torch":  { "model": "nekomasfixed:block/horn_torch", "y": 270 },
+    "facing=east,torch=torch":  { "model": "nekomasfixed:block/horn_torch", "y": 90 },
+
+    "facing=north,torch=glow_torch": { "model": "nekomasfixed:block/horn_glow_torch" },
+    "facing=south,torch=glow_torch": { "model": "nekomasfixed:block/horn_glow_torch", "y": 180 },
+    "facing=west,torch=glow_torch":  { "model": "nekomasfixed:block/horn_glow_torch", "y": 270 },
+    "facing=east,torch=glow_torch":  { "model": "nekomasfixed:block/horn_glow_torch", "y": 90 },
+
+    "facing=north,torch=soulfire_torch": { "model": "nekomasfixed:block/horn_soul_torch" },
+    "facing=south,torch=soulfire_torch": { "model": "nekomasfixed:block/horn_soul_torch", "y": 180 },
+    "facing=west,torch=soulfire_torch":  { "model": "nekomasfixed:block/horn_soul_torch", "y": 270 },
+    "facing=east,torch=soulfire_torch":  { "model": "nekomasfixed:block/horn_soul_torch", "y": 90 },
+
+    "facing=north,torch=copper_torch": { "model": "nekomasfixed:block/horn_copper_torch" },
+    "facing=south,torch=copper_torch": { "model": "nekomasfixed:block/horn_copper_torch", "y": 180 },
+    "facing=west,torch=copper_torch":  { "model": "nekomasfixed:block/horn_copper_torch", "y": 270 },
+    "facing=east,torch=copper_torch":  { "model": "nekomasfixed:block/horn_copper_torch", "y": 90 },
+
+    "facing=north,torch=redstone_torch": { "model": "nekomasfixed:block/horn_redstone_torch" },
+    "facing=south,torch=redstone_torch": { "model": "nekomasfixed:block/horn_redstone_torch", "y": 180 },
+    "facing=west,torch=redstone_torch":  { "model": "nekomasfixed:block/horn_redstone_torch", "y": 270 },
+    "facing=east,torch=redstone_torch":  { "model": "nekomasfixed:block/horn_redstone_torch", "y": 90 },
+
+    "facing=north,torch=glow_torch_off": { "model": "nekomasfixed:block/horn_glow_torch_off" },
+    "facing=south,torch=glow_torch_off": { "model": "nekomasfixed:block/horn_glow_torch_off", "y": 180 },
+    "facing=west,torch=glow_torch_off":  { "model": "nekomasfixed:block/horn_glow_torch_off", "y": 270 },
+    "facing=east,torch=glow_torch_off":  { "model": "nekomasfixed:block/horn_glow_torch_off", "y": 90 }
+
+
+  }
+}

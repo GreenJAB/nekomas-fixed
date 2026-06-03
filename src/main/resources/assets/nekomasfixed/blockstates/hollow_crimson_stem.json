@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "nekomasfixed:block/hollow_crimson_stem",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "nekomasfixed:block/hollow_crimson_stem"
+    },
+    "axis=z": {
+      "model": "nekomasfixed:block/hollow_crimson_stem",
+      "x": 90
+    }
+  }
+}

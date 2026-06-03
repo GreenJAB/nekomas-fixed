@@ -1,8 +1,32 @@
 package net.greenjab.nekomasfixed.util;
 
-public record ModColors(String name, int color) {
+import net.minecraft.util.StringIdentifiable;
+
+public class ModColors implements StringIdentifiable {
     public static final ModColors AMBER = new ModColors("amber", 0xE0AF0B);
     public static final ModColors AQUA = new ModColors("aqua", 0xA6CEC7);
     public static final ModColors INDIGO = new ModColors("indigo", 0xFF453C8F);
-    public static final ModColors MAROON = new ModColors("maroon", 0xFFA62D10);
+    public static final ModColors CRIMSON = new ModColors("crimson", 0xFFA62D10);
+
+    private final String name;
+    private final int color;
+
+
+    public ModColors(String name, int color){
+        this.name = name;
+        this.color = color;
+    }
+
+    public  String getName(){
+        return name;
+    }
+
+    public  int getColor(){
+        return color;
+    }
+
+    @Override
+    public String asString() {
+        return this.name;
+    }
 }

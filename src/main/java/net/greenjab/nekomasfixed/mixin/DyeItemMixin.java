@@ -53,6 +53,7 @@ public class DyeItemMixin {
         }
         sign.setText(signText, front);
         sign.markDirty();
+        assert sign.getWorld() != null;
         sign.getWorld().updateListeners(
                 sign.getPos(),
                 sign.getCachedState(),

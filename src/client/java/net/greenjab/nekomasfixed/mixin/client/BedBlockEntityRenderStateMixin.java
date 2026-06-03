@@ -1,14 +1,16 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import net.greenjab.nekomasfixed.util.CustomBedTextureHolder;
+import net.greenjab.nekomasfixed.util.MessyBedStateAccessor;
 import net.minecraft.client.render.block.entity.state.BedBlockEntityRenderState;
 import net.minecraft.client.util.SpriteIdentifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(BedBlockEntityRenderState.class)
-public class BedBlockEntityRenderStateMixin implements CustomBedTextureHolder {
-
+public class BedBlockEntityRenderStateMixin implements CustomBedTextureHolder, MessyBedStateAccessor {
+    @Unique
+    private boolean isMessy = false;
     @Unique
     private SpriteIdentifier nekomasfixed$customTexture;
 
@@ -21,4 +23,12 @@ public class BedBlockEntityRenderStateMixin implements CustomBedTextureHolder {
     public SpriteIdentifier nekomasfixed$getCustomTexture() {
         return nekomasfixed$customTexture;
     }
+
+    @Override
+    public boolean isMessy() {
+        return isMessy;
+    }
+
+    @Override
+    public void setMessy(boolean val){this.isMessy = val;}
 }

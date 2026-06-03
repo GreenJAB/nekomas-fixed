@@ -1,24 +1,49 @@
 {
-  "format_version": "1.21.11",
-  "credit": "Made with Blockbench",
-  "parent": "block/block",
-  "textures": {
-    "2": "nekomasfixed:block/rope_connected",
-    "particle": "minecraft:block/oak_log"
-  },
-  "elements": [
-    {
-      "from": [7, 0, 7],
-      "to": [9, 16, 9],
-      "rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
-      "faces": {
-        "north": {"uv": [0, 0, 2, 16], "texture": "#2"},
-        "east": {"uv": [0, 0, 2, 16], "texture": "#2"},
-        "south": {"uv": [0, 0, 2, 16], "texture": "#2"},
-        "west": {"uv": [0, 0, 2, 16], "texture": "#2"},
-        "up": {"uv": [4, 2, 2, 0], "texture": "#2"},
-        "down": {"uv": [4, 0, 2, 2], "texture": "#2"}
-      }
-    }
-  ]
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"texture_size": [34, 51],
+	"textures": {
+		"0": "nekomasfixed:block/rope",
+		"particle": "nekomasfixed:block/rope"
+
+	},
+	"elements": [
+		{
+			"from": [7, 0, 7],
+			"to": [9, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0.47059, 10.66667, 1.41176, 15.68627], "texture": "#0"},
+				"east": {"uv": [0.47059, 10.66667, 1.41176, 15.68627], "texture": "#0"},
+				"south": {"uv": [0.47059, 10.66667, 1.41176, 15.68627], "texture": "#0"},
+				"west": {"uv": [0.47059, 10.66667, 1.41176, 15.68627], "texture": "#0"},
+				"up": {"uv": [1.41176, 11.29412, 0.47059, 10.66667], "texture": "#0"},
+				"down": {"uv": [1.41176, 11.29412, 0.47059, 11.92157], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "bone",
+			"origin": [8, 0, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				{
+					"name": "top",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 0,
+					"children": []
+				},
+				{
+					"name": "bottom",
+					"origin": [8, 0, 8],
+					"scope": 0,
+					"color": 0,
+					"children": [0]
+				}
+			]
+		}
+	]
 }

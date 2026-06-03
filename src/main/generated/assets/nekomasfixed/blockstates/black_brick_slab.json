@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nekomasfixed:block/black_brick_slab"
+    },
+    "type=double": {
+      "model": "nekomasfixed:block/black_brick_slab_double"
+    },
+    "type=top": {
+      "model": "nekomasfixed:block/black_brick_slab_top"
+    }
+  }
+}

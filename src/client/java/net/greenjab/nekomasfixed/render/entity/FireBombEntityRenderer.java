@@ -45,7 +45,7 @@ public class FireBombEntityRenderer extends EntityRenderer<FireBombEntity, Entit
 		super.render(renderState, matrices, queue, cameraState);
 	}
 
-	private static void produceVertex(VertexConsumer vertexConsumer, MatrixStack.Entry matrix, int light, float x, int z, int textureU, int textureV) {
+	public static void produceVertex(VertexConsumer vertexConsumer, MatrixStack.Entry matrix, int light, float x, int z, int textureU, int textureV) {
 		vertexConsumer.vertex(matrix, x - 0.5F, z - 0.25F, 0.0F)
 				.color(Colors.WHITE)
 				.texture(textureU, textureV)

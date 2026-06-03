@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.render.block.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registry.block.AbstractEndermanHeadBlock;
 import net.greenjab.nekomasfixed.registry.block.FloorEndermanHeadHead;
 import net.greenjab.nekomasfixed.registry.block.WallEndermanHeadHead;
@@ -36,8 +36,8 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
 	private static final Identifier TEXTURE_EYES = Identifier.ofVanilla("textures/entity/enderman/enderman_eyes.png");
 
 	public EndermanHeadBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
-		this.endermanHeadModel = new EndermanHeadBlockModel<>(context.getLayerModelPart(EntityModelLayerRegistry.ENDERMAN_HEAD));
-		this.endermanEyesModel = new EndermanEyesBlockModel<>(context.getLayerModelPart(EntityModelLayerRegistry.ENDERMAN_HEAD));
+		this.endermanHeadModel = new EndermanHeadBlockModel<>(context.getLayerModelPart(ModEntityLayerRegistry.ENDERMAN_HEAD));
+		this.endermanEyesModel = new EndermanEyesBlockModel<>(context.getLayerModelPart(ModEntityLayerRegistry.ENDERMAN_HEAD));
 	}
 
 

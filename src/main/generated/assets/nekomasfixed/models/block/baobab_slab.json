@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "nekomasfixed:block/baobab_planks",
+    "side": "nekomasfixed:block/baobab_planks",
+    "top": "nekomasfixed:block/baobab_planks"
+  }
+}

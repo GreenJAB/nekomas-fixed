@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
     private void interactAt(PlayerEntity player, Vec3d hitPos, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if(player!=null && player.isSneaking()){
             ArmorStandEntity armorStandEntity = (ArmorStandEntity) (Object) this;
+            player.swingHand(hand, true);
             if(armorStandEntity.getEquippedStack(EquipmentSlot.HEAD).isIn(ItemTags.HEAD_ARMOR) || player.getEquippedStack(EquipmentSlot.HEAD).isIn(ItemTags.HEAD_ARMOR)){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.HEAD);
                 armorStandEntity.equipStack(EquipmentSlot.HEAD, player.getEquippedStack(EquipmentSlot.HEAD));
@@ -43,7 +44,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
                 player.equipStack(EquipmentSlot.FEET, tempItem);
                 cir.setReturnValue(ActionResult.SUCCESS);
             }
-            //this doesnt works but at the moment i am too lazy to remove it - plz let it stay
+            //this doesnt work but at the moment i am too lazy to remove it - plz let it stay
             if(!armorStandEntity.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty() && !player.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty()){
                 ItemStack tempItem = armorStandEntity.getEquippedStack(EquipmentSlot.MAINHAND);
                 armorStandEntity.equipStack(EquipmentSlot.MAINHAND, player.getEquippedStack(EquipmentSlot.MAINHAND));

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nekomasfixed:item/purple_dyed_brush"
+  }
+}

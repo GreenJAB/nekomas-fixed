@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "is_messy=false": {
+      "model": "minecraft:block/bed"
+    },
+    "is_messy=true": {
+      "model": "minecraft:block/bed"
+    }
+  }
+}

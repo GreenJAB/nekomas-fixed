@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_right",
+  "textures": {
+    "all": "nekomasfixed:block/baobab_shelf",
+    "particle": "nekomasfixed:block/baobab_log"
+  }
+}

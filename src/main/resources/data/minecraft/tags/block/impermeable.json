@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "nekomasfixed:amber_stained_glass",
+    "nekomasfixed:aqua_stained_glass",
+    "nekomasfixed:indigo_stained_glass",
+    "nekomasfixed:crimson_stained_glass"
+  ]
+}

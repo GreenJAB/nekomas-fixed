@@ -45,7 +45,9 @@ public class WildFireJumpTask extends MultiTickTask<WildFireEntity> {
 			if (livingEntity == null) {
 				return false;
 			} else {
-				BlockPos blockPos = livingEntity.getBlockPos().add(0, 4, 0);
+				BlockPos blockPos = wildFire.getSpawnPos().add(0, 3, 0);
+				if (!blockPos.isWithinDistance(wildFire.getBlockPos(), 15))
+					blockPos = livingEntity.getBlockPos().add(0, 4, 0);
                 if (blockPos == null) {
 					return false;
 				} else {
@@ -102,7 +104,7 @@ public class WildFireJumpTask extends MultiTickTask<WildFireEntity> {
 			wildFireEntity.setVelocity(vec3d);
 		} else if (shouldStopLongJumpingPose(wildFireEntity)) {
 			wildFireEntity.setVelocity(0, 0, 0);
-			wildFireEntity.eyeOffset = -4;
+			wildFireEntity.eyeOffset = -3;
 			wildFireEntity.playSound(SoundEvents.ENTITY_BREEZE_LAND, 1.0F, 1.0F);
 			wildFireEntity.setNoDrag(false);
 			boolean bl2 = wildFireEntity.getBrain().hasMemoryModule(MemoryModuleType.HURT_BY);
@@ -117,18 +119,18 @@ public class WildFireJumpTask extends MultiTickTask<WildFireEntity> {
 		Vec3d vec3d4 = vec3d3.subtract(vec3d);
 
 		double h = vec3d4.y;
-		double i = entity.getFinalGravity();
-		double s1 = Math.sqrt(2*i*h);
-		double r1 = i*vec3d4.horizontalLength()/s1;
+		double g = entity.getFinalGravity();
+		double vy = Math.sqrt(2* g *h);
+		double vx = g *vec3d4.horizontalLength()/ vy;
 
 		double d = Math.atan2(vec3d4.z, vec3d4.x);
 		double n = Math.sin(d);
 		double o = Math.cos(d);
 
-		if (s1/r1 < 0.6) {
+		if (vy / vx < 0.3) {
 			return Optional.empty();
 		} else {
-			return Optional.of(new Vec3d(r1 * o, s1, r1 * n).multiply(0.95F));
+			return Optional.of(new Vec3d(vx * o, vy, vx * n).multiply(0.95F));
 		}
 	}
 

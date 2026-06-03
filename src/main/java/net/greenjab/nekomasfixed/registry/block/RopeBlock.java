@@ -6,6 +6,7 @@ import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -45,7 +46,7 @@ public class RopeBlock extends Block implements Waterloggable {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
-        boolean connected = world.getBlockState(pos.up()).isOf(BlockRegistry.ROPE);
+        boolean connected = world.getBlockState(pos.up()).isOf(BlockRegistry.ROPE)|| world.getBlockState(pos.up()).isIn(BlockTags.LEAVES);
         return this.getDefaultState()
                 .with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER)
                 .with(ATTACHED, connected);
@@ -62,7 +63,7 @@ public class RopeBlock extends Block implements Waterloggable {
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.up());
-        return blockState.isOf(BlockRegistry.ROPE) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
+        return blockState.isOf(BlockRegistry.ROPE) || blockState.isIn(BlockTags.LEAVES) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
     }
 
     @Override

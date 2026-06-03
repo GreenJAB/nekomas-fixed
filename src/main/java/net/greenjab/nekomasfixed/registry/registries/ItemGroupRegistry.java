@@ -28,8 +28,6 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.ZOMBIE_NAUTILUS_BLOCK);
                         entries.add(ItemRegistry.CORAL_NAUTILUS_BLOCK);
                          entries.add(ItemRegistry.KILN);
-                         entries.add(ItemRegistry.BOABAB_SAPLING);
-                         entries.add(ItemRegistry.BOABAB_LOG);
                          entries.add(ItemRegistry.ROPE_ITEM);
                          entries.add(ItemRegistry.GLOW_TORCH);
                         entries.add(ItemRegistry.TURTLE_CHESTPLATE);
@@ -39,6 +37,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
 
                         entries.add(ItemRegistry.WILD_FIRE_SPAWN_EGG);
+                        entries.add(ItemRegistry.SUS_SPIDER_SPAWN_EGG);
                         entries.add(ItemRegistry.NETHER_HEART);
                         entries.add(ItemRegistry.SOULFIRE_TRIDENT);
                         entries.add(ItemRegistry.SOULFIRE_SHIELD);
@@ -126,6 +125,128 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.INDIGO_HARNESS);
                          entries.add(ItemRegistry.MAROON_HARNESS);
 
+                         entries.add(ItemRegistry.WHITE_BRICKS);
+                         entries.add(ItemRegistry.ORANGE_BRICKS);
+                         entries.add(ItemRegistry.MAGENTA_BRICKS);
+                         entries.add(ItemRegistry.LIGHT_BLUE_BRICKS);
+                         entries.add(ItemRegistry.YELLOW_BRICKS);
+                         entries.add(ItemRegistry.LIME_BRICKS);
+                         entries.add(ItemRegistry.PINK_BRICKS);
+                         entries.add(ItemRegistry.GRAY_BRICKS);
+                         entries.add(ItemRegistry.LIGHT_GRAY_BRICKS);
+                         entries.add(ItemRegistry.CYAN_BRICKS);
+                         entries.add(ItemRegistry.PURPLE_BRICKS);
+                         entries.add(ItemRegistry.BLUE_BRICKS);
+                         entries.add(ItemRegistry.BROWN_BRICKS);
+                         entries.add(ItemRegistry.GREEN_BRICKS);
+                         entries.add(ItemRegistry.RED_BRICKS);
+                         entries.add(ItemRegistry.BLACK_BRICKS);
+
+                         entries.add(ItemRegistry.WHITE_BRICK_SLAB);
+                         entries.add(ItemRegistry.ORANGE_BRICK_SLAB);
+                         entries.add(ItemRegistry.MAGENTA_BRICK_SLAB);
+                         entries.add(ItemRegistry.LIGHT_BLUE_BRICK_SLAB);
+                         entries.add(ItemRegistry.YELLOW_BRICK_SLAB);
+                         entries.add(ItemRegistry.LIME_BRICK_SLAB);
+                         entries.add(ItemRegistry.PINK_BRICK_SLAB);
+                         entries.add(ItemRegistry.GRAY_BRICK_SLAB);
+                         entries.add(ItemRegistry.LIGHT_GRAY_BRICK_SLAB);
+                         entries.add(ItemRegistry.CYAN_BRICK_SLAB);
+                         entries.add(ItemRegistry.PURPLE_BRICK_SLAB);
+                         entries.add(ItemRegistry.BLUE_BRICK_SLAB);
+                         entries.add(ItemRegistry.BROWN_BRICK_SLAB);
+                         entries.add(ItemRegistry.GREEN_BRICK_SLAB);
+                         entries.add(ItemRegistry.RED_BRICK_SLAB);
+                         entries.add(ItemRegistry.BLACK_BRICK_SLAB);
+
+                         entries.add(ItemRegistry.WHITE_BRICK_STAIRS);
+                         entries.add(ItemRegistry.ORANGE_BRICK_STAIRS);
+                         entries.add(ItemRegistry.MAGENTA_BRICK_STAIRS);
+                         entries.add(ItemRegistry.LIGHT_BLUE_BRICK_STAIRS);
+                         entries.add(ItemRegistry.YELLOW_BRICK_STAIRS);
+                         entries.add(ItemRegistry.LIME_BRICK_STAIRS);
+                         entries.add(ItemRegistry.PINK_BRICK_STAIRS);
+                         entries.add(ItemRegistry.GRAY_BRICK_STAIRS);
+                         entries.add(ItemRegistry.LIGHT_GRAY_BRICK_STAIRS);
+                         entries.add(ItemRegistry.CYAN_BRICK_STAIRS);
+                         entries.add(ItemRegistry.PURPLE_BRICK_STAIRS);
+                         entries.add(ItemRegistry.BLUE_BRICK_STAIRS);
+                         entries.add(ItemRegistry.BROWN_BRICK_STAIRS);
+                         entries.add(ItemRegistry.GREEN_BRICK_STAIRS);
+                         entries.add(ItemRegistry.RED_BRICK_STAIRS);
+                         entries.add(ItemRegistry.BLACK_BRICK_STAIRS);
+
+                         entries.add(ItemRegistry.WHITE_BRICK_WALL);
+                         entries.add(ItemRegistry.ORANGE_BRICK_WALL);
+                         entries.add(ItemRegistry.MAGENTA_BRICK_WALL);
+                         entries.add(ItemRegistry.LIGHT_BLUE_BRICK_WALL);
+                         entries.add(ItemRegistry.YELLOW_BRICK_WALL);
+                         entries.add(ItemRegistry.LIME_BRICK_WALL);
+                         entries.add(ItemRegistry.PINK_BRICK_WALL);
+                         entries.add(ItemRegistry.GRAY_BRICK_WALL);
+                         entries.add(ItemRegistry.LIGHT_GRAY_BRICK_WALL);
+                         entries.add(ItemRegistry.CYAN_BRICK_WALL);
+                         entries.add(ItemRegistry.PURPLE_BRICK_WALL);
+                         entries.add(ItemRegistry.BLUE_BRICK_WALL);
+                         entries.add(ItemRegistry.BROWN_BRICK_WALL);
+                         entries.add(ItemRegistry.GREEN_BRICK_WALL);
+                         entries.add(ItemRegistry.RED_BRICK_WALL);
+                         entries.add(ItemRegistry.BLACK_BRICK_WALL);
+
+                         //new things
+                      entries.add(BlockRegistry.BAOBAB_SAPLING);
+                      entries.add(BlockRegistry.BAOBAB_PLANKS);
+                      entries.add(BlockRegistry.BAOBAB_LOG);
+                      entries.add(BlockRegistry.BAOBAB_WOOD);
+                      entries.add(ItemRegistry.BAOBAB_SIGN);
+                      entries.add(ItemRegistry.BAOBAB_HANGING_SIGN);
+                      entries.add(BlockRegistry.BAOBAB_PRESSURE_PLATE);
+                      entries.add(BlockRegistry.BAOBAB_TRAPDOOR);
+                      entries.add(BlockRegistry.BAOBAB_BUTTON);
+                      entries.add(BlockRegistry.BAOBAB_STAIRS);
+                      entries.add(BlockRegistry.BAOBAB_SLAB);
+                      entries.add(BlockRegistry.BAOBAB_FENCE_GATE);
+                      entries.add(BlockRegistry.BAOBAB_FENCE);
+                      entries.add(BlockRegistry.BAOBAB_DOOR);
+                      entries.add(ItemRegistry.BAOBAB_BOAT);
+                      entries.add(ItemRegistry.BAOBAB_CHEST_BOAT);
+                      entries.add(ItemRegistry.BAOBAB_SHELF);
+                      
+                         entries.add(ItemRegistry.TERMITE_BLOCK);
+                         entries.add(ItemRegistry.TERMITE_HIVE);
+                         entries.add(ItemRegistry.TERMITE_SPAWN_EGG);
+
+                         entries.add(ItemRegistry.WHITE_DYED_BRUSH);
+                         entries.add(ItemRegistry.ORANGE_DYED_BRUSH);
+                         entries.add(ItemRegistry.MAGENTA_DYED_BRUSH);
+                         entries.add(ItemRegistry.LIGHT_BLUE_DYED_BRUSH);
+                         entries.add(ItemRegistry.YELLOW_DYED_BRUSH);
+                         entries.add(ItemRegistry.LIME_DYED_BRUSH);
+                         entries.add(ItemRegistry.PINK_DYED_BRUSH);
+                         entries.add(ItemRegistry.GRAY_DYED_BRUSH);
+                         entries.add(ItemRegistry.LIGHT_GRAY_DYED_BRUSH);
+                         entries.add(ItemRegistry.CYAN_DYED_BRUSH);
+                         entries.add(ItemRegistry.PURPLE_DYED_BRUSH);
+                         entries.add(ItemRegistry.BLUE_DYED_BRUSH);
+                         entries.add(ItemRegistry.BROWN_DYED_BRUSH);
+                         entries.add(ItemRegistry.GREEN_DYED_BRUSH);
+                         entries.add(ItemRegistry.RED_DYED_BRUSH);
+                         entries.add(ItemRegistry.BLACK_DYED_BRUSH);
+
+                         entries.add(ItemRegistry.REDSTONE_STRIKER);
+                         entries.add(ItemRegistry.GEYSER);
+                         entries.add(ItemRegistry.MOOBLOOM_SPAWN_EGG);
+
+                         entries.add(ItemRegistry.HOLLOW_OAK_LOG);
+                         entries.add(ItemRegistry.HOLLOW_DARK_OAK_LOG);
+                         entries.add(ItemRegistry.HOLLOW_CRIMSON_LOG);
+                         entries.add(ItemRegistry.HOLLOW_ACACIA_LOG);
+                         entries.add(ItemRegistry.HOLLOW_BIRCH_LOG);
+                         entries.add(ItemRegistry.HOLLOW_JUNGLE_LOG);
+                         entries.add(ItemRegistry.HOLLOW_SPRUCE_LOG);
+                         entries.add(ItemRegistry.HOLLOW_WARPED_LOG);
+                         entries.add(ItemRegistry.HOLLOW_PALE_OAK_LOG);
+                         entries.add(ItemRegistry.HOLLOW_CHERRY_LOG);
 
                          entries.add(ItemRegistry.CLEAR_FROGLIGHT);
                          entries.add(ItemRegistry.CLOUDY_FROGLIGHT);

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nekomasfixed:item/termite_spawn_egg"
+  }
+}

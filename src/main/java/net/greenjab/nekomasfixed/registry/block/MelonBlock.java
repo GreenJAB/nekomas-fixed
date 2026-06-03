@@ -113,6 +113,7 @@ public class MelonBlock extends Block {
 
 	@Override
 	public ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+
 		if (!player.getStackInHand(hand).isEmpty()) {
 			return ActionResult.FAIL;
 		} else if (!player.getHungerManager().isNotFull() && !player.isCreative()) {

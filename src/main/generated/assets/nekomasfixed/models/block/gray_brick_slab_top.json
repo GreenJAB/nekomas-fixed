@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "nekomasfixed:block/gray_bricks",
+    "side": "nekomasfixed:block/gray_bricks",
+    "top": "nekomasfixed:block/gray_bricks"
+  }
+}

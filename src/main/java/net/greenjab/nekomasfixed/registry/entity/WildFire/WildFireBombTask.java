@@ -85,7 +85,7 @@ public class WildFireBombTask extends MultiTickTask<WildFireEntity> {
 				brain.getOptionalRegisteredMemory(MemoryModuleType.BREEZE_SHOOT_RECOVER).isEmpty()) {
 				brain.remember(MemoryModuleType.BREEZE_SHOOT_RECOVER, Unit.INSTANCE, SHOOT_COOLDOWN_EXPIRY);
 
-				Optional<Vec3d> optional = LongJumpUtil.getJumpingVelocity(wildFireEntity, livingEntity.getEntityPos(), 1.11f, serverWorld.random.nextInt(10) + 65, false);
+				Optional<Vec3d> optional = LongJumpUtil.getJumpingVelocity(wildFireEntity, livingEntity.getEntityPos(), 1.11f, serverWorld.random.nextInt(10) + 45, false);
 				if (optional.isPresent()) {
 					int i = brain.getOptionalRegisteredMemory(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS).orElse(-1);
 					brain.remember(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, i+1, 60);
@@ -97,7 +97,7 @@ public class WildFireBombTask extends MultiTickTask<WildFireEntity> {
 
 						FireBombEntity fireBombEntity = new FireBombEntity(serverWorld, wildFireEntity);
 						fireBombEntity.setPosition(fireBombEntity.getX(), wildFireEntity.getBodyY(0.5) + 0.5, fireBombEntity.getZ());
-						ProjectileEntity.spawnWithVelocity(fireBombEntity, serverWorld, ItemStack.EMPTY, v.x, v.y, v.z, (float) v.length() * 1.1f, 0.0F);
+						ProjectileEntity.spawnWithVelocity(fireBombEntity, serverWorld, ItemStack.EMPTY, v.x, v.y, v.z, (float) v.length() * (1-i/20f), 0.0F);
 						wildFireEntity.playSound(SoundEvents.ENTITY_BREEZE_SHOOT, 1.5F, 1.0F);
 					}
 				}

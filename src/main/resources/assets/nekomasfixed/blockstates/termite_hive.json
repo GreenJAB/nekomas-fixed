@@ -1,0 +1,18 @@
+
+
+{
+  "variants": {
+    "termites=0": {
+      "model": "nekomasfixed:block/termite_hive"
+    },
+    "termites=1": {
+      "model": "nekomasfixed:block/termite_hive_termite"
+    },
+    "termites=2": {
+      "model": "nekomasfixed:block/termite_hive_termite"
+    }
+  }
+}
+
+
+

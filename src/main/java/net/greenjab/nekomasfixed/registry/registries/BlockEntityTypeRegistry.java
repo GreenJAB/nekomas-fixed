@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.entity.*;
+import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -25,9 +26,23 @@ public class BlockEntityTypeRegistry {
     public static final BlockEntityType<KilnBlockEntity> KILN_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("kiln"),
             FabricBlockEntityTypeBuilder.create(KilnBlockEntity::new, BlockRegistry.KILN).build());
 
+    public static final BlockEntityType<TermiteHiveBlockEntity> TERMITE_HIVE_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("termite_hive"),
+            FabricBlockEntityTypeBuilder.create(TermiteHiveBlockEntity::new, BlockRegistry.TERMITE_HIVE).build());
+
+    public static final BlockEntityType<SoupCauldronBlockEntity> SOUP_CAULDRON_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("soup_cauldron"),
+            FabricBlockEntityTypeBuilder.create(SoupCauldronBlockEntity::new, BlockRegistry.SOUP_CAULDRON).build());
+
+    public static final BlockEntityType<HollowLogBlockEntity> HOLLOW_LOG_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_log"),
+            FabricBlockEntityTypeBuilder.create(HollowLogBlockEntity::new, BlockRegistry.HOLLOW_OAK_LOG,
+                    BlockRegistry.HOLLOW_ACACIA_LOG, BlockRegistry.HOLLOW_BIRCH_LOG, BlockRegistry.HOLLOW_CHERRY_LOG,
+                    BlockRegistry.HOLLOW_CRIMSON_STEM, BlockRegistry.HOLLOW_DARK_OAK_LOG, BlockRegistry.HOLLOW_JUNGLE_LOG,
+                    BlockRegistry.HOLLOW_PALE_OAK_LOG, BlockRegistry.HOLLOW_SPRUCE_LOG, BlockRegistry.HOLLOW_WARPED_STEM
+            ).build());
+
 
     public static void registerBlockEntityType() {
         System.out.println("register BlockEntityType");
     }
+
 
 }

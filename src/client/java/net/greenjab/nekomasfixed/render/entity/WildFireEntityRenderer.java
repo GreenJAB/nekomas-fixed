@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.entity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.render.entity.model.WildFireEntityModel;
 import net.greenjab.nekomasfixed.render.entity.state.WildFireEntityRenderState;
@@ -19,7 +19,7 @@ public class WildFireEntityRenderer extends MobEntityRenderer<WildFireEntity, Wi
 	private static final Identifier TEXTURE_SOUL = NekomasFixed.id("textures/entity/wild_fire/soul.png");
 
 	public WildFireEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new WildFireEntityModel(context.getPart(EntityModelLayerRegistry.WILD_FIRE)), 0.5F);
+		super(context, new WildFireEntityModel(context.getPart(ModEntityLayerRegistry.WILD_FIRE)), 0.5F);
 	}
 
 	protected int getBlockLight(WildFireEntity wildFireEntity, BlockPos blockPos) {

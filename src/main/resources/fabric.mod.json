@@ -19,6 +19,9 @@
 		"main": [
 			"net.greenjab.nekomasfixed.NekomasFixed"
 		],
+		"modmenu": [
+			"net.greenjab.nekomasfixed.screen.config.modmenu.ModMenuIntegration"
+		],
 		"fabric-datagen": [
 			"net.greenjab.nekomasfixed.NekomasFixedDataGenerator"
 		]

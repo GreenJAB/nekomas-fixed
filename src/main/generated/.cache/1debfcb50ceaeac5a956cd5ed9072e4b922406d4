@@ -1,0 +1,14 @@
+// 1.21.11	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
+581f29a37b306ff3428eec4974a08c206a479aae data/minecraft/tags/block/slabs.json
+a452fe66c5a5679dfca8e353d51a5e5faa3ee4f6 data/minecraft/tags/block/stairs.json
+00b19b9fe7763c7844e85b2e848d939eb9d3c62c data/minecraft/tags/block/walls.json
+b3465cf681ceed9642a895b43844b4476ac9a5c7 data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
+ed3052eb0c49103d4cdd5f410d09b189a33c80b9 data/nekomasfixed/tags/block/concrete_powders.json
+c882f1fc924c7ace24f2ece6ec48f727ede793e9 data/nekomasfixed/tags/block/concretes.json
+581f29a37b306ff3428eec4974a08c206a479aae data/nekomasfixed/tags/block/dyed_brick_slabs.json
+a452fe66c5a5679dfca8e353d51a5e5faa3ee4f6 data/nekomasfixed/tags/block/dyed_brick_stairs.json
+00b19b9fe7763c7844e85b2e848d939eb9d3c62c data/nekomasfixed/tags/block/dyed_brick_walls.json
+c1ecc91ff94568beb6469a98b6814f05093c5946 data/nekomasfixed/tags/block/dyed_bricks.json
+84ca487e773b4a6e5d2dfb9c9a4e6a7d99f6f480 data/nekomasfixed/tags/block/glazed_terracottas.json
+fd2c9a0f04c3517db16ffa68cfb4cffb0d5af075 data/nekomasfixed/tags/block/stained_glass_panes.json
+b628d70e4fe477242d507bd905a0080bc3546047 data/nekomasfixed/tags/block/stained_glasses.json

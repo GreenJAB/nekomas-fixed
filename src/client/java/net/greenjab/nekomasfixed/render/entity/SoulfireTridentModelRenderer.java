@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.entity;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.model.TridentEntityModel;
 import net.minecraft.client.render.item.model.special.SimpleSpecialModelRenderer;
@@ -48,7 +48,7 @@ public class SoulfireTridentModelRenderer implements SimpleSpecialModelRenderer 
 
 		@Override
 		public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakeContext context) {
-			return new SoulfireTridentModelRenderer(new TridentEntityModel(context.entityModelSet().getModelPart(EntityModelLayerRegistry.SOULFIRE_TRIDENT)));
+			return new SoulfireTridentModelRenderer(new TridentEntityModel(context.entityModelSet().getModelPart(ModEntityLayerRegistry.SOULFIRE_TRIDENT)));
 		}
 	}
 }

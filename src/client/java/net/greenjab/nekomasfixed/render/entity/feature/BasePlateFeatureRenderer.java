@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.render.entity.feature;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registries.EntityModelLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.render.entity.model.BasePlateEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyArmorEntityModel;
 import net.greenjab.nekomasfixed.render.entity.state.TargetDummyEntityRenderState;
@@ -23,7 +23,7 @@ public class BasePlateFeatureRenderer extends FeatureRenderer<TargetDummyEntityR
 
 	public BasePlateFeatureRenderer(FeatureRendererContext<TargetDummyEntityRenderState, TargetDummyArmorEntityModel> context, LoadedEntityModels entityModels) {
 		super(context);
-		this.model = new BasePlateEntityModel(entityModels.getModelPart(EntityModelLayerRegistry.TARGET_DUMMY_BASE));
+		this.model = new BasePlateEntityModel<>(entityModels.getModelPart(ModEntityLayerRegistry.TARGET_DUMMY_BASE));
 	}
 
 

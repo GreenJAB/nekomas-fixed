@@ -3,6 +3,8 @@
   "package": "net.greenjab.nekomasfixed.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "AbstractFurnaceScreenMixin",
+    "AbstractMinecartEntityRendererMixin",
     "BedBlockEntityRendererMixin",
     "BedBlockEntityRenderStateMixin",
     "BipedEntityModelMixin",
@@ -16,6 +18,7 @@
     "HeldItemRendererMixin",
     "LabelCommandRendererCommandMixin",
     "LabelCommandRendererMixin",
+    "MinecartEntityModelMixin",
     "MinecraftClientMixin",
     "ParticleManagerMixin",
     "ParticleSpriteManagerMixin",
