@@ -23,7 +23,7 @@ public class BasePlateFeatureRenderer extends FeatureRenderer<TargetDummyEntityR
 
 	public BasePlateFeatureRenderer(FeatureRendererContext<TargetDummyEntityRenderState, TargetDummyArmorEntityModel> context, LoadedEntityModels entityModels) {
 		super(context);
-		this.model = new BasePlateEntityModel<>(entityModels.getModelPart(ModEntityLayerRegistry.TARGET_DUMMY_BASE));
+		this.model = new BasePlateEntityModel(entityModels.getModelPart(ModEntityLayerRegistry.TARGET_DUMMY_BASE));
 	}
 
 

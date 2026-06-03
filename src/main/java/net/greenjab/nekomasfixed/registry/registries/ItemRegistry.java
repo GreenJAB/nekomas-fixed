@@ -281,7 +281,7 @@ public class ItemRegistry {
 
     public static final Item AMBER_DYE = registerDye("amber_dye", ModColors.AMBER);
     public static final Item INDIGO_DYE = registerDye("indigo_dye", ModColors.INDIGO);
-    public static final Item CRIMSON_DYE = registerDye("crimson_dye", ModColors.CRIMSON);
+    public static final Item MAROON_DYE = registerDye("maroon_dye", ModColors.MAROON);
     public static final Item AQUA_DYE = registerDye("aqua_dye", ModColors.AQUA);
 
 

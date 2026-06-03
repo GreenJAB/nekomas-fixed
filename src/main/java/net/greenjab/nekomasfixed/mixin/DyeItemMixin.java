@@ -23,20 +23,20 @@ public class DyeItemMixin {
     private void changeDye(World world, SignBlockEntity signBlockEntity, boolean front, PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
         ItemStack stack = player.getStackInHand(player.getActiveHand());
         if (stack.isOf(ItemRegistry.AMBER_DYE)) {
-            applyDye(signBlockEntity, front, AMBER.color());
+            applyDye(signBlockEntity, front, AMBER.getColor());
             cir.setReturnValue(true);
         }
         if (stack.isOf(ItemRegistry.AQUA_DYE)) {
-            applyDye(signBlockEntity, front, AQUA.color());
+            applyDye(signBlockEntity, front, AQUA.getColor());
             cir.setReturnValue(true);
         }
         if (stack.isOf(ItemRegistry.INDIGO_DYE)) {
-            applyDye(signBlockEntity, front, INDIGO.color());
+            applyDye(signBlockEntity, front, INDIGO.getColor());
             cir.setReturnValue(true);
         }
 
         if (stack.isOf(ItemRegistry.MAROON_DYE)) {
-            applyDye(signBlockEntity, front, MAROON.color());
+            applyDye(signBlockEntity, front, MAROON.getColor());
             cir.setReturnValue(true);
         }
 

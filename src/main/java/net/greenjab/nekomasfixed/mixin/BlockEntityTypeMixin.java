@@ -57,7 +57,7 @@ public abstract class BlockEntityTypeMixin{
         newBlocks.add(BlockRegistry.AMBER_BED);
         newBlocks.add(BlockRegistry.AQUA_BED);
         newBlocks.add(BlockRegistry.INDIGO_BED);
-        newBlocks.add(BlockRegistry.CRIMSON_BED);
+        newBlocks.add(BlockRegistry.MAROON_BED);
         Block[] newBlocksArray = new Block[newBlocks.size()];
         for (int i = 0;i<newBlocksArray.length;i++) { newBlocksArray[i]=newBlocks.get(i); }
         return newBlocksArray;
@@ -71,7 +71,7 @@ public abstract class BlockEntityTypeMixin{
         newBlocks.add(BlockRegistry.AMBER_SHULKER_BOX);
         newBlocks.add(BlockRegistry.AQUA_SHULKER_BOX);
         newBlocks.add(BlockRegistry.INDIGO_SHULKER_BOX);
-        newBlocks.add(BlockRegistry.CRIMSON_SHULKER_BOX);
+        newBlocks.add(BlockRegistry.MAROON_SHULKER_BOX);
         Block[] newBlocksArray = new Block[newBlocks.size()];
         for (int i = 0;i<newBlocksArray.length;i++) { newBlocksArray[i]=newBlocks.get(i); }
         return newBlocksArray;

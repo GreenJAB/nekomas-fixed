@@ -18,10 +18,10 @@ public class FireworkStarRecipeMixin {
             at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/ints/IntList;add(I)Z"))
     private boolean craftCustom(IntList intList, int original, @Local ItemStack itemStack) {
         Item item = itemStack.getItem();
-        if (item.equals(ItemRegistry.AMBER_DYE)) return intList.add(ModColors.AMBER.color());
-        if (item.equals(ItemRegistry.AQUA_DYE)) return intList.add(ModColors.AQUA.color());
-        if (item.equals(ItemRegistry.MAROON_DYE)) return intList.add(ModColors.MAROON.color());
-        if (item.equals(ItemRegistry.INDIGO_DYE)) return intList.add(ModColors.INDIGO.color());
+        if (item.equals(ItemRegistry.AMBER_DYE)) return intList.add(ModColors.AMBER.getColor());
+        if (item.equals(ItemRegistry.AQUA_DYE)) return intList.add(ModColors.AQUA.getColor());
+        if (item.equals(ItemRegistry.MAROON_DYE)) return intList.add(ModColors.MAROON.getColor());
+        if (item.equals(ItemRegistry.INDIGO_DYE)) return intList.add(ModColors.INDIGO.getColor());
         return intList.add(original);
     }
 }
