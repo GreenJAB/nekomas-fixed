@@ -27,7 +27,7 @@ public class DrenchedEntity extends SkeletonEntity {
         if (this.isAlive() && this.isAffectedByDaylight()) {
             this.setOnFireFor(8);
         }
-    }
+    } //this is the class
 
     @Override
     protected SoundEvent getAmbientSound() {
