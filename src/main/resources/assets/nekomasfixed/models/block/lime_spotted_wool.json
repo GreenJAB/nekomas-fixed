@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "nekomasfixed:block/lime_spotted_wool"
+  }
+}

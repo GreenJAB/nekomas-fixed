@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "nekomasfixed:block/red_spotted_wool"
+  }
+}

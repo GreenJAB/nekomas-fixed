@@ -285,6 +285,48 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.BIG_SPRUCE_BOAT);
                          entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
 
+                         entries.add(ItemRegistry.AMBER_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.AQUA_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.INDIGO_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.MAROON_SPOTTED_WOOL);
+
+                         entries.add(ItemRegistry.WHITE_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.ORANGE_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.MAGENTA_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.LIGHT_BLUE_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.YELLOW_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.LIME_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.PINK_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.GRAY_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.LIGHT_GRAY_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.CYAN_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.PURPLE_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.BLUE_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.BROWN_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.GREEN_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.RED_SPOTTED_WOOL);
+                         entries.add(ItemRegistry.BLACK_SPOTTED_WOOL);
+
+                         entries.add(ItemRegistry.AMBER_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.AQUA_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.INDIGO_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.MAROON_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.WHITE_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.ORANGE_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.MAGENTA_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.LIGHT_BLUE_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.YELLOW_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.LIME_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.PINK_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.GRAY_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.LIGHT_GRAY_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.CYAN_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.PURPLE_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.BLUE_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.BROWN_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.GREEN_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.RED_SPOTTED_CARPET);
+                         entries.add(ItemRegistry.BLACK_SPOTTED_CARPET);
 
                     }).build();
 
