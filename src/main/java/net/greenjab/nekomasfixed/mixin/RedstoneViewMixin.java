@@ -5,7 +5,9 @@ import net.greenjab.nekomasfixed.registry.item.RedstoneStrikerItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.RedstoneView;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,14 +17,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface RedstoneViewMixin {
     @Inject(method = "getEmittedRedstonePower(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;getWeakRedstonePower(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)I"), cancellable = true)
     private void powerBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Integer> cir, @Local BlockState blockState) {
-        if (RedstoneStrikerItem.STRUCK_WIRES.containsKey(pos) && blockState.isSolidBlock((RedstoneView)this, pos)) {
+        if (RedstoneStrikerItem.STRUCK_WIRES.containsKey(new GlobalPos(((World)this).getRegistryKey(), pos)) && blockState.isSolidBlock((RedstoneView)this, pos)) {
             cir.setReturnValue(15);
         }
     }
 
     @Inject(method = "isReceivingRedstonePower", at = @At("HEAD"), cancellable = true)
     private void powerRedstoneComponents(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        if (RedstoneStrikerItem.STRUCK_WIRES.containsKey(pos)) {
+        if (RedstoneStrikerItem.STRUCK_WIRES.containsKey(new GlobalPos(((World)this).getRegistryKey(), pos))) {
             cir.setReturnValue(true);
         }
     }

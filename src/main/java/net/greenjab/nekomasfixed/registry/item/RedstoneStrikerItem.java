@@ -11,12 +11,13 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RedstoneStrikerItem extends FlintAndSteelItem {
-    public static final Map<BlockPos, Long> STRUCK_WIRES = new HashMap<>();
+    public static final Map<GlobalPos, Long> STRUCK_WIRES = new HashMap<>();
     public RedstoneStrikerItem(Settings settings) {
         super(settings);
     }
@@ -26,17 +27,17 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
         PlayerEntity player = context.getPlayer();
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
+        GlobalPos Gpos = new GlobalPos(world.getRegistryKey(), pos);
         BlockState state = context.getWorld().getBlockState(pos);
         world.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
         if (player != null) {
             player.swingHand(player.getActiveHand(), true);
             context.getStack().damage(1, player, context.getHand().getEquipmentSlot());
-            STRUCK_WIRES.put(pos.toImmutable(), world.getTime() + (player.isSneaking() ? 1 : 16));
-        } else STRUCK_WIRES.put(pos.toImmutable(), world.getTime() + 16);
+            STRUCK_WIRES.put(Gpos, world.getTime() + (player.isSneaking() ? 1 : 16));
+        } else STRUCK_WIRES.put(Gpos, world.getTime() + 16);
         if (state.isOf(Blocks.OBSERVER) && world instanceof ServerWorld serverWorld)
-            //state.scheduledTick(serverWorld, pos, world.random);
             if (state.getBlock() instanceof ObserverBlock observerBlock) observerBlock.scheduleTick(serverWorld, world, pos);
-        state.neighborUpdate(world, pos, Blocks.AIR, null, true);
+        state.neighborUpdate(world, pos, Blocks.AIR, null, false);
         world.updateNeighbors(pos, state.getBlock());
         return ActionResult.SUCCESS;
     }
