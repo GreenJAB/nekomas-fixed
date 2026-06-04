@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "nekomasfixed:amber_bricks",
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:amber_brick_wall"
+  }
+}

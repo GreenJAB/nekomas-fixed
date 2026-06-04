@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_amber_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:amber_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:amber_brick_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_amber_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:amber_brick_stairs"
+    ]
+  }
+}

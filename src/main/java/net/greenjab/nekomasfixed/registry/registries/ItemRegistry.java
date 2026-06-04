@@ -7,13 +7,9 @@ import net.greenjab.nekomasfixed.util.*;
 import net.minecraft.block.*;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.vehicle.BoatEntity;
-import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
@@ -29,13 +25,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.waypoint.Waypoint;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class ItemRegistry {
 
@@ -63,6 +57,7 @@ public class ItemRegistry {
     public static final Item BIG_OAK_BOAT = register("big_oak_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_OAK_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item BIG_PALE_OAK_BOAT = register("big_pale_oak_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_PALE_OAK_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item BIG_SPRUCE_BOAT = register("big_spruce_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_SPRUCE_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item BIG_BAOBAB_BOAT = register("big_baobab_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_BAOBAB_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item HUGE_ACACIA_BOAT = register("huge_acacia_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_ACACIA_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item HUGE_BAMBOO_BOAT = register("huge_bamboo_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BAMBOO_BOAT, settings), new Item.Settings().maxCount(1));
@@ -74,6 +69,7 @@ public class ItemRegistry {
     public static final Item HUGE_OAK_BOAT = register("huge_oak_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_OAK_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item HUGE_PALE_OAK_BOAT = register("huge_pale_oak_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_PALE_OAK_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item HUGE_SPRUCE_BOAT = register("huge_spruce_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_SPRUCE_BOAT, settings), new Item.Settings().maxCount(1));
+    public static final Item HUGE_BAOBAB_BOAT = register("huge_baobab_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BAOBAB_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item BOAT_UPGRADE_TEMPLATE = register("boat_upgrade_template", settings -> new SmithingTemplateItem(Text.translatable(Util.createTranslationKey("item", NekomasFixed.id("boat"))).formatted(Formatting.BLUE), Text.translatable(Util.createTranslationKey("item", NekomasFixed.id("planks"))).formatted(Formatting.BLUE), Text.of(""), Text.of(""), List.of(NekomasFixed.id("container/slot/boat")), List.of(NekomasFixed.id("container/slot/planks")), settings),new Item.Settings().rarity(Rarity.UNCOMMON));
 
@@ -89,6 +85,10 @@ public class ItemRegistry {
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
 
+    public static final FoodComponent BAOBAB_FRUIT_FOOD = new FoodComponent.Builder().nutrition(4).saturationModifier(0.3F).build();
+    public static final Item BAOBAB_FRUIT = register("baobab_fruit", new Item.Settings().food(BAOBAB_FRUIT_FOOD));
+    public static final Item BAOBAB_SEEDS = register("baobab_seeds", Item::new, new Item.Settings().maxCount(64));
+    public static final Item BAOBAB_LEAVES = register(BlockRegistry.BAOBAB_LEAVES);
     public static final Item BAOBAB_SAPLING = register(BlockRegistry.BAOBAB_SAPLING);
     public static final Item BAOBAB_PLANKS = register(BlockRegistry.BAOBAB_PLANKS);
     public static final Item BAOBAB_LOG = register(BlockRegistry.BAOBAB_LOG);
@@ -112,45 +112,14 @@ public class ItemRegistry {
             new Item.Settings().maxCount(16)
     );
 
-    public static final EntityType<BoatEntity> BAOBAB_BOAT_ENTITY = register2(
-            "baobab_boat",
-            EntityType.Builder.create(getBoatFactory(() -> ItemRegistry.BAOBAB_BOAT), SpawnGroup.MISC)
-                    .dropsNothing()
-                    .dimensions(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .maxTrackingRange(10)
-    );
-    public static final EntityType<ChestBoatEntity> BAOBAB_CHEST_BOAT_ENTITY = register2(
-            "baobab_chest_boat",
-            EntityType.Builder.create(getChestBoatFactory(() -> ItemRegistry.BAOBAB_CHEST_BOAT), SpawnGroup.MISC)
-                    .dropsNothing()
-                    .dimensions(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .maxTrackingRange(10)
-    );
-
     public static final Item BAOBAB_BOAT = register(
-            "baobab_boat", settings -> new BoatItem(BAOBAB_BOAT_ENTITY, settings), new Item.Settings().maxCount(1)
+            "baobab_boat", settings -> new BoatItem(EntityTypeRegistry.BAOBAB_BOAT_ENTITY, settings), new Item.Settings().maxCount(1)
     );
     public static final Item BAOBAB_CHEST_BOAT = register(
-            "baobab_chest_boat", settings -> new BoatItem(BAOBAB_CHEST_BOAT_ENTITY, settings), new Item.Settings().maxCount(1)
+            "baobab_chest_boat", settings -> new BoatItem(EntityTypeRegistry.BAOBAB_CHEST_BOAT_ENTITY, settings), new Item.Settings().maxCount(1)
     );
 
-    private static EntityType.EntityFactory<BoatEntity> getBoatFactory(Supplier<Item> itemSupplier) {
-        return (type, world) -> new BoatEntity(type, world, itemSupplier);
-    }
-    private static EntityType.EntityFactory<ChestBoatEntity> getChestBoatFactory(Supplier<Item> itemSupplier) {
-        return (type, world) -> new ChestBoatEntity(type, world, itemSupplier);
-    }
-    private static <T extends Entity> EntityType<T> register2(String id, EntityType.Builder<T> type) {
-        return register2(keyOf2(id), type);
-    }
-    private static RegistryKey<EntityType<?>> keyOf2(String id) {
-        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, NekomasFixed.id(id));
-    }
-    private static <T extends Entity> EntityType<T> register2(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
-        return Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
-    }
+
 
     public static final Item WHITE_BRICKS = register(BlockRegistry.WHITE_BRICKS);
     public static final Item ORANGE_BRICKS = register(BlockRegistry.ORANGE_BRICKS);
@@ -168,6 +137,10 @@ public class ItemRegistry {
     public static final Item GREEN_BRICKS = register(BlockRegistry.GREEN_BRICKS);
     public static final Item RED_BRICKS = register(BlockRegistry.RED_BRICKS);
     public static final Item BLACK_BRICKS = register(BlockRegistry.BLACK_BRICKS);
+    public static final Item AMBER_BRICKS = register(BlockRegistry.AMBER_BRICKS);
+    public static final Item AQUA_BRICKS = register(BlockRegistry.AQUA_BRICKS);
+    public static final Item INDIGO_BRICKS = register(BlockRegistry.INDIGO_BRICKS);
+    public static final Item MAROON_BRICKS = register(BlockRegistry.MAROON_BRICKS);
 
     public static final Item WHITE_BRICK_SLAB = register(BlockRegistry.WHITE_BRICK_SLAB);
     public static final Item ORANGE_BRICK_SLAB = register(BlockRegistry.ORANGE_BRICK_SLAB);
@@ -185,6 +158,10 @@ public class ItemRegistry {
     public static final Item GREEN_BRICK_SLAB = register(BlockRegistry.GREEN_BRICK_SLAB);
     public static final Item RED_BRICK_SLAB = register(BlockRegistry.RED_BRICK_SLAB);
     public static final Item BLACK_BRICK_SLAB = register(BlockRegistry.BLACK_BRICK_SLAB);
+    public static final Item AMBER_BRICK_SLAB = register(BlockRegistry.AMBER_BRICK_SLAB);
+    public static final Item AQUA_BRICK_SLAB = register(BlockRegistry.AQUA_BRICK_SLAB);
+    public static final Item INDIGO_BRICK_SLAB = register(BlockRegistry.INDIGO_BRICK_SLAB);
+    public static final Item MAROON_BRICK_SLAB = register(BlockRegistry.MAROON_BRICK_SLAB);
 
     public static final Item WHITE_BRICK_STAIRS = register(BlockRegistry.WHITE_BRICK_STAIRS);
     public static final Item ORANGE_BRICK_STAIRS = register(BlockRegistry.ORANGE_BRICK_STAIRS);
@@ -202,6 +179,10 @@ public class ItemRegistry {
     public static final Item GREEN_BRICK_STAIRS = register(BlockRegistry.GREEN_BRICK_STAIRS);
     public static final Item RED_BRICK_STAIRS = register(BlockRegistry.RED_BRICK_STAIRS);
     public static final Item BLACK_BRICK_STAIRS = register(BlockRegistry.BLACK_BRICK_STAIRS);
+    public static final Item AMBER_BRICK_STAIRS = register(BlockRegistry.AMBER_BRICK_STAIRS);
+    public static final Item AQUA_BRICK_STAIRS = register(BlockRegistry.AQUA_BRICK_STAIRS);
+    public static final Item INDIGO_BRICK_STAIRS = register(BlockRegistry.INDIGO_BRICK_STAIRS);
+    public static final Item MAROON_BRICK_STAIRS = register(BlockRegistry.MAROON_BRICK_STAIRS);
 
     public static final Item WHITE_BRICK_WALL = register(BlockRegistry.WHITE_BRICK_WALL);
     public static final Item ORANGE_BRICK_WALL = register(BlockRegistry.ORANGE_BRICK_WALL);
@@ -219,6 +200,10 @@ public class ItemRegistry {
     public static final Item GREEN_BRICK_WALL = register(BlockRegistry.GREEN_BRICK_WALL);
     public static final Item RED_BRICK_WALL = register(BlockRegistry.RED_BRICK_WALL);
     public static final Item BLACK_BRICK_WALL = register(BlockRegistry.BLACK_BRICK_WALL);
+    public static final Item AMBER_BRICK_WALL = register(BlockRegistry.AMBER_BRICK_WALL);
+    public static final Item AQUA_BRICK_WALL = register(BlockRegistry.AQUA_BRICK_WALL);
+    public static final Item INDIGO_BRICK_WALL = register(BlockRegistry.INDIGO_BRICK_WALL);
+    public static final Item MAROON_BRICK_WALL = register(BlockRegistry.MAROON_BRICK_WALL);
 
     public static final Item HOLLOW_OAK_LOG = register(BlockRegistry.HOLLOW_OAK_LOG);
     public static final Item HOLLOW_DARK_OAK_LOG = register(BlockRegistry.HOLLOW_DARK_OAK_LOG);
@@ -230,6 +215,7 @@ public class ItemRegistry {
     public static final Item HOLLOW_WARPED_LOG = register(BlockRegistry.HOLLOW_WARPED_STEM);
     public static final Item HOLLOW_CRIMSON_LOG = register(BlockRegistry.HOLLOW_CRIMSON_STEM);
     public static final Item HOLLOW_BIRCH_LOG = register(BlockRegistry.HOLLOW_BIRCH_LOG);
+    public static final Item HOLLOW_BAOBAB_LOG = register(BlockRegistry.HOLLOW_BAOBAB_LOG);
     public static final Item GEYSER = register(BlockRegistry.GEYSER);
 
     public static final Item SPECIAL_STEW = register("special_stew",SpecialSoupItem::new, new Item.Settings().food((new FoodComponent.Builder()).nutrition(1).saturationModifier(0.3F).build()));
@@ -237,25 +223,27 @@ public class ItemRegistry {
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
 
     public static final Item ROPE_ITEM = register(BlockRegistry.ROPE, RopeItem::new);
-    public static final Item BAOBAB_FRUIT = register(BlockRegistry.BAOBAB_FRUIT,  new Item.Settings().maxCount(64).food(new FoodComponent(10, 3.5f, true)));
-    public static final Item BAOBAB_SEEDS = register("baobab_seeds", Item::new, new Item.Settings().maxCount(64));
 
-    public static final Item WHITE_DYED_BRUSH = register("white_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.WHITE, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item ORANGE_DYED_BRUSH = register("orange_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.ORANGE, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item MAGENTA_DYED_BRUSH = register("magenta_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.MAGENTA, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item LIGHT_BLUE_DYED_BRUSH = register("light_blue_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.LIGHT_BLUE, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item YELLOW_DYED_BRUSH = register("yellow_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.YELLOW, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item LIME_DYED_BRUSH = register("lime_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.LIME, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item PINK_DYED_BRUSH = register("pink_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.PINK, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item GRAY_DYED_BRUSH = register("gray_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.GRAY, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item LIGHT_GRAY_DYED_BRUSH = register("light_gray_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.LIGHT_GRAY, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item CYAN_DYED_BRUSH = register("cyan_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.CYAN, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item PURPLE_DYED_BRUSH = register("purple_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.PURPLE, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item BLUE_DYED_BRUSH = register("blue_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.BLUE, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item BROWN_DYED_BRUSH = register("brown_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.BROWN, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item GREEN_DYED_BRUSH = register("green_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.GREEN, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item RED_DYED_BRUSH = register("red_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.RED, settings), new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item BLACK_DYED_BRUSH = register("black_dyed_brush", (settings) -> new DyedBrushItem(DyeColor.BLACK, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item WHITE_DYED_BRUSH = register("white_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.WHITE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item ORANGE_DYED_BRUSH = register("orange_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.ORANGE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item MAGENTA_DYED_BRUSH = register("magenta_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.MAGENTA, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item LIGHT_BLUE_DYED_BRUSH = register("light_blue_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.LIGHT_BLUE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item YELLOW_DYED_BRUSH = register("yellow_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.YELLOW, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item LIME_DYED_BRUSH = register("lime_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.LIME, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item PINK_DYED_BRUSH = register("pink_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.PINK, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item GRAY_DYED_BRUSH = register("gray_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.GRAY, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item LIGHT_GRAY_DYED_BRUSH = register("light_gray_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.LIGHT_GRAY, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item CYAN_DYED_BRUSH = register("cyan_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.CYAN, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item PURPLE_DYED_BRUSH = register("purple_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.PURPLE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item BLUE_DYED_BRUSH = register("blue_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.BLUE, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item BROWN_DYED_BRUSH = register("brown_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.BROWN, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item GREEN_DYED_BRUSH = register("green_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.GREEN, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item RED_DYED_BRUSH = register("red_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.RED, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item BLACK_DYED_BRUSH = register("black_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.BLACK, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item AMBER_DYED_BRUSH = register("amber_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.AMBER, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item AQUA_DYED_BRUSH = register("aqua_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.AQUA, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item INDIGO_DYED_BRUSH = register("indigo_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.INDIGO, settings), new Item.Settings().maxCount(1).maxDamage(64));
+    public static final Item MAROON_DYED_BRUSH = register("maroon_dyed_brush", (settings) -> new DyedBrushItem(AllDyes.MAROON, settings), new Item.Settings().maxCount(1).maxDamage(64));
 
     public static final Item TERMITE_BLOCK = register(BlockRegistry.TERMITE_BLOCK);
     public static final Item TERMITE_HIVE = register(BlockRegistry.TERMITE_HIVE);

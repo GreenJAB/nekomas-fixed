@@ -1,14 +1,11 @@
 package net.greenjab.nekomasfixed.world.feature;
 
 import com.mojang.serialization.Codec;
-import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.TermitehiveBlockEntity;
+import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
@@ -50,6 +47,9 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
 
                         if (isSurface && random.nextInt(4) == 0 && isSupported) {
                             world.setBlockState(pos, BlockRegistry.TERMITE_HIVE.getDefaultState(), 3);
+                            world.getBlockEntity(pos, BlockEntityTypeRegistry.TERMITE_HIVE_BLOCK_ENTITY).ifPresent(blockEntity -> {
+                                if (random.nextBoolean()) blockEntity.addTermite(TermitehiveBlockEntity.TermiteData.create(random.nextInt(599)));
+                            });
                         } else if(isSupported){
                             world.setBlockState(pos, context.getConfig().toPlace().get(random, pos), 3);
                         }
@@ -58,7 +58,7 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
             }
         }
 
-        if (world instanceof ServerWorld serverWorld) {
+        /*if (world instanceof ServerWorld serverWorld) {
 
             int count = 3 + random.nextInt(3);
 
@@ -87,7 +87,6 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
                             random.nextFloat() * 360F,
                             0
                     );
-
                     termite.initialize(
                             serverWorld,
                             serverWorld.getLocalDifficulty(spawnPos),
@@ -95,11 +94,10 @@ public class TermiteMoundFeature extends Feature<SimpleBlockFeatureConfig> {
                             null
                     );
 
-
                     serverWorld.spawnEntity(termite);
                 }
             }
-        }
+        }*/
         return true;
     }
 

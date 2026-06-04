@@ -15,6 +15,10 @@
     "nekomasfixed:brown_brick_slab",
     "nekomasfixed:green_brick_slab",
     "nekomasfixed:red_brick_slab",
-    "nekomasfixed:black_brick_slab"
+    "nekomasfixed:black_brick_slab",
+    "nekomasfixed:amber_brick_slab",
+    "nekomasfixed:aqua_brick_slab",
+    "nekomasfixed:indigo_brick_slab",
+    "nekomasfixed:maroon_brick_slab"
   ]
 }

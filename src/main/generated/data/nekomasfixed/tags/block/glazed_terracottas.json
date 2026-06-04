@@ -15,6 +15,10 @@
     "minecraft:brown_glazed_terracotta",
     "minecraft:green_glazed_terracotta",
     "minecraft:red_glazed_terracotta",
-    "minecraft:black_glazed_terracotta"
+    "minecraft:black_glazed_terracotta",
+    "nekomasfixed:amber_glazed_terracotta",
+    "nekomasfixed:aqua_glazed_terracotta",
+    "nekomasfixed:indigo_glazed_terracotta",
+    "nekomasfixed:maroon_glazed_terracotta"
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "spotted_wool",
+  "ingredients": [
+    "nekomasfixed:aqua_dye",
+    [
+      "nekomasfixed:white_spotted_wool",
+      "nekomasfixed:orange_spotted_wool",
+      "nekomasfixed:magenta_spotted_wool",
+      "nekomasfixed:light_blue_spotted_wool",
+      "nekomasfixed:yellow_spotted_wool",
+      "nekomasfixed:lime_spotted_wool",
+      "nekomasfixed:pink_spotted_wool",
+      "nekomasfixed:gray_spotted_wool",
+      "nekomasfixed:light_gray_spotted_wool",
+      "nekomasfixed:cyan_spotted_wool",
+      "nekomasfixed:purple_spotted_wool",
+      "nekomasfixed:blue_spotted_wool",
+      "nekomasfixed:brown_spotted_wool",
+      "nekomasfixed:green_spotted_wool",
+      "nekomasfixed:red_spotted_wool",
+      "nekomasfixed:black_spotted_wool",
+      "nekomasfixed:amber_spotted_wool",
+      "nekomasfixed:indigo_spotted_wool",
+      "nekomasfixed:maroon_spotted_wool"
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:aqua_spotted_wool"
+  }
+}

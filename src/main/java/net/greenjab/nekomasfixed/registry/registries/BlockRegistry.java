@@ -10,8 +10,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -27,6 +25,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import static net.minecraft.block.Blocks.createButtonSettings;
+import static net.minecraft.block.Blocks.createLeavesSettings;
 
 public class BlockRegistry {
 
@@ -118,7 +117,7 @@ public class BlockRegistry {
     public static final Block BAOBAB_SAPLING = register("baobab_sapling",(settings) -> new SaplingBlock(new SaplingGenerator("nekomasfixed:baobab", Optional.empty(), Optional.of(ModConfiguredFeatures.BAOBAB_KEY), Optional.empty()),  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
 
     public static final Block TERMITE_BLOCK = register("termite_block", AbstractBlock.Settings.create().strength(1f));
-    public static final Block TERMITE_HIVE = register("termite_hive",TermiteHiveBlock::new, AbstractBlock.Settings.create().strength(1f));
+    public static final Block TERMITE_HIVE = register("termite_hive", TermitehiveBlock::new, AbstractBlock.Settings.create().strength(1f));
 
     public static final Block CLEAR_FROGLIGHT = register("clear_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
     public static final Block CLOUDY_FROGLIGHT = register("cloudy_froglight", PillarBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).strength(0.3F).luminance((state) -> 15).sounds(BlockSoundGroup.FROGLIGHT));
@@ -167,6 +166,7 @@ public class BlockRegistry {
     static BlockSetType BAOBAB_BLOCKSETTYPE = BlockSetType.register(new BlockSetType("baobab"));
     static WoodType BAOBAB_WOODTYPE = WoodType.register(new WoodType("baobab", BAOBAB_BLOCKSETTYPE));
 
+    public static final Block BAOBAB_LEAVES = register("baobab_leaves", settings -> new TintedParticleLeavesBlock(0.01F, settings), createLeavesSettings(BlockSoundGroup.GRASS));
     public static final Block BAOBAB_PLANKS = register("baobab_planks", AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
     public static final Block BAOBAB_WOOD = register("baobab_wood", AbstractBlock.Settings.copy(Blocks.OAK_WOOD));
     public static final Block BAOBAB_SIGN = register(
@@ -271,6 +271,10 @@ public class BlockRegistry {
     public static final Block GREEN_BRICKS = register("green_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS).mapColor(DyeColor.GREEN));
     public static final Block RED_BRICKS = register("red_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS).mapColor(DyeColor.RED));
     public static final Block BLACK_BRICKS = register("black_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS).mapColor(DyeColor.BLACK));
+    public static final Block AMBER_BRICKS = register("amber_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS).mapColor(DyeColor.YELLOW));
+    public static final Block AQUA_BRICKS = register("aqua_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS).mapColor(DyeColor.LIGHT_BLUE));
+    public static final Block INDIGO_BRICKS = register("indigo_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS).mapColor(DyeColor.MAGENTA));
+    public static final Block MAROON_BRICKS = register("maroon_bricks", AbstractBlock.Settings.copy(Blocks.BRICKS).mapColor(DyeColor.RED));
 
     public static final Block WHITE_BRICK_SLAB = register("white_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.WHITE));
     public static final Block ORANGE_BRICK_SLAB = register("orange_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.ORANGE));
@@ -288,6 +292,10 @@ public class BlockRegistry {
     public static final Block GREEN_BRICK_SLAB = register("green_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.GREEN));
     public static final Block RED_BRICK_SLAB = register("red_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.RED));
     public static final Block BLACK_BRICK_SLAB = register("black_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.BLACK));
+    public static final Block AMBER_BRICK_SLAB = register("amber_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.YELLOW));
+    public static final Block AQUA_BRICK_SLAB = register("aqua_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.LIGHT_BLUE));
+    public static final Block INDIGO_BRICK_SLAB = register("indigo_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.MAGENTA));
+    public static final Block MAROON_BRICK_SLAB = register("maroon_brick_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB).mapColor(DyeColor.RED));
 
     public static final Block WHITE_BRICK_STAIRS = registerOldStairsBlock("white_brick_stairs", WHITE_BRICKS);
     public static final Block ORANGE_BRICK_STAIRS = registerOldStairsBlock("orange_brick_stairs", ORANGE_BRICKS);
@@ -305,7 +313,11 @@ public class BlockRegistry {
     public static final Block GREEN_BRICK_STAIRS = registerOldStairsBlock("green_brick_stairs",GREEN_BRICKS);
     public static final Block RED_BRICK_STAIRS = registerOldStairsBlock("red_brick_stairs", RED_BRICKS);
     public static final Block BLACK_BRICK_STAIRS = registerOldStairsBlock("black_brick_stairs", BLACK_BRICKS);
-
+    public static final Block AMBER_BRICK_STAIRS = registerOldStairsBlock("amber_brick_stairs", AMBER_BRICKS);
+    public static final Block AQUA_BRICK_STAIRS = registerOldStairsBlock("aqua_brick_stairs", AQUA_BRICKS);
+    public static final Block INDIGO_BRICK_STAIRS = registerOldStairsBlock("indigo_brick_stairs", INDIGO_BRICKS);
+    public static final Block MAROON_BRICK_STAIRS = registerOldStairsBlock("maroon_brick_stairs", MAROON_BRICKS);
+    
     public static final Block WHITE_BRICK_WALL = register("white_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(WHITE_BRICKS).solid());
     public static final Block ORANGE_BRICK_WALL = register("orange_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(ORANGE_BRICKS).solid());
     public static final Block MAGENTA_BRICK_WALL = register("magenta_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(MAGENTA_BRICKS).solid());
@@ -322,6 +334,10 @@ public class BlockRegistry {
     public static final Block GREEN_BRICK_WALL = register("green_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(GREEN_BRICKS).solid());
     public static final Block RED_BRICK_WALL = register("red_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(RED_BRICKS).solid());
     public static final Block BLACK_BRICK_WALL = register("black_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(BLACK_BRICKS).solid());
+    public static final Block AMBER_BRICK_WALL = register("amber_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(AMBER_BRICKS).solid());
+    public static final Block AQUA_BRICK_WALL = register("aqua_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(AQUA_BRICKS).solid());
+    public static final Block INDIGO_BRICK_WALL = register("indigo_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(INDIGO_BRICKS).solid());
+    public static final Block MAROON_BRICK_WALL = register("maroon_brick_wall", WallBlock::new, AbstractBlock.Settings.copyShallow(MAROON_BRICKS).solid());
     
     public static final Block AMBER_SHULKER_BOX = registerShulkerBoxBlock("amber_shulker_box", DyeColor.YELLOW);
     public static final Block AQUA_SHULKER_BOX = registerShulkerBoxBlock("aqua_shulker_box", DyeColor.LIGHT_BLUE);
@@ -339,6 +355,7 @@ public class BlockRegistry {
     public static final Block HOLLOW_CHERRY_LOG = register("hollow_cherry_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.CHERRY_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_BIRCH_LOG = register("hollow_birch_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.BIRCH_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_PALE_OAK_LOG = register("hollow_pale_oak_log", HollowLogBlock::new , AbstractBlock.Settings.copy(Blocks.PALE_OAK_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
+    public static final Block HOLLOW_BAOBAB_LOG = register("hollow_baobab_log", HollowLogBlock::new , AbstractBlock.Settings.copy(BAOBAB_LOG).luminance(state -> state.get(HollowLogBlock.LIGHT_LEVEL)));
 
     public static final Block GEYSER = register("geyser", GeyserBlock::new , AbstractBlock.Settings.create().ticksRandomly().strength(0.5f, 0.5f).luminance(state -> Blocks.LAVA.getDefaultState().getLuminance()));
 

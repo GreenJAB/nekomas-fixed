@@ -1,17 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "dyed_brick_slab",
   "key": {
-    "#": "minecraft:brick_slab",
-    "D": "minecraft:orange_dye"
+    "#": "nekomasfixed:orange_bricks"
   },
   "pattern": [
-    "###",
-    "#D#",
     "###"
   ],
   "result": {
-    "count": 8,
+    "count": 6,
     "id": "nekomasfixed:orange_brick_slab"
   }
 }

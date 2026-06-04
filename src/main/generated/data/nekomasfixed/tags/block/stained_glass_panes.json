@@ -15,6 +15,10 @@
     "minecraft:brown_stained_glass_pane",
     "minecraft:green_stained_glass_pane",
     "minecraft:red_stained_glass_pane",
-    "minecraft:black_stained_glass_pane"
+    "minecraft:black_stained_glass_pane",
+    "nekomasfixed:amber_stained_glass_pane",
+    "nekomasfixed:aqua_stained_glass_pane",
+    "nekomasfixed:indigo_stained_glass_pane",
+    "nekomasfixed:maroon_stained_glass_pane"
   ]
 }

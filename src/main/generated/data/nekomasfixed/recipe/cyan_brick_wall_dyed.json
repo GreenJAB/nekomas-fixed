@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "dyed_brick_wall_dyed",
+  "key": {
+    "#": "minecraft:brick_wall",
+    "D": "minecraft:cyan_dye"
+  },
+  "pattern": [
+    "###",
+    "#D#",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nekomasfixed:cyan_brick_wall"
+  }
+}

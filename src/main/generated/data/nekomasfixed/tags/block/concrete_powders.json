@@ -15,6 +15,10 @@
     "minecraft:brown_concrete_powder",
     "minecraft:green_concrete_powder",
     "minecraft:red_concrete_powder",
-    "minecraft:black_concrete_powder"
+    "minecraft:black_concrete_powder",
+    "nekomasfixed:amber_concrete_powder",
+    "nekomasfixed:aqua_concrete_powder",
+    "nekomasfixed:indigo_concrete_powder",
+    "nekomasfixed:maroon_concrete_powder"
   ]
 }

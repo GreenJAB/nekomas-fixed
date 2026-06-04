@@ -3,7 +3,6 @@ package net.greenjab.nekomasfixed.registries;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.render.entity.MoobloomEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
@@ -34,6 +33,7 @@ public class ModEntityLayerRegistry {
     public static final EntityModelLayer BIG_OAK_BOAT = register("big_boat/oak", "main");
     public static final EntityModelLayer BIG_PALE_OAK_BOAT = register("big_boat/pale_oak", "main");
     public static final EntityModelLayer BIG_SPRUCE_BOAT = register("big_boat/spruce", "main");
+    public static final EntityModelLayer BIG_BAOBAB_BOAT = register("big_boat/baobab", "main");
 
     public static final EntityModelLayer HUGE_ACACIA_BOAT = register("huge_boat/acacia", "main");
     public static final EntityModelLayer HUGE_BAMBOO_BOAT = register("huge_boat/bamboo", "main");
@@ -45,6 +45,7 @@ public class ModEntityLayerRegistry {
     public static final EntityModelLayer HUGE_OAK_BOAT = register("huge_boat/oak", "main");
     public static final EntityModelLayer HUGE_PALE_OAK_BOAT = register("huge_boat/pale_oak", "main");
     public static final EntityModelLayer HUGE_SPRUCE_BOAT = register("huge_boat/spruce", "main");
+    public static final EntityModelLayer HUGE_BAOBAB_BOAT = register("huge_boat/baobab", "main");
 
     public static final EntityModelLayer TARGET_DUMMY = register("target_dummy", "main");
     public static final EntityModelLayer TARGET_DUMMY_BASE = register("target_dummy_base", "main");
@@ -81,8 +82,8 @@ public class ModEntityLayerRegistry {
         EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT, BoatEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(BAOBAB_CHEST_BOAT, BoatEntityModel::getChestTexturedModelData);
 
-        EntityRendererFactories.register(ItemRegistry.BAOBAB_BOAT_ENTITY, context -> new BoatEntityRenderer(context, ModEntityLayerRegistry.BAOBAB_BOAT));
-        EntityRendererFactories.register(ItemRegistry.BAOBAB_CHEST_BOAT_ENTITY,context -> new BoatEntityRenderer(context, ModEntityLayerRegistry.BAOBAB_CHEST_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BAOBAB_BOAT_ENTITY, context -> new BoatEntityRenderer(context, ModEntityLayerRegistry.BAOBAB_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BAOBAB_CHEST_BOAT_ENTITY,context -> new BoatEntityRenderer(context, ModEntityLayerRegistry.BAOBAB_CHEST_BOAT));
 
     }
 }

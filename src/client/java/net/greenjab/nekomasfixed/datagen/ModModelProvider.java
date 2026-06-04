@@ -39,6 +39,10 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.GREEN_BRICKS);
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.RED_BRICKS);
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BLACK_BRICKS);
+        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.AMBER_BRICKS);
+        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.AQUA_BRICKS);
+        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.INDIGO_BRICKS);
+        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.MAROON_BRICKS);
 
         registerSlab(blockStateModelGenerator, BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_SLAB);
@@ -56,6 +60,10 @@ public class ModModelProvider extends FabricModelProvider {
         registerSlab(blockStateModelGenerator, BlockRegistry.GREEN_BRICKS, BlockRegistry.GREEN_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.RED_BRICKS, BlockRegistry.RED_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.BLACK_BRICKS, BlockRegistry.BLACK_BRICK_SLAB);
+        registerSlab(blockStateModelGenerator, BlockRegistry.AMBER_BRICKS, BlockRegistry.AMBER_BRICK_SLAB);
+        registerSlab(blockStateModelGenerator, BlockRegistry.AQUA_BRICKS, BlockRegistry.AQUA_BRICK_SLAB);
+        registerSlab(blockStateModelGenerator, BlockRegistry.INDIGO_BRICKS, BlockRegistry.INDIGO_BRICK_SLAB);
+        registerSlab(blockStateModelGenerator, BlockRegistry.MAROON_BRICKS, BlockRegistry.MAROON_BRICK_SLAB);
 
         registerStairs(blockStateModelGenerator, BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_STAIRS);
         registerStairs(blockStateModelGenerator, BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_STAIRS);
@@ -73,6 +81,10 @@ public class ModModelProvider extends FabricModelProvider {
         registerStairs(blockStateModelGenerator, BlockRegistry.GREEN_BRICKS, BlockRegistry.GREEN_BRICK_STAIRS);
         registerStairs(blockStateModelGenerator, BlockRegistry.RED_BRICKS, BlockRegistry.RED_BRICK_STAIRS);
         registerStairs(blockStateModelGenerator, BlockRegistry.BLACK_BRICKS, BlockRegistry.BLACK_BRICK_STAIRS);
+        registerStairs(blockStateModelGenerator, BlockRegistry.AMBER_BRICKS, BlockRegistry.AMBER_BRICK_STAIRS);
+        registerStairs(blockStateModelGenerator, BlockRegistry.AQUA_BRICKS, BlockRegistry.AQUA_BRICK_STAIRS);
+        registerStairs(blockStateModelGenerator, BlockRegistry.INDIGO_BRICKS, BlockRegistry.INDIGO_BRICK_STAIRS);
+        registerStairs(blockStateModelGenerator, BlockRegistry.MAROON_BRICKS, BlockRegistry.MAROON_BRICK_STAIRS);
 
         registerWall(blockStateModelGenerator, BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_WALL);
         registerWall(blockStateModelGenerator, BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_WALL);
@@ -90,6 +102,10 @@ public class ModModelProvider extends FabricModelProvider {
         registerWall(blockStateModelGenerator, BlockRegistry.GREEN_BRICKS, BlockRegistry.GREEN_BRICK_WALL);
         registerWall(blockStateModelGenerator, BlockRegistry.RED_BRICKS, BlockRegistry.RED_BRICK_WALL);
         registerWall(blockStateModelGenerator, BlockRegistry.BLACK_BRICKS, BlockRegistry.BLACK_BRICK_WALL);
+        registerWall(blockStateModelGenerator, BlockRegistry.AMBER_BRICKS, BlockRegistry.AMBER_BRICK_WALL);
+        registerWall(blockStateModelGenerator, BlockRegistry.AQUA_BRICKS, BlockRegistry.AQUA_BRICK_WALL);
+        registerWall(blockStateModelGenerator, BlockRegistry.INDIGO_BRICKS, BlockRegistry.INDIGO_BRICK_WALL);
+        registerWall(blockStateModelGenerator, BlockRegistry.MAROON_BRICKS, BlockRegistry.MAROON_BRICK_WALL);
     }
 
     @Override
@@ -114,6 +130,10 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ItemRegistry.GREEN_DYED_BRUSH, Models.GENERATED);
         itemModelGenerator.register(ItemRegistry.RED_DYED_BRUSH, Models.GENERATED);
         itemModelGenerator.register(ItemRegistry.BLACK_DYED_BRUSH, Models.GENERATED);
+        itemModelGenerator.register(ItemRegistry.AMBER_DYED_BRUSH, Models.GENERATED);
+        itemModelGenerator.register(ItemRegistry.AQUA_DYED_BRUSH, Models.GENERATED);
+        itemModelGenerator.register(ItemRegistry.INDIGO_DYED_BRUSH, Models.GENERATED);
+        itemModelGenerator.register(ItemRegistry.MAROON_DYED_BRUSH, Models.GENERATED);
     }
 
     public void registerSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Block slab) {

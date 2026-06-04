@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "spotted_carpet_dye",
+  "ingredients": [
+    "minecraft:white_dye",
+    [
+      "nekomasfixed:orange_spotted_carpet",
+      "nekomasfixed:magenta_spotted_carpet",
+      "nekomasfixed:light_blue_spotted_carpet",
+      "nekomasfixed:yellow_spotted_carpet",
+      "nekomasfixed:lime_spotted_carpet",
+      "nekomasfixed:pink_spotted_carpet",
+      "nekomasfixed:gray_spotted_carpet",
+      "nekomasfixed:light_gray_spotted_carpet",
+      "nekomasfixed:cyan_spotted_carpet",
+      "nekomasfixed:purple_spotted_carpet",
+      "nekomasfixed:blue_spotted_carpet",
+      "nekomasfixed:brown_spotted_carpet",
+      "nekomasfixed:green_spotted_carpet",
+      "nekomasfixed:red_spotted_carpet",
+      "nekomasfixed:black_spotted_carpet",
+      "nekomasfixed:amber_spotted_carpet",
+      "nekomasfixed:aqua_spotted_carpet",
+      "nekomasfixed:indigo_spotted_carpet",
+      "nekomasfixed:maroon_spotted_carpet"
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:white_spotted_carpet"
+  }
+}

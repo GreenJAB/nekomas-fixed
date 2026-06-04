@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -22,7 +23,7 @@ public class RopeItem extends BlockItem {
 
     protected boolean canPlaceAt(World world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.up());
-        return blockState.isOf(BlockRegistry.ROPE) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
+        return blockState.isOf(BlockRegistry.ROPE) || blockState.isIn(BlockTags.LEAVES) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
     }
 
     @Nullable

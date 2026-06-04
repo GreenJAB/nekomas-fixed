@@ -37,6 +37,7 @@ public class EntityModelsMixin {
         builder.put(ModEntityLayerRegistry.BIG_OAK_BOAT, BigBoatEntityModel.getChestTexturedModelData());
         builder.put(ModEntityLayerRegistry.BIG_PALE_OAK_BOAT, BigBoatEntityModel.getChestTexturedModelData());
         builder.put(ModEntityLayerRegistry.BIG_SPRUCE_BOAT, BigBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.BIG_BAOBAB_BOAT, BigBoatEntityModel.getChestTexturedModelData());
 
         builder.put(ModEntityLayerRegistry.HUGE_ACACIA_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
         builder.put(ModEntityLayerRegistry.HUGE_BAMBOO_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
@@ -48,6 +49,7 @@ public class EntityModelsMixin {
         builder.put(ModEntityLayerRegistry.HUGE_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
         builder.put(ModEntityLayerRegistry.HUGE_PALE_OAK_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
         builder.put(ModEntityLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
+        builder.put(ModEntityLayerRegistry.HUGE_BAOBAB_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
 
         builder.put(ModEntityLayerRegistry.TARGET_DUMMY, TargetDummyEntityModel.getTexturedModelData());
         EquipmentModelData<TexturedModelData> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new Dilation(1.0F), new Dilation(0.5F));

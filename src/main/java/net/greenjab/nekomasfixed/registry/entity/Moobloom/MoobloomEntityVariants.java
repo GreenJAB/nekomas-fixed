@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.entity.Moobloom;
 import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -23,8 +24,8 @@ public enum MoobloomEntityVariants {
     WHITE_1("white", 1, Items.AZURE_BLUET.getDefaultStack(), StatusEffects.BLINDNESS),
     WHITE_2("white", 2, Items.WHITE_TULIP.getDefaultStack(), StatusEffects.WEAKNESS),
     WHITE_3("white", 3, Items.OXEYE_DAISY.getDefaultStack(), StatusEffects.REGENERATION),
-    YELLOW("yellow", 1, Items.DANDELION.getDefaultStack(), StatusEffects.SATURATION)
-    ;
+    YELLOW("yellow", 1, Items.DANDELION.getDefaultStack(), StatusEffects.SATURATION),
+    GRAY_2("gray", 2, Items.OPEN_EYEBLOSSOM.getDefaultStack(), StatusEffects.SATURATION);
 
     public final String path;
     public final ItemStack flower;
@@ -38,16 +39,24 @@ public enum MoobloomEntityVariants {
 
     public static MoobloomEntityVariants getRandomVariant(){
         int randInt = new Random().nextInt(0, MoobloomEntityVariants.values().length);
+        while(MoobloomEntityVariants.values()[randInt].flower.isOf(Items.WITHER_ROSE) ||
+                MoobloomEntityVariants.values()[randInt].flower.isOf(Items.OPEN_EYEBLOSSOM) ||
+                MoobloomEntityVariants.values()[randInt].flower.isOf(Items.TORCHFLOWER))
+            randInt = new Random().nextInt(0, MoobloomEntityVariants.values().length);
         return MoobloomEntityVariants.values()[randInt];
     }
 
     public static MoobloomEntityVariants fromPath(String path) {
         for (MoobloomEntityVariants variant : values()) {
-            if (variant.path.equals(path)) {
-                return variant;
-            }
+            if (variant.path.equals(path)) return variant;
         }
+        return ANCIENT;
+    }
 
+    public static MoobloomEntityVariants fromFlower(Item flower) {
+        for (MoobloomEntityVariants variant : values()) {
+            if (variant.flower.isOf(flower)) return variant;
+        }
         return ANCIENT;
     }
 }

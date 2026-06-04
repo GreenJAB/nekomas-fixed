@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aqua_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:aqua_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_brick_wall": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:brick_wall"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:aqua_brick_wall_dyed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_brick_wall",
+      "has_aqua_dye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:aqua_brick_wall_dyed"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "dyed_brick_stairs_dyed",
+  "key": {
+    "#": "minecraft:brick_stairs",
+    "D": "minecraft:cyan_dye"
+  },
+  "pattern": [
+    "###",
+    "#D#",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nekomasfixed:cyan_brick_stairs"
+  }
+}

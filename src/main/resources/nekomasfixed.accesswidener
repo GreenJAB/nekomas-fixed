@@ -26,4 +26,3 @@ accessible class net/minecraft/entity/passive/DolphinEntity$SwimWithPlayerGoal
 accessible class net/minecraft/entity/passive/DolphinEntity$PlayWithItemsGoal
 accessible method net/minecraft/block/BlockSetType register (Lnet/minecraft/block/BlockSetType;)Lnet/minecraft/block/BlockSetType;
 accessible method net/minecraft/block/WoodType register (Lnet/minecraft/block/WoodType;)Lnet/minecraft/block/WoodType;
-accessible method net/minecraft/block/ObserverBlock scheduleTick (Lnet/minecraft/world/WorldView;Lnet/minecraft/world/tick/ScheduledTickView;Lnet/minecraft/util/math/BlockPos;)V

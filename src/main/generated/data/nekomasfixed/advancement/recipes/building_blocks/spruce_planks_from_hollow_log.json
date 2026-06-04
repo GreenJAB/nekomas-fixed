@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hollow_spruce_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:hollow_spruce_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:spruce_planks_from_hollow_log"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hollow_spruce_log"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:spruce_planks_from_hollow_log"
+    ]
+  }
+}

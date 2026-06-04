@@ -1,21 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_blue_dye": {
+    "has_blue_bricks": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:blue_dye"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_brick_stairs": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:brick_stairs"
+            "items": "nekomasfixed:blue_bricks"
           }
         ]
       },
@@ -31,8 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_blue_dye",
-      "has_brick_stairs"
+      "has_blue_bricks"
     ]
   ],
   "rewards": {

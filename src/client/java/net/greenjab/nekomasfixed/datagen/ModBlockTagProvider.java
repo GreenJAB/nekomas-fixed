@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
-import net.greenjab.nekomasfixed.util.DyedBrushableBlocksMappings;
+import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
@@ -20,50 +20,57 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.@NonNull WrapperLookup wrapperLookup) {
         valueLookupBuilder(OtherRegistry.DYED_BRICKS)
-                .add(DyedBrushableBlocksMappings.BRICKS.values());
+                .add(BlockDyeMap.BRICKS.values());
         valueLookupBuilder(OtherRegistry.DYED_BRICK_SLABS)
-                .add(DyedBrushableBlocksMappings.BRICK_SLAB.values());
+                .add(BlockDyeMap.BRICK_SLAB.values());
         valueLookupBuilder(BlockTags.SLABS)
-                .add(DyedBrushableBlocksMappings.BRICK_SLAB.values());
+                .add(BlockDyeMap.BRICK_SLAB.values());
         valueLookupBuilder(OtherRegistry.DYED_BRICK_STAIRS)
-                .add(DyedBrushableBlocksMappings.BRICK_STAIRS.values());
+                .add(BlockDyeMap.BRICK_STAIRS.values());
         valueLookupBuilder(BlockTags.STAIRS)
-                .add(DyedBrushableBlocksMappings.BRICK_STAIRS.values());
+                .add(BlockDyeMap.BRICK_STAIRS.values());
         valueLookupBuilder(OtherRegistry.DYED_BRICK_WALLS)
-                .add(DyedBrushableBlocksMappings.BRICK_WALL.values());
+                .add(BlockDyeMap.BRICK_WALL.values());
         valueLookupBuilder(BlockTags.WALLS)
-                .add(DyedBrushableBlocksMappings.BRICK_WALL.values());
+                .add(BlockDyeMap.BRICK_WALL.values());
 
         valueLookupBuilder(OtherRegistry.STAINED_GLASSES)
-                .add(DyedBrushableBlocksMappings.STAINED_GLASS.values());
+                .add(BlockDyeMap.STAINED_GLASS.values());
 
         valueLookupBuilder(OtherRegistry.STAINED_GLASS_PANES)
-                .add(DyedBrushableBlocksMappings.STAINED_GLASS_PANES.values());
+                .add(BlockDyeMap.STAINED_GLASS_PANE.values());
 
         valueLookupBuilder(OtherRegistry.GLAZED_TERRACOTTAS)
-                .add(DyedBrushableBlocksMappings.GLAZED_TERRACOTTA.values());
+                .add(BlockDyeMap.GLAZED_TERRACOTTA.values());
 
         valueLookupBuilder(OtherRegistry.CONCRETE_POWDERS)
-                .add(DyedBrushableBlocksMappings.CONCRETE_POWDER.values());
+                .add(BlockDyeMap.CONCRETE_POWDER.values());
 
         valueLookupBuilder(OtherRegistry.CONCRETES)
-                .add(DyedBrushableBlocksMappings.CONCRETE.values());
+                .add(BlockDyeMap.CONCRETE.values());
+
+        valueLookupBuilder(OtherRegistry.SPOTTED_WOOLS)
+                .add(BlockDyeMap.SPOTTED_WOOL.values());
+        valueLookupBuilder(OtherRegistry.SPOTTED_CARPETS)
+                .add(BlockDyeMap.SPOTTED_CARPET.values());
 
 
         valueLookupBuilder(OtherRegistry.CAN_BE_DYED_WITH_BRUSH)
-                .add(DyedBrushableBlocksMappings.BRICKS.values())
-                .add(DyedBrushableBlocksMappings.BRICK_SLAB.values())
-                .add(DyedBrushableBlocksMappings.BRICK_STAIRS.values())
-                .add(DyedBrushableBlocksMappings.BRICK_WALL.values())
-                .add(DyedBrushableBlocksMappings.STAINED_GLASS.values())
-                .add(DyedBrushableBlocksMappings.STAINED_GLASS_PANES.values())
-                .add(DyedBrushableBlocksMappings.TERRACOTTA.values())
-                .add(DyedBrushableBlocksMappings.GLAZED_TERRACOTTA.values())
-                .add(DyedBrushableBlocksMappings.WOOL.values())
-                .add(DyedBrushableBlocksMappings.CANDLES.values())
-                .add(DyedBrushableBlocksMappings.CARPETS.values())
-                .add(DyedBrushableBlocksMappings.CONCRETE.values())
-                .add(DyedBrushableBlocksMappings.CONCRETE_POWDER.values())
+                .add(BlockDyeMap.BRICKS.values())
+                .add(BlockDyeMap.BRICK_SLAB.values())
+                .add(BlockDyeMap.BRICK_STAIRS.values())
+                .add(BlockDyeMap.BRICK_WALL.values())
+                .add(BlockDyeMap.STAINED_GLASS.values())
+                .add(BlockDyeMap.STAINED_GLASS_PANE.values())
+                .add(BlockDyeMap.TERRACOTTA.values())
+                .add(BlockDyeMap.GLAZED_TERRACOTTA.values())
+                .add(BlockDyeMap.WOOL.values())
+                .add(BlockDyeMap.SPOTTED_WOOL.values())
+                .add(BlockDyeMap.CANDLE.values())
+                .add(BlockDyeMap.CARPET.values())
+                .add(BlockDyeMap.SPOTTED_CARPET.values())
+                .add(BlockDyeMap.CONCRETE.values())
+                .add(BlockDyeMap.CONCRETE_POWDER.values())
                 .add(Blocks.GLASS)
                 .add(Blocks.CANDLE)
                 .add(Blocks.GLASS_PANE)

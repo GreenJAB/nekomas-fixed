@@ -10,16 +10,16 @@ import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.Heightmap;
-
 import java.util.List;
 import java.util.function.Supplier;
-
 
 public class EntityTypeRegistry {
 
@@ -36,6 +36,7 @@ public class EntityTypeRegistry {
     public static final EntityType<BigBoatEntity> BIG_OAK_BOAT = bigBoatFactory("big_oak_boat", () -> ItemRegistry.BIG_OAK_BOAT);
     public static final EntityType<BigBoatEntity> BIG_PALE_OAK_BOAT = bigBoatFactory("big_pale_oak_boat", () -> ItemRegistry.BIG_PALE_OAK_BOAT);
     public static final EntityType<BigBoatEntity> BIG_SPRUCE_BOAT = bigBoatFactory("big_spruce_boat", () -> ItemRegistry.BIG_SPRUCE_BOAT);
+    public static final EntityType<BigBoatEntity> BIG_BAOBAB_BOAT = bigBoatFactory("big_baobab_boat", () -> ItemRegistry.BIG_BAOBAB_BOAT);
 
     public static final EntityType<HugeBoatEntity> HUGE_ACACIA_BOAT = hugeBoatFactory("huge_acacia_boat", () -> ItemRegistry.HUGE_ACACIA_BOAT);
     public static final EntityType<HugeBoatEntity> HUGE_BAMBOO_BOAT = hugeBoatFactory("huge_bamboo_boat", () -> ItemRegistry.HUGE_BAMBOO_BOAT);
@@ -47,10 +48,43 @@ public class EntityTypeRegistry {
     public static final EntityType<HugeBoatEntity> HUGE_OAK_BOAT = hugeBoatFactory("huge_oak_boat", () -> ItemRegistry.HUGE_OAK_BOAT);
     public static final EntityType<HugeBoatEntity> HUGE_PALE_OAK_BOAT = hugeBoatFactory("huge_pale_oak_boat", () -> ItemRegistry.HUGE_PALE_OAK_BOAT);
     public static final EntityType<HugeBoatEntity> HUGE_SPRUCE_BOAT = hugeBoatFactory("huge_spruce_boat", () -> ItemRegistry.HUGE_SPRUCE_BOAT);
+    public static final EntityType<HugeBoatEntity> HUGE_BAOBAB_BOAT = hugeBoatFactory("huge_baobab_boat", () -> ItemRegistry.HUGE_BAOBAB_BOAT);
 
-    public static List<EntityType<BigBoatEntity>> bigBoats = List.of(BIG_ACACIA_BOAT, BIG_BAMBOO_BOAT, BIG_BIRCH_BOAT, BIG_CHERRY_BOAT, BIG_DARK_OAK_BOAT, BIG_JUNGLE_BOAT, BIG_MANGROVE_BOAT, BIG_OAK_BOAT, BIG_PALE_OAK_BOAT, BIG_SPRUCE_BOAT);
-    public static List<EntityType<HugeBoatEntity>> hugeBoats = List.of(HUGE_ACACIA_BOAT, HUGE_BAMBOO_BOAT, HUGE_BIRCH_BOAT, HUGE_CHERRY_BOAT, HUGE_DARK_OAK_BOAT, HUGE_JUNGLE_BOAT, HUGE_MANGROVE_BOAT, HUGE_OAK_BOAT, HUGE_PALE_OAK_BOAT, HUGE_SPRUCE_BOAT);
-    public static List<EntityType<? extends AbstractBoatEntity>> boats = List.of(EntityType.ACACIA_BOAT, EntityType.BAMBOO_RAFT, EntityType.BIRCH_BOAT, EntityType.CHERRY_BOAT, EntityType.DARK_OAK_BOAT, EntityType.JUNGLE_BOAT, EntityType.MANGROVE_BOAT, EntityType.OAK_BOAT, EntityType.PALE_OAK_BOAT, EntityType.SPRUCE_BOAT);
+    public static final EntityType<BoatEntity> BAOBAB_BOAT_ENTITY = register2(
+            "baobab_boat",
+            EntityType.Builder.create(getBoatFactory(() -> ItemRegistry.BAOBAB_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10)
+    );
+    public static final EntityType<ChestBoatEntity> BAOBAB_CHEST_BOAT_ENTITY = register2(
+            "baobab_chest_boat",
+            EntityType.Builder.create(getChestBoatFactory(() -> ItemRegistry.BAOBAB_CHEST_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10)
+    );
+    private static EntityType.EntityFactory<BoatEntity> getBoatFactory(Supplier<Item> itemSupplier) {
+        return (type, world) -> new BoatEntity(type, world, itemSupplier);
+    }
+    private static EntityType.EntityFactory<ChestBoatEntity> getChestBoatFactory(Supplier<Item> itemSupplier) {
+        return (type, world) -> new ChestBoatEntity(type, world, itemSupplier);
+    }
+    private static <T extends Entity> EntityType<T> register2(String id, EntityType.Builder<T> type) {
+        return register2(keyOf2(id), type);
+    }
+    private static RegistryKey<EntityType<?>> keyOf2(String id) {
+        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, NekomasFixed.id(id));
+    }
+    private static <T extends Entity> EntityType<T> register2(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
+        return Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
+    }
+
+    public static List<EntityType<BigBoatEntity>> bigBoats = List.of(BIG_ACACIA_BOAT, BIG_BAMBOO_BOAT, BIG_BIRCH_BOAT, BIG_CHERRY_BOAT, BIG_DARK_OAK_BOAT, BIG_JUNGLE_BOAT, BIG_MANGROVE_BOAT, BIG_OAK_BOAT, BIG_PALE_OAK_BOAT, BIG_SPRUCE_BOAT, BIG_BAOBAB_BOAT);
+    public static List<EntityType<HugeBoatEntity>> hugeBoats = List.of(HUGE_ACACIA_BOAT, HUGE_BAMBOO_BOAT, HUGE_BIRCH_BOAT, HUGE_CHERRY_BOAT, HUGE_DARK_OAK_BOAT, HUGE_JUNGLE_BOAT, HUGE_MANGROVE_BOAT, HUGE_OAK_BOAT, HUGE_PALE_OAK_BOAT, HUGE_SPRUCE_BOAT, HUGE_BAOBAB_BOAT);
+    public static List<EntityType<? extends AbstractBoatEntity>> boats = List.of(EntityType.ACACIA_BOAT, EntityType.BAMBOO_RAFT, EntityType.BIRCH_BOAT, EntityType.CHERRY_BOAT, EntityType.DARK_OAK_BOAT, EntityType.JUNGLE_BOAT, EntityType.MANGROVE_BOAT, EntityType.OAK_BOAT, EntityType.PALE_OAK_BOAT, EntityType.SPRUCE_BOAT, BAOBAB_BOAT_ENTITY);
 
     private static EntityType<BigBoatEntity> bigBoatFactory(String id, Supplier<Item> item) {
         return register(
@@ -149,6 +183,4 @@ public class EntityTypeRegistry {
 
 
     public static void init() {}
-
-
 }

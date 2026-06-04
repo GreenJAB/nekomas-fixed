@@ -15,6 +15,10 @@
     "nekomasfixed:brown_brick_wall",
     "nekomasfixed:green_brick_wall",
     "nekomasfixed:red_brick_wall",
-    "nekomasfixed:black_brick_wall"
+    "nekomasfixed:black_brick_wall",
+    "nekomasfixed:amber_brick_wall",
+    "nekomasfixed:aqua_brick_wall",
+    "nekomasfixed:indigo_brick_wall",
+    "nekomasfixed:maroon_brick_wall"
   ]
 }

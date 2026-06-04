@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_indigo_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:indigo_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:indigo_brick_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_indigo_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:indigo_brick_slab"
+    ]
+  }
+}

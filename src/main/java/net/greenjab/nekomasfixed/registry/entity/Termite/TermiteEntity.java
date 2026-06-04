@@ -1,12 +1,11 @@
 package net.greenjab.nekomasfixed.registry.entity.Termite;
 
 import io.netty.buffer.ByteBuf;
-import net.greenjab.nekomasfixed.registry.block.TermiteHiveBlock;
-import net.greenjab.nekomasfixed.registry.block.entity.TermiteHiveBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.TermitehiveBlock;
+import net.greenjab.nekomasfixed.registry.block.entity.TermitehiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.HollowLogType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.CustomTrackedDataHandlerRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.AnimationState;
@@ -20,24 +19,18 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.SnifferEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.function.ValueLists;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jspecify.annotations.NonNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.IntFunction;
 
@@ -179,9 +172,9 @@ public class TermiteEntity extends HostileEntity {
         }
     }
 
-    public TermiteHiveBlockEntity getMound(){
+    public TermitehiveBlockEntity getMound(){
         if(this.getMoundPosition().isEmpty()){return null;}
-        return (TermiteHiveBlockEntity) this.getEntityWorld().getBlockEntity(this.getMoundPosition().get());
+        return (TermitehiveBlockEntity) this.getEntityWorld().getBlockEntity(this.getMoundPosition().get());
     }
 
     public Optional<BlockPos> getMoundPosition() {
@@ -221,12 +214,12 @@ public class TermiteEntity extends HostileEntity {
         public boolean canStart() {
             return this.termiteEntity.getEntityWorld().isNight()
                     && this.termiteEntity.getMoundPosition().isPresent()
-                    && this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermiteHiveBlock.TERMITES) < 2;
+                    && this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermitehiveBlock.TERMITES) < 2;
         }
 
         @Override
         public boolean shouldContinue() {
-            return !this.hasReached() || !(this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermiteHiveBlock.TERMITES) == 2);
+            return !this.hasReached() || !(this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermitehiveBlock.TERMITES) == 2);
         }
 
         @Override
@@ -237,7 +230,7 @@ public class TermiteEntity extends HostileEntity {
                     pos -> {
                         BlockState state = termiteEntity.getEntityWorld().getBlockState(pos);
                         return state.isOf(BlockRegistry.TERMITE_HIVE)
-                                && state.get(TermiteHiveBlock.TERMITES) < 2;
+                                && state.get(TermitehiveBlock.TERMITES) < 2;
                     }
             );
 
@@ -261,7 +254,7 @@ public class TermiteEntity extends HostileEntity {
 
             if (TermiteEntity.this.moundPosition.isEmpty()) return false;
 
-            TermiteHiveBlockEntity hive = TermiteEntity.this.getMound();
+            TermitehiveBlockEntity hive = TermiteEntity.this.getMound();
             return hive != null
                     && !hive.isFullOfTermites()
                     && TermiteEntity.this.canEnterMound();
@@ -279,7 +272,7 @@ public class TermiteEntity extends HostileEntity {
         @Override
         public boolean shouldContinue() {
             if (moundPosition.isEmpty()) return false;
-            TermiteHiveBlockEntity hive = TermiteEntity.this.getMound();
+            TermitehiveBlockEntity hive = TermiteEntity.this.getMound();
             if (hive == null || hive.isFullOfTermites()) return false;
             return TermiteEntity.this.squaredDistanceTo(
                     moundPosition.get().getX() + 0.5,
@@ -301,13 +294,8 @@ public class TermiteEntity extends HostileEntity {
             );
 
             if (dist < 4.0) {
-                TermiteHiveBlockEntity hive = TermiteEntity.this.getMound();
-
-                if (hive != null && !hive.isFullOfTermites()) {
-                    if (hive.tryEnterMound(TermiteEntity.this)) {
-                        TermiteEntity.this.discard();
-                    }
-                }
+                TermitehiveBlockEntity hive = TermiteEntity.this.getMound();
+                if (hive != null ) hive.tryEnterMound(TermiteEntity.this);
             }
         }
     }

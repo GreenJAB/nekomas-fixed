@@ -1,7 +1,8 @@
 package net.greenjab.nekomasfixed.registry.item;
 
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
-import net.greenjab.nekomasfixed.util.DyedBrushableBlocksMappings;
+import net.greenjab.nekomasfixed.util.AllDyes;
+import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -10,15 +11,14 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 
 public class DyedBrushItem extends Item {
-    DyeColor color;
+    AllDyes color;
 
-    public DyedBrushItem(DyeColor color, Settings settings) {
+    public DyedBrushItem(AllDyes color, Settings settings) {
         super(settings);
         this.color = color;
     }
@@ -89,6 +89,10 @@ public class DyedBrushItem extends Item {
                     world.setBlockState(pos, getWool(color).getDefaultState());
                     used = true;
                     this.afterUse(context);
+                } else if(state.isIn(OtherRegistry.SPOTTED_WOOLS) && !state.isOf(getSpottedWool(color))){
+                    world.setBlockState(pos, getSpottedWool(color).getDefaultState());
+                    used = true;
+                    this.afterUse(context);
                 } else if(state.isIn(BlockTags.CANDLES) || state.isOf(Blocks.CANDLE) && !state.isOf(getCandle(color))){
                     world.setBlockState(pos, getCandle(color).getDefaultState()
                             .with(CandleBlock.CANDLES, state.get(CandleBlock.CANDLES))
@@ -96,8 +100,12 @@ public class DyedBrushItem extends Item {
                     );
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(BlockTags.WOOL_CARPETS) && !state.isOf(getWoolCarpet(color))){
-                    world.setBlockState(pos, getWoolCarpet(color).getDefaultState());
+                } else if(state.isIn(BlockTags.WOOL_CARPETS) && !state.isOf(getCarpet(color))){
+                    world.setBlockState(pos, getCarpet(color).getDefaultState());
+                    used = true;
+                    this.afterUse(context);
+                } else if(state.isIn(OtherRegistry.SPOTTED_CARPETS) && !state.isOf(getSpottedCarpet(color))){
+                    world.setBlockState(pos, getSpottedCarpet(color).getDefaultState());
                     used = true;
                     this.afterUse(context);
                 } else if(state.isIn(OtherRegistry.CONCRETES) && !state.isOf(getConcretes(color))){
@@ -123,18 +131,20 @@ public class DyedBrushItem extends Item {
         }
     }
 
-    private static Block getStainedGlass(DyeColor color) { return DyedBrushableBlocksMappings.STAINED_GLASS.get(color); }
-    private static Block getStainedGlassPane(DyeColor color) { return DyedBrushableBlocksMappings.STAINED_GLASS_PANES.get(color); }
-    private static Block getTerracotta(DyeColor color) { return DyedBrushableBlocksMappings.TERRACOTTA.get(color); }
-    private static Block getGlazedTerracotta(DyeColor color) { return DyedBrushableBlocksMappings.GLAZED_TERRACOTTA.get(color); }
-    private static Block getCandle(DyeColor color) { return DyedBrushableBlocksMappings.CANDLES.get(color); }
-    private static Block getBricks(DyeColor color) { return DyedBrushableBlocksMappings.BRICKS.get(color); }
-    private static Block getBrickSlabs(DyeColor color) { return DyedBrushableBlocksMappings.BRICK_SLAB.get(color); }
-    private static Block getBrickStairs(DyeColor color) { return DyedBrushableBlocksMappings.BRICK_STAIRS.get(color); }
-    private static Block getBrickWalls(DyeColor color) { return DyedBrushableBlocksMappings.BRICK_WALL.get(color); }
-    private static Block getConcretes(DyeColor color) { return DyedBrushableBlocksMappings.CONCRETE.get(color); }
-    private static Block getConcretePowders(DyeColor color) { return DyedBrushableBlocksMappings.CONCRETE_POWDER.get(color); }
-    private static Block getWool(DyeColor color) { return DyedBrushableBlocksMappings.WOOL.get(color); }
-    private static Block getWoolCarpet(DyeColor color) {return DyedBrushableBlocksMappings.CARPETS.get(color); }
+    private static Block getStainedGlass(AllDyes color) { return BlockDyeMap.STAINED_GLASS.get(color); }
+    private static Block getStainedGlassPane(AllDyes color) { return BlockDyeMap.STAINED_GLASS_PANE.get(color); }
+    private static Block getTerracotta(AllDyes color) { return BlockDyeMap.TERRACOTTA.get(color); }
+    private static Block getGlazedTerracotta(AllDyes color) { return BlockDyeMap.GLAZED_TERRACOTTA.get(color); }
+    private static Block getCandle(AllDyes color) { return BlockDyeMap.CANDLE.get(color); }
+    private static Block getBricks(AllDyes color) { return BlockDyeMap.BRICKS.get(color); }
+    private static Block getBrickSlabs(AllDyes color) { return BlockDyeMap.BRICK_SLAB.get(color); }
+    private static Block getBrickStairs(AllDyes color) { return BlockDyeMap.BRICK_STAIRS.get(color); }
+    private static Block getBrickWalls(AllDyes color) { return BlockDyeMap.BRICK_WALL.get(color); }
+    private static Block getConcretes(AllDyes color) { return BlockDyeMap.CONCRETE.get(color); }
+    private static Block getConcretePowders(AllDyes color) { return BlockDyeMap.CONCRETE_POWDER.get(color); }
+    private static Block getWool(AllDyes color) { return BlockDyeMap.WOOL.get(color); }
+    private static Block getCarpet(AllDyes color) {return BlockDyeMap.CARPET.get(color); }
+    private static Block getSpottedWool(AllDyes color) { return BlockDyeMap.SPOTTED_WOOL.get(color); }
+    private static Block getSpottedCarpet(AllDyes color) {return BlockDyeMap.SPOTTED_CARPET.get(color); }
 
 }

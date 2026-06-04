@@ -1,21 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_brick_wall": {
+    "has_light_blue_bricks": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:brick_wall"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_light_blue_dye": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:light_blue_dye"
+            "items": "nekomasfixed:light_blue_bricks"
           }
         ]
       },
@@ -31,8 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_light_blue_dye",
-      "has_brick_wall"
+      "has_light_blue_bricks"
     ]
   ],
   "rewards": {

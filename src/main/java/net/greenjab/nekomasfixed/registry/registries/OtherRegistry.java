@@ -1,12 +1,9 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.other.LightningEffect;
+import net.greenjab.nekomasfixed.registry.other.*;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireAttackablesSensor;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireDebugData;
-import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
-import net.greenjab.nekomasfixed.registry.other.ComboComponent;
-import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.minecraft.block.Block;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -42,20 +39,19 @@ public class OtherRegistry {
 
     //component
     public static final ComponentType<AnimalComponent> ANIMAL = registerComponent(
-            "animal", builder -> builder.codec(AnimalComponent.CODEC).packetCodec(AnimalComponent.PACKET_CODEC).cache()
-    );
+            "animal", builder -> builder.codec(AnimalComponent.CODEC).packetCodec(AnimalComponent.PACKET_CODEC).cache());
+    public static final ComponentType<TermitesComponent> TERMITES = registerComponent(
+            "termites", builder -> builder.codec(TermitesComponent.CODEC).packetCodec(TermitesComponent.PACKET_CODEC).cache());
+
     public static final ComponentType<Integer> CLAM_STATE = registerComponent(
-            "clam_state", builder -> builder.codec(Codecs.rangedInt(0, 3)).packetCodec(PacketCodecs.INTEGER)
-    );
+            "clam_state", builder -> builder.codec(Codecs.rangedInt(0, 3)).packetCodec(PacketCodecs.INTEGER));
     public static final ComponentType<StoredTimeComponent> STORED_TIME = registerComponent("stored_time", builder -> builder.codec(StoredTimeComponent.CODEC).packetCodec(StoredTimeComponent.PACKET_CODEC).cache());
 
     public static final ComponentType<ComboComponent> COMBO_MULTIPLIER = registerComponent(
-            "combo_multiplier", builder -> builder.codec(ComboComponent.CODEC).packetCodec(ComboComponent.PACKET_CODEC).cache()
-    );
+            "combo_multiplier", builder -> builder.codec(ComboComponent.CODEC).packetCodec(ComboComponent.PACKET_CODEC).cache());
     public static final ComponentType<List<ItemStack>> SOUP_INGREDIENTS = Registry.register(Registries.DATA_COMPONENT_TYPE, NekomasFixed.id("soup_ingredients"), ComponentType.<List<ItemStack>>builder().codec(ItemStack.CODEC.listOf()).packetCodec(ItemStack.PACKET_CODEC.collect(PacketCodecs.toList())).build());
     private static <T> ComponentType<T> registerComponent(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
-        return Registry.register(Registries.DATA_COMPONENT_TYPE, id, builderOperator.apply(ComponentType.builder()).build());
-    }
+        return Registry.register(Registries.DATA_COMPONENT_TYPE, id, builderOperator.apply(ComponentType.builder()).build());}
 
     //tag
     public static final TagKey<Item> CLAMTAG = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("clams"));
@@ -67,6 +63,8 @@ public class OtherRegistry {
     public static final TagKey<Block> GLAZED_TERRACOTTAS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("glazed_terracottas"));
     public static final TagKey<Block> CONCRETES = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("concretes"));
     public static final TagKey<Block> CONCRETE_POWDERS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("concrete_powders"));
+    public static final TagKey<Block> SPOTTED_WOOLS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("spotted_wools"));
+    public static final TagKey<Block> SPOTTED_CARPETS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("spotted_carpets"));
 
     public static final TagKey<Block> DYED_BRICKS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_bricks"));
     public static final TagKey<Block> DYED_BRICK_SLABS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_brick_slabs"));
@@ -74,6 +72,7 @@ public class OtherRegistry {
     public static final TagKey<Block> DYED_BRICK_WALLS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_brick_walls"));
     public static final TagKey<Block> FOLIAGE_REQUIRES_BASE = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("foliage_requires_base"));
     public static final TagKey<Item> FOOD_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("food_items"));
+    public static final TagKey<Item> MOOBLOOM_FLOWERS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("moobloom_flowers"));
     public static final TagKey<Item> SLINGSHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("slingshot_projectiles"));
 
     //loottable

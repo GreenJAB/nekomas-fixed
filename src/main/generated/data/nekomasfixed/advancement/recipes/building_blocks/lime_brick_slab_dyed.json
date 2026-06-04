@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_brick_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:brick_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_lime_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:lime_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:lime_brick_slab_dyed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_brick_slab",
+      "has_lime_dye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:lime_brick_slab_dyed"
+    ]
+  }
+}

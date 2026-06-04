@@ -1,13 +1,12 @@
 package net.greenjab.nekomasfixed.registry.entity.Moobloom;
 
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.greenjab.nekomasfixed.util.ModMathHelper;
+import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -27,18 +26,15 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
-import java.util.Optional;
 
 public class MoobloomEntity extends CowEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
+    private ItemStack LastFlowerEaten = ItemStack.EMPTY;
     private int flowerRegrowTimer = 20 * 60 * 5;
     public static final TrackedData<String> VARIANT = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.STRING);
     public static final TrackedData<Boolean> SHEARED = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -60,7 +56,7 @@ public class MoobloomEntity extends CowEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0F));
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.0F));
-        this.goalSelector.add(3, new TemptGoal(this, 1.25F, (stack) -> stack.isOf(MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT)).flower.getItem()), false));
+        this.goalSelector.add(3, new TemptGoal(this, 1.25F, (stack) -> stack.isIn(OtherRegistry.MOOBLOOM_FLOWERS), false));
         this.goalSelector.add(4, new FollowParentGoal(this, 1.25F));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0F));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
@@ -71,12 +67,23 @@ public class MoobloomEntity extends CowEntity {
         return AbstractCowEntity.createCowAttributes();
     }
 
+    public void setLastFlowerEaten(ItemStack stack) {
+        LastFlowerEaten = stack;
+    }
+    public ItemStack getLastFlowerEaten() {
+        return LastFlowerEaten;
+    }
+
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
         view.putBoolean("Sheared", this.dataTracker.get(SHEARED));
         view.putInt("FlowerRegrowTimer", this.flowerRegrowTimer);
         view.putString("VariantPath", this.dataTracker.get(VARIANT));
+
+        if (!LastFlowerEaten.isEmpty()) {
+            view.put("Item", ItemStack.CODEC, LastFlowerEaten);
+        }
     }
 
     @Override
@@ -85,6 +92,8 @@ public class MoobloomEntity extends CowEntity {
         this.setSheared(view.getBoolean("Sheared", false));
         this.flowerRegrowTimer = view.getInt("FlowerRegrowTimer", 20 * 60 * 5);
         this.dataTracker.set(VARIANT, view.getString("VariantPath", "ancient_cow_1"));
+
+        LastFlowerEaten = view.read("Item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -101,8 +110,7 @@ public class MoobloomEntity extends CowEntity {
                 }
             }
             return ActionResult.SUCCESS;
-        }
-        else if (itemStack.isOf(Items.BOWL) && !this.isBaby()) {
+        } else if (itemStack.isOf(Items.BOWL) && !this.isBaby()) {
             World world = this.getEntityWorld();
             if (!world.isClient() && world instanceof ServerWorld) {
                 ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
@@ -111,8 +119,7 @@ public class MoobloomEntity extends CowEntity {
                 player.giveOrDropStack( stew);
             }
             return ActionResult.SUCCESS;
-        }
-                else {
+        } else {
             return super.interactMob(player, hand);
         }
     }
@@ -127,7 +134,6 @@ public class MoobloomEntity extends CowEntity {
                 }
             }
 
-
         this.setSheared(true);
     }
 
@@ -138,21 +144,28 @@ public class MoobloomEntity extends CowEntity {
         builder.add(VARIANT, "ancient_cow_1");
     }
     @Override
-    public MoobloomEntity createChild(ServerWorld world, PassiveEntity mate) {
-        MoobloomEntityVariants thisVariant = MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT));
-        MoobloomEntityVariants secondVariant = MoobloomEntityVariants.fromPath(mate.getDataTracker().get(VARIANT));
-        String result = MoobloomEntityVariants.getRandomVariant().path;
+    public MoobloomEntity createChild(ServerWorld world, PassiveEntity other) {
         MoobloomEntity child = EntityTypeRegistry.MOOBLOOM.create(world, SpawnReason.BREEDING);
         assert child != null;
-        double random = ModMathHelper.getDouble();
 
-        if(random <= 0.35){
-            result = thisVariant.path;
-        }else if(random <= 0.7){
-            result = secondVariant.path;
+        MoobloomEntityVariants thisVariant = MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT));
+        String result = thisVariant.path;
+        if (other instanceof MoobloomEntity mate) {
+            MoobloomEntityVariants secondVariant = MoobloomEntityVariants.fromPath(mate.getDataTracker().get(VARIANT));
+            MoobloomEntityVariants flowerVariant = MoobloomEntityVariants.fromFlower(this.LastFlowerEaten.getItem());
+            MoobloomEntityVariants flowerVariant2 = MoobloomEntityVariants.fromFlower(mate.getLastFlowerEaten().getItem());
+            double random = world.random.nextFloat();
+            if (random <= 0.35) {
+                result = thisVariant.path;
+            } else if (random <= 0.7) {
+                result = secondVariant.path;
+            } else if (random <= 0.85) {
+                result = flowerVariant.path;
+            } else {
+                result = flowerVariant2.path;
+            }
         }
-
-        child.getDataTracker().set(VARIANT,result);
+        child.getDataTracker().set(VARIANT, result);
         child.getDataTracker().set(SHEARED, true);
         return child;
     }
@@ -170,7 +183,7 @@ public class MoobloomEntity extends CowEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isOf(MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT)).flower.getItem());
+        return stack.isIn(OtherRegistry.MOOBLOOM_FLOWERS);
     }
 
     @Override

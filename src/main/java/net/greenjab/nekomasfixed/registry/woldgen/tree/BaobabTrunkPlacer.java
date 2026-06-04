@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PillarBlock;
@@ -43,8 +42,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
         setToDirt(world, replacer, random, startPos.down(), config);
-        boolean water = random.nextBoolean();
-        if (world instanceof World world1 && world1.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, startPos)) water = false;
+        boolean water = false;
+        if (world instanceof World world1 && !world1.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, startPos)) water = random.nextBoolean();
         int x,y,z;
         float X = random.nextFloat()-0.5f;
         float Z = random.nextFloat()-0.5f;
@@ -105,14 +104,6 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 if (length == 0) {
                     BlockPos leafPos = pos.up(1);
                     list.add(new FoliagePlacer.TreeNode(leafPos, 0, true));
-
-                    if (random.nextFloat() < 0.4f) {
-                        BlockPos fruitPos = leafPos.down();
-
-                        if (world.testBlockState(fruitPos, AbstractBlock.AbstractBlockState::isAir)) {
-                            replacer.accept(fruitPos, BlockRegistry.BAOBAB_FRUIT.getDefaultState());
-                        }
-                    }
                 }
             }
         }
