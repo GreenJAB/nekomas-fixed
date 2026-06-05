@@ -4,7 +4,6 @@ import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -24,7 +23,6 @@ public class SoupCauldronBlockEntity extends BlockEntity {
     private final List<ItemStack> inputs = new ArrayList<>();
     public boolean hasStirred = false;
     private int stirTicks = 0;
-
     public SoupCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY, pos, state);
     }
@@ -40,6 +38,10 @@ public class SoupCauldronBlockEntity extends BlockEntity {
 
     public int getStirTicks() {
         return stirTicks;
+    }
+
+    public int inputAmount() {
+        return inputs.size();
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, SoupCauldronBlockEntity be) {
@@ -105,7 +107,6 @@ public class SoupCauldronBlockEntity extends BlockEntity {
         return createNbt(registries);
     }
 
-    public boolean canBePicked(){return this.hasStirred && this.inputs.size()<4;}
     public void setHasStirred(boolean val) {
         this.hasStirred = val;
         markDirty();

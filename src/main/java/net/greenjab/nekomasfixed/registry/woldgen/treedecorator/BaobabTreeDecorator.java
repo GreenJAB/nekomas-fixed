@@ -41,7 +41,7 @@ public class BaobabTreeDecorator extends TreeDecorator {
                     if (generator.getWorld().testBlockState(fruitPos, state -> state.isIn(BlockTags.REPLACEABLE)) && !generator.getLogPositions().contains(fruitPos)) {
                         for (int rope = 3 + random.nextInt(5); rope >= 0; rope--) {
                             BlockPos finalFruitPos = fruitPos;
-                            if (generator.getWorld().testBlockState(fruitPos, state -> state.isIn(BlockTags.REPLACEABLE) && !generator.getLogPositions().contains(finalFruitPos))) {
+                            if (generator.getWorld().testBlockState(fruitPos.down(), state -> state.isIn(BlockTags.REPLACEABLE) && !generator.getLogPositions().contains(finalFruitPos))) {
                                 generator.replace(fruitPos, BlockRegistry.ROPE.getDefaultState().with(RopeBlock.ATTACHED, true));
                                 fruitPos = fruitPos.down();
                             }

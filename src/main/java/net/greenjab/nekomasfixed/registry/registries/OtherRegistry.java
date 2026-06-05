@@ -65,6 +65,7 @@ public class OtherRegistry {
     public static final TagKey<Block> CONCRETE_POWDERS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("concrete_powders"));
     public static final TagKey<Block> SPOTTED_WOOLS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("spotted_wools"));
     public static final TagKey<Block> SPOTTED_CARPETS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("spotted_carpets"));
+    public static final TagKey<Block> FROGLIGHTS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("froglights"));
 
     public static final TagKey<Block> DYED_BRICKS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_bricks"));
     public static final TagKey<Block> DYED_BRICK_SLABS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_brick_slabs"));

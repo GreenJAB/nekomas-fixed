@@ -24,20 +24,9 @@ public enum AllDyes implements StringIdentifiable {
     INDIGO("indigo"),
     MAROON("maroon");
 
-    public static final StringIdentifiable.EnumCodec<AllDyes> CODEC = StringIdentifiable.createCodec(AllDyes::values);
-
     private final String id;
-
     AllDyes(final String id) {
         this.id = id;
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public String toString() {
-        return this.id;
     }
 
     @Override

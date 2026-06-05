@@ -30,7 +30,6 @@ import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.Util;
@@ -51,10 +50,9 @@ import java.util.function.BiConsumer;
 public class TermitehiveBlock extends BlockWithEntity {
     public static final MapCodec<TermitehiveBlock> CODEC = createCodec(TermitehiveBlock::new);
     public static IntProperty TERMITES = IntProperty.of("termites", 0, 2);
-    public static final EnumProperty<Direction> FACING = EnumProperty.of("facing", Direction.class);
     public TermitehiveBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(TERMITES, 0).with(FACING, Direction.NORTH));
+        this.setDefaultState(this.getDefaultState().with(TERMITES, 0));
     }
 
     @Override
@@ -62,7 +60,7 @@ public class TermitehiveBlock extends BlockWithEntity {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(TERMITES, FACING);
+        builder.add(TERMITES);
     }
 
     @Override
@@ -126,7 +124,7 @@ public class TermitehiveBlock extends BlockWithEntity {
                 || entity instanceof TntMinecartEntity) {
             BlockEntity blockEntity = builder.getOptional(LootContextParameters.BLOCK_ENTITY);
             if (blockEntity instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
-                termitehiveBlockEntity.angerTermites(null, state, TermitehiveBlockEntity.TermiteState.EMERGENCY);
+                termitehiveBlockEntity.angerTermites(TermitehiveBlockEntity.TermiteState.EMERGENCY);
             }
         }
 
@@ -145,7 +143,7 @@ public class TermitehiveBlock extends BlockWithEntity {
             Random random
     ) {
         if (world.getBlockState(neighborPos).getBlock() instanceof FireBlock && world.getBlockEntity(pos) instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
-            termitehiveBlockEntity.angerTermites(null, state, TermitehiveBlockEntity.TermiteState.EMERGENCY);
+            termitehiveBlockEntity.angerTermites(TermitehiveBlockEntity.TermiteState.EMERGENCY);
         }
 
         return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
@@ -162,7 +160,7 @@ public class TermitehiveBlock extends BlockWithEntity {
         super.afterBreak(world, player, pos, state, blockEntity, tool);
         if (!world.isClient() && blockEntity instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
             if (!EnchantmentHelper.hasAnyEnchantmentsIn(tool, EnchantmentTags.PREVENTS_BEE_SPAWNS_WHEN_MINING)) {
-                termitehiveBlockEntity.angerTermites(player, state, TermitehiveBlockEntity.TermiteState.EMERGENCY);
+                termitehiveBlockEntity.angerTermites(TermitehiveBlockEntity.TermiteState.EMERGENCY);
                 ItemScatterer.onStateReplaced(state, world, pos);
                 this.angerNearbyTermites(world, pos);
             }

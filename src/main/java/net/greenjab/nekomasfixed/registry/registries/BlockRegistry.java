@@ -114,7 +114,7 @@ public class BlockRegistry {
     public static final Block INDIGO_CARPET = register("indigo_carpet", (settings) -> new DyedCarpetBlock(DyeColor.MAGENTA, settings), AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
 
     public static final Block BAOBAB_LOG = register("baobab_log", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG));
-    public static final Block BAOBAB_SAPLING = register("baobab_sapling",(settings) -> new SaplingBlock(new SaplingGenerator("nekomasfixed:baobab", Optional.empty(), Optional.of(ModConfiguredFeatures.BAOBAB_KEY), Optional.empty()),  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
+    public static final Block BAOBAB_SAPLING = register("baobab_sapling",(settings) -> new SaplingBlock(new SaplingGenerator("nekomasfixed:baobab",  Optional.of(ModConfiguredFeatures.BAOBAB_KEY),Optional.empty(), Optional.empty()),  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
 
     public static final Block TERMITE_BLOCK = register("termite_block", AbstractBlock.Settings.create().strength(1f));
     public static final Block TERMITE_HIVE = register("termite_hive", TermitehiveBlock::new, AbstractBlock.Settings.create().strength(1f));
@@ -142,11 +142,11 @@ public class BlockRegistry {
     public static final Block MAROON_CANDLE = register("maroon_candle", CandleBlock::new, createCandleSettings(MapColor.DARK_CRIMSON));
     public static final Block INDIGO_CANDLE = register("indigo_candle", CandleBlock::new, createCandleSettings(MapColor.PALE_PURPLE));
 
-    public static final Block HONEY_CAULDRON = register("honey_cauldron", HoneyCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
-    public static final Block MAGMA_CAULDRON = register("magma_cauldron", MagmaCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
-    public static final Block SLIME_CAULDRON = register("slime_cauldron", SlimeCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
-    public static final Block SOUP_CAULDRON = register("soup_cauldron", SoupCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
-    public static final Block ICE_CAULDRON = register("ice_cauldron", IceCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+    public static Block HONEY_CAULDRON = null;
+    public static Block MAGMA_CAULDRON = null;
+    public static Block SLIME_CAULDRON = null;
+    public static Block ICE_CAULDRON = null;
+    public static Block SOUP_CAULDRON = null;
 
     public static final Block AMBER_BED = registerBedBlock("amber_bed", DyeColor.YELLOW);
     public static final Block AQUA_BED = registerBedBlock("aqua_bed", DyeColor.LIGHT_BLUE);
@@ -472,5 +472,10 @@ public class BlockRegistry {
 	
     public static void registerBlocks() {
         System.out.println("register Blocks");
+        HONEY_CAULDRON = register("honey_cauldron", HoneyCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+        MAGMA_CAULDRON = register("magma_cauldron", MagmaCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+        SLIME_CAULDRON = register("slime_cauldron", SlimeCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+        ICE_CAULDRON = register("ice_cauldron", IceCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+        SOUP_CAULDRON = register("soup_cauldron", SoupCauldronBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
     }
 }

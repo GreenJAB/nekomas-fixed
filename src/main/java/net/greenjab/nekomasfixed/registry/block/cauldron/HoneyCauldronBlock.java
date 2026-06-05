@@ -10,8 +10,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -19,11 +20,11 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class HoneyCauldronBlock extends AbstractCauldronBlock {
@@ -49,19 +50,28 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
     }
 
     private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
-        var behaviorMap = CauldronBehavior.createMap("honey");
-        var map = behaviorMap.map();
+        CauldronBehavior.CauldronBehaviorMap behaviorMap = CauldronBehavior.createMap("honey");
+        Map<Item, CauldronBehavior> map = behaviorMap.map();
+
+        map.put(Items.AIR, (state, world, pos, player, hand, stack) -> {
+            if(state.get(HONEY_LEVEL) == MAX_LEVEL) {
+                if (!world.isClient()) {
+                    player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.HONEY_BLOCK)));
+                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
+                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                return ActionResult.SUCCESS;
+            } else {
+                return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+            }
+        });
 
         map.put(Items.GLASS_BOTTLE, (state, world, pos, player, hand, stack) -> {
             if (!world.isClient()) {
+                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.HONEY_BOTTLE)));
                 int level = state.get(HONEY_LEVEL);
-                player.setStackInHand(hand, new ItemStack(Items.HONEY_BOTTLE));
-
-                if (level > 1) {
-                    world.setBlockState(pos, state.with(HONEY_LEVEL, level - 1));
-                } else {
-                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
-                }
+                if (level > 1) world.setBlockState(pos, state.with(HONEY_LEVEL, level - 1));
+                else  world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
 
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL,
                         SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -70,25 +80,19 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
         });
 
         map.put(Items.HONEY_BOTTLE, (state, world, pos, player, hand, stack) -> {
-            if (!world.isClient()) {
-                incrementHoneyLevel(state, world, pos, player, hand);
+            int level = state.get(HONEY_LEVEL);
+            if (level < MAX_LEVEL) {
+                if (!world.isClient()) {
+                    world.setBlockState(pos, state.with(HONEY_LEVEL, level + 1));
+                    player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
+                            SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
             }
             return ActionResult.SUCCESS;
         });
 
         return behaviorMap;
-    }
-
-    public static void incrementHoneyLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand) {
-        if (world.isClient()) return;
-
-        int level = state.get(HONEY_LEVEL);
-        if (level < MAX_LEVEL) {
-            world.setBlockState(pos, state.with(HONEY_LEVEL, level + 1));
-            player.setStackInHand(hand, new ItemStack(Items.GLASS_BOTTLE));
-            world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
-                    SoundCategory.BLOCKS, 1.0F, 1.0F);
-        }
     }
 
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {

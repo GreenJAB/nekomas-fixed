@@ -4,6 +4,8 @@ import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.block.enums.BedPart;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
@@ -12,6 +14,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 
@@ -116,11 +119,47 @@ public class DyedBrushItem extends Item {
                     world.setBlockState(pos, getConcretePowders(color).getDefaultState());
                     used = true;
                     this.afterUse(context);
+                } else if(state.isIn(OtherRegistry.FROGLIGHTS) && !state.isOf(getFroglight(color))){
+                    world.setBlockState(pos, getFroglight(color).getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)));
+                    used = true;
+                    this.afterUse(context);
+                } else if(state.isOf(Blocks.SHULKER_BOX) || state.isIn(BlockTags.SHULKER_BOXES) && !state.isOf(getShulkerBox(color))){
+                    if (world.getBlockEntity(pos) instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
+                       world.setBlockState(pos, getShulkerBox(color).getDefaultState().with(ShulkerBoxBlock.FACING, state.get(ShulkerBoxBlock.FACING)));
+                        if (world.getBlockEntity(pos) instanceof ShulkerBoxBlockEntity newshulkerBoxBlockEntity) {
+                            for (int i = 0;i<shulkerBoxBlockEntity.size();i++)
+                                newshulkerBoxBlockEntity.setStack(i, shulkerBoxBlockEntity.getStack(i));
+                            newshulkerBoxBlockEntity.customName = shulkerBoxBlockEntity.getCustomName();
+                        }
+                    }
+                    used = true;
+                    this.afterUse(context);
+                } else if(state.isIn(BlockTags.BEDS) && !state.isOf(getBed(color))){
+                    Block bed = getBed(color);
+                    BedPart bedPart = state.get(BedBlock.PART);
+                    Direction bedDir = state.get(BedBlock.FACING);
+                    BlockPos otherPos = pos.offset(getDirectionTowardsOtherPart(bedPart, bedDir));
+                    BlockState newBed = bed.getDefaultState().with(BedBlock.FACING, bedDir);
+                    if (world.getBlockState(otherPos).isIn(BlockTags.BEDS)) {
+                        BlockPos head = bedPart == BedPart.HEAD?pos:otherPos;
+                        BlockPos foot = bedPart == BedPart.HEAD?otherPos:pos;
+                        world.setBlockState(head, Blocks.AIR.getDefaultState());
+                        world.setBlockState(foot, Blocks.AIR.getDefaultState());
+                        world.setBlockState(head, newBed.with(BedBlock.PART, BedPart.HEAD));
+                        world.setBlockState(foot, newBed.with(BedBlock.PART, BedPart.FOOT));
+                    } else {
+                        world.setBlockState(pos, newBed.with(BedBlock.PART, bedPart));
+                    }
+                    used = true;
+                    this.afterUse(context);
                 }
-                //remaining - beds and banners
             }
 
             return used ? ActionResult.SUCCESS : ActionResult.FAIL;
+    }
+
+    private static Direction getDirectionTowardsOtherPart(BedPart part, Direction direction) {
+        return part == BedPart.FOOT ? direction : direction.getOpposite();
     }
 
     private void afterUse( ItemUsageContext context){
@@ -146,5 +185,8 @@ public class DyedBrushItem extends Item {
     private static Block getCarpet(AllDyes color) {return BlockDyeMap.CARPET.get(color); }
     private static Block getSpottedWool(AllDyes color) { return BlockDyeMap.SPOTTED_WOOL.get(color); }
     private static Block getSpottedCarpet(AllDyes color) {return BlockDyeMap.SPOTTED_CARPET.get(color); }
+    private static Block getFroglight(AllDyes color) {return BlockDyeMap.FROGLIGHT.get(color); }
+    private static Block getShulkerBox(AllDyes color) {return BlockDyeMap.SHULKER_BOX.get(color); }
+    private static Block getBed(AllDyes color) {return BlockDyeMap.BED.get(color); }
 
 }

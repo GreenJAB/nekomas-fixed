@@ -22,6 +22,9 @@ public class BlockDyeMap {
     public static final EnumMap<AllDyes, Block> CANDLE = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Block> CONCRETE = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Block> CONCRETE_POWDER = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> FROGLIGHT = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> SHULKER_BOX = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> BED = new EnumMap<>(AllDyes.class);
 
     //this class provides all the mappings for both datagen and server side logic... its used by tagProvider and DyedBRushItem
 
@@ -340,5 +343,68 @@ public class BlockDyeMap {
         STAINED_GLASS_PANE.put(AllDyes.AQUA, BlockRegistry.AQUA_STAINED_GLASS_PANE);
         STAINED_GLASS_PANE.put(AllDyes.INDIGO, BlockRegistry.INDIGO_STAINED_GLASS_PANE);
         STAINED_GLASS_PANE.put(AllDyes.MAROON, BlockRegistry.MAROON_STAINED_GLASS_PANE);
+
+        FROGLIGHT.put(AllDyes.WHITE, BlockRegistry.CLEAR_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.ORANGE, BlockRegistry.MANDARIN_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.MAGENTA, BlockRegistry.THULIAN_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.LIGHT_BLUE, BlockRegistry.CERULEAN_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.YELLOW, BlockRegistry.LEMON_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.LIME, BlockRegistry.KIWI_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.PINK, BlockRegistry.SAKURA_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.GRAY, BlockRegistry.CASCADING_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.LIGHT_GRAY, BlockRegistry.CLOUDY_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.CYAN, BlockRegistry.TEAL_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.PURPLE, Blocks.PEARLESCENT_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.BLUE, BlockRegistry.NAVY_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.BROWN, BlockRegistry.CHAMOISEE_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.GREEN, Blocks.VERDANT_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.RED, BlockRegistry.VERMILION_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.BLACK, BlockRegistry.CLOUDBURST_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.AMBER, Blocks.OCHRE_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.AQUA, BlockRegistry.SEAFOAM_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.INDIGO, BlockRegistry.LAVENDER_FROGLIGHT);
+        FROGLIGHT.put(AllDyes.MAROON, BlockRegistry.SANGUINE_FROGLIGHT);
+
+        SHULKER_BOX.put(AllDyes.WHITE, Blocks.WHITE_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.ORANGE, Blocks.ORANGE_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.MAGENTA, Blocks.MAGENTA_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.LIGHT_BLUE, Blocks.LIGHT_BLUE_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.YELLOW, Blocks.YELLOW_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.LIME, Blocks.LIME_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.PINK, Blocks.PINK_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.GRAY, Blocks.GRAY_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.LIGHT_GRAY, Blocks.LIGHT_GRAY_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.CYAN, Blocks.CYAN_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.PURPLE, Blocks.PURPLE_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.BLUE, Blocks.BLUE_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.BROWN, Blocks.BROWN_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.GREEN, Blocks.GREEN_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.RED, Blocks.RED_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.BLACK, Blocks.BLACK_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.AMBER, BlockRegistry.AMBER_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.AQUA, BlockRegistry.AQUA_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.INDIGO, BlockRegistry.INDIGO_SHULKER_BOX);
+        SHULKER_BOX.put(AllDyes.MAROON, BlockRegistry.MAROON_SHULKER_BOX);
+
+        BED.put(AllDyes.WHITE, Blocks.WHITE_BED);
+        BED.put(AllDyes.ORANGE, Blocks.ORANGE_BED);
+        BED.put(AllDyes.MAGENTA, Blocks.MAGENTA_BED);
+        BED.put(AllDyes.LIGHT_BLUE, Blocks.LIGHT_BLUE_BED);
+        BED.put(AllDyes.YELLOW, Blocks.YELLOW_BED);
+        BED.put(AllDyes.LIME, Blocks.LIME_BED);
+        BED.put(AllDyes.PINK, Blocks.PINK_BED);
+        BED.put(AllDyes.GRAY, Blocks.GRAY_BED);
+        BED.put(AllDyes.LIGHT_GRAY, Blocks.LIGHT_GRAY_BED);
+        BED.put(AllDyes.CYAN, Blocks.CYAN_BED);
+        BED.put(AllDyes.PURPLE, Blocks.PURPLE_BED);
+        BED.put(AllDyes.BLUE, Blocks.BLUE_BED);
+        BED.put(AllDyes.BROWN, Blocks.BROWN_BED);
+        BED.put(AllDyes.GREEN, Blocks.GREEN_BED);
+        BED.put(AllDyes.RED, Blocks.RED_BED);
+        BED.put(AllDyes.BLACK, Blocks.BLACK_BED);
+        BED.put(AllDyes.AMBER, BlockRegistry.AMBER_BED);
+        BED.put(AllDyes.AQUA, BlockRegistry.AQUA_BED);
+        BED.put(AllDyes.INDIGO, BlockRegistry.INDIGO_BED);
+        BED.put(AllDyes.MAROON, BlockRegistry.MAROON_BED);
     }
 }

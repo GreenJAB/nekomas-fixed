@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.greenjab.nekomasfixed.registry.block.TermitehiveBlock;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.other.TermitesComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
@@ -15,7 +14,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.*;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -77,9 +75,7 @@ public class TermitehiveBlockEntity extends BlockEntity {
 
     @Override
     public void markDirty() {
-        this.angerTermites(null, this.world.getBlockState(this.getPos()), TermitehiveBlockEntity.TermiteState.EMERGENCY);
-
-
+        this.angerTermites(TermitehiveBlockEntity.TermiteState.EMERGENCY);
         super.markDirty();
     }
 
@@ -91,9 +87,9 @@ public class TermitehiveBlockEntity extends BlockEntity {
         return this.termites.size() == 2;
     }
 
-    public void angerTermites(@Nullable PlayerEntity player, BlockState state, TermitehiveBlockEntity.TermiteState termiteState) {
+    public void angerTermites(TermitehiveBlockEntity.TermiteState termiteState) {
         List<Entity> list = Lists.newArrayList();
-        this.termites.removeIf( termite -> releaseTermite(this.world, this.pos, state, termite.createData(), list, termiteState));
+        this.termites.removeIf( termite -> releaseTermite(this.world, this.pos, termite.createData(), list, termiteState));
         if (!list.isEmpty()) {
             super.markDirty();
         }
@@ -133,13 +129,12 @@ public class TermitehiveBlockEntity extends BlockEntity {
     private static boolean releaseTermite(
             World world,
             BlockPos pos,
-            BlockState state,
             TermitehiveBlockEntity.TermiteData termite,
             @Nullable List<Entity> entities,
             TermitehiveBlockEntity.TermiteState termiteState
     ) {
 
-        Direction direction = state.get(TermitehiveBlock.FACING);
+        Direction direction = Direction.fromHorizontalDegrees(world.random.nextInt(360));
         BlockPos blockPos = pos.offset(direction);
         boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty();
         if (bl && termiteState != TermitehiveBlockEntity.TermiteState.EMERGENCY) {
@@ -178,7 +173,7 @@ public class TermitehiveBlockEntity extends BlockEntity {
             TermitehiveBlockEntity.Termite termite = iterator.next();
             if (termite.canExitHive()) {
                 TermitehiveBlockEntity.TermiteState termiteState = TermitehiveBlockEntity.TermiteState.TERMITE_RELEASED;
-                if (releaseTermite(world, pos, state, termite.createData(), null, termiteState)) {
+                if (releaseTermite(world, pos, termite.createData(), null, termiteState)) {
                     bl = true;
                     iterator.remove();
                 }

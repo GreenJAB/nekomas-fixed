@@ -58,7 +58,6 @@ public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<Soup
 
             if (!itemRenderState.isEmpty() && !state.hasStirred) {
                 matrices.push();
-                System.out.println(state.hasStirred);
                 float bob = (float)Math.sin(state.animationTime * 0.1f) * 0.02f;
                 matrices.translate(0.5F, 1F + bob, 0.5F);
                 Direction direction2 = Direction.fromHorizontalQuarterTurns((i + Direction.NORTH.getHorizontalQuarterTurns()) % 4);

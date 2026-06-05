@@ -12,8 +12,8 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.TestableWorld;
-import net.minecraft.world.World;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
@@ -29,9 +29,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
     public static final MapCodec<BaobabTrunkPlacer> CODEC =
             RecordCodecBuilder.mapCodec(instance ->
-                    fillTrunkPlacerFields(instance).apply(instance, BaobabTrunkPlacer::new)
-            );
-
+                    fillTrunkPlacerFields(instance).apply(instance, BaobabTrunkPlacer::new));
 
     @Override
     protected TrunkPlacerType<?> getType() {
@@ -41,9 +39,10 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     @Override
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
-        setToDirt(world, replacer, random, startPos.down(), config);
         boolean water = false;
-        if (world instanceof World world1 && !world1.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, startPos)) water = random.nextBoolean();
+        if (world instanceof ChunkRegion chunkRegion)
+            if (!chunkRegion.toServerWorld().getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, startPos))
+                water = random.nextBoolean();
         int x,y,z;
         float X = random.nextFloat()-0.5f;
         float Z = random.nextFloat()-0.5f;
@@ -87,8 +86,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         int b = random.nextInt(2)+5;
         for (int i  = 0;i<b;i++) {
             float rot =random.nextFloat()*40+i*360/(b+0f);
-            float dx = startPos.getX()+(float) Math.sin(rot*Math.PI/180f)*0.5f;
-            float dz = startPos.getZ()+(float) Math.cos(rot*Math.PI/180f)*0.5f;
+            float dx = startPos.getX()+(float) Math.sin(rot*Math.PI/180f);
+            float dz = startPos.getZ()+(float) Math.cos(rot*Math.PI/180f);
 
             int by = height - random.nextInt(5) - 2;
             for (int length = 4 + random.nextInt(4); length >= 0; length--) {
@@ -107,8 +106,6 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 }
             }
         }
-
-
 
         return list;
     }

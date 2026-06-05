@@ -102,6 +102,7 @@ public class EndermanHeadBlockEntity extends BlockEntity implements HeldItemCont
 		for (int i = 0; i < playerManager.getPlayerList().size(); i++) {
 			ServerPlayerEntity SPE = playerManager.getPlayerList().get(i);
 			if (!LivingEntity.NOT_WEARING_GAZE_DISGUISE_PREDICATE.test(SPE)) continue;
+			if (SPE.isSpectator()) continue;
 			if (SPE.getEntityWorld().getRegistryKey() == worldKey) {
 				double x1 = pos.getX() - SPE.getX();
 				double y1 = pos.getY() - SPE.getY();

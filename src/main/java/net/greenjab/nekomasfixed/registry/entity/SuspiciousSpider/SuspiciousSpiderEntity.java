@@ -77,8 +77,7 @@ public class SuspiciousSpiderEntity extends SpiderEntity {
         boolean bl = target.damage(world, damageSource, f);
         if (bl) {
             this.knockbackTarget(target, this.getAttackKnockbackAgainst(target, damageSource), vec3d);
-            if (target instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity)target;
+            if (target instanceof LivingEntity livingEntity) {
                 livingEntity.addStatusEffect(this.dataTracker.get(EFFECT_ON_HIT));
                 itemStack.postHit(livingEntity, this);
             }
@@ -174,7 +173,6 @@ public class SuspiciousSpiderEntity extends SpiderEntity {
             StatusEffect effect = Registries.STATUS_EFFECT.get(id);
 
             if (effect == null) {
-                System.out.println("Unknown effect: " + id);
                 return new StatusEffectInstance(StatusEffects.STRENGTH, 200);
             }
 
