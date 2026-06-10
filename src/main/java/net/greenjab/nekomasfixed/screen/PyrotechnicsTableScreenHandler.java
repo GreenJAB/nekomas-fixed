@@ -217,18 +217,18 @@ public class PyrotechnicsTableScreenHandler extends ScreenHandler {
                     IntList colorList = new IntArrayList();
                     slots.stream().filter(slot -> slot.getIndex()<5 && slot.hasStack() && slot.inventory==input).forEach(slot -> {
                         Item item = slot.getStack().getItem();
-                        if (item.equals(ItemRegistry.AMBER_DYE)) colorList.add(ModColors.AMBER.color());
-                        else if (item.equals(ItemRegistry.AQUA_DYE)) colorList.add(ModColors.AQUA.color());
-                        else if (item.equals(ItemRegistry.MAROON_DYE)) colorList.add(ModColors.MAROON.color());
-                        else if (item.equals(ItemRegistry.INDIGO_DYE)) colorList.add(ModColors.INDIGO.color());
+                        if (item.equals(ItemRegistry.AMBER_DYE)) colorList.add(ModColors.AMBER.getColor());
+                        else if (item.equals(ItemRegistry.AQUA_DYE)) colorList.add(ModColors.AQUA.getColor());
+                        else if (item.equals(ItemRegistry.MAROON_DYE)) colorList.add(ModColors.MAROON.getColor());
+                        else if (item.equals(ItemRegistry.INDIGO_DYE)) colorList.add(ModColors.INDIGO.getColor());
                         else colorList.add(((DyeItem)item).getColor().getFireworkColor());});
                     IntList fadeList = new IntArrayList();
                     slots.stream().filter(slot -> slot.getIndex()>=5 && slot.getIndex()<10 && slot.hasStack() && slot.inventory==input).forEach(slot -> {
                         Item item = slot.getStack().getItem();
-                        if (item.equals(ItemRegistry.AMBER_DYE)) fadeList.add(ModColors.AMBER.color());
-                        else if (item.equals(ItemRegistry.AQUA_DYE)) fadeList.add(ModColors.AQUA.color());
-                        else if (item.equals(ItemRegistry.MAROON_DYE)) fadeList.add(ModColors.MAROON.color());
-                        else if (item.equals(ItemRegistry.INDIGO_DYE)) fadeList.add(ModColors.INDIGO.color());
+                        if (item.equals(ItemRegistry.AMBER_DYE)) fadeList.add(ModColors.AMBER.getColor());
+                        else if (item.equals(ItemRegistry.AQUA_DYE)) fadeList.add(ModColors.AQUA.getColor());
+                        else if (item.equals(ItemRegistry.MAROON_DYE)) fadeList.add(ModColors.MAROON.getColor());
+                        else if (item.equals(ItemRegistry.INDIGO_DYE)) fadeList.add(ModColors.INDIGO.getColor());
                         else fadeList.add(((DyeItem)item).getColor().getFireworkColor());});
 
                     newOutput = new ItemStack(Items.FIREWORK_STAR);
