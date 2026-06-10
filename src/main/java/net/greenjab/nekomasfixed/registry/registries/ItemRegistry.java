@@ -470,6 +470,8 @@ public class ItemRegistry {
     public static final Item RED_SPOTTED_CARPET = register(BlockRegistry.RED_SPOTTED_CARPET);
     public static final Item BLACK_SPOTTED_CARPET = register(BlockRegistry.BLACK_SPOTTED_CARPET);
 
+    public static final Item PYROTECHNICS_TABLE = register(BlockRegistry.PYROTECHNICS_TABLE);
+
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);
     }

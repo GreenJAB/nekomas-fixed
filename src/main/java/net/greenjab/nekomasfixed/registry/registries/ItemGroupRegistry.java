@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -300,6 +301,8 @@ public class ItemGroupRegistry {
                   entries.add(ItemRegistry.AQUA_DYED_BRUSH);
                   entries.add(ItemRegistry.INDIGO_DYED_BRUSH);
                   entries.add(ItemRegistry.MAROON_DYED_BRUSH);
+
+                         entries.add(ItemRegistry.PYROTECHNICS_TABLE);
 
 
 

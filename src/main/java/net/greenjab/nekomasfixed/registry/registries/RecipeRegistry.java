@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.recipe.CoralNautilusRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
+import net.greenjab.nekomasfixed.registry.recipe.PyrotechnicsRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.ZombieNautilusRecipe;
 import net.greenjab.nekomasfixed.util.ModRecipeBookType;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Identifier;
 
 public class RecipeRegistry {
 
@@ -141,4 +143,17 @@ public class RecipeRegistry {
     );
    public static final ModRecipeBookType KILNING = new ModRecipeBookType(RecipeRegistry.KILNING_BLOCK, RecipeRegistry.KILNING_MISC);
 
+    public static final RecipeSerializer<PyrotechnicsRecipe> PYROTECHNICS_SERIALIZER =
+            Registry.register(
+                    Registries.RECIPE_SERIALIZER,
+                    NekomasFixed.id("pyrotechnics"),
+                    PyrotechnicsRecipe.Serializer.INSTANCE
+            );
+
+    public static final RecipeType<PyrotechnicsRecipe> PYROTECHNICS =
+            Registry.register(
+                    Registries.RECIPE_TYPE,
+                    NekomasFixed.id("pyrotechnics"),
+                    PyrotechnicsRecipe.Type.INSTANCE
+            );
 }
