@@ -52,7 +52,7 @@ public class EntityModelsMixin {
         builder.put(ModEntityLayerRegistry.HUGE_BAOBAB_BOAT, HugeBoatEntityModel.getChestTexturedModelData());
 
         builder.put(ModEntityLayerRegistry.TARGET_DUMMY, TargetDummyEntityModel.getTexturedModelData());
-        EquipmentModelData<TexturedModelData> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new Dilation(1.0F), new Dilation(0.5F));
+        EquipmentModelData<TexturedModelData> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new Dilation(0.5F), new Dilation(1.0F));
         ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.addTo(equipmentModelData6, builder);
         builder.put(ModEntityLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel.getTexturedModelData());
 

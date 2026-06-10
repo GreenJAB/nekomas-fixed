@@ -49,12 +49,12 @@ public class PlayerEntityMixin {
         ItemStack food = inventory.getStack(i);
         if (!food.isEmpty() && food.isIn(OtherRegistry.FOOD_ITEMS)) {
             food.decrement(1);
-            ItemStack rotten = new ItemStack(Items.ROTTEN_FLESH, food.getCount());
+            ItemStack rotten = new ItemStack(Items.ROTTEN_FLESH, 1);
             if (!PE.getInventory().insertStack(rotten.copy())) {
                 PE.dropItem(rotten, false);
             }
         }
-        tickCount = random.nextInt(20*40, 20*80);
+        tickCount = random.nextInt(20*10, 20*20);
     }
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
     private void customTickLogics(CallbackInfo ci) {

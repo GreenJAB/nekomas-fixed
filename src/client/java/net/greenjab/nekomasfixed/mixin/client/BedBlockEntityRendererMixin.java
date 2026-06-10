@@ -58,7 +58,7 @@ public class BedBlockEntityRendererMixin {
             ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
                     new SpriteIdentifier(
                             TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/bed/crimson")
+                            NekomasFixed.id("entity/bed/maroon")
                     )
             );
         }
