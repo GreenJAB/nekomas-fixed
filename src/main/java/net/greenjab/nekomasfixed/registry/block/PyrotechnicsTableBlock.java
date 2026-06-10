@@ -11,7 +11,6 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -21,7 +20,7 @@ import net.minecraft.world.World;
 public class PyrotechnicsTableBlock extends HorizontalFacingBlock {
 
     public static final MapCodec<PyrotechnicsTableBlock> CODEC = createCodec(PyrotechnicsTableBlock::new);
-    private static final Text TITLE = Text.translatable("container.pyrotechnics");
+    private static final Text TITLE = Text.translatable("container.nekomasfixed.pyrotechnics_table");
 
     public PyrotechnicsTableBlock(Settings settings) {
         super(settings);
@@ -46,11 +45,11 @@ public class PyrotechnicsTableBlock extends HorizontalFacingBlock {
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState)this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING});
+        builder.add(FACING);
     }
 }
 

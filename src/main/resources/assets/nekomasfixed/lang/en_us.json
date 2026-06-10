@@ -230,7 +230,15 @@
   "item.minecraft.firework_star.amber": "Amber",
   "item.minecraft.firework_star.maroon": "Maroon",
 
-  "container.pyrotechnics": "Pyrotechnics Table",
+  "container.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
+  "container.nekomasfixed.pyrotechnics_table.small_ball": "Small Ball",
+  "container.nekomasfixed.pyrotechnics_table.large_ball": "Large Ball",
+  "container.nekomasfixed.pyrotechnics_table.star": "Star",
+  "container.nekomasfixed.pyrotechnics_table.creeper": "Creeper",
+  "container.nekomasfixed.pyrotechnics_table.burst": "Burst",
+  "container.nekomasfixed.pyrotechnics_table.none": "No Effect",
+  "container.nekomasfixed.pyrotechnics_table.twinkle": "Twinkle",
+  "container.nekomasfixed.pyrotechnics_table.trail": "Trail",
   "block.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
   "item.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table"
 }

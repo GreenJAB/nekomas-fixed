@@ -20,7 +20,7 @@ public class ScreenHandlerRegistry {
     public static final ScreenHandlerType<PyrotechnicsTableScreenHandler> PYROTECHNICS_TABLE_HANDLER =
             Registry.register(
                     Registries.SCREEN_HANDLER,
-                    NekomasFixed.id("pyrotechnics"),
+                    NekomasFixed.id("pyrotechnics_table"),
                     new ScreenHandlerType<>(PyrotechnicsTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES)
             );
 
