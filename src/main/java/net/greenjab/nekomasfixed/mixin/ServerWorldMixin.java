@@ -14,7 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
@@ -25,7 +25,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.Iterator;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
@@ -38,18 +39,16 @@ public abstract class ServerWorldMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void depowerRedstoneStruckBlocks(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         ServerWorld world = ((ServerWorld)(Object)this);
-        Iterator<Map.Entry<BlockPos, Long>> wireIterator =
-                RedstoneStrikerItem.STRUCK_WIRES.entrySet().iterator();
-
-        while (wireIterator.hasNext()) {
-            Map.Entry<BlockPos, Long> entry = wireIterator.next();
+        HashMap<GlobalPos, Long> STRUCK_WIRES_COPY = new HashMap<>(RedstoneStrikerItem.STRUCK_WIRES);
+        for (Map.Entry<GlobalPos, Long> entry : STRUCK_WIRES_COPY.entrySet()) {
             if (world.getTime() > entry.getValue()) {
-                BlockPos pos = entry.getKey();
-                BlockState b = world.getBlockState(pos);
-                if (!b.isAir()) {
-                    wireIterator.remove();
-                    b.neighborUpdate(world, pos, Blocks.AIR, null, true);
-                    world.updateNeighbors(pos, b.getBlock());
+                GlobalPos Gpos = entry.getKey();
+                if (world.getRegistryKey() == Gpos.dimension()) {
+                    BlockPos pos = Gpos.pos();
+                    BlockState state = world.getBlockState(pos);
+                    RedstoneStrikerItem.STRUCK_WIRES.remove(Gpos);
+                    state.neighborUpdate(world, pos, Blocks.AIR, null, false);
+                    world.updateNeighbors(pos, state.getBlock());
                 }
             }
         }
@@ -57,7 +56,6 @@ public abstract class ServerWorldMixin {
 
     @Inject(method = "tickThunder", at = @At("HEAD"))
     private void tickThunder(WorldChunk chunk, CallbackInfo ci) {
-        ChunkPos chunkPos = chunk.getPos();
         ServerWorld serverWorld = (ServerWorld) (Object)this;
         boolean bl = serverWorld.isRaining();
         Profiler profiler = Profilers.get();
