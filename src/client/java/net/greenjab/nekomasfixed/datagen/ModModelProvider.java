@@ -40,6 +40,8 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.RED_BRICKS);
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BLACK_BRICKS);
 
+
+
         registerSlab(blockStateModelGenerator, BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.MAGENTA_BRICKS, BlockRegistry.MAGENTA_BRICK_SLAB);

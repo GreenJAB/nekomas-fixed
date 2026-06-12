@@ -67,6 +67,8 @@ public class BlockRegistry {
                     .pistonBehavior(PistonBehavior.DESTROY)
     );
 
+    public static final Block STACKED_CAKES = register("stacked_cakes", StackedCakeBlock::new, AbstractBlock.Settings.create());
+
     public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings), AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block NAUTILUS_BLOCK = register("nautilus_block", settings -> new NautilusBlock(NautilusBlockType.REGULAR, settings), AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));

@@ -39,6 +39,9 @@ public class BlockEntityTypeRegistry {
                     BlockRegistry.HOLLOW_PALE_OAK_LOG, BlockRegistry.HOLLOW_SPRUCE_LOG, BlockRegistry.HOLLOW_WARPED_STEM
             ).build());
 
+    public static final BlockEntityType<StackedCakeBlockEntity> STACKED_CAKE_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("stacked_cakes"),
+            FabricBlockEntityTypeBuilder.create(StackedCakeBlockEntity::new, BlockRegistry.STACKED_CAKES).build());
+
 
     public static void registerBlockEntityType() {
         System.out.println("register BlockEntityType");

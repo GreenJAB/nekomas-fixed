@@ -27,11 +27,6 @@ public class TermiteHiveBlockEntity extends BlockEntity {
     public TermiteHiveBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityTypeRegistry.TERMITE_HIVE_BLOCK_ENTITY, pos, state);
     }
-    public boolean getTermites(){return this.termites.isEmpty();}
-
-    public boolean hasNoTermites() {
-        return termites.isEmpty();
-    }
 
     public boolean isFullOfTermites() {
         return termites.size() >= MAX_TERMITE_COUNT;
@@ -39,14 +34,6 @@ public class TermiteHiveBlockEntity extends BlockEntity {
 
     public int getTermiteCount() {
         return termites.size();
-    }
-
-    public void addTermite(TermiteEntity termite) {
-        if (termites.size() >= MAX_TERMITE_COUNT) return;
-        NbtCompound nbt = new NbtCompound();
-        termite.writeCustomDataToNbt(nbt);
-        termites.add(nbt);
-        termite.discard();
     }
 
     public boolean tryEnterMound(TermiteEntity termite) {
@@ -152,26 +139,24 @@ public class TermiteHiveBlockEntity extends BlockEntity {
         return true;
     }
 
-    public void writeNbt(NbtCompound nbt) {
-
-        nbt.putInt("count", termites.size());
-
-        for (int i = 0; i < termites.size(); i++) {
-            nbt.put("t" + i, termites.get(i));
-        }
-    }
-
-    public void readNbt(NbtCompound nbt) {
-
-        termites.clear();
-
-        int count = nbt.contains("count") ? nbt.getInt("count").get() : 0;
-
-        for (int i = 0; i < count; i++) {
-            String key = "t" + i;
-            if (nbt.contains(key)) {
-                termites.add(nbt.getCompound(key).get());
-            }
-        }
-    }
+//    public void writeNbt(NbtCompound nbt) {
+//        nbt.putInt("count", termites.size());
+//
+//        for (int i = 0; i < termites.size(); i++) {
+//            nbt.put("t" + i, termites.get(i));
+//        }
+//    }
+//
+//    public void readNbt(NbtCompound nbt) {
+//        termites.clear();
+//
+//        int count = nbt.contains("count") ? nbt.getInt("count").get() : 0;
+//
+//        for (int i = 0; i < count; i++) {
+//            String key = "t" + i;
+//            if (nbt.contains(key)) {
+//                termites.add(nbt.getCompound(key).get());
+//            }
+//        }
+//    }
 }

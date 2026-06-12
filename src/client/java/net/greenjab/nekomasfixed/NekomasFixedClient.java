@@ -93,13 +93,20 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRegistry.HOLLOW_SPRUCE_LOG,
 				BlockRegistry.HOLLOW_PALE_OAK_LOG,
 				BlockRegistry.HOLLOW_CRIMSON_STEM,
-				BlockRegistry.HOLLOW_WARPED_STEM
+				BlockRegistry.HOLLOW_WARPED_STEM,
+
+				BlockRegistry.STACKED_CAKES
 
 		);
 
 		BlockEntityRendererFactories.register(
 				BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,
                 SoupCauldronBlockEntityRenderer::new
+		);
+
+		BlockEntityRendererFactories.register(
+				BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,
+				SoupCauldronBlockEntityRenderer::new
 		);
 
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
