@@ -12,5 +12,4 @@ public class SoupCauldronBlockEntityRenderState extends BlockEntityRenderState {
     public float stirProgress;
     public boolean hasStirred = false;
 
-    public SoupCauldronBlockEntityRenderState() {}
 }

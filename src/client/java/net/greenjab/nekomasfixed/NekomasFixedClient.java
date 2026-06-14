@@ -8,15 +8,11 @@ import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.*;
 import net.greenjab.nekomasfixed.render.entity.MoobloomEntityRenderer;
 import net.greenjab.nekomasfixed.render.entity.TermiteRenderer;
-import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
-import net.greenjab.nekomasfixed.render.entity.model.SuspiciousSpiderEntityModel;
-import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registries.BlockEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
@@ -93,9 +89,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRegistry.HOLLOW_SPRUCE_LOG,
 				BlockRegistry.HOLLOW_PALE_OAK_LOG,
 				BlockRegistry.HOLLOW_CRIMSON_STEM,
-				BlockRegistry.HOLLOW_WARPED_STEM,
-
-				BlockRegistry.STACKED_CAKES
+				BlockRegistry.HOLLOW_WARPED_STEM
 
 		);
 
@@ -105,8 +99,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 		);
 
 		BlockEntityRendererFactories.register(
-				BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,
-				SoupCauldronBlockEntityRenderer::new
+				BlockEntityTypeRegistry.STACKED_CAKE_BLOCK_ENTITY,
+				StackedCakeBlockEntityRenderer::new
 		);
 
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
