@@ -152,6 +152,15 @@ public class ItemRegistry {
         return Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
     }
 
+    public static final Item STACKED_STRAWBERRY_CAKE = register(BlockRegistry.STACKED_STRAWBERRY_CAKE);
+    public static final Item STACKED_PAN_CAKE = register(BlockRegistry.STACKED_PAN_CAKE);
+    public static final Item STACKED_GLOWBERRY_CAKE = register(BlockRegistry.STACKED_GLOWBERRY_CAKE);
+    public static final Item STACKED_APPLE_CAKE = register(BlockRegistry.STACKED_APPLE_CAKE);
+    public static final Item STACKED_VANILLA_CAKE = register(BlockRegistry.STACKED_VANILLA_CAKE);
+    public static final Item STACKED_COOKIE_CAKE = register(BlockRegistry.STACKED_COOKIE_CAKE);
+    public static final Item STACKED_CHOCOLATE_CAKE = register(BlockRegistry.STACKED_CHOCOLATE_CAKE);
+    public static final Item STACKED_BEETROOT_CAKE = register(BlockRegistry.STACKED_BEETROOT_CAKE);
+
     public static final Item WHITE_BRICKS = register(BlockRegistry.WHITE_BRICKS);
     public static final Item ORANGE_BRICKS = register(BlockRegistry.ORANGE_BRICKS);
     public static final Item MAGENTA_BRICKS = register(BlockRegistry.MAGENTA_BRICKS);

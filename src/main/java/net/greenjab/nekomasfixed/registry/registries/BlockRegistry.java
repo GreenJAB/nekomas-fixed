@@ -67,7 +67,14 @@ public class BlockRegistry {
                     .pistonBehavior(PistonBehavior.DESTROY)
     );
 
-    public static final Block STACKED_CAKES = register("stacked_strawberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create());
+    public static final Block STACKED_STRAWBERRY_CAKE = register("stacked_strawberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
+    public static final Block STACKED_PAN_CAKE = register("stacked_pan_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
+    public static final Block STACKED_GLOWBERRY_CAKE = register("stacked_glowberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
+    public static final Block STACKED_APPLE_CAKE = register("stacked_apple_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
+    public static final Block STACKED_VANILLA_CAKE = register("stacked_vanilla_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
+    public static final Block STACKED_COOKIE_CAKE = register("stacked_cookie_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
+    public static final Block STACKED_CHOCOLATE_CAKE = register("stacked_chocolate_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
+    public static final Block STACKED_BEETROOT_CAKE = register("stacked_beetroot_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
 
     public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings), AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 

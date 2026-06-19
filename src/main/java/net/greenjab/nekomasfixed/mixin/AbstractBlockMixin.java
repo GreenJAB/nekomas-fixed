@@ -3,7 +3,6 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.StackedCakeBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
-import net.greenjab.nekomasfixed.registry.item.RedstoneStrikerItem;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
@@ -12,16 +11,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -37,7 +33,7 @@ public class AbstractBlockMixin {
                 if(world.getBlockEntity(pos.offset(hit.getSide())) instanceof StackedCakeBlockEntity blockEntity){
                     blockEntity.STACKED_CAKES.push(Blocks.CAKE.getDefaultState());
                 }else if(world.getBlockState(pos.offset(hit.getSide()).down()).isSolid()){
-                    world.setBlockState(pos.offset(hit.getSide()), BlockRegistry.STACKED_CAKES.getDefaultState());
+                    world.setBlockState(pos.offset(hit.getSide()), BlockRegistry.STACKED_STRAWBERRY_CAKE.getDefaultState());
                     if(world.getBlockEntity(pos.offset(hit.getSide())) instanceof StackedCakeBlockEntity blockEntity){
                         blockEntity.STACKED_CAKES.push(Blocks.CAKE.getDefaultState());
                     }
@@ -46,8 +42,6 @@ public class AbstractBlockMixin {
                 player.getMainHandStack().decrementUnlessCreative(1, player);
                 cir.setReturnValue(ActionResult.SUCCESS);
                 return;
-
-
             }
             if (stack.isOf(Items.GOAT_HORN)) {
                 Direction direction = hit.getSide();
