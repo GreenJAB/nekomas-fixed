@@ -130,6 +130,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
                 int i = currentState.get(BITES);
                 world.emitGameEvent(player, GameEvent.EAT, pos);
 
+                //this is just an example text
                 if (i < 6) {
                     if(blockEntity.STACKED_CAKES.size() <= 1){
                         blockEntity.STACKED_CAKES.set(blockEntity.STACKED_CAKES.size()-1, currentState.with(CakeBlock.BITES, i+1));
