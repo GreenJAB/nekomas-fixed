@@ -155,21 +155,21 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
         return blockEntity.STACKED_CAKES.size() == 3;
     }
 
-    private void removeCandle(World world, BlockPos pos, BlockState state){
+    private void removeCandle(World world, BlockPos pos){
         if(world.getBlockEntity(pos) instanceof StackedCakeBlockEntity blockEntity){
+            dropStack(world, pos.up(), blockEntity.CANDLE_STATE.get().getBlock().asItem().getDefaultStack());
+
             blockEntity.CANDLE_STATE = Optional.ofNullable(Blocks.AIR.getDefaultState());
-            world.setBlockState(pos, state.with(LIGHT_LEVEL, 0));
-            world.setBlockState(pos, state.with(LIT, false));
+            world.setBlockState(pos, world.getBlockState(pos).with(LIGHT_LEVEL, 0).with(LIT, false));
+
             blockEntity.markDirty();
-            if(world != null) {
-                world.updateListeners(pos, blockEntity.getCachedState(), blockEntity.getCachedState(), 3);
-            }
+            world.updateListeners(pos, blockEntity.getCachedState(), blockEntity.getCachedState(), 3);
         }
     }
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-       return SHAPES_BY_BITES_AND_LAYER.get(world.getBlockEntity(pos) instanceof StackedCakeBlockEntity entity ? 0 : 0)[state.get(BITES)];
+       return SHAPES_BY_BITES_AND_LAYER.get(0)[state.get(BITES)];
     }
 
     public void addCakeLayer(ItemStack stack, World world, BlockPos pos, StackedCakeBlockEntity entity, BlockState state){
@@ -177,18 +177,27 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
             if(entity.STACKED_CAKES.size() == 2 ){
                 if(world.getBlockState(pos.up()).isSolid()) return;
                 entity.STACKED_CAKES.push(CakeRegistry.getDefaultState(stack).with(CakeBlock.BITES, state.get(BITES)));
-                world.setBlockState(pos, state.with(HEIGHT, state.get(HEIGHT)+1));
+               this.incrementHeight(state, world, pos);
                 entity.markDirty();
             }else{
                 entity.STACKED_CAKES.push(CakeRegistry.getDefaultState(stack).with(CakeBlock.BITES, state.get(BITES)));
-                world.setBlockState(pos, state.with(HEIGHT, state.get(HEIGHT)+1));
+                this.incrementHeight(state, world, pos);
                 entity.markDirty();
             }
         }
     }
 
+    private void incrementHeight( BlockState state, World world, BlockPos pos){
+        if(state.get(HEIGHT) <= 3){
+            world.setBlockState(pos, state.with(HEIGHT, state.get(HEIGHT)+1));
+        }
+    }
+
     @Override
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        if(world.getBlockEntity(pos) instanceof StackedCakeBlockEntity entity && world.getBlockState(pos.up()).isSolidBlock(world, pos)){
+            entity.STACKED_CAKES.pop();
+        }
         return direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
@@ -204,10 +213,9 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
 
                 this.addCakeLayer(stack, world, pos, stackedCakeBlockEntity, state);
                 player.swingHand(hand, true);
+                stack.decrementUnlessCreative(1, player);
 
-                if(world != null) {
-                    world.updateListeners(pos, stackedCakeBlockEntity.getCachedState(), stackedCakeBlockEntity.getCachedState(), 3);
-                }
+                world.updateListeners(pos, stackedCakeBlockEntity.getCachedState(), stackedCakeBlockEntity.getCachedState(), 3);
                 return ActionResult.SUCCESS;
             }
 
@@ -253,7 +261,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
                 return ActionResult.CONSUME;
             }
         }else if(!world.isClient() && player.getMainHandStack().isEmpty()){
-            removeCandle(world, pos, state);
+            removeCandle(world, pos);
         }
 
         return player.getMainHandStack().isEmpty() ? tryEat(world, pos, state, player) : ActionResult.FAIL;
