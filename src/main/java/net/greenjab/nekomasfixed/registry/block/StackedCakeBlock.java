@@ -92,6 +92,9 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
         } else {
             removeCandle(world, pos);
 
+            world.setBlockState(pos, world.getBlockState(pos).with(CANDLE, false).with(LIT, false), 3);
+            world.updateListeners(pos, state, state, Block.NOTIFY_ALL);
+
             player.incrementStat(Stats.EAT_CAKE_SLICE);
             player.getHungerManager().add(2, 0.1F);
 
@@ -120,12 +123,13 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
         }
     }
 
+
+
     private void removeCandle(World world, BlockPos pos){
         if(world.getBlockEntity(pos) instanceof StackedCakeBlockEntity blockEntity){
             dropStack(world, pos.up(), blockEntity.CANDLE_STATE.getBlock().asItem().getDefaultStack());
 
             blockEntity.CANDLE_STATE = Blocks.AIR.getDefaultState();
-            world.setBlockState(pos, world.getBlockState(pos).with(CANDLE, false).with(LIT, false));
 
             blockEntity.markDirty();
             world.updateListeners(pos, blockEntity.getCachedState(), blockEntity.getCachedState(), 3);
@@ -165,6 +169,12 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if(state.get(SLICES) < 7 ){
+            System.out.println("LESSING");
+            world.setBlockState(pos, world.getBlockState(pos).with(CANDLE, false).with(LIT, false), 3);
+            world.updateListeners(pos, state, state, Block.NOTIFY_ALL);
+        }
+
         if(!world.isClient() && world.getBlockEntity(pos) instanceof StackedCakeBlockEntity stackedCakeBlockEntity){
             if (state.get(SLICES) == 7 || state.get(SLICES) == 14 || state.get(SLICES) == 21) {
                 if (player.getMainHandStack().isIn(OtherRegistry.STACKED_CAKES) && state.get(SLICES) != 21) {
@@ -188,7 +198,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
                             return ActionResult.SUCCESS;
                         }
                     }
-                } else if (stack.isOf(Items.FLINT_AND_STEEL)) {
+                } else if (stack.isOf(Items.FLINT_AND_STEEL) && state.get(SLICES) == 7) {
                     if (state.get(CANDLE)) {
                         BlockState candleState = stackedCakeBlockEntity.CANDLE_STATE;
                         if (!candleState.get(CandleBlock.LIT)) {
@@ -211,7 +221,8 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
             }
             return ActionResult.FAIL;
         } else if (player.getMainHandStack().isEmpty() && player.canConsume(false)) {
-            return ActionResult.SUCCESS;
+
+           return ActionResult.SUCCESS;
         }
 
         return ActionResult.PASS;
