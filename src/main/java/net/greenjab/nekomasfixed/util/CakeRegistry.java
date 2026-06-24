@@ -17,14 +17,14 @@ public class CakeRegistry {
     private static final Map<Item, Block> ITEM_TO_BLOCK = new HashMap<>();
 
     public static void init() {
-        register(BlockRegistry.STACKED_STRAWBERRY_CAKE, ItemRegistry.STACKED_STRAWBERRY_CAKE);
-        register(BlockRegistry.STACKED_APPLE_CAKE, ItemRegistry.STACKED_APPLE_CAKE);
-        register(BlockRegistry.STACKED_VANILLA_CAKE, ItemRegistry.STACKED_VANILLA_CAKE);
-        register(BlockRegistry.STACKED_COOKIE_CAKE, ItemRegistry.STACKED_COOKIE_CAKE);
-        register(BlockRegistry.STACKED_CHOCOLATE_CAKE, ItemRegistry.STACKED_CHOCOLATE_CAKE);
-        register(BlockRegistry.STACKED_PAN_CAKE, ItemRegistry.STACKED_PAN_CAKE);
-        register(BlockRegistry.STACKED_BEETROOT_CAKE, ItemRegistry.STACKED_BEETROOT_CAKE);
-        register(BlockRegistry.STACKED_GLOWBERRY_CAKE, ItemRegistry.STACKED_GLOWBERRY_CAKE);
+        register(BlockRegistry.SWEETBERRY_CAKE, ItemRegistry.SWEETBERRY_CAKE);
+        register(BlockRegistry.APPLE_CAKE, ItemRegistry.APPLE_CAKE);
+        register(BlockRegistry.VANILLA_CAKE, ItemRegistry.VANILLA_CAKE);
+        register(BlockRegistry.COOKIE_CAKE, ItemRegistry.COOKIE_CAKE);
+        register(BlockRegistry.CHOCOLATE_CAKE, ItemRegistry.CHOCOLATE_CAKE);
+        register(BlockRegistry.PAN_CAKE, ItemRegistry.PAN_CAKE);
+        register(BlockRegistry.BEETROOT_CAKE, ItemRegistry.BEETROOT_CAKE);
+        register(BlockRegistry.GLOWBERRY_CAKE, ItemRegistry.GLOWBERRY_CAKE);
     }
 
     private static void register(Block block, Item item) {

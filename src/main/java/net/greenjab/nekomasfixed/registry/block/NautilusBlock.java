@@ -93,7 +93,6 @@ public class NautilusBlock extends BlockWithEntity {
 							&& entity instanceof Leashable leashable
 							&& leashable.canBeLeashed()
 							&& entity.isAlive()
-							&& !(entity instanceof LivingEntity livingEntity && livingEntity.isBaby())
 							&& entity.squaredDistanceTo(pos.toCenterPos())<10) {
 						List<Leashable> list2 = Leashable.collectLeashablesAround(entity, leashablex -> leashablex.getLeashHolder() == player);
 						for (Leashable entity2 : list2) {

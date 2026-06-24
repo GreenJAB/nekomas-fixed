@@ -67,14 +67,14 @@ public class BlockRegistry {
                     .pistonBehavior(PistonBehavior.DESTROY)
     );
 
-    public static final Block STACKED_STRAWBERRY_CAKE = register("stacked_strawberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
-    public static final Block STACKED_PAN_CAKE = register("stacked_pan_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
-    public static final Block STACKED_GLOWBERRY_CAKE = register("stacked_glowberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
-    public static final Block STACKED_APPLE_CAKE = register("stacked_apple_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
-    public static final Block STACKED_VANILLA_CAKE = register("stacked_vanilla_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
-    public static final Block STACKED_COOKIE_CAKE = register("stacked_cookie_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
-    public static final Block STACKED_CHOCOLATE_CAKE = register("stacked_chocolate_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
-    public static final Block STACKED_BEETROOT_CAKE = register("stacked_beetroot_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIGHT_LEVEL)).ticksRandomly());
+    public static final Block SWEETBERRY_CAKE = register("sweetberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block PAN_CAKE = register("pan_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block GLOWBERRY_CAKE = register("glowberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block APPLE_CAKE = register("apple_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block VANILLA_CAKE = register("vanilla_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block COOKIE_CAKE = register("cookie_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block CHOCOLATE_CAKE = register("chocolate_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block BEETROOT_CAKE = register("beetroot_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
 
     public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings), AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 

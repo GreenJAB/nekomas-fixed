@@ -23,9 +23,10 @@ public class StackedCakeBlockEntityRenderer implements BlockEntityRenderer<Stack
     @Override
     public void updateRenderState(StackedCakeBlockEntity blockEntity, StackedCakeBlockEntityRenderState state, float f, Vec3d vec3d, ModelCommandRenderer.@Nullable CrumblingOverlayCommand crumblingOverlayCommand) {
         BlockEntityRenderer.super.updateRenderState(blockEntity, state, f, vec3d, crumblingOverlayCommand);
-        state.STACKED_CAKES = blockEntity.STACKED_CAKES;
-        state.CANDLE_STATE = blockEntity.CANDLE_STATE.orElseGet(Blocks.RED_CANDLE::getDefaultState);
-           }
+        state.LAYER_2_STATE = blockEntity.LAYER_2_STATE;
+        state.LAYER_3_STATE = blockEntity.LAYER_3_STATE;
+        state.CANDLE_STATE = blockEntity.CANDLE_STATE;
+    }
 
     @Override
     public StackedCakeBlockEntityRenderState createRenderState() {
@@ -44,24 +45,39 @@ public class StackedCakeBlockEntityRenderer implements BlockEntityRenderer<Stack
 
         int i = 1;
 
-        for ( ; i < state.STACKED_CAKES.size(); i++) {
+        if (!state.LAYER_2_STATE.isOf(Blocks.AIR)) {
             matrices.push();
             float scale = (float)(1.0 - (0.2 * i));
 
-            matrices.translate((1.0f - scale) / 2.0f, i != 2 ? i * 0.5f : (i*0.5)-0.1, (1.0f - scale) / 2.0f);
+            matrices.translate((1.0f - scale) / 2.0f, i * 0.5f, (1.0f - scale) / 2.0f);
             matrices.scale(scale, scale, scale);
             blockRenderManager.renderBlockAsEntity(
-                    state.STACKED_CAKES.get(i),
+                    state.LAYER_2_STATE,
                     matrices,
                     client.getBufferBuilders().getEntityVertexConsumers(),
                     state.lightmapCoordinates,
                     OverlayTexture.DEFAULT_UV
             );
-
             matrices.pop();
+            i=2;
+            if (!state.LAYER_3_STATE.isOf(Blocks.AIR)) {
+                matrices.push();
+                scale = (float)(1.0 - (0.2 * i));
+
+                matrices.translate((1.0f - scale) / 2.0f, i*0.5 -0.1, (1.0f - scale) / 2.0f);
+                matrices.scale(scale, scale, scale);
+                blockRenderManager.renderBlockAsEntity(
+                        state.LAYER_3_STATE,
+                        matrices,
+                        client.getBufferBuilders().getEntityVertexConsumers(),
+                        state.lightmapCoordinates,
+                        OverlayTexture.DEFAULT_UV
+                );
+                matrices.pop();
+                i=3;
+            }
         }
 
-        i = state.STACKED_CAKES.size();
         matrices.push();
         matrices.translate(0, i * 0.5f - ((i-1) * 0.1) - ((Math.max(0, i-2)) * 0.1), 0);
         blockRenderManager.renderBlockAsEntity(

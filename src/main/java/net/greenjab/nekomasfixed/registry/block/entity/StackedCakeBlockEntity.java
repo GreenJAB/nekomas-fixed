@@ -13,12 +13,10 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.Optional;
-import java.util.Stack;
-
 public class StackedCakeBlockEntity extends BlockEntity {
-    public Stack<BlockState> STACKED_CAKES = new Stack<>();
-    public Optional<BlockState> CANDLE_STATE = Optional.ofNullable(Blocks.AIR.getDefaultState());
+    public BlockState LAYER_2_STATE = Blocks.AIR.getDefaultState();
+    public BlockState LAYER_3_STATE = Blocks.AIR.getDefaultState();
+    public BlockState CANDLE_STATE = Blocks.AIR.getDefaultState();
     public StackedCakeBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityTypeRegistry.STACKED_CAKE_BLOCK_ENTITY, pos, state);
     }
@@ -28,41 +26,24 @@ public class StackedCakeBlockEntity extends BlockEntity {
         return BlockEntityUpdateS2CPacket.create(this);
     }
 
-
     @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
-
-        view.putInt("count", STACKED_CAKES.size());
-
-        for (int i = 0; i < STACKED_CAKES.size(); i++) {
-            view.put("cake_" + i, BlockState.CODEC, STACKED_CAKES.get(i));
-        }
-
-        view.put("candle", BlockState.CODEC, CANDLE_STATE.orElse(Blocks.AIR.getDefaultState()));
+        view.put("layer_2", BlockState.CODEC, LAYER_2_STATE);
+        view.put("layer_3", BlockState.CODEC, LAYER_3_STATE);
+        view.put("candle", BlockState.CODEC, CANDLE_STATE);
     }
 
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
-
-        STACKED_CAKES.clear();
-
-        int count = view.getInt("count", 0);
-
-        for (int i = 0; i < count; i++) {
-            view.read("cake_" + i, BlockState.CODEC)
-                    .ifPresent(STACKED_CAKES::push);
-        }
-
-        CANDLE_STATE = view.read("candle", BlockState.CODEC);
-
+        LAYER_2_STATE = view.read("layer_2", BlockState.CODEC).orElse(Blocks.AIR.getDefaultState());
+        LAYER_3_STATE = view.read("layer_3", BlockState.CODEC).orElse(Blocks.AIR.getDefaultState());
+        CANDLE_STATE = view.read("candle", BlockState.CODEC).orElse(Blocks.AIR.getDefaultState());
     }
 
     @Override
     public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
         return createNbt(registries);
     }
-
-
 }

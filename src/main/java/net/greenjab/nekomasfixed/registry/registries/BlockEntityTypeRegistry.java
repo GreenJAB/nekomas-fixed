@@ -42,17 +42,17 @@ public class BlockEntityTypeRegistry {
     public static final BlockEntityType<StackedCakeBlockEntity> STACKED_CAKE_BLOCK_ENTITY =
             Registry.register(
                     Registries.BLOCK_ENTITY_TYPE,
-                    NekomasFixed.id("stacked_cake"),
+                    NekomasFixed.id("cake"),
                     FabricBlockEntityTypeBuilder.create(
                             StackedCakeBlockEntity::new,
-                            BlockRegistry.STACKED_STRAWBERRY_CAKE,
-                            BlockRegistry.STACKED_PAN_CAKE,
-                            BlockRegistry.STACKED_GLOWBERRY_CAKE,
-                            BlockRegistry.STACKED_APPLE_CAKE,
-                            BlockRegistry.STACKED_VANILLA_CAKE,
-                            BlockRegistry.STACKED_COOKIE_CAKE,
-                            BlockRegistry.STACKED_CHOCOLATE_CAKE,
-                            BlockRegistry.STACKED_BEETROOT_CAKE
+                            BlockRegistry.SWEETBERRY_CAKE,
+                            BlockRegistry.PAN_CAKE,
+                            BlockRegistry.GLOWBERRY_CAKE,
+                            BlockRegistry.APPLE_CAKE,
+                            BlockRegistry.VANILLA_CAKE,
+                            BlockRegistry.COOKIE_CAKE,
+                            BlockRegistry.CHOCOLATE_CAKE,
+                            BlockRegistry.BEETROOT_CAKE
                     ).build()
             );
 

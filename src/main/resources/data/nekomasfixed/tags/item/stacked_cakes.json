@@ -1,14 +1,13 @@
 {
   "replace": false,
   "values": [
-    "nekomasfixed:stacked_strawberry_cake",
-    "nekomasfixed:stacked_pan_cake",
-    "nekomasfixed:stacked_glowberry_cake",
-    "nekomasfixed:stacked_apple_cake",
-    "nekomasfixed:stacked_vanilla_cake",
-    "nekomasfixed:stacked_cookie_cake",
-    "nekomasfixed:stacked_chocolate_cake",
-    "nekomasfixed:stacked_beetroot_cake",
-    "minecraft:cake"
+    "nekomasfixed:sweetberry_cake",
+    "nekomasfixed:pan_cake",
+    "nekomasfixed:glowberry_cake",
+    "nekomasfixed:apple_cake",
+    "nekomasfixed:vanilla_cake",
+    "nekomasfixed:cookie_cake",
+    "nekomasfixed:chocolate_cake",
+    "nekomasfixed:beetroot_cake"
   ]
 }

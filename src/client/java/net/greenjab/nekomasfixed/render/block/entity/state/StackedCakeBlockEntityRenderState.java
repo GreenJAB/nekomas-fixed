@@ -7,6 +7,7 @@ import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 import java.util.Stack;
 
 public class StackedCakeBlockEntityRenderState extends BlockEntityRenderState {
-    public Stack<BlockState> STACKED_CAKES = new Stack<>();
+    public BlockState LAYER_2_STATE = Blocks.AIR.getDefaultState();
+    public BlockState LAYER_3_STATE = Blocks.AIR.getDefaultState();
     public BlockState CANDLE_STATE = Blocks.AIR.getDefaultState();
 }

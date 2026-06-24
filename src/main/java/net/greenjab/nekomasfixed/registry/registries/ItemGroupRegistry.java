@@ -59,14 +59,14 @@ public class ItemGroupRegistry {
                          entries.add(ItemRegistry.DIAMOND_CROWN);
                          entries.add(ItemRegistry.NETHERITE_CROWN);
 
-                         entries.add(ItemRegistry.STACKED_STRAWBERRY_CAKE);
-                         entries.add(ItemRegistry.STACKED_PAN_CAKE);
-                         entries.add(ItemRegistry.STACKED_GLOWBERRY_CAKE);
-                         entries.add(ItemRegistry.STACKED_APPLE_CAKE);
-                         entries.add(ItemRegistry.STACKED_VANILLA_CAKE);
-                         entries.add(ItemRegistry.STACKED_COOKIE_CAKE);
-                         entries.add(ItemRegistry.STACKED_CHOCOLATE_CAKE);
-                         entries.add(ItemRegistry.STACKED_BEETROOT_CAKE);
+                         entries.add(ItemRegistry.SWEETBERRY_CAKE);
+                         entries.add(ItemRegistry.PAN_CAKE);
+                         entries.add(ItemRegistry.GLOWBERRY_CAKE);
+                         entries.add(ItemRegistry.APPLE_CAKE);
+                         entries.add(ItemRegistry.VANILLA_CAKE);
+                         entries.add(ItemRegistry.COOKIE_CAKE);
+                         entries.add(ItemRegistry.CHOCOLATE_CAKE);
+                         entries.add(ItemRegistry.BEETROOT_CAKE);
 
 						entries.add(ItemRegistry.AMBER_DYE);
                         entries.add(ItemRegistry.AQUA_DYE);
