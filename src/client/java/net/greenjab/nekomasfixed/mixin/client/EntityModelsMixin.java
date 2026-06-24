@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.mixin.client;
+xpackage net.greenjab.nekomasfixed.mixin.client;
 
 import com.google.common.collect.ImmutableMap;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -58,5 +58,6 @@ public class EntityModelsMixin {
 
         builder.put(ModEntityLayerRegistry.WILD_FIRE, WildFireEntityModel.getTexturedModelData());
         builder.put(ModEntityLayerRegistry.SOULFIRE_TRIDENT, TridentEntityModel.getTexturedModelData());
+        builder.put(ModEntityLayerRegistry.DRENCHED, DrenchedEntityModel.getTexturedModelData());
     }
 }

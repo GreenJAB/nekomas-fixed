@@ -17,6 +17,9 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.*;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
+import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -49,6 +52,9 @@ public class NekomasFixed implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.TERMITE, TermiteEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntity.createPoisenousSpiderAttributes());
+		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.JUNGLE_ZOMBIE, ZombieEntity.createZombieAttributes());
+		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.SNOW_ZOMBIE, ZombieEntity.createZombieAttributes());
+		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.DRENCHED, AbstractSkeletonEntity.createAbstractSkeletonAttributes());
 	}
 
 

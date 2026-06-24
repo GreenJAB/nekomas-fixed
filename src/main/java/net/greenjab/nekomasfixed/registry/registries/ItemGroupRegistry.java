@@ -375,7 +375,41 @@ public class ItemGroupRegistry {
                   entries.add(ItemRegistry.RED_SPOTTED_CARPET);
                   entries.add(ItemRegistry.BLACK_SPOTTED_CARPET);
 
-                 }).build();
+                 
+                         entries.add(ItemRegistry.BIG_ACACIA_BOAT);
+                         entries.add(ItemRegistry.HUGE_ACACIA_BOAT);
+                         entries.add(ItemRegistry.BIG_BAMBOO_BOAT);
+                         entries.add(ItemRegistry.HUGE_BAMBOO_BOAT);
+                         entries.add(ItemRegistry.BIG_BIRCH_BOAT);
+                         entries.add(ItemRegistry.HUGE_BIRCH_BOAT);
+                         entries.add(ItemRegistry.BIG_CHERRY_BOAT);
+                         entries.add(ItemRegistry.HUGE_CHERRY_BOAT);
+                         entries.add(ItemRegistry.BIG_DARK_OAK_BOAT);
+                         entries.add(ItemRegistry.HUGE_DARK_OAK_BOAT);
+                         entries.add(ItemRegistry.BIG_JUNGLE_BOAT);
+                         entries.add(ItemRegistry.HUGE_JUNGLE_BOAT);
+                         entries.add(ItemRegistry.BIG_MANGROVE_BOAT);
+                         entries.add(ItemRegistry.HUGE_MANGROVE_BOAT);
+                         entries.add(ItemRegistry.BIG_PALE_OAK_BOAT);
+                         entries.add(ItemRegistry.HUGE_PALE_OAK_BOAT);
+                         entries.add(ItemRegistry.BIG_SPRUCE_BOAT);
+                         entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
+                         entries.add(ItemRegistry.ANCHOR);
+
+                         entries.add(ItemRegistry.PYROTECHNICS_TABLE);
+                         entries.add(ItemRegistry.JUNGLE_ZOMBIE_SPAWN_EGG);
+                         entries.add(ItemRegistry.SNOW_ZOMBIE_SPAWN_EGG);
+
+                         entries.add(ItemRegistry.BEETROOT_CAKE);
+                         entries.add(ItemRegistry.APPLE_CAKE);
+                         entries.add(ItemRegistry.HONEY_CAKE);
+                         entries.add(ItemRegistry.GLOWBERRY_CAKE);
+                         entries.add(ItemRegistry.COOKIE_CAKE);
+                         entries.add(ItemRegistry.COCOA_CAKE);
+                         entries.add(ItemRegistry.DRENCHED_SPAWN_EGG);
+						 
+						 }).build();
+
 
 
  public static void registerItemGroup() {

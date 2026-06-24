@@ -17,6 +17,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
 import java.util.List;
 import java.util.function.Supplier;
@@ -161,7 +162,31 @@ public class EntityTypeRegistry {
                     .trackingTickInterval(10)
     );
 
+    public static final EntityType<JungleZombieEntity> JUNGLE_ZOMBIE = register(
+            "jungle_zombie",
+            EntityType.Builder.<JungleZombieEntity>create(JungleZombieEntity::new, SpawnGroup.MONSTER)
+                    .dimensions(0.6f, 1.95f)
+    );
 
+    public static final EntityType<SlownessSnowballEntity> SLOWNESS_SNOWBALL = register(
+            "slowness_snowball",
+            EntityType.Builder.<SlownessSnowballEntity>create(SlownessSnowballEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.25f, 0.25f)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(10)
+    );
+
+    public static final EntityType<SnowZombieEntity> SNOW_ZOMBIE = register(
+            "snow_zombie",
+            EntityType.Builder.<SnowZombieEntity>create(SnowZombieEntity::new, SpawnGroup.MONSTER)
+                    .dimensions(0.6f, 1.95f)
+    );
+
+    public static final EntityType<DrenchedEntity> DRENCHED = register(
+           "drenched",
+            EntityType.Builder.<DrenchedEntity>create(DrenchedEntity::new, SpawnGroup.MONSTER)
+                    .dimensions(0.6f, 1.99f)
+    );
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
         return register(keyOf(id), type);

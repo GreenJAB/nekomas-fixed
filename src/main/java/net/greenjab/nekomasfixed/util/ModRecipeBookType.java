@@ -5,7 +5,6 @@ import net.minecraft.recipe.book.RecipeBookGroup;
 
 import java.util.List;
 
-
 public class ModRecipeBookType extends RecipeBookCategory implements RecipeBookGroup {
     private final List<RecipeBookCategory> categories;
 
