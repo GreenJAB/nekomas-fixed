@@ -63,7 +63,7 @@ public class TermiteEntity extends HostileEntity {
         this.targetSelector.add(1, (new RevengeGoal(this)).setGroupRevenge());
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
-    
+
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
@@ -87,7 +87,7 @@ public class TermiteEntity extends HostileEntity {
         this.swipeStartTick = this.age;
         return super.tryAttack(world, target);
     }
-    
+
     @Override
     public void onDeath(DamageSource damageSource) {
         this.startState(State.IDLING);
@@ -98,7 +98,7 @@ public class TermiteEntity extends HostileEntity {
         this.dataTracker.set(STATE, state);
     }
 
-    
+
     public void startState(TermiteEntity.State state) {
         switch (state.ordinal()) {
             case 0 -> this.setState(State.IDLING);
@@ -187,11 +187,11 @@ public class TermiteEntity extends HostileEntity {
 
     public static Optional<BlockPos> findNearestMound(TermiteEntity termiteEntity){
         return BlockPos.findClosest(
-               termiteEntity.getBlockPos(),
-               16,
-               8,
-               pos -> termiteEntity.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
-       );
+                termiteEntity.getBlockPos(),
+                16,
+                8,
+                pos -> termiteEntity.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
+        );
     }
 
     static {

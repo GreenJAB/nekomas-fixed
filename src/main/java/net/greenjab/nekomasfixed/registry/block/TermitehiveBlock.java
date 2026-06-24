@@ -102,7 +102,7 @@ public class TermitehiveBlock extends BlockWithEntity {
         }
         return super.onBreak(world, pos, state, player);
     }
-    
+
 
     @Override
     protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
@@ -130,7 +130,7 @@ public class TermitehiveBlock extends BlockWithEntity {
 
         return super.getDroppedStacks(state, builder);
     }
-    
+
     @Override
     protected BlockState getStateForNeighborUpdate(
             BlockState state,
