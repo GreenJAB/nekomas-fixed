@@ -1,0 +1,67 @@
+{
+    "variants": {
+        "slices=21": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=20": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=19": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=18": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=17": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=16": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=15": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=14": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=13": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=12": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=11": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=10": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=9": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=8": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=7": {
+            "model": "nekomasfixed:block/chocolate_cake"
+        },
+        "slices=6": {
+            "model": "nekomasfixed:block/chocolate_cake_slice1"
+        },
+        "slices=5": {
+            "model": "nekomasfixed:block/chocolate_cake_slice2"
+        },
+        "slices=4": {
+            "model": "nekomasfixed:block/chocolate_cake_slice3"
+        },
+        "slices=3": {
+            "model": "nekomasfixed:block/chocolate_cake_slice4"
+        },
+        "slices=2": {
+            "model": "nekomasfixed:block/chocolate_cake_slice5"
+        },
+        "slices=1": {
+            "model": "nekomasfixed:block/chocolate_cake_slice6"
+        }
+    }
+}

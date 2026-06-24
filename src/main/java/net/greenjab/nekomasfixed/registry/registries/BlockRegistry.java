@@ -68,6 +68,15 @@ public class BlockRegistry {
                     .pistonBehavior(PistonBehavior.DESTROY)
     );
 
+    public static final Block SWEETBERRY_CAKE = register("sweetberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block PAN_CAKE = register("pan_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block GLOWBERRY_CAKE = register("glowberry_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block APPLE_CAKE = register("apple_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block VANILLA_CAKE = register("vanilla_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block COOKIE_CAKE = register("cookie_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block CHOCOLATE_CAKE = register("chocolate_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+    public static final Block BEETROOT_CAKE = register("beetroot_cake", StackedCakeBlock::new, AbstractBlock.Settings.create().luminance(state -> state.get(StackedCakeBlock.LIT)?3:0));
+
     public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings), AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).strength(1F).sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block NAUTILUS_BLOCK = register("nautilus_block", settings -> new NautilusBlock(NautilusBlockType.REGULAR, settings), AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));

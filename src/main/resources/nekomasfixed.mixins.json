@@ -13,6 +13,7 @@
     "BlockItemMixin",
     "BlockMixin",
     "BlocksMixin",
+    "CakeBlockMixin",
     "CauldronMixin",
     "ContainerComponentMixin",
     "DolphinEntityMixin",

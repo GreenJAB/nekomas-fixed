@@ -66,6 +66,15 @@
 
   "item.nekomasfixed.planks": "Wooden Planks",
 
+  "block.nekomasfixed.apple_cake": "Apple Cake",
+  "block.nekomasfixed.beetroot_cake": "Beetroot Cake",
+  "block.nekomasfixed.chocolate_cake": "Chocolate Cake",
+  "block.nekomasfixed.cookie_cake": "Cookie Cake",
+  "block.nekomasfixed.glowberry_cake": "Glow Berry Cake",
+  "block.nekomasfixed.pan_cake": "Pan Cake",
+  "block.nekomasfixed.sweetberry_cake": "Sweet Berry Cake",
+  "block.nekomasfixed.vanilla_cake": "Vanilla Cake",
+
   "item.nekomasfixed.white_dyed_brush": "White Brush",
   "item.nekomasfixed.orange_dyed_brush": "Orange Brush",
   "item.nekomasfixed.magenta_dyed_brush": "Magenta Brush",

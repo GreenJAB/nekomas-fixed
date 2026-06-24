@@ -59,6 +59,7 @@ public class AnimalTooltipComponent implements TooltipComponent {
             AnimalComponent.IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtCompound::remove);
             Entity entity = EntityType.loadEntityWithPassengers(entityData.getType(), nbtCompound, world, SpawnReason.LOAD, entityx -> entityx);
             if (entity!=null) {
+                entity.age = Math.toIntExact(world.getTime());
                 float time = System.currentTimeMillis() % (20 * 1000);
                 time *= (float) (2 * Math.PI) / (20 * 1000.0f);
                 float dx = 10 * (float) (Math.cos(7 * time) + Math.sin(3 * time));

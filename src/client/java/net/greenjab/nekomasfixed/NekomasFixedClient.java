@@ -101,6 +101,11 @@ public class NekomasFixedClient implements ClientModInitializer {
                 SoupCauldronBlockEntityRenderer::new
 		);
 
+		BlockEntityRendererFactories.register(
+				BlockEntityTypeRegistry.STACKED_CAKE_BLOCK_ENTITY,
+				StackedCakeBlockEntityRenderer::new
+		);
+
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
             if (state != null) {
                 assert world != null;

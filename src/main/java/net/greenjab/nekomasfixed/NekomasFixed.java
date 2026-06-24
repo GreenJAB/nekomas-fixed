@@ -8,6 +8,7 @@ import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
 import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider.SuspiciousSpiderEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.*;
+import net.greenjab.nekomasfixed.util.CakeRegistry;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.greenjab.nekomasfixed.world.ModWorldGeneration;
@@ -40,6 +41,7 @@ public class NekomasFixed implements ModInitializer {
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
 		SyncHandler.init();
+		CakeRegistry.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
 

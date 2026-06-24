@@ -63,6 +63,14 @@ public class ItemGroupRegistry {
                   entries.add(ItemRegistry.GEYSER);
                   entries.add(ItemRegistry.MOOBLOOM_SPAWN_EGG);
 
+                         entries.add(ItemRegistry.SWEETBERRY_CAKE);
+                         entries.add(ItemRegistry.PAN_CAKE);
+                         entries.add(ItemRegistry.GLOWBERRY_CAKE);
+                         entries.add(ItemRegistry.APPLE_CAKE);
+                         entries.add(ItemRegistry.VANILLA_CAKE);
+                         entries.add(ItemRegistry.COOKIE_CAKE);
+                         entries.add(ItemRegistry.CHOCOLATE_CAKE);
+                         entries.add(ItemRegistry.BEETROOT_CAKE);
 
                   entries.add(ItemRegistry.ROPE_ITEM);
                   entries.add(ItemRegistry.BAOBAB_FRUIT);

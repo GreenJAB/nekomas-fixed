@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
+import net.greenjab.nekomasfixed.registry.block.entity.StackedCakeBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
@@ -26,8 +27,7 @@ public class AbstractBlockMixin {
 
     @Inject(method = "onUseWithItem", at= @At("HEAD"), cancellable = true)
     private void customOnUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        if(!world.isClient()){
-
+        if(!world.isClient() && !world.getBlockState(pos).isIn(BlockTags.REPLACEABLE) && state.isSideSolidFullSquare(world, pos, hit.getSide())){
             if (stack.isOf(Items.GOAT_HORN)) {
                 Direction direction = hit.getSide();
 

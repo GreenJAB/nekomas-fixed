@@ -121,6 +121,15 @@ public class ItemRegistry {
 
 
 
+    public static final Item SWEETBERRY_CAKE = register(BlockRegistry.SWEETBERRY_CAKE);
+    public static final Item PAN_CAKE = register(BlockRegistry.PAN_CAKE);
+    public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE);
+    public static final Item APPLE_CAKE = register(BlockRegistry.APPLE_CAKE);
+    public static final Item VANILLA_CAKE = register(BlockRegistry.VANILLA_CAKE);
+    public static final Item COOKIE_CAKE = register(BlockRegistry.COOKIE_CAKE);
+    public static final Item CHOCOLATE_CAKE = register(BlockRegistry.CHOCOLATE_CAKE);
+    public static final Item BEETROOT_CAKE = register(BlockRegistry.BEETROOT_CAKE);
+
     public static final Item WHITE_BRICKS = register(BlockRegistry.WHITE_BRICKS);
     public static final Item ORANGE_BRICKS = register(BlockRegistry.ORANGE_BRICKS);
     public static final Item MAGENTA_BRICKS = register(BlockRegistry.MAGENTA_BRICKS);
