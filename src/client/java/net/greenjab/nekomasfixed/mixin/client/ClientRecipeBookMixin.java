@@ -23,7 +23,7 @@ public class ClientRecipeBookMixin {
                 RecipeRegistry.KILNING,
                 (List)RecipeRegistry.KILNING.getCategories()
                         .stream()
-                        .flatMap(/* method_64852 */ group -> ((List)map2.getOrDefault(group, List.of())).stream())
+                        .flatMap( group -> ((List)map2.getOrDefault(group, List.of())).stream())
                         .collect(ImmutableList.toImmutableList())
         );
     }

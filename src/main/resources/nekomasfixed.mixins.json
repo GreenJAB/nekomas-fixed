@@ -45,8 +45,10 @@
     "RedstoneViewMixin",
     "ServerWorldMixin",
     "SheepEntityMixin",
+    "SkeletonEntityMixin",
     "SnifferEntityMixin",
     "TradeOffersMixin",
+    "ZombieEntityMixin",
     "accessor.FlowerPotBlockAccessor",
     "accessor.GoatHornItemInvoker",
     "accessor.MobEntityAccessor",
@@ -66,8 +68,7 @@
     "wildfire.LongJumpUtilMixin",
     "wildfire.NetherFortressGeneratorMixin",
     "wildfire.SmallFireballEntityMixin",
-    "wildfire.SnowballEntityMixin",
-    "SkeletonEntityMixin"
+    "wildfire.SnowballEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

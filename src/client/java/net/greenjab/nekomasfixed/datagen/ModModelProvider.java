@@ -112,10 +112,6 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(@NonNull ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(ItemRegistry.MOOBLOOM_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.REDSTONE_STRIKER, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.SUS_SPIDER_SPAWN_EGG, Models.GENERATED);
-
         itemModelGenerator.register(ItemRegistry.WHITE_DYED_BRUSH, Models.GENERATED);
         itemModelGenerator.register(ItemRegistry.ORANGE_DYED_BRUSH, Models.GENERATED);
         itemModelGenerator.register(ItemRegistry.MAGENTA_DYED_BRUSH, Models.GENERATED);

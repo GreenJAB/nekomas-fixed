@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
 import net.greenjab.nekomasfixed.render.entity.model.MoobloomEntityModel;
@@ -13,21 +14,16 @@ import net.minecraft.util.Identifier;
 
 
 public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, MoobloomEntityRenderState, MoobloomEntityModel> {
-    private final MoobloomEntityModel adultModel;
-    private final MoobloomEntityModel babyModel;
 
     public MoobloomEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new MoobloomEntityModel(context.getPart(ModEntityLayerRegistry.MOOBLOOM)), 0.5f);
-
-        this.adultModel = new MoobloomEntityModel(context.getPart(ModEntityLayerRegistry.MOOBLOOM));
-        this.babyModel = new MoobloomEntityModel(context.getPart(ModEntityLayerRegistry.MOOBLOOM_BABY));
     }
 
     @Override
     public Identifier getTexture(MoobloomEntityRenderState state) {
         String PATH = "textures/entity/moobloom/".concat(state.variantPath).concat(".png");
         String PATH_SHEARED = "textures/entity/moobloom/".concat(state.variantPath).concat("_sheared.png");
-        return state.sheared ? Identifier.of("nekomasfixed", PATH_SHEARED) : Identifier.of("nekomasfixed", PATH);
+        return state.sheared ? NekomasFixed.id(PATH_SHEARED) : NekomasFixed.id(PATH);
     }
 
     @Override

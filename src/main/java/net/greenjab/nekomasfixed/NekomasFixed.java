@@ -1,12 +1,8 @@
 package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
-import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
-import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider.SuspiciousSpiderEntity;
-import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.CakeRegistry;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
@@ -17,8 +13,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.*;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
-import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
@@ -47,14 +41,6 @@ public class NekomasFixed implements ModInitializer {
 		CakeRegistry.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
-
-        LOGGER.info("TERMITE = {}", EntityTypeRegistry.TERMITE);
-		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.TERMITE, TermiteEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntity.createPoisenousSpiderAttributes());
-		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.JUNGLE_ZOMBIE, ZombieEntity.createZombieAttributes());
-		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.SNOW_ZOMBIE, ZombieEntity.createZombieAttributes());
-		FabricDefaultAttributeRegistry.register(EntityTypeRegistry.DRENCHED, AbstractSkeletonEntity.createAbstractSkeletonAttributes());
 	}
 
 

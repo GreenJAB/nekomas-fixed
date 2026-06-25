@@ -1,8 +1,8 @@
 package net.greenjab.nekomasfixed.world;
 
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
 public class ModPlacedFeatures {
@@ -12,6 +12,6 @@ public class ModPlacedFeatures {
     public static final RegistryKey<PlacedFeature> GEYSER_PLACED_KEY = registerKey("geyser_feature");
 
     public static RegistryKey<PlacedFeature> registerKey(String name) {
-        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of("nekomasfixed", name));
+        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, NekomasFixed.id(name));
     }
 }

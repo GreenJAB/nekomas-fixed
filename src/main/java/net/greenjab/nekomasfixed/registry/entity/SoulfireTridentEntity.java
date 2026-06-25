@@ -14,6 +14,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -61,6 +62,8 @@ public class SoulfireTridentEntity extends PersistentProjectileEntity {
 
 	@Override
 	public void tick() {
+		if (this.getEntityWorld() instanceof ServerWorld serverWorld) serverWorld.spawnParticles(ParticleTypes.FLAME, this.getX(), this.getY()+0.2, this.getZ(), 0, 0, 0.0, 0.0, 0);
+
 		if (this.inGroundTime > 4) {
 			this.dealtDamage = true;
 		}

@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;import net.greenjab.nekomasfixed.render.entity.state.TermiteRenderState;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
@@ -20,7 +21,7 @@ public class TermiteRenderer extends MobEntityRenderer<TermiteEntity, TermiteRen
 
     @Override
     public Identifier getTexture(TermiteRenderState state) {
-        return Identifier.of("nekomasfixed", "textures/entity/termite/termite.png");
+        return NekomasFixed.id("textures/entity/termite/termite.png");
     }
 
     @Override

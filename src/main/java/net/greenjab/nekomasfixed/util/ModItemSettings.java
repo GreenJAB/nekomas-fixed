@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.util;
 
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.component.DataComponentTypes;
@@ -11,7 +12,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.util.Identifier;
 
 import static net.minecraft.item.Item.BASE_ATTACK_DAMAGE_MODIFIER_ID;
 import static net.minecraft.item.Item.BASE_ATTACK_SPEED_MODIFIER_ID;
@@ -105,7 +105,7 @@ public class ModItemSettings {
                 )
                 .add(
                         EntityAttributes.ENTITY_INTERACTION_RANGE,
-                        new EntityAttributeModifier(Identifier.of("nekomasfixed", "anchor_reach"), 1.5, EntityAttributeModifier.Operation.ADD_VALUE),
+                        new EntityAttributeModifier(NekomasFixed.id( "anchor_reach"), 1.5, EntityAttributeModifier.Operation.ADD_VALUE),
                         AttributeModifierSlot.MAINHAND
                 )
                 .build();

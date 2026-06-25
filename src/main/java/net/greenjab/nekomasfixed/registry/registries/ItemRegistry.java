@@ -113,10 +113,10 @@ public class ItemRegistry {
     );
 
     public static final Item BAOBAB_BOAT = register(
-            "baobab_boat", settings -> new BoatItem(EntityTypeRegistry.BAOBAB_BOAT_ENTITY, settings), new Item.Settings().maxCount(1)
+            "baobab_boat", settings -> new BoatItem(EntityTypeRegistry.BAOBAB_BOAT, settings), new Item.Settings().maxCount(1)
     );
     public static final Item BAOBAB_CHEST_BOAT = register(
-            "baobab_chest_boat", settings -> new BoatItem(EntityTypeRegistry.BAOBAB_CHEST_BOAT_ENTITY, settings), new Item.Settings().maxCount(1)
+            "baobab_chest_boat", settings -> new BoatItem(EntityTypeRegistry.BAOBAB_CHEST_BOAT, settings), new Item.Settings().maxCount(1)
     );
 
 
@@ -256,9 +256,6 @@ public class ItemRegistry {
 
     public static final Item TERMITE_BLOCK = register(BlockRegistry.TERMITE_BLOCK);
     public static final Item TERMITE_HIVE = register(BlockRegistry.TERMITE_HIVE);
-
-    public static final Item TERMITE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.TERMITE);
-    public static final Item SUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUS_SPIDER);
 
     public static final ArmorMaterial NETHERITE_CROWN_MATERIAL = new ArmorMaterial(37, Map.of(EquipmentType.HELMET, 3), 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, ItemTags.NETHERITE_TOOL_MATERIALS, ModEquipmentAssetKeys.NETHERITE_CROWN);
 
@@ -483,16 +480,12 @@ public class ItemRegistry {
 
     public static final Item ANCHOR = register("anchor", AnchorItem::new, ModItemSettings.anchor(12.0f, -3.5f));
 
-    public static final Item PYROTECHNICS_TABLE = register(BlockRegistry.PYROTECHNICS_TABLE);
+
     public static final Item JUNGLE_ZOMBIE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.JUNGLE_ZOMBIE);
     public static final Item SNOW_ZOMBIE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SNOW_ZOMBIE);
     public static final Item DRENCHED_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DRENCHED);
-    public static final Item BEETROOT_CAKE = register(BlockRegistry.BEETROOT_CAKE);
-    public static final Item APPLE_CAKE = register(BlockRegistry.APPLE_CAKE);
-    public static final Item HONEY_CAKE = register(BlockRegistry.HONEY_CAKE);
-    public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE);
-    public static final Item COOKIE_CAKE = register(BlockRegistry.COOKIE_CAKE);
-    public static final Item COCOA_CAKE = register(BlockRegistry.COCOA_CAKE);
+    public static final Item TERMITE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.TERMITE);
+    public static final Item SUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUS_SPIDER);
 
 
     public static Item register(String id, Item.Settings settings) {
