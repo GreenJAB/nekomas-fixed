@@ -74,8 +74,8 @@ public class ItemGroupRegistry {
 
                         entries.add(ItemRegistry.ANCHOR);
 
-                        entries.add(ItemRegistry.JUNGLE_ZOMBIE_SPAWN_EGG);
-                        entries.add(ItemRegistry.SNOW_ZOMBIE_SPAWN_EGG);
+                        entries.add(ItemRegistry.DERELICT_SPAWN_EGG);
+                        entries.add(ItemRegistry.RIME_SPAWN_EGG);
                         entries.add(ItemRegistry.DRENCHED_SPAWN_EGG);
 
                         entries.add(ItemRegistry.ROPE_ITEM);

@@ -12,15 +12,13 @@ import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.SkeletonEntityModel;
+import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class DrenchedEntityModel extends SkeletonEntityModel<DrenchedEntityRenderState> {
 
-    private final ModelPart bone2;
-
     public DrenchedEntityModel(ModelPart modelPart) {
         super(modelPart);
-        this.bone2 = modelPart.getChild("head").getChild("bone2");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -43,5 +41,23 @@ public class DrenchedEntityModel extends SkeletonEntityModel<DrenchedEntityRende
         );
 
         return TexturedModelData.of(modelData, 128, 128);
+    }
+
+    @Override
+    public void setAngles(DrenchedEntityRenderState drenchedEntityRenderState) {
+        super.setAngles(drenchedEntityRenderState);
+
+        float f = drenchedEntityRenderState.leaningPitch;
+        if (f > 0.0F) {
+            this.rightArm.pitch = MathHelper.lerpAngleRadians(f, this.rightArm.pitch, (float) (-Math.PI * 4.0 / 5.0))
+                    + f * 0.35F * MathHelper.sin(0.1F * drenchedEntityRenderState.age);
+            this.leftArm.pitch = MathHelper.lerpAngleRadians(f, this.leftArm.pitch, (float) (-Math.PI * 4.0 / 5.0))
+                    - f * 0.35F * MathHelper.sin(0.1F * drenchedEntityRenderState.age);
+            this.rightArm.roll = MathHelper.lerpAngleRadians(f, this.rightArm.roll, -0.15F);
+            this.leftArm.roll = MathHelper.lerpAngleRadians(f, this.leftArm.roll, 0.15F);
+            this.leftLeg.pitch = this.leftLeg.pitch - f * 0.55F * MathHelper.sin(0.1F * drenchedEntityRenderState.age);
+            this.rightLeg.pitch = this.rightLeg.pitch + f * 0.55F * MathHelper.sin(0.1F * drenchedEntityRenderState.age);
+            this.head.pitch = 0;
+        }
     }
 }

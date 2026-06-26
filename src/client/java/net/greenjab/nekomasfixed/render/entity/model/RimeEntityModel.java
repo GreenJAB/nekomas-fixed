@@ -8,9 +8,9 @@ import net.minecraft.client.render.entity.model.ZombieEntityModel;
 import net.minecraft.client.render.entity.state.ZombieEntityRenderState;
 
 @Environment(EnvType.CLIENT)
-public class SnowZombieEntityModel extends ZombieEntityModel<ZombieEntityRenderState> {
+public class RimeEntityModel extends ZombieEntityModel<ZombieEntityRenderState> {
 
-    public SnowZombieEntityModel(ModelPart modelPart) {
+    public RimeEntityModel(ModelPart modelPart) {
         super(modelPart);
     }
 

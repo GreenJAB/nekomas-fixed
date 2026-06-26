@@ -6,7 +6,6 @@ import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClockBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanEyesBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanHeadBlockModel;
-import net.greenjab.nekomasfixed.render.entity.*;
 import net.greenjab.nekomasfixed.render.entity.model.*;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
@@ -56,8 +55,8 @@ public class ModEntityLayerRegistry {
 
     public static final EntityModelLayer DRENCHED = new EntityModelLayer(NekomasFixed.id("drenched"), "main");
     public static final EntityModelLayer SUS_SPIDER = new EntityModelLayer(NekomasFixed.id("sus_spider"), "main");
-    public static final EntityModelLayer SNOW_ZOMBIE = new EntityModelLayer(NekomasFixed.id("zombie/snow_zombie"), "main");
-    public static final EntityModelLayer JUNGLE_ZOMBIE = new EntityModelLayer(NekomasFixed.id("zombie/jungle_zombie"), "main");
+    public static final EntityModelLayer RIME = new EntityModelLayer(NekomasFixed.id("zombie/rime"), "main");
+    public static final EntityModelLayer DERELICT = new EntityModelLayer(NekomasFixed.id("zombie/derelict"), "main");
 
     public static EntityModelLayer BAOBAB_BOAT = register("boat/baobab", "main");
     public static EntityModelLayer BAOBAB_CHEST_BOAT = register("chest_boat/baobab", "main");
@@ -80,8 +79,8 @@ public class ModEntityLayerRegistry {
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM_BABY, MoobloomEntityModel::getBabyTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.DRENCHED, DrenchedEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.SNOW_ZOMBIE, SnowZombieEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.JUNGLE_ZOMBIE, JungleZombieEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.RIME, RimeEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.DERELICT, DerelictEntityModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.CLAM, ClamBlockModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.CLOCK, ClockBlockModel::getTexturedModelData);

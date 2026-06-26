@@ -8,9 +8,9 @@ import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
-public class SnowZombieEntity extends ZombieEntity implements RangedAttackMob {
+public class RimeEntity extends ZombieEntity implements RangedAttackMob {
 
-    public SnowZombieEntity(EntityType<? extends SnowZombieEntity> entityType, World world) {
+    public RimeEntity(EntityType<? extends RimeEntity> entityType, World world) {
         super(entityType, world);
     }
 

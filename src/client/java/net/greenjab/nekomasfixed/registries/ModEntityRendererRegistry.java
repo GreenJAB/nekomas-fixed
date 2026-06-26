@@ -5,7 +5,6 @@ import net.greenjab.nekomasfixed.render.entity.*;
 import net.minecraft.client.render.entity.BoatEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.client.render.entity.ZombieEntityRenderer;
 
 public class ModEntityRendererRegistry {
 
@@ -50,8 +49,8 @@ public class ModEntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.DRENCHED, DrenchedEntityRenderer::new);
-        EntityRendererFactories.register(EntityTypeRegistry.JUNGLE_ZOMBIE, ZombieEntityRenderer::new);
-        EntityRendererFactories.register(EntityTypeRegistry.SNOW_ZOMBIE, ZombieEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.DERELICT, DerelictRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.RIME, RimeRenderer::new);
 
     }
 }

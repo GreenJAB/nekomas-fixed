@@ -11,9 +11,9 @@ import net.minecraft.client.render.entity.model.ZombieEntityModel;
 import net.minecraft.client.render.entity.state.ZombieEntityRenderState;
 
 @Environment(EnvType.CLIENT)
-public class JungleZombieEntityModel extends ZombieEntityModel<ZombieEntityRenderState> {
+public class DerelictEntityModel extends ZombieEntityModel<ZombieEntityRenderState> {
 
-    public JungleZombieEntityModel(ModelPart modelPart) {
+    public DerelictEntityModel(ModelPart modelPart) {
         super(modelPart);
     }
 

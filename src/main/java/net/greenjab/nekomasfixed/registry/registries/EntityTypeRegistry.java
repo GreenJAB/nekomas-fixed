@@ -9,7 +9,6 @@ import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.minecraft.entity.*;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
@@ -99,12 +98,12 @@ public class EntityTypeRegistry {
     public static final EntityType<SuspiciousSpiderEntity> SUS_SPIDER = register("sus_spider",
             EntityType.Builder.create(SuspiciousSpiderEntity::new, SpawnGroup.MONSTER).dimensions(1f, 1f).notAllowedInPeaceful());
 
-    public static final EntityType<JungleZombieEntity> JUNGLE_ZOMBIE = register("jungle_zombie",
-            EntityType.Builder.create(JungleZombieEntity::new, SpawnGroup.MONSTER)
+    public static final EntityType<DerelictEntity> DERELICT = register("derelict",
+            EntityType.Builder.create(DerelictEntity::new, SpawnGroup.MONSTER)
                     .dimensions(0.6f, 1.95f).notAllowedInPeaceful());
 
-    public static final EntityType<SnowZombieEntity> SNOW_ZOMBIE = register("snow_zombie",
-            EntityType.Builder.create(SnowZombieEntity::new, SpawnGroup.MONSTER)
+    public static final EntityType<RimeEntity> RIME = register("rime",
+            EntityType.Builder.create(RimeEntity::new, SpawnGroup.MONSTER)
                     .dimensions(0.6f, 1.95f).notAllowedInPeaceful());
 
     public static final EntityType<DrenchedEntity> DRENCHED = register("drenched",
@@ -152,9 +151,9 @@ public class EntityTypeRegistry {
         FabricDefaultAttributeRegistry.register(TERMITE, TermiteEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MOOBLOOM, MoobloomEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SUS_SPIDER, SuspiciousSpiderEntity.createPoisenousSpiderAttributes());
-        FabricDefaultAttributeRegistry.register(JUNGLE_ZOMBIE, ZombieEntity.createZombieAttributes());
-        FabricDefaultAttributeRegistry.register(SNOW_ZOMBIE, ZombieEntity.createZombieAttributes());
-        FabricDefaultAttributeRegistry.register(DRENCHED, AbstractSkeletonEntity.createAbstractSkeletonAttributes());
+        FabricDefaultAttributeRegistry.register(DERELICT, ZombieEntity.createZombieAttributes());
+        FabricDefaultAttributeRegistry.register(RIME, ZombieEntity.createZombieAttributes());
+        FabricDefaultAttributeRegistry.register(DRENCHED, DrenchedEntity.createDrenchedAttributes());
     }
 
     public static void init() {}

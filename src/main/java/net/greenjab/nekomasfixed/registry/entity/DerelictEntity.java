@@ -10,11 +10,11 @@ import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 
-public class JungleZombieEntity extends ZombieEntity {
+public class DerelictEntity extends ZombieEntity {
 
     private int cloudCooldown = 0;
 
-    public JungleZombieEntity(EntityType<? extends JungleZombieEntity> entityType, World world) {
+    public DerelictEntity(EntityType<? extends DerelictEntity> entityType, World world) {
         super(entityType, world);
     }
 

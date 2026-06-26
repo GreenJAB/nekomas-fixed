@@ -481,8 +481,8 @@ public class ItemRegistry {
     public static final Item ANCHOR = register("anchor", AnchorItem::new, ModItemSettings.anchor(12.0f, -3.5f));
 
 
-    public static final Item JUNGLE_ZOMBIE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.JUNGLE_ZOMBIE);
-    public static final Item SNOW_ZOMBIE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SNOW_ZOMBIE);
+    public static final Item DERELICT_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DERELICT);
+    public static final Item RIME_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.RIME);
     public static final Item DRENCHED_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DRENCHED);
     public static final Item TERMITE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.TERMITE);
     public static final Item SUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUS_SPIDER);
