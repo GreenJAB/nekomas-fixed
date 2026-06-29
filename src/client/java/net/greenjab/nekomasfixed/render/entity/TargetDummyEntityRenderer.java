@@ -66,7 +66,7 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 		super.updateRenderState(targetDummyEntity, targetDummyEntityRenderState, f);
 		BipedEntityRenderer.updateBipedRenderState(targetDummyEntity, targetDummyEntityRenderState, f, this.itemModelResolver);
 		targetDummyEntityRenderState.skinTextures = getSkin(targetDummyEntity);
-		targetDummyEntityRenderState.isZombie = targetDummyEntity.getZombie();
+		targetDummyEntityRenderState.isZombie = targetDummyEntity.isZombie();
 		targetDummyEntityRenderState.yaw = MathHelper.lerpAngleDegrees(f, targetDummyEntity.lastYaw, targetDummyEntity.getYaw());
 		targetDummyEntityRenderState.bodyRotation = targetDummyEntity.getBodyRotation();
 		targetDummyEntityRenderState.headRotation = targetDummyEntity.getHeadRotation();

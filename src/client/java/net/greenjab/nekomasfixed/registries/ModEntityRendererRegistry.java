@@ -47,7 +47,7 @@ public class ModEntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.WILDFIRE, WildfireEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
-        EntityRendererFactories.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.SUSPICIOUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.DRENCHED, DrenchedEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.DERELICT, DerelictRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.RIME, RimeRenderer::new);

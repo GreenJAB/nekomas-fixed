@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.render.entity;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
-import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider.SuspiciousSpiderEntity;
+import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpiderEntity;
 import net.greenjab.nekomasfixed.render.entity.model.SuspiciousSpiderEntityModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

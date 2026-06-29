@@ -89,10 +89,8 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
 			}
 		}
 
-		//SpriteIdentifier spriteIdentifier = TextureRegistry.getEndermanSkullTextureId(endermanSkullBlockEntityRenderState.variant);
 		RenderLayer renderLayer = RenderLayers.entityCutoutNoCull(TEXTURE);
 		RenderLayer renderLayerEyes = RenderLayers.eyes(TEXTURE_EYES);
-		//Sprite sprite = this.materials.getSprite(spriteIdentifier);
 		orderedRenderCommandQueue.submitModel(this.endermanHeadModel, endermanHeadBlockEntityRenderState, matrixStack,
 				renderLayer, endermanHeadBlockEntityRenderState.lightmapCoordinates, OverlayTexture.DEFAULT_UV, 0, endermanHeadBlockEntityRenderState.crumblingOverlay);
 		orderedRenderCommandQueue.submitModel(this.endermanEyesModel, endermanHeadBlockEntityRenderState, matrixStack,

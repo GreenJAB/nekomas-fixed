@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.greenjab.nekomasfixed.util.ModData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -66,7 +67,7 @@ public class PlayerEntityMixin {
             }
         }
         if (PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER)) {
-            if (!PE.isCreative()&&!PE.isSpectator()){
+            if (!PE.isCreative()&&!PE.isSpectator() && ModConfigValues.netherFoodRotting){
                 this.checkForEdibles(PE);
             }
         }
@@ -88,13 +89,7 @@ public class PlayerEntityMixin {
         return original;
     }
 
-    @Redirect(
-            method = "attack",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/entity/Entity;sidedDamage(Lnet/minecraft/entity/damage/DamageSource;F)Z"
-            )
-    )
+    @Redirect(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;sidedDamage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
     private boolean preventFeatherDamage(Entity target, DamageSource source, float amount) {
         PlayerEntity PE = (PlayerEntity)(Object)this;
 

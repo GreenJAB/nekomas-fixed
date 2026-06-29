@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.registry.other;
+package net.greenjab.nekomasfixed.registry.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

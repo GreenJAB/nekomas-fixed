@@ -4,10 +4,8 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
-import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider.SuspiciousSpiderEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireEntity;
-import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
@@ -95,7 +93,7 @@ public class EntityTypeRegistry {
     public static final EntityType<MoobloomEntity> MOOBLOOM = register("moobloom",
             EntityType.Builder.create(MoobloomEntity::new, SpawnGroup.AMBIENT).dimensions(1f, 1f));
 
-    public static final EntityType<SuspiciousSpiderEntity> SUS_SPIDER = register("sus_spider",
+    public static final EntityType<SuspiciousSpiderEntity> SUSPICIOUS_SPIDER = register("suspicious_spider",
             EntityType.Builder.create(SuspiciousSpiderEntity::new, SpawnGroup.MONSTER).dimensions(1f, 1f).notAllowedInPeaceful());
 
     public static final EntityType<DerelictEntity> DERELICT = register("derelict",
@@ -147,10 +145,10 @@ public class EntityTypeRegistry {
     public static void registerEntityType() {
         System.out.println("register EntityType");
         FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummyEntity.createTargetDummyAttributes().build());
-        FabricDefaultAttributeRegistry.register(WILDFIRE, WildfireEntity.createWildFireAttributes().build());
+        FabricDefaultAttributeRegistry.register(WILDFIRE, WildfireEntity.createWildfireAttributes().build());
         FabricDefaultAttributeRegistry.register(TERMITE, TermiteEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MOOBLOOM, MoobloomEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(SUS_SPIDER, SuspiciousSpiderEntity.createPoisenousSpiderAttributes());
+        FabricDefaultAttributeRegistry.register(SUSPICIOUS_SPIDER, SuspiciousSpiderEntity.createSuspiciousSpiderAttributes());
         FabricDefaultAttributeRegistry.register(DERELICT, ZombieEntity.createZombieAttributes());
         FabricDefaultAttributeRegistry.register(RIME, ZombieEntity.createZombieAttributes());
         FabricDefaultAttributeRegistry.register(DRENCHED, DrenchedEntity.createDrenchedAttributes());

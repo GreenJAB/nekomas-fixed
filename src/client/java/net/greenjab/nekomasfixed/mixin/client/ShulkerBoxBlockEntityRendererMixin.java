@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
-
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.CustomShulkerBoxTextureHolder;
@@ -29,58 +28,20 @@ public class ShulkerBoxBlockEntityRendererMixin {
             ModelCommandRenderer.CrumblingOverlayCommand overlay,
             CallbackInfo ci) {
 
-        if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.AMBER_SHULKER_BOX) {
-
-            ((CustomShulkerBoxTextureHolder) state).nekomasfixed$setCustomTexture(
-                    new SpriteIdentifier(
-                            TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/shulker/amber")
-                    )
-            );
-        }
-        if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.AQUA_SHULKER_BOX) {
-
-            ((CustomShulkerBoxTextureHolder) state).nekomasfixed$setCustomTexture(
-                    new SpriteIdentifier(
-                            TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/shulker/aqua")
-                    )
-            );
-        }
-        if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.MAROON_SHULKER_BOX) {
-
-            ((CustomShulkerBoxTextureHolder) state).nekomasfixed$setCustomTexture(
-                    new SpriteIdentifier(
-                            TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/shulker/maroon")
-                    )
-            );
-        }
-        if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.INDIGO_SHULKER_BOX) {
-
-            ((CustomShulkerBoxTextureHolder) state).nekomasfixed$setCustomTexture(
-                    new SpriteIdentifier(
-                            TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/shulker/indigo")
-                    )
-            );
-        }
+        String identifier = null;
+        if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.AMBER_SHULKER_BOX) identifier = "entity/shulker/amber";
+        else if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.AQUA_SHULKER_BOX) identifier = "entity/shulker/aqua";
+        else if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.MAROON_SHULKER_BOX) identifier = "entity/shulker/maroon";
+        else if (ShulkerBoxBlockEntity.getCachedState().getBlock() == BlockRegistry.INDIGO_SHULKER_BOX) identifier = "entity/shulker/indigo";
+        if (identifier!=null) ((CustomShulkerBoxTextureHolder) state).nekomasfixed$setCustomTexture(
+                new SpriteIdentifier(TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,NekomasFixed.id(identifier)));
     }
 
-    @ModifyVariable(
-            method = "render(Lnet/minecraft/client/render/block/entity/state/ShulkerBoxBlockEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
-            at = @At(value = "STORE"),
-            ordinal = 0
-    )
+    @ModifyVariable(method = "render(Lnet/minecraft/client/render/block/entity/state/ShulkerBoxBlockEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
+            at = @At(value = "STORE"), ordinal = 0)
     private SpriteIdentifier replaceTexture(SpriteIdentifier original, ShulkerBoxBlockEntityRenderState state) {
-
-        SpriteIdentifier custom =
-                ((CustomShulkerBoxTextureHolder) state).nekomasfixed$getCustomTexture();
-
-        if (custom != null) {
-            return custom;
-        }
-
+        SpriteIdentifier custom = ((CustomShulkerBoxTextureHolder) state).nekomasfixed$getCustomTexture();
+        if (custom != null) return custom;
         return original;
     }
 }

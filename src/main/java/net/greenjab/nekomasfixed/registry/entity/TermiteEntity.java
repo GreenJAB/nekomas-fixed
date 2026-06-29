@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.registry.entity.Termite;
+package net.greenjab.nekomasfixed.registry.entity;
 
 import io.netty.buffer.ByteBuf;
 import net.greenjab.nekomasfixed.registry.block.TermitehiveBlock;
@@ -20,7 +20,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.tag.BlockTags;
@@ -36,12 +35,10 @@ import java.util.function.IntFunction;
 
 public class TermiteEntity extends HostileEntity {
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState runAnimationState = new AnimationState();
     public final AnimationState swipeAnimationState = new AnimationState();
     private static final TrackedData<TermiteEntity.State> STATE;
     private int swipeStartTick = -1;
-    public Optional<Boolean> isInMound = Optional.of(false);
-    private Optional<BlockPos> moundPosition = findNearestMound(this).isEmpty() ? Optional.empty() : findNearestMound(this);
+    private BlockPos moundPosition = null;
 
     SearchForLogGoal searchForLogGoal;
 
@@ -130,37 +127,6 @@ public class TermiteEntity extends HostileEntity {
         return !this.searchForLogGoal.isRunning() && this.getTarget() == null && this.getEntityWorld().isNight();
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putBoolean("IsInMound", this.isInMound.get());
-
-        if (this.moundPosition.isPresent()) {
-            BlockPos pos = this.moundPosition.get();
-            nbt.putInt("MoundX", pos.getX());
-            nbt.putInt("MoundY", pos.getY());
-            nbt.putInt("MoundZ", pos.getZ());
-            nbt.putBoolean("HasMoundPosition", true);
-        } else {
-            nbt.putBoolean("HasMoundPosition", false);
-        }
-    }
-
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        this.isInMound = nbt.getBoolean("IsInMound");
-
-        if (nbt.getBoolean("HasMoundPosition", false)) {
-            int x = nbt.getInt("MoundX",0);
-            int y = nbt.getInt("MoundY",0);
-            int z = nbt.getInt("MoundZ",0);
-            this.moundPosition = Optional.of(new BlockPos(x, y, z));
-        } else {
-            this.moundPosition = Optional.empty();
-        }
-    }
-
-    public void setReachedHome(boolean b){
-        this.isInMound = Optional.of(b);
-    }
-
     @Override
     public void tick() {
         super.tick();
@@ -173,25 +139,23 @@ public class TermiteEntity extends HostileEntity {
     }
 
     public TermitehiveBlockEntity getMound(){
-        if(this.getMoundPosition().isEmpty()){return null;}
-        return (TermitehiveBlockEntity) this.getEntityWorld().getBlockEntity(this.getMoundPosition().get());
+        if (this.getMoundPosition()==null) return null;
+        if (this.getEntityWorld().getBlockEntity(this.getMoundPosition()) instanceof TermitehiveBlockEntity blockEntity) return blockEntity;
+        return null;
     }
 
-    public Optional<BlockPos> getMoundPosition() {
+    public BlockPos getMoundPosition() {
         return moundPosition;
     }
 
-    public void setMoundPosition(Optional<BlockPos> pos) {
-        this.moundPosition = pos;
-    }
-
-    public static Optional<BlockPos> findNearestMound(TermiteEntity termiteEntity){
-        return BlockPos.findClosest(
-                termiteEntity.getBlockPos(),
+    public BlockPos findNearestMound(){
+        Optional<BlockPos> blockPos = BlockPos.findClosest(
+                this.getBlockPos(),
                 16,
                 8,
-                pos -> termiteEntity.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
+                pos -> this.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
         );
+        return blockPos.orElse(null);
     }
 
     static {
@@ -212,14 +176,20 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean canStart() {
-            return this.termiteEntity.getEntityWorld().isNight()
-                    && this.termiteEntity.getMoundPosition().isPresent()
-                    && this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermitehiveBlock.TERMITES) < 2;
+            if (this.termiteEntity.getEntityWorld().isNight() && this.termiteEntity.getMoundPosition()!=null) {
+                BlockState state = this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition());
+                return state.isOf(BlockRegistry.TERMITE_HIVE) && state.get(TermitehiveBlock.TERMITES) < 2;
+            }
+            return false;
         }
 
         @Override
         public boolean shouldContinue() {
-            return !this.hasReached() || !(this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition().get()).get(TermitehiveBlock.TERMITES) == 2);
+            if (!this.hasReached() && this.termiteEntity.getEntityWorld().isNight() && this.termiteEntity.getMoundPosition()!=null) {
+                BlockState state = this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition());
+                return state.isOf(BlockRegistry.TERMITE_HIVE) && state.get(TermitehiveBlock.TERMITES) < 2;
+            }
+            return false;
         }
 
         @Override
@@ -250,9 +220,9 @@ public class TermiteEntity extends HostileEntity {
         }
         @Override
         public boolean canStart() {
-            TermiteEntity.this.moundPosition = findNearestMound(TermiteEntity.this);
+            moundPosition = findNearestMound();
 
-            if (TermiteEntity.this.moundPosition.isEmpty()) return false;
+            if (moundPosition == null) return false;
 
             TermitehiveBlockEntity hive = TermiteEntity.this.getMound();
             return hive != null
@@ -262,45 +232,36 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public void start() {
-            moundPosition.ifPresent(pos -> {
-                termiteEntity.getNavigation().startMovingTo(
-                        pos.getX(), pos.getY(), pos.getZ(), 0.4
-                );
-            });
+            termiteEntity.getNavigation().startMovingTo(moundPosition.getX(), moundPosition.getY(), moundPosition.getZ(), 0.4);
         }
 
         @Override
         public boolean shouldContinue() {
-            if (moundPosition.isEmpty()) return false;
+            if (moundPosition==null) return false;
             TermitehiveBlockEntity hive = TermiteEntity.this.getMound();
             if (hive == null || hive.isFullOfTermites()) return false;
             return TermiteEntity.this.squaredDistanceTo(
-                    moundPosition.get().getX() + 0.5,
-                    moundPosition.get().getY() + 0.5,
-                    moundPosition.get().getZ() + 0.5
+                    moundPosition.getX() + 0.5,
+                    moundPosition.getY() + 0.5,
+                    moundPosition.getZ() + 0.5
             ) > 4.0;
         }
 
         @Override
         public void tick() {
-            if (moundPosition.isEmpty()) return;
-
-            BlockPos pos = moundPosition.get();
-
+            if (moundPosition==null) return;
             double dist = TermiteEntity.this.squaredDistanceTo(
-                    pos.getX() + 0.5,
-                    pos.getY() + 0.5,
-                    pos.getZ() + 0.5
-            );
+                    moundPosition.getX() + 0.5,
+                    moundPosition.getY() + 0.5,
+                    moundPosition.getZ() + 0.5);
 
-            if (dist < 4.0) {
+            if (dist <= 4.0) {
                 TermitehiveBlockEntity hive = TermiteEntity.this.getMound();
                 if (hive != null ) hive.tryEnterMound(TermiteEntity.this);
             }
         }
     }
 
-    //custom goal for fetching a tree!!!
     private static class SearchForLogGoal extends Goal {
         private final TermiteEntity termiteEntity;
         private BlockPos targetPos;
@@ -313,7 +274,6 @@ public class TermiteEntity extends HostileEntity {
         @Override
         public boolean canStart() {
             return termiteEntity.getRandom().nextInt(40) == 0
-                    && !termiteEntity.isInMound.get()
                     && termiteEntity.getEntityWorld().isDay();
         }
 
@@ -367,7 +327,7 @@ public class TermiteEntity extends HostileEntity {
         }
     }
 
-    public static enum State {
+    public enum State {
         IDLING(0),
         SWIPING(1);
 

@@ -22,6 +22,7 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
@@ -75,8 +76,21 @@ public class DrenchedEntity extends AbstractSkeletonEntity {
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData);
         this.setVariant(this.random.nextInt(3));
-        return super.initialize(world, difficulty, spawnReason, entityData);
+        if (this.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() && world.getRandom().nextFloat() < 0.03F) {
+            this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(getClam(world.getRandom().nextFloat())));
+            this.setDropGuaranteed(EquipmentSlot.OFFHAND);
+        }
+        return entityData;
+    }
+
+    private Item getClam(float rarity) {
+        if (rarity>0.5) return ItemRegistry.CLAM;
+        if (rarity>0.25) return ItemRegistry.CLAM_BLUE;
+        if (rarity>0.125) return ItemRegistry.CLAM_PINK;
+        if (rarity>0.0625) return ItemRegistry.CLAM_PURPLE;
+        return ItemRegistry.CLAM;
     }
 
     public static boolean canSpawn(EntityType<DrenchedEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
@@ -135,25 +149,17 @@ public class DrenchedEntity extends AbstractSkeletonEntity {
     protected SoundEvent getSwimSound() {
         return SoundEvents.ENTITY_DROWNED_SWIM;
     }
-
     @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_SKELETON_AMBIENT;
     }
-
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_SKELETON_HURT;
     }
-
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_SKELETON_DEATH;
-    }
-
-    @Override
-    public boolean canSpawn(WorldView world) {
-        return world.doesNotIntersectEntities(this);
     }
 
     public boolean canDrenchedAttackTarget(@Nullable LivingEntity target) {

@@ -1,7 +1,6 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registries.TextureRenderLayerRegistry;
 import net.greenjab.nekomasfixed.util.CustomBedTextureHolder;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.MessyBedAccessor;
@@ -31,19 +30,17 @@ public class BedBlockEntityRendererMixin {
             ModelCommandRenderer.CrumblingOverlayCommand overlay,
             CallbackInfo ci) {
 
-        String identifier = null;
-        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AMBER_BED) identifier = "entity/bed/amber";
-        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AQUA_BED) identifier = "entity/bed/aqua";
-        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.MAROON_BED) identifier = "entity/bed/maroon";
-        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.INDIGO_BED) identifier = "entity/bed/indigo";
-        if (identifier!=null) {
-            if (bedBlockEntity.getCachedState().get(MessyBedAccessor.IS_MESSY)) identifier += "_messy";
-            ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(new SpriteIdentifier(TexturedRenderLayers.BEDS_ATLAS_TEXTURE, NekomasFixed.id(identifier)));
-        } else {
-            if (bedBlockEntity.getCachedState().get(MessyBedAccessor.IS_MESSY)) {
-                ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(TextureRenderLayerRegistry.MESSY_BED_TEXTURES.get(state.dyeColor));
-            }
+        String bed = null;
+        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AMBER_BED) bed = "amber";
+        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AQUA_BED) bed = "aqua";
+        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.MAROON_BED) bed = "maroon";
+        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.INDIGO_BED) bed = "indigo";
+        if (bedBlockEntity.getCachedState().get(MessyBedAccessor.IS_MESSY)) {
+            if (bed==null) bed = bedBlockEntity.getColor().getId();
+            bed += "_messy";
         }
+        if (bed!=null) ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
+                new SpriteIdentifier(TexturedRenderLayers.BEDS_ATLAS_TEXTURE, NekomasFixed.id("entity/bed/"+bed)));
     }
 
     @ModifyVariable(method = "render(Lnet/minecraft/client/render/block/entity/state/BedBlockEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",

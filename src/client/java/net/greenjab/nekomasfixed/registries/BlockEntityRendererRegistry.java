@@ -13,5 +13,6 @@ public class BlockEntityRendererRegistry {
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.ENDERMAN_HEAD_BLOCK_ENTITY, EndermanHeadBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.HOLLOW_LOG_BLOCK_ENTITY, HollowLogBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,SoupCauldronBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(BlockEntityTypeRegistry.STACKED_CAKE_BLOCK_ENTITY,StackedCakeBlockEntityRenderer::new);
     }
 }

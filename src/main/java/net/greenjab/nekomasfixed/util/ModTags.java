@@ -6,5 +6,5 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.biome.Biome;
 
 public class ModTags {
-    public static final TagKey<Biome> SPAWNS_SNOW_ZOMBIE = TagKey.of(RegistryKeys.BIOME, NekomasFixed.id("spawns_snow_zombie"));
+    public static final TagKey<Biome> SPAWNS_RIME = TagKey.of(RegistryKeys.BIOME, NekomasFixed.id("spawns_rime"));
 }

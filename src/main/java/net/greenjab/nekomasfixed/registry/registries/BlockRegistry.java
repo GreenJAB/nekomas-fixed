@@ -5,7 +5,7 @@ import net.greenjab.nekomasfixed.registry.block.*;
 import net.greenjab.nekomasfixed.registry.block.cauldron.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
-import net.greenjab.nekomasfixed.world.ModConfiguredFeatures;
+import net.greenjab.nekomasfixed.registry.worldgen.ModConfiguredFeatures;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -86,7 +86,6 @@ public class BlockRegistry {
     public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block",settings -> new NautilusBlock(NautilusBlockType.CORAL, settings), AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(1F).sounds(BlockSoundGroup.CORAL).pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block CLOCK = registerVanilla("clock", FloorClockBlock::new, AbstractBlock.Settings.create().noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY));
-    public static final Block GOAT_HORN = register("horn", GoatHornBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GRAY).luminance(state -> state.contains(GoatHornBlock.LIGHT_LEVEL) ? state.get(GoatHornBlock.LIGHT_LEVEL) : 0).strength(0.2F).sounds(BlockSoundGroup.TUFF).pistonBehavior(PistonBehavior.DESTROY));
     public static final Block WALL_CLOCK = registerVanilla("wall_clock", WallClockBlock::new, copyLootTable(CLOCK, true).noCollision().mapColor(MapColor.YELLOW).strength(0.2F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block ENDERMAN_HEAD = register("enderman_head", FloorEndermanHeadHead::new, AbstractBlock.Settings.create().mapColor(MapColor.BLACK).strength(1F).sounds(BlockSoundGroup.METAL).pistonBehavior(PistonBehavior.DESTROY).instrument(NoteBlockInstrument.CUSTOM_HEAD));
@@ -413,6 +412,7 @@ public class BlockRegistry {
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
     public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly());
 
+    public static final Block GOAT_HORN = register("horn", GoatHornBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GRAY).luminance(state -> state.get(GoatHornBlock.TORCH).getLight()).strength(0.2F).sounds(BlockSoundGroup.TUFF).pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block PYROTECHNICS_TABLE = register("pyrotechnics_table", PyrotechnicsTableBlock::new, AbstractBlock.Settings.create());
 

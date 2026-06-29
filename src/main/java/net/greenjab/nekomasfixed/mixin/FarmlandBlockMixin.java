@@ -2,13 +2,16 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,13 +27,11 @@ public class FarmlandBlockMixin {
         if (entity instanceof LivingEntity livingEntity) {
             ItemStack boots = livingEntity.getEquippedStack(EquipmentSlot.FEET);
 
-            var enchantmentLookup = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
-            var featherFallingEntry = enchantmentLookup.getOrThrow(Enchantments.FEATHER_FALLING);
+            Registry<Enchantment> enchantmentLookup = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
+            RegistryEntry.Reference<Enchantment> featherFallingEntry = enchantmentLookup.getOrThrow(Enchantments.FEATHER_FALLING);
             int level = EnchantmentHelper.getLevel(featherFallingEntry, boots);
 
-            if (level > 0) {
-                ci.cancel();
-            }
+            if (level > 0) ci.cancel();
         }
     }
 }

@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ItemDispenserBehaviorMixin {
 
     @Inject(at = @At("HEAD"), method = "dispenseSilently", cancellable = true)
-    public void CauldronMixin(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+    public void SpearAttack(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 
         World world = pointer.world();
         if (world.isClient())  return;

@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.util;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.woldgen.tree.BaobabTrunkPlacer;
+import net.greenjab.nekomasfixed.registry.worldgen.tree.BaobabTrunkPlacer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;

@@ -160,7 +160,8 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(!world.isClient() && world.getBlockEntity(pos) instanceof StackedCakeBlockEntity stackedCakeBlockEntity){
+        if (world.isClient()) return ActionResult.SUCCESS;
+        else if (world.getBlockEntity(pos) instanceof StackedCakeBlockEntity stackedCakeBlockEntity){
             if (state.get(SLICES) == 7 || state.get(SLICES) == 14 || state.get(SLICES) == 21) {
                 if (player.getMainHandStack().isIn(OtherRegistry.STACKED_CAKES) && state.get(SLICES) != 21) {
                     this.addCakeLayer(stack, stackedCakeBlockEntity, state);
@@ -176,7 +177,6 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
                             world.setBlockState(pos, world.getBlockState(pos).with(CANDLE, true).with(CandleBlock.LIT, false));
                             player.swingHand(hand, true);
                             stack.decrementUnlessCreative(1, player);
-
                             return ActionResult.SUCCESS;
                         }
                     }
@@ -185,26 +185,18 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
                         BlockState candleState = stackedCakeBlockEntity.CANDLE_STATE;
                         if (!candleState.get(CandleBlock.LIT)) {
                             stackedCakeBlockEntity.CANDLE_STATE = candleState.with(CandleBlock.LIT, true);
-
                             stackedCakeBlockEntity.markDirty();
                             world.setBlockState(pos, world.getBlockState(pos).with(LIT, true));
                             player.swingHand(hand, true);
                             stack.damage(1, player);
                             world.playSound(null, pos, net.minecraft.sound.SoundEvents.ITEM_FLINTANDSTEEL_USE, net.minecraft.sound.SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.4F + 0.8F);
-
                             return ActionResult.SUCCESS;
                         }
                     }
                 }
             }
-            if (player.getMainHandStack().isEmpty()) {
-                return tryEat(world, pos, state, player);
-            }
-            return ActionResult.FAIL;
-        } else if (player.getMainHandStack().isEmpty() && player.canConsume(false)) {
-            return ActionResult.SUCCESS;
+            return tryEat(world, pos, state, player);
         }
-
         return ActionResult.PASS;
     }
 

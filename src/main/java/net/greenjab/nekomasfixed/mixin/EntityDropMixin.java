@@ -16,26 +16,15 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(Entity.class)
 public abstract class EntityDropMixin {
 
-    @ModifyVariable(
-            method = "dropStack(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/entity/ItemEntity;",
-            at = @At("HEAD"),
-            argsOnly = true
-    )
+    @ModifyVariable(method = "dropStack(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/entity/ItemEntity;",
+            at = @At("HEAD"),argsOnly = true)
     private ItemStack replaceSpottedSheepDrops(ItemStack stack) {
-
         if ((Object) this instanceof SheepEntity sheep) {
-
             if (((SpottedSheepAccess) sheep).nekomasfixed$isSpotted()) {
-
-                Item currentItem = stack.getItem();
-                Item replacementItem = this.getSpottedWoolItem(currentItem);
-
-                if (replacementItem != null) {
-                    return new ItemStack(replacementItem, stack.getCount());
-                }
+                Item replacementItem = this.getSpottedWoolItem(stack.getItem());
+                if (replacementItem != null) return new ItemStack(replacementItem, stack.getCount());
             }
         }
-
         return stack;
     }
 

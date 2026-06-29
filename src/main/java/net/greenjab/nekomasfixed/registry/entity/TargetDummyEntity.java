@@ -116,7 +116,7 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 		this.dataTracker.set(PROFILE, profile);
 	}
 
-	public boolean getZombie() {
+	public boolean isZombie() {
 		return isZombie;
 	}
 

@@ -1,13 +1,14 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.GoatHornBlock;
-import net.greenjab.nekomasfixed.registry.block.entity.StackedCakeBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.InstrumentComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
@@ -27,7 +28,7 @@ public class AbstractBlockMixin {
 
     @Inject(method = "onUseWithItem", at= @At("HEAD"), cancellable = true)
     private void customOnUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        if(!world.isClient() && !world.getBlockState(pos).isIn(BlockTags.REPLACEABLE) && state.isSideSolidFullSquare(world, pos, hit.getSide())){
+        if(!world.getBlockState(pos).isIn(BlockTags.REPLACEABLE) && state.isSideSolidFullSquare(world, pos, hit.getSide())){
             if (stack.isOf(Items.GOAT_HORN)) {
                 Direction direction = hit.getSide();
 
@@ -37,32 +38,23 @@ public class AbstractBlockMixin {
 
                 Direction facing = direction.getOpposite();
                 BlockPos placePos = pos.offset(direction);
+                FluidState fluidState = world.getFluidState(placePos);
 
-                var component = stack.get(DataComponentTypes.INSTRUMENT);
+                InstrumentComponent component = stack.get(DataComponentTypes.INSTRUMENT);
                 if (component == null) return;
 
-                GoatHornType hornType = GoatHornType.fromInstrument(component.instrument());
+                GoatHornType hornType = GoatHornType.fromInstrument(component);
 
                 BlockState newState = BlockRegistry.GOAT_HORN.getDefaultState()
                         .with(GoatHornBlock.HORN, hornType)
-                        .with(HorizontalFacingBlock.FACING, facing);
+                        .with(HorizontalFacingBlock.FACING, facing)
+                        .with(GoatHornBlock.WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
 
                 if (world.getBlockState(placePos).isIn(BlockTags.REPLACEABLE) && state.isSideSolidFullSquare(world, pos, hit.getSide())) {
                     world.setBlockState(placePos, newState);
                     player.getMainHandStack().decrementUnlessCreative(1, player);
-                    player.swingHand(hand, true);
                     cir.setReturnValue(ActionResult.SUCCESS);
                 }
-            }
-
-            if(stack.isOf(ItemRegistry.BAOBAB_SEEDS) && state.isIn(BlockTags.LEAVES)){
-                BlockPos below = pos.down();
-                if (world.getBlockState(below).isAir() || world.getBlockState(below).isIn(BlockTags.REPLACEABLE)) {
-                    world.setBlockState(below, BlockRegistry.BAOBAB_FRUIT.getDefaultState());
-                    player.swingHand(hand, true);
-                    stack.decrementUnlessCreative(1, player);
-                }
-                cir.setReturnValue(ActionResult.SUCCESS);
             }
         }
     }

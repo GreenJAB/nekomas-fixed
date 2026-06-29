@@ -18,6 +18,4 @@ public class RedstoneControllerMixin {
             cir.setReturnValue(15);
         }
     }
-
-
 }

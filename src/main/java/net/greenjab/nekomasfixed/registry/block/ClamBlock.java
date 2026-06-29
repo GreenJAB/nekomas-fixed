@@ -1,6 +1,4 @@
 package net.greenjab.nekomasfixed.registry.block;
-// import net.minecraft.block.Blocks'
-//Block class of minecraft -
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
@@ -12,7 +10,7 @@ import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.block.*;
-import net.minecraft.block.Blocks; // For CyberModder
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -176,7 +174,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	protected FluidState getFluidState(BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
-
 
 	@Override
 	protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {

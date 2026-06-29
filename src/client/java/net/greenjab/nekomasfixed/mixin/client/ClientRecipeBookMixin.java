@@ -19,13 +19,8 @@ public class ClientRecipeBookMixin {
 
     @Inject(method = "refresh", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/recipebook/RecipeBookType;values()[Lnet/minecraft/client/recipebook/RecipeBookType;"))
     private void kilnRecipeBookRefresh(CallbackInfo ci, @Local(ordinal = 1) Map<RecipeBookGroup, List<RecipeResultCollection>> map2) {
-        map2.put(
-                RecipeRegistry.KILNING,
-                (List)RecipeRegistry.KILNING.getCategories()
-                        .stream()
-                        .flatMap( group -> ((List)map2.getOrDefault(group, List.of())).stream())
-                        .collect(ImmutableList.toImmutableList())
-        );
+        map2.put(RecipeRegistry.KILNING, RecipeRegistry.KILNING.getCategories()
+                        .stream().flatMap( group -> (map2.getOrDefault(group, List.of())).stream())
+                        .collect(ImmutableList.toImmutableList()));
     }
-
 }

@@ -7,12 +7,10 @@ import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.util.CakeRegistry;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
-import net.greenjab.nekomasfixed.world.ModWorldGeneration;
-import net.minecraft.block.*;
+import net.greenjab.nekomasfixed.registry.worldgen.ModWorldGeneration;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
@@ -59,3 +57,5 @@ public class NekomasFixed implements ModInitializer {
 		return level;
 	}
 }
+
+//TODO termite brain, loot tables

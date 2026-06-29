@@ -50,7 +50,7 @@ public class WildfireEntity extends HostileEntity {
 	public float clientExtraSpin = 0;
 	private final ServerBossBar bossBar;
 	private BlockPos spawnPos;
-	private static final TrackedData<Byte> WILD_FIRE_FLAGS = DataTracker.registerData(WildfireEntity.class, TrackedDataHandlerRegistry.BYTE);
+	private static final TrackedData<Byte> WILDFIRE_FLAGS = DataTracker.registerData(WildfireEntity.class, TrackedDataHandlerRegistry.BYTE);
 
 	public WildfireEntity(EntityType<? extends WildfireEntity> entityType, World world) {
 		super(entityType, world);
@@ -79,7 +79,8 @@ public class WildfireEntity extends HostileEntity {
 	@Override
 	protected void writeCustomData(WriteView view) {
 		super.writeCustomData(view);
-		view.putInt("State", this.dataTracker.get(WILD_FIRE_FLAGS));
+		view.putInt("State", this.dataTracker.get(WILDFIRE_FLAGS));
+		if (spawnPos==null) spawnPos = new BlockPos(0, 0, 0);
 		view.putInt("spawnX", spawnPos.getX());
 		view.putInt("spawnY", spawnPos.getY());
 		view.putInt("spawnZ", spawnPos.getZ());
@@ -88,7 +89,7 @@ public class WildfireEntity extends HostileEntity {
 	@Override
 	protected void readCustomData(ReadView view) {
 		super.readCustomData(view);
-		this.dataTracker.set(WILD_FIRE_FLAGS, (byte)view.getInt("State", 0));
+		this.dataTracker.set(WILDFIRE_FLAGS, (byte)view.getInt("State", 0));
 		spawnPos = new BlockPos(view.getInt("spawnX", 0), view.getInt("spawnY", 0), view.getInt("spawnZ", 0));
 		if (this.hasCustomName()) {
 			this.bossBar.setName(this.getDisplayName());
@@ -114,7 +115,7 @@ public class WildfireEntity extends HostileEntity {
 		return Brain.createProfile(WildfireBrain.MEMORY_MODULES, WildfireBrain.SENSORS);
 	}
 
-	public static DefaultAttributeContainer.Builder createWildFireAttributes() {
+	public static DefaultAttributeContainer.Builder createWildfireAttributes() {
 		return HostileEntity.createHostileAttributes()
 				.add(EntityAttributes.MAX_HEALTH, 150.0)
 				.add(EntityAttributes.ATTACK_DAMAGE, 6.0)
@@ -125,7 +126,7 @@ public class WildfireEntity extends HostileEntity {
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
 		super.initDataTracker(builder);
-		builder.add(WILD_FIRE_FLAGS, (byte)16);
+		builder.add(WILDFIRE_FLAGS, (byte)16);
 	}
 
 	@Override
@@ -243,9 +244,9 @@ public class WildfireEntity extends HostileEntity {
 		}
 
 		Profiler profiler = Profilers.get();
-		profiler.push("wildFireBrain");
+		profiler.push("wildfireBrain");
 		this.getBrain().tick(world, this);
-		profiler.swap("wildFireActivityUpdate");
+		profiler.swap("wildfireActivityUpdate");
 		WildfireBrain.updateActivities(this);
 		profiler.pop();
 		super.mobTick(world);
@@ -285,45 +286,45 @@ public class WildfireEntity extends HostileEntity {
 	}
 
 	private boolean isFireActive() {
-		return (this.dataTracker.get(WILD_FIRE_FLAGS) & 1) != 0;
+		return (this.dataTracker.get(WILDFIRE_FLAGS) & 1) != 0;
 	}
 
 	public void setFireActive(boolean fireActive) {
-		byte b = this.dataTracker.get(WILD_FIRE_FLAGS);
+		byte b = this.dataTracker.get(WILDFIRE_FLAGS);
 		if (fireActive) {
 			b = (byte)(b | 1);
 		} else {
 			b = (byte)(b & -(1+1));
 		}
 
-		this.dataTracker.set(WILD_FIRE_FLAGS, b);
+		this.dataTracker.set(WILDFIRE_FLAGS, b);
 	}
 
 	public boolean isSoulActive() {
-		return (this.dataTracker.get(WILD_FIRE_FLAGS) & 2) != 0;
+		return (this.dataTracker.get(WILDFIRE_FLAGS) & 2) != 0;
 	}
 
 	public void setSoulActive(boolean soulActive) {
-		byte b = this.dataTracker.get(WILD_FIRE_FLAGS);
+		byte b = this.dataTracker.get(WILDFIRE_FLAGS);
 		if (soulActive) {
 			b = (byte)(b | 2);
 		} else {
 			b = (byte)(b & -(2+1));
 		}
 		this.bossBar.setColor(BossBar.Color.BLUE);
-		this.dataTracker.set(WILD_FIRE_FLAGS, b);
+		this.dataTracker.set(WILDFIRE_FLAGS, b);
 	}
 
 	public int getShieldsActive() {
-		return (this.dataTracker.get(WILD_FIRE_FLAGS) & 28)/4;
+		return (this.dataTracker.get(WILDFIRE_FLAGS) & 28)/4;
 	}
 
 	public void setShieldsActive(int shieldsActive) {
-		byte b = this.dataTracker.get(WILD_FIRE_FLAGS);
+		byte b = this.dataTracker.get(WILDFIRE_FLAGS);
 		b = (byte)(b & -(28+1));
 		b = (byte)(b | 4*shieldsActive);
 
-		this.dataTracker.set(WILD_FIRE_FLAGS, b);
+		this.dataTracker.set(WILDFIRE_FLAGS, b);
 	}
 
 	@Override

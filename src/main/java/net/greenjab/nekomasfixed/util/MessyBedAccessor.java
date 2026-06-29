@@ -4,5 +4,4 @@ import net.minecraft.state.property.BooleanProperty;
 
 public interface MessyBedAccessor {
     BooleanProperty IS_MESSY = BooleanProperty.of("is_messy");
-    BooleanProperty nekomasfixed$getMessyBed();
 }

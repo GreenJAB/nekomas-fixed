@@ -12,7 +12,6 @@ import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-
 public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, MoobloomEntityRenderState, MoobloomEntityModel> {
 
     public MoobloomEntityRenderer(EntityRendererFactory.Context context) {
@@ -36,13 +35,10 @@ public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, Mo
         state.baby = entity.isBaby();
     }
 
-    //done a lot of stuff x 2
-
     @Override
     public MoobloomEntityRenderState createRenderState() {
         return new MoobloomEntityRenderState();
     }
-
 
     @Override
     public void render(MoobloomEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {

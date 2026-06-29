@@ -180,8 +180,8 @@
   "block.nekomasfixed.indigo_brick_wall": "Indigo Brick Wall",
   "block.nekomasfixed.maroon_brick_wall": "Maroon Brick Wall",
 
-  "entity.nekomasfixed.sus_spider": "Suspicious Spider",
-  "item.nekomasfixed.sus_spider_spawn_egg": "Suspicious Spider Spawn Egg",
+  "entity.nekomasfixed.suspicious_spider": "Suspicious Spider",
+  "item.nekomasfixed.suspicious_spider_spawn_egg": "Suspicious Spider Spawn Egg",
 
   "block.nekomasfixed.glistering_melon": "Glistering Melon",
 
@@ -453,8 +453,8 @@
   "block.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
   "item.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
 
-  "item.nekomasfixed.jungle_zombie_spawn_egg": "Jungle Zombie Spawn Egg",
-  "item.nekomasfixed.snow_zombie_spawn_egg": "Snow Zombie Spawn Egg",
+  "item.nekomasfixed.derelict_spawn_egg": "Derelict Spawn Egg",
+  "item.nekomasfixed.rime_spawn_egg": "Rime Spawn Egg",
 
   "title.nekomasfixed.config": "Config",
   "item.nekomasfixed.anchor": "Anchor",

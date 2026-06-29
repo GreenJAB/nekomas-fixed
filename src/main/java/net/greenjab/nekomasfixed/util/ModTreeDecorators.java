@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.util;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.woldgen.treedecorator.BaobabTreeDecorator;
+import net.greenjab.nekomasfixed.registry.worldgen.tree.BaobabTreeDecorator;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;

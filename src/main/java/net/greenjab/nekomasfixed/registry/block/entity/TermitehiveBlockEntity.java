@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
+import net.greenjab.nekomasfixed.registry.entity.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.other.TermitesComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
@@ -35,7 +35,6 @@ import org.slf4j.Logger;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 public class TermitehiveBlockEntity extends BlockEntity {
     static final Logger LOGGER = LogUtils.getLogger();
@@ -140,7 +139,7 @@ public class TermitehiveBlockEntity extends BlockEntity {
         if (bl && termiteState != TermitehiveBlockEntity.TermiteState.EMERGENCY) {
             return false;
         } else {
-            Entity entity = termite.loadEntity(world, pos);
+            Entity entity = termite.loadEntity(world);
             if (entity != null) {
                 if (entity instanceof TermiteEntity termiteEntity) {
 
@@ -258,7 +257,7 @@ public class TermitehiveBlockEntity extends BlockEntity {
 
     public record TermiteData(TypedEntityData<EntityType<?>> entityData, int ticksInHive, int minTicksInHive) {
         public static final Codec<TermitehiveBlockEntity.TermiteData> CODEC = RecordCodecBuilder.create(
-                /* method_57587 */ instance -> instance.group(
+                 instance -> instance.group(
                                 TypedEntityData.createCodec(EntityType.CODEC).fieldOf("entity_data").forGetter(TermitehiveBlockEntity.TermiteData::entityData),
                                 Codec.INT.fieldOf("ticks_in_hive").forGetter(TermitehiveBlockEntity.TermiteData::ticksInHive),
                                 Codec.INT.fieldOf("min_ticks_in_hive").forGetter(TermitehiveBlockEntity.TermiteData::minTicksInHive)
@@ -295,14 +294,11 @@ public class TermitehiveBlockEntity extends BlockEntity {
         }
 
         @Nullable
-        public Entity loadEntity(World world, BlockPos pos) {
+        public Entity loadEntity(World world) {
             NbtCompound nbtCompound = this.entityData.copyNbtWithoutId();
             TermitehiveBlockEntity.IRRELEVANT_TERMITE_NBT_KEYS.forEach(nbtCompound::remove);
             Entity entity = EntityType.loadEntityWithPassengers(this.entityData.getType(), nbtCompound, world, SpawnReason.LOAD, LoadedEntityProcessor.NOOP);
             if (entity != null && entity.getType()==EntityTypeRegistry.TERMITE) {
-                if (entity instanceof TermiteEntity termiteEntity) {
-                    termiteEntity.setMoundPosition(Optional.ofNullable(pos));
-                }
                 return entity;
             } else {
                 return null;

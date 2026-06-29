@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.registry.woldgen.treedecorator;
+package net.greenjab.nekomasfixed.registry.worldgen.tree;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

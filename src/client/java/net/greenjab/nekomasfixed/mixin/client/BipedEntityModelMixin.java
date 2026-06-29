@@ -29,7 +29,6 @@ public class BipedEntityModelMixin <T extends BipedEntityRenderState> {
     private void leftArmSlingshot(T state, CallbackInfo ci) {
         if (state.leftArmPose == BOW_AND_ARROW) {
             BipedEntityModel<?> BEM = (BipedEntityModel<?>) (Object) this;
-            //if state.activeHand == Hand.MAIN_HAND
             charge(BEM.rightArm, BEM.leftArm, BEM.head, state.crossbowPullTime, state.itemUseTime, false, state.leftHandItem.isOf(ItemRegistry.SLINGSHOT));
             ci.cancel();
         }
@@ -48,6 +47,5 @@ public class BipedEntityModelMixin <T extends BipedEntityRenderState> {
         float h = g / crossbowPullTime;
         modelPart2.yaw = (float) (-Math.sin(modelPart2.pitch)*MathHelper.lerp(h, 0.4F, 0.85F) * (rightArm ? 1 : -1));
         modelPart2.roll = (float) (Math.cos(modelPart2.pitch)*MathHelper.lerp(h, 0.4F, 0.85F) * (rightArm ? 1 : -1));
-
     }
 }

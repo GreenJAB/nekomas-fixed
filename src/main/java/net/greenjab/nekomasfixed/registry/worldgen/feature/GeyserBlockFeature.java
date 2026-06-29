@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.world.feature;
+package net.greenjab.nekomasfixed.registry.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;

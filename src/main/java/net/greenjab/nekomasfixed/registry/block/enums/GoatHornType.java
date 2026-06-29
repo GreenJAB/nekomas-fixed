@@ -1,66 +1,41 @@
 package net.greenjab.nekomasfixed.registry.block.enums;
 
-import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.InstrumentComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.Instrument;
 import net.minecraft.item.Instruments;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.LazyRegistryEntryReference;
 import net.minecraft.util.StringIdentifiable;
-import org.jspecify.annotations.Nullable;
-
-import java.util.Random;
 
 public enum GoatHornType implements StringIdentifiable {
-    CALL,
-    PONDER,
-    SING,
-    SEEK,
-    FEEL,
-    ADMIRE,
-    YEARN,
-    DREAM;
+    CALL(Instruments.CALL_GOAT_HORN, new StatusEffectInstance(StatusEffects.SPEED, 20*60, 0)),
+    PONDER(Instruments.PONDER_GOAT_HORN, new StatusEffectInstance(StatusEffects.RESISTANCE, 20*60, 0)),
+    SING(Instruments.SING_GOAT_HORN, new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 20*60, 0)),
+    SEEK(Instruments.SEEK_GOAT_HORN, new StatusEffectInstance(StatusEffects.STRENGTH, 20*60, 0)),
+    FEEL(Instruments.FEEL_GOAT_HORN, new StatusEffectInstance(StatusEffects.ABSORPTION, 20*60, 0)),
+    ADMIRE(Instruments.ADMIRE_GOAT_HORN, new StatusEffectInstance(StatusEffects.REGENERATION, 20*60, 0)),
+    YEARN(Instruments.YEARN_GOAT_HORN, new StatusEffectInstance(StatusEffects.STRENGTH, 20*60, 0)),
+    DREAM(Instruments.DREAM_GOAT_HORN, new StatusEffectInstance(StatusEffects.INVISIBILITY, 20*60, 0));
 
+    private final RegistryKey<Instrument> instrument;
+    private final StatusEffectInstance effect;
 
-    public static RegistryKey<Instrument> getInstrument(GoatHornType type) {
-        return switch (type) {
-            case CALL -> Instruments.CALL_GOAT_HORN;
-            case SING -> Instruments.SING_GOAT_HORN;
-            case SEEK -> Instruments.SEEK_GOAT_HORN;
-            case PONDER -> Instruments.PONDER_GOAT_HORN;
-            case FEEL -> Instruments.FEEL_GOAT_HORN;
-            case ADMIRE -> Instruments.ADMIRE_GOAT_HORN;
-            case YEARN -> Instruments.YEARN_GOAT_HORN;
-            case DREAM -> Instruments.DREAM_GOAT_HORN;
-        };
+    GoatHornType(RegistryKey<Instrument> instrument, StatusEffectInstance effect) {
+        this.instrument = instrument;
+        this.effect = effect;
     }
 
-    public static @Nullable StatusEffectInstance getStatusEffect(GoatHornItem item){
-        var component = item.getDefaultStack().get(DataComponentTypes.INSTRUMENT);
-        if (component == null) return null;
-
-        GoatHornType hornType = GoatHornType.fromInstrument(component.instrument());
-        StatusEffectInstance effect = new StatusEffectInstance(StatusEffects.INSTANT_HEALTH);
-        int dur = 20*60;
-        int rand = new Random().nextInt(1, 3);
-        switch (hornType){
-            case CALL -> effect = new StatusEffectInstance(StatusEffects.SPEED, dur, rand);
-            case SING, PONDER -> effect = new StatusEffectInstance(StatusEffects.RESISTANCE, dur, rand);
-            case SEEK -> effect = new StatusEffectInstance(StatusEffects.STRENGTH, dur, rand);
-            case FEEL -> effect = new StatusEffectInstance(StatusEffects.ABSORPTION, dur, rand);
-            case ADMIRE -> effect = new StatusEffectInstance(StatusEffects.REGENERATION, dur, rand+3);
-            case DREAM ->  effect = new StatusEffectInstance(StatusEffects.INVISIBILITY, dur, rand);
-            case YEARN ->  effect = new StatusEffectInstance(StatusEffects.STRENGTH, dur, rand+1);
-        }
-        return effect;
+    public RegistryKey<Instrument> getInstrument() {
+        return this.instrument;
     }
 
-    public static GoatHornType fromInstrument(LazyRegistryEntryReference<Instrument> instrument) {
-        var key = instrument.getKey().orElse(null);
-        if (key == null) return CALL;
+    public StatusEffectInstance getStatusEffect(){
+        return this.effect;
+    }
 
+    public static GoatHornType fromInstrument(InstrumentComponent instrument) {
+        RegistryKey<Instrument> key = instrument.instrument().getKey().orElse(Instruments.CALL_GOAT_HORN);
         if (key == Instruments.CALL_GOAT_HORN) return CALL;
         if (key == Instruments.SING_GOAT_HORN) return SING;
         if (key == Instruments.SEEK_GOAT_HORN) return SEEK;
@@ -69,7 +44,6 @@ public enum GoatHornType implements StringIdentifiable {
         if (key == Instruments.ADMIRE_GOAT_HORN) return ADMIRE;
         if (key == Instruments.DREAM_GOAT_HORN) return DREAM;
         if (key == Instruments.YEARN_GOAT_HORN) return YEARN;
-
         return CALL;
     }
 

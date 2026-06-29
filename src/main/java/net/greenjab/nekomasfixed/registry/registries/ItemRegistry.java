@@ -87,7 +87,7 @@ public class ItemRegistry {
 
     public static final FoodComponent BAOBAB_FRUIT_FOOD = new FoodComponent.Builder().nutrition(4).saturationModifier(0.3F).build();
     public static final Item BAOBAB_FRUIT = register("baobab_fruit", new Item.Settings().food(BAOBAB_FRUIT_FOOD));
-    public static final Item BAOBAB_SEEDS = register("baobab_seeds", Item::new, new Item.Settings().maxCount(64));
+    public static final Item BAOBAB_SEEDS = register("baobab_seeds", BaobabSeedsItem::new, new Item.Settings().maxCount(64));
     public static final Item BAOBAB_LEAVES = register(BlockRegistry.BAOBAB_LEAVES);
     public static final Item BAOBAB_SAPLING = register(BlockRegistry.BAOBAB_SAPLING);
     public static final Item BAOBAB_PLANKS = register(BlockRegistry.BAOBAB_PLANKS);
@@ -121,14 +121,14 @@ public class ItemRegistry {
 
 
 
-    public static final Item SWEETBERRY_CAKE = register(BlockRegistry.SWEETBERRY_CAKE);
-    public static final Item PAN_CAKE = register(BlockRegistry.PAN_CAKE);
-    public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE);
-    public static final Item APPLE_CAKE = register(BlockRegistry.APPLE_CAKE);
-    public static final Item VANILLA_CAKE = register(BlockRegistry.VANILLA_CAKE);
-    public static final Item COOKIE_CAKE = register(BlockRegistry.COOKIE_CAKE);
-    public static final Item CHOCOLATE_CAKE = register(BlockRegistry.CHOCOLATE_CAKE);
-    public static final Item BEETROOT_CAKE = register(BlockRegistry.BEETROOT_CAKE);
+    public static final Item SWEETBERRY_CAKE = register(BlockRegistry.SWEETBERRY_CAKE, new Item.Settings().maxCount(1));
+    public static final Item PAN_CAKE = register(BlockRegistry.PAN_CAKE, new Item.Settings().maxCount(1));
+    public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE, new Item.Settings().maxCount(1));
+    public static final Item APPLE_CAKE = register(BlockRegistry.APPLE_CAKE, new Item.Settings().maxCount(1));
+    public static final Item VANILLA_CAKE = register(BlockRegistry.VANILLA_CAKE, new Item.Settings().maxCount(1));
+    public static final Item COOKIE_CAKE = register(BlockRegistry.COOKIE_CAKE, new Item.Settings().maxCount(1));
+    public static final Item CHOCOLATE_CAKE = register(BlockRegistry.CHOCOLATE_CAKE, new Item.Settings().maxCount(1));
+    public static final Item BEETROOT_CAKE = register(BlockRegistry.BEETROOT_CAKE, new Item.Settings().maxCount(1));
 
     public static final Item WHITE_BRICKS = register(BlockRegistry.WHITE_BRICKS);
     public static final Item ORANGE_BRICKS = register(BlockRegistry.ORANGE_BRICKS);
@@ -485,7 +485,7 @@ public class ItemRegistry {
     public static final Item RIME_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.RIME);
     public static final Item DRENCHED_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DRENCHED);
     public static final Item TERMITE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.TERMITE);
-    public static final Item SUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUS_SPIDER);
+    public static final Item SUSPICIOUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUSPICIOUS_SPIDER);
 
 
     public static Item register(String id, Item.Settings settings) {

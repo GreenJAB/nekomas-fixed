@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.world;
+package net.greenjab.nekomasfixed.registry.worldgen;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.minecraft.registry.RegistryKey;

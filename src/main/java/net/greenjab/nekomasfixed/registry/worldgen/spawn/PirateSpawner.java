@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.world.spawn;
+package net.greenjab.nekomasfixed.registry.worldgen.spawn;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;

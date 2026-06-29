@@ -7,16 +7,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.poi.PointOfInterestTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,11 +23,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BedBlock.class)
 public class BedBlockMixin implements MessyBedAccessor {
 
-
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void nekomasfixed$setDefaultState(DyeColor color, AbstractBlock.Settings settings, CallbackInfo ci) {
+    private void setDefaultState(DyeColor color, AbstractBlock.Settings settings, CallbackInfo ci) {
         BedBlock self = (BedBlock)(Object)this;
-
         self.setDefaultState(self.getDefaultState().with(MessyBedAccessor.IS_MESSY, false));
     }
 
@@ -58,10 +53,5 @@ public class BedBlockMixin implements MessyBedAccessor {
                 world.setBlockState(otherPos, otherState.with(MessyBedAccessor.IS_MESSY, true));
             }
         }
-    }
-
-    @Override
-    public BooleanProperty nekomasfixed$getMessyBed() {
-        return MessyBedAccessor.IS_MESSY;
     }
 }
