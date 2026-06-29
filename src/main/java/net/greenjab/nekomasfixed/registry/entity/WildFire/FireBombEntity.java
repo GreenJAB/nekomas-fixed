@@ -67,7 +67,7 @@ public class FireBombEntity extends ProjectileEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
-        if (!(entity instanceof WildFireEntity)) {
+        if (!(entity instanceof WildfireEntity)) {
             super.onEntityHit(entityHitResult);
             if (!this.getEntityWorld().isClient()) {
                 this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, entity.getX(), entity.getY() + 1, entity.getZ(), 1, true, World.ExplosionSourceType.MOB);

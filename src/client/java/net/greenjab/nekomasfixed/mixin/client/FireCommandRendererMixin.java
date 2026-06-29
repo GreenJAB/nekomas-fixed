@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.greenjab.nekomasfixed.render.entity.state.WildFireEntityRenderState;
+import net.greenjab.nekomasfixed.render.entity.state.WildfireEntityRenderState;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.command.FireCommandRenderer;
 import net.minecraft.client.render.entity.state.EntityRenderState;
@@ -23,7 +23,7 @@ public class FireCommandRendererMixin {
 
     @ModifyArg(method = "render(Lnet/minecraft/client/util/math/MatrixStack$Entry;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/render/entity/state/EntityRenderState;Lorg/joml/Quaternionf;Lnet/minecraft/client/texture/AtlasManager;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/AtlasManager;getSprite(Lnet/minecraft/client/util/SpriteIdentifier;)Lnet/minecraft/client/texture/Sprite;", ordinal = 0))
     private SpriteIdentifier soulFire0(SpriteIdentifier id, @Local(argsOnly = true) EntityRenderState renderState, @Local(argsOnly = true) AtlasManager atlasManager) {
-        if (renderState instanceof WildFireEntityRenderState wildFireEntityRenderState) {
+        if (renderState instanceof WildfireEntityRenderState wildFireEntityRenderState) {
             if (wildFireEntityRenderState.soul) return SOUL_FIRE_0;
         }
         return id;
@@ -31,7 +31,7 @@ public class FireCommandRendererMixin {
 
     @ModifyArg(method = "render(Lnet/minecraft/client/util/math/MatrixStack$Entry;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/render/entity/state/EntityRenderState;Lorg/joml/Quaternionf;Lnet/minecraft/client/texture/AtlasManager;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/AtlasManager;getSprite(Lnet/minecraft/client/util/SpriteIdentifier;)Lnet/minecraft/client/texture/Sprite;", ordinal = 1))
     private SpriteIdentifier soulFire1(SpriteIdentifier id, @Local(argsOnly = true) EntityRenderState renderState, @Local(argsOnly = true) AtlasManager atlasManager) {
-        if (renderState instanceof WildFireEntityRenderState wildFireEntityRenderState) {
+        if (renderState instanceof WildfireEntityRenderState wildFireEntityRenderState) {
             if (wildFireEntityRenderState.soul) return SOUL_FIRE_1;
         }
         return id;

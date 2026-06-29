@@ -51,7 +51,7 @@ public class ModEntityLayerRegistry {
     public static final EntityModelLayer TERMITE = register("termite", "main");
     public static final EntityModelLayer MOOBLOOM = register("moobloom", "main");
     public static final EntityModelLayer MOOBLOOM_BABY = register("moobloom", "baby");
-    public static final EntityModelLayer SOULFIRE_TRIDENT = register("soulfire_trident", "main");
+    public static final EntityModelLayer WILDFIRE_TRIDENT = register("wildfirefire_trident", "main");
 
     public static final EntityModelLayer DRENCHED = new EntityModelLayer(NekomasFixed.id("drenched"), "main");
     public static final EntityModelLayer SUS_SPIDER = new EntityModelLayer(NekomasFixed.id("sus_spider"), "main");
@@ -118,7 +118,7 @@ public class ModEntityLayerRegistry {
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.feet(), equipmentModelData6::feet);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel::getTexturedModelData);
 
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILD_FIRE, WildFireEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.SOULFIRE_TRIDENT, TridentEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILD_FIRE, WildfireEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILDFIRE_TRIDENT, TridentEntityModel::getTexturedModelData);
     }
 }

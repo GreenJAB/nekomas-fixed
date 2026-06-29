@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nekomasfixed:item/wildfire_spawn_egg"
+  }
+}

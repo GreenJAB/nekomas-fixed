@@ -1,10 +1,9 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.*;
-import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireAttackablesSensor;
-import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireDebugData;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireAttackablesSensor;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireDebugData;
 import net.minecraft.block.Block;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -14,7 +13,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.passive.DolphinEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -114,13 +112,13 @@ public class OtherRegistry {
             DataTracker.registerData(DolphinEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     //sensor
-    public static final SensorType<WildFireAttackablesSensor> WILD_FIRE_ATTACK_ENTITY_SENSOR = registerSensor("wild_fire_attack_entity_sensor", WildFireAttackablesSensor::new);
+    public static final SensorType<WildfireAttackablesSensor> WILD_FIRE_ATTACK_ENTITY_SENSOR = registerSensor("wild_fire_attack_entity_sensor", WildfireAttackablesSensor::new);
     private static <U extends Sensor<?>> SensorType<U> registerSensor(String id, Supplier<U> factory) {
         return Registry.register(Registries.SENSOR_TYPE, NekomasFixed.id(id), new SensorType<>(factory));
     }
 
     //debug
-    public static final DebugSubscriptionType<WildFireDebugData> WILDFIRES = registerDebug("wild_fires", WildFireDebugData.PACKET_CODEC);
+    public static final DebugSubscriptionType<WildfireDebugData> WILDFIRES = registerDebug("wild_fires", WildfireDebugData.PACKET_CODEC);
     private static <T> DebugSubscriptionType<T> registerDebug(String id, PacketCodec<? super RegistryByteBuf, T> packetCodec) {
         return Registry.register(Registries.DEBUG_SUBSCRIPTION, NekomasFixed.id(id), new DebugSubscriptionType<>(packetCodec));
     }

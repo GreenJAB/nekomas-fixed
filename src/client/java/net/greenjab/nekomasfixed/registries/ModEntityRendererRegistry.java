@@ -40,11 +40,11 @@ public class ModEntityRendererRegistry {
 
         EntityRendererFactories.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.SPEAR, SpearEntityRenderer::new);
-        EntityRendererFactories.register(EntityTypeRegistry.SOULFIRE_TRIDENT, SoulfireTridentEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.WILDFIRE_TRIDENT, WildfireTridentEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.FIRE_BOMB, FireBombEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
 
-        EntityRendererFactories.register(EntityTypeRegistry.WILD_FIRE, WildFireEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.WILDFIRE, WildfireEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.SUS_SPIDER, SuspiciousSpiderEntityRenderer::new);

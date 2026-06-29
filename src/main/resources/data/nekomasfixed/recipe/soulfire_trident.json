@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "minecraft:netherite_ingot",
-  "base": "minecraft:trident",
-  "result": {
-    "id": "nekomasfixed:soulfire_trident"
-  },
-  "template": "nekomasfixed:nether_heart"
-}

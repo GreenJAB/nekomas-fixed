@@ -280,7 +280,7 @@ public class ItemRegistry {
 
 
     public static final Item REDSTONE_STRIKER = register("redstone_striker", RedstoneStrikerItem::new, new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item SOULFIRE_SHIELD = register("soulfire_shield", SoulfireShieldItem::new, new Item.Settings().rarity(Rarity.RARE).maxDamage(336).repairable(ItemTags.REPAIRS_NETHERITE_ARMOR).equippableUnswappable(EquipmentSlot.OFFHAND).component(DataComponentTypes.BLOCKS_ATTACKS, new BlocksAttacksComponent(0.25F, 1.0F, List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)), new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD), Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK))).component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof());
+    public static final Item WILDFIRE_SHIELD = register("wildfire_shield", WildfireShieldItem::new, new Item.Settings().rarity(Rarity.RARE).maxDamage(336).repairable(ItemTags.REPAIRS_NETHERITE_ARMOR).equippableUnswappable(EquipmentSlot.OFFHAND).component(DataComponentTypes.BLOCKS_ATTACKS, new BlocksAttacksComponent(0.25F, 1.0F, List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)), new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD), Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK))).component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof());
 
 //Items
     public static final Item WOODEN_SICKLE = register("wooden_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.WOOD, SickleItem.SPEED));
@@ -410,15 +410,15 @@ public class ItemRegistry {
     );
 
 
-    public static final Item SOULFIRE_TRIDENT = register("soulfire_trident", SoulfireTridentItem::new, new Item.Settings()
+    public static final Item WILDFIRE_TRIDENT = register("wildfire_trident", WildfireTridentItem::new, new Item.Settings()
             .rarity(Rarity.RARE)
             .maxDamage(1000)
-            .attributeModifiers(SoulfireTridentItem.createAttributeModifiers())
-            .component(DataComponentTypes.TOOL, SoulfireTridentItem.createToolComponent())
+            .attributeModifiers(WildfireTridentItem.createAttributeModifiers())
+            .component(DataComponentTypes.TOOL, WildfireTridentItem.createToolComponent())
             .enchantable(1)
             .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
 
-    public static final Item WILD_FIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILD_FIRE);
+    public static final Item WILDFIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILDFIRE);
     public static final Item MOOBLOOM_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.MOOBLOOM);
 
     public static final Item AMBER_STAINED_GLASS = register(BlockRegistry.AMBER_STAINED_GLASS);

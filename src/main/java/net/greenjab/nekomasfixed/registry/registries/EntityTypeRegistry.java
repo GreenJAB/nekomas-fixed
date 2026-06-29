@@ -6,7 +6,7 @@ import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
 import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider.SuspiciousSpiderEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
-import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireEntity;
 import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.ZombieEntity;
@@ -69,8 +69,8 @@ public class EntityTypeRegistry {
             EntityType.Builder.create(SpearEntity::new, SpawnGroup.MISC)
                     .dropsNothing().dimensions(0.6f, 0.6F).eyeHeight(0.3F).maxTrackingRange(10));
 
-    public static final EntityType<SoulfireTridentEntity> SOULFIRE_TRIDENT = register("soulfire_trident",
-            EntityType.Builder.<SoulfireTridentEntity>create(SoulfireTridentEntity::new, SpawnGroup.MISC)
+    public static final EntityType<WildfireTridentEntity> WILDFIRE_TRIDENT = register("wildfire_trident",
+            EntityType.Builder.<WildfireTridentEntity>create(WildfireTridentEntity::new, SpawnGroup.MISC)
                     .dropsNothing().dimensions(0.5F, 0.5F).eyeHeight(0.13F).maxTrackingRange(4).trackingTickInterval(20));
 
     public static final EntityType<SlingshotProjectileEntity> SLINGSHOT_PROJECTILE = register("slingshot_projectile",
@@ -86,8 +86,8 @@ public class EntityTypeRegistry {
                     .dimensions(0.25f, 0.25f).maxTrackingRange(4).trackingTickInterval(10));
 
 
-    public static final EntityType<WildFireEntity> WILD_FIRE = register("wild_fire",
-            EntityType.Builder.create(WildFireEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(0.75F, 1.975F).maxTrackingRange(8).notAllowedInPeaceful());
+    public static final EntityType<WildfireEntity> WILDFIRE = register("wildfire",
+            EntityType.Builder.create(WildfireEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(0.75F, 1.975F).maxTrackingRange(8).notAllowedInPeaceful());
 
     public static final EntityType<TermiteEntity> TERMITE = register("termite",
             EntityType.Builder.create(TermiteEntity::new, SpawnGroup.MONSTER).dimensions(0.5f, 0.5f));
@@ -147,7 +147,7 @@ public class EntityTypeRegistry {
     public static void registerEntityType() {
         System.out.println("register EntityType");
         FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummyEntity.createTargetDummyAttributes().build());
-        FabricDefaultAttributeRegistry.register(WILD_FIRE, WildFireEntity.createWildFireAttributes().build());
+        FabricDefaultAttributeRegistry.register(WILDFIRE, WildfireEntity.createWildFireAttributes().build());
         FabricDefaultAttributeRegistry.register(TERMITE, TermiteEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MOOBLOOM, MoobloomEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SUS_SPIDER, SuspiciousSpiderEntity.createPoisenousSpiderAttributes());

@@ -1,0 +1,24 @@
+{
+  "values": [
+    "nekomasfixed:white_dyed_brush",
+    "nekomasfixed:light_gray_dyed_brush",
+    "nekomasfixed:gray_dyed_brush",
+    "nekomasfixed:black_dyed_brush",
+    "nekomasfixed:brown_dyed_brush",
+    "nekomasfixed:red_dyed_brush",
+    "nekomasfixed:orange_dyed_brush",
+    "nekomasfixed:yellow_dyed_brush",
+    "nekomasfixed:lime_dyed_brush",
+    "nekomasfixed:green_dyed_brush",
+    "nekomasfixed:cyan_dyed_brush",
+    "nekomasfixed:light_blue_dyed_brush",
+    "nekomasfixed:blue_dyed_brush",
+    "nekomasfixed:purple_dyed_brush",
+    "nekomasfixed:magenta_dyed_brush",
+    "nekomasfixed:pink_dyed_brush",
+    "nekomasfixed:amber_dyed_brush",
+    "nekomasfixed:aqua_dyed_brush",
+    "nekomasfixed:indigo_dyed_brush",
+    "nekomasfixed:maroon_dyed_brush"
+  ]
+}

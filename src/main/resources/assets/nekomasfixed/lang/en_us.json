@@ -208,7 +208,7 @@
 
   "item.nekomasfixed.slingshot": "Slingshot",
 
-  "entity.nekomasfixed.wild_fire": "Wild Fire",
+  "entity.nekomasfixed.wildfire": "Wildfire",
   "entity.nekomasfixed.termite": "Termite",
   "block.nekomasfixed.termite_hive": "Termite Hive",
   "block.nekomasfixed.baobab_leaves": "Baobab Leaves",
@@ -236,7 +236,7 @@
   "block.nekomasfixed.baobab_wall_hanging_sign": "Baobab Wall Hanging Sign",
   "block.nekomasfixed.baobab_wall_sign": "Baobab Wall Sign",
   "block.nekomasfixed.termite_block": "Termite Block",
-  "item.nekomasfixed.wild_fire_spawn_egg": "Wild Fire Spawn Egg",
+  "item.nekomasfixed.wildfire_spawn_egg": "Wildfire Spawn Egg",
   "item.nekomasfixed.termite_spawn_egg": "Termite Spawn Egg",
   "item.nekomasfixed.nether_heart": "Heart Of The Nether",
   "item.nekomasfixed.smithing_template.ingredients_shield_trident": "Shields & Tridents",
@@ -244,8 +244,8 @@
   "item.nekomasfixed.jewel_armor_trim_smithing_template": "Jewel Armor Trim",
   "item.nekomasfixed.jewel_armor_trim_smithing_template.new": "Jewel Armor Trim",
   "trim_pattern.nekomasfixed:jewel": "Jewel Armor Trim",
-  "item.nekomasfixed.soulfire_trident": "Soulfire Trident",
-  "item.nekomasfixed.soulfire_shield": "Soulfire Shield",
+  "item.nekomasfixed.wildfire_trident": "Wildfire Trident",
+  "item.nekomasfixed.wildfire_shield": "Wildfire Shield",
 
   "enchantment.nekomasfixed.dismount": "Dismount",
 

@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.registry.woldgen.gen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.registry.entity.DrenchedEntity;
-import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.entity.SpawnGroup;
@@ -17,7 +17,7 @@ import net.minecraft.world.biome.BiomeKeys;
 public class ModEntitySpawns {
     public static void addSpawns(){
 
-        SpawnRestriction.register(EntityTypeRegistry.WILD_FIRE, SpawnLocationTypes.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WildFireEntity::canSpawn);
+        SpawnRestriction.register(EntityTypeRegistry.WILDFIRE, SpawnLocationTypes.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WildfireEntity::canSpawn);
         SpawnRestriction.register(EntityTypeRegistry.SUS_SPIDER, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDarkUnderSky);
         SpawnRestriction.register(EntityTypeRegistry.RIME, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDarkUnderSky);
         SpawnRestriction.register(EntityTypeRegistry.DERELICT, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDarkUnderSky);

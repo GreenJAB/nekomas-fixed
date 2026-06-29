@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.item.SoulfireShieldItem;
+import net.greenjab.nekomasfixed.registry.item.WildfireShieldItem;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -64,7 +64,7 @@ public abstract class LivingEntityMixin {
         LivingEntity defender = (LivingEntity)(Object)this;
         ItemStack activeItem = defender.getActiveItem();
 
-        if (activeItem.getItem() instanceof SoulfireShieldItem) {
+        if (activeItem.getItem() instanceof WildfireShieldItem) {
             if (defender instanceof PlayerEntity player) {
                 if (player.getHealth() <= 6.0f) {
                     attacker.setOnFireForTicks(20 * 3);

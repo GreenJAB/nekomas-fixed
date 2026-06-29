@@ -36,11 +36,11 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.TARGET_DUMMY);
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
 
-                        entries.add(ItemRegistry.WILD_FIRE_SPAWN_EGG);
+                        entries.add(ItemRegistry.WILDFIRE_SPAWN_EGG);
                         entries.add(ItemRegistry.SUS_SPIDER_SPAWN_EGG);
                         entries.add(ItemRegistry.NETHER_HEART);
-                        entries.add(ItemRegistry.SOULFIRE_TRIDENT);
-                        entries.add(ItemRegistry.SOULFIRE_SHIELD);
+                        entries.add(ItemRegistry.WILDFIRE_TRIDENT);
+                        entries.add(ItemRegistry.WILDFIRE_SHIELD);
                         entries.add(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE);
 
                         entries.add(ItemRegistry.SLINGSHOT);

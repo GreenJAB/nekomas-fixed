@@ -31,8 +31,8 @@ import static net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity.*;
 @Environment(EnvType.CLIENT)
 public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyEntity, TargetDummyEntityRenderState, TargetDummyArmorEntityModel> {
 	private final PlayerSkinCache skinCache;
-	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/targetdummy/default.png");
-	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/targetdummy/zombie.png");
+	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/target_dummy/default.png");
+	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/target_dummy/zombie.png");
 
 	public TargetDummyEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new TargetDummyEntityModel(context.getPart(ModEntityLayerRegistry.TARGET_DUMMY)), 0.0F);

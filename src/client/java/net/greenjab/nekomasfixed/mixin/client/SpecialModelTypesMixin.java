@@ -1,8 +1,8 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.render.entity.SoulfireShieldModelRenderer;
-import net.greenjab.nekomasfixed.render.entity.SoulfireTridentModelRenderer;
+import net.greenjab.nekomasfixed.render.entity.WildfireShieldModelRenderer;
+import net.greenjab.nekomasfixed.render.entity.WildfireTridentModelRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,8 +15,8 @@ import static net.minecraft.client.render.item.model.special.SpecialModelTypes.I
 public abstract class SpecialModelTypesMixin {
 
     @Inject(method="bootstrap", at = @At("HEAD"))
-    private static void soulfireTridentSpecial(CallbackInfo ci) {
-        ID_MAPPER.put(NekomasFixed.id("soulfire_trident"), SoulfireTridentModelRenderer.Unbaked.CODEC);
-        ID_MAPPER.put(NekomasFixed.id("soulfire_shield"), SoulfireShieldModelRenderer.Unbaked.CODEC);
+    private static void specialRendering(CallbackInfo ci) {
+        ID_MAPPER.put(NekomasFixed.id("wildfire_trident"), WildfireTridentModelRenderer.Unbaked.CODEC);
+        ID_MAPPER.put(NekomasFixed.id("wildfire_shield"), WildfireShieldModelRenderer.Unbaked.CODEC);
     }
 }
