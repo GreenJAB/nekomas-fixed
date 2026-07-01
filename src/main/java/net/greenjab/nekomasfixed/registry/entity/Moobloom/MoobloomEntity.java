@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.registry.entity.Moobloom;
 
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.*;
@@ -56,7 +56,7 @@ public class MoobloomEntity extends CowEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0F));
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.0F));
-        this.goalSelector.add(3, new TemptGoal(this, 1.25F, (stack) -> stack.isIn(OtherRegistry.MOOBLOOM_FLOWERS), false));
+        this.goalSelector.add(3, new TemptGoal(this, 1.25F, (stack) -> stack.isIn(ModTags.MOOBLOOM_FLOWERS), false));
         this.goalSelector.add(4, new FollowParentGoal(this, 1.25F));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0F));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
@@ -183,7 +183,7 @@ public class MoobloomEntity extends CowEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(OtherRegistry.MOOBLOOM_FLOWERS);
+        return stack.isIn(ModTags.MOOBLOOM_FLOWERS);
     }
 
     @Override

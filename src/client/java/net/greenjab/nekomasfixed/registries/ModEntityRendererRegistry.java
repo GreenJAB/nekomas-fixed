@@ -43,6 +43,8 @@ public class ModEntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.WILDFIRE_TRIDENT, WildfireTridentEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.FIRE_BOMB, FireBombEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.SLOWNESS_SNOWBALL, FlyingItemEntityRenderer::new);
+
 
         EntityRendererFactories.register(EntityTypeRegistry.WILDFIRE, WildfireEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone",
+          "name": "minecraft:rotten_flesh",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -30,5 +30,5 @@
       ]
     }
   ],
-  "random_sequence": "nekomasfixed:entities/drenched"
+  "random_sequence": "nekomasfixed:entities/rime"
 }

@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ParticleRegistry;
 import net.greenjab.nekomasfixed.render.other.NumberParticle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.ParticleSpriteManager;
@@ -19,6 +19,6 @@ public abstract class ParticleSpriteManagerMixin {
 
     @Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/particle/ParticleSpriteManager;register(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/client/particle/ParticleSpriteManager$SpriteAwareFactory;)V", ordinal = 48))
     private void addNumberParticle(CallbackInfo ci) {
-        register(OtherRegistry.NUMBER, new NumberParticle.Factory());
+        register(ParticleRegistry.NUMBER, new NumberParticle.Factory());
     }
 }

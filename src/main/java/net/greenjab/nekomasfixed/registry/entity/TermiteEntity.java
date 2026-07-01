@@ -34,13 +34,9 @@ import java.util.Optional;
 import java.util.function.IntFunction;
 
 public class TermiteEntity extends HostileEntity {
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swipeAnimationState = new AnimationState();
     private static final TrackedData<TermiteEntity.State> STATE;
-    private int swipeStartTick = -1;
     private BlockPos moundPosition = null;
-
-    SearchForLogGoal searchForLogGoal;
 
     public TermiteEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -51,8 +47,7 @@ public class TermiteEntity extends HostileEntity {
         this.goalSelector.add(1, new EnterMoundGoal(this));
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new GoToNearestMound(this, 0.4d, 32));
-        this.searchForLogGoal = new SearchForLogGoal(this);
-        this.goalSelector.add(2, this.searchForLogGoal);
+        this.goalSelector.add(2, new SearchForLogGoal(this));
         this.goalSelector.add(3, new WanderAroundGoal(this, 0.4d));
         this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
@@ -79,15 +74,12 @@ public class TermiteEntity extends HostileEntity {
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        this.setState(State.IDLING);
         this.setState(State.SWIPING);
-        this.swipeStartTick = this.age;
         return super.tryAttack(world, target);
     }
 
     @Override
     public void onDeath(DamageSource damageSource) {
-        this.startState(State.IDLING);
         super.onDeath(damageSource);
     }
 
@@ -95,44 +87,28 @@ public class TermiteEntity extends HostileEntity {
         this.dataTracker.set(STATE, state);
     }
 
-
-    public void startState(TermiteEntity.State state) {
-        switch (state.ordinal()) {
-            case 0 -> this.setState(State.IDLING);
-            case 1 -> this.setState(State.SWIPING);
-        }
-    }
-
-    private void stopAnimations(){
-        this.idleAnimationState.stop();
-        this.swipeAnimationState.stop();
-    }
-
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
         if (STATE.equals(data)) {
-            State state = this.dataTracker.get(STATE);
-
-            if (state == State.SWIPING) {
+            if (this.dataTracker.get(STATE) == State.SWIPING) {
+                this.swipeAnimationState.start(this.age);
+            } else {
                 this.swipeAnimationState.stop();
-                this.swipeAnimationState.startIfNotRunning(this.age);
             }
-
             this.calculateDimensions();
         }
         super.onTrackedDataSet(data);
     }
 
     boolean canEnterMound() {
-        return !this.searchForLogGoal.isRunning() && this.getTarget() == null && this.getEntityWorld().isNight();
+        return this.getTarget() == null && this.getEntityWorld().isNight();
     }
 
     @Override
     public void tick() {
         super.tick();
-
         if (this.dataTracker.get(STATE) == State.SWIPING) {
-            if (this.age - swipeStartTick > 20) {
+            if (swipeAnimationState.getTimeInMilliseconds(this.age)>1000) {
                 this.setState(State.IDLING);
             }
         }
@@ -265,7 +241,7 @@ public class TermiteEntity extends HostileEntity {
     private static class SearchForLogGoal extends Goal {
         private final TermiteEntity termiteEntity;
         private BlockPos targetPos;
-        private boolean running;
+        private int running;
 
         public SearchForLogGoal(TermiteEntity termiteEntity) {
             this.termiteEntity = termiteEntity;
@@ -277,13 +253,9 @@ public class TermiteEntity extends HostileEntity {
                     && termiteEntity.getEntityWorld().isDay();
         }
 
-        boolean isRunning() {
-            return this.running;
-        }
-
         @Override
         public void start() {
-            this.running = true;
+            this.running = 0;
             Optional<BlockPos> target = BlockPos.findClosest(
                     termiteEntity.getBlockPos(),
                     16,
@@ -317,12 +289,12 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public boolean shouldContinue() {
-            return running && targetPos != null;
+            return running<200 && targetPos != null;
         }
 
         @Override
         public void stop() {
-            this.running = false;
+            this.running = -1;
             this.targetPos = null;
         }
     }

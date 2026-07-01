@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ public class ItemMixin {
 
 	@Inject(method="hasGlint", at = @At(value = "HEAD"), cancellable = true)
 	private void clockHasStoredTime(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-		if (stack.hasChangedComponent(OtherRegistry.STORED_TIME)) cir.setReturnValue(true);
+		if (stack.hasChangedComponent(ComponentRegistry.STORED_TIME)) cir.setReturnValue(true);
 	}
 
 	@Inject(method="usageTick", at=@At("HEAD"))

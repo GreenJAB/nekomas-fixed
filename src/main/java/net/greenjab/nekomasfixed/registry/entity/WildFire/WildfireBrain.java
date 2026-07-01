@@ -29,7 +29,7 @@ import net.minecraft.util.Unit;
 
 public class WildfireBrain {
 	static final List<SensorType<? extends Sensor<? super WildfireEntity>>> SENSORS = ImmutableList.of(
-			SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, OtherRegistry.WILD_FIRE_ATTACK_ENTITY_SENSOR
+			SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, OtherRegistry.WILDFIRE_ATTACK_ENTITY_SENSOR
 	);
 	static final List<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(
 			MemoryModuleType.LOOK_TARGET,

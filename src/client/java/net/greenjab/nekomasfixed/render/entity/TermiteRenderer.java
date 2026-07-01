@@ -29,6 +29,4 @@ public class TermiteRenderer extends MobEntityRenderer<TermiteEntity, TermiteRen
         super.updateRenderState(entity, state, f);
         state.swipeAnimationState.copyFrom(entity.swipeAnimationState);
     }
-
-
 }

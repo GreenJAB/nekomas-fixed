@@ -8,7 +8,7 @@ import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.LootTableRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.*;
@@ -285,7 +285,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
                             assert world.getServer() != null;
                             LootTable lootTable = world.getServer()
 									.getReloadableRegistries()
-									.getLootTable(OtherRegistry.CLAM_LOOT_TABLE);
+									.getLootTable(LootTableRegistry.CLAM_LOOT_TABLE);
 
 							LootWorldContext lootContextParameterSet = (new LootWorldContext.Builder(world)).add(LootContextParameters.ORIGIN, pos.toCenterPos()).add(LootContextParameters.TOOL, null).add(LootContextParameters.THIS_ENTITY, null).luck(getLuck(this.getClamType())).build(LootContextTypes.FISHING);
 

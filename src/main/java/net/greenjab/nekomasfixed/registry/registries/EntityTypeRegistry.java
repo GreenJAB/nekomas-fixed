@@ -78,11 +78,10 @@ public class EntityTypeRegistry {
     public static final EntityType<FireBombEntity> FIRE_BOMB = register("fire_bomb",
             EntityType.Builder.<FireBombEntity>create(FireBombEntity::new, SpawnGroup.MISC)
                     .dropsNothing().dimensions(0.25F, 0.25F) .maxTrackingRange(4).trackingTickInterval(10));
-    //is used
+
     public static final EntityType<SlownessSnowballEntity> SLOWNESS_SNOWBALL = register("slowness_snowball",
             EntityType.Builder.<SlownessSnowballEntity>create(SlownessSnowballEntity::new, SpawnGroup.MISC)
                     .dimensions(0.25f, 0.25f).maxTrackingRange(4).trackingTickInterval(10));
-
 
     public static final EntityType<WildfireEntity> WILDFIRE = register("wildfire",
             EntityType.Builder.create(WildfireEntity::new, SpawnGroup.MONSTER).makeFireImmune().dimensions(0.75F, 1.975F).maxTrackingRange(8).notAllowedInPeaceful());

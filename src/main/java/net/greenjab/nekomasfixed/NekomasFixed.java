@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.registries.*;
+import net.greenjab.nekomasfixed.registry.worldgen.BiomeAdditions;
 import net.greenjab.nekomasfixed.util.CakeRegistry;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
@@ -33,12 +34,20 @@ public class NekomasFixed implements ModInitializer {
 		ModTrunkPlacers.register();
 		ModTreeDecorators.register();
 		ModWorldGeneration.generateModWorldGen();
+		ParticleRegistry.registerParticles();
+		EnchantmentRegistry.registerEnchantments();
+		EffectRegistry.registerEffects();
+		ComponentRegistry.registerComponents();
+		LootTableRegistry.registerLootTables();
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
 		SyncHandler.init();
 		CakeRegistry.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
+
+		BiomeAdditions.addSpawns();
+		LootTableAdditions.registerLootTableAdds();
 	}
 
 
@@ -57,5 +66,3 @@ public class NekomasFixed implements ModInitializer {
 		return level;
 	}
 }
-
-//TODO termite brain, loot tables

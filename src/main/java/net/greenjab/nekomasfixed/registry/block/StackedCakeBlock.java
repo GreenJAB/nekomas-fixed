@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.block.entity.StackedCakeBlockEntity;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -163,7 +163,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
         if (world.isClient()) return ActionResult.SUCCESS;
         else if (world.getBlockEntity(pos) instanceof StackedCakeBlockEntity stackedCakeBlockEntity){
             if (state.get(SLICES) == 7 || state.get(SLICES) == 14 || state.get(SLICES) == 21) {
-                if (player.getMainHandStack().isIn(OtherRegistry.STACKED_CAKES) && state.get(SLICES) != 21) {
+                if (player.getMainHandStack().isIn(ModTags.STACKED_CAKES) && state.get(SLICES) != 21) {
                     this.addCakeLayer(stack, stackedCakeBlockEntity, state);
                     world.setBlockState(pos, world.getBlockState(pos).with(SLICES, state.get(SLICES)+7));
                     player.swingHand(hand, true);

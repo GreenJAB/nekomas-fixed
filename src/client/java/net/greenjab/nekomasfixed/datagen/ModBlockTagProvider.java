@@ -2,8 +2,8 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
@@ -19,44 +19,44 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.@NonNull WrapperLookup wrapperLookup) {
-        valueLookupBuilder(OtherRegistry.DYED_BRICKS)
+        valueLookupBuilder(ModTags.DYED_BRICKS)
                 .add(BlockDyeMap.BRICKS.values());
-        valueLookupBuilder(OtherRegistry.DYED_BRICK_SLABS)
+        valueLookupBuilder(ModTags.DYED_BRICK_SLABS)
                 .add(BlockDyeMap.BRICK_SLAB.values());
         valueLookupBuilder(BlockTags.SLABS)
                 .add(BlockDyeMap.BRICK_SLAB.values());
-        valueLookupBuilder(OtherRegistry.DYED_BRICK_STAIRS)
+        valueLookupBuilder(ModTags.DYED_BRICK_STAIRS)
                 .add(BlockDyeMap.BRICK_STAIRS.values());
         valueLookupBuilder(BlockTags.STAIRS)
                 .add(BlockDyeMap.BRICK_STAIRS.values());
-        valueLookupBuilder(OtherRegistry.DYED_BRICK_WALLS)
+        valueLookupBuilder(ModTags.DYED_BRICK_WALLS)
                 .add(BlockDyeMap.BRICK_WALL.values());
         valueLookupBuilder(BlockTags.WALLS)
                 .add(BlockDyeMap.BRICK_WALL.values());
 
-        valueLookupBuilder(OtherRegistry.STAINED_GLASSES)
+        valueLookupBuilder(ModTags.STAINED_GLASSES)
                 .add(BlockDyeMap.STAINED_GLASS.values());
-        valueLookupBuilder(OtherRegistry.STAINED_GLASS_PANES)
+        valueLookupBuilder(ModTags.STAINED_GLASS_PANES)
                 .add(BlockDyeMap.STAINED_GLASS_PANE.values());
 
-        valueLookupBuilder(OtherRegistry.GLAZED_TERRACOTTAS)
+        valueLookupBuilder(ModTags.GLAZED_TERRACOTTAS)
                 .add(BlockDyeMap.GLAZED_TERRACOTTA.values());
 
-        valueLookupBuilder(OtherRegistry.CONCRETES)
+        valueLookupBuilder(ModTags.CONCRETES)
                 .add(BlockDyeMap.CONCRETE.values());
-        valueLookupBuilder(OtherRegistry.CONCRETE_POWDERS)
+        valueLookupBuilder(ModTags.CONCRETE_POWDERS)
                 .add(BlockDyeMap.CONCRETE_POWDER.values());
 
-        valueLookupBuilder(OtherRegistry.SPOTTED_WOOLS)
+        valueLookupBuilder(ModTags.SPOTTED_WOOLS)
                 .add(BlockDyeMap.SPOTTED_WOOL.values());
-        valueLookupBuilder(OtherRegistry.SPOTTED_CARPETS)
+        valueLookupBuilder(ModTags.SPOTTED_CARPETS)
                 .add(BlockDyeMap.SPOTTED_CARPET.values());
 
-        valueLookupBuilder(OtherRegistry.FROGLIGHTS)
+        valueLookupBuilder(ModTags.FROGLIGHTS)
                 .add(BlockDyeMap.FROGLIGHT.values());
 
 
-        valueLookupBuilder(OtherRegistry.CAN_BE_DYED_WITH_BRUSH)
+        valueLookupBuilder(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .add(BlockDyeMap.BRICKS.values())
                 .add(BlockDyeMap.BRICK_SLAB.values())
                 .add(BlockDyeMap.BRICK_STAIRS.values())

@@ -25,7 +25,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class HoneyCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<HoneyCauldronBlock> CODEC = createCodec(HoneyCauldronBlock::new);
@@ -96,7 +95,8 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
     }
 
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
-        Objects.requireNonNull(entity.getEntity()).setStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 3*20), entity.getEntity());
+        if (entity.getEntity()!=null)
+            entity.getEntity().setStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 3*20), entity.getEntity());
     }
 
     @Override

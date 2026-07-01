@@ -26,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
 @Mixin(ServerWorld.class)
@@ -59,11 +58,10 @@ public abstract class ServerWorldMixin {
         Profiler profiler = Profilers.get();
         profiler.push("thunder");
         ServerPlayerEntity player = this.getRandomAlivePlayer();
-        if (ModConfigValues.enableCopperBuff && bl && serverWorld.isThundering()) {
-            assert player != null;
+        if (ModConfigValues.enableCopperBuff && bl && serverWorld.isThundering() && player != null) {
             int armor = getCopperArmor(player);
             if (armor > 0 && serverWorld.random.nextInt(14000-2000*armor) == 0) {
-                BlockPos blockPos = Objects.requireNonNull(player).getBlockPos();
+                BlockPos blockPos = player.getBlockPos();
                 if (serverWorld.hasRain(blockPos)) {
                     LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(serverWorld, SpawnReason.EVENT);
                     if (lightningEntity != null) {

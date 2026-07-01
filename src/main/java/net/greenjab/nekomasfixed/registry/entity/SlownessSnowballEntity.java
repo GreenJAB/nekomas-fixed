@@ -26,10 +26,10 @@ public class SlownessSnowballEntity extends SnowballEntity {
         super.onEntityHit(entityHitResult);
 
         Entity target = entityHitResult.getEntity();
-        if (target instanceof LivingEntity livingTarget) {
-            livingTarget.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 1), this.getOwner());
-
-            livingTarget.serverDamage(this.getDamageSources().thrown(this, this.getOwner()), 1.0f);
+        if (target instanceof LivingEntity livingEntity) {
+            livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 1), this.getOwner());
+            livingEntity.serverDamage(this.getDamageSources().thrown(this, this.getOwner()), 1.0f);
+            livingEntity.setFrozenTicks(livingEntity.getFrozenTicks()+100);
         }
     }
 }

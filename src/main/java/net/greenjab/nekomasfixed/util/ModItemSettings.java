@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.util;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -34,11 +34,8 @@ public class ModItemSettings {
                 .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, createAttributes(realDamage, speed))
                 .component(DataComponentTypes.WEAPON, new WeaponComponent(1))
                 .component(DataComponentTypes.MINIMUM_ATTACK_CHARGE, 1.0F)
-                .component(OtherRegistry.COMBO_MULTIPLIER, new ComboComponent((int) (10-material.attackDamageBonus())));
-
+                .component(ComponentRegistry.COMBO_MULTIPLIER, new ComboComponent((int) (10-material.attackDamageBonus())));
     }
-
-
 
     private static AttributeModifiersComponent createAttributes(float damage, float speed) {
         return AttributeModifiersComponent.builder()

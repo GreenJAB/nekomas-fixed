@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectileEntity;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -109,7 +109,7 @@ public class SlingshotItem extends RangedWeaponItem {
     }
 
     public static final Predicate<ItemStack> SLINGSHOT_PROJECTILES =
-            stack -> stack.isIn(OtherRegistry.SLINGSHOT_PROJECTILES);
+            stack -> stack.isIn(ModTags.SLINGSHOT_PROJECTILES);
 
     @Override
     public Predicate<ItemStack> getProjectiles() {

@@ -24,8 +24,6 @@ public class ModWorldGeneration {
                 GenerationStep.Feature.LOCAL_MODIFICATIONS, ModPlacedFeatures.GEYSER_PLACED_KEY);
 
         net.fabricmc.fabric.api.biome.v1.BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.WARM_OCEAN), GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.CLAM_PLACED_KEY);
-
-        BiomeAdditions.addSpawns();
     }
 
     public static final Feature<CountConfig> CLAM_FEATURE = registerFeature("clam", new ClamFeature(CountConfig.CODEC));

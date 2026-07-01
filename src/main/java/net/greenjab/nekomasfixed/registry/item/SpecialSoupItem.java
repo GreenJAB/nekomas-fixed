@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.registry.item;
 
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.component.type.PotionContentsComponent;
@@ -43,7 +43,7 @@ public class SpecialSoupItem extends Item {
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         if (!world.isClient() && user instanceof PlayerEntity player) {
 
-            List<ItemStack> ingredients = stack.getOrDefault(OtherRegistry.SOUP_INGREDIENTS, List.of());
+            List<ItemStack> ingredients = stack.getOrDefault(ComponentRegistry.SOUP_INGREDIENTS, List.of());
 
             int totalNutrition = 0;
             float totalSaturation = 0;

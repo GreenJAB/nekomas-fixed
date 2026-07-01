@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.greenjab.nekomasfixed.registry.block.NautilusBlock;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
@@ -114,13 +114,13 @@ public class NautilusBlockEntity extends BlockEntity {
 	protected void readComponents(ComponentsAccess components) {
 		super.readComponents(components);
 		this.animal.clear();
-		this.animal.addAll(components.getOrDefault(OtherRegistry.ANIMAL, AnimalComponent.DEFAULT).animal());
+		this.animal.addAll(components.getOrDefault(ComponentRegistry.ANIMAL, AnimalComponent.DEFAULT).animal());
 	}
 
 	@Override
 	protected void addComponents(ComponentMap.Builder builder) {
 		super.addComponents(builder);
-		builder.add(OtherRegistry.ANIMAL, new AnimalComponent(Lists.newArrayList(this.animal)));
+		builder.add(ComponentRegistry.ANIMAL, new AnimalComponent(Lists.newArrayList(this.animal)));
 	}
 
 	@Override

@@ -7,8 +7,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.registry.entity.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.other.TermitesComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
@@ -211,14 +211,14 @@ public class TermitehiveBlockEntity extends BlockEntity {
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
         this.termites.clear();
-        List<TermitehiveBlockEntity.TermiteData> list = components.getOrDefault(OtherRegistry.TERMITES, TermitesComponent.DEFAULT).termites();
+        List<TermitehiveBlockEntity.TermiteData> list = components.getOrDefault(ComponentRegistry.TERMITES, TermitesComponent.DEFAULT).termites();
         list.forEach(this::addTermite);
     }
 
     @Override
     protected void addComponents(ComponentMap.Builder builder) {
         super.addComponents(builder);
-        builder.add(OtherRegistry.TERMITES, new TermitesComponent(this.createTermitesData()));
+        builder.add(ComponentRegistry.TERMITES, new TermitesComponent(this.createTermitesData()));
     }
 
     @Override

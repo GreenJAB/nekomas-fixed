@@ -5,7 +5,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.greenjab.nekomasfixed.registry.block.ClamBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.LootTableRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -53,7 +53,7 @@ public class ClamFeature extends Feature<CountConfig> {
 						.ifPresent(blockEntity -> {
 							LootTable lootTable = world.getServer()
 									.getReloadableRegistries()
-									.getLootTable(OtherRegistry.CLAM_LOOT_TABLE);
+									.getLootTable(LootTableRegistry.CLAM_LOOT_TABLE);
 
 							LootWorldContext lootContextParameterSet = (new LootWorldContext.Builder(world.toServerWorld())).add(LootContextParameters.ORIGIN, blockPos2.toCenterPos()).add(LootContextParameters.TOOL, null).add(LootContextParameters.THIS_ENTITY, null).luck(getLuck(clamType)).build(LootContextTypes.FISHING);
 
