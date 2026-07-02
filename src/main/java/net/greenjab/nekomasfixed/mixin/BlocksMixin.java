@@ -5,6 +5,7 @@ import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,8 +17,9 @@ import java.util.function.Function;
 @Mixin(Blocks.class)
 public class BlocksMixin {
 
-    @Redirect(method="<clinit>", at = @At( value = "INVOKE", target = "Lnet/minecraft/block/Blocks;register(Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/block/AbstractBlock$Settings;)Lnet/minecraft/block/Block;", ordinal = 0), slice = @Slice( from = @At( value = "FIELD",
-                            target = "Lnet/minecraft/block/Blocks;PUMPKIN:Lnet/minecraft/block/Block;")))
+    @Redirect(method="<clinit>", at = @At( value = "INVOKE", target = "Lnet/minecraft/block/Blocks;register(Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/block/AbstractBlock$Settings;)Lnet/minecraft/block/Block;", ordinal = 0), slice = @Slice( from =
+    @At(value = "FIELD", target = "Lnet/minecraft/block/BlockKeys;MELON:Lnet/minecraft/registry/RegistryKey;", opcode = Opcodes.GETSTATIC), to =
+    @At(value = "FIELD",target = "Lnet/minecraft/block/Blocks;MELON:Lnet/minecraft/block/Block;", opcode = Opcodes.PUTSTATIC)))
     private static Block newMelon(RegistryKey<Block> key, AbstractBlock.Settings settings2) {
         return register(key, settings -> new MelonBlock(false, settings), settings2);
     }

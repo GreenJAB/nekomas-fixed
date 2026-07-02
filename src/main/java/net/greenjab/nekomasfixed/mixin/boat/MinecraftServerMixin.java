@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.mixin.boat;
 
 import com.google.common.collect.ImmutableList;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.greenjab.nekomasfixed.world.spawn.PirateSpawner;
+import net.greenjab.nekomasfixed.registry.worldgen.spawn.PirateSpawner;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

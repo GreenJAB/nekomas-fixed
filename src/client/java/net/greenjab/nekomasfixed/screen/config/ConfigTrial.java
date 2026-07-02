@@ -7,8 +7,6 @@ import net.minecraft.block.MapColor;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public class ConfigTrial {
 
     public static Screen createConfigScreen(Screen parentScreen) {
@@ -20,19 +18,16 @@ public class ConfigTrial {
         ConfigCategory worldCategory = builder.getOrCreateCategory(Text.literal("World Features"));
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-        AtomicReference<Boolean> doFoodRotting = new AtomicReference<>(true);
-        AtomicReference<Boolean> enableCopperBuff = new AtomicReference<>(true);
-
         netherCategory.addEntry(
                 entryBuilder.startTextDescription(
                         Text.literal("=== Nether Improvements ===").withColor(0xBA2720)
                 ).build()
         );
 
-        netherCategory.addEntry(entryBuilder.startBooleanToggle(Text.literal("Do Food Rotting"), doFoodRotting.get())
+        netherCategory.addEntry(entryBuilder.startBooleanToggle(Text.literal("Do Food Rotting"), ModConfigValues.netherFoodRotting)
                 .setDefaultValue(true)
                 .setTooltip(Text.literal("All food items except for the golden ones rot in nether over time"))
-                .setSaveConsumer(doFoodRotting::set)
+                .setSaveConsumer(val -> ModConfigValues.netherFoodRotting = val)
                 .build());
 
         worldCategory.addEntry(
@@ -44,10 +39,10 @@ public class ConfigTrial {
         worldCategory.addEntry(entryBuilder.startBooleanToggle(Text.literal("Enable Copper Buffs"), ModConfigValues.enableCopperBuff)
                 .setDefaultValue(true)
                 .setTooltip(Text.literal("Lightning striking a player with full copper gear would give the player speed "))
-                .setSaveConsumer((val)-> ModConfigValues.enableCopperBuff = val)
+                .setSaveConsumer(val -> ModConfigValues.enableCopperBuff = val)
                 .build());
 
-        builder.setSavingRunnable(() -> System.out.println("Config saved! :" + enableCopperBuff));
+        builder.setSavingRunnable(() -> {});
 
         return builder.build();
     }

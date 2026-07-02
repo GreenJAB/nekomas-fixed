@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.registry.entity;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ParticleRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
@@ -116,7 +116,7 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 		this.dataTracker.set(PROFILE, profile);
 	}
 
-	public boolean getZombie() {
+	public boolean isZombie() {
 		return isZombie;
 	}
 
@@ -312,7 +312,7 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 					lastHitValue = (int) amount;
 					if (this.getEntityWorld() instanceof ServerWorld) {
 						((ServerWorld)this.getEntityWorld())
-								.spawnParticles(OtherRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
+								.spawnParticles(ParticleRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
 					}
 				} else {
 					this.playBreakSound();
@@ -328,7 +328,7 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 				lastHitValue = (int) amount;
 				if (this.getEntityWorld() instanceof ServerWorld) {
 					((ServerWorld)this.getEntityWorld())
-							.spawnParticles(OtherRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
+							.spawnParticles(ParticleRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
 				}
 				return true;
 			}

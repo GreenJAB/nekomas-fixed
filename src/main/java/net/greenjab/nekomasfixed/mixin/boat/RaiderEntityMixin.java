@@ -32,7 +32,6 @@ public class RaiderEntityMixin {
         RaiderEntity RE = (RaiderEntity)(Object)this;
         if (RE.hasVehicle() && RE.getVehicle() instanceof AbstractBoatEntity boatEntity && RE == boatEntity.getFirstPassenger()) {
             boatEntity.setInputs(false, false, false, false);
-            //Vec3d
             Vec3d target = null;
             if (RE.getTarget()!=null) target = RE.getTarget().getEntityPos();
             else {

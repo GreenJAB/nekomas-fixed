@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.block.entity.TermitehiveBlockEntity;
-import net.greenjab.nekomasfixed.registry.entity.Termite.TermiteEntity;
+import net.greenjab.nekomasfixed.registry.entity.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;

@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.mixin.wildfire;
 
-import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +20,7 @@ public class SmallFireballEntityMixin {
     private void wildFireProjectileDamage(EntityHitResult entityHitResult, CallbackInfo ci) {
         SmallFireballEntity SFE = (SmallFireballEntity)(Object)this;
         LivingEntity ownerEntity = (SFE.getOwner() instanceof LivingEntity livingEntity) ? livingEntity:null;
-        if (ownerEntity instanceof WildFireEntity wildFireEntity) {
+        if (ownerEntity instanceof WildfireEntity wildFireEntity) {
             Entity hitEntity = entityHitResult.getEntity();
             DamageSource damageSource = SFE.getDamageSources().mobProjectile(SFE, ownerEntity);
             if (SFE.getEntityWorld() instanceof ServerWorld serverWorld && hitEntity.damage(serverWorld, damageSource, wildFireEntity.isSoulActive()?3.0F:2.0F)) {

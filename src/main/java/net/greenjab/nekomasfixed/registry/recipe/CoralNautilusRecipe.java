@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.registry.recipe;
 import net.greenjab.nekomasfixed.registry.block.NautilusBlock;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
@@ -51,9 +51,9 @@ public class CoralNautilusRecipe extends ShapedRecipe {
             ItemStack stack = input.getStackInSlot(i);
 
             if (stack.isOf(BlockRegistry.ZOMBIE_NAUTILUS_BLOCK.asItem())) {
-                AnimalComponent data = stack.get(OtherRegistry.ANIMAL);
+                AnimalComponent data = stack.get(ComponentRegistry.ANIMAL);
                 if (data != null && !data.animal().isEmpty()) {
-                    resultStack.set(OtherRegistry.ANIMAL, data);
+                    resultStack.set(ComponentRegistry.ANIMAL, data);
                     resultStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT
                             .with(NautilusBlock.OCCUPIED, true));
                 } else {

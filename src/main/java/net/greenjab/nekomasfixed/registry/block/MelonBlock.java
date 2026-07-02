@@ -47,7 +47,7 @@ public class MelonBlock extends Block {
 	public static final BooleanProperty CORNER_6 = BooleanProperty.of("corner_6");
 	public static final BooleanProperty CORNER_7 = BooleanProperty.of("corner_7");
 	public static final BooleanProperty CORNER_8 = BooleanProperty.of("corner_8");
-	public static final VoxelShape[] CORNER_SHAPES = Util.make(new VoxelShape[8], /* method_50861 */ cornerShapes -> {
+	public static final VoxelShape[] CORNER_SHAPES = Util.make(new VoxelShape[8], cornerShapes -> {
 		cornerShapes[0] = VoxelShapes.cuboid(0.0, 0.0, 0.0, 0.5, 0.5, 0.5);
 		cornerShapes[1] = VoxelShapes.cuboid(0.5, 0.0, 0.0, 1.0, 0.5, 0.5);
 		cornerShapes[2] = VoxelShapes.cuboid(0.0, 0.0, 0.5, 0.5, 0.5, 1.0);
@@ -58,7 +58,7 @@ public class MelonBlock extends Block {
 		cornerShapes[7] = VoxelShapes.cuboid(0.5, 0.5, 0.5, 1.0, 1.0, 1.0);
 	});
 	public static final BooleanProperty[] CORNERS = {CORNER_1, CORNER_2, CORNER_3, CORNER_4, CORNER_5, CORNER_6, CORNER_7, CORNER_8};
-	public static final VoxelShape[] SHAPES = Util.make(new VoxelShape[256], /* method_50858 */ voxelShapes -> {
+	public static final VoxelShape[] SHAPES = Util.make(new VoxelShape[256], voxelShapes -> {
 		for (int i = 0; i < voxelShapes.length; i++) {
 			VoxelShape voxelShape = VoxelShapes.empty();
 
@@ -132,7 +132,6 @@ public class MelonBlock extends Block {
 				}
 
 				if (!world.isClient()) {
-					//world.syncWorldEvent(2010, pos, i);
 					player.getHungerManager().add(1, 0.1F);
 					if (glistering) player.heal(0.5f);
 					world.emitGameEvent(player, GameEvent.EAT, pos);
@@ -220,6 +219,5 @@ public class MelonBlock extends Block {
 		if (!glistering)return;
 		if (world.random.nextInt(2)!=0) return;
 		ParticleUtil.spawnParticles(world, pos, ParticleTypes.END_ROD, UniformIntProvider.create(1, 1), Direction.random(world.random), () -> new Vec3d(0, 0, 0), 0.55);
-		//world.addParticleClient(ParticleTypes.END_ROD, d, e, f, 0.0, 0.0, 0.0);
 	}
 }

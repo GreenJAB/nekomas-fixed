@@ -7,7 +7,7 @@ import net.greenjab.nekomasfixed.registry.block.AbstractClockBlock;
 import net.greenjab.nekomasfixed.registry.block.FloorClockBlock;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.*;
 import net.minecraft.component.ComponentMap;
@@ -84,13 +84,13 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 	@Override
 	protected void readComponents(ComponentsAccess components) {
 		super.readComponents(components);
-		this.storedTime = components.getOrDefault(OtherRegistry.STORED_TIME, new StoredTimeComponent(-1)).time();
+		this.storedTime = components.getOrDefault(ComponentRegistry.STORED_TIME, new StoredTimeComponent(-1)).time();
 	}
 
 	@Override
 	protected void addComponents(ComponentMap.Builder builder) {
 		super.addComponents(builder);
-		if (this.storedTime>0) builder.add(OtherRegistry.STORED_TIME, new StoredTimeComponent(this.storedTime));
+		if (this.storedTime>0) builder.add(ComponentRegistry.STORED_TIME, new StoredTimeComponent(this.storedTime));
 	}
 
 	public void setStoredTime(int time) {

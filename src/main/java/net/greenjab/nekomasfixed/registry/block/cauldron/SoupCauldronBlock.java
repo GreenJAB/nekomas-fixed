@@ -2,8 +2,8 @@ package net.greenjab.nekomasfixed.registry.block.cauldron;
 
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -63,7 +63,7 @@ public class SoupCauldronBlock extends AbstractCauldronBlock implements BlockEnt
             be.setHasStirred(false);
             ItemStack soup = new ItemStack(ItemRegistry.SPECIAL_STEW);
             List<ItemStack> copiedInputs = be.getInputs().stream().map(ItemStack::copy).toList();
-            soup.set(OtherRegistry.SOUP_INGREDIENTS, copiedInputs);
+            soup.set(ComponentRegistry.SOUP_INGREDIENTS, copiedInputs);
             player.setStackInHand(Hand.MAIN_HAND, ItemUsage.exchangeStack(stack, player, soup));
             world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
             return ActionResult.SUCCESS;

@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registries;
 
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.entity.*;
+import net.minecraft.client.render.entity.BoatEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
@@ -34,18 +35,24 @@ public class ModEntityRendererRegistry {
         EntityRendererFactories.register(EntityTypeRegistry.HUGE_SPRUCE_BOAT, context -> new HugeBoatEntityRenderer(context, ModEntityLayerRegistry.HUGE_SPRUCE_BOAT));
         EntityRendererFactories.register(EntityTypeRegistry.HUGE_BAOBAB_BOAT, context -> new HugeBoatEntityRenderer(context, ModEntityLayerRegistry.HUGE_BAOBAB_BOAT));
 
+        EntityRendererFactories.register(EntityTypeRegistry.BAOBAB_BOAT, context -> new BoatEntityRenderer(context, ModEntityLayerRegistry.BAOBAB_BOAT));
+        EntityRendererFactories.register(EntityTypeRegistry.BAOBAB_CHEST_BOAT, context -> new BoatEntityRenderer(context, ModEntityLayerRegistry.BAOBAB_CHEST_BOAT));
 
         EntityRendererFactories.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyEntityRenderer::new);
-
         EntityRendererFactories.register(EntityTypeRegistry.SPEAR, SpearEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.WILDFIRE_TRIDENT, WildfireTridentEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.FIRE_BOMB, FireBombEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.SLOWNESS_SNOWBALL, FlyingItemEntityRenderer::new);
 
-        EntityRendererFactories.register(EntityTypeRegistry.WILD_FIRE, WildFireEntityRenderer::new);
+
+        EntityRendererFactories.register(EntityTypeRegistry.WILDFIRE, WildfireEntityRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.TERMITE, TermiteRenderer::new);
         EntityRendererFactories.register(EntityTypeRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
-        EntityRendererFactories.register(EntityTypeRegistry.FIRE_BOMB, FireBombEntityRenderer::new);
-        EntityRendererFactories.register(EntityTypeRegistry.SOULFIRE_TRIDENT, SoulfireTridentEntityRenderer::new);
-
-        EntityRendererFactories.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, FlyingItemEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.SUSPICIOUS_SPIDER, SuspiciousSpiderEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.DRENCHED, DrenchedEntityRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.DERELICT, DerelictRenderer::new);
+        EntityRendererFactories.register(EntityTypeRegistry.RIME, RimeRenderer::new);
 
     }
 }

@@ -18,10 +18,6 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(@NonNull BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BAOBAB_PLANKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BAOBAB_WOOD);
-        registerSlab(blockStateModelGenerator, BlockRegistry.BAOBAB_PLANKS, BlockRegistry.BAOBAB_SLAB);
-        registerStairs(blockStateModelGenerator, BlockRegistry.BAOBAB_PLANKS, BlockRegistry.BAOBAB_STAIRS);
 
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.WHITE_BRICKS);
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.ORANGE_BRICKS);
@@ -43,8 +39,6 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.AQUA_BRICKS);
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.INDIGO_BRICKS);
         blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.MAROON_BRICKS);
-
-
 
         registerSlab(blockStateModelGenerator, BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_SLAB);
@@ -112,10 +106,6 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(@NonNull ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(ItemRegistry.MOOBLOOM_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.REDSTONE_STRIKER, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.SUS_SPIDER_SPAWN_EGG, Models.GENERATED);
-
         itemModelGenerator.register(ItemRegistry.WHITE_DYED_BRUSH, Models.GENERATED);
         itemModelGenerator.register(ItemRegistry.ORANGE_DYED_BRUSH, Models.GENERATED);
         itemModelGenerator.register(ItemRegistry.MAGENTA_DYED_BRUSH, Models.GENERATED);

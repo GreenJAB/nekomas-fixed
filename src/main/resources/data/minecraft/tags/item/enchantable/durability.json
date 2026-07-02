@@ -2,10 +2,10 @@
     "replace": false,
     "values": [
         "nekomasfixed:slingshot",
-        "nekomasfixed:soulfire_shield",
-        "nekomasfixed:soulfire_trident",
+        "nekomasfixed:wildfire_shield",
+        "nekomasfixed:wildfire_trident",
         "nekomasfixed:redstone_striker",
-        "nekomasfixed:red_dyed_brush",
+        "#nekomasfixed:brushes",
         "#nekomasfixed:sickles"
     ]
 }

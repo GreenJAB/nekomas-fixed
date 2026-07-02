@@ -4,9 +4,11 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.greenjab.nekomasfixed.util.ModData;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -47,7 +49,7 @@ public class PlayerEntityMixin {
         Inventory inventory = PE.getInventory();
         int i = random.nextInt(inventory.size());
         ItemStack food = inventory.getStack(i);
-        if (!food.isEmpty() && food.isIn(OtherRegistry.FOOD_ITEMS)) {
+        if (!food.isEmpty() && food.isIn(ModTags.FOOD_ITEMS)) {
             food.decrement(1);
             ItemStack rotten = new ItemStack(Items.ROTTEN_FLESH, 1);
             if (!PE.getInventory().insertStack(rotten.copy())) {
@@ -66,7 +68,7 @@ public class PlayerEntityMixin {
             }
         }
         if (PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER)) {
-            if (!PE.isCreative()&&!PE.isSpectator()){
+            if (!PE.isCreative()&&!PE.isSpectator() && ModConfigValues.netherFoodRotting){
                 this.checkForEdibles(PE);
             }
         }
@@ -88,13 +90,7 @@ public class PlayerEntityMixin {
         return original;
     }
 
-    @Redirect(
-            method = "attack",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/entity/Entity;sidedDamage(Lnet/minecraft/entity/damage/DamageSource;F)Z"
-            )
-    )
+    @Redirect(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;sidedDamage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
     private boolean preventFeatherDamage(Entity target, DamageSource source, float amount) {
         PlayerEntity PE = (PlayerEntity)(Object)this;
 
@@ -109,21 +105,21 @@ public class PlayerEntityMixin {
             return true;
         }
 
-        if (PE.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && PE.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) target.timeUntilRegen = 10;
+        if (PE.getStackInHand(Hand.MAIN_HAND).isIn(ModTags.SICKLES) && PE.getStackInHand(Hand.OFF_HAND).isIn(ModTags.SICKLES)) target.timeUntilRegen = 10;
 
         return target.sidedDamage(source, amount);
     }
 
     @WrapOperation(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;interact(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
     private ActionResult allowOffhandAttack(Entity instance, PlayerEntity player, Hand hand, Operation<ActionResult> original) {
-        if (player.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) return ActionResult.PASS;
+        if (player.getStackInHand(Hand.MAIN_HAND).isIn(ModTags.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(ModTags.SICKLES)) return ActionResult.PASS;
         return original.call(instance, player, hand);
     }
 
     @Inject(method = "getAttackCooldownDamageModifier", at = @At("HEAD"), cancellable = true)
     private void offHandDamage(CallbackInfoReturnable<Float> cir){
         PlayerEntity player = (PlayerEntity)(Object)this;
-        if (player.getStackInHand(Hand.MAIN_HAND).isIn(OtherRegistry.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(OtherRegistry.SICKLES)) cir.setReturnValue(1f);
+        if (player.getStackInHand(Hand.MAIN_HAND).isIn(ModTags.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(ModTags.SICKLES)) cir.setReturnValue(1f);
     }
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;isScaledWithDifficulty()Z"))
@@ -134,11 +130,11 @@ public class PlayerEntityMixin {
 
     @ModifyExpressionValue(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;getBonusAttackDamage(Lnet/minecraft/entity/Entity;FLnet/minecraft/entity/damage/DamageSource;)F"))
     private float comboDamage(float original, @Local ItemStack itemStack, @Local(ordinal = 0) float baseAttackDamage){
-        if (itemStack.getComponents().contains(OtherRegistry.COMBO_MULTIPLIER)) {
+        if (itemStack.getComponents().contains(ComponentRegistry.COMBO_MULTIPLIER)) {
             PlayerEntity player = (PlayerEntity)(Object)this;
             int comboTimer = ModData.combos.getOrDefault(player.getUuid(), 0);
             int comboSec = ceilDiv(comboTimer, 30);
-            int multiplier = itemStack.getComponents().get(OtherRegistry.COMBO_MULTIPLIER).multiplier();
+            int multiplier = itemStack.getComponents().get(ComponentRegistry.COMBO_MULTIPLIER).multiplier();
 
             if (!player.getEntityWorld().isClient()) ModData.combos.put(player.getUuid(), Math.min((comboSec+1)*30, 10*30));
 

@@ -180,8 +180,8 @@
   "block.nekomasfixed.indigo_brick_wall": "Indigo Brick Wall",
   "block.nekomasfixed.maroon_brick_wall": "Maroon Brick Wall",
 
-  "entity.nekomasfixed.sus_spider": "Suspicious Spider",
-  "item.nekomasfixed.sus_spider_spawn_egg": "Suspicious Spider Spawn Egg",
+  "entity.nekomasfixed.suspicious_spider": "Suspicious Spider",
+  "item.nekomasfixed.suspicious_spider_spawn_egg": "Suspicious Spider Spawn Egg",
 
   "block.nekomasfixed.glistering_melon": "Glistering Melon",
 
@@ -208,13 +208,15 @@
 
   "item.nekomasfixed.slingshot": "Slingshot",
 
-  "entity.nekomasfixed.wild_fire": "Wild Fire",
+  "entity.nekomasfixed.wildfire": "Wildfire",
   "entity.nekomasfixed.termite": "Termite",
   "block.nekomasfixed.termite_hive": "Termite Hive",
   "block.nekomasfixed.baobab_leaves": "Baobab Leaves",
   "block.nekomasfixed.baobab_log": "Baobab Log",
+  "block.nekomasfixed.stripped_baobab_log": "Stripped Baobab Log",
   "block.nekomasfixed.baobab_planks": "Baobab Planks",
   "block.nekomasfixed.baobab_wood": "Baobab Wood",
+  "block.nekomasfixed.stripped_baobab_wood": "Stripped Baobab Wood",
   "item.nekomasfixed.baobab_fruit": "Baobab Fruit",
   "block.nekomasfixed.baobab_fruit": "Baobab Fruit",
   "item.nekomasfixed.baobab_seeds": "Baobab Seeds",
@@ -236,7 +238,7 @@
   "block.nekomasfixed.baobab_wall_hanging_sign": "Baobab Wall Hanging Sign",
   "block.nekomasfixed.baobab_wall_sign": "Baobab Wall Sign",
   "block.nekomasfixed.termite_block": "Termite Block",
-  "item.nekomasfixed.wild_fire_spawn_egg": "Wild Fire Spawn Egg",
+  "item.nekomasfixed.wildfire_spawn_egg": "Wildfire Spawn Egg",
   "item.nekomasfixed.termite_spawn_egg": "Termite Spawn Egg",
   "item.nekomasfixed.nether_heart": "Heart Of The Nether",
   "item.nekomasfixed.smithing_template.ingredients_shield_trident": "Shields & Tridents",
@@ -244,8 +246,8 @@
   "item.nekomasfixed.jewel_armor_trim_smithing_template": "Jewel Armor Trim",
   "item.nekomasfixed.jewel_armor_trim_smithing_template.new": "Jewel Armor Trim",
   "trim_pattern.nekomasfixed:jewel": "Jewel Armor Trim",
-  "item.nekomasfixed.soulfire_trident": "Soulfire Trident",
-  "item.nekomasfixed.soulfire_shield": "Soulfire Shield",
+  "item.nekomasfixed.wildfire_trident": "Wildfire Trident",
+  "item.nekomasfixed.wildfire_shield": "Wildfire Shield",
 
   "enchantment.nekomasfixed.dismount": "Dismount",
 
@@ -387,6 +389,8 @@
   "block.nekomasfixed.hollow_cherry_log": "Hollow Cherry Log",
   "block.nekomasfixed.hollow_acacia_log": "Hollow Acacia Log",
   "block.nekomasfixed.hollow_baobab_log": "Hollow Baobab Log",
+  "block.nekomasfixed.hollow_mangrove_log": "Hollow Mangrove Log",
+  "block.nekomasfixed.hollow_bamboo_block": "Hollow Bamboo Block",
 
   "item.nekomasfixed.crown_smithing_template": "Crown Smithing Template",
   "effect.nekomasfixed.lightning": "Lightning",
@@ -451,5 +455,13 @@
   "container.nekomasfixed.pyrotechnics_table.twinkle": "Twinkle",
   "container.nekomasfixed.pyrotechnics_table.trail": "Trail",
   "block.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
-  "item.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table"
+  "item.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
+
+  "item.nekomasfixed.derelict_spawn_egg": "Derelict Spawn Egg",
+  "item.nekomasfixed.rime_spawn_egg": "Rime Spawn Egg",
+
+  "title.nekomasfixed.config": "Config",
+  "item.nekomasfixed.anchor": "Anchor",
+  "entity.nekomasfixed.drenched": "Drenched",
+  "item.nekomasfixed.drenched_spawn_egg": "Drenched Spawn Egg"
 }

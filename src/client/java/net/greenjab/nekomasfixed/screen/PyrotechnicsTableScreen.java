@@ -25,7 +25,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class PyrotechnicsTableScreen extends HandledScreen<PyrotechnicsTableScreenHandler> {
 
-    private static final Identifier TEXTURE = Identifier.of("nekomasfixed", "textures/gui/container/pyrotechnics_table.png");
+    private static final Identifier TEXTURE = NekomasFixed.id("textures/gui/container/pyrotechnics_table.png");
 
     private static final Identifier BUTTON_SELECTED_TEXTURE = NekomasFixed.id("container/pyrotechnics_table/button_selected");
     private static final Identifier BUTTON_HIGHLIGHTED_TEXTURE = NekomasFixed.id("container/pyrotechnics_table/button_highlighted");

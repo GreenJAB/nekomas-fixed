@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.mixin.wildfire;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.greenjab.nekomasfixed.registry.entity.WildFire.WildFireEntity;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireEntity;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -16,7 +16,7 @@ public class LivingEntityMixin {
     @ModifyExpressionValue(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;tryUseDeathProtector(Lnet/minecraft/entity/damage/DamageSource;)Z"))
     private boolean wildFireSecondPhase(boolean original, @Local(argsOnly = true) DamageSource source) {
         LivingEntity LE = (LivingEntity)(Object)this;
-        if (LE instanceof WildFireEntity wildFireEntity) {
+        if (LE instanceof WildfireEntity wildFireEntity) {
             if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
                 return false;
             } else {

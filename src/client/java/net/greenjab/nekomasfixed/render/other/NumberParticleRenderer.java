@@ -25,7 +25,7 @@ public class NumberParticleRenderer extends ParticleRenderer<NumberParticle> {
         return new NumberParticleRenderer.Result(
                 this.particles
                         .stream()
-                        .map(/* method_74275 */ numberParticle -> NumberParticleRenderer.State.create(numberParticle, camera, tickProgress))
+                        .map(numberParticle -> NumberParticleRenderer.State.create(numberParticle, camera, tickProgress))
                         .toList()
         );
     }
@@ -48,7 +48,6 @@ public class NumberParticleRenderer extends ParticleRenderer<NumberParticle> {
             matrixStack.push();
             Vec3d pos = particle.getBoundingBox().getCenter().subtract(camera.getCameraPos());
             float age = particle.getAge()+tickProgress;
-            //float ageScale = Math.min(age/5f, 1);
             float ageScale = (float) (Math.sin(Math.min(age,8)/5)*Math.min(0.5+particle.getDamage()/10.0, 2));
 
             int ii = ColorHelper.fromFloats(Math.max(Math.min((particle.getMaxAge()-age)/8f, 1), 0), 1.0F, 1.0F, 1.0F);

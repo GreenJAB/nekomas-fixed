@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AnimalEntity.class)
 public class AnimalEntityMixin {
 
-    @Inject(method = "interactMob", at= @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AnimalEntity;eat(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;)V", ordinal = 0))
+    @Inject(method = "interactMob", at= @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AnimalEntity;lovePlayer(Lnet/minecraft/entity/player/PlayerEntity;)V", ordinal = 0))
     private void saveLastEatenFlower(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir, @Local ItemStack itemStack) {
         if (((AnimalEntity)(Object)this) instanceof MoobloomEntity moobloomEntity) {
             moobloomEntity.setLastFlowerEaten(itemStack.copy());

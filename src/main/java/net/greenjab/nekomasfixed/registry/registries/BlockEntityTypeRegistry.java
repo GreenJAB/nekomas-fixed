@@ -33,10 +33,19 @@ public class BlockEntityTypeRegistry {
             FabricBlockEntityTypeBuilder.create(SoupCauldronBlockEntity::new, BlockRegistry.SOUP_CAULDRON).build());
 
     public static final BlockEntityType<HollowLogBlockEntity> HOLLOW_LOG_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_log"),
-            FabricBlockEntityTypeBuilder.create(HollowLogBlockEntity::new, BlockRegistry.HOLLOW_OAK_LOG,
-                    BlockRegistry.HOLLOW_ACACIA_LOG, BlockRegistry.HOLLOW_BIRCH_LOG, BlockRegistry.HOLLOW_CHERRY_LOG,
-                    BlockRegistry.HOLLOW_CRIMSON_STEM, BlockRegistry.HOLLOW_DARK_OAK_LOG, BlockRegistry.HOLLOW_JUNGLE_LOG,
-                    BlockRegistry.HOLLOW_PALE_OAK_LOG, BlockRegistry.HOLLOW_SPRUCE_LOG, BlockRegistry.HOLLOW_WARPED_STEM,
+            FabricBlockEntityTypeBuilder.create(HollowLogBlockEntity::new,
+                    BlockRegistry.HOLLOW_OAK_LOG,
+                    BlockRegistry.HOLLOW_SPRUCE_LOG,
+                    BlockRegistry.HOLLOW_BIRCH_LOG,
+                    BlockRegistry.HOLLOW_JUNGLE_LOG,
+                    BlockRegistry.HOLLOW_ACACIA_LOG,
+                    BlockRegistry.HOLLOW_DARK_OAK_LOG,
+                    BlockRegistry.HOLLOW_MANGROVE_LOG,
+                    BlockRegistry.HOLLOW_CHERRY_LOG,
+                    BlockRegistry.HOLLOW_PALE_OAK_LOG,
+                    BlockRegistry.HOLLOW_BAMBOO_BLOCK,
+                    BlockRegistry.HOLLOW_CRIMSON_STEM,
+                    BlockRegistry.HOLLOW_WARPED_STEM,
                     BlockRegistry.HOLLOW_BAOBAB_LOG
             ).build());
 

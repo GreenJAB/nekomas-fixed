@@ -12,7 +12,6 @@ import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Leashable;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -98,8 +97,8 @@ public class NautilusBlock extends BlockWithEntity {
 						for (Leashable entity2 : list2) {
 							if (entity2 instanceof AnimalEntity animalEntity) {
 								if (world.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
-									if (((AnimalEntity) entity2).getBoundingBox().getLengthX()<1 &&
-										((AnimalEntity) entity2).getBoundingBox().getLengthY()<1.5f) {
+									if (animalEntity.getBoundingBox().getLengthX()<1 &&
+										animalEntity.getBoundingBox().getLengthY()<1.5f) {
 										nautilusBlockEntity.tryEnterNautilus(animalEntity);
 										world.setBlockState(pos, state.with(NautilusBlock.OCCUPIED, true));
 										return ActionResult.SUCCESS;

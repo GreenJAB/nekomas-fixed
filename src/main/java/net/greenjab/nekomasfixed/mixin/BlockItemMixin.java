@@ -1,17 +1,15 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.ClamBlock;
-import net.greenjab.nekomasfixed.registry.block.StackedCakeBlock;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +23,7 @@ public class BlockItemMixin {
 
     @Inject(method="onItemEntityDestroyed", at = @At( value = "HEAD"), cancellable = true)
     private void releaseAnimalOnNautilusDestroyed(ItemEntity itemEntity, CallbackInfo ci) {
-        AnimalComponent animalComponent = itemEntity.getStack().get(OtherRegistry.ANIMAL);
+        AnimalComponent animalComponent = itemEntity.getStack().get(ComponentRegistry.ANIMAL);
         if (animalComponent != null && !animalComponent.animal().isEmpty()) {
             AnimalComponent.StoredEntityData animal = animalComponent.animal().get(0);
             World world = itemEntity.getEntityWorld();
@@ -41,22 +39,10 @@ public class BlockItemMixin {
         }
     }
 
-    @Inject(
-            method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;",
-            at = @At("HEAD"),
-            cancellable = true
-    )
-    private void customPlace(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
-        if (context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof StackedCakeBlock) {
-            cir.setReturnValue(ActionResult.FAIL);
-            cir.cancel();
-        }
-    }
-
     @Inject(method="placeFromNbt", at = @At( value = "HEAD"))
     private void placeOpenClam(BlockPos pos, World world, ItemStack stack, BlockState state, CallbackInfoReturnable<BlockState> cir) {
-        if (stack.isIn(OtherRegistry.CLAMTAG)) {
-            Integer i = stack.getOrDefault(OtherRegistry.CLAM_STATE, 0);
+        if (stack.isIn(ModTags.CLAMTAG)) {
+            Integer i = stack.getOrDefault(ComponentRegistry.CLAM_STATE, 0);
             if (i > 0) {
                 state = state.with(ClamBlock.OPEN, true);
                 world.setBlockState(pos, state, Block.NOTIFY_LISTENERS);

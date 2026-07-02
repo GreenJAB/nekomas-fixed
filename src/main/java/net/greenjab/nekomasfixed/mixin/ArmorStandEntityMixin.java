@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ArmorStandEntity.class)
- class ArmorStandEntityMixin {
+public class ArmorStandEntityMixin {
     @Inject(method = "interactAt", at = @At("HEAD"), cancellable = true)
     private void interactAt(PlayerEntity player, Vec3d hitPos, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if(player!=null && player.isSneaking()){

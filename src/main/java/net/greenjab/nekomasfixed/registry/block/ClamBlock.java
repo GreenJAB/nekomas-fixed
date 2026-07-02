@@ -1,6 +1,4 @@
 package net.greenjab.nekomasfixed.registry.block;
-// import net.minecraft.block.Blocks'
-//Block class of minecraft -
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
@@ -10,9 +8,9 @@ import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.LootTableRegistry;
 import net.minecraft.block.*;
-import net.minecraft.block.Blocks; // For CyberModder
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -177,7 +175,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
 
-
 	@Override
 	protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
 		ItemScatterer.onStateReplaced(state, world, pos);
@@ -288,7 +285,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
                             assert world.getServer() != null;
                             LootTable lootTable = world.getServer()
 									.getReloadableRegistries()
-									.getLootTable(OtherRegistry.CLAM_LOOT_TABLE);
+									.getLootTable(LootTableRegistry.CLAM_LOOT_TABLE);
 
 							LootWorldContext lootContextParameterSet = (new LootWorldContext.Builder(world)).add(LootContextParameters.ORIGIN, pos.toCenterPos()).add(LootContextParameters.TOOL, null).add(LootContextParameters.THIS_ENTITY, null).luck(getLuck(this.getClamType())).build(LootContextTypes.FISHING);
 

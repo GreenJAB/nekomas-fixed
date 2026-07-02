@@ -19,7 +19,7 @@ public class EnchantmentMixin {
     private static <T> boolean targetDummySmite(boolean original, @Local EnchantmentEffectEntry<T> enchantmentEffectEntry, @Local(argsOnly = true) LootContext lootContext) {
         if (lootContext.hasParameter(LootContextParameters.THIS_ENTITY)) {
             if (lootContext.get(LootContextParameters.THIS_ENTITY) instanceof TargetDummyEntity targetDummyEntity) {
-                if (targetDummyEntity.getZombie()) {
+                if (targetDummyEntity.isZombie()) {
                     if (enchantmentEffectEntry.requirements().isPresent()) {
                         if (lootContext.hasParameter(LootContextParameters.ENCHANTMENT_LEVEL) && lootContext.hasParameter(LootContextParameters.DAMAGE_SOURCE)) {
                             return enchantmentEffectEntry.requirements().get().test(createEnchantedDamageLootContext(lootContext.getWorld(), lootContext.get(LootContextParameters.ENCHANTMENT_LEVEL), new ZombieEntity(lootContext.getWorld()), lootContext.get(LootContextParameters.DAMAGE_SOURCE)));

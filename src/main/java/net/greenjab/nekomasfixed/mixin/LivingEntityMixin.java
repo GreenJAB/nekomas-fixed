@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.item.SoulfireShieldItem;
+import net.greenjab.nekomasfixed.registry.item.WildfireShieldItem;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -30,7 +30,7 @@ public abstract class LivingEntityMixin {
     public abstract void stopRiding();
 
     @ModifyVariable(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isSleeping()Z"), ordinal = 0, argsOnly = true)
-    private float turtleChestplateBlock(float amount, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) DamageSource source) {
+    private float turtleChestplateBlock(float amount, @Local(argsOnly = true) DamageSource source) {
         LivingEntity LE = (LivingEntity)(Object)this;
         if (LE.getEquippedStack(EquipmentSlot.CHEST).isOf(ItemRegistry.TURTLE_CHESTPLATE)) {
             Vec3d vec3d = source.getPosition();
@@ -48,12 +48,13 @@ public abstract class LivingEntityMixin {
             if (f > 0.0F && source.getSource() instanceof LivingEntity) {
                 LE.getEquippedStack(EquipmentSlot.CHEST).damage((f == amount ? 3 : 1), LE, EquipmentSlot.CHEST);
             }
+            if (amount - f <=0 ) return 0.00123f;
             return amount - f;
         }
         if (LE.getEquippedStack(EquipmentSlot.HEAD).isOf(Items.TURTLE_HELMET)) {
             if (source.getTypeRegistryEntry().matchesKey(DamageTypes.MACE_SMASH)) {
                 LE.getEquippedStack(EquipmentSlot.HEAD).damage((int)amount, LE, EquipmentSlot.CHEST);
-                return 0;
+                return 0.00123f;
             }
         }
 
@@ -64,7 +65,7 @@ public abstract class LivingEntityMixin {
         LivingEntity defender = (LivingEntity)(Object)this;
         ItemStack activeItem = defender.getActiveItem();
 
-        if (activeItem.getItem() instanceof SoulfireShieldItem) {
+        if (activeItem.getItem() instanceof WildfireShieldItem) {
             if (defender instanceof PlayerEntity player) {
                 if (player.getHealth() <= 6.0f) {
                     attacker.setOnFireForTicks(20 * 3);
@@ -81,7 +82,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getActiveItem()Lnet/minecraft/item/ItemStack;"), cancellable = true)
     private void cancel0Damage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (amount<=0)cir.setReturnValue(true);
+        if (amount==0.00123f)cir.setReturnValue(true);
     }
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;becomeAngry(Lnet/minecraft/entity/damage/DamageSource;)V"))

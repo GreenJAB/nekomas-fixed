@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "minecraft:shield",
+  "result": {
+    "id": "nekomasfixed:wildfire_shield"
+  },
+  "template": "nekomasfixed:nether_heart"
+}

@@ -3,8 +3,9 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.other.AnimalTooltipData;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -39,11 +40,11 @@ public class ItemStackMixin {
 			cir.setReturnValue(!tooltipDisplayComponent.shouldDisplay(DataComponentTypes.CONTAINER)
 					? Optional.empty()
 					: Optional.ofNullable(itemStack.get(DataComponentTypes.CONTAINER)).map(ContainerTooltipData::new));
-		} else if (itemStack.getComponents().contains(OtherRegistry.ANIMAL)) {
+		} else if (itemStack.getComponents().contains(ComponentRegistry.ANIMAL)) {
 			TooltipDisplayComponent tooltipDisplayComponent = itemStack.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT);
-			cir.setReturnValue(!tooltipDisplayComponent.shouldDisplay(OtherRegistry.ANIMAL)
+			cir.setReturnValue(!tooltipDisplayComponent.shouldDisplay(ComponentRegistry.ANIMAL)
 					? Optional.empty()
-					: Optional.ofNullable(itemStack.get(OtherRegistry.ANIMAL)).map(AnimalTooltipData::new));
+					: Optional.ofNullable(itemStack.get(ComponentRegistry.ANIMAL)).map(AnimalTooltipData::new));
 		}
 	}
 
@@ -51,26 +52,26 @@ public class ItemStackMixin {
 	private void addTooltips(Item.TooltipContext context, TooltipDisplayComponent displayComponent, PlayerEntity player,
 								TooltipType type, Consumer<Text> textConsumer, CallbackInfo ci) {
 		ItemStack stack = (ItemStack)(Object)this;
-		stack.appendComponentTooltip(OtherRegistry.ANIMAL, context, displayComponent, textConsumer, type);
-		stack.appendComponentTooltip(OtherRegistry.STORED_TIME, context, displayComponent, textConsumer, type);
-		stack.appendComponentTooltip(OtherRegistry.COMBO_MULTIPLIER, context, displayComponent, textConsumer, type);
+		stack.appendComponentTooltip(ComponentRegistry.ANIMAL, context, displayComponent, textConsumer, type);
+		stack.appendComponentTooltip(ComponentRegistry.STORED_TIME, context, displayComponent, textConsumer, type);
+		stack.appendComponentTooltip(ComponentRegistry.COMBO_MULTIPLIER, context, displayComponent, textConsumer, type);
 	}
 
 	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
 	private void useBlockItem(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 		ItemStack stack = (ItemStack)(Object)this;
-		if (stack.isIn(OtherRegistry.CLAMTAG)) {
-			int c = stack.getOrDefault(OtherRegistry.CLAM_STATE, 0)>0?0:1;
+		if (stack.isIn(ModTags.CLAMTAG)) {
+			int c = stack.getOrDefault(ComponentRegistry.CLAM_STATE, 0)>0?0:1;
 			if (c>0&&stack.hasChangedComponent(DataComponentTypes.CONTAINER)) {
 				if (!stack.get(DataComponentTypes.CONTAINER).copyFirstStack().isEmpty()) c++;
 			}
-			stack.set(OtherRegistry.CLAM_STATE, c);
+			stack.set(ComponentRegistry.CLAM_STATE, c);
 		}
 		if (stack.isOf(Items.CLOCK)) {
-			if (stack.getComponents().contains(OtherRegistry.STORED_TIME)) {
-				stack.remove(OtherRegistry.STORED_TIME);
+			if (stack.getComponents().contains(ComponentRegistry.STORED_TIME)) {
+				stack.remove(ComponentRegistry.STORED_TIME);
 			} else {
-				stack.set(OtherRegistry.STORED_TIME, new StoredTimeComponent((int) ((world.getTimeOfDay() + 6000) % 24000)));
+				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((world.getTimeOfDay() + 6000) % 24000)));
 			}
 		}
 	}

@@ -7,11 +7,5 @@ import net.minecraft.entity.AnimationState;
 
 @Environment(EnvType.CLIENT)
 public class TermiteRenderState extends LivingEntityRenderState {
-    public final AnimationState idleAnimationState;
-    public final AnimationState swipeAnimationState;
-
-    public  TermiteRenderState() {
-        this.idleAnimationState = new AnimationState();
-        this.swipeAnimationState = new AnimationState();
-    }
+    public final AnimationState swipeAnimationState = new AnimationState();
 }

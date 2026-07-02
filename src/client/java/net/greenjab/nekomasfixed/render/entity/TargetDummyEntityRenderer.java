@@ -31,8 +31,8 @@ import static net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity.*;
 @Environment(EnvType.CLIENT)
 public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyEntity, TargetDummyEntityRenderState, TargetDummyArmorEntityModel> {
 	private final PlayerSkinCache skinCache;
-	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/targetdummy/default.png");
-	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/targetdummy/zombie.png");
+	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/target_dummy/default.png");
+	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/target_dummy/zombie.png");
 
 	public TargetDummyEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new TargetDummyEntityModel(context.getPart(ModEntityLayerRegistry.TARGET_DUMMY)), 0.0F);
@@ -66,7 +66,7 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 		super.updateRenderState(targetDummyEntity, targetDummyEntityRenderState, f);
 		BipedEntityRenderer.updateBipedRenderState(targetDummyEntity, targetDummyEntityRenderState, f, this.itemModelResolver);
 		targetDummyEntityRenderState.skinTextures = getSkin(targetDummyEntity);
-		targetDummyEntityRenderState.isZombie = targetDummyEntity.getZombie();
+		targetDummyEntityRenderState.isZombie = targetDummyEntity.isZombie();
 		targetDummyEntityRenderState.yaw = MathHelper.lerpAngleDegrees(f, targetDummyEntity.lastYaw, targetDummyEntity.getYaw());
 		targetDummyEntityRenderState.bodyRotation = targetDummyEntity.getBodyRotation();
 		targetDummyEntityRenderState.headRotation = targetDummyEntity.getHeadRotation();

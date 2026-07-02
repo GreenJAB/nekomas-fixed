@@ -1,8 +1,6 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
-
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registries.TextureRenderLayerRegistry;
 import net.greenjab.nekomasfixed.util.CustomBedTextureHolder;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.MessyBedAccessor;
@@ -22,7 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BedBlockEntityRenderer.class)
 public class BedBlockEntityRendererMixin {
 
-    @Inject(method = "updateRenderState(Lnet/minecraft/block/entity/BedBlockEntity;Lnet/minecraft/client/render/block/entity/state/BedBlockEntityRenderState;FLnet/minecraft/util/math/Vec3d;Lnet/minecraft/client/render/command/ModelCommandRenderer$CrumblingOverlayCommand;)V", at = @At("TAIL"))
+    @Inject(method = "updateRenderState(Lnet/minecraft/block/entity/BedBlockEntity;Lnet/minecraft/client/render/block/entity/state/BedBlockEntityRenderState;FLnet/minecraft/util/math/Vec3d;Lnet/minecraft/client/render/command/ModelCommandRenderer$CrumblingOverlayCommand;)V",
+            at = @At("TAIL"))
     private void detectCustomBed(
             BedBlockEntity bedBlockEntity,
             BedBlockEntityRenderState state,
@@ -31,62 +30,24 @@ public class BedBlockEntityRendererMixin {
             ModelCommandRenderer.CrumblingOverlayCommand overlay,
             CallbackInfo ci) {
 
-            if(bedBlockEntity.getCachedState().get(MessyBedAccessor.IS_MESSY)){
-                ((CustomBedTextureHolder)state).nekomasfixed$setCustomTexture(TextureRenderLayerRegistry.MESSY_BED_TEXTURES.get(state.dyeColor));
-            }
-
-        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AMBER_BED) {
-
-            ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
-                    new SpriteIdentifier(
-                            TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/bed/amber")
-                    )
-            );
+        String bed = null;
+        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AMBER_BED) bed = "amber";
+        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AQUA_BED) bed = "aqua";
+        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.MAROON_BED) bed = "maroon";
+        else if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.INDIGO_BED) bed = "indigo";
+        if (bedBlockEntity.getCachedState().get(MessyBedAccessor.IS_MESSY)) {
+            if (bed==null) bed = bedBlockEntity.getColor().getId();
+            bed += "_messy";
         }
-        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.AQUA_BED) {
-
-            ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
-                    new SpriteIdentifier(
-                            TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/bed/aqua")
-                    )
-            );
-        }
-        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.MAROON_BED) {
-
-            ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
-                    new SpriteIdentifier(
-                            TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/bed/maroon")
-                    )
-            );
-        }
-        if (bedBlockEntity.getCachedState().getBlock() == BlockRegistry.INDIGO_BED) {
-            ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
-                    new SpriteIdentifier(
-                            TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
-                            NekomasFixed.id("entity/bed/indigo")
-                    )
-            );
-        }
-
+        if (bed!=null) ((CustomBedTextureHolder) state).nekomasfixed$setCustomTexture(
+                new SpriteIdentifier(TexturedRenderLayers.BEDS_ATLAS_TEXTURE, NekomasFixed.id("entity/bed/"+bed)));
     }
 
-    @ModifyVariable(
-            method = "render(Lnet/minecraft/client/render/block/entity/state/BedBlockEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
-            at = @At(value = "STORE"),
-            ordinal = 0
-    )
+    @ModifyVariable(method = "render(Lnet/minecraft/client/render/block/entity/state/BedBlockEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
+            at = @At(value = "STORE"), ordinal = 0)
     private SpriteIdentifier replaceTexture(SpriteIdentifier original, BedBlockEntityRenderState state) {
-
-        SpriteIdentifier custom =
-                ((CustomBedTextureHolder) state).nekomasfixed$getCustomTexture();
-
-        if (custom != null) {
-            return custom;
-        }
-
+        SpriteIdentifier custom = ((CustomBedTextureHolder) state).nekomasfixed$getCustomTexture();
+        if (custom != null) return custom;
         return original;
     }
 }

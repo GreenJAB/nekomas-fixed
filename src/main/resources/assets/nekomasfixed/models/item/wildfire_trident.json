@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/trident",
+  "textures": {
+    "layer0": "nekomasfixed:item/wildfire_trident"
+  }
+}

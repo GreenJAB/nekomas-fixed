@@ -7,6 +7,7 @@ import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ItemDyeMap;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.data.recipe.ShapedRecipeJsonBuilder;
@@ -34,7 +35,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             @Override
             public void generate() {
                 createShapeless(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_PLANKS, 4)
-                        .input(ItemRegistry.BAOBAB_LOG)
+                        .input(ModTags.BAOBAB_LOGS)
                         .criterion(hasItem(ItemRegistry.BAOBAB_LOG), conditionsFromItem(ItemRegistry.BAOBAB_LOG)).offerTo(exporter);
 
                 createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_WOOD, 3)
@@ -44,9 +45,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ItemRegistry.BAOBAB_LOG), conditionsFromItem(ItemRegistry.BAOBAB_LOG))
                         .offerTo(exporter);
 
+                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.STRIPPED_BAOBAB_WOOD, 3)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', ItemRegistry.STRIPPED_BAOBAB_LOG)
+                        .criterion(hasItem(ItemRegistry.STRIPPED_BAOBAB_LOG), conditionsFromItem(ItemRegistry.STRIPPED_BAOBAB_LOG))
+                        .offerTo(exporter);
+
                 offerBoatRecipe(ItemRegistry.BAOBAB_BOAT, ItemRegistry.BAOBAB_PLANKS);
                 offerChestBoatRecipe(ItemRegistry.BAOBAB_CHEST_BOAT, ItemRegistry.BAOBAB_PLANKS);
-                offerShelfRecipe(ItemRegistry.BAOBAB_SHELF, ItemRegistry.BAOBAB_LOG);
+                offerShelfRecipe(ItemRegistry.BAOBAB_SHELF, ItemRegistry.STRIPPED_BAOBAB_LOG);
                 offerHangingSignRecipe(ItemRegistry.BAOBAB_HANGING_SIGN, ItemRegistry.BAOBAB_LOG);
 
                 createFenceRecipe(ItemRegistry.BAOBAB_FENCE, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
@@ -111,10 +119,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         Pair.of(Items.JUNGLE_PLANKS, ItemRegistry.HOLLOW_JUNGLE_LOG),
                         Pair.of(Items.ACACIA_PLANKS, ItemRegistry.HOLLOW_ACACIA_LOG),
                         Pair.of(Items.DARK_OAK_PLANKS, ItemRegistry.HOLLOW_DARK_OAK_LOG),
+                        Pair.of(Items.MANGROVE_PLANKS, ItemRegistry.HOLLOW_MANGROVE_LOG),
                         Pair.of(Items.CHERRY_PLANKS, ItemRegistry.HOLLOW_CHERRY_LOG),
                         Pair.of(Items.PALE_OAK_PLANKS, ItemRegistry.HOLLOW_PALE_OAK_LOG),
-                        Pair.of(Items.CRIMSON_PLANKS, ItemRegistry.HOLLOW_CRIMSON_LOG),
-                        Pair.of(Items.WARPED_PLANKS, ItemRegistry.HOLLOW_WARPED_LOG),
+                        Pair.of(Items.BAMBOO_PLANKS, ItemRegistry.HOLLOW_BAMBOO_BLOCK),
+                        Pair.of(Items.CRIMSON_PLANKS, ItemRegistry.HOLLOW_CRIMSON_STEM),
+                        Pair.of(Items.WARPED_PLANKS, ItemRegistry.HOLLOW_WARPED_STEM),
                         Pair.of(ItemRegistry.BAOBAB_PLANKS, ItemRegistry.HOLLOW_BAOBAB_LOG));
                 for (Pair<Item,Item> hollow : hollows){
                     createShapeless(RecipeCategory.BUILDING_BLOCKS, hollow.getFirst(), 1)

@@ -1,7 +1,8 @@
 package net.greenjab.nekomasfixed.util;
 
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
-import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -33,8 +34,7 @@ public class ModItemSettings {
                 .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, createAttributes(realDamage, speed))
                 .component(DataComponentTypes.WEAPON, new WeaponComponent(1))
                 .component(DataComponentTypes.MINIMUM_ATTACK_CHARGE, 1.0F)
-                .component(OtherRegistry.COMBO_MULTIPLIER, new ComboComponent((int) (10-material.attackDamageBonus())));
-
+                .component(ComponentRegistry.COMBO_MULTIPLIER, new ComboComponent((int) (10-material.attackDamageBonus())));
     }
 
     private static AttributeModifiersComponent createAttributes(float damage, float speed) {
@@ -74,6 +74,36 @@ public class ModItemSettings {
                                 EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.OFFHAND
+                )
+                .build();
+    }
+
+    public static Item.Settings anchor(float damage, float speed) {
+        return new Item.Settings()
+                .maxDamage(2500)
+                .enchantable(15)
+                .repairable(Items.PRISMARINE_SHARD)
+                .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, createAnchorAttributes(damage, speed))
+                .component(DataComponentTypes.WEAPON, new WeaponComponent(1))
+                .component(DataComponentTypes.MINIMUM_ATTACK_CHARGE, 1.0F);
+    }
+
+    private static AttributeModifiersComponent createAnchorAttributes(float damage, float speed) {
+        return AttributeModifiersComponent.builder()
+                .add(
+                        EntityAttributes.ATTACK_DAMAGE,
+                        new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, damage, EntityAttributeModifier.Operation.ADD_VALUE),
+                        AttributeModifierSlot.MAINHAND
+                )
+                .add(
+                        EntityAttributes.ATTACK_SPEED,
+                        new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID, speed, EntityAttributeModifier.Operation.ADD_VALUE),
+                        AttributeModifierSlot.MAINHAND
+                )
+                .add(
+                        EntityAttributes.ENTITY_INTERACTION_RANGE,
+                        new EntityAttributeModifier(NekomasFixed.id( "anchor_reach"), 1.5, EntityAttributeModifier.Operation.ADD_VALUE),
+                        AttributeModifierSlot.MAINHAND
                 )
                 .build();
     }
