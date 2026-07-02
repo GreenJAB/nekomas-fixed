@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 public class ModTags {
     public static final TagKey<Biome> SPAWNS_RIME = TagKey.of(RegistryKeys.BIOME, NekomasFixed.id("spawns_rime"));
 
+
     public static final TagKey<Block> CAN_BE_DYED_WITH_BRUSH = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("can_be_dyed_with_brush"));
     public static final TagKey<Block> DYED_BRICKS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_bricks"));
     public static final TagKey<Block> DYED_BRICK_SLABS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("dyed_brick_slabs"));
@@ -23,8 +24,8 @@ public class ModTags {
     public static final TagKey<Block> SPOTTED_WOOLS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("spotted_wools"));
     public static final TagKey<Block> SPOTTED_CARPETS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("spotted_carpets"));
     public static final TagKey<Block> FROGLIGHTS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("froglights"));
-    public static final TagKey<Block> FOLIAGE_REQUIRES_BASE = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("foliage_requires_base"));
 
+    public static final TagKey<Item> BAOBAB_LOGS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("baobab_logs"));
     public static final TagKey<Item> CLAMTAG = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("clams"));
     public static final TagKey<Item> SPEARS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("spears"));
     public static final TagKey<Item> SICKLES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("sickles"));

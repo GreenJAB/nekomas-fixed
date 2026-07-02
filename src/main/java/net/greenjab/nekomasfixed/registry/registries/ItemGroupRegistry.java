@@ -54,7 +54,6 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.DIAMOND_CROWN);
                         entries.add(ItemRegistry.NETHERITE_CROWN);
 
-
                         entries.add(ItemRegistry.SLINGSHOT);
                         entries.add(ItemRegistry.WOODEN_SICKLE);
                         entries.add(ItemRegistry.STONE_SICKLE);
@@ -73,66 +72,72 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.CHOCOLATE_CAKE);
                         entries.add(ItemRegistry.BEETROOT_CAKE);
 
+                        entries.add(BlockRegistry.BAOBAB_LOG);
+                        entries.add(BlockRegistry.BAOBAB_WOOD);
+                        entries.add(BlockRegistry.STRIPPED_BAOBAB_LOG);
+                        entries.add(BlockRegistry.STRIPPED_BAOBAB_WOOD);
+                        entries.add(BlockRegistry.BAOBAB_PLANKS);
+                        entries.add(BlockRegistry.BAOBAB_STAIRS);
+                        entries.add(BlockRegistry.BAOBAB_SLAB);
+                        entries.add(BlockRegistry.BAOBAB_FENCE);
+                        entries.add(BlockRegistry.BAOBAB_FENCE_GATE);
+                        entries.add(BlockRegistry.BAOBAB_DOOR);
+                        entries.add(BlockRegistry.BAOBAB_TRAPDOOR);
+                        entries.add(BlockRegistry.BAOBAB_PRESSURE_PLATE);
+                        entries.add(BlockRegistry.BAOBAB_BUTTON);
+                        entries.add(BlockRegistry.BAOBAB_LEAVES);
+                        entries.add(BlockRegistry.BAOBAB_SAPLING);
+                        entries.add(ItemRegistry.BAOBAB_SEEDS);
+                        entries.add(ItemRegistry.BAOBAB_FRUIT);
+                        entries.add(ItemRegistry.ROPE);
+                        entries.add(ItemRegistry.BAOBAB_SHELF);
+                        entries.add(ItemRegistry.BAOBAB_SIGN);
+                        entries.add(ItemRegistry.BAOBAB_HANGING_SIGN);
+                        entries.add(ItemRegistry.BAOBAB_BOAT);
+                        entries.add(ItemRegistry.BAOBAB_CHEST_BOAT);
+
                         entries.add(ItemRegistry.TERMITE_SPAWN_EGG);
                         entries.add(ItemRegistry.TERMITE_HIVE);
                         entries.add(ItemRegistry.TERMITE_BLOCK);
                         entries.add(ItemRegistry.HOLLOW_OAK_LOG);
-                        entries.add(ItemRegistry.HOLLOW_DARK_OAK_LOG);
-                        entries.add(ItemRegistry.HOLLOW_CRIMSON_LOG);
-                        entries.add(ItemRegistry.HOLLOW_ACACIA_LOG);
+                        entries.add(ItemRegistry.HOLLOW_SPRUCE_LOG);
                         entries.add(ItemRegistry.HOLLOW_BIRCH_LOG);
                         entries.add(ItemRegistry.HOLLOW_JUNGLE_LOG);
-                        entries.add(ItemRegistry.HOLLOW_SPRUCE_LOG);
-                        entries.add(ItemRegistry.HOLLOW_WARPED_LOG);
-                        entries.add(ItemRegistry.HOLLOW_PALE_OAK_LOG);
+                        entries.add(ItemRegistry.HOLLOW_ACACIA_LOG);
+                        entries.add(ItemRegistry.HOLLOW_DARK_OAK_LOG);
+                        entries.add(ItemRegistry.HOLLOW_MANGROVE_LOG);
                         entries.add(ItemRegistry.HOLLOW_CHERRY_LOG);
+                        entries.add(ItemRegistry.HOLLOW_PALE_OAK_LOG);
+                        entries.add(ItemRegistry.HOLLOW_BAMBOO_BLOCK);
+                        entries.add(ItemRegistry.HOLLOW_CRIMSON_STEM);
+                        entries.add(ItemRegistry.HOLLOW_WARPED_STEM);
                         entries.add(ItemRegistry.HOLLOW_BAOBAB_LOG);
-
-                        entries.add(ItemRegistry.ROPE_ITEM);
-                        entries.add(ItemRegistry.BAOBAB_SEEDS);
-                        entries.add(ItemRegistry.BAOBAB_FRUIT);
-                        entries.add(BlockRegistry.BAOBAB_LEAVES);
-                        entries.add(BlockRegistry.BAOBAB_SAPLING);
-                        entries.add(BlockRegistry.BAOBAB_PLANKS);
-                        entries.add(BlockRegistry.BAOBAB_LOG);
-                        entries.add(BlockRegistry.BAOBAB_WOOD);
-                        entries.add(ItemRegistry.BAOBAB_SIGN);
-                        entries.add(ItemRegistry.BAOBAB_HANGING_SIGN);
-                        entries.add(BlockRegistry.BAOBAB_PRESSURE_PLATE);
-                        entries.add(BlockRegistry.BAOBAB_TRAPDOOR);
-                        entries.add(BlockRegistry.BAOBAB_BUTTON);
-                        entries.add(BlockRegistry.BAOBAB_STAIRS);
-                        entries.add(BlockRegistry.BAOBAB_SLAB);
-                        entries.add(BlockRegistry.BAOBAB_FENCE_GATE);
-                        entries.add(BlockRegistry.BAOBAB_FENCE);
-                        entries.add(BlockRegistry.BAOBAB_DOOR);
-                        entries.add(ItemRegistry.BAOBAB_BOAT);
-                        entries.add(ItemRegistry.BAOBAB_CHEST_BOAT);
-                        entries.add(ItemRegistry.BAOBAB_SHELF);
 
                         entries.add(ItemRegistry.BOAT_UPGRADE_TEMPLATE);
                         entries.add(ItemRegistry.BIG_OAK_BOAT);
-                        entries.add(ItemRegistry.HUGE_OAK_BOAT);
-                        entries.add(ItemRegistry.BIG_ACACIA_BOAT);
-                        entries.add(ItemRegistry.HUGE_ACACIA_BOAT);
-                        entries.add(ItemRegistry.BIG_BAMBOO_BOAT);
-                        entries.add(ItemRegistry.HUGE_BAMBOO_BOAT);
-                        entries.add(ItemRegistry.BIG_BIRCH_BOAT);
-                        entries.add(ItemRegistry.HUGE_BIRCH_BOAT);
-                        entries.add(ItemRegistry.BIG_CHERRY_BOAT);
-                        entries.add(ItemRegistry.HUGE_CHERRY_BOAT);
-                        entries.add(ItemRegistry.BIG_DARK_OAK_BOAT);
-                        entries.add(ItemRegistry.HUGE_DARK_OAK_BOAT);
-                        entries.add(ItemRegistry.BIG_JUNGLE_BOAT);
-                        entries.add(ItemRegistry.HUGE_JUNGLE_BOAT);
-                        entries.add(ItemRegistry.BIG_MANGROVE_BOAT);
-                        entries.add(ItemRegistry.HUGE_MANGROVE_BOAT);
-                        entries.add(ItemRegistry.BIG_PALE_OAK_BOAT);
-                        entries.add(ItemRegistry.HUGE_PALE_OAK_BOAT);
                         entries.add(ItemRegistry.BIG_SPRUCE_BOAT);
-                        entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
+                        entries.add(ItemRegistry.BIG_BIRCH_BOAT);
+                        entries.add(ItemRegistry.BIG_JUNGLE_BOAT);
+                        entries.add(ItemRegistry.BIG_ACACIA_BOAT);
+                        entries.add(ItemRegistry.BIG_DARK_OAK_BOAT);
+                        entries.add(ItemRegistry.BIG_MANGROVE_BOAT);
+                        entries.add(ItemRegistry.BIG_CHERRY_BOAT);
+                        entries.add(ItemRegistry.BIG_PALE_OAK_BOAT);
+                        entries.add(ItemRegistry.BIG_BAMBOO_BOAT);
                         entries.add(ItemRegistry.BIG_BAOBAB_BOAT);
+
+                        entries.add(ItemRegistry.HUGE_OAK_BOAT);
+                        entries.add(ItemRegistry.HUGE_SPRUCE_BOAT);
+                        entries.add(ItemRegistry.HUGE_BIRCH_BOAT);
+                        entries.add(ItemRegistry.HUGE_JUNGLE_BOAT);
+                        entries.add(ItemRegistry.HUGE_ACACIA_BOAT);
+                        entries.add(ItemRegistry.HUGE_DARK_OAK_BOAT);
+                        entries.add(ItemRegistry.HUGE_MANGROVE_BOAT);
+                        entries.add(ItemRegistry.HUGE_CHERRY_BOAT);
+                        entries.add(ItemRegistry.HUGE_PALE_OAK_BOAT);
+                        entries.add(ItemRegistry.HUGE_BAMBOO_BOAT);
                         entries.add(ItemRegistry.HUGE_BAOBAB_BOAT);
+
 
                     }).build();
 

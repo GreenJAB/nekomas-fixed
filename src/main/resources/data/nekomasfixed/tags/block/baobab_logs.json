@@ -1,6 +1,8 @@
 {
     "values": [
         "nekomasfixed:baobab_log",
-        "nekomasfixed:baobab_wood"
+        "nekomasfixed:baobab_wood",
+        "nekomasfixed:stripped_baobab_log",
+        "nekomasfixed:stripped_baobab_wood"
     ]
 }

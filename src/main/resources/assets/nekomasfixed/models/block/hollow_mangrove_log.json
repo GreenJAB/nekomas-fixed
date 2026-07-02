@@ -1,0 +1,9 @@
+{
+  "parent": "nekomasfixed:block/hollow_log_template",
+  "textures": {
+    "outside": "minecraft:block/mangrove_log",
+    "inside": "minecraft:block/stripped_mangrove_log",
+    "end": "minecraft:block/mangrove_log_top",
+    "particle": "minecraft:block/mangrove_log"
+  }
+}

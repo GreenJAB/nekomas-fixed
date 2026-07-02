@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_baobab_log": {
+    "has_stripped_baobab_log": {
       "conditions": {
         "items": [
           {
-            "items": "nekomasfixed:baobab_log"
+            "items": "nekomasfixed:stripped_baobab_log"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_baobab_log"
+      "has_stripped_baobab_log"
     ]
   ],
   "rewards": {

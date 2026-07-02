@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    "nekomasfixed:baobab_log"
+    "#nekomasfixed:baobab_logs"
   ],
   "result": {
     "count": 4,

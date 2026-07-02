@@ -38,24 +38,6 @@ public class NekomasFixedClient implements ClientModInitializer {
 				BlockRegistry.MAROON_STAINED_GLASS_PANE
 		);
 
-		BlockRenderLayerMap.putBlocks(
-				BlockRenderLayer.CUTOUT,
-				BlockRegistry.BAOBAB_FRUIT,
-				BlockRegistry.BAOBAB_LEAVES,
-				BlockRegistry.BAOBAB_SAPLING,
-				BlockRegistry.HOLLOW_OAK_LOG,
-				BlockRegistry.HOLLOW_DARK_OAK_LOG,
-				BlockRegistry.HOLLOW_ACACIA_LOG,
-				BlockRegistry.HOLLOW_BIRCH_LOG,
-				BlockRegistry.HOLLOW_CHERRY_LOG,
-				BlockRegistry.HOLLOW_JUNGLE_LOG,
-				BlockRegistry.HOLLOW_SPRUCE_LOG,
-				BlockRegistry.HOLLOW_PALE_OAK_LOG,
-				BlockRegistry.HOLLOW_CRIMSON_STEM,
-				BlockRegistry.HOLLOW_WARPED_STEM
-
-		);
-
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
             if (state != null) {
                 assert world != null;
