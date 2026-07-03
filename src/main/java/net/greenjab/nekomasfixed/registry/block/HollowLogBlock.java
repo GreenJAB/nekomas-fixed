@@ -186,7 +186,6 @@ public class HollowLogBlock extends BlockWithEntity implements BlockEntityProvid
                             stack.damage(1, player, hand);
                         if (logBE.getStoredBlock().isIn(BlockTags.FLOWER_POTS) && !logBE.getStoredStack().isOf(Items.FLOWER_POT)) {
                             dropStack(serverWorld, pos, Items.FLOWER_POT.getDefaultStack());
-                            dropStack(serverWorld, pos, logBE.getStoredBlock().get());
                         }
                         dropStack(serverWorld, pos, logBE.getStoredStack());
                         logBE.setStoredBlock(ItemStack.EMPTY, Blocks.AIR.getDefaultState());
