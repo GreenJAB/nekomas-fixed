@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/beetroot_soup"
+    "layer0": "minecraft:item/bowl",
+    "layer1": "nekomasfixed:item/special_soup_overlay"
   }
 }

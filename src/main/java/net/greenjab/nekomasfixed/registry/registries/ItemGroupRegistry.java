@@ -24,22 +24,22 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.ZOMBIE_NAUTILUS_BLOCK);
                         entries.add(ItemRegistry.CORAL_NAUTILUS_BLOCK);
                         entries.add(ItemRegistry.GLISTERING_MELON);
-                        entries.add(ItemRegistry.KILN);
                         entries.add(ItemRegistry.GEYSER);
+                        entries.add(ItemRegistry.KILN);
                         entries.add(ItemRegistry.PYROTECHNICS_TABLE);
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
                         entries.add(ItemRegistry.REDSTONE_STRIKER);
-                        entries.add(ItemRegistry.TARGET_DUMMY);
                         entries.add(ItemRegistry.GLOW_TORCH);
+                        entries.add(ItemRegistry.TARGET_DUMMY);
                         entries.add(ItemRegistry.TURTLE_CHESTPLATE);
                         entries.add(ItemRegistry.TURTLE_LEGGINGS);
                         entries.add(ItemRegistry.TURTLE_BOOTS);
 
                         entries.add(ItemRegistry.MOOBLOOM_SPAWN_EGG);
+                        entries.add(ItemRegistry.DRENCHED_SPAWN_EGG);
+                        entries.add(ItemRegistry.RIME_SPAWN_EGG);
                         entries.add(ItemRegistry.DERELICT_SPAWN_EGG);
                         entries.add(ItemRegistry.ANCHOR);
-                        entries.add(ItemRegistry.RIME_SPAWN_EGG);
-                        entries.add(ItemRegistry.DRENCHED_SPAWN_EGG);
                         entries.add(ItemRegistry.SUSPICIOUS_SPIDER_SPAWN_EGG);
                         entries.add(ItemRegistry.WILDFIRE_SPAWN_EGG);
                         entries.add(ItemRegistry.NETHER_HEART);

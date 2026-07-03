@@ -42,25 +42,25 @@ public class ItemRegistry {
     public static final Item ZOMBIE_NAUTILUS_BLOCK = register(BlockRegistry.ZOMBIE_NAUTILUS_BLOCK, new Item.Settings().maxCount(1).component(ComponentRegistry.ANIMAL, AnimalComponent.DEFAULT));
     public static final Item CORAL_NAUTILUS_BLOCK = register(BlockRegistry.CORAL_NAUTILUS_BLOCK, new Item.Settings().maxCount(1).component(ComponentRegistry.ANIMAL, AnimalComponent.DEFAULT));
     public static final Item GLISTERING_MELON = register(BlockRegistry.GLISTERING_MELON, new Item.Settings());
-    public static final Item KILN = register(BlockRegistry.KILN);
     public static final Item GEYSER = register(BlockRegistry.GEYSER);
+    public static final Item KILN = register(BlockRegistry.KILN);
     public static final Item PYROTECHNICS_TABLE = register(BlockRegistry.PYROTECHNICS_TABLE);
     public static final Item ENDERMAN_HEAD = register(BlockRegistry.ENDERMAN_HEAD,(block, settings) ->
             new VerticallyAttachableBlockItem(block, BlockRegistry.WALL_ENDERMAN_HEAD, Direction.DOWN,
                     Waypoint.disableTracking(settings)), new Item.Settings().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
     public static final Item REDSTONE_STRIKER = register("redstone_striker", RedstoneStrikerItem::new, new Item.Settings().maxCount(1).maxDamage(64));
-    public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
     public static final Item GLOW_TORCH = register(BlockRegistry.GLOW_TORCH, ((block, settings) ->
             new VerticallyAttachableBlockItem(block, BlockRegistry.GLOW_WALL_TORCH, Direction.DOWN, settings)));
+    public static final Item TARGET_DUMMY = register("target_dummy", TargetDummyItem::new, new Item.Settings().maxCount(1));
     public static final Item TURTLE_CHESTPLATE = register("turtle_chestplate", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.CHESTPLATE));
     public static final Item TURTLE_LEGGINGS = register("turtle_leggings", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.LEGGINGS));
     public static final Item TURTLE_BOOTS = register("turtle_boots", new Item.Settings().armor(ArmorMaterials.TURTLE_SCUTE, EquipmentType.BOOTS));
 
     public static final Item MOOBLOOM_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.MOOBLOOM);
+    public static final Item DRENCHED_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DRENCHED);
+    public static final Item RIME_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.RIME);
     public static final Item DERELICT_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DERELICT);
     public static final Item ANCHOR = register("anchor", AnchorItem::new, ModItemSettings.anchor(12.0f, -3.5f));
-    public static final Item RIME_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.RIME);
-    public static final Item DRENCHED_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DRENCHED);
     public static final Item SUSPICIOUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUSPICIOUS_SPIDER);
     public static final Item WILDFIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILDFIRE);
     public static final Item NETHER_HEART = register(
@@ -205,7 +205,7 @@ public class ItemRegistry {
     public static final Item HUGE_BAMBOO_BOAT = register("huge_bamboo_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BAMBOO_BOAT, settings), new Item.Settings().maxCount(1));
     public static final Item HUGE_BAOBAB_BOAT = register("huge_baobab_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BAOBAB_BOAT, settings), new Item.Settings().maxCount(1));
 
-    public static final Item SPECIAL_STEW = register("special_stew",SpecialSoupItem::new, new Item.Settings().food((new FoodComponent.Builder()).nutrition(1).saturationModifier(0.3F).build()));
+    public static final Item SPECIAL_STEW = register("special_stew",SpecialSoupItem::new, new Item.Settings().maxCount(1).food((new FoodComponent.Builder()).nutrition(0).saturationModifier(0.0F).build()).useRemainder(Items.BOWL));
     public static final RegistryEntry<Potion> LIGHTNING = register("lightning", new Potion("lightning", new StatusEffectInstance(EffectRegistry.LIGHTNING, 1)));
     private static RegistryEntry<Potion> register(String name, Potion potion) {
         return Registry.registerReference(Registries.POTION, NekomasFixed.id(name), potion);

@@ -4,8 +4,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.greenjab.nekomasfixed.registries.*;
+import net.greenjab.nekomasfixed.registry.block.cauldron.SoupCauldronBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.greenjab.nekomasfixed.render.block.entity.*;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.greenjab.nekomasfixed.screen.PyrotechnicsTableScreen;
@@ -41,7 +41,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
             if (state != null) {
                 assert world != null;
-                return SoupCauldronBlockEntityRenderer.getTintIndex(world, pos, tintIndex);
+                return SoupCauldronBlock.getTintIndex(world, pos, tintIndex);
             } else {
                 return 0;
             }

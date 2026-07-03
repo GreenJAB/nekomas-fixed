@@ -20,6 +20,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -124,6 +125,11 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
     @Override
     public boolean isFull(BlockState state) {
         return state.get(MAGMA_LEVEL) == MAX_LEVEL;
+    }
+
+    @Override
+    protected int getComparatorOutput(BlockState state, World world, BlockPos pos, Direction direction) {
+        return state.get(MAGMA_LEVEL);
     }
 
 }

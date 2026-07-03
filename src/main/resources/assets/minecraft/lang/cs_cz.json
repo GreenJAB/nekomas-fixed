@@ -1,0 +1,7 @@
+{
+  "block.minecraft.clock": "Hodiny",
+  "item.minecraft.tipped_arrow.effect.lightning": "Šíp blesku",
+  "item.minecraft.lingering_potion.effect.lightning": "Doznívající lektvar blesku",
+  "item.minecraft.potion.effect.lightning": "Lektrav blesku",
+  "item.minecraft.splash_potion.effect.lightning": "Vrhací lektvar blesku"
+}

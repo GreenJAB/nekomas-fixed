@@ -2,7 +2,17 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "nekomasfixed:item/special_stew"
+    "model": "nekomasfixed:item/special_stew",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -1
+      },
+      {
+        "type": "minecraft:dye",
+        "default": -65535
+      }
+    ]
   }
 }
 

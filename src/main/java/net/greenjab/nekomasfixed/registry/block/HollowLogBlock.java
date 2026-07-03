@@ -12,6 +12,8 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -35,6 +37,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jspecify.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 
 public class HollowLogBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable{
@@ -203,5 +206,16 @@ public class HollowLogBlock extends BlockWithEntity implements BlockEntityProvid
             return ActionResult.SUCCESS;
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+    }
+
+    @Override
+    protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
+        BlockEntity blockEntity = builder.getOptional(LootContextParameters.BLOCK_ENTITY);
+        List<ItemStack> list = super.getDroppedStacks(state, builder);
+        if (blockEntity instanceof HollowLogBlockEntity hollowLogBlockEntity) {
+            if (hollowLogBlockEntity.getStoredBlock().isIn(BlockTags.FLOWER_POTS) && !hollowLogBlockEntity.getStoredBlock().isOf(Blocks.FLOWER_POT))
+                list.add(Items.FLOWER_POT.getDefaultStack());
+        }
+        return list;
     }
 }
