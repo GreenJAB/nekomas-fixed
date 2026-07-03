@@ -18,8 +18,7 @@ public interface TooltipComponentMixin {
     private static void useContainerTooltip(TooltipData tooltipData, CallbackInfoReturnable<TooltipComponent> cir) {
         if (tooltipData instanceof ContainerTooltipData containerTooltipData) {
             cir.setReturnValue(new ContainerTooltipComponent(containerTooltipData.contents()));
-        } else
-        if (tooltipData instanceof AnimalTooltipData animalTooltipData) {
+        } else if (tooltipData instanceof AnimalTooltipData animalTooltipData) {
             cir.setReturnValue(new AnimalTooltipComponent(animalTooltipData.contents()));
         }
     }

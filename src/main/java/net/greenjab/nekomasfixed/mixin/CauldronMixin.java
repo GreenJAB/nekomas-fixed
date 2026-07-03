@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.block.cauldron.SoupCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.AbstractCauldronBlock;
@@ -28,11 +29,11 @@ public class CauldronMixin {
         if (state.getBlock() == Blocks.WATER_CAULDRON) {
             if (state.getBlock() instanceof LeveledCauldronBlock leveledCauldronBlock && leveledCauldronBlock.isFull(state)) {
                 if (world.getBlockState(pos.down()).isIn(BlockTags.FIRE) || world.getBlockState(pos.down()).isIn(BlockTags.CAMPFIRES)) {
-                    if (stack.getComponents().contains(DataComponentTypes.FOOD) || stack.getComponents().contains(DataComponentTypes.POTION_CONTENTS)) {
+                    if (SoupCauldronBlock.FOOD_COLORS.containsKey(stack.getItem()) || stack.getComponents().contains(DataComponentTypes.POTION_CONTENTS)) {
                         world.setBlockState(pos, BlockRegistry.SOUP_CAULDRON.getDefaultState());
                         if (world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soup ) {
-                            soup.addInput(stack.copyWithCount(1));
-                            stack.decrementUnlessCreative(1, player);
+                            if (soup.addInput(stack.copyWithCount(1)))
+                                stack.decrementUnlessCreative(1, player);
                             cir.setReturnValue(ActionResult.SUCCESS);
                         }
                     }
