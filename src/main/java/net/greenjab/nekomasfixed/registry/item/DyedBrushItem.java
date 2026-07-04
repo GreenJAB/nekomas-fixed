@@ -88,12 +88,12 @@ public class DyedBrushItem extends Item {
                             .with(GlazedTerracottaBlock.FACING, state.get(GlazedTerracottaBlock.FACING)));
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(BlockTags.WOOL) && !state.isOf(getWool(color))){
-                    world.setBlockState(pos, getWool(color).getDefaultState());
-                    used = true;
-                    this.afterUse(context);
                 } else if(state.isIn(ModTags.SPOTTED_WOOLS) && !state.isOf(getSpottedWool(color))){
                     world.setBlockState(pos, getSpottedWool(color).getDefaultState());
+                    used = true;
+                    this.afterUse(context);
+                } else if(state.isIn(BlockTags.WOOL) && !state.isOf(getWool(color))){
+                    world.setBlockState(pos, getWool(color).getDefaultState());
                     used = true;
                     this.afterUse(context);
                 } else if(state.isIn(BlockTags.CANDLES) || state.isOf(Blocks.CANDLE) && !state.isOf(getCandle(color))){
@@ -103,12 +103,12 @@ public class DyedBrushItem extends Item {
                     );
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(BlockTags.WOOL_CARPETS) && !state.isOf(getCarpet(color))){
-                    world.setBlockState(pos, getCarpet(color).getDefaultState());
-                    used = true;
-                    this.afterUse(context);
                 } else if(state.isIn(ModTags.SPOTTED_CARPETS) && !state.isOf(getSpottedCarpet(color))){
                     world.setBlockState(pos, getSpottedCarpet(color).getDefaultState());
+                    used = true;
+                    this.afterUse(context);
+                } else if(state.isIn(BlockTags.WOOL_CARPETS) && !state.isOf(getCarpet(color))){
+                    world.setBlockState(pos, getCarpet(color).getDefaultState());
                     used = true;
                     this.afterUse(context);
                 } else if(state.isIn(ModTags.CONCRETES) && !state.isOf(getConcretes(color))){

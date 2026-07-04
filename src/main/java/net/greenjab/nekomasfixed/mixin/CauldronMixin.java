@@ -7,7 +7,6 @@ import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
@@ -29,7 +28,7 @@ public class CauldronMixin {
         if (state.getBlock() == Blocks.WATER_CAULDRON) {
             if (state.getBlock() instanceof LeveledCauldronBlock leveledCauldronBlock && leveledCauldronBlock.isFull(state)) {
                 if (world.getBlockState(pos.down()).isIn(BlockTags.FIRE) || world.getBlockState(pos.down()).isIn(BlockTags.CAMPFIRES)) {
-                    if (SoupCauldronBlock.FOOD_COLORS.containsKey(stack.getItem()) || stack.getComponents().contains(DataComponentTypes.POTION_CONTENTS)) {
+                    if (SoupCauldronBlock.FOOD_COLORS.containsKey(stack.getItem())) {
                         world.setBlockState(pos, BlockRegistry.SOUP_CAULDRON.getDefaultState());
                         if (world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soup ) {
                             if (soup.addInput(stack.copyWithCount(1)))

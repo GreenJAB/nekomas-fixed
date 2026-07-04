@@ -54,7 +54,7 @@ public class ModEntityLayerRegistry {
     public static final EntityModelLayer WILDFIRE_TRIDENT = register("wildfirefire_trident", "main");
 
     public static final EntityModelLayer DRENCHED = new EntityModelLayer(NekomasFixed.id("drenched"), "main");
-    public static final EntityModelLayer SUS_SPIDER = new EntityModelLayer(NekomasFixed.id("sus_spider"), "main");
+    public static final EntityModelLayer SUSPICIOUS_SPIDER = new EntityModelLayer(NekomasFixed.id("suspicious_spider"), "main");
     public static final EntityModelLayer RIME = new EntityModelLayer(NekomasFixed.id("zombie/rime"), "main");
     public static final EntityModelLayer DERELICT = new EntityModelLayer(NekomasFixed.id("zombie/derelict"), "main");
 
@@ -77,7 +77,7 @@ public class ModEntityLayerRegistry {
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TERMITE, TermiteModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM_BABY, MoobloomEntityModel::getBabyTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.SUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.SUSPICIOUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.DRENCHED, DrenchedEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.RIME, RimeEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.DERELICT, DerelictEntityModel::getTexturedModelData);

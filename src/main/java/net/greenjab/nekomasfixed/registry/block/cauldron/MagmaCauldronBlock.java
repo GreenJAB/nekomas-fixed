@@ -26,6 +26,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 
 import java.util.Map;
 
@@ -41,6 +42,10 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         super(settings, createBehaviorMap());
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(MAGMA_LEVEL, MAX_LEVEL));
+    }
+
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return Items.CAULDRON.getDefaultStack();
     }
 
     @Override

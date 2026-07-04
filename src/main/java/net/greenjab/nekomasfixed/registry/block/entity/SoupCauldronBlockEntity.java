@@ -8,6 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LidOpenable;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -49,8 +50,7 @@ public class SoupCauldronBlockEntity extends BlockEntity implements LidOpenable 
         if (stack.isOf(Items.AIR)) return false;
         markDirty();
 
-        if(world != null && !world.isClient()) world.updateListeners(pos, getCachedState(), getCachedState(), 3);
-        for (ItemStack existing : inputs) if (ItemStack.areItemsEqual(existing, stack)) return false;
+        if (!stack.hasChangedComponent(DataComponentTypes.POTION_CONTENTS)) for (ItemStack existing : inputs) if (ItemStack.areItemsEqual(existing, stack)) return false;
 
         if (inputs.size() < 4) {
             inputs.add(stack.copyWithCount(1));

@@ -41,9 +41,9 @@
 
   "item.nekomasfixed.target_dummy": "Target Dummy",
   "entity.nekomasfixed.target_dummy": "Target Dummy",
-  "item.nekomasfixed.turtle_chestplate": "Turtle Chestplate",
-  "item.nekomasfixed.turtle_leggings": "Turtle Leggings",
-  "item.nekomasfixed.turtle_boots": "Turtle Boots",
+  "item.nekomasfixed.turtle_chestplate": "Turtle Shell",
+  "item.nekomasfixed.turtle_leggings": "Turtle Knee Pads",
+  "item.nekomasfixed.turtle_boots": "Turtle Flippers",
 
   "entity.nekomasfixed.moobloom": "Moobloom",
   "item.nekomasfixed.moobloom_spawn_egg": "Moobloom Spawn Egg",

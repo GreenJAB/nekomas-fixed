@@ -19,6 +19,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 
 import java.util.Map;
 
@@ -34,6 +35,10 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
 
     public IceCauldronBlock(AbstractBlock.Settings settings) {
         super(settings, createBehaviorMap());
+    }
+
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return Items.CAULDRON.getDefaultStack();
     }
 
     private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {

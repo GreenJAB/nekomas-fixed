@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 
 import java.util.Map;
 
@@ -33,6 +34,10 @@ public class SlimeCauldronBlock extends AbstractCauldronBlock {
         super(settings, createBehaviorMap());
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(SLIME_LEVEL, MAX_LEVEL));
+    }
+
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return Items.CAULDRON.getDefaultStack();
     }
 
     @Override

@@ -10,9 +10,10 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Identifier;
 
 public class SuspiciousSpiderEntityRenderer extends MobEntityRenderer<SuspiciousSpiderEntity, LivingEntityRenderState, SuspiciousSpiderEntityModel> {
-    private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/sus_spider/sus_spider.png");
+    private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/suspicious_spider/suspicious_spider.png");
     public SuspiciousSpiderEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new SuspiciousSpiderEntityModel(context.getPart(ModEntityLayerRegistry.SUS_SPIDER)), 0.5f);
+        super(context, new SuspiciousSpiderEntityModel(context.getPart(ModEntityLayerRegistry.SUSPICIOUS_SPIDER)), 0.5f);
+        this.addFeature(new SuspiciousSpiderEyesFeatureRenderer<>(this));
     }
 
     @Override

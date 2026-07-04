@@ -11,10 +11,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LidOpenable;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.component.type.UseRemainderComponent;
+import net.minecraft.component.type.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,6 +37,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
@@ -65,6 +63,10 @@ public class SoupCauldronBlock extends BlockWithEntity implements BlockEntityPro
         super(settings);
     }
 
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return Items.CAULDRON.getDefaultStack();
+    }
+
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         Random random = new Random();
@@ -75,7 +77,7 @@ public class SoupCauldronBlock extends BlockWithEntity implements BlockEntityPro
             be.setStirred(world);
             if (world.isClient()) for (int i = 0; i < 4; i++) world.addImportantParticleClient(ParticleTypes.POOF, true, pos.getX()+(0.5 + (random.nextDouble())*(random.nextBoolean()?1:-1)), pos.getY() + 1.0 , pos.getZ()+0.5+(random.nextDouble() * (random.nextBoolean()?1:-1)), 0.001  * (random.nextBoolean()?1:-1), 0.0001, 0.001 *  (random.nextBoolean()?1:-1));
             return ActionResult.SUCCESS;
-        } else if ((FOOD_COLORS.containsKey(stack.getItem()) || stack.getComponents().contains(DataComponentTypes.POTION_CONTENTS)) && (world.getBlockState(pos.down()).isIn(BlockTags.FIRE) || world.getBlockState(pos.down()).isIn(BlockTags.CAMPFIRES)) ) {
+        } else if ((FOOD_COLORS.containsKey(stack.getItem())) && (world.getBlockState(pos.down()).isIn(BlockTags.FIRE) || world.getBlockState(pos.down()).isIn(BlockTags.CAMPFIRES)) ) {
             if(be.hasStirred){return ActionResult.FAIL;}
             if(be.getInputs().size()>=4){return ActionResult.FAIL;}
             if (!world.isClient()) {
@@ -162,6 +164,7 @@ public class SoupCauldronBlock extends BlockWithEntity implements BlockEntityPro
     }
 
     public static final Map<Item, Integer> FOOD_COLORS = Map.ofEntries(
+            Map.entry(Items.POTION, 0x385DC6),
             Map.entry(Items.APPLE, 0xFC1C2A),
             Map.entry(Items.GOLDEN_APPLE, 0xE7EB56),
             Map.entry(Items.ENCHANTED_GOLDEN_APPLE, 0xE7EB56),
@@ -209,17 +212,11 @@ public class SoupCauldronBlock extends BlockWithEntity implements BlockEntityPro
     public static Optional<Integer> getFoodColor(ItemStack stack) {
         if (stack == null || stack.isEmpty()) return Optional.empty();
 
-        Item item = stack.getItem();
-        Integer foodColor = FOOD_COLORS.get(item);
-        if (foodColor != null) {
-            return Optional.of(foodColor);
-        }
-        if (stack.contains(DataComponentTypes.POTION_CONTENTS)) {
-            var contents = stack.get(DataComponentTypes.POTION_CONTENTS);
-            if (contents != null) {
-                return Optional.of(contents.getColor());
-            }
-        }
+        PotionContentsComponent contents = stack.get(DataComponentTypes.POTION_CONTENTS);
+        if (contents != null) return Optional.of(contents.getColor());
+
+        Integer foodColor = FOOD_COLORS.get(stack.getItem());
+        if (foodColor != null) return Optional.of(foodColor);
 
         return Optional.empty();
     }
