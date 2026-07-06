@@ -12,20 +12,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(ParticleManager.class)
+@Mixin(ParticleEngine.class)
 public class ParticleManagerMixin {
 
     @ModifyExpressionValue(method = "<clinit>", at = @At(value = "INVOKE", target = "Ljava/util/List;of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/List;"))
-    private static List<ParticleTextureSheet> addParticleToList(List<ParticleTextureSheet> original){
-        ArrayList<ParticleTextureSheet> newList = new ArrayList<>(original);
+    private static List<ParticleRenderType> addParticleToList(List<ParticleRenderType> original){
+        ArrayList<ParticleRenderType> newList = new ArrayList<>(original);
         newList.add(NumberParticle.particleTextureSheet);
         return newList.stream().toList();
     }
 
-    @Inject(method = "createParticleRenderer", at = @At(value = "HEAD"), cancellable = true)
-    private void addNumberParticle(ParticleTextureSheet textureSheet, CallbackInfoReturnable<ParticleRenderer<?>> cir) {
+    @Inject(method = "createParticleGroup", at = @At(value = "HEAD"), cancellable = true)
+    private void addNumberParticle(ParticleRenderType textureSheet, CallbackInfoReturnable<ParticleGroup<?>> cir) {
         if (textureSheet == NumberParticle.particleTextureSheet) {
-            cir.setReturnValue(new NumberParticleRenderer((ParticleManager)(Object)this));
+            cir.setReturnValue(new NumberParticleRenderer((ParticleEngine)(Object)this));
         }
     }
 }

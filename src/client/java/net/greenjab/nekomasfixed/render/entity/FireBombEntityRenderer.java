@@ -1,61 +1,62 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Colors;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.CommonColors;
+import org.jspecify.annotations.NonNull;
 
 
 @Environment(EnvType.CLIENT)
 public class FireBombEntityRenderer extends EntityRenderer<FireBombEntity, EntityRenderState> {
-	private static final Identifier TEXTURE = Identifier.ofVanilla("textures/item/blaze_powder.png");
-	private static final RenderLayer LAYER = RenderLayers.entityTranslucentEmissive(TEXTURE);
+	private static final Identifier TEXTURE = Identifier.withDefaultNamespace("textures/item/blaze_powder.png");
+	private static final RenderType LAYER = RenderTypes.entityTranslucentEmissive(TEXTURE);
 
-	public FireBombEntityRenderer(EntityRendererFactory.Context context) {
+	public FireBombEntityRenderer(EntityRendererProvider.Context context) {
 		super(context);
 	}
 
-	protected int getBlockLight(FireBombEntity fireBombEntity, BlockPos blockPos) {
+	protected int getBlockLightLevel(@NonNull FireBombEntity fireBombEntity, @NonNull BlockPos blockPos) {
 		return 15;
 	}
 
 	@Override
-	public void render(EntityRenderState renderState, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-		matrices.push();
-		matrices.multiply(cameraState.orientation);
-		queue.submitCustom(matrices, LAYER, (matricesEntry, vertexConsumer) -> {
-			produceVertex(vertexConsumer, matricesEntry, renderState.light, 0.0F, 0, 0, 1);
-			produceVertex(vertexConsumer, matricesEntry, renderState.light, 1.0F, 0, 1, 1);
-			produceVertex(vertexConsumer, matricesEntry, renderState.light, 1.0F, 1, 1, 0);
-			produceVertex(vertexConsumer, matricesEntry, renderState.light, 0.0F, 1, 0, 0);
+	public void submit(@NonNull EntityRenderState renderState, PoseStack matrices, SubmitNodeCollector queue, CameraRenderState cameraState) {
+		matrices.pushPose();
+		matrices.mulPose(cameraState.orientation);
+		queue.submitCustomGeometry(matrices, LAYER, (matricesEntry, vertexConsumer) -> {
+			produceVertex(vertexConsumer, matricesEntry, renderState.lightCoords, 0.0F, 0, 0, 1);
+			produceVertex(vertexConsumer, matricesEntry, renderState.lightCoords, 1.0F, 0, 1, 1);
+			produceVertex(vertexConsumer, matricesEntry, renderState.lightCoords, 1.0F, 1, 1, 0);
+			produceVertex(vertexConsumer, matricesEntry, renderState.lightCoords, 0.0F, 1, 0, 0);
 		});
-		matrices.pop();
-		super.render(renderState, matrices, queue, cameraState);
+		matrices.popPose();
+		super.submit(renderState, matrices, queue, cameraState);
 	}
 
-	public static void produceVertex(VertexConsumer vertexConsumer, MatrixStack.Entry matrix, int light, float x, int z, int textureU, int textureV) {
-		vertexConsumer.vertex(matrix, x - 0.5F, z - 0.25F, 0.0F)
-				.color(Colors.WHITE)
-				.texture(textureU, textureV)
-				.overlay(OverlayTexture.DEFAULT_UV)
-				.light(light)
-				.normal(matrix, 0.0F, 1.0F, 0.0F);
+	public static void produceVertex(VertexConsumer vertexConsumer, PoseStack.Pose matrix, int light, float x, int z, int textureU, int textureV) {
+		vertexConsumer.addVertex(matrix, x - 0.5F, z - 0.25F, 0.0F)
+				.setColor(CommonColors.WHITE)
+				.setUv(textureU, textureV)
+				.setOverlay(OverlayTexture.NO_OVERLAY)
+				.setLight(light)
+				.setNormal(matrix, 0.0F, 1.0F, 0.0F);
 	}
 
 	@Override
-	public EntityRenderState createRenderState() {
+	public @NonNull EntityRenderState createRenderState() {
 		return new EntityRenderState();
 	}
 }

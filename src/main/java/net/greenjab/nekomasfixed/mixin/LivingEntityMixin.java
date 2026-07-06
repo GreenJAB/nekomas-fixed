@@ -4,16 +4,16 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.WildfireShieldItem;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,78 +29,78 @@ public abstract class LivingEntityMixin {
     @Shadow
     public abstract void stopRiding();
 
-    @ModifyVariable(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isSleeping()Z"), ordinal = 0, argsOnly = true)
+    @ModifyVariable(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;isSleeping()Z"), ordinal = 0, argsOnly = true)
     private float turtleChestplateBlock(float amount, @Local(argsOnly = true) DamageSource source) {
         LivingEntity LE = (LivingEntity)(Object)this;
-        if (LE.getEquippedStack(EquipmentSlot.CHEST).isOf(ItemRegistry.TURTLE_CHESTPLATE)) {
-            Vec3d vec3d = source.getPosition();
+        if (LE.getItemBySlot(EquipmentSlot.CHEST).is(ItemRegistry.TURTLE_CHESTPLATE)) {
+            Vec3 vec3d = source.getSourcePosition();
             double d;
             if (vec3d != null) {
-                Vec3d vec3d2 = LE.getRotationVector(0.0F, LE.getHeadYaw());
-                Vec3d vec3d3 = vec3d.subtract(LE.getEntityPos());
-                vec3d3 = new Vec3d(vec3d3.x, 0.0, vec3d3.z).normalize();
-                d = Math.acos(vec3d3.dotProduct(vec3d2));
+                Vec3 vec3d2 = LE.calculateViewVector(0.0F, LE.getYHeadRot());
+                Vec3 vec3d3 = vec3d.subtract(LE.position());
+                vec3d3 = new Vec3(vec3d3.x, 0.0, vec3d3.z).normalize();
+                d = Math.acos(vec3d3.dot(vec3d2));
             } else {
                 d = 0;
             }
 
             float f = getReductionAmount(LE, amount, d);
-            if (f > 0.0F && source.getSource() instanceof LivingEntity) {
-                LE.getEquippedStack(EquipmentSlot.CHEST).damage((f == amount ? 3 : 1), LE, EquipmentSlot.CHEST);
+            if (f > 0.0F && source.getDirectEntity() instanceof LivingEntity) {
+                LE.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak((f == amount ? 3 : 1), LE, EquipmentSlot.CHEST);
             }
             if (amount - f <=0 ) return 0.00123f;
             return amount - f;
         }
-        if (LE.getEquippedStack(EquipmentSlot.HEAD).isOf(Items.TURTLE_HELMET)) {
-            if (source.getTypeRegistryEntry().matchesKey(DamageTypes.MACE_SMASH)) {
-                LE.getEquippedStack(EquipmentSlot.HEAD).damage((int)amount, LE, EquipmentSlot.CHEST);
+        if (LE.getItemBySlot(EquipmentSlot.HEAD).is(Items.TURTLE_HELMET)) {
+            if (source.typeHolder().is(DamageTypes.MACE_SMASH)) {
+                LE.getItemBySlot(EquipmentSlot.HEAD).hurtAndBreak((int)amount, LE, EquipmentSlot.CHEST);
                 return 0.00123f;
             }
         }
 
         return amount;
     }
-    @Inject(method = "takeShieldHit", at = @At("HEAD"))
-    private void onShieldHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
+    @Inject(method = "blockUsingItem", at = @At("HEAD"))
+    private void onShieldHit(ServerLevel world, LivingEntity attacker, CallbackInfo ci) {
         LivingEntity defender = (LivingEntity)(Object)this;
-        ItemStack activeItem = defender.getActiveItem();
+        ItemStack activeItem = defender.getUseItem();
 
         if (activeItem.getItem() instanceof WildfireShieldItem) {
-            if (defender instanceof PlayerEntity player) {
+            if (defender instanceof Player player) {
                 if (player.getHealth() <= 6.0f) {
-                    attacker.setOnFireForTicks(20 * 3);
-                    attacker.takeKnockback(1.0,
+                    attacker.igniteForTicks(20 * 3);
+                    attacker.knockback(1.0,
                             attacker.getX() + player.getX(),
                             attacker.getZ() + player.getZ());
                 } else {
-                    attacker.setOnFireForTicks(20);
+                    attacker.igniteForTicks(20);
                 }
             }
 
         }
     }
 
-    @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getActiveItem()Lnet/minecraft/item/ItemStack;"), cancellable = true)
-    private void cancel0Damage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getUseItem()Lnet/minecraft/world/item/ItemStack;"), cancellable = true)
+    private void cancel0Damage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (amount==0.00123f)cir.setReturnValue(true);
     }
 
-    @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;becomeAngry(Lnet/minecraft/entity/damage/DamageSource;)V"))
-    private void leechingEnchant(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source.getAttacker() instanceof PlayerEntity PE) {
-            int i = NekomasFixed.enchantLevel(PE.getMainHandStack(), "leeching");
+    @Inject(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;resolveMobResponsibleForDamage(Lnet/minecraft/world/damagesource/DamageSource;)V"))
+    private void leechingEnchant(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source.getEntity() instanceof Player PE) {
+            int i = NekomasFixed.enchantLevel(PE.getMainHandItem(), "leeching");
             if (i != 0) PE.heal((i * 0.0125f + 0.0125f) * amount);
         }
     }
 
-    @Inject(method = "damage", at = @At("HEAD"))
-    private void dismountEnchant(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurtServer", at = @At("HEAD"))
+    private void dismountEnchant(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity entity = (LivingEntity)(Object)this;
-        if (source.getAttacker() instanceof PlayerEntity PE) {
-            int i = NekomasFixed.enchantLevel(PE.getMainHandStack(), "dismount");
-            if(source.getWeaponStack()!=null && !source.getWeaponStack().isEmpty() && i==1){
+        if (source.getEntity() instanceof Player PE) {
+            int i = NekomasFixed.enchantLevel(PE.getMainHandItem(), "dismount");
+            if(source.getWeaponItem()!=null && !source.getWeaponItem().isEmpty() && i==1){
                 this.stopRiding();
-                entity.getPassengerList().forEach(Entity::stopRiding);
+                entity.getPassengers().forEach(Entity::stopRiding);
             }
         }
     }
@@ -109,7 +109,7 @@ public abstract class LivingEntityMixin {
     @Unique
     public float getReductionAmount(LivingEntity LE, float damage, double angle) {
         if (angle > (float) (Math.PI / 180.0) * 90f) {
-            if (LE instanceof PlayerEntity player && !player.isSneaking()) return damage/2f;
+            if (LE instanceof Player player && !player.isShiftKeyDown()) return damage/2f;
             return damage;
         } else {
             return 0.0F;

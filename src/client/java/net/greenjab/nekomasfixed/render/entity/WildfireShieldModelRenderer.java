@@ -1,67 +1,68 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.ShieldEntityModel;
-import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
-import net.minecraft.client.render.model.ModelBaker;
-import net.minecraft.client.texture.SpriteHolder;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.model.object.equipment.ShieldModel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3fc;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
-public class WildfireShieldModelRenderer implements SpecialModelRenderer<ComponentMap> {
-	private final SpriteHolder spriteHolder;
-	private final ShieldEntityModel model;
+public class WildfireShieldModelRenderer implements SpecialModelRenderer<DataComponentMap> {
+	private final MaterialSet spriteHolder;
+	private final ShieldModel model;
 	public static final Identifier TEXTURE = NekomasFixed.id("textures/entity/wildfire_shield/default.png");
 	public static final Identifier TEXTURE_SOUL = NekomasFixed.id("textures/entity/wildfire_shield/soul.png");
 
-	public WildfireShieldModelRenderer(SpriteHolder spriteHolder, ShieldEntityModel model) {
+	public WildfireShieldModelRenderer(MaterialSet spriteHolder, ShieldModel model) {
 		this.spriteHolder = spriteHolder;
 		this.model = model;
 	}
 
 	@Nullable
-	public ComponentMap getData(ItemStack itemStack) {
-		return itemStack.getImmutableComponents();
+	public DataComponentMap extractArgument(ItemStack itemStack) {
+		return itemStack.immutableComponents();
 	}
 
-	public void render(
-			@Nullable ComponentMap componentMap, ItemDisplayContext itemDisplayContext, MatrixStack matrixStack, OrderedRenderCommandQueue orderedRenderCommandQueue,
-			int i, int j, boolean bl, int k) {
-		matrixStack.push();
+	public void submit(
+            @Nullable DataComponentMap componentMap, @NonNull ItemDisplayContext itemDisplayContext, PoseStack matrixStack, SubmitNodeCollector orderedRenderCommandQueue,
+            int i, int j, boolean bl, int k) {
+		matrixStack.pushPose();
 		matrixStack.scale(1.0F, -1.0F, -1.0F);
-		SpriteIdentifier spriteIdentifier = ModelBaker.SHIELD_BASE_NO_PATTERN;
+		Material spriteIdentifier = ModelBakery.NO_PATTERN_SHIELD;
 		orderedRenderCommandQueue.submitModelPart(
-				this.model.getHandle(), matrixStack, this.model.getLayer(spriteIdentifier.getAtlasId()),
-				i, j, this.spriteHolder.getSprite(spriteIdentifier),
+				this.model.handle(), matrixStack, this.model.renderType(spriteIdentifier.atlasLocation()),
+				i, j, this.spriteHolder.get(spriteIdentifier),
 				false,false,-1,null, k);
-		int damage = componentMap.getOrDefault(DataComponentTypes.DAMAGE, 0);
+		int damage = componentMap.getOrDefault(DataComponents.DAMAGE, 0);
 		orderedRenderCommandQueue.submitModelPart(
-				this.model.getPlate(), matrixStack,
-				this.model.getLayer(damage< ItemRegistry.WILDFIRE_SHIELD.getDefaultStack().getMaxDamage()/2 ? TEXTURE:TEXTURE_SOUL),
+				this.model.plate(), matrixStack,
+				this.model.renderType(damage< ItemRegistry.WILDFIRE_SHIELD.getDefaultInstance().getMaxDamage()/2 ? TEXTURE:TEXTURE_SOUL),
 				i, j,null,false, bl,-1,null, k);
-		matrixStack.pop();
+		matrixStack.popPose();
 	}
 
 	@Override
-	public void collectVertices(Consumer<Vector3fc> consumer) {
-		MatrixStack matrixStack = new MatrixStack();
+	public void getExtents(@NonNull Consumer<Vector3fc> consumer) {
+		PoseStack matrixStack = new PoseStack();
 		matrixStack.scale(1.0F, -1.0F, -1.0F);
-		this.model.getRootPart().collectVertices(matrixStack, consumer);
+		this.model.root().getExtentsForGui(matrixStack, consumer);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -70,13 +71,13 @@ public class WildfireShieldModelRenderer implements SpecialModelRenderer<Compone
 		public static final MapCodec<WildfireShieldModelRenderer.Unbaked> CODEC = MapCodec.unit(INSTANCE);
 
 		@Override
-		public MapCodec<WildfireShieldModelRenderer.Unbaked> getCodec() {
+		public @NonNull MapCodec<WildfireShieldModelRenderer.Unbaked> type() {
 			return CODEC;
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakeContext context) {
-			return new WildfireShieldModelRenderer(context.spriteHolder(), new ShieldEntityModel(context.entityModelSet().getModelPart(EntityModelLayers.SHIELD)));
+		public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakingContext context) {
+			return new WildfireShieldModelRenderer(context.materials(), new ShieldModel(context.entityModelSet().bakeLayer(ModelLayers.SHIELD)));
 		}
 	}
 }

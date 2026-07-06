@@ -6,21 +6,21 @@ import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.ModTags;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.PotionContentsComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipData;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.potion.Potion;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,54 +32,54 @@ import java.util.function.Consumer;
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
 
-	@Inject(method = "getTooltipData", at = @At("HEAD"), cancellable = true)
-	private void UseNewContainerComponentTooltip(CallbackInfoReturnable<Optional<TooltipData>> cir){
+	@Inject(method = "getTooltipImage", at = @At("HEAD"), cancellable = true)
+	private void UseNewContainerComponentTooltip(CallbackInfoReturnable<Optional<TooltipComponent>> cir){
         ItemStack itemStack = (ItemStack)(Object) this;
-		if (itemStack.getComponents().contains(DataComponentTypes.CONTAINER)) {
-			TooltipDisplayComponent tooltipDisplayComponent = itemStack.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT);
-			cir.setReturnValue(!tooltipDisplayComponent.shouldDisplay(DataComponentTypes.CONTAINER)
+		if (itemStack.getComponents().has(DataComponents.CONTAINER)) {
+			TooltipDisplay tooltipDisplayComponent = itemStack.getOrDefault(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT);
+			cir.setReturnValue(!tooltipDisplayComponent.shows(DataComponents.CONTAINER)
 					? Optional.empty()
-					: Optional.ofNullable(itemStack.get(DataComponentTypes.CONTAINER)).map(ContainerTooltipData::new));
-		} else if (itemStack.getComponents().contains(ComponentRegistry.ANIMAL)) {
-			TooltipDisplayComponent tooltipDisplayComponent = itemStack.getOrDefault(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT);
-			cir.setReturnValue(!tooltipDisplayComponent.shouldDisplay(ComponentRegistry.ANIMAL)
+					: Optional.ofNullable(itemStack.get(DataComponents.CONTAINER)).map(ContainerTooltipData::new));
+		} else if (itemStack.getComponents().has(ComponentRegistry.ANIMAL)) {
+			TooltipDisplay tooltipDisplayComponent = itemStack.getOrDefault(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT);
+			cir.setReturnValue(!tooltipDisplayComponent.shows(ComponentRegistry.ANIMAL)
 					? Optional.empty()
 					: Optional.ofNullable(itemStack.get(ComponentRegistry.ANIMAL)).map(AnimalTooltipData::new));
 		}
 	}
 
-	@Inject(method = "appendTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendComponentTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Lnet/minecraft/component/type/TooltipDisplayComponent;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V", ordinal = 0))
-	private void addTooltips(Item.TooltipContext context, TooltipDisplayComponent displayComponent, PlayerEntity player,
-								TooltipType type, Consumer<Text> textConsumer, CallbackInfo ci) {
+	@Inject(method = "addDetailsToTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;addToTooltip(Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/world/item/Item$TooltipContext;Lnet/minecraft/world/item/component/TooltipDisplay;Ljava/util/function/Consumer;Lnet/minecraft/world/item/TooltipFlag;)V", ordinal = 0))
+	private void addTooltips(Item.TooltipContext context, TooltipDisplay displayComponent, Player player,
+								TooltipFlag type, Consumer<Component> textConsumer, CallbackInfo ci) {
 		ItemStack stack = (ItemStack)(Object)this;
-		stack.appendComponentTooltip(ComponentRegistry.ANIMAL, context, displayComponent, textConsumer, type);
-		stack.appendComponentTooltip(ComponentRegistry.STORED_TIME, context, displayComponent, textConsumer, type);
-		stack.appendComponentTooltip(ComponentRegistry.COMBO_MULTIPLIER, context, displayComponent, textConsumer, type);
+		stack.addToTooltip(ComponentRegistry.ANIMAL, context, displayComponent, textConsumer, type);
+		stack.addToTooltip(ComponentRegistry.STORED_TIME, context, displayComponent, textConsumer, type);
+		stack.addToTooltip(ComponentRegistry.COMBO_MULTIPLIER, context, displayComponent, textConsumer, type);
 	}
 
-	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
-	private void useBlockItem(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;"))
+	private void useBlockItem(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 		ItemStack stack = (ItemStack)(Object)this;
-		if (stack.isIn(ModTags.CLAMTAG)) {
+		if (stack.is(ModTags.CLAMTAG)) {
 			int c = stack.getOrDefault(ComponentRegistry.CLAM_STATE, 0)>0?0:1;
-			if (c>0&&stack.hasChangedComponent(DataComponentTypes.CONTAINER)) {
-				if (!stack.get(DataComponentTypes.CONTAINER).copyFirstStack().isEmpty()) c++;
+			if (c>0&&stack.hasNonDefault(DataComponents.CONTAINER)) {
+				if (!stack.get(DataComponents.CONTAINER).copyOne().isEmpty()) c++;
 			}
 			stack.set(ComponentRegistry.CLAM_STATE, c);
 		}
-		if (stack.isOf(Items.CLOCK)) {
-			if (stack.getComponents().contains(ComponentRegistry.STORED_TIME)) {
+		if (stack.is(Items.CLOCK)) {
+			if (stack.getComponents().has(ComponentRegistry.STORED_TIME)) {
 				stack.remove(ComponentRegistry.STORED_TIME);
 			} else {
-				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((world.getTimeOfDay() + 6000) % 24000)));
+				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((world.getDayTime() + 6000) % 24000)));
 			}
 		}
 	}
 
-	@Inject(method = "hasGlint", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "hasFoil", at = @At("HEAD"), cancellable = true)
 	private void lightningGlint(CallbackInfoReturnable<Boolean> cir){
 		ItemStack stack = (ItemStack)(Object)this;
-		Optional<RegistryEntry<Potion>> optional = stack.getOrDefault(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT).potion();
+		Optional<Holder<Potion>> optional = stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).potion();
 		if (optional.isPresent()) {
 			if (optional.get() == ItemRegistry.LIGHTNING) {
 				cir.setReturnValue(true);

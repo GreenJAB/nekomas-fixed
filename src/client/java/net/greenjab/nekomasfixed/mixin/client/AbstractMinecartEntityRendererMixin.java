@@ -1,17 +1,17 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import net.greenjab.nekomasfixed.render.entity.model.CustomMinecartEntityModel;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.AbstractMinecartEntityRenderer;
-import net.minecraft.client.render.entity.model.MinecartEntityModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.object.cart.MinecartModel;
+import net.minecraft.client.renderer.entity.AbstractMinecartRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
-@Mixin(AbstractMinecartEntityRenderer.class)
+@Mixin(AbstractMinecartRenderer.class)
 public class AbstractMinecartEntityRendererMixin {
 
-    @Redirect(method = "<init>", at = @At(value = "NEW", target = "(Lnet/minecraft/client/model/ModelPart;)Lnet/minecraft/client/render/entity/model/MinecartEntityModel;"))
-    private static MinecartEntityModel useCustomMinecartModel(ModelPart modelPart) {
+    @Redirect(method = "<init>", at = @At(value = "NEW", target = "(Lnet/minecraft/client/model/geom/ModelPart;)Lnet/minecraft/client/model/object/cart/MinecartModel;"))
+    private static MinecartModel useCustomMinecartModel(ModelPart modelPart) {
         return new CustomMinecartEntityModel(modelPart);
     }
 }

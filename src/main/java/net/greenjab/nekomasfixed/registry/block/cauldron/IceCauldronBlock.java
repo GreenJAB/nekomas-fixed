@@ -1,89 +1,94 @@
 package net.greenjab.nekomasfixed.registry.block.cauldron;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.entity.CollisionEvent;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCollisionHandler;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.entity.InsideBlockEffectType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Map;
 
 public class IceCauldronBlock extends AbstractCauldronBlock {
-    public static final MapCodec<IceCauldronBlock> CODEC = createCodec(IceCauldronBlock::new);
-    private static final VoxelShape ICE_SHAPE = Block.createColumnShape(12.0, 4.0, 15.0);
-    private static final VoxelShape INSIDE_COLLISION_SHAPE = VoxelShapes.union(AbstractCauldronBlock.OUTLINE_SHAPE, ICE_SHAPE);
+    public static final MapCodec<IceCauldronBlock> CODEC = simpleCodec(IceCauldronBlock::new);
+    private static final VoxelShape ICE_SHAPE = Block.column(12.0, 4.0, 15.0);
+    private static final VoxelShape INSIDE_COLLISION_SHAPE = Shapes.or(AbstractCauldronBlock.SHAPE, ICE_SHAPE);
 
     @Override
-    public MapCodec<IceCauldronBlock> getCodec() {
+    public @NonNull MapCodec<IceCauldronBlock> codec() {
         return CODEC;
     }
 
-    public IceCauldronBlock(AbstractBlock.Settings settings) {
+    public IceCauldronBlock(BlockBehaviour.Properties settings) {
         super(settings, createBehaviorMap());
     }
 
-    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-        return Items.CAULDRON.getDefaultStack();
+    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader world, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+        return Items.CAULDRON.getDefaultInstance();
     }
 
-    private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
-        CauldronBehavior.CauldronBehaviorMap behaviorMap = CauldronBehavior.createMap("ice");
-        Map<Item, CauldronBehavior> map = behaviorMap.map();
+    private static CauldronInteraction.InteractionMap createBehaviorMap() {
+        CauldronInteraction.InteractionMap behaviorMap = CauldronInteraction.newInteractionMap("ice");
+        Map<Item, CauldronInteraction> map = behaviorMap.map();
 
         map.put(Items.AIR, (state, world, pos, player, hand, stack) -> {
-            if (!world.isClient()) {
-                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.ICE)));
-                world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            if (!world.isClientSide()) {
+                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.ICE)));
+                world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+                world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         });
         return behaviorMap;
     }
 
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
-       handler.addEvent(CollisionEvent.FREEZE);
+    protected void entityInside(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Entity entity, InsideBlockEffectApplier handler, boolean bl) {
+       handler.apply(InsideBlockEffectType.FREEZE);
     }
 
     @Override
-    protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        if (!world.isClient()) {
-            world.scheduleBlockTick(pos, this, 200);
+    protected void onPlace(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull BlockState oldState, boolean notify) {
+        if (!world.isClientSide()) {
+            world.scheduleTick(pos, this, 200);
         }
     }
 
     @Override
-    protected double getFluidHeight(BlockState state) {
+    protected double getContentHeight(@NonNull BlockState state) {
         return 0.9375;
     }
 
     @Override
-    public boolean isFull(BlockState state) {
+    public boolean isFull(@NonNull BlockState state) {
         return true;
     }
 
     @Override
-    protected VoxelShape getInsideCollisionShape(BlockState state, BlockView world, BlockPos pos, Entity entity) {
+    protected @NonNull VoxelShape getEntityInsideCollisionShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Entity entity) {
         return INSIDE_COLLISION_SHAPE;
     }
 
     @Override
-    protected int getComparatorOutput(BlockState state, World world, BlockPos pos, Direction direction) {
+    protected int getAnalogOutputSignal(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
         return 3;
     }
 }

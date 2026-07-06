@@ -5,24 +5,25 @@ import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BlockStateComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RawShapedRecipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockItemStateProperties;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
+import org.jspecify.annotations.NonNull;
 
 public class CoralNautilusRecipe extends ShapedRecipe {
-    private final RawShapedRecipe raw;
+    private final ShapedRecipePattern raw;
     private final ItemStack result;
     private final String group;
-    private final CraftingRecipeCategory category;
+    private final CraftingBookCategory category;
     private final boolean showNotification;
 
-    public CoralNautilusRecipe(String group, CraftingRecipeCategory category, RawShapedRecipe pattern, ItemStack result, boolean showNotification) {
+    public CoralNautilusRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result, boolean showNotification) {
         super(group, category, pattern, result, showNotification);
         this.group = group;
         this.category = category;
@@ -31,33 +32,33 @@ public class CoralNautilusRecipe extends ShapedRecipe {
         this.showNotification = showNotification;
     }
 
-    public RawShapedRecipe getRaw() { return this.raw; }
+    public ShapedRecipePattern getRaw() { return this.raw; }
 
     public ItemStack getResultStack() { return result; }
 
-    public String getGroup() { return group; }
+    public @NonNull String group() { return group; }
 
-    public CraftingRecipeCategory getCategory() { return category; }
+    public @NonNull CraftingBookCategory category() { return category; }
 
     public boolean showNotification() { return showNotification; }
 
 
 
     @Override
-    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+    public @NonNull ItemStack assemble(CraftingInput input, HolderLookup.@NonNull Provider lookup) {
         ItemStack resultStack = this.result.copy();
 
         for (int i = 0; i < input.size(); i++) {
-            ItemStack stack = input.getStackInSlot(i);
+            ItemStack stack = input.getItem(i);
 
-            if (stack.isOf(BlockRegistry.ZOMBIE_NAUTILUS_BLOCK.asItem())) {
+            if (stack.is(BlockRegistry.ZOMBIE_NAUTILUS_BLOCK.asItem())) {
                 AnimalComponent data = stack.get(ComponentRegistry.ANIMAL);
                 if (data != null && !data.animal().isEmpty()) {
                     resultStack.set(ComponentRegistry.ANIMAL, data);
-                    resultStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT
+                    resultStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY
                             .with(NautilusBlock.OCCUPIED, true));
                 } else {
-                    resultStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT
+                    resultStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY
                             .with(NautilusBlock.OCCUPIED, false));
                 }
                 break;
@@ -68,7 +69,7 @@ public class CoralNautilusRecipe extends ShapedRecipe {
     }
 
     @Override
-    public RecipeSerializer<? extends ShapedRecipe> getSerializer() {
+    public @NonNull RecipeSerializer<? extends ShapedRecipe> getSerializer() {
         return RecipeRegistry.CORAL_NAUTILUS_SERIALIZER;
     }
 }

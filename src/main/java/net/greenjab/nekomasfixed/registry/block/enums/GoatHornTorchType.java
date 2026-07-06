@@ -1,26 +1,27 @@
 package net.greenjab.nekomasfixed.registry.block.enums;
 
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import org.jspecify.annotations.NonNull;
 
-public enum GoatHornTorchType implements StringIdentifiable {
+public enum GoatHornTorchType implements StringRepresentable {
     NORMAL_TORCH(ParticleTypes.FLAME, 15),
     COPPER_TORCH(ParticleTypes.COPPER_FIRE_FLAME, 13),
     GLOW_TORCH(ParticleTypes.GLOW, 10),
     GLOW_TORCH_OFF(null, 0),
     SOUL_TORCH(ParticleTypes.SOUL_FIRE_FLAME, 10),
-    REDSTONE_TORCH(DustParticleEffect.DEFAULT, 15),
+    REDSTONE_TORCH(DustParticleOptions.REDSTONE, 15),
     NONE(null, 0);
 
     private final int light;
-    private final ParticleEffect particle;
+    private final ParticleOptions particle;
 
-    GoatHornTorchType(ParticleEffect particle, int light) {
+    GoatHornTorchType(ParticleOptions particle, int light) {
         this.light = light;
         this.particle = particle;
     }
@@ -29,12 +30,12 @@ public enum GoatHornTorchType implements StringIdentifiable {
         return this.light;
     }
 
-    public ParticleEffect getParticle() {
+    public ParticleOptions getParticle() {
         return this.particle;
     }
 
     @Override
-    public String asString() {
+    public @NonNull String getSerializedName() {
         return this.name().toLowerCase();
     }
 

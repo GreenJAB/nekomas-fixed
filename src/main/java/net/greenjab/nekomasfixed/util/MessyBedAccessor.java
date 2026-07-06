@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.util;
 
-import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public interface MessyBedAccessor {
-    BooleanProperty IS_MESSY = BooleanProperty.of("is_messy");
+    BooleanProperty IS_MESSY = BooleanProperty.create("is_messy");
 }

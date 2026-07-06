@@ -3,12 +3,12 @@ package net.greenjab.nekomasfixed.mixin.boat;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.raid.RaiderEntity;
-import net.minecraft.entity.vehicle.AbstractBoatEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,79 +16,79 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(AbstractBoatEntity.class)
+@Mixin(AbstractBoat.class)
 public abstract class AbstractBoatEntityMixin {
 
-    @Shadow private float yawVelocity;
+    @Shadow private float deltaRotation;
 
-    @Shadow protected abstract void updatePaddles();
+    @Shadow protected abstract void controlBoat();
 
     @Shadow protected abstract int getMaxPassengers();
 
-    @Redirect(method = "updatePaddles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setYaw(F)V"))
-    private void adjustTurningForBigBoat(AbstractBoatEntity boat, float v){
+    @Redirect(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setYRot(F)V"))
+    private void adjustTurningForBigBoat(AbstractBoat boat, float v){
         float f = 1.0f;
         if (boat instanceof BigBoatEntity bigBoatEntity) f=bigBoatEntity.getRotationSpeed();
-        boat.setYaw(boat.getYaw() + yawVelocity*f);
+        boat.setYRot(boat.getYRot() + deltaRotation*f);
     }
 
-    @Redirect(method = "updatePassengerPosition", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setYaw(F)V"))
+    @Redirect(method = "positionRider", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setYRot(F)V"))
     private void adjustTurningForBigBoat2(Entity instance, float yaw){
         float f = 1.0f;
-        AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
+        AbstractBoat ABE = (AbstractBoat)(Object)this;
         if (ABE instanceof BigBoatEntity bigBoatEntity) f=bigBoatEntity.getRotationSpeed();
-        instance.setYaw(instance.getYaw() + yawVelocity*f);
+        instance.setYRot(instance.getYRot() + deltaRotation*f);
     }
-    @Redirect(method = "updatePassengerPosition", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setHeadYaw(F)V"))
+    @Redirect(method = "positionRider", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setYHeadRot(F)V"))
     private void adjustTurningForBigBoat3(Entity instance, float yaw){
         float f = 1.0f;
-        AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
+        AbstractBoat ABE = (AbstractBoat)(Object)this;
         if (ABE instanceof BigBoatEntity bigBoatEntity) f=bigBoatEntity.getRotationSpeed();
-        instance.setHeadYaw(instance.getHeadYaw() + yawVelocity*f);
+        instance.setYHeadRot(instance.getYHeadRot() + deltaRotation*f);
     }
-    @ModifyExpressionValue(method = "updatePassengerPosition", at = @At(value = "INVOKE", target = "Ljava/util/List;size()I"))
+    @ModifyExpressionValue(method = "positionRider", at = @At(value = "INVOKE", target = "Ljava/util/List;size()I"))
     private int animalsFaceSideways(int original){
         if (original <2 ) return original;
         return getMaxPassengers();
     }
 
-    @Inject(method = "clampPassengerYaw", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "clampRotation", at = @At(value = "HEAD"), cancellable = true)
     private void adjustTurningForBigBoat4(Entity passenger, CallbackInfo ci){
-        AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
-        if (!(passenger instanceof PlayerEntity)) {
-            passenger.setBodyYaw(ABE.getYaw());
-            float f = MathHelper.wrapDegrees(passenger.getHeadYaw() - ABE.getYaw());
-            float g = MathHelper.clamp(f, -105.0F, 105.0F)+ABE.getYaw();
-            passenger.lastYaw += g;
-            passenger.setYaw(g);
-            passenger.setHeadYaw(g);
+        AbstractBoat ABE = (AbstractBoat)(Object)this;
+        if (!(passenger instanceof Player)) {
+            passenger.setYBodyRot(ABE.getYRot());
+            float f = Mth.wrapDegrees(passenger.getYHeadRot() - ABE.getYRot());
+            float g = Mth.clamp(f, -105.0F, 105.0F)+ABE.getYRot();
+            passenger.yRotO += g;
+            passenger.setYRot(g);
+            passenger.setYHeadRot(g);
             ci.cancel();
         }
     }
 
-    @Redirect(method = "updatePaddles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V"))
-    private void adjustAccelerationForBigBoat(AbstractBoatEntity instance, Vec3d vec3d, @Local float f){
-        AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
+    @Redirect(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
+    private void adjustAccelerationForBigBoat(AbstractBoat instance, Vec3 vec3d, @Local float f){
+        AbstractBoat ABE = (AbstractBoat)(Object)this;
         if (ABE instanceof BigBoatEntity bigBoatEntity) f*= bigBoatEntity.getSpeed();
-        ABE.setVelocity(
-                ABE.getVelocity().add(MathHelper.sin(-ABE.getYaw() * (float) (Math.PI / 180.0)) * f, 0.0, MathHelper.cos(ABE.getYaw() * (float) (Math.PI / 180.0)) * f)
+        ABE.setDeltaMovement(
+                ABE.getDeltaMovement().add(Mth.sin(-ABE.getYRot() * (float) (Math.PI / 180.0)) * f, 0.0, Mth.cos(ABE.getYRot() * (float) (Math.PI / 180.0)) * f)
         );
     }
 
-    @Redirect(method = "updateVelocity", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractBoatEntity;setVelocity(DDD)V", ordinal = 0))
-    private void adjustSpeedForBigBoat2(AbstractBoatEntity instance, double x, double y, double z, @Local float f){
-        AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
+    @Redirect(method = "floatBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setDeltaMovement(DDD)V", ordinal = 0))
+    private void adjustSpeedForBigBoat2(AbstractBoat instance, double x, double y, double z, @Local float f){
+        AbstractBoat ABE = (AbstractBoat)(Object)this;
         if (ABE instanceof BigBoatEntity bigBoatEntity) f=1-(1-f)/(bigBoatEntity.getSpeed()*3.0f);
-        Vec3d vec3d = ABE.getVelocity();
-        ABE.setVelocity(vec3d.x * f, y, vec3d.z * f);
+        Vec3 vec3d = ABE.getDeltaMovement();
+        ABE.setDeltaMovement(vec3d.x * f, y, vec3d.z * f);
     }
 
-    @ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isClient()Z", ordinal = 1))
+    @ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;isClientSide()Z", ordinal = 1))
     private boolean letIllagerControl(boolean original) {
         if (!original) {
-            AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
-            if (ABE.getFirstPassenger() instanceof RaiderEntity) {
-                this.updatePaddles();
+            AbstractBoat ABE = (AbstractBoat)(Object)this;
+            if (ABE.getFirstPassenger() instanceof Raider) {
+                this.controlBoat();
             }
         }
         return original;
@@ -96,9 +96,9 @@ public abstract class AbstractBoatEntityMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void stopTurnWhenEmpty(CallbackInfo ci) {
-        AbstractBoatEntity ABE = (AbstractBoatEntity)(Object)this;
-        if (!(ABE.getFirstPassenger() instanceof PlayerEntity ||ABE.getFirstPassenger() instanceof RaiderEntity)) {
-            yawVelocity=0;
+        AbstractBoat ABE = (AbstractBoat)(Object)this;
+        if (!(ABE.getFirstPassenger() instanceof Player ||ABE.getFirstPassenger() instanceof Raider)) {
+            deltaRotation=0;
         }
     }
 }

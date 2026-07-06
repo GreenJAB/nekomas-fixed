@@ -8,31 +8,33 @@ import net.greenjab.nekomasfixed.registry.block.FloorClockBlock;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.*;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.ComponentsAccess;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.HeldItemContext;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
+import net.minecraft.world.entity.ItemOwner;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
+public class ClockBlockEntity extends BlockEntity implements ItemOwner {
 	private int storedTime =-1;
 	public static int timerDuration = 60;
 	private int timer = -timerDuration;
@@ -48,8 +50,8 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 	}
 
 	@Override
-	protected void readData(ReadView view) {
-		super.readData(view);
+	protected void loadAdditional(@NonNull ValueInput view) {
+		super.loadAdditional(view);
 		view.read("storedTime", Codec.INT).ifPresent(this::setStoredTime);
 		view.read("timer", Codec.INT).ifPresent(this::setTimer);
 		view.read("bell", Codec.BOOL).ifPresent(this::setBell);
@@ -57,40 +59,40 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 	}
 
 	@Override
-	protected void writeData(WriteView view) {
-		super.writeData(view);
-		view.putNullable("storedTime", Codec.INT, getStoredTime());
-		view.putNullable("timer", Codec.INT, getTimer());
-		view.putNullable("bell", Codec.BOOL, hasBell());
-		view.putNullable("showsTime", Codec.BOOL, getShowsTime());
+	protected void saveAdditional(@NonNull ValueOutput view) {
+		super.saveAdditional(view);
+		view.storeNullable("storedTime", Codec.INT, getStoredTime());
+		view.storeNullable("timer", Codec.INT, getTimer());
+		view.storeNullable("bell", Codec.BOOL, hasBell());
+		view.storeNullable("showsTime", Codec.BOOL, getShowsTime());
 	}
 
-	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		return BlockEntityUpdateS2CPacket.create(this);
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
-	public void onBlockReplaced(BlockPos pos, BlockState oldState) {
-		if (this.world != null && bell) {
-			ItemScatterer.spawn(this.world, pos.getX(), pos.getY(), pos.getZ(), Items.BELL.getDefaultStack());
+	public void preRemoveSideEffects(@NonNull BlockPos pos, @NonNull BlockState oldState) {
+		if (this.level != null && bell) {
+			Containers.dropItemStack(this.level, pos.getX(), pos.getY(), pos.getZ(), Items.BELL.getDefaultInstance());
 		}
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int type, int data) {
-		return super.onSyncedBlockEvent(type, data);
+	public boolean triggerEvent(int type, int data) {
+		return super.triggerEvent(type, data);
 	}
 
 	@Override
-	protected void readComponents(ComponentsAccess components) {
-		super.readComponents(components);
+	protected void applyImplicitComponents(@NonNull DataComponentGetter components) {
+		super.applyImplicitComponents(components);
 		this.storedTime = components.getOrDefault(ComponentRegistry.STORED_TIME, new StoredTimeComponent(-1)).time();
 	}
 
 	@Override
-	protected void addComponents(ComponentMap.Builder builder) {
-		super.addComponents(builder);
-		if (this.storedTime>0) builder.add(ComponentRegistry.STORED_TIME, new StoredTimeComponent(this.storedTime));
+	protected void collectImplicitComponents(DataComponentMap.@NonNull Builder builder) {
+		super.collectImplicitComponents(builder);
+		if (this.storedTime>0) builder.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent(this.storedTime));
 	}
 
 	public void setStoredTime(int time) {
@@ -119,24 +121,24 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 	}
 
 	@Override
-	public World getEntityWorld() {
-		return this.world;
+	public @NonNull Level level() {
+		return this.level;
 	}
 
 	@Override
-	public Vec3d getEntityPos() {
-		return this.getPos().toCenterPos();
+	public @NonNull Vec3 position() {
+		return this.getBlockPos().getCenter();
 	}
 
 	@Override
-	public float getBodyYaw() {
-		return this.getCachedState().get(FloorClockBlock.ROTATION);
+	public float getVisualRotationYInDegrees() {
+		return this.getBlockState().getValue(FloorClockBlock.ROTATION);
 	}
 
-	public static void tick(World world, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
-		boolean powered = state.get(AbstractClockBlock.POWERED);
+	public static void tick(Level world, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
+		boolean powered = state.getValue(AbstractClockBlock.POWERED);
 		boolean shouldBePowered = false;
-		if ((int) ((world.getTimeOfDay() + 6000) % 24000)==blockEntity.storedTime) {
+		if ((int) ((world.getDayTime() + 6000) % 24000)==blockEntity.storedTime) {
 			blockEntity.timer=0;
 		}
 		if (blockEntity.timer>-timerDuration) {
@@ -145,19 +147,18 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 				shouldBePowered = true;
 			}
 		}
-		if (world.getTime() % 20L == 0L) {
-			if (world instanceof ServerWorld serverWorld) {
-				world.updateComparators(pos, state.getBlock());
+		if (world.getGameTime() % 20L == 0L) {
+			if (world instanceof ServerLevel serverWorld) {
+				world.updateNeighbourForOutputSignal(pos, state.getBlock());
 				UpdateClockPayload payload = new UpdateClockPayload(pos.getX(), pos.getY(), pos.getZ(), blockEntity.getTimer(), blockEntity.hasBell(), blockEntity.getShowsTime());
-                assert serverWorld.getServer() != null;
                 sendToAround(serverWorld.getServer()
-								.getPlayerManager(),
+								.getPlayerList(),
 						null,
 						pos.getX(),
 						pos.getY(),
 						pos.getZ(),
 						100,
-						world.getRegistryKey(),
+						world.dimension(),
 						payload
 				);
 			}
@@ -165,16 +166,16 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 		if (powered!=shouldBePowered) {
 			((AbstractClockBlock)state.getBlock()).setPower(world, pos, state, shouldBePowered);
 		}
-		if (state.getBlock() instanceof FloorClockBlock && shouldBePowered && world.getTime() % 5L == 0L){
-			world.emitGameEvent(null, GameEvent.NOTE_BLOCK_PLAY, pos);
-			world.playSound(null, pos, SoundEvents.BLOCK_BELL_USE, SoundCategory.BLOCKS, 0.3F, 2f);
+		if (state.getBlock() instanceof FloorClockBlock && shouldBePowered && world.getGameTime() % 5L == 0L){
+			world.gameEvent(null, GameEvent.NOTE_BLOCK_PLAY, pos);
+			world.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 0.3F, 2f);
 		}
 	}
 
-	public static void sendToAround(PlayerManager playerManager, @Nullable PlayerEntity player, double x, double y, double z, double distance, RegistryKey<World> worldKey, CustomPayload payload) {
-		for (int i = 0; i < playerManager.getPlayerList().size(); i++) {
-			ServerPlayerEntity serverPlayerEntity = playerManager.getPlayerList().get(i);
-			if (serverPlayerEntity != player && serverPlayerEntity.getEntityWorld().getRegistryKey() == worldKey) {
+	public static void sendToAround(PlayerList playerManager, @Nullable Player player, double x, double y, double z, double distance, ResourceKey<Level> worldKey, CustomPacketPayload payload) {
+		for (int i = 0; i < playerManager.getPlayers().size(); i++) {
+			ServerPlayer serverPlayerEntity = playerManager.getPlayers().get(i);
+			if (serverPlayerEntity != player && serverPlayerEntity.level().dimension() == worldKey) {
 				double d = x - serverPlayerEntity.getX();
 				double e = y - serverPlayerEntity.getY();
 				double f = z - serverPlayerEntity.getZ();
@@ -185,7 +186,7 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 		}
 	}
 
-	public static void clientTick(World world, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
+	public static void clientTick(Level world, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
 		if (blockEntity.timer>-timerDuration) {
 			blockEntity.timer--;
 		}

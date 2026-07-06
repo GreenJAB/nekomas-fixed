@@ -2,24 +2,25 @@ package net.greenjab.nekomasfixed.screen;
 
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.book.RecipeBookType;
-import net.minecraft.screen.AbstractFurnaceScreenHandler;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractFurnaceMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.RecipeBookType;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.NonNull;
 
-public class KilnScreenHandler extends AbstractFurnaceScreenHandler {
+public class KilnScreenHandler extends AbstractFurnaceMenu {
 
-    public KilnScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(3), new ArrayPropertyDelegate(4));
+    public KilnScreenHandler(int syncId, Inventory playerInventory) {
+        this(syncId, playerInventory, new SimpleContainer(3), new SimpleContainerData(4));
     }
 
-    public KilnScreenHandler(int syncId, PlayerInventory playerInventory,
-                             Inventory inventory, PropertyDelegate propertyDelegate) {
+    public KilnScreenHandler(int syncId, Inventory playerInventory,
+                             Container inventory, ContainerData propertyDelegate) {
         super(
                 ScreenHandlerRegistry.KILN_SCREEN_HANDLER,
                 RecipeRegistry.KILN,
@@ -33,12 +34,12 @@ public class KilnScreenHandler extends AbstractFurnaceScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
-        return super.quickMove(player, slot);
+    public @NonNull ItemStack quickMoveStack(@NonNull Player player, int slot) {
+        return super.quickMoveStack(player, slot);
     }
 
     @Override
-    protected boolean isSmeltable(ItemStack itemStack) {
-        return super.isSmeltable(itemStack);
+    protected boolean canSmelt(@NonNull ItemStack itemStack) {
+        return super.canSmelt(itemStack);
     }
 }

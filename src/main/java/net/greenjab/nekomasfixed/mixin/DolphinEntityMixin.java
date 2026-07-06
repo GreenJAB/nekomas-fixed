@@ -2,40 +2,40 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.entity.goal.MoveToCoralReefGoal;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.passive.DolphinEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.animal.dolphin.Dolphin;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(DolphinEntity.class)
+@Mixin(Dolphin.class)
 public class DolphinEntityMixin {
 
-    @Inject(method = "initDataTracker", at = @At("TAIL"))
-    private void initCustomDataTracker(DataTracker.Builder builder, CallbackInfo ci) {
-        builder.add(OtherRegistry.IS_TROPICAL_FISH_FED, false);
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void initCustomDataTracker(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(OtherRegistry.IS_TROPICAL_FISH_FED, false);
     }
 
-    @Inject(method = "interactMob", at = @At("HEAD"))
-    private void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
-        if(stack.isOf(Items.TROPICAL_FISH)){
-            DolphinEntity dolphin = (DolphinEntity)(Object)this;
-            dolphin.getDataTracker().set(OtherRegistry.IS_TROPICAL_FISH_FED, true);
-            stack.decrementUnlessCreative(1, player);
+    @Inject(method = "mobInteract", at = @At("HEAD"))
+    private void interactMob(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        if(stack.is(Items.TROPICAL_FISH)){
+            Dolphin dolphin = (Dolphin)(Object)this;
+            dolphin.getEntityData().set(OtherRegistry.IS_TROPICAL_FISH_FED, true);
+            stack.consume(1, player);
         }
     }
 
-    @Inject(method = "initGoals", at = @At("TAIL"))
+    @Inject(method = "registerGoals", at = @At("TAIL"))
     private void initCustomGoals(CallbackInfo ci){
-        DolphinEntity dolphin = (DolphinEntity)(Object)this;
-        dolphin.goalSelector.add(7, new MoveToCoralReefGoal(dolphin));
+        Dolphin dolphin = (Dolphin)(Object)this;
+        dolphin.goalSelector.addGoal(7, new MoveToCoralReefGoal(dolphin));
     }
 }

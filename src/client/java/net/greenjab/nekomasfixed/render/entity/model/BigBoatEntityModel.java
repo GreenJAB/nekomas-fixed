@@ -4,9 +4,15 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.render.entity.state.BigBoatEntityRenderState;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartNames;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BigBoatEntityModel<S extends BigBoatEntityRenderState> extends EntityModel<S> {
@@ -30,8 +36,8 @@ public class BigBoatEntityModel<S extends BigBoatEntityRenderState> extends Enti
 		this.leftPaddle2 = modelPart.getChild("left_paddle2");
 		this.rightPaddle2 = modelPart.getChild("right_paddle2");
 	}
-	public void setAngles(S bigBoatEntityRenderState) {
-		super.setAngles(bigBoatEntityRenderState);
+	public void setupAnim(@NonNull S bigBoatEntityRenderState) {
+		super.setupAnim(bigBoatEntityRenderState);
 
 		chest_bottom.visible = bigBoatEntityRenderState.hasChest;
 		chest_lid.visible = bigBoatEntityRenderState.hasChest;
@@ -45,84 +51,84 @@ public class BigBoatEntityModel<S extends BigBoatEntityRenderState> extends Enti
 
 	public static void setPaddleAngles(float angle, int paddle, ModelPart modelPart, boolean active) {
 		if (!active) angle = 0;
-		modelPart.pitch = (float)Math.PI;
-		modelPart.roll = MathHelper.clampedLerp((MathHelper.sin(-angle) + 1.0F) / 2.0F, (float) (-Math.PI / 3), (float) (-Math.PI / 12));
-		modelPart.yaw = MathHelper.clampedLerp((MathHelper.sin(-angle + 1.0F) + 1.0F) / 2.0F, (float) (-Math.PI / 4), (float) (Math.PI / 4));
+		modelPart.xRot = (float)Math.PI;
+		modelPart.zRot = Mth.clampedLerp((Mth.sin(-angle) + 1.0F) / 2.0F, (float) (-Math.PI / 3), (float) (-Math.PI / 12));
+		modelPart.yRot = Mth.clampedLerp((Mth.sin(-angle + 1.0F) + 1.0F) / 2.0F, (float) (-Math.PI / 4), (float) (Math.PI / 4));
 		if (paddle == 1) {
-			modelPart.yaw = (float) Math.PI - modelPart.yaw;
+			modelPart.yRot = (float) Math.PI - modelPart.yRot;
 		} else {
-			modelPart.roll = -modelPart.roll;
+			modelPart.zRot = -modelPart.zRot;
 		}
 	}
 
-	public static void addParts(ModelPartData modelPartData) {
+	public static void addParts(PartDefinition modelPartData) {
 
-		modelPartData.addChild("boat_1", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, 0.0F, -0.0F, 16.0F, 3.0F, 23.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_2", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, 0.0F, -23.0F, 16.0F, 3.0F, 23.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_3", ModelPartBuilder.create().uv(0, 3).cuboid(7.0F, -6.0F, 23.0F, 2.0F, 6.0F, 3.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_4", ModelPartBuilder.create().uv(0, 3).cuboid(-9.0F, -6.0F, 23.0F, 2.0F, 6.0F, 3.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_5", ModelPartBuilder.create().uv(0, 3).cuboid(-9.0F, -6.0F, -26.0F, 2.0F, 6.0F, 3.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_6", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -6.0F, -28.0F, 2.0F, 6.0F, 2.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_7", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, -6.0F, -30.0F, 10.0F, 6.0F, 2.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_8", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, -6.0F, 28.0F, 10.0F, 6.0F, 2.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_9", ModelPartBuilder.create().uv(0, 0).cuboid(5.0F, -6.0F, -28.0F, 2.0F, 6.0F, 2.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_10", ModelPartBuilder.create().uv(0, 0).cuboid(5.0F, -6.0F, 26.0F, 2.0F, 6.0F, 2.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_11", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -6.0F, 26.0F, 2.0F, 6.0F, 2.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_12", ModelPartBuilder.create().uv(0, 3).cuboid(7.0F, -6.0F, -26.0F, 2.0F, 6.0F, 3.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_13", ModelPartBuilder.create().uv(0, 0).cuboid(8.0F, -6.0F, -23.0F, 2.0F, 6.0F, 46.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_14", ModelPartBuilder.create().uv(0, 0).cuboid(-10.0F, -6.0F, -23.0F, 2.0F, 6.0F, 46.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_15", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, 0.0F, 23.0F, 14.0F, 3.0F, 3.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_16", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, 0.0F, -26.0F, 14.0F, 3.0F, 3.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_17", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, 0.0F, -28.0F, 10.0F, 3.0F, 1.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_18", ModelPartBuilder.create().uv(0, 0).cuboid(-6.0F, 0.0F, -27.0F, 12.0F, 3.0F, 1.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_19", ModelPartBuilder.create().uv(0, 0).cuboid(-6.0F, 0.0F, 26.0F, 12.0F, 3.0F, 1.0F), ModelTransform.NONE);
-		modelPartData.addChild("boat_20", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, 0.0F, 27.0F, 10.0F, 3.0F, 1.0F), ModelTransform.NONE);
+		modelPartData.addOrReplaceChild("boat_1", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, 0.0F, -0.0F, 16.0F, 3.0F, 23.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_2", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, 0.0F, -23.0F, 16.0F, 3.0F, 23.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_3", CubeListBuilder.create().texOffs(0, 3).addBox(7.0F, -6.0F, 23.0F, 2.0F, 6.0F, 3.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_4", CubeListBuilder.create().texOffs(0, 3).addBox(-9.0F, -6.0F, 23.0F, 2.0F, 6.0F, 3.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_5", CubeListBuilder.create().texOffs(0, 3).addBox(-9.0F, -6.0F, -26.0F, 2.0F, 6.0F, 3.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_6", CubeListBuilder.create().texOffs(0, 0).addBox(-7.0F, -6.0F, -28.0F, 2.0F, 6.0F, 2.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_7", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -6.0F, -30.0F, 10.0F, 6.0F, 2.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_8", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -6.0F, 28.0F, 10.0F, 6.0F, 2.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_9", CubeListBuilder.create().texOffs(0, 0).addBox(5.0F, -6.0F, -28.0F, 2.0F, 6.0F, 2.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_10", CubeListBuilder.create().texOffs(0, 0).addBox(5.0F, -6.0F, 26.0F, 2.0F, 6.0F, 2.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_11", CubeListBuilder.create().texOffs(0, 0).addBox(-7.0F, -6.0F, 26.0F, 2.0F, 6.0F, 2.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_12", CubeListBuilder.create().texOffs(0, 3).addBox(7.0F, -6.0F, -26.0F, 2.0F, 6.0F, 3.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_13", CubeListBuilder.create().texOffs(0, 0).addBox(8.0F, -6.0F, -23.0F, 2.0F, 6.0F, 46.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_14", CubeListBuilder.create().texOffs(0, 0).addBox(-10.0F, -6.0F, -23.0F, 2.0F, 6.0F, 46.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_15", CubeListBuilder.create().texOffs(0, 0).addBox(-7.0F, 0.0F, 23.0F, 14.0F, 3.0F, 3.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_16", CubeListBuilder.create().texOffs(0, 0).addBox(-7.0F, 0.0F, -26.0F, 14.0F, 3.0F, 3.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_17", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, 0.0F, -28.0F, 10.0F, 3.0F, 1.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_18", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, 0.0F, -27.0F, 12.0F, 3.0F, 1.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_19", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, 0.0F, 26.0F, 12.0F, 3.0F, 1.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("boat_20", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, 0.0F, 27.0F, 10.0F, 3.0F, 1.0F), PartPose.ZERO);
 
-		modelPartData.addChild("stand", ModelPartBuilder.create().uv(48, 64).cuboid(-1.0F, -45F, 8.0F, 2.0F, 45.0F, 2.0F), ModelTransform.NONE.scaled(0.999f));
+		modelPartData.addOrReplaceChild("stand", CubeListBuilder.create().texOffs(48, 64).addBox(-1.0F, -45F, 8.0F, 2.0F, 45.0F, 2.0F), PartPose.ZERO.scaled(0.999f));
 
 
 		float dist = 20f;
-		modelPartData.addChild(
+		modelPartData.addOrReplaceChild(
 				"left_paddle",
-				ModelPartBuilder.create().uv(62, 0).cuboid(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).cuboid(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
-				ModelTransform.of(10.0F, -6.0F, -0.0F-dist, 0.0F, 0.0F, (float) (Math.PI / 16))
+				CubeListBuilder.create().texOffs(62, 0).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
+				PartPose.offsetAndRotation(10.0F, -6.0F, -0.0F-dist, 0.0F, 0.0F, (float) (Math.PI / 16))
 		);
-		modelPartData.addChild(
+		modelPartData.addOrReplaceChild(
 				"right_paddle",
-				ModelPartBuilder.create().uv(62, 20).cuboid(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).cuboid(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
-				ModelTransform.of(-10.0F, -6.0F, -0.0F-dist, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
+				CubeListBuilder.create().texOffs(62, 20).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
+				PartPose.offsetAndRotation(-10.0F, -6.0F, -0.0F-dist, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
 		);
-		modelPartData.addChild(
+		modelPartData.addOrReplaceChild(
 				"left_paddle2",
-				ModelPartBuilder.create().uv(62, 0).cuboid(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).cuboid(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
-				ModelTransform.of(10.0F, -6.0F, -0.0F, 0.0F, 0.0F, (float) (Math.PI / 16))
+				CubeListBuilder.create().texOffs(62, 0).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
+				PartPose.offsetAndRotation(10.0F, -6.0F, -0.0F, 0.0F, 0.0F, (float) (Math.PI / 16))
 		);
-		modelPartData.addChild(
+		modelPartData.addOrReplaceChild(
 				"right_paddle2",
-				ModelPartBuilder.create().uv(62, 20).cuboid(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).cuboid(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
-				ModelTransform.of(-10.0F, -6.0F, -0.0F, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
+				CubeListBuilder.create().texOffs(62, 20).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
+				PartPose.offsetAndRotation(-10.0F, -6.0F, -0.0F, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
 		);
 	}
 
-	public static TexturedModelData getChestTexturedModelData() {
-		ModelData modelData = new ModelData();
-		ModelPartData modelPartData = modelData.getRoot();
+	public static LayerDefinition getChestTexturedModelData() {
+		MeshDefinition modelData = new MeshDefinition();
+		PartDefinition modelPartData = modelData.getRoot();
 		addParts(modelPartData);
-		modelPartData.addChild(
-			EntityModelPartNames.CHEST_BOTTOM,
-			ModelPartBuilder.create().uv(0, 92).cuboid(0.0F, 0.0F, 0.0F, 12.0F, 8.0F, 12.0F),
-			ModelTransform.of(-6.0F, -8.0F, 13.0F, 0.0F, 0, 0.0F)
+		modelPartData.addOrReplaceChild(
+			PartNames.CHEST_BOTTOM,
+			CubeListBuilder.create().texOffs(0, 92).addBox(0.0F, 0.0F, 0.0F, 12.0F, 8.0F, 12.0F),
+			PartPose.offsetAndRotation(-6.0F, -8.0F, 13.0F, 0.0F, 0, 0.0F)
 		);
-		modelPartData.addChild(
-			EntityModelPartNames.CHEST_LID,
-			ModelPartBuilder.create().uv(0, 75).cuboid(0.0F, 0.0F, 0.0F, 12.0F, 4.0F, 12.0F),
-			ModelTransform.of(-6.0F, -12.0F, 13.0F, 0f, 0, 0.0F)
+		modelPartData.addOrReplaceChild(
+			PartNames.CHEST_LID,
+			CubeListBuilder.create().texOffs(0, 75).addBox(0.0F, 0.0F, 0.0F, 12.0F, 4.0F, 12.0F),
+			PartPose.offsetAndRotation(-6.0F, -12.0F, 13.0F, 0f, 0, 0.0F)
 		);
-		modelPartData.addChild(
-			EntityModelPartNames.CHEST_LOCK,
-			ModelPartBuilder.create().uv(0, 75).cuboid(0.0F, 0.0F, 0.0F, 2.0F, 4.0F, 1.0F),
-			ModelTransform.of(-1.0F, -9.0F, 12.0F, 0.0F, 0, 0.0F)
+		modelPartData.addOrReplaceChild(
+			PartNames.CHEST_LOCK,
+			CubeListBuilder.create().texOffs(0, 75).addBox(0.0F, 0.0F, 0.0F, 2.0F, 4.0F, 1.0F),
+			PartPose.offsetAndRotation(-1.0F, -9.0F, 12.0F, 0.0F, 0, 0.0F)
 		);
-		return TexturedModelData.of(modelData, 128, 128);
+		return LayerDefinition.create(modelData, 128, 128);
 	}
 }

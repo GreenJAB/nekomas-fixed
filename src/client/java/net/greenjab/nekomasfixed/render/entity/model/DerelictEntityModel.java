@@ -2,23 +2,23 @@ package net.greenjab.nekomasfixed.render.entity.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.Dilation;
-import net.minecraft.client.model.ModelData;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.TexturedModelData;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.ZombieEntityModel;
-import net.minecraft.client.render.entity.state.ZombieEntityRenderState;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.monster.zombie.ZombieModel;
+import net.minecraft.client.renderer.entity.state.ZombieRenderState;
 
 @Environment(EnvType.CLIENT)
-public class DerelictEntityModel extends ZombieEntityModel<ZombieEntityRenderState> {
+public class DerelictEntityModel extends ZombieModel<ZombieRenderState> {
 
     public DerelictEntityModel(ModelPart modelPart) {
         super(modelPart);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = BipedEntityModel.getModelData(Dilation.NONE, 0.0F);
-        return TexturedModelData.of(modelData, 128, 128);
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
+        return LayerDefinition.create(modelData, 128, 128);
     }
 }

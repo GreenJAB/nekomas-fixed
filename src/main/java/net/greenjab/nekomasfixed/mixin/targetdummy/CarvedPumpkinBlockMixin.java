@@ -2,17 +2,17 @@ package net.greenjab.nekomasfixed.mixin.targetdummy;
 
 import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CarvedPumpkinBlock;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.pattern.BlockPattern;
-import net.minecraft.block.pattern.BlockPatternBuilder;
-import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,10 +28,10 @@ import java.util.function.Predicate;
 public abstract class CarvedPumpkinBlockMixin {
 
     @Shadow
-    private static void spawnEntity(World world, BlockPattern.Result patternResult, Entity entity, BlockPos pos) {
+    private static void spawnGolemInWorld(Level world, BlockPattern.BlockPatternMatch patternResult, Entity entity, BlockPos pos) {
     }
 
-    @Shadow @Final private static Predicate<BlockState> IS_GOLEM_HEAD_PREDICATE;
+    @Shadow @Final private static Predicate<BlockState> PUMPKINS_PREDICATE;
     @Unique
     @Nullable
     private BlockPattern targetDummyPattern;
@@ -41,24 +41,24 @@ public abstract class CarvedPumpkinBlockMixin {
         if (this.targetDummyPattern == null) {
             this.targetDummyPattern = BlockPatternBuilder.start()
                     .aisle("^", "#")
-                    .where('^', CachedBlockPosition.matchesBlockState(IS_GOLEM_HEAD_PREDICATE))
-                    .where('#', CachedBlockPosition.matchesBlockState(/* method_72574 */ state -> state.isOf(Blocks.HAY_BLOCK)))
+                    .where('^', BlockInWorld.hasState(PUMPKINS_PREDICATE))
+                    .where('#', BlockInWorld.hasState(/* method_72574 */ state -> state.is(Blocks.HAY_BLOCK)))
                     .build();
         }
 
         return this.targetDummyPattern;
     }
 
-    @Inject(method="trySpawnEntity", at = @At( value = "HEAD"), cancellable = true)
-    private void spawnTargetDummy(World world, BlockPos pos, CallbackInfo ci) {
+    @Inject(method="trySpawnGolem", at = @At( value = "HEAD"), cancellable = true)
+    private void spawnTargetDummy(Level world, BlockPos pos, CallbackInfo ci) {
         BlockState block = world.getBlockState(pos);
-        BlockPattern.Result result3 = this.getTargetDummyPattern().searchAround(world, pos);
+        BlockPattern.BlockPatternMatch result3 = this.getTargetDummyPattern().find(world, pos);
         if (result3 != null) {
-            TargetDummyEntity targetDummyEntity = EntityTypeRegistry.TARGET_DUMMY.create(world, SpawnReason.TRIGGERED);
+            TargetDummyEntity targetDummyEntity = EntityTypeRegistry.TARGET_DUMMY.create(world, EntitySpawnReason.TRIGGERED);
             if (targetDummyEntity != null) {
-                spawnEntity(world, result3, targetDummyEntity, result3.translate(0, 1, 0).getBlockPos());
-                if (block.isOf(Blocks.CARVED_PUMPKIN)) {
-                    targetDummyEntity.refreshPositionAndAngles(result3.translate(0, 1, 0).getBlockPos(), block.get(HorizontalFacingBlock.FACING).getPositiveHorizontalDegrees(),0);
+                spawnGolemInWorld(world, result3, targetDummyEntity, result3.getBlock(0, 1, 0).getPos());
+                if (block.is(Blocks.CARVED_PUMPKIN)) {
+                    targetDummyEntity.snapTo(result3.getBlock(0, 1, 0).getPos(), block.getValue(HorizontalDirectionalBlock.FACING).toYRot(),0);
                 }
                 ci.cancel();
             }

@@ -2,48 +2,48 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.entity.SpearEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ItemDispenserBehavior.class)
+@Mixin(DefaultDispenseItemBehavior.class)
 public abstract class ItemDispenserBehaviorMixin {
 
-    @Inject(at = @At("HEAD"), method = "dispenseSilently", cancellable = true)
-    public void SpearAttack(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+    @Inject(at = @At("HEAD"), method = "execute", cancellable = true)
+    public void SpearAttack(BlockSource pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 
-        World world = pointer.world();
-        if (world.isClient())  return;
-        if (!pointer.state().isOf(Blocks.DISPENSER))  return;
+        Level world = pointer.level();
+        if (world.isClientSide())  return;
+        if (!pointer.state().is(Blocks.DISPENSER))  return;
 
-        BlockPos pos = BlockPos.ofFloored(DispenserBlock.getOutputLocation(pointer));
+        BlockPos pos = BlockPos.containing(DispenserBlock.getDispensePosition(pointer));
         BlockState blockState = world.getBlockState(pos);
 
         if (!blockState.getCollisionShape(world, pos).isEmpty()) return;
-        if (!world.getNonSpectatingEntities(SpearEntity.class, new Box(pos).expand(-0.2, -0.2, -0.2)).isEmpty()){
+        if (!world.getEntitiesOfClass(SpearEntity.class, new AABB(pos).inflate(-0.2, -0.2, -0.2)).isEmpty()){
             cir.setReturnValue(stack);
             return;
         }
 
-        if (stack.isIn(ItemTags.SPEARS)) {
-            SpearEntity entity = EntityTypeRegistry.SPEAR.create(world, SpawnReason.DISPENSER);
+        if (stack.is(ItemTags.SPEARS)) {
+            SpearEntity entity = EntityTypeRegistry.SPEAR.create(world, EntitySpawnReason.DISPENSER);
             if (entity != null) {
-                entity.updatePositionAndAngles(pos.getX()+0.5, pos.getY()+0.2, pos.getZ()+0.5, 0, 0);
+                entity.absSnapTo(pos.getX()+0.5, pos.getY()+0.2, pos.getZ()+0.5, 0, 0);
                 entity.setStack(stack);
-                entity.setDirection( pointer.state().get(DispenserBlock.FACING));
-                world.spawnEntity(entity);
+                entity.setDirection( pointer.state().getValue(DispenserBlock.FACING));
+                world.addFreshEntity(entity);
                 cir.setReturnValue(stack);
             }
         }

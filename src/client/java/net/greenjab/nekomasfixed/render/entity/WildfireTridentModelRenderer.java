@@ -1,40 +1,41 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.model.TridentEntityModel;
-import net.minecraft.client.render.item.model.special.SimpleSpecialModelRenderer;
-import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemDisplayContext;
+import net.minecraft.client.model.object.projectile.TridentModel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
+import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3fc;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
-public class WildfireTridentModelRenderer implements SimpleSpecialModelRenderer {
-	private final TridentEntityModel model;
+public class WildfireTridentModelRenderer implements NoDataSpecialModelRenderer {
+	private final TridentModel model;
 
-	public WildfireTridentModelRenderer(TridentEntityModel model) {
+	public WildfireTridentModelRenderer(TridentModel model) {
 		this.model = model;
 	}
 
 	@Override
-	public void render(ItemDisplayContext displayContext, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, boolean glint, int i) {
-		matrices.push();
+	public void submit(@NonNull ItemDisplayContext displayContext, PoseStack matrices, SubmitNodeCollector queue, int light, int overlay, boolean glint, int i) {
+		matrices.pushPose();
 		matrices.scale(1.0F, -1.0F, -1.0F);
-		queue.submitModelPart(this.model.getRootPart(), matrices, this.model.getLayer(WildfireTridentEntityRenderer.TEXTURE), light, overlay, null, false, glint, -1, null, i);
-		matrices.pop();
+		queue.submitModelPart(this.model.root(), matrices, this.model.renderType(WildfireTridentEntityRenderer.TEXTURE), light, overlay, null, false, glint, -1, null, i);
+		matrices.popPose();
 	}
 
 	@Override
-	public void collectVertices(Consumer<Vector3fc> consumer) {
-		MatrixStack matrixStack = new MatrixStack();
+	public void getExtents(@NonNull Consumer<Vector3fc> consumer) {
+		PoseStack matrixStack = new PoseStack();
 		matrixStack.scale(1.0F, -1.0F, -1.0F);
-		this.model.getRootPart().collectVertices(matrixStack, consumer);
+		this.model.root().getExtentsForGui(matrixStack, consumer);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -42,13 +43,13 @@ public class WildfireTridentModelRenderer implements SimpleSpecialModelRenderer 
 		public static final MapCodec<WildfireTridentModelRenderer.Unbaked> CODEC = MapCodec.unit(new WildfireTridentModelRenderer.Unbaked());
 
 		@Override
-		public MapCodec<WildfireTridentModelRenderer.Unbaked> getCodec() {
+		public @NonNull MapCodec<WildfireTridentModelRenderer.Unbaked> type() {
 			return CODEC;
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakeContext context) {
-			return new WildfireTridentModelRenderer(new TridentEntityModel(context.entityModelSet().getModelPart(ModEntityLayerRegistry.WILDFIRE_TRIDENT)));
+		public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakingContext context) {
+			return new WildfireTridentModelRenderer(new TridentModel(context.entityModelSet().bakeLayer(ModEntityLayerRegistry.WILDFIRE_TRIDENT)));
 		}
 	}
 }

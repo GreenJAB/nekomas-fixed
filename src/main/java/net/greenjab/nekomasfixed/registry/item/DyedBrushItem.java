@@ -3,170 +3,182 @@ package net.greenjab.nekomasfixed.registry.item;
 import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.block.enums.BedPart;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.block.GlazedTerracottaBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StainedGlassPaneBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import org.jspecify.annotations.NonNull;
 
 
 public class DyedBrushItem extends Item {
     AllDyes color;
 
-    public DyedBrushItem(AllDyes color, Settings settings) {
+    public DyedBrushItem(AllDyes color, Properties settings) {
         super(settings);
         this.color = color;
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getBlockPos();
+    public @NonNull InteractionResult useOn(UseOnContext context) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
         boolean used = false;
-        PlayerEntity player = context.getPlayer();
+        Player player = context.getPlayer();
         if (player != null) {
-            player.swingHand(context.getHand());
+            player.swing(context.getHand());
         }
-            if (!world.isClient() && state.isIn(ModTags.CAN_BE_DYED_WITH_BRUSH)) {
+            if (!world.isClientSide() && state.is(ModTags.CAN_BE_DYED_WITH_BRUSH)) {
 
-                if (state.isOf(Blocks.TERRACOTTA) || state.isIn(BlockTags.TERRACOTTA) && !state.isOf(getTerracotta(color))) {
-                    world.setBlockState(pos, getTerracotta(color).getDefaultState());
+                if (state.is(Blocks.TERRACOTTA) || state.is(BlockTags.TERRACOTTA) && !state.is(getTerracotta(color))) {
+                    world.setBlockAndUpdate(pos, getTerracotta(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.DYED_BRICKS) || state.isOf(Blocks.BRICKS) && !state.isOf(getBricks(color))){
-                    world.setBlockState(pos, getBricks(color).getDefaultState());
+                } else if(state.is(ModTags.DYED_BRICKS) || state.is(Blocks.BRICKS) && !state.is(getBricks(color))){
+                    world.setBlockAndUpdate(pos, getBricks(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.DYED_BRICK_SLABS) || state.isOf(Blocks.BRICK_SLAB) && !state.isOf(getBrickSlabs(color))){
-                    world.setBlockState(pos, getBrickSlabs(color).getDefaultState()
-                            .with(SlabBlock.WATERLOGGED, state.get(SlabBlock.WATERLOGGED))
-                            .with(SlabBlock.TYPE, state.get(SlabBlock.TYPE)));
+                } else if(state.is(ModTags.DYED_BRICK_SLABS) || state.is(Blocks.BRICK_SLAB) && !state.is(getBrickSlabs(color))){
+                    world.setBlockAndUpdate(pos, getBrickSlabs(color).defaultBlockState()
+                            .setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
+                            .setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.DYED_BRICK_STAIRS) || state.isOf(Blocks.BRICK_STAIRS) && !state.isOf(getBrickStairs(color))){
-                    world.setBlockState(pos, getBrickStairs(color).getDefaultState()
-                            .with(StairsBlock.WATERLOGGED, state.get(StairsBlock.WATERLOGGED))
-                            .with(StairsBlock.FACING, state.get(StairsBlock.FACING))
-                            .with(StairsBlock.HALF, state.get(StairsBlock.HALF))
-                            .with(StairsBlock.SHAPE, state.get(StairsBlock.SHAPE)));
+                } else if(state.is(ModTags.DYED_BRICK_STAIRS) || state.is(Blocks.BRICK_STAIRS) && !state.is(getBrickStairs(color))){
+                    world.setBlockAndUpdate(pos, getBrickStairs(color).defaultBlockState()
+                            .setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
+                            .setValue(StairBlock.FACING, state.getValue(StairBlock.FACING))
+                            .setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
+                            .setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.DYED_BRICK_WALLS) || state.isOf(Blocks.BRICK_WALL) && !state.isOf(getBrickWalls(color))){
-                    world.setBlockState(pos, getBrickWalls(color).getDefaultState()
-                            .with(WallBlock.WATERLOGGED, state.get(WallBlock.WATERLOGGED))
-                            .with(WallBlock.NORTH_WALL_SHAPE, state.get(WallBlock.NORTH_WALL_SHAPE))
-                            .with(WallBlock.EAST_WALL_SHAPE, state.get(WallBlock.EAST_WALL_SHAPE))
-                            .with(WallBlock.SOUTH_WALL_SHAPE, state.get(WallBlock.SOUTH_WALL_SHAPE))
-                            .with(WallBlock.WEST_WALL_SHAPE, state.get(WallBlock.WEST_WALL_SHAPE))
-                            .with(WallBlock.UP, state.get(WallBlock.UP)));
+                } else if(state.is(ModTags.DYED_BRICK_WALLS) || state.is(Blocks.BRICK_WALL) && !state.is(getBrickWalls(color))){
+                    world.setBlockAndUpdate(pos, getBrickWalls(color).defaultBlockState()
+                            .setValue(WallBlock.WATERLOGGED, state.getValue(WallBlock.WATERLOGGED))
+                            .setValue(WallBlock.NORTH, state.getValue(WallBlock.NORTH))
+                            .setValue(WallBlock.EAST, state.getValue(WallBlock.EAST))
+                            .setValue(WallBlock.SOUTH, state.getValue(WallBlock.SOUTH))
+                            .setValue(WallBlock.WEST, state.getValue(WallBlock.WEST))
+                            .setValue(WallBlock.UP, state.getValue(WallBlock.UP)));
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.STAINED_GLASSES) || state.isOf(Blocks.GLASS) && !state.isOf(getStainedGlass(color)) ){
-                    world.setBlockState(pos, getStainedGlass(color).getDefaultState());
+                } else if(state.is(ModTags.STAINED_GLASSES) || state.is(Blocks.GLASS) && !state.is(getStainedGlass(color)) ){
+                    world.setBlockAndUpdate(pos, getStainedGlass(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.STAINED_GLASS_PANES) || state.isOf(Blocks.GLASS_PANE) && !state.isOf(getStainedGlassPane(color))){
-                    world.setBlockState(pos, getStainedGlassPane(color).getDefaultState()
-                            .with(StainedGlassPaneBlock.WATERLOGGED, state.get(StainedGlassPaneBlock.WATERLOGGED))
-                            .with(StainedGlassPaneBlock.EAST, state.get(StainedGlassPaneBlock.EAST))
-                            .with(StainedGlassPaneBlock.WEST, state.get(StainedGlassPaneBlock.WEST))
-                            .with(StainedGlassPaneBlock.SOUTH, state.get(StainedGlassPaneBlock.SOUTH))
-                            .with(StainedGlassPaneBlock.NORTH, state.get(StainedGlassPaneBlock.NORTH)));
+                } else if(state.is(ModTags.STAINED_GLASS_PANES) || state.is(Blocks.GLASS_PANE) && !state.is(getStainedGlassPane(color))){
+                    world.setBlockAndUpdate(pos, getStainedGlassPane(color).defaultBlockState()
+                            .setValue(StainedGlassPaneBlock.WATERLOGGED, state.getValue(StainedGlassPaneBlock.WATERLOGGED))
+                            .setValue(StainedGlassPaneBlock.EAST, state.getValue(StainedGlassPaneBlock.EAST))
+                            .setValue(StainedGlassPaneBlock.WEST, state.getValue(StainedGlassPaneBlock.WEST))
+                            .setValue(StainedGlassPaneBlock.SOUTH, state.getValue(StainedGlassPaneBlock.SOUTH))
+                            .setValue(StainedGlassPaneBlock.NORTH, state.getValue(StainedGlassPaneBlock.NORTH)));
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.GLAZED_TERRACOTTAS) && !state.isOf(getGlazedTerracotta(color))){
-                    world.setBlockState(pos, getGlazedTerracotta(color).getDefaultState()
-                            .with(GlazedTerracottaBlock.FACING, state.get(GlazedTerracottaBlock.FACING)));
+                } else if(state.is(ModTags.GLAZED_TERRACOTTAS) && !state.is(getGlazedTerracotta(color))){
+                    world.setBlockAndUpdate(pos, getGlazedTerracotta(color).defaultBlockState()
+                            .setValue(GlazedTerracottaBlock.FACING, state.getValue(GlazedTerracottaBlock.FACING)));
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.SPOTTED_WOOLS) && !state.isOf(getSpottedWool(color))){
-                    world.setBlockState(pos, getSpottedWool(color).getDefaultState());
+                } else if(state.is(ModTags.SPOTTED_WOOLS) && !state.is(getSpottedWool(color))){
+                    world.setBlockAndUpdate(pos, getSpottedWool(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(BlockTags.WOOL) && !state.isOf(getWool(color))){
-                    world.setBlockState(pos, getWool(color).getDefaultState());
+                } else if(state.is(BlockTags.WOOL) && !state.is(getWool(color))){
+                    world.setBlockAndUpdate(pos, getWool(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(BlockTags.CANDLES) || state.isOf(Blocks.CANDLE) && !state.isOf(getCandle(color))){
-                    world.setBlockState(pos, getCandle(color).getDefaultState()
-                            .with(CandleBlock.CANDLES, state.get(CandleBlock.CANDLES))
-                            .with(CandleBlock.LIT, state.get(CandleBlock.LIT))
+                } else if(state.is(BlockTags.CANDLES) || state.is(Blocks.CANDLE) && !state.is(getCandle(color))){
+                    world.setBlockAndUpdate(pos, getCandle(color).defaultBlockState()
+                            .setValue(CandleBlock.CANDLES, state.getValue(CandleBlock.CANDLES))
+                            .setValue(CandleBlock.LIT, state.getValue(CandleBlock.LIT))
                     );
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.SPOTTED_CARPETS) && !state.isOf(getSpottedCarpet(color))){
-                    world.setBlockState(pos, getSpottedCarpet(color).getDefaultState());
+                } else if(state.is(ModTags.SPOTTED_CARPETS) && !state.is(getSpottedCarpet(color))){
+                    world.setBlockAndUpdate(pos, getSpottedCarpet(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(BlockTags.WOOL_CARPETS) && !state.isOf(getCarpet(color))){
-                    world.setBlockState(pos, getCarpet(color).getDefaultState());
+                } else if(state.is(BlockTags.WOOL_CARPETS) && !state.is(getCarpet(color))){
+                    world.setBlockAndUpdate(pos, getCarpet(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.CONCRETES) && !state.isOf(getConcretes(color))){
-                    world.setBlockState(pos, getConcretes(color).getDefaultState());
+                } else if(state.is(ModTags.CONCRETES) && !state.is(getConcretes(color))){
+                    world.setBlockAndUpdate(pos, getConcretes(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.CONCRETE_POWDERS) && !state.isOf(getConcretePowders(color))){
-                    world.setBlockState(pos, getConcretePowders(color).getDefaultState());
+                } else if(state.is(ModTags.CONCRETE_POWDERS) && !state.is(getConcretePowders(color))){
+                    world.setBlockAndUpdate(pos, getConcretePowders(color).defaultBlockState());
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(ModTags.FROGLIGHTS) && !state.isOf(getFroglight(color))){
-                    world.setBlockState(pos, getFroglight(color).getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)));
+                } else if(state.is(ModTags.FROGLIGHTS) && !state.is(getFroglight(color))){
+                    world.setBlockAndUpdate(pos, getFroglight(color).defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
                     used = true;
                     this.afterUse(context);
-                } else if(state.isOf(Blocks.SHULKER_BOX) || state.isIn(BlockTags.SHULKER_BOXES) && !state.isOf(getShulkerBox(color))){
+                } else if(state.is(Blocks.SHULKER_BOX) || state.is(BlockTags.SHULKER_BOXES) && !state.is(getShulkerBox(color))){
                     if (world.getBlockEntity(pos) instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
-                       world.setBlockState(pos, getShulkerBox(color).getDefaultState().with(ShulkerBoxBlock.FACING, state.get(ShulkerBoxBlock.FACING)));
+                       world.setBlockAndUpdate(pos, getShulkerBox(color).defaultBlockState().setValue(ShulkerBoxBlock.FACING, state.getValue(ShulkerBoxBlock.FACING)));
                         if (world.getBlockEntity(pos) instanceof ShulkerBoxBlockEntity newshulkerBoxBlockEntity) {
-                            for (int i = 0;i<shulkerBoxBlockEntity.size();i++)
-                                newshulkerBoxBlockEntity.setStack(i, shulkerBoxBlockEntity.getStack(i));
-                            newshulkerBoxBlockEntity.customName = shulkerBoxBlockEntity.getCustomName();
+                            for (int i = 0;i<shulkerBoxBlockEntity.getContainerSize();i++)
+                                newshulkerBoxBlockEntity.setItem(i, shulkerBoxBlockEntity.getItem(i));
+                            newshulkerBoxBlockEntity.name = shulkerBoxBlockEntity.getCustomName();
                         }
                     }
                     used = true;
                     this.afterUse(context);
-                } else if(state.isIn(BlockTags.BEDS) && !state.isOf(getBed(color))){
+                } else if(state.is(BlockTags.BEDS) && !state.is(getBed(color))){
                     Block bed = getBed(color);
-                    BedPart bedPart = state.get(BedBlock.PART);
-                    Direction bedDir = state.get(BedBlock.FACING);
-                    BlockPos otherPos = pos.offset(getDirectionTowardsOtherPart(bedPart, bedDir));
-                    BlockState newBed = bed.getDefaultState().with(BedBlock.FACING, bedDir);
-                    if (world.getBlockState(otherPos).isIn(BlockTags.BEDS)) {
+                    BedPart bedPart = state.getValue(BedBlock.PART);
+                    Direction bedDir = state.getValue(BedBlock.FACING);
+                    BlockPos otherPos = pos.relative(getDirectionTowardsOtherPart(bedPart, bedDir));
+                    BlockState newBed = bed.defaultBlockState().setValue(BedBlock.FACING, bedDir);
+                    if (world.getBlockState(otherPos).is(BlockTags.BEDS)) {
                         BlockPos head = bedPart == BedPart.HEAD?pos:otherPos;
                         BlockPos foot = bedPart == BedPart.HEAD?otherPos:pos;
-                        world.setBlockState(head, Blocks.AIR.getDefaultState());
-                        world.setBlockState(foot, Blocks.AIR.getDefaultState());
-                        world.setBlockState(head, newBed.with(BedBlock.PART, BedPart.HEAD));
-                        world.setBlockState(foot, newBed.with(BedBlock.PART, BedPart.FOOT));
+                        world.setBlockAndUpdate(head, Blocks.AIR.defaultBlockState());
+                        world.setBlockAndUpdate(foot, Blocks.AIR.defaultBlockState());
+                        world.setBlockAndUpdate(head, newBed.setValue(BedBlock.PART, BedPart.HEAD));
+                        world.setBlockAndUpdate(foot, newBed.setValue(BedBlock.PART, BedPart.FOOT));
                     } else {
-                        world.setBlockState(pos, newBed.with(BedBlock.PART, bedPart));
+                        world.setBlockAndUpdate(pos, newBed.setValue(BedBlock.PART, bedPart));
                     }
                     used = true;
                     this.afterUse(context);
                 }
             }
 
-            return used ? ActionResult.SUCCESS : ActionResult.FAIL;
+            return used ? InteractionResult.SUCCESS : InteractionResult.FAIL;
     }
 
     private static Direction getDirectionTowardsOtherPart(BedPart part, Direction direction) {
         return part == BedPart.FOOT ? direction : direction.getOpposite();
     }
 
-    private void afterUse( ItemUsageContext context){
-        PlayerEntity player = context.getPlayer();
+    private void afterUse( UseOnContext context){
+        Player player = context.getPlayer();
         if (player != null) {
-            context.getStack().damage(1, player);
-            context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.ENTITY_SLIME_SQUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            context.getItemInHand().hurtWithoutBreaking(1, player);
+            context.getLevel().playSound(null, context.getClickedPos(), SoundEvents.SLIME_SQUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
     }
 

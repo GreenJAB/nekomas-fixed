@@ -9,234 +9,248 @@ import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.LootTableRegistry;
-import net.minecraft.block.*;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.*;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.block.WireOrientation;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.LidBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Map;
 
-public class ClamBlock extends BlockWithEntity implements Waterloggable {
+public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<ClamBlock> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 				ClamType.CODEC.fieldOf("clam_type").forGetter(ClamBlock::getClamType),
-				createSettingsCodec()
+				propertiesCodec()
 			).apply(instance, ClamBlock::new)
 	);
-	public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
-	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-	public static final BooleanProperty OPEN = Properties.OPEN;
-	public static final BooleanProperty POWERED = Properties.POWERED;
+	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
+	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final Map<Direction, VoxelShape> SHAPES_BY_DIRECTION;
 
 	public static final Identifier CONTENTS_DYNAMIC_DROP_ID = NekomasFixed.id("clam_contents");
 	private final ClamType clamType;
 
 	@Override
-	public MapCodec<? extends ClamBlock> getCodec() {
+	public @NonNull MapCodec<? extends ClamBlock> codec() {
 		return CODEC;
 	}
 
-	public ClamBlock(ClamType clamType, Settings settings) {
+	public ClamBlock(ClamType clamType, Properties settings) {
 		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false).with(OPEN, false).with(POWERED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(OPEN, false).setValue(POWERED, false));
 		this.clamType = clamType;
 	}
 
 	@Override
-	protected BlockState getStateForNeighborUpdate(
-		BlockState state,
-		WorldView world,
-		ScheduledTickView tickView,
-		BlockPos pos,
-		Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
-		Random random
+	protected @NonNull BlockState updateShape(
+            BlockState state,
+            @NonNull LevelReader world,
+            @NonNull ScheduledTickAccess tickView,
+            @NonNull BlockPos pos,
+            @NonNull Direction direction,
+            @NonNull BlockPos neighborPos,
+            @NonNull BlockState neighborState,
+            @NonNull RandomSource random
 	) {
-		if (state.get(WATERLOGGED)) {
-			tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+		if (state.getValue(WATERLOGGED)) {
+			tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 		}
-		return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+		return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
 	}
 
-	private void tryLaunch(BlockState state, World world, BlockPos pos) {
-		boolean wasPowered = state.get(POWERED);
-		boolean isPowered = world.isReceivingRedstonePower(pos);
+	private void tryLaunch(BlockState state, Level world, BlockPos pos) {
+		boolean wasPowered = state.getValue(POWERED);
+		boolean isPowered = world.hasNeighborSignal(pos);
 		if (wasPowered != isPowered) {
-			if (isPowered && !state.get(OPEN)) {
-				List<Entity> entities = world.getOtherEntities(null, new Box(pos));
+			if (isPowered && !state.getValue(OPEN)) {
+				List<Entity> entities = world.getEntities(null, new AABB(pos));
 				for (Entity entity : entities) {
 					if (entity instanceof LivingEntity || entity instanceof ItemEntity) {
-						float power = world.getReceivedRedstonePower(pos);
+						float power = world.getBestNeighborSignal(pos);
 						power = (float) (Math.sqrt(power) / 4.0f);
-						float dirx = -state.get(ClamBlock.FACING).getOffsetX();
-						float dirz = -state.get(ClamBlock.FACING).getOffsetZ();
+						float dirx = -state.getValue(ClamBlock.FACING).getStepX();
+						float dirz = -state.getValue(ClamBlock.FACING).getStepZ();
 						if (entity instanceof ItemEntity) {
 							dirx*=0.5f;
 							dirz*=0.5f;
 						}
 
-						if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-							serverPlayerEntity.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayerEntity.getId(), new Vec3d(power * dirx, power, power * dirz)));
+						if (entity instanceof ServerPlayer serverPlayerEntity) {
+							serverPlayerEntity.connection.send(new ClientboundSetEntityMotionPacket(serverPlayerEntity.getId(), new Vec3(power * dirx, power, power * dirz)));
 						} else {
-							entity.setVelocity(power * dirx, power, power * dirz);
-							entity.velocityDirty = true;
+							entity.setDeltaMovement(power * dirx, power, power * dirz);
+							entity.needsSync = true;
 						}
 					}
 				}
 			}
-			world.setBlockState(pos, state.with(POWERED, isPowered).with(OPEN, isPowered), Block.NOTIFY_LISTENERS);
+			world.setBlock(pos, state.setValue(POWERED, isPowered).setValue(OPEN, isPowered), Block.UPDATE_CLIENTS);
 		}
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-		if (!world.isClient()) {
+	public void setPlacedBy(Level world, @NonNull BlockPos pos, @NonNull BlockState state, LivingEntity placer, @NonNull ItemStack itemStack) {
+		if (!world.isClientSide()) {
 			tryLaunch(state, world, pos);
 		}
 	}
 
 	@Override
-	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-		if (!world.isClient()) {
+	protected void neighborChanged(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Block sourceBlock, @Nullable Orientation wireOrientation, boolean notify) {
+		if (!world.isClientSide()) {
 			tryLaunch(state, world, pos);
 		}
 	}
 
 	@Override
-	protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-		if (!oldState.isOf(state.getBlock())) {
-			if (!world.isClient() && world.getBlockEntity(pos) == null) {
+	protected void onPlace(BlockState state, @NonNull Level world, @NonNull BlockPos pos, BlockState oldState, boolean notify) {
+		if (!oldState.is(state.getBlock())) {
+			if (!world.isClientSide() && world.getBlockEntity(pos) == null) {
 				tryLaunch(state, world, pos);
 			}
 		}
 	}
 
 	@Override
-	protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return SHAPES_BY_DIRECTION.get((state.get(FACING)));
+	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+		return SHAPES_BY_DIRECTION.get((state.getValue(FACING)));
 	}
 
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		Direction direction = ctx.getHorizontalPlayerFacing().getOpposite();
-		FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-		return this.getDefaultState().with(FACING, direction).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(OPEN, false).with(POWERED, false);
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+		Direction direction = ctx.getHorizontalDirection().getOpposite();
+		FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+		return this.defaultBlockState().setValue(FACING, direction).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(OPEN, false).setValue(POWERED, false);
 	}
 
 	@Override
-	protected FluidState getFluidState(BlockState state) {
-		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+	protected @NonNull FluidState getFluidState(BlockState state) {
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
-		ItemScatterer.onStateReplaced(state, world, pos);
+	protected void affectNeighborsAfterRemoval(@NonNull BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, boolean moved) {
+		Containers.updateNeighboursAfterDestroy(state, world, pos);
 	}
 
 	@Override
-	protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		if (world.getBlockEntity(pos) instanceof ClamBlockEntity clamBlockEntity && !hand.equals(Hand.OFF_HAND)) {
-			if (world.isClient()) {
-				return ActionResult.SUCCESS;
+	protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+		if (world.getBlockEntity(pos) instanceof ClamBlockEntity clamBlockEntity && !hand.equals(InteractionHand.OFF_HAND)) {
+			if (world.isClientSide()) {
+				return InteractionResult.SUCCESS;
 			} else {
-				if (!(Boolean)state.get(OPEN) || player.isSneaking()) {
+				if (!(Boolean)state.getValue(OPEN) || player.isShiftKeyDown()) {
 					BlockState blockState = state.cycle(OPEN);
-					world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
-					world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
-					return ActionResult.SUCCESS;
+					world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+					world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
+					return InteractionResult.SUCCESS;
 				}
-				PlayerInventory playerInventory = player.getInventory();
+				Inventory playerInventory = player.getInventory();
 					boolean bl = swapSingleStack(stack, player, clamBlockEntity, playerInventory);
 					if (bl) {
-						this.playSound(world, pos, stack.isEmpty() ? SoundEvents.BLOCK_SHELF_TAKE_ITEM : SoundEvents.BLOCK_SHELF_SINGLE_SWAP);
+						this.playSound(world, pos, stack.isEmpty() ? SoundEvents.SHELF_TAKE_ITEM : SoundEvents.SHELF_SINGLE_SWAP);
 					} else {
 						if (stack.isEmpty()) {
 							BlockState blockState = state.cycle(OPEN);
-							world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
-							world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
-							return ActionResult.SUCCESS;
+							world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+							world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
+							return InteractionResult.SUCCESS;
 						}
 
-						this.playSound(world, pos, SoundEvents.BLOCK_SHELF_PLACE_ITEM);
+						this.playSound(world, pos, SoundEvents.SHELF_PLACE_ITEM);
 					}
-					return ActionResult.SUCCESS.withNewHandStack(stack);
+					return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
 			}
 		} else {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 	}
-	private static boolean swapSingleStack(ItemStack stack, PlayerEntity player, ClamBlockEntity clamBlockEntity, PlayerInventory playerInventory) {
-		if (stack.isIn(ItemTags.SHULKER_BOXES)) return false;
+	private static boolean swapSingleStack(ItemStack stack, Player player, ClamBlockEntity clamBlockEntity, Inventory playerInventory) {
+		if (stack.is(ItemTags.SHULKER_BOXES)) return false;
 		ItemStack itemStack = clamBlockEntity.swapStack(0, stack);
-		ItemStack itemStack2 = player.isInCreativeMode() && itemStack.isEmpty() ? stack.copy() : itemStack;
-		playerInventory.setStack(playerInventory.getSelectedSlot(), itemStack2);
-		playerInventory.markDirty();
+		ItemStack itemStack2 = player.hasInfiniteMaterials() && itemStack.isEmpty() ? stack.copy() : itemStack;
+		playerInventory.setItem(playerInventory.getSelectedSlot(), itemStack2);
+		playerInventory.setChanged();
 		clamBlockEntity.markDirty(GameEvent.ITEM_INTERACT_FINISH);
 		return !itemStack.isEmpty();
 	}
-	private void playSound(WorldAccess world, BlockPos pos, SoundEvent sound) {
-		world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+	private void playSound(LevelAccessor world, BlockPos pos, SoundEvent sound) {
+		world.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
 	}
 
 	@Override
-	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-		if (!world.isClient()) {
+	protected @NonNull InteractionResult useWithoutItem(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull BlockHitResult hit) {
+		if (!world.isClientSide()) {
 			BlockState blockState = state.cycle(OPEN);
-			world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
-			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
+			world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+			world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
 		}
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
-	public static PropertyRetriever< Float2FloatFunction> getAnimationProgressRetriever(LidOpenable progress) {
-		return () -> progress::getAnimationProgress;
+	public static PropertyRetriever< Float2FloatFunction> getAnimationProgressRetriever(LidBlockEntity progress) {
+		return () -> progress::getOpenNess;
 	}
 
 	public interface PropertyRetriever<T> {
@@ -244,65 +258,64 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(@NonNull BlockPos pos, @NonNull BlockState state) {
 		return new ClamBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return world.isClient() ? validateTicker(type, BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntity::clientTick) : null;
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
+		return world.isClientSide() ? createTickerHelper(type, BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntity::clientTick) : null;
 	}
 
 	@Override
-	protected boolean hasRandomTicks(BlockState state) {
-		return state.get(WATERLOGGED);
+	protected boolean isRandomlyTicking(BlockState state) {
+		return state.getValue(WATERLOGGED);
 	}
 
 	@Override
-	protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	protected void randomTick(@NonNull BlockState state, ServerLevel world, @NonNull BlockPos pos, @NonNull RandomSource random) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof ClamBlockEntity clamBlockEntity) {
-			ItemStack item = clamBlockEntity.getHeldStacks().get(0);
-			BlockState below = world.getBlockState(pos.down());
-			if (below.isOf(Blocks.SAND) || below.isOf(Blocks.GRAVEL) || below.isOf(Blocks.DIRT)) {
-				if (state.get(OPEN)) {
+			ItemStack item = clamBlockEntity.getItems().get(0);
+			BlockState below = world.getBlockState(pos.below());
+			if (below.is(Blocks.SAND) || below.is(Blocks.GRAVEL) || below.is(Blocks.DIRT)) {
+				if (state.getValue(OPEN)) {
 					if (item.isEmpty()) {
-						clamBlockEntity.setHeldStack(below.getBlock().asItem().getDefaultStack());
+						clamBlockEntity.setHeldStack(below.getBlock().asItem().getDefaultInstance());
 					} else {
-						if (item.isOf(below.getBlock().asItem())) {
-							clamBlockEntity.setHeldStack(item.copyWithCount(Math.min(item.getCount() + 1, item.getMaxCount())));
+						if (item.is(below.getBlock().asItem())) {
+							clamBlockEntity.setHeldStack(item.copyWithCount(Math.min(item.getCount() + 1, item.getMaxStackSize())));
 						}
 					}
-					if (!state.get(POWERED) && random.nextInt(Math.max(64 - item.getCount(),1)) < 4) {
+					if (!state.getValue(POWERED) && random.nextInt(Math.max(64 - item.getCount(),1)) < 4) {
 						BlockState blockState = state.cycle(OPEN);
-						world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
+						world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
 					}
 				} else {
-					if (item.isOf(Items.SAND) || item.isOf(Items.GRAVEL) || item.isOf(Items.DIRT)) {
+					if (item.is(Items.SAND) || item.is(Items.GRAVEL) || item.is(Items.DIRT)) {
 						clamBlockEntity.setHeldStack(item.copyWithCount(item.getCount() - 1));
 						if (random.nextInt(16) == 0) {
-                            assert world.getServer() != null;
                             LootTable lootTable = world.getServer()
-									.getReloadableRegistries()
+									.reloadableRegistries()
 									.getLootTable(LootTableRegistry.CLAM_LOOT_TABLE);
 
-							LootWorldContext lootContextParameterSet = (new LootWorldContext.Builder(world)).add(LootContextParameters.ORIGIN, pos.toCenterPos()).add(LootContextParameters.TOOL, null).add(LootContextParameters.THIS_ENTITY, null).luck(getLuck(this.getClamType())).build(LootContextTypes.FISHING);
+							LootParams lootContextParameterSet = (new LootParams.Builder(world)).withParameter(LootContextParams.ORIGIN, pos.getCenter()).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(this.getClamType())).create(LootContextParamSets.FISHING);
 
-							ObjectArrayList<ItemStack> loots = lootTable.generateLoot(lootContextParameterSet);
+							ObjectArrayList<ItemStack> loots = lootTable.getRandomItems(lootContextParameterSet);
 							if (!loots.isEmpty()) {
-								ItemStack itemStack = clamBlockEntity.getHeldStacks().get(0);
+								ItemStack itemStack = clamBlockEntity.getItems().get(0);
 								ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
-								itemEntity.setToDefaultPickupDelay();
-								world.spawnEntity(itemEntity);
+								itemEntity.setDefaultPickUpDelay();
+								world.addFreshEntity(itemEntity);
 
 								clamBlockEntity.setHeldStack(loots.get(0));
 							}
 						}
 					}
-					if (!state.get(POWERED) && random.nextInt(item.getCount() + 1) < 4) {
+					if (!state.getValue(POWERED) && random.nextInt(item.getCount() + 1) < 4) {
 						BlockState blockState = state.cycle(OPEN);
-						world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
+						world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
 					}
 				}
 			}
@@ -310,65 +323,65 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	protected boolean hasComparatorOutput(BlockState state) {
+	protected boolean hasAnalogOutputSignal(@NonNull BlockState state) {
 		return true;
 	}
 
 	@Override
-	protected int getComparatorOutput(BlockState state, World world, BlockPos pos, Direction direction) {
-		return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+	protected int getAnalogOutputSignal(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
+		return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(world.getBlockEntity(pos));
 	}
 
 	@Override
-	protected BlockState rotate(BlockState state, BlockRotation rotation) {
-		return state.with(FACING, rotation.rotate(state.get(FACING)));
+	protected @NonNull BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
-	protected BlockState mirror(BlockState state, BlockMirror mirror) {
-		return state.rotate(mirror.getRotation(state.get(FACING)));
+	protected @NonNull BlockState mirror(BlockState state, Mirror mirror) {
+		return state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, WATERLOGGED, OPEN, POWERED);
 	}
 
 	@Override
-	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+	public @NonNull BlockState playerWillDestroy(Level world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof ClamBlockEntity clamBlockEntity) {
-			int cstate = state.get(ClamBlock.OPEN, false)?1:0;
-			if (cstate==1&&!clamBlockEntity.getHeldStacks().isEmpty()&&!clamBlockEntity.getHeldStacks().get(0).isEmpty()) cstate++;
+			int cstate = state.getValueOrElse(ClamBlock.OPEN, false)?1:0;
+			if (cstate==1&&!clamBlockEntity.getItems().isEmpty()&&!clamBlockEntity.getItems().get(0).isEmpty()) cstate++;
 			clamBlockEntity.setState(cstate);
-			if (!world.isClient() && player.shouldSkipBlockDrops()) {
+			if (!world.isClientSide() && player.preventsBlockDrops()) {
 
 				ItemStack itemStack = getItemStack(this.getClamType());
-				itemStack.applyComponentsFrom(blockEntity.createComponentMap());
+				itemStack.applyComponents(blockEntity.collectComponents());
 				ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
-				itemEntity.setToDefaultPickupDelay();
-				world.spawnEntity(itemEntity);
+				itemEntity.setDefaultPickUpDelay();
+				world.addFreshEntity(itemEntity);
 			}else {
-				clamBlockEntity.generateLoot(player);
+				clamBlockEntity.unpackLootTable(player);
 			}
 		}
 
-		return super.onBreak(world, pos, state, player);
+		return super.playerWillDestroy(world, pos, state, player);
 	}
 
 	@Override
-	protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
-		BlockEntity blockEntity = builder.getOptional(LootContextParameters.BLOCK_ENTITY);
+	protected @NonNull List<ItemStack> getDrops(@NonNull BlockState state, LootParams.Builder builder) {
+		BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
 		if (blockEntity instanceof ClamBlockEntity clamBlockEntity) {
-			builder = builder.addDynamicDrop(CONTENTS_DYNAMIC_DROP_ID, lootConsumer -> {
-				for (int i = 0; i < clamBlockEntity.size(); i++) {
-					lootConsumer.accept(clamBlockEntity.getStack(i));
+			builder = builder.withDynamicDrop(CONTENTS_DYNAMIC_DROP_ID, lootConsumer -> {
+				for (int i = 0; i < clamBlockEntity.getContainerSize(); i++) {
+					lootConsumer.accept(clamBlockEntity.getItem(i));
 				}
 			});
 		}
 
 
-		return super.getDroppedStacks(state, builder);
+		return super.getDrops(state, builder);
 	}
 
 	public static ItemStack getItemStack(@Nullable ClamType clamType) {
@@ -402,7 +415,7 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+	protected boolean isPathfindable(@NonNull BlockState state, @NonNull PathComputationType type) {
 		return false;
 	}
 
@@ -411,6 +424,6 @@ public class ClamBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	static {
-		SHAPES_BY_DIRECTION = VoxelShapes.createHorizontalFacingShapeMap(Block.createCuboidShape(1.0, 0, 0, 15.0, 4.0, 15.0));
+		SHAPES_BY_DIRECTION = Shapes.rotateHorizontal(Block.box(1.0, 0, 0, 15.0, 4.0, 15.0));
 	}
 }

@@ -2,26 +2,26 @@ package net.greenjab.nekomasfixed.registry.other;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.component.ComponentsAccess;
-import net.minecraft.item.Item;
-import net.minecraft.item.tooltip.TooltipAppender;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
 import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
+import org.jspecify.annotations.NonNull;
 
-public record StoredTimeComponent(int time) implements TooltipAppender {
+public record StoredTimeComponent(int time) implements TooltipProvider {
 	public static final Codec<StoredTimeComponent> CODEC = Codec.INT.xmap(StoredTimeComponent::new, StoredTimeComponent::time);
-	public static final PacketCodec<ByteBuf, StoredTimeComponent> PACKET_CODEC = PacketCodecs.VAR_INT.xmap(StoredTimeComponent::new, StoredTimeComponent::time);
+	public static final StreamCodec<ByteBuf, StoredTimeComponent> PACKET_CODEC = ByteBufCodecs.VAR_INT.map(StoredTimeComponent::new, StoredTimeComponent::time);
 
 	@Override
-	public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
+	public void addToTooltip(Item.@NonNull TooltipContext context, Consumer<Component> textConsumer, @NonNull TooltipFlag type, @NonNull DataComponentGetter components) {
 		int hour = time/1000;
 		int min = ((time%1000)*60)/1000;
 		String string = (hour<10?"0":"") + hour + ":" + (min<10?"0":"") + min;
-		textConsumer.accept(Text.translatable("component.nekomasfixed.storedtime", string).formatted(Formatting.GRAY));
+		textConsumer.accept(Component.translatable("component.nekomasfixed.storedtime", string).withStyle(ChatFormatting.GRAY));
 	}
 }

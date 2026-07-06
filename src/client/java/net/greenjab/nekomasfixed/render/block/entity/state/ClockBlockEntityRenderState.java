@@ -2,9 +2,9 @@ package net.greenjab.nekomasfixed.render.block.entity.state;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
-import net.minecraft.client.render.item.ItemRenderState;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.core.Direction;
 
 @Environment(EnvType.CLIENT)
 public class ClockBlockEntityRenderState extends BlockEntityRenderState {
@@ -15,7 +15,7 @@ public class ClockBlockEntityRenderState extends BlockEntityRenderState {
 	public boolean bell;
 	public int timer;
 	public int dayTime;
-	public ItemRenderState clockRenderState = new ItemRenderState();
-	public ItemRenderState standRenderState = new ItemRenderState();
-	public ItemRenderState bellRenderState = new ItemRenderState();
+	public ItemStackRenderState clockRenderState = new ItemStackRenderState();
+	public ItemStackRenderState standRenderState = new ItemStackRenderState();
+	public ItemStackRenderState bellRenderState = new ItemStackRenderState();
 }

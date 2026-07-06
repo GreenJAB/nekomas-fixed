@@ -2,61 +2,65 @@ package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RotationPropertyHelper;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.RotationSegment;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.NonNull;
 
 public class FloorClockBlock extends AbstractClockBlock {
 	public static final MapCodec<FloorClockBlock> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
-				createSettingsCodec()
+				propertiesCodec()
 			).apply(instance, FloorClockBlock::new)
 	);
-	public static final int MAX_ROTATION_INDEX = RotationPropertyHelper.getMax();
+	public static final int MAX_ROTATION_INDEX = RotationSegment.getMaxSegmentIndex();
 	private static final int MAX_ROTATIONS = MAX_ROTATION_INDEX + 1;
-	public static final IntProperty ROTATION = Properties.ROTATION;
-	private static final VoxelShape SHAPE = Block.createColumnShape(8.0, 0.0, 8.0);
+	public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
+	private static final VoxelShape SHAPE = Block.column(8.0, 0.0, 8.0);
 
 	@Override
-	public MapCodec<? extends FloorClockBlock> getCodec() {
+	public @NonNull MapCodec<? extends FloorClockBlock> codec() {
 		return CODEC;
 	}
 
-	public FloorClockBlock(Settings settings) {
+	public FloorClockBlock(Properties settings) {
 		super(settings);
-		this.setDefaultState(this.getDefaultState().with(ROTATION, 0));
+		this.registerDefaultState(this.defaultBlockState().setValue(ROTATION, 0));
 	}
 
 	@Override
-	protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+	protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		return super.getPlacementState(ctx).with(ROTATION, RotationPropertyHelper.fromYaw(ctx.getPlayerYaw()));
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+		return super.getStateForPlacement(ctx).setValue(ROTATION, RotationSegment.convertToSegment(ctx.getRotation()));
 	}
 
 	@Override
-	protected BlockState rotate(BlockState state, BlockRotation rotation) {
-		return state.with(ROTATION, rotation.rotate(state.get(ROTATION), MAX_ROTATIONS));
+	protected @NonNull BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(ROTATION, rotation.rotate(state.getValue(ROTATION), MAX_ROTATIONS));
 	}
 
 	@Override
-	protected BlockState mirror(BlockState state, BlockMirror mirror) {
-		return state.with(ROTATION, mirror.mirror(state.get(ROTATION), MAX_ROTATIONS));
+	protected @NonNull BlockState mirror(BlockState state, Mirror mirror) {
+		return state.setValue(ROTATION, mirror.mirror(state.getValue(ROTATION), MAX_ROTATIONS));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(ROTATION);
 	}
 }

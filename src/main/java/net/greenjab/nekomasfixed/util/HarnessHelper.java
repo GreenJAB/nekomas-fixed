@@ -1,26 +1,26 @@
 package net.greenjab.nekomasfixed.util;
 
-import net.minecraft.component.type.EquippableComponent;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.tag.EntityTypeTags;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.equipment.Equippable;
 
 public class HarnessHelper {
 
-    public static EquippableComponent ofHarness(ModColors color) {
-        RegistryEntryLookup<EntityType<?>> registryEntryLookup =
-                Registries.createEntryLookup(Registries.ENTITY_TYPE);
+    public static Equippable ofHarness(ModColors color) {
+        HolderGetter<EntityType<?>> registryEntryLookup =
+                BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.ENTITY_TYPE);
 
-        return EquippableComponent.builder(EquipmentSlot.BODY)
-                .equipSound(SoundEvents.ENTITY_HAPPY_GHAST_EQUIP)
-                .model(ModEquipmentAssets.HARNESS_FROM_MOD_COLOR.get(color))
-                .allowedEntities(registryEntryLookup.getOrThrow(EntityTypeTags.CAN_EQUIP_HARNESS))
-                .equipOnInteract(true)
-                .canBeSheared(true)
-                .shearingSound(Registries.SOUND_EVENT.getEntry(SoundEvents.ENTITY_HAPPY_GHAST_UNEQUIP))
+        return Equippable.builder(EquipmentSlot.BODY)
+                .setEquipSound(SoundEvents.HARNESS_EQUIP)
+                .setAsset(ModEquipmentAssets.HARNESS_FROM_MOD_COLOR.get(color))
+                .setAllowedEntities(registryEntryLookup.getOrThrow(EntityTypeTags.CAN_EQUIP_HARNESS))
+                .setEquipOnInteract(true)
+                .setCanBeSheared(true)
+                .setShearingSound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.HARNESS_UNEQUIP))
                 .build();
     }
 }

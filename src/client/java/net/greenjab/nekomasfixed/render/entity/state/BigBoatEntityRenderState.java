@@ -2,8 +2,8 @@ package net.greenjab.nekomasfixed.render.entity.state;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.render.item.ItemRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 @Environment(EnvType.CLIENT)
 public class BigBoatEntityRenderState extends EntityRenderState {
@@ -18,7 +18,7 @@ public class BigBoatEntityRenderState extends EntityRenderState {
 
 	public boolean hasChest;
 	public int players;
-	public final ItemRenderState bannerRenderState = new ItemRenderState();
+	public final ItemStackRenderState bannerRenderState = new ItemStackRenderState();
 
 	public boolean huge;
 }

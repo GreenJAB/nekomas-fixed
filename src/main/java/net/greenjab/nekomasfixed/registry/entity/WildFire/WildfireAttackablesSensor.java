@@ -2,37 +2,37 @@ package net.greenjab.nekomasfixed.registry.entity.WildFire;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.sensor.NearestLivingEntitiesSensor;
-import net.minecraft.entity.ai.brain.sensor.Sensor;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.world.ServerWorld;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.NearestLivingEntitySensor;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.player.Player;
+import org.jspecify.annotations.NonNull;
 
-public class WildfireAttackablesSensor extends NearestLivingEntitiesSensor<WildfireEntity> {
+public class WildfireAttackablesSensor extends NearestLivingEntitySensor<WildfireEntity> {
 	@Override
-	public Set<MemoryModuleType<?>> getOutputMemoryModules() {
-		return ImmutableSet.copyOf(Iterables.concat(super.getOutputMemoryModules(), List.of(MemoryModuleType.NEAREST_ATTACKABLE)));
+	public @NonNull Set<MemoryModuleType<?>> requires() {
+		return ImmutableSet.copyOf(Iterables.concat(super.requires(), List.of(MemoryModuleType.NEAREST_ATTACKABLE)));
 	}
 
-	protected void sense(ServerWorld serverWorld, WildfireEntity wildFireEntity) {
-		super.sense(serverWorld, wildFireEntity);
+	protected void doTick(@NonNull ServerLevel serverWorld, @NonNull WildfireEntity wildFireEntity) {
+		super.doTick(serverWorld, wildFireEntity);
 		wildFireEntity.getBrain()
-			.getOptionalRegisteredMemory(MemoryModuleType.MOBS)
+			.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES)
 			.stream()
 			.flatMap(Collection::stream)
-			.filter(EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR)
-			.filter(target -> Sensor.testAttackableTargetPredicate(serverWorld, wildFireEntity, target))
-			.filter(target -> target instanceof PlayerEntity || target instanceof PassiveEntity)
+			.filter(EntitySelector.NO_CREATIVE_OR_SPECTATOR)
+			.filter(target -> Sensor.isEntityAttackable(serverWorld, wildFireEntity, target))
+			.filter(target -> target instanceof Player || target instanceof AgeableMob)
 			.findFirst()
 			.ifPresentOrElse(
-				target -> wildFireEntity.getBrain().remember(MemoryModuleType.NEAREST_ATTACKABLE, target),
-				() -> wildFireEntity.getBrain().forget(MemoryModuleType.NEAREST_ATTACKABLE)
+				target -> wildFireEntity.getBrain().setMemory(MemoryModuleType.NEAREST_ATTACKABLE, target),
+				() -> wildFireEntity.getBrain().eraseMemory(MemoryModuleType.NEAREST_ATTACKABLE)
 			);
 	}
 }

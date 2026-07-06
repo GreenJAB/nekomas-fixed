@@ -2,109 +2,114 @@ package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public class BaobabFruitBlock extends Block implements Fertilizable {
-    public static final MapCodec<BaobabFruitBlock> CODEC = createCodec(BaobabFruitBlock::new);
-    private static final VoxelShape SHAPE_AGE_0 = Block.createCuboidShape(7, 6, 7, 9, 9, 9);
-    private static final VoxelShape SHAPE_AGE_1 = Block.createCuboidShape(5, 0, 5, 11, 9, 11);
-    public static final IntProperty AGE = IntProperty.of("age", 0, 1);
+public class BaobabFruitBlock extends Block implements BonemealableBlock {
+    public static final MapCodec<BaobabFruitBlock> CODEC = simpleCodec(BaobabFruitBlock::new);
+    private static final VoxelShape SHAPE_AGE_0 = Block.box(7, 6, 7, 9, 9, 9);
+    private static final VoxelShape SHAPE_AGE_1 = Block.box(5, 0, 5, 11, 9, 11);
+    public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 1);
 
-    public BaobabFruitBlock(Settings settings) {
+    public BaobabFruitBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return state.get(AGE) == 0 ? SHAPE_AGE_0 : SHAPE_AGE_1;
+    public @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+        return state.getValue(AGE) == 0 ? SHAPE_AGE_0 : SHAPE_AGE_1;
     }
 
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AGE);
     }
 
     @Override
-    protected boolean hasRandomTicks(BlockState state) {
-        return state.get(AGE) < 1;
+    protected boolean isRandomlyTicking(BlockState state) {
+        return state.getValue(AGE) < 1;
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    protected void randomTick(@NonNull BlockState state, ServerLevel world, @NonNull BlockPos pos, @NonNull RandomSource random) {
         if (world.random.nextInt(5) == 0) {
             int rope = 0;
             for (; rope < 8; rope++) {
-                if (!world.getBlockState(pos.up(rope + 1)).isOf(BlockRegistry.ROPE)) break;
+                if (!world.getBlockState(pos.above(rope + 1)).is(BlockRegistry.ROPE)) break;
             }
-            if (world.getBlockState(pos.up(rope + 1)).isIn(BlockTags.LEAVES)) {
-                if (world.getBlockState(pos.down()).isIn(BlockTags.REPLACEABLE)) {
+            if (world.getBlockState(pos.above(rope + 1)).is(BlockTags.LEAVES)) {
+                if (world.getBlockState(pos.below()).is(BlockTags.REPLACEABLE)) {
                     if (rope > 3) {
                         if (world.random.nextInt(9 - rope) == 0)
-                            world.setBlockState(pos, state.with(AGE, 1), Block.NOTIFY_LISTENERS);
+                            world.setBlock(pos, state.setValue(AGE, 1), Block.UPDATE_CLIENTS);
                         else {
-                            world.setBlockState(pos, BlockRegistry.ROPE.getDefaultState().with(RopeBlock.ATTACHED, true), Block.NOTIFY_LISTENERS);
-                            world.setBlockState(pos.down(), state.with(AGE, 0), Block.NOTIFY_LISTENERS);
+                            world.setBlock(pos, BlockRegistry.ROPE.defaultBlockState().setValue(RopeBlock.ATTACHED, true), Block.UPDATE_CLIENTS);
+                            world.setBlock(pos.below(), state.setValue(AGE, 0), Block.UPDATE_CLIENTS);
                         }
                     } else {
-                        world.setBlockState(pos, BlockRegistry.ROPE.getDefaultState().with(RopeBlock.ATTACHED, true), Block.NOTIFY_LISTENERS);
-                        world.setBlockState(pos.down(), state.with(AGE, 0), Block.NOTIFY_LISTENERS);
+                        world.setBlock(pos, BlockRegistry.ROPE.defaultBlockState().setValue(RopeBlock.ATTACHED, true), Block.UPDATE_CLIENTS);
+                        world.setBlock(pos.below(), state.setValue(AGE, 0), Block.UPDATE_CLIENTS);
                     }
-                } else world.setBlockState(pos, state.with(AGE, 1), Block.NOTIFY_LISTENERS);
+                } else world.setBlock(pos, state.setValue(AGE, 1), Block.UPDATE_CLIENTS);
             }
         }
     }
 
     @Override
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.up()).isOf(BlockRegistry.ROPE) || world.getBlockState(pos.up()).isIn(BlockTags.LEAVES) ;
+    protected boolean canSurvive(@NonNull BlockState state, LevelReader world, BlockPos pos) {
+        return world.getBlockState(pos.above()).is(BlockRegistry.ROPE) || world.getBlockState(pos.above()).is(BlockTags.LEAVES) ;
     }
 
     @Override
-    public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState blockState = this.getDefaultState();
-        WorldView worldView = ctx.getWorld();
-        BlockPos blockPos = ctx.getBlockPos();
-        if(canPlaceAt(blockState, worldView, blockPos)) {
-            return this.getDefaultState().with(AGE, 1);
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockState blockState = this.defaultBlockState();
+        LevelReader worldView = ctx.getLevel();
+        BlockPos blockPos = ctx.getClickedPos();
+        if(canSurvive(blockState, worldView, blockPos)) {
+            return this.defaultBlockState().setValue(AGE, 1);
         }
 
         return null;
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    protected @NonNull BlockState updateShape(BlockState state, @NonNull LevelReader world, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
+        return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
-        return state.get(AGE) < 2;
+    public boolean isValidBonemealTarget(@NonNull LevelReader world, @NonNull BlockPos pos, BlockState state) {
+        return state.getValue(AGE) < 2;
     }
 
     @Override
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(@NonNull Level world, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        if(this.getDefaultState().get(AGE) < 1){
-            world.setBlockState(pos, state.with(AGE, 1), 2);
+    public void performBonemeal(@NonNull ServerLevel world, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state) {
+        if(this.defaultBlockState().getValue(AGE) < 1){
+            world.setBlock(pos, state.setValue(AGE, 1), 2);
         }
     }
 }

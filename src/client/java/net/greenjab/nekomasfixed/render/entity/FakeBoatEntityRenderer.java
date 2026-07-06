@@ -1,31 +1,32 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.registry.entity.FakeBoatEntity;
 import net.greenjab.nekomasfixed.render.entity.state.FakeBoatEntityRenderState;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class FakeBoatEntityRenderer extends EntityRenderer<FakeBoatEntity, FakeBoatEntityRenderState> {
 
-	public FakeBoatEntityRenderer(EntityRendererFactory.Context context) {
+	public FakeBoatEntityRenderer(EntityRendererProvider.Context context) {
 		super(context);
 	}
-	public void render(
-			FakeBoatEntityRenderState fakeBoatEntityRenderState,
-			MatrixStack matrixStack,
-			OrderedRenderCommandQueue orderedRenderCommandQueue,
-			CameraRenderState cameraRenderState
+	public void submit(
+            @NonNull FakeBoatEntityRenderState fakeBoatEntityRenderState,
+            @NonNull PoseStack matrixStack,
+            @NonNull SubmitNodeCollector orderedRenderCommandQueue,
+            @NonNull CameraRenderState cameraRenderState
 	) {
-		super.render(fakeBoatEntityRenderState, matrixStack, orderedRenderCommandQueue, cameraRenderState);
+		super.submit(fakeBoatEntityRenderState, matrixStack, orderedRenderCommandQueue, cameraRenderState);
 	}
 
-	public FakeBoatEntityRenderState createRenderState() {
+	public @NonNull FakeBoatEntityRenderState createRenderState() {
 		return new FakeBoatEntityRenderState();
 	}
 }

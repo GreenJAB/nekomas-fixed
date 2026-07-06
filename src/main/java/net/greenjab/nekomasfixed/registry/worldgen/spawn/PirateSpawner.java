@@ -3,73 +3,74 @@ package net.greenjab.nekomasfixed.registry.worldgen.spawn;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.PatrolEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.raid.RaiderEntity;
-import net.minecraft.entity.vehicle.AbstractBoatEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.village.raid.Raid;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.SpawnHelper;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.rule.GameRules;
-import net.minecraft.world.spawner.SpecialSpawner;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.PatrollingMonster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.level.CustomSpawner;
+import net.minecraft.world.level.NaturalSpawner;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 
-public class PirateSpawner implements SpecialSpawner {
+public class PirateSpawner implements CustomSpawner {
     private int cooldown;
 
     @Override
-    public void spawn(ServerWorld world, boolean spawnMonsters) {
+    public void tick(@NonNull ServerLevel world, boolean spawnMonsters) {
         if (spawnMonsters) {
-            if (world.getGameRules().getValue(GameRules.SPAWN_PATROLS)) {
-                Random random = world.random;
+            if (world.getGameRules().get(GameRules.SPAWN_PATROLS)) {
+                RandomSource random = world.random;
                 this.cooldown--;
                 if (this.cooldown <= 0) {
                     this.cooldown = this.cooldown + 12000 + random.nextInt(1200);
-                    long l = world.getTimeOfDay() / 24000L;
-                    if (l >= 5L && world.isDay()) {
+                    long l = world.getDayTime() / 24000L;
+                    if (l >= 5L && world.isBrightOutside()) {
                     if (random.nextInt(3) == 0) {//5
-                        int i = world.getPlayers().size();
+                        int i = world.players().size();
                         if (i >= 1) {
-                            PlayerEntity playerEntity = world.getPlayers().get(random.nextInt(i));
+                            Player playerEntity = world.players().get(random.nextInt(i));
                             if (!playerEntity.isSpectator()) {
-                                if (!world.isNearOccupiedPointOfInterest(playerEntity.getBlockPos(), 2)) {
-                                    if (notNearOtherPatrols(world, playerEntity.getBlockPos())) {
+                                if (!world.isCloseToVillage(playerEntity.blockPosition(), 2)) {
+                                    if (notNearOtherPatrols(world, playerEntity.blockPosition())) {
                                         int j = (64 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
                                         int k = (64 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
-                                        Mutable mutable = playerEntity.getBlockPos().mutableCopy().move(j, 0, k);
+                                        MutableBlockPos mutable = playerEntity.blockPosition().mutable().move(j, 0, k);
                                         int m = 10;
-                                        if (world.isRegionLoaded(mutable.getX() - m, mutable.getZ() - m, mutable.getX() + m, mutable.getZ() + m)) {
-                                            RegistryEntry<Biome> registryEntry = world.getBiome(mutable);
-                                            if (registryEntry.isIn(BiomeTags.IS_OCEAN)) {
-                                                mutable.setY(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, mutable).getY());
-                                                if (world.getBlockState(mutable).isOf(Blocks.AIR) && world.getBlockState(mutable.down()).isOf(Blocks.WATER)) {
+                                        if (world.hasChunksAt(mutable.getX() - m, mutable.getZ() - m, mutable.getX() + m, mutable.getZ() + m)) {
+                                            Holder<Biome> registryEntry = world.getBiome(mutable);
+                                            if (registryEntry.is(BiomeTags.IS_OCEAN)) {
+                                                mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, mutable).getY());
+                                                if (world.getBlockState(mutable).is(Blocks.AIR) && world.getBlockState(mutable.below()).is(Blocks.WATER)) {
                                                     for (int bx = mutable.getX() - 8; bx < mutable.getX() + 8; bx++) {
                                                         for (int by = mutable.getY() - 2; by < mutable.getY() + 4; by++) {
                                                             for (int bz = mutable.getZ() - 8; bz < mutable.getZ() + 8; bz++) {
                                                                 BlockState blockState = world.getBlockState(new BlockPos(bx, by, bz));
-                                                                if (!(blockState.isOf(Blocks.AIR) || blockState.isOf(Blocks.WATER))) {
+                                                                if (!(blockState.is(Blocks.AIR) || blockState.is(Blocks.WATER))) {
                                                                     return;
                                                                 }
                                                             }
                                                         }
                                                     }
-                                                    mutable.add(0, 2, 0);
-                                                    int n = (int) Math.ceil(world.getLocalDifficulty(mutable).getLocalDifficulty()) + 1;
+                                                    mutable.offset(0, 2, 0);
+                                                    int n = (int) Math.ceil(world.getCurrentDifficultyAt(mutable).getEffectiveDifficulty()) + 1;
                                                     int boatType = random.nextInt(EntityTypeRegistry.bigBoats.size());
                                                     for (int o = 0; o < n; o++) {
                                                         if (o == 0) {
@@ -98,15 +99,15 @@ public class PirateSpawner implements SpecialSpawner {
         }
     }
 
-    private boolean notNearOtherPatrols(ServerWorld world, BlockPos blockPos) {
-        return world.getEntitiesByClass(RaiderEntity.class, Box.from(Vec3d.of(blockPos)).expand(100), EntityPredicates.VALID_LIVING_ENTITY).isEmpty();
+    private boolean notNearOtherPatrols(ServerLevel world, BlockPos blockPos) {
+        return world.getEntitiesOfClass(Raider.class, AABB.unitCubeFromLowerCorner(Vec3.atLowerCornerOf(blockPos)).inflate(100), EntitySelector.LIVING_ENTITY_STILL_ALIVE).isEmpty();
     }
 
-    private boolean spawnBoat(ServerWorld world, BlockPos pos, Random random, int boatType, boolean captain) {
+    private boolean spawnBoat(ServerLevel world, BlockPos pos, RandomSource random, int boatType, boolean captain) {
         BlockState blockState = world.getBlockState(pos);
-        if (!SpawnHelper.isClearForSpawn(world, pos, blockState, blockState.getFluidState(), EntityType.PILLAGER)) {
+        if (!NaturalSpawner.isValidEmptySpawnBlock(world, pos, blockState, blockState.getFluidState(), EntityType.PILLAGER)) {
             return false;
-        } else if (!PatrolEntity.canSpawn(EntityType.PILLAGER, world, SpawnReason.PATROL, pos, random)) {
+        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityType.PILLAGER, world, EntitySpawnReason.PATROL, pos, random)) {
             return false;
         } else {
             if (captain) {
@@ -117,40 +118,40 @@ public class PirateSpawner implements SpecialSpawner {
         }
     }
 
-    boolean spawnCaptainBoat(ServerWorld world, BlockPos pos, Random random, int boatType){
+    boolean spawnCaptainBoat(ServerLevel world, BlockPos pos, RandomSource random, int boatType){
         BigBoatEntity bigBoatEntity = world.getDifficulty().getId()>2?
-                EntityTypeRegistry.hugeBoats.get(boatType).create(world, SpawnReason.PATROL):
-                EntityTypeRegistry.bigBoats.get(boatType).create(world, SpawnReason.PATROL);
+                EntityTypeRegistry.hugeBoats.get(boatType).create(world, EntitySpawnReason.PATROL):
+                EntityTypeRegistry.bigBoats.get(boatType).create(world, EntitySpawnReason.PATROL);
 
         if (bigBoatEntity != null) {
-            bigBoatEntity.setBanner(Raid.createOminousBanner(world.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN)));
+            bigBoatEntity.setBanner(Raid.getOminousBannerInstance(world.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)));
             bigBoatEntity.setHasChest(true);
-            bigBoatEntity.setLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, NekomasFixed.id("chests/patrol_boat")));
-            bigBoatEntity.setLootTableSeed(random.nextLong());
-            bigBoatEntity.refreshPositionAfterTeleport(pos.toCenterPos());
+            bigBoatEntity.setContainerLootTable(ResourceKey.create(Registries.LOOT_TABLE, NekomasFixed.id("chests/patrol_boat")));
+            bigBoatEntity.setContainerLootTableSeed(random.nextLong());
+            bigBoatEntity.snapTo(pos.getCenter());
             for (int i = 0; i < world.getDifficulty().getId();i++) {
-                PatrolEntity patrolEntity = EntityType.PILLAGER.create(world, SpawnReason.PATROL);
-                patrolEntity.setPosition(pos.getX(), pos.getY(), pos.getZ());
-                patrolEntity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.PATROL, null);
+                PatrollingMonster patrolEntity = EntityType.PILLAGER.create(world, EntitySpawnReason.PATROL);
+                patrolEntity.setPos(pos.getX(), pos.getY(), pos.getZ());
+                patrolEntity.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), EntitySpawnReason.PATROL, null);
                 patrolEntity.startRiding(bigBoatEntity);
             }
 
-            world.spawnEntityAndPassengers(bigBoatEntity);
+            world.addFreshEntityWithPassengers(bigBoatEntity);
             return true;
         } else {
             return false;
         }
     }
 
-    boolean spawnSmallBoat(ServerWorld world, BlockPos pos, Random random, int boatType){
-        AbstractBoatEntity boatEntity = EntityTypeRegistry.boats.get(boatType).create(world, SpawnReason.PATROL);
+    boolean spawnSmallBoat(ServerLevel world, BlockPos pos, RandomSource random, int boatType){
+        AbstractBoat boatEntity = EntityTypeRegistry.boats.get(boatType).create(world, EntitySpawnReason.PATROL);
         if (boatEntity != null) {
-            boatEntity.refreshPositionAfterTeleport(pos.toCenterPos());
-            PatrolEntity patrolEntity = EntityType.PILLAGER.create(world, SpawnReason.PATROL);
-            patrolEntity.setPosition(pos.getX(), pos.getY(), pos.getZ());
-            patrolEntity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.PATROL, null);
+            boatEntity.snapTo(pos.getCenter());
+            PatrollingMonster patrolEntity = EntityType.PILLAGER.create(world, EntitySpawnReason.PATROL);
+            patrolEntity.setPos(pos.getX(), pos.getY(), pos.getZ());
+            patrolEntity.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), EntitySpawnReason.PATROL, null);
             patrolEntity.startRiding(boatEntity);
-            world.spawnEntityAndPassengers(boatEntity);
+            world.addFreshEntityWithPassengers(boatEntity);
             return true;
         } else {
             return false;

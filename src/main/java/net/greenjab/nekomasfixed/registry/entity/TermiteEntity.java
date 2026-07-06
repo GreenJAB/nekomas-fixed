@@ -6,109 +6,117 @@ import net.greenjab.nekomasfixed.registry.block.entity.TermitehiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.HollowLogType;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.CustomTrackedDataHandlerRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.function.ValueLists;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 import java.util.function.IntFunction;
 
-public class TermiteEntity extends HostileEntity {
+public class TermiteEntity extends Monster {
     public final AnimationState swipeAnimationState = new AnimationState();
-    private static final TrackedData<TermiteEntity.State> STATE;
+    private static final EntityDataAccessor<TermiteEntity.State> STATE;
     private BlockPos moundPosition = null;
 
-    public TermiteEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public TermiteEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(1, new EnterMoundGoal(this));
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new GoToNearestMound(this, 0.4d, 32));
-        this.goalSelector.add(2, new SearchForLogGoal(this));
-        this.goalSelector.add(3, new WanderAroundGoal(this, 0.4d));
-        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(4, new LookAroundGoal(this));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, 0.6F, false));
-        this.targetSelector.add(1, (new RevengeGoal(this)).setGroupRevenge());
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new EnterMoundGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new GoToNearestMound(this, 0.4d, 32));
+        this.goalSelector.addGoal(2, new SearchForLogGoal(this));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.4d));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 0.6F, false));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(STATE, State.IDLING);
+    protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(STATE, State.IDLING);
     }
 
-    public static DefaultAttributeContainer.Builder createAttributes(){
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.ATTACK_DAMAGE, 2d)
-                .add(EntityAttributes.ATTACK_SPEED, 1.6d)
-                .add(EntityAttributes.ATTACK_KNOCKBACK, 0.2d)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.4d)
-                .add(EntityAttributes.SAFE_FALL_DISTANCE, 2d)
-                .add(EntityAttributes.STEP_HEIGHT, 1d);
+    public static AttributeSupplier.Builder createAttributes(){
+        return Mob.createMobAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 2d)
+                .add(Attributes.ATTACK_SPEED, 1.6d)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.2d)
+                .add(Attributes.MOVEMENT_SPEED, 0.4d)
+                .add(Attributes.SAFE_FALL_DISTANCE, 2d)
+                .add(Attributes.STEP_HEIGHT, 1d);
     }
 
     @Override
-    public boolean tryAttack(ServerWorld world, Entity target) {
+    public boolean doHurtTarget(@NonNull ServerLevel world, @NonNull Entity target) {
         this.setState(State.SWIPING);
-        return super.tryAttack(world, target);
+        return super.doHurtTarget(world, target);
     }
 
     @Override
-    public void onDeath(DamageSource damageSource) {
-        super.onDeath(damageSource);
+    public void die(@NonNull DamageSource damageSource) {
+        super.die(damageSource);
     }
 
     private void setState(State state) {
-        this.dataTracker.set(STATE, state);
+        this.entityData.set(STATE, state);
     }
 
     @Override
-    public void onTrackedDataSet(TrackedData<?> data) {
+    public void onSyncedDataUpdated(@NonNull EntityDataAccessor<?> data) {
         if (STATE.equals(data)) {
-            if (this.dataTracker.get(STATE) == State.SWIPING) {
-                this.swipeAnimationState.start(this.age);
+            if (this.entityData.get(STATE) == State.SWIPING) {
+                this.swipeAnimationState.start(this.tickCount);
             } else {
                 this.swipeAnimationState.stop();
             }
-            this.calculateDimensions();
+            this.refreshDimensions();
         }
-        super.onTrackedDataSet(data);
+        super.onSyncedDataUpdated(data);
     }
 
     boolean canEnterMound() {
-        return this.getTarget() == null && this.getEntityWorld().isNight();
+        return this.getTarget() == null && this.level().isDarkOutside();
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.dataTracker.get(STATE) == State.SWIPING) {
-            if (swipeAnimationState.getTimeInMilliseconds(this.age)>1000) {
+        if (this.entityData.get(STATE) == State.SWIPING) {
+            if (swipeAnimationState.getTimeInMillis(this.tickCount)>1000) {
                 this.setState(State.IDLING);
             }
         }
@@ -116,7 +124,7 @@ public class TermiteEntity extends HostileEntity {
 
     public TermitehiveBlockEntity getMound(){
         if (this.getMoundPosition()==null) return null;
-        if (this.getEntityWorld().getBlockEntity(this.getMoundPosition()) instanceof TermitehiveBlockEntity blockEntity) return blockEntity;
+        if (this.level().getBlockEntity(this.getMoundPosition()) instanceof TermitehiveBlockEntity blockEntity) return blockEntity;
         return null;
     }
 
@@ -125,20 +133,20 @@ public class TermiteEntity extends HostileEntity {
     }
 
     public BlockPos findNearestMound(){
-        Optional<BlockPos> blockPos = BlockPos.findClosest(
-                this.getBlockPos(),
+        Optional<BlockPos> blockPos = BlockPos.findClosestMatch(
+                this.blockPosition(),
                 16,
                 8,
-                pos -> this.getEntityWorld().getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE)
+                pos -> this.level().getBlockState(pos).is(BlockRegistry.TERMITE_HIVE)
         );
         return blockPos.orElse(null);
     }
 
     static {
-        STATE = DataTracker.registerData(TermiteEntity.class, CustomTrackedDataHandlerRegistry.TERMITE_STATE);
+        STATE = SynchedEntityData.defineId(TermiteEntity.class, CustomTrackedDataHandlerRegistry.TERMITE_STATE);
     }
 
-    private static class GoToNearestMound extends MoveToTargetPosGoal {
+    private static class GoToNearestMound extends MoveToBlockGoal {
         private final TermiteEntity termiteEntity;
         public GoToNearestMound(TermiteEntity mob, double speed, int range) {
             super(mob, speed, range);
@@ -146,43 +154,43 @@ public class TermiteEntity extends HostileEntity {
         }
 
         @Override
-        protected boolean isTargetPos(@NonNull WorldView world, BlockPos pos) {
-            return world.getBlockState(pos).isOf(BlockRegistry.TERMITE_HIVE);
+        protected boolean isValidTarget(@NonNull LevelReader world, @NonNull BlockPos pos) {
+            return world.getBlockState(pos).is(BlockRegistry.TERMITE_HIVE);
         }
 
         @Override
-        public boolean canStart() {
-            if (this.termiteEntity.getEntityWorld().isNight() && this.termiteEntity.getMoundPosition()!=null) {
-                BlockState state = this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition());
-                return state.isOf(BlockRegistry.TERMITE_HIVE) && state.get(TermitehiveBlock.TERMITES) < 2;
+        public boolean canUse() {
+            if (this.termiteEntity.level().isDarkOutside() && this.termiteEntity.getMoundPosition()!=null) {
+                BlockState state = this.termiteEntity.level().getBlockState(this.termiteEntity.getMoundPosition());
+                return state.is(BlockRegistry.TERMITE_HIVE) && state.getValue(TermitehiveBlock.TERMITES) < 2;
             }
             return false;
         }
 
         @Override
-        public boolean shouldContinue() {
-            if (!this.hasReached() && this.termiteEntity.getEntityWorld().isNight() && this.termiteEntity.getMoundPosition()!=null) {
-                BlockState state = this.termiteEntity.getEntityWorld().getBlockState(this.termiteEntity.getMoundPosition());
-                return state.isOf(BlockRegistry.TERMITE_HIVE) && state.get(TermitehiveBlock.TERMITES) < 2;
+        public boolean canContinueToUse() {
+            if (!this.isReachedTarget() && this.termiteEntity.level().isDarkOutside() && this.termiteEntity.getMoundPosition()!=null) {
+                BlockState state = this.termiteEntity.level().getBlockState(this.termiteEntity.getMoundPosition());
+                return state.is(BlockRegistry.TERMITE_HIVE) && state.getValue(TermitehiveBlock.TERMITES) < 2;
             }
             return false;
         }
 
         @Override
         public void start() {
-            Optional<BlockPos> target = BlockPos.findClosest(
-                    termiteEntity.getBlockPos(),
+            Optional<BlockPos> target = BlockPos.findClosestMatch(
+                    termiteEntity.blockPosition(),
                     5, 5,
                     pos -> {
-                        BlockState state = termiteEntity.getEntityWorld().getBlockState(pos);
-                        return state.isOf(BlockRegistry.TERMITE_HIVE)
-                                && state.get(TermitehiveBlock.TERMITES) < 2;
+                        BlockState state = termiteEntity.level().getBlockState(pos);
+                        return state.is(BlockRegistry.TERMITE_HIVE)
+                                && state.getValue(TermitehiveBlock.TERMITES) < 2;
                     }
             );
 
             target.ifPresent(pos -> {
-                targetPos = pos;
-                termiteEntity.getNavigation().startMovingTo(
+                blockPos = pos;
+                termiteEntity.getNavigation().moveTo(
                         pos.getX(), pos.getY(), pos.getZ(), 0.4
                 );
             });
@@ -195,7 +203,7 @@ public class TermiteEntity extends HostileEntity {
             this.termiteEntity = mob;
         }
         @Override
-        public boolean canStart() {
+        public boolean canUse() {
             moundPosition = findNearestMound();
 
             if (moundPosition == null) return false;
@@ -208,15 +216,15 @@ public class TermiteEntity extends HostileEntity {
 
         @Override
         public void start() {
-            termiteEntity.getNavigation().startMovingTo(moundPosition.getX(), moundPosition.getY(), moundPosition.getZ(), 0.4);
+            termiteEntity.getNavigation().moveTo(moundPosition.getX(), moundPosition.getY(), moundPosition.getZ(), 0.4);
         }
 
         @Override
-        public boolean shouldContinue() {
+        public boolean canContinueToUse() {
             if (moundPosition==null) return false;
             TermitehiveBlockEntity hive = TermiteEntity.this.getMound();
             if (hive == null || hive.isFullOfTermites()) return false;
-            return TermiteEntity.this.squaredDistanceTo(
+            return TermiteEntity.this.distanceToSqr(
                     moundPosition.getX() + 0.5,
                     moundPosition.getY() + 0.5,
                     moundPosition.getZ() + 0.5
@@ -226,7 +234,7 @@ public class TermiteEntity extends HostileEntity {
         @Override
         public void tick() {
             if (moundPosition==null) return;
-            double dist = TermiteEntity.this.squaredDistanceTo(
+            double dist = TermiteEntity.this.distanceToSqr(
                     moundPosition.getX() + 0.5,
                     moundPosition.getY() + 0.5,
                     moundPosition.getZ() + 0.5);
@@ -248,24 +256,24 @@ public class TermiteEntity extends HostileEntity {
         }
 
         @Override
-        public boolean canStart() {
+        public boolean canUse() {
             return termiteEntity.getRandom().nextInt(40) == 0
-                    && termiteEntity.getEntityWorld().isDay();
+                    && termiteEntity.level().isBrightOutside();
         }
 
         @Override
         public void start() {
             this.running = 0;
-            Optional<BlockPos> target = BlockPos.findClosest(
-                    termiteEntity.getBlockPos(),
+            Optional<BlockPos> target = BlockPos.findClosestMatch(
+                    termiteEntity.blockPosition(),
                     16,
                     8,
-                    pos -> termiteEntity.getEntityWorld().getBlockState(pos).isIn(BlockTags.LOGS)
+                    pos -> termiteEntity.level().getBlockState(pos).is(BlockTags.LOGS)
             );
 
             target.ifPresent(pos -> {
                 this.targetPos = pos;
-                termiteEntity.getNavigation().startMovingTo(
+                termiteEntity.getNavigation().moveTo(
                         pos.getX(), pos.getY(), pos.getZ(), 0.4
                 );
             });
@@ -274,11 +282,11 @@ public class TermiteEntity extends HostileEntity {
         @Override
         public void tick() {
             if (targetPos == null) return;
-            if (termiteEntity.getBlockPos().isWithinDistance(targetPos, 1.5)) {
-                BlockState state = termiteEntity.getEntityWorld().getBlockState(targetPos);
+            if (termiteEntity.blockPosition().closerThan(targetPos, 1.5)) {
+                BlockState state = termiteEntity.level().getBlockState(targetPos);
                 BlockState newState = HollowLogType.getHollowState(state);
-                if (newState != Blocks.AIR.getDefaultState())
-                    termiteEntity.getEntityWorld().setBlockState(
+                if (newState != Blocks.AIR.defaultBlockState())
+                    termiteEntity.level().setBlockAndUpdate(
                             targetPos,
                             newState
                     );
@@ -288,7 +296,7 @@ public class TermiteEntity extends HostileEntity {
         }
 
         @Override
-        public boolean shouldContinue() {
+        public boolean canContinueToUse() {
             return running<200 && targetPos != null;
         }
 
@@ -303,8 +311,8 @@ public class TermiteEntity extends HostileEntity {
         IDLING(0),
         SWIPING(1);
 
-        public static final IntFunction<State> INDEX_TO_VALUE = ValueLists.createIndexToValueFunction(State::getIndex, values(), ValueLists.OutOfBoundsHandling.ZERO);
-        public static final PacketCodec<ByteBuf, State> PACKET_CODEC = PacketCodecs.indexed(INDEX_TO_VALUE, State::getIndex);
+        public static final IntFunction<State> INDEX_TO_VALUE = ByIdMap.continuous(State::getIndex, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
+        public static final StreamCodec<ByteBuf, State> PACKET_CODEC = ByteBufCodecs.idMapper(INDEX_TO_VALUE, State::getIndex);
         private final int index;
 
         State(final int index) {

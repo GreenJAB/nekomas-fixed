@@ -1,16 +1,16 @@
 package net.greenjab.nekomasfixed.registry.entity.WildFire;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.math.BlockPos;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 
 public record WildfireDebugData(Optional<Integer> attackTarget, Optional<BlockPos> jumpTarget) {
-	public static final PacketCodec<ByteBuf, WildfireDebugData> PACKET_CODEC = PacketCodec.tuple(
-			PacketCodecs.VAR_INT.collect(PacketCodecs::optional),
+	public static final StreamCodec<ByteBuf, WildfireDebugData> PACKET_CODEC = StreamCodec.composite(
+			ByteBufCodecs.VAR_INT.apply(ByteBufCodecs::optional),
 			WildfireDebugData::attackTarget,
-			BlockPos.PACKET_CODEC.collect(PacketCodecs::optional),
+			BlockPos.STREAM_CODEC.apply(ByteBufCodecs::optional),
 			WildfireDebugData::jumpTarget,
 			WildfireDebugData::new
 	);

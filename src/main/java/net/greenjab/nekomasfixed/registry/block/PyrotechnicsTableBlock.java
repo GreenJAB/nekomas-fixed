@@ -2,53 +2,54 @@ package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.screen.PyrotechnicsTableScreenHandler;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.state.StateManager;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
+import org.jspecify.annotations.NonNull;
 
-public class PyrotechnicsTableBlock extends HorizontalFacingBlock {
+public class PyrotechnicsTableBlock extends HorizontalDirectionalBlock {
 
-    public static final MapCodec<PyrotechnicsTableBlock> CODEC = createCodec(PyrotechnicsTableBlock::new);
-    private static final Text TITLE = Text.translatable("container.nekomasfixed.pyrotechnics_table");
+    public static final MapCodec<PyrotechnicsTableBlock> CODEC = simpleCodec(PyrotechnicsTableBlock::new);
+    private static final Component TITLE = Component.translatable("container.nekomasfixed.pyrotechnics_table");
 
-    public PyrotechnicsTableBlock(Settings settings) {
+    public PyrotechnicsTableBlock(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+    protected @NonNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
         return CODEC;
     }
 
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient()) {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+    protected @NonNull InteractionResult useWithoutItem(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull BlockHitResult hit) {
+        if (!world.isClientSide()) {
+            player.openMenu(state.getMenuProvider(world, pos));
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
-        return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> new PyrotechnicsTableScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos)), TITLE);
+    protected MenuProvider getMenuProvider(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos) {
+        return new SimpleMenuProvider((syncId, inventory, player) -> new PyrotechnicsTableScreenHandler(syncId, inventory, ContainerLevelAccess.create(world, pos)), TITLE);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 }

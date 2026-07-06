@@ -1,120 +1,120 @@
 package net.greenjab.nekomasfixed.registry.block.cauldron;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.AbstractCauldronBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-
 import java.util.Map;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jspecify.annotations.NonNull;
 
 public class SlimeCauldronBlock extends AbstractCauldronBlock {
-    public static final MapCodec<SlimeCauldronBlock> CODEC = createCodec(SlimeCauldronBlock::new);
+    public static final MapCodec<SlimeCauldronBlock> CODEC = simpleCodec(SlimeCauldronBlock::new);
 
-    public static final IntProperty SLIME_LEVEL = IntProperty.of("slime_level", 1, 4);
+    public static final IntegerProperty SLIME_LEVEL = IntegerProperty.create("slime_level", 1, 4);
     public static final int MAX_LEVEL = 4;
 
-    public SlimeCauldronBlock(Settings settings) {
+    public SlimeCauldronBlock(Properties settings) {
         super(settings, createBehaviorMap());
-        this.setDefaultState(this.stateManager.getDefaultState()
-                .with(SLIME_LEVEL, MAX_LEVEL));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(SLIME_LEVEL, MAX_LEVEL));
     }
 
-    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-        return Items.CAULDRON.getDefaultStack();
+    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader world, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+        return Items.CAULDRON.getDefaultInstance();
     }
 
     @Override
-    protected MapCodec<? extends AbstractCauldronBlock> getCodec() {
+    protected @NonNull MapCodec<? extends AbstractCauldronBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SLIME_LEVEL);
     }
 
-    private static CauldronBehavior.CauldronBehaviorMap createBehaviorMap() {
-        CauldronBehavior.CauldronBehaviorMap behaviorMap = CauldronBehavior.createMap("slime");
-        Map<Item, CauldronBehavior> map = behaviorMap.map();
+    private static CauldronInteraction.InteractionMap createBehaviorMap() {
+        CauldronInteraction.InteractionMap behaviorMap = CauldronInteraction.newInteractionMap("slime");
+        Map<Item, CauldronInteraction> map = behaviorMap.map();
 
         map.put(Items.AIR, (state, world, pos, player, hand, stack) -> {
-            if(state.get(SLIME_LEVEL) == MAX_LEVEL) {
-                if (!world.isClient()) {
-                    player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.SLIME_BLOCK)));
-                    world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
-                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            if(state.getValue(SLIME_LEVEL) == MAX_LEVEL) {
+                if (!world.isClientSide()) {
+                    player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.SLIME_BLOCK)));
+                    world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+                    world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
-                return ActionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             } else {
-                return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         map.put(Items.SLIME_BALL, (state, world, pos, player, hand, stack) -> {
-            int level = state.get(SLIME_LEVEL);
+            int level = state.getValue(SLIME_LEVEL);
             if (level < MAX_LEVEL) {
-                if (!world.isClient()) {
-                    stack.decrementUnlessCreative(1, player);
-                    world.setBlockState(pos, state.with(SLIME_LEVEL, level + 1));
-                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY,
-                            SoundCategory.BLOCKS, 1.0F, 1.0F);
+                if (!world.isClientSide()) {
+                    stack.consume(1, player);
+                    world.setBlockAndUpdate(pos, state.setValue(SLIME_LEVEL, level + 1));
+                    world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY,
+                            SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
             }
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         });
 
         return behaviorMap;
     }
 
     @Override
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!world.isClient()) {
-            int currentLevel = state.get(SLIME_LEVEL);
+    protected void tick(@NonNull BlockState state, ServerLevel world, @NonNull BlockPos pos, @NonNull RandomSource random) {
+        if (!world.isClientSide()) {
+            int currentLevel = state.getValue(SLIME_LEVEL);
             if (currentLevel < MAX_LEVEL) {
-                world.setBlockState(pos, state.with(SLIME_LEVEL, currentLevel + 1));
-                world.playSound(null, pos, SoundEvents.BLOCK_SLIME_BLOCK_BREAK,
-                        SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.setBlockAndUpdate(pos, state.setValue(SLIME_LEVEL, currentLevel + 1));
+                world.playSound(null, pos, SoundEvents.SLIME_BLOCK_BREAK,
+                        SoundSource.BLOCKS, 1.0F, 1.0F);
             }
         }
-        world.scheduleBlockTick(pos, this, 2000);
+        world.scheduleTick(pos, this, 2000);
     }
 
     @Override
-    protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        if (!world.isClient()) {
-            world.scheduleBlockTick(pos, this, 2000);
+    protected void onPlace(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull BlockState oldState, boolean notify) {
+        if (!world.isClientSide()) {
+            world.scheduleTick(pos, this, 2000);
         }
     }
 
     @Override
-    protected double getFluidHeight(BlockState state) {
-        return (4.0 + state.get(SLIME_LEVEL) * 3.0) / 16.0;
+    protected double getContentHeight(BlockState state) {
+        return (4.0 + state.getValue(SLIME_LEVEL) * 3.0) / 16.0;
     }
 
     @Override
     public boolean isFull(BlockState state) {
-        return state.get(SLIME_LEVEL) == MAX_LEVEL;
+        return state.getValue(SLIME_LEVEL) == MAX_LEVEL;
     }
 
     @Override
-    protected int getComparatorOutput(BlockState state, World world, BlockPos pos, Direction direction) {
-        return state.get(SLIME_LEVEL);
+    protected int getAnalogOutputSignal(BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
+        return state.getValue(SLIME_LEVEL);
     }
 }

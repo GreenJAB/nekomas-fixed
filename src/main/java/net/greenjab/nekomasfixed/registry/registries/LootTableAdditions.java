@@ -1,19 +1,19 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.condition.EntityPropertiesLootCondition;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootTableEntry;
-import net.minecraft.loot.function.EnchantRandomlyLootFunction;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.entity.EntityTypePredicate;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityTypePredicate;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
+import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 
 public class LootTableAdditions {
 
@@ -21,17 +21,17 @@ public class LootTableAdditions {
         System.out.println("register LootTableAdds");
 
         LootTableEvents.MODIFY.register((key, tableBuilder, source, holder) -> {
-            if (key == LootTables.ROOT_CHARGED_CREEPER) {
-                LootCondition.Builder predicate = EntityPropertiesLootCondition.builder(
-                        LootContext.EntityReference.THIS, EntityPredicate.Builder.create().type(EntityTypePredicate.create(holder.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityType.ENDERMAN)));
-                LootPool.Builder poolBuilder = LootPool.builder().with(LootTableEntry.builder(LootTableRegistry.SUPER_CHARGED_CREEPER_ENDERMAN_LOOT_TABLE).conditionally(predicate));
+            if (key == BuiltInLootTables.CHARGED_CREEPER) {
+                LootItemCondition.Builder predicate = LootItemEntityPropertyCondition.hasProperties(
+                        LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(holder.lookupOrThrow(Registries.ENTITY_TYPE), EntityType.ENDERMAN)));
+                LootPool.Builder poolBuilder = LootPool.lootPool().add(NestedLootTable.lootTableReference(LootTableRegistry.SUPER_CHARGED_CREEPER_ENDERMAN_LOOT_TABLE).when(predicate));
                 tableBuilder.pool(poolBuilder.build());
                 //tableBuilder.modifyPools(builder -> builder.//builder
                 //        .with(LootTableEntry.builder(LootTableRegistry.SUPER_CHARGED_CREEPER_ENDERMAN_LOOT_TABLE).conditionally(predicate)));
-            } else if (key == LootTables.SHIPWRECK_TREASURE_CHEST) {
-                tableBuilder.pool(LootPool.builder().with(ItemEntry.builder(ItemRegistry.BOAT_UPGRADE_TEMPLATE)).with(ItemEntry.builder(Items.AIR)).build());
-            } else if (key == LootTables.STRONGHOLD_LIBRARY_CHEST) {
-                tableBuilder.pool(LootPool.builder().with(ItemEntry.builder(Items.BOOK).apply(EnchantRandomlyLootFunction.builder(holder).option(holder.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(EnchantmentRegistry.LEECHING)))).with(ItemEntry.builder(Items.AIR)).build());
+            } else if (key == BuiltInLootTables.SHIPWRECK_TREASURE) {
+                tableBuilder.pool(LootPool.lootPool().add(LootItem.lootTableItem(ItemRegistry.BOAT_UPGRADE_TEMPLATE)).add(LootItem.lootTableItem(Items.AIR)).build());
+            } else if (key == BuiltInLootTables.STRONGHOLD_LIBRARY) {
+                tableBuilder.pool(LootPool.lootPool().add(LootItem.lootTableItem(Items.BOOK).apply(EnchantRandomlyFunction.randomApplicableEnchantment(holder).withEnchantment(holder.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(EnchantmentRegistry.LEECHING)))).add(LootItem.lootTableItem(Items.AIR)).build());
             }
         });
     }

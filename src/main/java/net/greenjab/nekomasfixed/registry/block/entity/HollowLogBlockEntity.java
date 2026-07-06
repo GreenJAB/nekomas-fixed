@@ -1,30 +1,31 @@
 package net.greenjab.nekomasfixed.registry.block.entity;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.EmptyBlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.EmptyBlockGetter;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.shapes.Shapes;
+import org.jspecify.annotations.NonNull;
 
-public class HollowLogBlockEntity extends BlockEntity implements Inventory {
-    private BlockState storedBlock = Blocks.AIR.getDefaultState();
-    private DefaultedList<ItemStack> storedStack = DefaultedList.ofSize(1, ItemStack.EMPTY);
+public class HollowLogBlockEntity extends BlockEntity implements Container {
+    private BlockState storedBlock = Blocks.AIR.defaultBlockState();
+    private NonNullList<ItemStack> storedStack = NonNullList.withSize(1, ItemStack.EMPTY);
 
     public HollowLogBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityTypeRegistry.HOLLOW_LOG_BLOCK_ENTITY, pos, state);
@@ -38,39 +39,39 @@ public class HollowLogBlockEntity extends BlockEntity implements Inventory {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
-        return createNbt(registries);
+    public @NonNull CompoundTag getUpdateTag(HolderLookup.@NonNull Provider registries) {
+        return saveWithoutMetadata(registries);
     }
 
     public void setStoredBlock(ItemStack stack, BlockState state) {
         this.storedBlock = state;
         setHeldStack(stack);
-        markDirty();
+        setChanged();
 
-        if (world != null && !world.isClient()) {
-            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(@NonNull ValueOutput view) {
+        super.saveAdditional(view);
 
-        view.put("StoredBlock", BlockState.CODEC, storedBlock);
-        Inventories.writeData(view, this.storedStack, false);
+        view.store("StoredBlock", BlockState.CODEC, storedBlock);
+        ContainerHelper.saveAllItems(view, this.storedStack, false);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(@NonNull ValueInput view) {
+        super.loadAdditional(view);
 
         storedBlock = view.read("StoredBlock", BlockState.CODEC)
-                .orElse(Blocks.AIR.getDefaultState());
-        this.storedStack = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        Inventories.readData(view, this.storedStack);
+                .orElse(Blocks.AIR.defaultBlockState());
+        this.storedStack = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(view, this.storedStack);
     }
     @Override
-    public int size() {
+    public int getContainerSize() {
         return 1;
     }
 
@@ -86,42 +87,42 @@ public class HollowLogBlockEntity extends BlockEntity implements Inventory {
     }
 
     @Override
-    public ItemStack getStack(int slot) {
+    public @NonNull ItemStack getItem(int slot) {
         return this.getHeldStacks().get(slot);
     }
 
     @Override
-    public ItemStack removeStack(int slot, int amount) {
-        ItemStack itemStack = Inventories.splitStack(this.getHeldStacks(), slot, amount);
+    public @NonNull ItemStack removeItem(int slot, int amount) {
+        ItemStack itemStack = ContainerHelper.removeItem(this.getHeldStacks(), slot, amount);
         if (!itemStack.isEmpty()) {
-            this.markDirty();
+            this.setChanged();
         }
 
         return itemStack;
     }
 
     @Override
-    public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(this.getHeldStacks(), slot);
+    public @NonNull ItemStack removeItemNoUpdate(int slot) {
+        return ContainerHelper.takeItem(this.getHeldStacks(), slot);
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
+    public void setItem(int slot, @NonNull ItemStack stack) {
         this.getHeldStacks().set(slot, stack);
-        stack.capCount(this.getMaxCount(stack));
-        this.markDirty();
+        stack.limitSize(this.getMaxStackSize(stack));
+        this.setChanged();
     }
 
     @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return Inventory.canPlayerUse(this, player);
+    public boolean stillValid(@NonNull Player player) {
+        return Container.stillValidBlockEntity(this, player);
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
         this.getHeldStacks().clear();
     }
-    public DefaultedList<ItemStack> getHeldStacks() {
+    public NonNullList<ItemStack> getHeldStacks() {
         return this.storedStack;
     }
     public void setHeldStack(ItemStack itemStack) {
@@ -132,18 +133,18 @@ public class HollowLogBlockEntity extends BlockEntity implements Inventory {
     }
 
     @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     public static boolean canStoreBlock(HollowLogBlockEntity logBE, BlockItem blockItem, boolean vertical){
-        BlockState blockItemState = blockItem.getBlock().getDefaultState();
+        BlockState blockItemState = blockItem.getBlock().defaultBlockState();
         if (!logBE.getStoredBlock().isAir()) return false;
-        if (blockItem.getBlock().getDefaultState().isIn(BlockTags.SHULKER_BOXES)) return false;
-        if (blockItemState.getOutlineShape(EmptyBlockView.INSTANCE, BlockPos.ORIGIN)==VoxelShapes.fullCube()) return true;
-        if (!vertical) return blockItemState.isIn(BlockTags.SMALL_FLOWERS) || blockItemState.isOf(Blocks.FLOWER_POT)||
-                blockItemState.isOf(Blocks.TORCH) || blockItemState.isOf(Blocks.SOUL_TORCH) ||
-                blockItemState.isIn(BlockTags.LANTERNS);
+        if (blockItem.getBlock().defaultBlockState().is(BlockTags.SHULKER_BOXES)) return false;
+        if (blockItemState.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO)==Shapes.block()) return true;
+        if (!vertical) return blockItemState.is(BlockTags.SMALL_FLOWERS) || blockItemState.is(Blocks.FLOWER_POT)||
+                blockItemState.is(Blocks.TORCH) || blockItemState.is(Blocks.SOUL_TORCH) ||
+                blockItemState.is(BlockTags.LANTERNS);
         return false;
     }
 

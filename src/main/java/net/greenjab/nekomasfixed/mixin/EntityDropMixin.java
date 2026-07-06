@@ -3,11 +3,11 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.SpottedSheepAccess;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.sheep.Sheep;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,10 +16,10 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(Entity.class)
 public abstract class EntityDropMixin {
 
-    @ModifyVariable(method = "dropStack(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/entity/ItemEntity;",
+    @ModifyVariable(method = "spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/entity/item/ItemEntity;",
             at = @At("HEAD"),argsOnly = true)
     private ItemStack replaceSpottedSheepDrops(ItemStack stack) {
-        if ((Object) this instanceof SheepEntity sheep) {
+        if ((Object) this instanceof Sheep sheep) {
             if (((SpottedSheepAccess) sheep).nekomasfixed$isSpotted()) {
                 Item replacementItem = this.getSpottedWoolItem(stack.getItem());
                 if (replacementItem != null) return new ItemStack(replacementItem, stack.getCount());

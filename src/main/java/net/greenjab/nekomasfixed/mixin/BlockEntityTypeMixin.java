@@ -1,8 +1,8 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,9 +14,9 @@ import java.util.Arrays;
 @Mixin(BlockEntityType.class)
 public abstract class BlockEntityTypeMixin{
 
-    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;register(Ljava/lang/String;Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;[Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
     @At(value = "CONSTANT", args = "stringValue=sign"), to =
-    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;SIGN:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;SIGN:Lnet/minecraft/world/level/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
     private static Block[] sign(Block[] validBlocks) {
         ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
         newBlocks.add(BlockRegistry.BAOBAB_SIGN);
@@ -26,9 +26,9 @@ public abstract class BlockEntityTypeMixin{
         return newBlocksArray;
     }
 
-    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;register(Ljava/lang/String;Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;[Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
     @At(value = "CONSTANT", args = "stringValue=hanging_sign"), to =
-    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;HANGING_SIGN:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;HANGING_SIGN:Lnet/minecraft/world/level/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
     private static Block[] hanging_sign(Block[] validBlocks) {
         ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
         newBlocks.add(BlockRegistry.BAOBAB_HANGING_SIGN);
@@ -38,9 +38,9 @@ public abstract class BlockEntityTypeMixin{
         return newBlocksArray;
     }
 
-    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;register(Ljava/lang/String;Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;[Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
     @At(value = "CONSTANT", args = "stringValue=shelf"), to =
-    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;SHELF:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;SHELF:Lnet/minecraft/world/level/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
     private static Block[] shelf(Block[] validBlocks) {
         ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
         newBlocks.add(BlockRegistry.BAOBAB_SHELF);
@@ -49,9 +49,9 @@ public abstract class BlockEntityTypeMixin{
         return newBlocksArray;
     }
 
-    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;register(Ljava/lang/String;Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;[Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
     @At(value = "CONSTANT", args = "stringValue=bed"), to =
-    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;BED:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;BED:Lnet/minecraft/world/level/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
     private static Block[] bed(Block[] validBlocks) {
         ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
         newBlocks.add(BlockRegistry.AMBER_BED);
@@ -63,9 +63,9 @@ public abstract class BlockEntityTypeMixin{
         return newBlocksArray;
     }
 
-    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/BlockEntityType;create(Ljava/lang/String;Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;[Lnet/minecraft/block/Block;)Lnet/minecraft/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
+    @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;register(Ljava/lang/String;Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;[Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/entity/BlockEntityType;", ordinal = 0), slice = @Slice(from =
     @At(value = "CONSTANT", args = "stringValue=shulker_box"), to =
-    @At(value = "FIELD",target = "Lnet/minecraft/block/entity/BlockEntityType;SHULKER_BOX:Lnet/minecraft/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
+    @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/entity/BlockEntityType;SHULKER_BOX:Lnet/minecraft/world/level/block/entity/BlockEntityType;", opcode = Opcodes.PUTSTATIC)), index = 2)
     private static Block[] shulker(Block[] validBlocks) {
         ArrayList<Block> newBlocks = new ArrayList<>(Arrays.asList(validBlocks));
         newBlocks.add(BlockRegistry.AMBER_SHULKER_BOX);

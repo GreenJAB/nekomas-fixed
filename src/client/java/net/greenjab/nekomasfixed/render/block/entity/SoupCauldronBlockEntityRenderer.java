@@ -3,48 +3,47 @@ package net.greenjab.nekomasfixed.render.block.entity;
 import net.greenjab.nekomasfixed.registry.block.cauldron.SoupCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.render.block.entity.state.SoupCauldronBlockEntityRenderState;
-import net.minecraft.client.item.ItemModelManager;
-import net.minecraft.client.render.*;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.command.ModelCommandRenderer;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.item.ItemRenderState;
-import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
-import org.jspecify.annotations.Nullable;
-
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<SoupCauldronBlockEntity, SoupCauldronBlockEntityRenderState> {
-    private final ItemModelManager itemModelManager;
+    private final ItemModelResolver itemModelManager;
 
-    public SoupCauldronBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-        this.itemModelManager = ctx.itemModelManager();
+    public SoupCauldronBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+        this.itemModelManager = ctx.itemModelResolver();
     }
 
     @Override
-    public SoupCauldronBlockEntityRenderState createRenderState() {
+    public @NonNull SoupCauldronBlockEntityRenderState createRenderState() {
         return new SoupCauldronBlockEntityRenderState();
     }
 
-    @Override
-    public void updateRenderState(SoupCauldronBlockEntity blockEntity, SoupCauldronBlockEntityRenderState state, float f, Vec3d vec3d, ModelCommandRenderer.@Nullable CrumblingOverlayCommand crumblingOverlayCommand) {
-        BlockEntityRenderer.super.updateRenderState(blockEntity, state, f, vec3d, crumblingOverlayCommand);
-        int i = (int)blockEntity.getPos().asLong();
+    public void extractRenderState(@NonNull SoupCauldronBlockEntity blockEntity, @NonNull SoupCauldronBlockEntityRenderState state, float f, @NonNull Vec3 vec3d, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, state, f, vec3d, crumblingOverlayCommand);
+        int i = (int)blockEntity.getBlockPos().asLong();
         state.inputItems = new ArrayList<>();
-        assert blockEntity.getWorld() != null;
-        state.animationTime = blockEntity.getWorld().getTime() + f;
+        assert blockEntity.getLevel() != null;
+        state.animationTime = blockEntity.getLevel().getGameTime() + f;
         state.stirProgress = SoupCauldronBlock.getAnimationProgressRetriever(blockEntity).getFallback().get(f);
 
         for(int j = 0; j < blockEntity.getInputs().size(); ++j) {
-            ItemRenderState itemRenderState = new ItemRenderState();
-            this.itemModelManager.clearAndUpdate(itemRenderState, blockEntity.getInputs().get(j), ItemDisplayContext.FIXED, blockEntity.getWorld(), null, i + j);
+            ItemStackRenderState itemRenderState = new ItemStackRenderState();
+            this.itemModelManager.updateForTopItem(itemRenderState, blockEntity.getInputs().get(j), ItemDisplayContext.FIXED, blockEntity.getLevel(), null, i + j);
             state.inputItems.add(itemRenderState);
         }
         state.tint = SoupCauldronBlock.blendFoodColors(state.stirProgress, blockEntity.getInputs());
@@ -52,22 +51,22 @@ public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<Soup
     }
 
     @Override
-    public void render(SoupCauldronBlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        List<ItemRenderState> list = state.inputItems;
+    public void submit(SoupCauldronBlockEntityRenderState state, @NonNull PoseStack matrices, @NonNull SubmitNodeCollector queue, @NonNull CameraRenderState cameraState) {
+        List<ItemStackRenderState> list = state.inputItems;
         for(int i = 0; i < list.size(); ++i) {
-            ItemRenderState itemRenderState = list.get(i);
+            ItemStackRenderState itemRenderState = list.get(i);
             if (!itemRenderState.isEmpty() && state.stirProgress<1) {
-                matrices.push();
+                matrices.pushPose();
                 float bob = (float)Math.sin(state.animationTime * 0.1f) * 0.02f;
                 float stir = state.stirProgress*state.stirProgress;
                 matrices.translate(0.5F, 1F + bob - stir*0.08f, 0.5F);
-                Direction direction2 = Direction.fromHorizontalQuarterTurns((i + Direction.NORTH.getHorizontalQuarterTurns()) % 4);
-                matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(720*stir - direction2.getPositiveHorizontalDegrees()));
-                matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(-70.0F));
+                Direction direction2 = Direction.from2DDataValue((i + Direction.NORTH.get2DDataValue()) % 4);
+                matrices.mulPose(Axis.YN.rotationDegrees(720*stir - direction2.toYRot()));
+                matrices.mulPose(Axis.XN.rotationDegrees(-70.0F));
                 matrices.translate(-0.23*(1-stir), -0.1, 0.0F);
                 matrices.scale(0.275F, 0.375F, 0.275F);
-                itemRenderState.render(matrices, queue, state.lightmapCoordinates, OverlayTexture.DEFAULT_UV, 0);
-                matrices.pop();
+                itemRenderState.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                matrices.popPose();
             }
         }
     }

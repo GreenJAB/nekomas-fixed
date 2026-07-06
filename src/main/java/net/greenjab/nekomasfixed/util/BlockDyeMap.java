@@ -1,9 +1,8 @@
 package net.greenjab.nekomasfixed.util;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import java.util.EnumMap;
 
 public class BlockDyeMap {

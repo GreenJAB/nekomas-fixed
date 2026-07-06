@@ -1,43 +1,43 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.enums.GoatHornType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.InstrumentComponent;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.GoatHornItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.InstrumentItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.InstrumentComponent;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(GoatHornItem.class)
+@Mixin(InstrumentItem.class)
 public class GoatHornItemMixin {
     @Inject(method = "use", at = @At("HEAD"))
-    public void use(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if (world.isClient()) return;
-        ItemStack itemStack = user.getStackInHand(hand);
-        InstrumentComponent instrument = itemStack.get(DataComponentTypes.INSTRUMENT);
+    public void use(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        if (world.isClientSide()) return;
+        ItemStack itemStack = user.getItemInHand(hand);
+        InstrumentComponent instrument = itemStack.get(DataComponents.INSTRUMENT);
         if (instrument != null) {
-            ServerWorld serverWorld = (ServerWorld) world;
-            StatusEffectInstance glow = new StatusEffectInstance(StatusEffects.GLOWING, 30 * 20);
-            for(Entity entity : serverWorld.iterateEntities()) {
-                if (entity instanceof IronGolemEntity ironGolem) {
-                    if (user.hasStatusEffect(StatusEffects.RAID_OMEN) || user.hasStatusEffect(StatusEffects.BAD_OMEN))
-                        ironGolem.addStatusEffect(GoatHornType.fromInstrument(instrument).getStatusEffect());
+            ServerLevel serverWorld = (ServerLevel) world;
+            MobEffectInstance glow = new MobEffectInstance(MobEffects.GLOWING, 30 * 20);
+            for(Entity entity : serverWorld.getAllEntities()) {
+                if (entity instanceof IronGolem ironGolem) {
+                    if (user.hasEffect(MobEffects.RAID_OMEN) || user.hasEffect(MobEffects.BAD_OMEN))
+                        ironGolem.addEffect(GoatHornType.fromInstrument(instrument).getStatusEffect());
                 }
-                if (entity instanceof TameableEntity tameable && tameable.isTamed()) tameable.addStatusEffect(glow);
-                if (entity instanceof AbstractHorseEntity horse && horse.isTame()) horse.addStatusEffect(glow);
+                if (entity instanceof TamableAnimal tameable && tameable.isTame()) tameable.addEffect(glow);
+                if (entity instanceof AbstractHorse horse && horse.isTamed()) horse.addEffect(glow);
             }
         }
     }

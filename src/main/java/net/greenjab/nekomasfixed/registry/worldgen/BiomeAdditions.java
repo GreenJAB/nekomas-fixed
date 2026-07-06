@@ -7,40 +7,40 @@ import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpiderEntity;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.util.ModTags;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnLocationTypes;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 public class BiomeAdditions {
     public static void addSpawns(){
 
-        SpawnRestriction.register(EntityTypeRegistry.WILDFIRE, SpawnLocationTypes.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WildfireEntity::canSpawn);
-        SpawnRestriction.register(EntityTypeRegistry.SUSPICIOUS_SPIDER, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SuspiciousSpiderEntity::canSpawn);
-        SpawnRestriction.register(EntityTypeRegistry.RIME, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDarkUnderSky);
-        SpawnRestriction.register(EntityTypeRegistry.DERELICT, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDarkUnderSky);
-        SpawnRestriction.register(EntityTypeRegistry.DRENCHED, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DrenchedEntity::canSpawn);
+        SpawnPlacements.register(EntityTypeRegistry.WILDFIRE, SpawnPlacementTypes.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WildfireEntity::canSpawn);
+        SpawnPlacements.register(EntityTypeRegistry.SUSPICIOUS_SPIDER, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SuspiciousSpiderEntity::canSpawn);
+        SpawnPlacements.register(EntityTypeRegistry.RIME, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkSurfaceMonstersSpawnRules);
+        SpawnPlacements.register(EntityTypeRegistry.DERELICT, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkSurfaceMonstersSpawnRules);
+        SpawnPlacements.register(EntityTypeRegistry.DRENCHED, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DrenchedEntity::canSpawn);
 
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DRIPSTONE_CAVES, BiomeKeys.PLAINS), SpawnGroup.MONSTER,
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.DRIPSTONE_CAVES, Biomes.PLAINS), MobCategory.MONSTER,
                 EntityTypeRegistry.SUSPICIOUS_SPIDER,  30, 1, 2);
 
-        BiomeModifications.addSpawn(BiomeSelectors.tag(ModTags.SPAWNS_RIME), SpawnGroup.MONSTER,
+        BiomeModifications.addSpawn(BiomeSelectors.tag(ModTags.SPAWNS_RIME), MobCategory.MONSTER,
                 EntityTypeRegistry.RIME,  100, 4, 4);
 
-        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_JUNGLE), SpawnGroup.MONSTER,
+        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_JUNGLE), MobCategory.MONSTER,
                 EntityTypeRegistry.DERELICT,  100, 4, 4);
 
-        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OCEAN), SpawnGroup.MONSTER,
+        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OCEAN), MobCategory.MONSTER,
                 EntityTypeRegistry.DRENCHED,  5, 1, 2);
 
-        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS), SpawnGroup.MONSTER,
+        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS), MobCategory.MONSTER,
                 EntityTypeRegistry.DRENCHED,  5, 1, 2);
 
 
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.PLAINS, BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.MEADOW), SpawnGroup.CREATURE,
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW), MobCategory.CREATURE,
                 EntityTypeRegistry.MOOBLOOM, 30, 1, 2);
 
     }

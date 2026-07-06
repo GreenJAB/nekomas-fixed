@@ -1,19 +1,19 @@
 package net.greenjab.nekomasfixed.mixin.boat;
 
 import net.greenjab.nekomasfixed.registry.entity.BigBoatEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.mob.PatrolEntity;
-import net.minecraft.entity.raid.RaiderEntity;
-import net.minecraft.entity.vehicle.AbstractBoatEntity;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.monster.PatrollingMonster;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -24,37 +24,37 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 import java.util.Optional;
 
-@Mixin(RaiderEntity.class)
+@Mixin(Raider.class)
 public class RaiderEntityMixin {
 
-    @Inject(method = "tickMovement", at = @At("RETURN"))
+    @Inject(method = "aiStep", at = @At("RETURN"))
     private void moveBoat(CallbackInfo ci) {
-        RaiderEntity RE = (RaiderEntity)(Object)this;
-        if (RE.hasVehicle() && RE.getVehicle() instanceof AbstractBoatEntity boatEntity && RE == boatEntity.getFirstPassenger()) {
-            boatEntity.setInputs(false, false, false, false);
-            Vec3d target = null;
-            if (RE.getTarget()!=null) target = RE.getTarget().getEntityPos();
+        Raider RE = (Raider)(Object)this;
+        if (RE.isPassenger() && RE.getVehicle() instanceof AbstractBoat boatEntity && RE == boatEntity.getFirstPassenger()) {
+            boatEntity.setInput(false, false, false, false);
+            Vec3 target = null;
+            if (RE.getTarget()!=null) target = RE.getTarget().position();
             else {
                 updatePatrol(RE, boatEntity);
-                if (RE.hasPatrolTarget()) target = RE.getPatrolTarget().toCenterPos();
+                if (RE.hasPatrolTarget()) target = RE.getPatrolTarget().getCenter();
             }
 
             if (target!=null) {
-                Optional<Float> toYawOptional = getTargetYaw(target.getX(), target.getZ(), RE.getX(), RE.getZ());
+                Optional<Float> toYawOptional = getTargetYaw(target.x(), target.z(), RE.getX(), RE.getZ());
                 if (toYawOptional.isPresent()) {
                     float targetYaw = toYawOptional.get();
-                    float boatYaw = boatEntity.getYaw();
+                    float boatYaw = boatEntity.getYRot();
                     double toYaw = (targetYaw-boatYaw)*(Math.PI/180f);
                     toYaw = Math.atan(Math.tan(toYaw/2.0));
-                    if (Vector3f.distanceSquared((float)target.getX(), (float)target.getY(), (float)target.getZ(), (float)RE.getX(), (float)RE.getY(), (float)RE.getZ())>150) {
-                        if (toYaw > 0.25) boatEntity.setInputs(false, true, Math.abs(toYaw)<Math.PI/4, false);
-                        else if (toYaw < -0.25) boatEntity.setInputs(true, false, Math.abs(toYaw)<Math.PI/4, false);
-                        else boatEntity.setInputs(false, false, true, false);
+                    if (Vector3f.distanceSquared((float)target.x(), (float)target.y(), (float)target.z(), (float)RE.getX(), (float)RE.getY(), (float)RE.getZ())>150) {
+                        if (toYaw > 0.25) boatEntity.setInput(false, true, Math.abs(toYaw)<Math.PI/4, false);
+                        else if (toYaw < -0.25) boatEntity.setInput(true, false, Math.abs(toYaw)<Math.PI/4, false);
+                        else boatEntity.setInput(false, false, true, false);
                     } else {
                         toYaw-=(Math.PI/4)*(toYaw>0?1:-1);
-                        if (toYaw > 0.25) boatEntity.setInputs(false, true, false, false);
-                        else if (toYaw < -0.25) boatEntity.setInputs(true, false, false, false);
-                        else boatEntity.setInputs(false, false, false, false);
+                        if (toYaw > 0.25) boatEntity.setInput(false, true, false, false);
+                        else if (toYaw < -0.25) boatEntity.setInput(true, false, false, false);
+                        else boatEntity.setInput(false, false, false, false);
                     }
                 }
             }
@@ -62,26 +62,26 @@ public class RaiderEntityMixin {
     }
 
     @Unique
-    private void updatePatrol(RaiderEntity RE, AbstractBoatEntity boatEntity) {
+    private void updatePatrol(Raider RE, AbstractBoat boatEntity) {
         if (boatEntity instanceof BigBoatEntity bigBoatEntity && RE == bigBoatEntity.getFirstPassenger()) {
-            World world = RE.getEntityWorld();
-            if (world.getTime() % 20 == 0 && world.random.nextInt(10) == 0) {
+            Level world = RE.level();
+            if (world.getGameTime() % 20 == 0 && world.random.nextInt(10) == 0) {
                 if (!RE.hasPatrolTarget()) {
                     if (world.random.nextInt(10) == 0) RE.setPatrolTarget(null);
-                    Random random = world.random;
-                    BlockPos pos = RE.getBlockPos();
-                    pos = pos.add(-50 + random.nextInt(100), 0, -50 + random.nextInt(100));
+                    RandomSource random = world.random;
+                    BlockPos pos = RE.blockPosition();
+                    pos = pos.offset(-50 + random.nextInt(100), 0, -50 + random.nextInt(100));
                     if (validOcean(pos, world, RE)) {
                         RE.setPatrolTarget(pos);
-                        List<PatrolEntity> list = world.getEntitiesByClass(
-                                PatrolEntity.class, RE.getBoundingBox().expand(32.0), patrolEntity -> patrolEntity.hasNoRaid() && !patrolEntity.isPartOf(RE));
+                        List<PatrollingMonster> list = world.getEntitiesOfClass(
+                                PatrollingMonster.class, RE.getBoundingBox().inflate(32.0), patrolEntity -> patrolEntity.canJoinPatrol() && !patrolEntity.is(RE));
 
-                        for (PatrolEntity patrolEntity : list) {
+                        for (PatrollingMonster patrolEntity : list) {
                             patrolEntity.setPatrolTarget(pos);
                         }
                     }
                 } else {
-                    if (RE.getPatrolTarget().isWithinDistance(RE.getEntityPos(), 20.0) || world.random.nextInt(3) == 0) {
+                    if (RE.getPatrolTarget().closerToCenterThan(RE.position(), 20.0) || world.random.nextInt(3) == 0) {
                         RE.setPatrolTarget(null);
                     }
                 }
@@ -90,19 +90,19 @@ public class RaiderEntityMixin {
     }
 
     @Unique
-    private static boolean validOcean(BlockPos pos, World world, RaiderEntity RE) {
+    private static boolean validOcean(BlockPos pos, Level world, Raider RE) {
         for (int bx = pos.getX() - 8; bx < pos.getX() + 8; bx++) {
             for (int by = pos.getY() - 2; by < pos.getY() + 4; by++) {
                 for (int bz = pos.getZ() - 8; bz < pos.getZ() + 8; bz++) {
                     BlockState blockState = world.getBlockState(new BlockPos(bx, by, bz));
-                    if (!(blockState.isOf(Blocks.AIR) || blockState.isOf(Blocks.WATER))) {
+                    if (!(blockState.is(Blocks.AIR) || blockState.is(Blocks.WATER))) {
                         return false;
                     }
                 }
             }
         }
-        BlockHitResult blockHitResult = RE.getEntityWorld()
-                .raycast(new RaycastContext(RE.getEntityPos(), pos.toCenterPos(), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, RE));
+        BlockHitResult blockHitResult = RE.level()
+                .clip(new ClipContext(RE.position(), pos.getCenter(), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, RE));
         return blockHitResult.getType() == HitResult.Type.MISS;
     }
 
@@ -112,6 +112,6 @@ public class RaiderEntityMixin {
         double e = z1 - z2;
         return !(Math.abs(e) > 1.0E-5F) && !(Math.abs(d) > 1.0E-5F)
                 ? Optional.empty()
-                : Optional.of((float)(MathHelper.atan2(e, d) * 180.0F / (float)Math.PI) - 90.0F);
+                : Optional.of((float)(Mth.atan2(e, d) * 180.0F / (float)Math.PI) - 90.0F);
     }
 }

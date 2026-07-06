@@ -1,8 +1,9 @@
 package net.greenjab.nekomasfixed.util;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
+import org.jspecify.annotations.NonNull;
 
-public class ModColors implements StringIdentifiable {
+public class ModColors implements StringRepresentable {
     public static final ModColors AMBER = new ModColors("amber", 0xE0AF0B);
     public static final ModColors AQUA = new ModColors("aqua", 0xA6CEC7);
     public static final ModColors INDIGO = new ModColors("indigo", 0xFF453C8F);
@@ -26,7 +27,7 @@ public class ModColors implements StringIdentifiable {
     }
 
     @Override
-    public String asString() {
+    public @NonNull String getSerializedName() {
         return this.name;
     }
 }

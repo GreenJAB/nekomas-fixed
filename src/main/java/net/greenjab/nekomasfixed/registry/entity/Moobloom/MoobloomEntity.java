@@ -2,69 +2,84 @@ package net.greenjab.nekomasfixed.registry.entity.Moobloom;
 
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.util.ModTags;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.SuspiciousStewEffectsComponent;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AbstractCowEntity;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.cow.AbstractCow;
+import net.minecraft.world.entity.animal.cow.Cow;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+
 import java.util.List;
 
-public class MoobloomEntity extends CowEntity {
+public class MoobloomEntity extends Cow {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
     private ItemStack LastFlowerEaten = ItemStack.EMPTY;
     private int flowerRegrowTimer = 20 * 60 * 5;
-    public static final TrackedData<String> VARIANT = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.STRING);
-    public static final TrackedData<Boolean> SHEARED = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(MoobloomEntity.class, EntityDataSerializers.STRING);
+    public static final EntityDataAccessor<Boolean> SHEARED = SynchedEntityData.defineId(MoobloomEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public MoobloomEntity(EntityType<? extends CowEntity> entityType, World world) {
+    public MoobloomEntity(EntityType<? extends Cow> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        EntityData data = super.initialize(world, difficulty, spawnReason, entityData);
-        this.dataTracker.set(VARIANT, MoobloomEntityVariants.getRandomVariant().path);
+    public @NonNull SpawnGroupData finalizeSpawn(@NonNull ServerLevelAccessor world, @NonNull DifficultyInstance difficulty, @NonNull EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
+        SpawnGroupData data = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
+        this.entityData.set(VARIANT, MoobloomEntityVariants.getRandomVariant().path);
 
         return data;
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0F));
-        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0F));
-        this.goalSelector.add(3, new TemptGoal(this, 1.25F, (stack) -> stack.isIn(ModTags.MOOBLOOM_FLOWERS), false));
-        this.goalSelector.add(4, new FollowParentGoal(this, 1.25F));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0F));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(7, new LookAroundGoal(this));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0F));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0F));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25F, (stack) -> stack.is(ModTags.MOOBLOOM_FLOWERS), false));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25F));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0F));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
 
-    public static DefaultAttributeContainer.Builder createAttributes(){
-        return AbstractCowEntity.createCowAttributes();
+    public static AttributeSupplier.@NonNull Builder createAttributes(){
+        return AbstractCow.createAttributes();
     }
 
     public void setLastFlowerEaten(ItemStack stack) {
@@ -75,62 +90,62 @@ public class MoobloomEntity extends CowEntity {
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
-        view.putBoolean("Sheared", this.dataTracker.get(SHEARED));
+    protected void addAdditionalSaveData(@NonNull ValueOutput view) {
+        super.addAdditionalSaveData(view);
+        view.putBoolean("Sheared", this.entityData.get(SHEARED));
         view.putInt("FlowerRegrowTimer", this.flowerRegrowTimer);
-        view.putString("VariantPath", this.dataTracker.get(VARIANT));
+        view.putString("VariantPath", this.entityData.get(VARIANT));
 
         if (!LastFlowerEaten.isEmpty()) {
-            view.put("Item", ItemStack.CODEC, LastFlowerEaten);
+            view.store("Item", ItemStack.CODEC, LastFlowerEaten);
         }
     }
 
     @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        this.setSheared(view.getBoolean("Sheared", false));
-        this.flowerRegrowTimer = view.getInt("FlowerRegrowTimer", 20 * 60 * 5);
-        this.dataTracker.set(VARIANT, view.getString("VariantPath", "ancient_cow_1"));
+    protected void readAdditionalSaveData(@NonNull ValueInput view) {
+        super.readAdditionalSaveData(view);
+        this.setSheared(view.getBooleanOr("Sheared", false));
+        this.flowerRegrowTimer = view.getIntOr("FlowerRegrowTimer", 20 * 60 * 5);
+        this.entityData.set(VARIANT, view.getStringOr("VariantPath", "ancient_cow_1"));
 
         LastFlowerEaten = view.read("Item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isOf(Items.SHEARS) && !this.isBaby()) {
-            World var5 = this.getEntityWorld();
-            if (var5 instanceof ServerWorld serverWorld) {
+    public @NonNull InteractionResult mobInteract(Player player, @NonNull InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.is(Items.SHEARS) && !this.isBaby()) {
+            Level var5 = this.level();
+            if (var5 instanceof ServerLevel serverWorld) {
                 if (this.isShearable()) {
-                    this.sheared(serverWorld, SoundCategory.PLAYERS, itemStack);
-                    this.emitGameEvent(GameEvent.SHEAR, player);
-                    itemStack.damage(1, player, hand.getEquipmentSlot());
-                    return ActionResult.SUCCESS_SERVER;
+                    this.sheared(serverWorld, SoundSource.PLAYERS, itemStack);
+                    this.gameEvent(GameEvent.SHEAR, player);
+                    itemStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
+                    return InteractionResult.SUCCESS_SERVER;
                 }
             }
-            return ActionResult.SUCCESS;
-        } else if (itemStack.isOf(Items.BOWL) && !this.isBaby()) {
-            World world = this.getEntityWorld();
-            if (!world.isClient() && world instanceof ServerWorld) {
+            return InteractionResult.SUCCESS;
+        } else if (itemStack.is(Items.BOWL) && !this.isBaby()) {
+            Level world = this.level();
+            if (!world.isClientSide() && world instanceof ServerLevel) {
                 ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
-                stew.set(DataComponentTypes.SUSPICIOUS_STEW_EFFECTS, new SuspiciousStewEffectsComponent(List.of(MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT)).effect)));
-                player.getStackInHand(Hand.MAIN_HAND).decrementUnlessCreative(1, player);
-                player.giveOrDropStack( stew);
+                stew.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, new SuspiciousStewEffects(List.of(MoobloomEntityVariants.fromPath(this.entityData.get(VARIANT)).effect)));
+                player.getItemInHand(InteractionHand.MAIN_HAND).consume(1, player);
+                player.handleExtraItemsCreatedOnUse( stew);
             }
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else {
-            return super.interactMob(player, hand);
+            return super.mobInteract(player, hand);
         }
     }
 
-    public void sheared(ServerWorld world, SoundCategory shearedSoundCategory, ItemStack shears) {
-        world.playSoundFromEntity(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
+    public void sheared(ServerLevel world, SoundSource shearedSoundCategory, ItemStack shears) {
+        world.playSound(null, this, SoundEvents.SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
 
             for(int i = 0; i < shears.getCount(); ++i) {
-                ItemEntity itemEntity = this.dropStack(world, MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT)).flower, 1.0F);
+                ItemEntity itemEntity = this.spawnAtLocation(world, MoobloomEntityVariants.fromPath(this.entityData.get(VARIANT)).flower, 1.0F);
                 if (itemEntity != null) {
-                    itemEntity.setVelocity(itemEntity.getVelocity().add((this.random.nextFloat() - this.random.nextFloat()) * 0.1F, this.random.nextFloat() * 0.05F, (this.random.nextFloat() - this.random.nextFloat()) * 0.1F));
+                    itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().add((this.random.nextFloat() - this.random.nextFloat()) * 0.1F, this.random.nextFloat() * 0.05F, (this.random.nextFloat() - this.random.nextFloat()) * 0.1F));
                 }
             }
 
@@ -138,20 +153,20 @@ public class MoobloomEntity extends CowEntity {
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(SHEARED, false);
-        builder.add(VARIANT, "ancient_cow_1");
+    protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SHEARED, false);
+        builder.define(VARIANT, "ancient_cow_1");
     }
     @Override
-    public MoobloomEntity createChild(ServerWorld world, PassiveEntity other) {
-        MoobloomEntity child = EntityTypeRegistry.MOOBLOOM.create(world, SpawnReason.BREEDING);
+    public MoobloomEntity getBreedOffspring(@NonNull ServerLevel world, @NonNull AgeableMob other) {
+        MoobloomEntity child = EntityTypeRegistry.MOOBLOOM.create(world, EntitySpawnReason.BREEDING);
         assert child != null;
 
-        MoobloomEntityVariants thisVariant = MoobloomEntityVariants.fromPath(this.dataTracker.get(VARIANT));
+        MoobloomEntityVariants thisVariant = MoobloomEntityVariants.fromPath(this.entityData.get(VARIANT));
         String result = thisVariant.path;
         if (other instanceof MoobloomEntity mate) {
-            MoobloomEntityVariants secondVariant = MoobloomEntityVariants.fromPath(mate.getDataTracker().get(VARIANT));
+            MoobloomEntityVariants secondVariant = MoobloomEntityVariants.fromPath(mate.getEntityData().get(VARIANT));
             MoobloomEntityVariants flowerVariant = MoobloomEntityVariants.fromFlower(this.LastFlowerEaten.getItem());
             MoobloomEntityVariants flowerVariant2 = MoobloomEntityVariants.fromFlower(mate.getLastFlowerEaten().getItem());
             double random = world.random.nextFloat();
@@ -165,16 +180,16 @@ public class MoobloomEntity extends CowEntity {
                 result = flowerVariant2.path;
             }
         }
-        child.getDataTracker().set(VARIANT, result);
-        child.getDataTracker().set(SHEARED, true);
+        child.getEntityData().set(VARIANT, result);
+        child.getEntityData().set(SHEARED, true);
         return child;
     }
 
     public void setSheared(boolean val){
-        this.dataTracker.set(SHEARED, val);
+        this.entityData.set(SHEARED, val);
         this.flowerRegrowTimer = 20 * 60 * 5;}
 
-    public boolean isShearable(){return !this.dataTracker.get(SHEARED);}
+    public boolean isShearable(){return !this.entityData.get(SHEARED);}
 
     public void regrowFlowers(){
         this.flowerRegrowTimer = 20 * 60 * 5;
@@ -182,15 +197,15 @@ public class MoobloomEntity extends CowEntity {
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(ModTags.MOOBLOOM_FLOWERS);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ModTags.MOOBLOOM_FLOWERS);
     }
 
     @Override
-    public void mobTick(ServerWorld world) {
-        super.mobTick(world);
+    public void customServerAiStep(@NonNull ServerLevel world) {
+        super.customServerAiStep(world);
 
-        if (this.dataTracker.get(SHEARED)) {
+        if (this.entityData.get(SHEARED)) {
             if (this.flowerRegrowTimer > 0) {
                 this.flowerRegrowTimer--;
             }
@@ -204,24 +219,24 @@ public class MoobloomEntity extends CowEntity {
     public void tick() {
         super.tick();
 
-        if (this.getEntityWorld().isClient()) {
+        if (this.level().isClientSide()) {
 
-            if (this.getVelocity().horizontalLengthSquared() > 0.0001) {
-                runAnimationState.startIfNotRunning(this.age);
+            if (this.getDeltaMovement().horizontalDistanceSqr() > 0.0001) {
+                runAnimationState.startIfStopped(this.tickCount);
                 idleAnimationState.stop();
             } else {
-                idleAnimationState.startIfNotRunning(this.age);
+                idleAnimationState.startIfStopped(this.tickCount);
                 runAnimationState.stop();
             }
         }
     }
 
     @Override
-    public EntityDimensions getBaseDimensions(EntityPose pose) {
-        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
+    public @NonNull EntityDimensions getDefaultDimensions(@NonNull Pose pose) {
+        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
     }
 
     static {
-        BABY_BASE_DIMENSIONS = EntityTypeRegistry.MOOBLOOM.getDimensions().scaled(0.5F).withEyeHeight(0.665F);
+        BABY_BASE_DIMENSIONS = EntityTypeRegistry.MOOBLOOM.getDimensions().scale(0.5F).withEyeHeight(0.665F);
     }
 }

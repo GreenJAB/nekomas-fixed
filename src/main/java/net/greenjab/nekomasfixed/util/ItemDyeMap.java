@@ -1,9 +1,8 @@
 package net.greenjab.nekomasfixed.util;
 
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import java.util.EnumMap;
 
 public class ItemDyeMap {

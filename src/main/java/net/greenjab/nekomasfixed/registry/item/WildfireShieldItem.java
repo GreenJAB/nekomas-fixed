@@ -1,10 +1,10 @@
 package net.greenjab.nekomasfixed.registry.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ShieldItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ShieldItem;
 
 public class WildfireShieldItem extends ShieldItem {
-    public WildfireShieldItem(Item.Settings settings) {
+    public WildfireShieldItem(Item.Properties settings) {
         super(settings);
     }
 

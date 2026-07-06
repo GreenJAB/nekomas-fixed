@@ -1,20 +1,20 @@
 package net.greenjab.nekomasfixed.mixin.accessor;
 
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.passive.SnifferEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(SnifferEntity.class)
+@Mixin(Sniffer.class)
 public interface SnifferEntityAccessor {
 
-    @Accessor("FINISH_DIG_TIME")
-    static TrackedData<Integer> getFinishDigTime() {
+    @Accessor("DATA_DROP_SEED_AT_TICK")
+    static EntityDataAccessor<Integer> getFinishDigTime() {
         throw new AssertionError();
     }
 
-    @Invoker("getDigPos")
+    @Invoker("getHeadBlock")
     BlockPos invokeGetDigPos();
 }

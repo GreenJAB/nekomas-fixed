@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.render.entity.state;
 
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.entity.AnimationState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.world.entity.AnimationState;
 
 public class MoobloomEntityRenderState extends LivingEntityRenderState {
     public final AnimationState idleAnimationState;
@@ -9,7 +9,7 @@ public class MoobloomEntityRenderState extends LivingEntityRenderState {
     public final AnimationState crouchRunAnimationState;
     public final AnimationState crouchAnimationState;
     public boolean sheared;
-    public String variantPath;
+    public String variantPath="red_cow_2";
     public boolean baby;
 
     public  MoobloomEntityRenderState() {

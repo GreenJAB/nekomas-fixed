@@ -1,30 +1,35 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.PiercingWeaponComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameMode;
-import net.minecraft.world.World;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.PiercingWeapon;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,87 +39,87 @@ public class SpearEntity extends Entity {
 	private boolean startedAttack;
 	private int ticksLeft = 20;
 
-	protected static final TrackedData<Direction> DIRECTION = DataTracker.registerData(SpearEntity.class, TrackedDataHandlerRegistry.FACING);
-	protected static final TrackedData<ItemStack> SPEAR = DataTracker.registerData(SpearEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
+	protected static final EntityDataAccessor<Direction> DIRECTION = SynchedEntityData.defineId(SpearEntity.class, EntityDataSerializers.DIRECTION);
+	protected static final EntityDataAccessor<ItemStack> SPEAR = SynchedEntityData.defineId(SpearEntity.class, EntityDataSerializers.ITEM_STACK);
 
 
-	public SpearEntity(EntityType<? extends SpearEntity> entityType, World world) {
+	public SpearEntity(EntityType<? extends SpearEntity> entityType, Level world) {
 		super(entityType, world);
 	}
 
 	@Override
-	protected void initDataTracker(DataTracker.Builder builder) {
-		builder.add(DIRECTION, Direction.UP);
-		builder.add(SPEAR, Items.WOODEN_SPEAR.getDefaultStack());
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(DIRECTION, Direction.UP);
+		builder.define(SPEAR, Items.WOODEN_SPEAR.getDefaultInstance());
 	}
 
 	public void setDirection(Direction dir) {
-		dataTracker.set(DIRECTION, dir);
+		entityData.set(DIRECTION, dir);
 	}
-	public Direction getDirection() {
-		return dataTracker.get(DIRECTION);
+	public @NonNull Direction getDirection() {
+		return entityData.get(DIRECTION);
 	}
 	public void setStack(ItemStack item) {
-		dataTracker.set(SPEAR, item);
+		entityData.set(SPEAR, item);
 	}
 	public ItemStack getStack() {
-		return dataTracker.get(SPEAR);
+		return entityData.get(SPEAR);
 	}
 
 	@Override
-	protected void readCustomData(ReadView view) {
-		this.warmup = view.getInt("Warmup", 0);
+	protected void readAdditionalSaveData(ValueInput view) {
+		this.warmup = view.getIntOr("Warmup", 0);
 	}
 
 	@Override
-	protected void writeCustomData(WriteView view) {
+	protected void addAdditionalSaveData(ValueOutput view) {
 		view.putInt("Warmup", this.warmup);
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		if (this.getEntityWorld().isClient()) {
+		if (this.level().isClientSide()) {
 			this.ticksLeft--;
 			if (this.ticksLeft == 20-5) {
-				Vec3d b = getDirection().getDoubleVector().multiply(getDirection().getDoubleVector()).multiply(0.4);
-				Box box = this.getBoundingBox().expand(b.x, b.y, b.z);
-				List<LivingEntity> list = this.getEntityWorld().getNonSpectatingEntities(LivingEntity.class, box);
+				Vec3 b = getDirection().getUnitVec3().multiply(getDirection().getUnitVec3()).scale(0.4);
+				AABB box = this.getBoundingBox().inflate(b.x, b.y, b.z);
+				List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, box);
 				if (!list.isEmpty()) {
-					this.getEntityWorld()
-							.playSoundClient(
+					this.level()
+							.playLocalSound(
 									this.getX(),
 									this.getY(),
 									this.getZ(),
-									SoundEvents.ITEM_SPEAR_HIT.value(),
-									this.getSoundCategory(),
+									SoundEvents.SPEAR_HIT.value(),
+									this.getSoundSource(),
 									1.0F,
 									1f,
 									false
 							);
 					for (int i = 0; i < 12; i++) {
-						double d = this.getX() + (this.random.nextDouble() * 2.0 - 1.0) * this.getWidth() * 0.5;
+						double d = this.getX() + (this.random.nextDouble() * 2.0 - 1.0) * this.getBbWidth() * 0.5;
 						double e = this.getY() + 0.05 + this.random.nextDouble();
-						double f = this.getZ() + (this.random.nextDouble() * 2.0 - 1.0) * this.getWidth() * 0.5;
+						double f = this.getZ() + (this.random.nextDouble() * 2.0 - 1.0) * this.getBbWidth() * 0.5;
 						double g = (this.random.nextDouble() * 2.0 - 1.0) * 0.3;
 						double h = 0.3 + this.random.nextDouble() * 0.3;
 						double j = (this.random.nextDouble() * 2.0 - 1.0) * 0.3;
-						this.getEntityWorld().addParticleClient(ParticleTypes.CRIT, d, e, f, g, h, j);
+						this.level().addParticle(ParticleTypes.CRIT, d, e, f, g, h, j);
 					}
 
 				}
 			}
 		} else if (--this.warmup < 0) {
 			if (this.warmup == -5) {
-				Vec3d b = getDirection().getDoubleVector().multiply(getDirection().getDoubleVector()).multiply(0.4);
-				Box box = this.getBoundingBox().expand(b.x, b.y, b.z);
-				for (LivingEntity livingEntity : this.getEntityWorld().getNonSpectatingEntities(LivingEntity.class, box)) {
+				Vec3 b = getDirection().getUnitVec3().multiply(getDirection().getUnitVec3()).scale(0.4);
+				AABB box = this.getBoundingBox().inflate(b.x, b.y, b.z);
+				for (LivingEntity livingEntity : this.level().getEntitiesOfClass(LivingEntity.class, box)) {
 					this.damage(livingEntity);
 				}
 			}
 
 			if (!this.startedAttack) {
-				this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+				this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
 				this.startedAttack = true;
 			}
 
@@ -126,54 +131,54 @@ public class SpearEntity extends Entity {
 
 	private void damage(LivingEntity target) {
 		if (target.isAlive() && !target.isInvulnerable()) {
-			if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
-				PlayerEntity p = new PlayerEntity(serverWorld, new GameProfile(UUID.randomUUID(), "Dispenser")) {
+			if (this.level() instanceof ServerLevel serverWorld) {
+				Player p = new Player(serverWorld, new GameProfile(UUID.randomUUID(), "Dispenser")) {
 					@Override
-					public @NotNull GameMode getGameMode() {
-						return GameMode.SURVIVAL;
+					public @NotNull GameType gameMode() {
+						return GameType.SURVIVAL;
 					}
 				};
-				ItemStack stack = dataTracker.get(SPEAR);
-				Direction direction = dataTracker.get(DIRECTION);
+				ItemStack stack = entityData.get(SPEAR);
+				Direction direction = entityData.get(DIRECTION);
 				if (direction.getAxis().isHorizontal()) {
-					p.updatePositionAndAngles(this.getX(), this.getY(), this.getZ(), direction.getPositiveHorizontalDegrees(), 0);
+					p.absSnapTo(this.getX(), this.getY(), this.getZ(), direction.toYRot(), 0);
 				} else {
-					p.updatePositionAndAngles(this.getX(), this.getY(), this.getZ(), 0, direction==Direction.UP?-90:90);
+					p.absSnapTo(this.getX(), this.getY(), this.getZ(), 0, direction==Direction.UP?-90:90);
 				}
-				p.ticksSinceLastAttack =1000;
-				p.getInventory().setStack(0, stack);
-				PiercingWeaponComponent piercingWeaponComponent = stack.get(DataComponentTypes.PIERCING_WEAPON);
+				p.attackStrengthTicker =1000;
+				p.getInventory().setItem(0, stack);
+				PiercingWeapon piercingWeaponComponent = stack.get(DataComponents.PIERCING_WEAPON);
 				if (piercingWeaponComponent != null) {
-					piercingWeaponComponent.stab(p, EquipmentSlot.MAINHAND);
+					piercingWeaponComponent.attack(p, EquipmentSlot.MAINHAND);
 
-					float f = EnchantmentHelper.getDamage(serverWorld, stack, target, stack.getDamageSource(p, () -> p.getDamageSources().playerAttack(p)), getDamageValue(stack));
-					p.ticksSinceLastAttack =1000;
-					p.pierce(EquipmentSlot.MAINHAND, target, f, true, direction.getAxis().isHorizontal(), false);
+					float f = EnchantmentHelper.modifyDamage(serverWorld, stack, target, stack.getDamageSource(p, () -> p.damageSources().playerAttack(p)), getDamageValue(stack));
+					p.attackStrengthTicker =1000;
+					p.stabAttack(EquipmentSlot.MAINHAND, target, f, true, direction.getAxis().isHorizontal(), false);
 
-					p.beforePlayerAttack();
-					p.useAttackEnchantmentEffects();
+					p.onAttack();
+					p.lungeForwardMaybe();
 				}
 			}
 		}
 	}
 
 	private float getDamageValue(ItemStack stack) {
-		AttributeModifiersComponent attributeModifiersComponent = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-		return (float) (attributeModifiersComponent.applyOperations(EntityAttributes.ATTACK_DAMAGE, 1, EquipmentSlot.MAINHAND));
+		ItemAttributeModifiers attributeModifiersComponent = stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+		return (float) (attributeModifiersComponent.compute(Attributes.ATTACK_DAMAGE, 1, EquipmentSlot.MAINHAND));
 	}
 
 	@Override
-	public void handleStatus(byte status) {
-		super.handleStatus(status);
-		if (status == EntityStatuses.PLAY_ATTACK_SOUND) {
+	public void handleEntityEvent(byte status) {
+		super.handleEntityEvent(status);
+		if (status == EntityEvent.START_ATTACKING) {
 			if (!this.isSilent()) {
-				this.getEntityWorld()
-						.playSoundClient(
+				this.level()
+						.playLocalSound(
 								this.getX(),
 								this.getY(),
 								this.getZ(),
-								SoundEvents.BLOCK_PISTON_EXTEND,
-								this.getSoundCategory(),
+								SoundEvents.PISTON_EXTEND,
+								this.getSoundSource(),
 								0.7F,
 								0.7f,
 								false
@@ -183,7 +188,7 @@ public class SpearEntity extends Entity {
 	}
 
 	@Override
-	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+	public boolean hurtServer(@NonNull ServerLevel world, @NonNull DamageSource source, float amount) {
 		return false;
 	}
 }

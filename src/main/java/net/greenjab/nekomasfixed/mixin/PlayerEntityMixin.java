@@ -9,22 +9,22 @@ import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.greenjab.nekomasfixed.util.ModData;
 import net.greenjab.nekomasfixed.util.ModTags;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,108 +35,104 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public class PlayerEntityMixin {
 
     @Unique
-    private int tickCount = 0;
-
-    @Unique
-    private void checkForEdibles(PlayerEntity PE){
-        tickCount--;
-        if (tickCount > 0) return;
+    private void checkForEdibles(Player PE){
+        if (PE.level().random.nextInt(15*20) > 0) return;
         Random random = new Random();
-        Inventory inventory = PE.getInventory();
-        int i = random.nextInt(inventory.size());
-        ItemStack food = inventory.getStack(i);
-        if (!food.isEmpty() && food.isIn(ModTags.FOOD_ITEMS)) {
-            food.decrement(1);
+        Container inventory = PE.getInventory();
+        int i = random.nextInt(inventory.getContainerSize());
+        ItemStack food = inventory.getItem(i);
+        if (!food.isEmpty() && food.is(ModTags.FOOD_ITEMS)) {
+            food.shrink(1);
             ItemStack rotten = new ItemStack(Items.ROTTEN_FLESH, 1);
-            if (!PE.getInventory().insertStack(rotten.copy())) {
-                PE.dropItem(rotten, false);
+            if (!PE.getInventory().add(rotten.copy())) {
+                PE.drop(rotten, false);
             }
         }
-        tickCount = random.nextInt(20*10, 20*20);
     }
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
-    private void customTickLogics(CallbackInfo ci) {
-        PlayerEntity PE = (PlayerEntity)(Object)this;
 
-        if (PE.isOnGround() && !PE.isTouchingWater()) {
-            if (PE.getEquippedStack(EquipmentSlot.FEET).isOf(ItemRegistry.TURTLE_BOOTS)) {
-                PE.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 200, 0, false, false, true));
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z"))
+    private void customTickLogics(CallbackInfo ci) {
+        Player PE = (Player)(Object)this;
+
+        if (PE.onGround() && !PE.isInWater()) {
+            if (PE.getItemBySlot(EquipmentSlot.FEET).is(ItemRegistry.TURTLE_BOOTS)) {
+                PE.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 200, 0, false, false, true));
             }
         }
-        if (PE.getEntityWorld().getBiome(PE.getBlockPos()).isIn(BiomeTags.IS_NETHER)) {
+        if (PE.level().getBiome(PE.blockPosition()).is(BiomeTags.IS_NETHER)) {
             if (!PE.isCreative()&&!PE.isSpectator() && ModConfigValues.netherFoodRotting){
                 this.checkForEdibles(PE);
             }
         }
-        if (ModData.combos.containsKey(PE.getUuid())){
-            int comboTimer = ModData.combos.get(PE.getUuid())-1;
-            if (comboTimer<=0) ModData.combos.remove(PE.getUuid());
-            else ModData.combos.put(PE.getUuid(), comboTimer);
+        if (ModData.combos.containsKey(PE.getUUID())){
+            int comboTimer = ModData.combos.get(PE.getUUID())-1;
+            if (comboTimer<=0) ModData.combos.remove(PE.getUUID());
+            else ModData.combos.put(PE.getUUID(), comboTimer);
         }
     }
 
-    @ModifyExpressionValue(method = "getBlockBreakingSpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isOnGround()Z"))
+    @ModifyExpressionValue(method = "getDestroySpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onGround()Z"))
     private boolean turtleLeggingsMining(boolean original) {
-        PlayerEntity PE = (PlayerEntity)(Object)this;
-        if (PE.isSubmergedIn(FluidTags.WATER)) {
-            if (PE.getEquippedStack(EquipmentSlot.LEGS).isOf(ItemRegistry.TURTLE_LEGGINGS)) {
+        Player PE = (Player)(Object)this;
+        if (PE.isEyeInFluid(FluidTags.WATER)) {
+            if (PE.getItemBySlot(EquipmentSlot.LEGS).is(ItemRegistry.TURTLE_LEGGINGS)) {
                return true;
             }
         }
         return original;
     }
 
-    @Redirect(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;sidedDamage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
+    @Redirect(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurtOrSimulate(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private boolean preventFeatherDamage(Entity target, DamageSource source, float amount) {
-        PlayerEntity PE = (PlayerEntity)(Object)this;
+        Player PE = (Player)(Object)this;
 
-        if (PE.getMainHandStack().isOf(Items.FEATHER)) {
+        if (PE.getMainHandItem().is(Items.FEATHER)) {
             if (target instanceof LivingEntity livingTarget) {
-                livingTarget.takeKnockback(
+                livingTarget.knockback(
                         0.4,
-                        MathHelper.sin(PE.getYaw() * ((float)Math.PI / 180F)),
-                        (-MathHelper.cos(PE.getYaw() * ((float)Math.PI / 180F)))
+                        Mth.sin(PE.getYRot() * ((float)Math.PI / 180F)),
+                        (-Mth.cos(PE.getYRot() * ((float)Math.PI / 180F)))
                 );
             }
             return true;
         }
 
-        if (PE.getStackInHand(Hand.MAIN_HAND).isIn(ModTags.SICKLES) && PE.getStackInHand(Hand.OFF_HAND).isIn(ModTags.SICKLES)) target.timeUntilRegen = 10;
+        if (PE.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && PE.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) target.invulnerableTime = 10;
 
-        return target.sidedDamage(source, amount);
+        return target.hurtOrSimulate(source, amount);
     }
 
-    @WrapOperation(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;interact(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
-    private ActionResult allowOffhandAttack(Entity instance, PlayerEntity player, Hand hand, Operation<ActionResult> original) {
-        if (player.getStackInHand(Hand.MAIN_HAND).isIn(ModTags.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(ModTags.SICKLES)) return ActionResult.PASS;
+    @WrapOperation(method = "interactOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;"))
+    private InteractionResult allowOffhandAttack(Entity instance, Player player, InteractionHand hand, Operation<InteractionResult> original) {
+        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && player.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) return InteractionResult.PASS;
         return original.call(instance, player, hand);
     }
 
-    @Inject(method = "getAttackCooldownDamageModifier", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "baseDamageScaleFactor", at = @At("HEAD"), cancellable = true)
     private void offHandDamage(CallbackInfoReturnable<Float> cir){
-        PlayerEntity player = (PlayerEntity)(Object)this;
-        if (player.getStackInHand(Hand.MAIN_HAND).isIn(ModTags.SICKLES) && player.getStackInHand(Hand.OFF_HAND).isIn(ModTags.SICKLES)) cir.setReturnValue(1f);
+        Player player = (Player)(Object)this;
+        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && player.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) cir.setReturnValue(1f);
     }
 
-    @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;isScaledWithDifficulty()Z"))
-    private void cancelCombo(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        PlayerEntity PE = (PlayerEntity)(Object)this;
-        ModData.combos.remove(PE.getUuid());
+    @Inject(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/DamageSource;scalesWithDifficulty()Z"))
+    private void cancelCombo(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        Player PE = (Player)(Object)this;
+        ModData.combos.remove(PE.getUUID());
     }
 
-    @ModifyExpressionValue(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;getBonusAttackDamage(Lnet/minecraft/entity/Entity;FLnet/minecraft/entity/damage/DamageSource;)F"))
+    @ModifyExpressionValue(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;getAttackDamageBonus(Lnet/minecraft/world/entity/Entity;FLnet/minecraft/world/damagesource/DamageSource;)F"))
     private float comboDamage(float original, @Local ItemStack itemStack, @Local(ordinal = 0) float baseAttackDamage){
-        if (itemStack.getComponents().contains(ComponentRegistry.COMBO_MULTIPLIER)) {
-            PlayerEntity player = (PlayerEntity)(Object)this;
-            int comboTimer = ModData.combos.getOrDefault(player.getUuid(), 0);
+        if (itemStack.getComponents().has(ComponentRegistry.COMBO_MULTIPLIER)) {
+            Player player = (Player)(Object)this;
+            int comboTimer = ModData.combos.getOrDefault(player.getUUID(), 0);
             int comboSec = ceilDiv(comboTimer, 30);
             int multiplier = itemStack.getComponents().get(ComponentRegistry.COMBO_MULTIPLIER).multiplier();
 
-            if (!player.getEntityWorld().isClient()) ModData.combos.put(player.getUuid(), Math.min((comboSec+1)*30, 10*30));
+            if (!player.level().isClientSide()) ModData.combos.put(player.getUUID(), Math.min((comboSec+1)*30, 10*30));
 
             return original + baseAttackDamage*comboSec*multiplier*0.01f;
         }

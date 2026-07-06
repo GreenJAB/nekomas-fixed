@@ -8,109 +8,109 @@ import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ItemDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.data.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import static net.minecraft.data.recipe.CraftingRecipeJsonBuilder.getItemId;
+import static net.minecraft.data.recipes.RecipeBuilder.getDefaultRecipeId;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected @NonNull RecipeGenerator getRecipeGenerator(RegistryWrapper.@NonNull WrapperLookup wrapperLookup, @NonNull RecipeExporter recipeExporter) {
-        return new RecipeGenerator(wrapperLookup, recipeExporter) {
+    protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider wrapperLookup, @NonNull RecipeOutput recipeExporter) {
+        return new RecipeProvider(wrapperLookup, recipeExporter) {
 
             @Override
-            public void generate() {
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_PLANKS, 4)
-                        .input(ModTags.BAOBAB_LOGS)
-                        .criterion(hasItem(ItemRegistry.BAOBAB_LOG), conditionsFromItem(ItemRegistry.BAOBAB_LOG)).offerTo(exporter);
+            public void buildRecipes() {
+                shapeless(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_PLANKS, 4)
+                        .requires(ModTags.BAOBAB_LOGS)
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_LOG), has(ItemRegistry.BAOBAB_LOG)).save(output);
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_WOOD, 3)
+                shaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_WOOD, 3)
                         .pattern("##")
                         .pattern("##")
-                        .input('#', ItemRegistry.BAOBAB_LOG)
-                        .criterion(hasItem(ItemRegistry.BAOBAB_LOG), conditionsFromItem(ItemRegistry.BAOBAB_LOG))
-                        .offerTo(exporter);
+                        .define('#', ItemRegistry.BAOBAB_LOG)
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_LOG), has(ItemRegistry.BAOBAB_LOG))
+                        .save(output);
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.STRIPPED_BAOBAB_WOOD, 3)
+                shaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.STRIPPED_BAOBAB_WOOD, 3)
                         .pattern("##")
                         .pattern("##")
-                        .input('#', ItemRegistry.STRIPPED_BAOBAB_LOG)
-                        .criterion(hasItem(ItemRegistry.STRIPPED_BAOBAB_LOG), conditionsFromItem(ItemRegistry.STRIPPED_BAOBAB_LOG))
-                        .offerTo(exporter);
+                        .define('#', ItemRegistry.STRIPPED_BAOBAB_LOG)
+                        .unlockedBy(getHasName(ItemRegistry.STRIPPED_BAOBAB_LOG), has(ItemRegistry.STRIPPED_BAOBAB_LOG))
+                        .save(output);
 
-                offerBoatRecipe(ItemRegistry.BAOBAB_BOAT, ItemRegistry.BAOBAB_PLANKS);
-                offerChestBoatRecipe(ItemRegistry.BAOBAB_CHEST_BOAT, ItemRegistry.BAOBAB_PLANKS);
-                offerShelfRecipe(ItemRegistry.BAOBAB_SHELF, ItemRegistry.STRIPPED_BAOBAB_LOG);
-                offerHangingSignRecipe(ItemRegistry.BAOBAB_HANGING_SIGN, ItemRegistry.BAOBAB_LOG);
+                woodenBoat(ItemRegistry.BAOBAB_BOAT, ItemRegistry.BAOBAB_PLANKS);
+                chestBoat(ItemRegistry.BAOBAB_CHEST_BOAT, ItemRegistry.BAOBAB_PLANKS);
+                shelf(ItemRegistry.BAOBAB_SHELF, ItemRegistry.STRIPPED_BAOBAB_LOG);
+                hangingSign(ItemRegistry.BAOBAB_HANGING_SIGN, ItemRegistry.BAOBAB_LOG);
 
-                createFenceRecipe(ItemRegistry.BAOBAB_FENCE, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(ItemRegistry.BAOBAB_FENCE_GATE, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(ItemRegistry.BAOBAB_BUTTON, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
-                createDoorRecipe(ItemRegistry.BAOBAB_DOOR, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
-                createTrapdoorRecipe(ItemRegistry.BAOBAB_TRAPDOOR, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
-                createPressurePlateRecipe(RecipeCategory.REDSTONE, ItemRegistry.BAOBAB_PRESSURE_PLATE, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
-                createSignRecipe(ItemRegistry.BAOBAB_SIGN, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_SLAB, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(ItemRegistry.BAOBAB_STAIRS, Ingredient.ofItem(ItemRegistry.BAOBAB_PLANKS))
-                        .criterion(hasItem(ItemRegistry.BAOBAB_PLANKS), conditionsFromItem(ItemRegistry.BAOBAB_PLANKS))
-                        .offerTo(exporter);
+                fenceBuilder(ItemRegistry.BAOBAB_FENCE, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                fenceGateBuilder(ItemRegistry.BAOBAB_FENCE_GATE, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                buttonBuilder(ItemRegistry.BAOBAB_BUTTON, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                doorBuilder(ItemRegistry.BAOBAB_DOOR, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                trapdoorBuilder(ItemRegistry.BAOBAB_TRAPDOOR, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                pressurePlateBuilder(RecipeCategory.REDSTONE, ItemRegistry.BAOBAB_PRESSURE_PLATE, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                signBuilder(ItemRegistry.BAOBAB_SIGN, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_SLAB, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                stairBuilder(ItemRegistry.BAOBAB_STAIRS, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
 
 
                 for (AllDyes colour : AllDyes.values()){
                     createRingRecipe(RecipeCategory.MISC, ItemDyeMap.DYE.get(colour), Items.BRUSH, ItemDyeMap.BRUSH.get(colour), "dyed_brush", 1)
-                            .offerTo(exporter);
+                            .save(output);
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICKS, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICKS.get(colour).asItem(), "dyed_bricks_dyed", 8)
-                            .offerTo(exporter, getItemId(BlockDyeMap.BRICKS.get(colour).asItem()) + "_dyed");
+                            .save(output, getDefaultRecipeId(BlockDyeMap.BRICKS.get(colour).asItem()) + "_dyed");
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_SLAB, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_SLAB.get(colour).asItem(), "dyed_brick_slab_dyed", 8)
-                            .offerTo(exporter, getItemId(BlockDyeMap.BRICK_SLAB.get(colour).asItem()) + "_dyed");
+                            .save(output, getDefaultRecipeId(BlockDyeMap.BRICK_SLAB.get(colour).asItem()) + "_dyed");
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_STAIRS, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), "dyed_brick_stairs_dyed", 8)
-                            .offerTo(exporter, getItemId(BlockDyeMap.BRICK_STAIRS.get(colour).asItem()) + "_dyed");
+                            .save(output, getDefaultRecipeId(BlockDyeMap.BRICK_STAIRS.get(colour).asItem()) + "_dyed");
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_WALL, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_WALL.get(colour).asItem(), "dyed_brick_wall_dyed", 8)
-                            .offerTo(exporter, getItemId(BlockDyeMap.BRICK_WALL.get(colour).asItem()) + "_dyed");
-                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem(), 2);
-                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
-                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
-                    createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), Ingredient.ofItem(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_slab").criterion(hasItem(BlockDyeMap.BRICKS.get(colour).asItem()), this.conditionsFromItem(BlockDyeMap.BRICKS.get(colour).asItem())).offerTo(this.exporter);
-                    createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), Ingredient.ofItem(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_stairs").criterion(hasItem(BlockDyeMap.BRICKS.get(colour).asItem()), this.conditionsFromItem(BlockDyeMap.BRICKS.get(colour).asItem())).offerTo(this.exporter);
-                    getWallRecipe(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), Ingredient.ofItem(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_wall").criterion(hasItem(BlockDyeMap.BRICKS.get(colour).asItem()), this.conditionsFromItem(BlockDyeMap.BRICKS.get(colour).asItem())).offerTo(this.exporter);
+                            .save(output, getDefaultRecipeId(BlockDyeMap.BRICK_WALL.get(colour).asItem()) + "_dyed");
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem(), 2);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_slab").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_stairs").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
+                    wallBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_wall").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
                 }
                 ArrayList<Item> spotted_wool = new ArrayList<>();
                 BlockDyeMap.SPOTTED_WOOL.values().forEach(e->spotted_wool.add(e.asItem()));
-                this.offerDyeableRecipes(ItemDyeMap.DYE.values().stream().toList(), spotted_wool, "spotted_wool", RecipeCategory.BUILDING_BLOCKS);
+                this.colorItemWithDye(ItemDyeMap.DYE.values().stream().toList(), spotted_wool, "spotted_wool", RecipeCategory.BUILDING_BLOCKS);
 
                 ArrayList<Item> spotted_carpet = new ArrayList<>();
                 BlockDyeMap.SPOTTED_CARPET.values().forEach(e->spotted_carpet.add(e.asItem()));
-                this.offerDyeableRecipes(ItemDyeMap.DYE.values().stream().toList(), spotted_carpet, "spotted_carpet_dye", RecipeCategory.DECORATIONS);
+                this.colorItemWithDye(ItemDyeMap.DYE.values().stream().toList(), spotted_carpet, "spotted_carpet_dye", RecipeCategory.DECORATIONS);
 
                 List<Pair<Item,Item>> hollows = List.of(
                         Pair.of(Items.OAK_PLANKS, ItemRegistry.HOLLOW_OAK_LOG),
@@ -127,42 +127,42 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         Pair.of(Items.WARPED_PLANKS, ItemRegistry.HOLLOW_WARPED_STEM),
                         Pair.of(ItemRegistry.BAOBAB_PLANKS, ItemRegistry.HOLLOW_BAOBAB_LOG));
                 for (Pair<Item,Item> hollow : hollows){
-                    createShapeless(RecipeCategory.BUILDING_BLOCKS, hollow.getFirst(), 1)
-                            .input(hollow.getSecond())
-                            .criterion(hasItem(hollow.getSecond()), conditionsFromItem(hollow.getSecond()))
-                            .offerTo(exporter, getItemId(hollow.getFirst()) + "_from_hollow_log");
+                    shapeless(RecipeCategory.BUILDING_BLOCKS, hollow.getFirst(), 1)
+                            .requires(hollow.getSecond())
+                            .unlockedBy(getHasName(hollow.getSecond()), has(hollow.getSecond()))
+                            .save(output, getDefaultRecipeId(hollow.getFirst()) + "_from_hollow_log");
                 }
 
 
-                createShaped(RecipeCategory.TOOLS, ItemRegistry.REDSTONE_STRIKER, 1)
+                shaped(RecipeCategory.TOOLS, ItemRegistry.REDSTONE_STRIKER, 1)
                         .pattern("RG")
                         .pattern("FR")
-                        .input('R', Items.REDSTONE)
-                        .input('G', Items.GOLD_INGOT)
-                        .input('F', Items.FLINT)
-                        .criterion(hasItem(Items.REDSTONE), conditionsFromItem(Items.REDSTONE))
-                        .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
-                        .criterion(hasItem(Items.FLINT), conditionsFromItem(Items.FLINT))
-                        .offerTo(exporter);
+                        .define('R', Items.REDSTONE)
+                        .define('G', Items.GOLD_INGOT)
+                        .define('F', Items.FLINT)
+                        .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
+                        .unlockedBy(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
+                        .unlockedBy(getHasName(Items.FLINT), has(Items.FLINT))
+                        .save(output);
 
             }
 
-            private ShapedRecipeJsonBuilder createRingRecipe(RecipeCategory category, Item outside,  Item inside, Item result, String group, int num) {
-                return createShaped(category, result, num)
+            private ShapedRecipeBuilder createRingRecipe(RecipeCategory category, Item outside,  Item inside, Item result, String group, int num) {
+                return shaped(category, result, num)
                         .pattern("###")
                         .pattern("#D#")
                         .pattern("###")
-                        .input('#', outside)
-                        .input('D', inside)
+                        .define('#', outside)
+                        .define('D', inside)
                         .group(group)
-                        .criterion(hasItem(outside), conditionsFromItem(outside))
-                        .criterion(hasItem(inside), conditionsFromItem(inside));
+                        .unlockedBy(getHasName(outside), has(outside))
+                        .unlockedBy(getHasName(inside), has(inside));
             }
         };
     }
 
     @Override
-    public String getName() {
+    public @NonNull String getName() {
         return "NekomasFixed Recipes";
     }
 }

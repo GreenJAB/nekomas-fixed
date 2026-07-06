@@ -1,47 +1,48 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.registry.entity.HugeBoatEntity;
 import net.greenjab.nekomasfixed.render.entity.model.HugeBoatEntityModel;
 import net.greenjab.nekomasfixed.render.entity.state.BigBoatEntityRenderState;
 import net.greenjab.nekomasfixed.render.entity.state.HugeBoatEntityRenderState;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class HugeBoatEntityRenderer extends BigBoatEntityRenderer<HugeBoatEntity, HugeBoatEntityRenderState, HugeBoatEntityModel<HugeBoatEntityRenderState>> {
 
-	public HugeBoatEntityRenderer(EntityRendererFactory.Context context, EntityModelLayer layer) {
+	public HugeBoatEntityRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
 		super(context, layer);
 	}
 
 	@Override
-	public void renderBanners(BigBoatEntityRenderState bigBoatEntityRenderState, MatrixStack matrixStack, OrderedRenderCommandQueue orderedRenderCommandQueue) {
+	public void renderBanners(BigBoatEntityRenderState bigBoatEntityRenderState, PoseStack matrixStack, SubmitNodeCollector orderedRenderCommandQueue) {
 		matrixStack.translate(0.0F, 2F, -0.06F);
 		bigBoatEntityRenderState.bannerRenderState
-				.render(matrixStack, orderedRenderCommandQueue, bigBoatEntityRenderState.light, OverlayTexture.DEFAULT_UV, bigBoatEntityRenderState.outlineColor);
+				.submit(matrixStack, orderedRenderCommandQueue, bigBoatEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, bigBoatEntityRenderState.outlineColor);
 
 		matrixStack.translate(0.0F, -1.15F, -1.44F);
 		bigBoatEntityRenderState.bannerRenderState
-				.render(matrixStack, orderedRenderCommandQueue, bigBoatEntityRenderState.light, OverlayTexture.DEFAULT_UV, bigBoatEntityRenderState.outlineColor);
+				.submit(matrixStack, orderedRenderCommandQueue, bigBoatEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, bigBoatEntityRenderState.outlineColor);
 	}
 
 	@NotNull
-	public HugeBoatEntityModel<HugeBoatEntityRenderState> getThisModel(EntityRendererFactory.Context context, EntityModelLayer layer) {
-		return new HugeBoatEntityModel<>(context.getPart(layer));
+	public HugeBoatEntityModel<HugeBoatEntityRenderState> getThisModel(EntityRendererProvider.Context context, ModelLayerLocation layer) {
+		return new HugeBoatEntityModel<>(context.bakeLayer(layer));
 	}
 
-	public HugeBoatEntityRenderState createRenderState() {
+	public @NonNull HugeBoatEntityRenderState createRenderState() {
 		return new HugeBoatEntityRenderState();
 	}
 
-	public void updateRenderState(HugeBoatEntity hugeBoatEntity, HugeBoatEntityRenderState hugeBoatEntityRenderState, float f) {
-		super.updateRenderState(hugeBoatEntity, hugeBoatEntityRenderState, f);
+	public void extractRenderState(@NonNull HugeBoatEntity hugeBoatEntity, @NonNull HugeBoatEntityRenderState hugeBoatEntityRenderState, float f) {
+		super.extractRenderState(hugeBoatEntity, hugeBoatEntityRenderState, f);
 		hugeBoatEntityRenderState.huge = true;
 	}
 }

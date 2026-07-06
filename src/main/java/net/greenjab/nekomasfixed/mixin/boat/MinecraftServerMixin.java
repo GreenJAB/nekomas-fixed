@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class MinecraftServerMixin {
 
     @SuppressWarnings("unchecked")
-    @ModifyExpressionValue(method = "createWorlds", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableList;of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableList;"))
+    @ModifyExpressionValue(method = "createLevels", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableList;of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableList;"))
     private <E>ImmutableList<E> addPirateSpawner(ImmutableList<E> original) {
         return ImmutableList.<E>builder().addAll(original).add((E)new PirateSpawner()).build();
     }

@@ -4,77 +4,78 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
 
     @Override
-    protected void configure(RegistryWrapper.@NonNull WrapperLookup wrapperLookup) {
+    protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
         valueLookupBuilder(ModTags.DYED_BRICKS)
-                .add(BlockDyeMap.BRICKS.values());
+                .add((Block) BlockDyeMap.BRICKS.values());
         valueLookupBuilder(ModTags.DYED_BRICK_SLABS)
-                .add(BlockDyeMap.BRICK_SLAB.values());
+                .add((Block) BlockDyeMap.BRICK_SLAB.values());
         valueLookupBuilder(BlockTags.SLABS)
-                .add(BlockDyeMap.BRICK_SLAB.values());
+                .add((Block) BlockDyeMap.BRICK_SLAB.values());
         valueLookupBuilder(ModTags.DYED_BRICK_STAIRS)
-                .add(BlockDyeMap.BRICK_STAIRS.values());
+                .add((Block) BlockDyeMap.BRICK_STAIRS.values());
         valueLookupBuilder(BlockTags.STAIRS)
-                .add(BlockDyeMap.BRICK_STAIRS.values());
+                .add((Block) BlockDyeMap.BRICK_STAIRS.values());
         valueLookupBuilder(ModTags.DYED_BRICK_WALLS)
-                .add(BlockDyeMap.BRICK_WALL.values());
+                .add((Block) BlockDyeMap.BRICK_WALL.values());
         valueLookupBuilder(BlockTags.WALLS)
-                .add(BlockDyeMap.BRICK_WALL.values());
+                .add((Block) BlockDyeMap.BRICK_WALL.values());
 
         valueLookupBuilder(ModTags.STAINED_GLASSES)
-                .add(BlockDyeMap.STAINED_GLASS.values());
+                .add((Block) BlockDyeMap.STAINED_GLASS.values());
         valueLookupBuilder(ModTags.STAINED_GLASS_PANES)
-                .add(BlockDyeMap.STAINED_GLASS_PANE.values());
+                .add((Block) BlockDyeMap.STAINED_GLASS_PANE.values());
 
         valueLookupBuilder(ModTags.GLAZED_TERRACOTTAS)
-                .add(BlockDyeMap.GLAZED_TERRACOTTA.values());
+                .add((Block) BlockDyeMap.GLAZED_TERRACOTTA.values());
 
         valueLookupBuilder(ModTags.CONCRETES)
-                .add(BlockDyeMap.CONCRETE.values());
+                .add((Block) BlockDyeMap.CONCRETE.values());
         valueLookupBuilder(ModTags.CONCRETE_POWDERS)
-                .add(BlockDyeMap.CONCRETE_POWDER.values());
+                .add((Block) BlockDyeMap.CONCRETE_POWDER.values());
 
         valueLookupBuilder(ModTags.SPOTTED_WOOLS)
-                .add(BlockDyeMap.SPOTTED_WOOL.values());
+                .add((Block) BlockDyeMap.SPOTTED_WOOL.values());
         valueLookupBuilder(ModTags.SPOTTED_CARPETS)
-                .add(BlockDyeMap.SPOTTED_CARPET.values());
+                .add((Block) BlockDyeMap.SPOTTED_CARPET.values());
 
         valueLookupBuilder(ModTags.FROGLIGHTS)
-                .add(BlockDyeMap.FROGLIGHT.values());
+                .add((Block) BlockDyeMap.FROGLIGHT.values());
 
 
         valueLookupBuilder(ModTags.CAN_BE_DYED_WITH_BRUSH)
-                .add(BlockDyeMap.BRICKS.values())
-                .add(BlockDyeMap.BRICK_SLAB.values())
-                .add(BlockDyeMap.BRICK_STAIRS.values())
-                .add(BlockDyeMap.BRICK_WALL.values())
-                .add(BlockDyeMap.STAINED_GLASS.values())
-                .add(BlockDyeMap.STAINED_GLASS_PANE.values())
-                .add(BlockDyeMap.TERRACOTTA.values())
-                .add(BlockDyeMap.GLAZED_TERRACOTTA.values())
-                .add(BlockDyeMap.WOOL.values())
-                .add(BlockDyeMap.SPOTTED_WOOL.values())
-                .add(BlockDyeMap.CANDLE.values())
-                .add(BlockDyeMap.CARPET.values())
-                .add(BlockDyeMap.SPOTTED_CARPET.values())
-                .add(BlockDyeMap.CONCRETE.values())
-                .add(BlockDyeMap.CONCRETE_POWDER.values())
-                .add(BlockDyeMap.FROGLIGHT.values())
-                .add(BlockDyeMap.SHULKER_BOX.values())
-                .add(BlockDyeMap.BED.values())
+                .add((Block) BlockDyeMap.BRICKS.values())
+                .add((Block) BlockDyeMap.BRICK_SLAB.values())
+                .add((Block) BlockDyeMap.BRICK_STAIRS.values())
+                .add((Block) BlockDyeMap.BRICK_WALL.values())
+                .add((Block) BlockDyeMap.STAINED_GLASS.values())
+                .add((Block) BlockDyeMap.STAINED_GLASS_PANE.values())
+                .add((Block) BlockDyeMap.TERRACOTTA.values())
+                .add((Block) BlockDyeMap.GLAZED_TERRACOTTA.values())
+                .add((Block) BlockDyeMap.WOOL.values())
+                .add((Block) BlockDyeMap.SPOTTED_WOOL.values())
+                .add((Block) BlockDyeMap.CANDLE.values())
+                .add((Block) BlockDyeMap.CARPET.values())
+                .add((Block) BlockDyeMap.SPOTTED_CARPET.values())
+                .add((Block) BlockDyeMap.CONCRETE.values())
+                .add((Block) BlockDyeMap.CONCRETE_POWDER.values())
+                .add((Block) BlockDyeMap.FROGLIGHT.values())
+                .add((Block) BlockDyeMap.SHULKER_BOX.values())
+                .add((Block) BlockDyeMap.BED.values())
                 .add(Blocks.GLASS)
                 .add(Blocks.CANDLE)
                 .add(Blocks.GLASS_PANE)

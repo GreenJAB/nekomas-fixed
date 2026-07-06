@@ -1,92 +1,95 @@
 package net.greenjab.nekomasfixed.registry.entity.WildFire;
 
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.*;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
-import net.minecraft.world.explosion.ExplosionBehavior;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ExplosionDamageCalculator;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 
-public class FireBombEntity extends ProjectileEntity {
+public class FireBombEntity extends Projectile {
 
-    private static final ExplosionBehavior EXPLOSION_BEHAVIOR = new ExplosionBehavior()  {
+    private static final ExplosionDamageCalculator EXPLOSION_BEHAVIOR = new ExplosionDamageCalculator()  {
         @Override
-        public boolean canDestroyBlock(Explosion explosion, BlockView world, BlockPos pos, BlockState state, float power) {
-            return state.isOf(Blocks.AIR);
+        public boolean shouldBlockExplode(@NonNull Explosion explosion, @NonNull BlockGetter world, @NonNull BlockPos pos, BlockState state, float power) {
+            return state.is(Blocks.AIR);
         }
     };
 
-    public FireBombEntity(World world, LivingEntity owner) {
+    public FireBombEntity(Level world, LivingEntity owner) {
         this(EntityTypeRegistry.FIRE_BOMB, world);
         this.setOwner(owner);
-        this.refreshPositionAndAngles(owner.getX(), owner.getY(), owner.getZ(), this.getYaw(), this.getPitch());
-        this.refreshPosition();
+        this.snapTo(owner.getX(), owner.getY(), owner.getZ(), this.getYRot(), this.getXRot());
+        this.reapplyPosition();
     }
 
-    public FireBombEntity(EntityType<FireBombEntity> entityType, World world) {
+    public FireBombEntity(EntityType<FireBombEntity> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
     }
 
     @Override
-    public void handleStatus(byte status) {
+    public void handleEntityEvent(byte status) {
     }
 
     @Override
     public void tick() {
         this.applyGravity();
-        HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
-        Vec3d vec3d;
+        HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
+        Vec3 vec3d;
         if (hitResult.getType() != HitResult.Type.MISS) {
-            vec3d = hitResult.getPos();
+            vec3d = hitResult.getLocation();
         } else {
-            vec3d = this.getEntityPos().add(this.getVelocity());
+            vec3d = this.position().add(this.getDeltaMovement());
         }
 
-        this.setPosition(vec3d);
+        this.setPos(vec3d);
         this.updateRotation();
-        this.tickBlockCollision();
+        this.applyEffectsFromBlocks();
         super.tick();
         if (hitResult.getType() != HitResult.Type.MISS && this.isAlive()) {
-            this.hitOrDeflect(hitResult);
+            this.hitTargetOrDeflectSelf(hitResult);
         }
     }
 
     @Override
-    protected void onEntityHit(EntityHitResult entityHitResult) {
+    protected void onHitEntity(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
         if (!(entity instanceof WildfireEntity)) {
-            super.onEntityHit(entityHitResult);
-            if (!this.getEntityWorld().isClient()) {
-                this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, entity.getX(), entity.getY() + 1, entity.getZ(), 1, true, World.ExplosionSourceType.MOB);
+            super.onHitEntity(entityHitResult);
+            if (!this.level().isClientSide()) {
+                this.level().explode(this, Explosion.getDefaultDamageSource(this.level(), this), EXPLOSION_BEHAVIOR, entity.getX(), entity.getY() + 1, entity.getZ(), 1, true, Level.ExplosionInteraction.MOB);
                 this.discard();
             }
         }
     }
 
     @Override
-    protected void onCollision(HitResult hitResult) {
-        super.onCollision(hitResult);
-        if (!this.getEntityWorld().isClient()) {
-            this.getEntityWorld().createExplosion(this, Explosion.createDamageSource(this.getEntityWorld(), this), EXPLOSION_BEHAVIOR, this.getX(), this.getY(), this.getZ(), 1, true, World.ExplosionSourceType.MOB);
+    protected void onHit(@NonNull HitResult hitResult) {
+        super.onHit(hitResult);
+        if (!this.level().isClientSide()) {
+            this.level().explode(this, Explosion.getDefaultDamageSource(this.level(), this), EXPLOSION_BEHAVIOR, this.getX(), this.getY(), this.getZ(), 1, true, Level.ExplosionInteraction.MOB);
             this.discard();
         }
     }
 
     @Override
-    protected double getGravity() {
+    protected double getDefaultGravity() {
         return 0.03;
     }
 }

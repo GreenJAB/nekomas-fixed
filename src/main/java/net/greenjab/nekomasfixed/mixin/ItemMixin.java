@@ -1,14 +1,14 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.StructureTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.StructureTags;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,25 +18,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Item.class)
 public class ItemMixin {
 
-	@Inject(method="hasGlint", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method="isFoil", at = @At(value = "HEAD"), cancellable = true)
 	private void clockHasStoredTime(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-		if (stack.hasChangedComponent(ComponentRegistry.STORED_TIME)) cir.setReturnValue(true);
+		if (stack.hasNonDefault(ComponentRegistry.STORED_TIME)) cir.setReturnValue(true);
 	}
 
-	@Inject(method="usageTick", at=@At("HEAD"))
+	@Inject(method="onUseTick", at=@At("HEAD"))
 	private void customUsageTick(
-			World world,
+			Level world,
 			LivingEntity user,
 			ItemStack stack,
 			int remainingUseTicks,
 			CallbackInfo ci
 	) {
-		if (!world.isClient() || !stack.isOf(Items.GOAT_HORN)) return;
+		if (!world.isClientSide() || !stack.is(Items.GOAT_HORN)) return;
 
-		if (user.age % 3 == 0 && !world.isClient() ) {
-            ServerWorld serverWorld = (ServerWorld) world;
-			if(serverWorld.getStructureAccessor().getStructureContaining(user.getBlockPos(), StructureTags.VILLAGE).hasChildren()) {
-				serverWorld.spawnParticles(
+		if (user.tickCount % 3 == 0 && !world.isClientSide() ) {
+            ServerLevel serverWorld = (ServerLevel) world;
+			if(serverWorld.structureManager().getStructureWithPieceAt(user.blockPosition(), StructureTags.VILLAGE).isValid()) {
+				serverWorld.sendParticles(
 						ParticleTypes.POOF,
 						user.getX(),
 						user.getY() + 0.5,

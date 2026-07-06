@@ -1,11 +1,11 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import net.greenjab.nekomasfixed.util.SpottedRenderStateAccess;
-import net.minecraft.client.render.entity.state.SheepEntityRenderState;
+import net.minecraft.client.renderer.entity.state.SheepRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(SheepEntityRenderState.class)
+@Mixin(SheepRenderState.class)
 public abstract class SheepEntityRenderStateMixin implements SpottedRenderStateAccess {
     @Unique
     private boolean spottedState;

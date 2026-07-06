@@ -8,24 +8,25 @@ import java.util.List;
 import java.util.Set;
 
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleState;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.sensor.Sensor;
-import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.ai.brain.task.ForgetAttackTargetTask;
-import net.minecraft.entity.ai.brain.task.MoveToTargetTask;
-import net.minecraft.entity.ai.brain.task.RandomTask;
-import net.minecraft.entity.ai.brain.task.StayAboveWaterTask;
-import net.minecraft.entity.ai.brain.task.UpdateAttackTargetTask;
-import net.minecraft.entity.ai.brain.task.UpdateLookControlTask;
-import net.minecraft.entity.ai.brain.task.WaitTask;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.DoNothing;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.StartAttacking;
+import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
+import net.minecraft.world.entity.ai.behavior.Swim;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.schedule.Activity;
+import org.jspecify.annotations.NonNull;
 
 public class WildfireBrain {
 	static final List<SensorType<? extends Sensor<? super WildfireEntity>>> SENSORS = ImmutableList.of(
@@ -33,7 +34,7 @@ public class WildfireBrain {
 	);
 	static final List<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(
 			MemoryModuleType.LOOK_TARGET,
-			MemoryModuleType.VISIBLE_MOBS,
+			MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
 			MemoryModuleType.NEAREST_ATTACKABLE,
 			MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
 			MemoryModuleType.ATTACK_TARGET,
@@ -42,7 +43,7 @@ public class WildfireBrain {
 			MemoryModuleType.BREEZE_JUMP_INHALING,
 			MemoryModuleType.BREEZE_SHOOT,
 			MemoryModuleType.BREEZE_SHOOT_CHARGING,
-			MemoryModuleType.BREEZE_SHOOT_RECOVER,
+			MemoryModuleType.BREEZE_SHOOT_RECOVERING,
 			MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
 			MemoryModuleType.BREEZE_JUMP_TARGET,
 			MemoryModuleType.BREEZE_LEAVING_WATER,
@@ -60,33 +61,33 @@ public class WildfireBrain {
 		addFightTasks(wildFire, brain);
 		brain.setCoreActivities(Set.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.FIGHT);
-		brain.resetPossibleActivities();
+		brain.useDefaultActivity();
 		return brain;
 	}
 
 	private static void addCoreTasks(Brain<WildfireEntity> brain) {
-		brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new StayAboveWaterTask<>(0.8F), new UpdateLookControlTask(45, 90)));
+		brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim<>(0.8F), new LookAtTargetSink(45, 90)));
 	}
 
 	private static void addIdleTasks(Brain<WildfireEntity> brain) {
-		brain.setTaskList(
+		brain.addActivity(
 				Activity.IDLE,
 				ImmutableList.of(
 						Pair.of(
-								0, UpdateAttackTargetTask.create((world, wildFire) -> wildFire.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE))
+								0, StartAttacking.create((world, wildFire) -> wildFire.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))
 						),
-						Pair.of(1, UpdateAttackTargetTask.create((world, wildFire) -> wildFire.getHurtBy())),
+						Pair.of(1, StartAttacking.create((world, wildFire) -> wildFire.getHurtBy())),
 						Pair.of(2, new WildfireBrain.SlideAroundTask(20, 40)),
-						Pair.of(3, new RandomTask<>(ImmutableList.of(Pair.of(new WaitTask(20, 100), 1),Pair.of(new WildfireSlideTowardsTargetTask(), 3))))
+						Pair.of(3, new RunOne<>(ImmutableList.of(Pair.of(new DoNothing(20, 100), 1),Pair.of(new WildfireSlideTowardsTargetTask(), 3))))
 				)
 		);
 	}
 
 	private static void addFightTasks(WildfireEntity wildFire, Brain<WildfireEntity> brain) {
-		brain.setTaskList(
+		brain.addActivityWithConditions(
 				Activity.FIGHT,
 				ImmutableList.of(
-						Pair.of(0, ForgetAttackTargetTask.create(Sensor.hasTargetBeenAttackableRecently(wildFire, 1).negate()::test)),
+						Pair.of(0, StopAttackingIfTargetInvalid.create(Sensor.wasEntityAttackableLastNTicks(wildFire, 1).negate()::test)),
 						Pair.of(1, new WildfireShootTask()),
 						Pair.of(2, new WildfireMeleeTask()),
 						Pair.of(3, new WildfireJumpTask()),
@@ -94,33 +95,33 @@ public class WildfireBrain {
 						Pair.of(5, new WildfireSlideTowardsTargetTask())
 				),
 				ImmutableSet.of(
-						Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)
+						Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT)
 				)
 		);
 	}
 
 	static void updateActivities(WildfireEntity wildFire) {
-		wildFire.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
+		wildFire.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
 	}
 
-	public static class SlideAroundTask extends MoveToTargetTask {
+	public static class SlideAroundTask extends MoveToTargetSink {
 		@VisibleForTesting
 		public SlideAroundTask(int i, int j) {
 			super(i, j);
 		}
 
 		@Override
-		protected void run(ServerWorld serverWorld, MobEntity mobEntity, long l) {
-			super.run(serverWorld, mobEntity, l);
-			mobEntity.playSoundIfNotSilent(SoundEvents.ENTITY_BREEZE_SLIDE);
-			mobEntity.setPose(EntityPose.STANDING);
+		protected void start(@NonNull ServerLevel serverWorld, @NonNull Mob mobEntity, long l) {
+			super.start(serverWorld, mobEntity, l);
+			mobEntity.playSound(SoundEvents.BREEZE_SLIDE);
+			mobEntity.setPose(Pose.STANDING);
 		}
 
 		@Override
-		protected void finishRunning(ServerWorld serverWorld, MobEntity mobEntity, long l) {
-			super.finishRunning(serverWorld, mobEntity, l);
-			if (mobEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET)) {
-				mobEntity.getBrain().remember(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE, 60L);
+		protected void stop(@NonNull ServerLevel serverWorld, @NonNull Mob mobEntity, long l) {
+			super.stop(serverWorld, mobEntity, l);
+			if (mobEntity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
+				mobEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE, 60L);
 			}
 		}
 	}

@@ -4,116 +4,126 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ParticleRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
-import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Arm;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.EulerAngle;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.explosion.Explosion;
-import net.minecraft.world.rule.GameRules;
+import net.minecraft.core.Rotations;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Avatar;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ResolvableProfile;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import java.util.function.Predicate;
 
-public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
-	protected static final TrackedData<ProfileComponent> PROFILE = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.PROFILE);
-	public static final ProfileComponent DEFAULT_INFO = ProfileComponent.Static.EMPTY;
-	public static final EulerAngle DEFAULT_HEAD_ROTATION = new EulerAngle(0.0F, 0.0F, 0.0F);
-	public static final EulerAngle DEFAULT_BODY_ROTATION = new EulerAngle(0.0F, 0.0F, 0.0F);
-	public static final EulerAngle DEFAULT_LEFT_ARM_ROTATION = new EulerAngle(-5.0F, 0.0F, -5.0F);
-	public static final EulerAngle DEFAULT_RIGHT_ARM_ROTATION = new EulerAngle(-5.0F, 0.0F, 5.0F);
-	public static final EulerAngle DEFAULT_LEFT_LEG_ROTATION = new EulerAngle(-1.0F, 0.0F, -1.0F);
-	public static final EulerAngle DEFAULT_RIGHT_LEG_ROTATION = new EulerAngle(1.0F, 0.0F, 1.0F);
-	public static final TrackedData<EulerAngle> TRACKER_HEAD_ROTATION = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.ROTATION);
-	public static final TrackedData<EulerAngle> TRACKER_BODY_ROTATION = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.ROTATION);
-	public static final TrackedData<EulerAngle> TRACKER_LEFT_ARM_ROTATION = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.ROTATION);
-	public static final TrackedData<EulerAngle> TRACKER_RIGHT_ARM_ROTATION = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.ROTATION);
-	public static final TrackedData<EulerAngle> TRACKER_LEFT_LEG_ROTATION = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.ROTATION);
-	public static final TrackedData<EulerAngle> TRACKER_RIGHT_LEG_ROTATION = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.ROTATION);
-	private static final Predicate<Entity> RIDEABLE_MINECART_PREDICATE =  entity -> entity instanceof AbstractMinecartEntity abstractMinecartEntity
+public class TargetDummyEntity extends Avatar implements Shearable {
+	protected static final EntityDataAccessor<ResolvableProfile> PROFILE = SynchedEntityData.defineId(TargetDummyEntity.class, EntityDataSerializers.RESOLVABLE_PROFILE);
+	public static final ResolvableProfile DEFAULT_INFO = ResolvableProfile.Static.EMPTY;
+	public static final Rotations DEFAULT_HEAD_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
+	public static final Rotations DEFAULT_BODY_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
+	public static final Rotations DEFAULT_LEFT_ARM_ROTATION = new Rotations(-5.0F, 0.0F, -5.0F);
+	public static final Rotations DEFAULT_RIGHT_ARM_ROTATION = new Rotations(-5.0F, 0.0F, 5.0F);
+	public static final Rotations DEFAULT_LEFT_LEG_ROTATION = new Rotations(-1.0F, 0.0F, -1.0F);
+	public static final Rotations DEFAULT_RIGHT_LEG_ROTATION = new Rotations(1.0F, 0.0F, 1.0F);
+	public static final EntityDataAccessor<Rotations> TRACKER_HEAD_ROTATION = SynchedEntityData.defineId(TargetDummyEntity.class, EntityDataSerializers.ROTATIONS);
+	public static final EntityDataAccessor<Rotations> TRACKER_BODY_ROTATION = SynchedEntityData.defineId(TargetDummyEntity.class, EntityDataSerializers.ROTATIONS);
+	public static final EntityDataAccessor<Rotations> TRACKER_LEFT_ARM_ROTATION = SynchedEntityData.defineId(TargetDummyEntity.class, EntityDataSerializers.ROTATIONS);
+	public static final EntityDataAccessor<Rotations> TRACKER_RIGHT_ARM_ROTATION = SynchedEntityData.defineId(TargetDummyEntity.class, EntityDataSerializers.ROTATIONS);
+	public static final EntityDataAccessor<Rotations> TRACKER_LEFT_LEG_ROTATION = SynchedEntityData.defineId(TargetDummyEntity.class, EntityDataSerializers.ROTATIONS);
+	public static final EntityDataAccessor<Rotations> TRACKER_RIGHT_LEG_ROTATION = SynchedEntityData.defineId(TargetDummyEntity.class, EntityDataSerializers.ROTATIONS);
+	private static final Predicate<Entity> RIDEABLE_MINECART_PREDICATE =  entity -> entity instanceof AbstractMinecart abstractMinecartEntity
 			&& abstractMinecartEntity.isRideable();
 	private int lastHitValue;
 	public long lastHitTime;
 	private boolean isZombie;
 
-	public TargetDummyEntity(EntityType<? extends TargetDummyEntity> entityType, World world) {
+	public TargetDummyEntity(EntityType<? extends TargetDummyEntity> entityType, Level world) {
 		super(entityType, world);
 	}
 
-	public static DefaultAttributeContainer.Builder createTargetDummyAttributes() {
-		return createLivingAttributes().add(EntityAttributes.STEP_HEIGHT, 0.0).add(EntityAttributes.KNOCKBACK_RESISTANCE, 1.0);
+	public static AttributeSupplier.Builder createTargetDummyAttributes() {
+		return createLivingAttributes().add(Attributes.STEP_HEIGHT, 0.0).add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
 	}
 
 	@Override
-	protected Entity.MoveEffect getMoveEffect() {
-		return Entity.MoveEffect.NONE;
+	protected Entity.@NonNull MovementEmission getMovementEmission() {
+		return Entity.MovementEmission.NONE;
 	}
 
 
 	@Override
-	public void calculateDimensions() {
+	public void refreshDimensions() {
 		double d = this.getX();
 		double e = this.getY();
 		double f = this.getZ();
-		super.calculateDimensions();
-		this.setPosition(d, e, f);
+		super.refreshDimensions();
+		this.setPos(d, e, f);
 	}
 
 	private boolean canClip() {
-		return !this.hasNoGravity();
+		return !this.isNoGravity();
 	}
 
 	@Override
-	public boolean canActVoluntarily() {
-		return super.canActVoluntarily() && this.canClip();
+	public boolean isEffectiveAi() {
+		return super.isEffectiveAi() && this.canClip();
 	}
 
 	@Override
-	protected void initDataTracker(DataTracker.Builder builder) {
-		super.initDataTracker(builder);
-		builder.add(PROFILE, DEFAULT_INFO);
-		builder.add(TRACKER_HEAD_ROTATION, DEFAULT_HEAD_ROTATION);
-		builder.add(TRACKER_BODY_ROTATION, DEFAULT_BODY_ROTATION);
-		builder.add(TRACKER_LEFT_ARM_ROTATION, DEFAULT_LEFT_ARM_ROTATION);
-		builder.add(TRACKER_RIGHT_ARM_ROTATION, DEFAULT_RIGHT_ARM_ROTATION);
-		builder.add(TRACKER_LEFT_LEG_ROTATION, DEFAULT_LEFT_LEG_ROTATION);
-		builder.add(TRACKER_RIGHT_LEG_ROTATION, DEFAULT_RIGHT_LEG_ROTATION);
+	protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(PROFILE, DEFAULT_INFO);
+		builder.define(TRACKER_HEAD_ROTATION, DEFAULT_HEAD_ROTATION);
+		builder.define(TRACKER_BODY_ROTATION, DEFAULT_BODY_ROTATION);
+		builder.define(TRACKER_LEFT_ARM_ROTATION, DEFAULT_LEFT_ARM_ROTATION);
+		builder.define(TRACKER_RIGHT_ARM_ROTATION, DEFAULT_RIGHT_ARM_ROTATION);
+		builder.define(TRACKER_LEFT_LEG_ROTATION, DEFAULT_LEFT_LEG_ROTATION);
+		builder.define(TRACKER_RIGHT_LEG_ROTATION, DEFAULT_RIGHT_LEG_ROTATION);
 	}
 
-	public ProfileComponent getTargetDummyProfile() {
-		return this.dataTracker.get(PROFILE);
+	public ResolvableProfile getTargetDummyProfile() {
+		return this.entityData.get(PROFILE);
 	}
 
-	private void setTargetDummyProfile(ProfileComponent profile) {
-		this.dataTracker.set(PROFILE, profile);
+	private void setTargetDummyProfile(ResolvableProfile profile) {
+		this.entityData.set(PROFILE, profile);
 	}
 
 	public boolean isZombie() {
@@ -125,24 +135,24 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	}
 
 	@Override
-	public boolean canUseSlot(EquipmentSlot slot) {
+	public boolean canUseSlot(@NonNull EquipmentSlot slot) {
 		return slot != EquipmentSlot.BODY && slot != EquipmentSlot.SADDLE;
 	}
 
 	@Override
-	protected void writeCustomData(WriteView view) {
-		super.writeCustomData(view);
-		view.put("profile", ProfileComponent.CODEC, this.getTargetDummyProfile());
-		view.put("Pose", TargetDummyEntity.PackedRotation.CODEC, this.packRotation());
-		view.put("LastDamage", Codec.INT, lastHitValue);
-		view.put("IsZombie", Codec.BOOL, isZombie);
+	protected void addAdditionalSaveData(@NonNull ValueOutput view) {
+		super.addAdditionalSaveData(view);
+		view.store("profile", ResolvableProfile.CODEC, this.getTargetDummyProfile());
+		view.store("Pose", TargetDummyEntity.PackedRotation.CODEC, this.packRotation());
+		view.store("LastDamage", Codec.INT, lastHitValue);
+		view.store("IsZombie", Codec.BOOL, isZombie);
 	}
 
 	@Override
-	protected void readCustomData(ReadView view) {
-		super.readCustomData(view);
-		this.noClip = !this.canClip();
-		view.read("profile", ProfileComponent.CODEC).ifPresent(this::setTargetDummyProfile);
+	protected void readAdditionalSaveData(@NonNull ValueInput view) {
+		super.readAdditionalSaveData(view);
+		this.noPhysics = !this.canClip();
+		view.read("profile", ResolvableProfile.CODEC).ifPresent(this::setTargetDummyProfile);
 		view.read("Pose", PackedRotation.CODEC).ifPresent(this::unpackRotation);
 		view.read("LastDamage", Codec.INT).ifPresent(this::setLastDamage);
 		view.read("IsZombie", Codec.BOOL).ifPresent(this::setZombie);
@@ -154,91 +164,91 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	}
 
 	@Override
-	protected void pushAway(Entity entity) {
+	protected void doPush(@NonNull Entity entity) {
 	}
 
 	@Override
-	protected void tickCramming() {
-		for (Entity entity : this.getEntityWorld().getOtherEntities(this, this.getBoundingBox(), RIDEABLE_MINECART_PREDICATE)) {
-			if (this.squaredDistanceTo(entity) <= 0.2) {
-				entity.pushAwayFrom(this);
+	protected void pushEntities() {
+		for (Entity entity : this.level().getEntities(this, this.getBoundingBox(), RIDEABLE_MINECART_PREDICATE)) {
+			if (this.distanceToSqr(entity) <= 0.2) {
+				entity.push(this);
 			}
 		}
 	}
 
 	@Override
-	public ActionResult interactAt(PlayerEntity player, Vec3d hitPos, Hand hand) {
-		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.isOf(Items.SHEARS)) {
-			if (player.getEntityWorld() instanceof ServerWorld world) {
-				this.breakAndDropItem(world, this.getDamageSources().generic());
+	public @NonNull InteractionResult interactAt(Player player, @NonNull Vec3 hitPos, @NonNull InteractionHand hand) {
+		ItemStack itemStack = player.getItemInHand(hand);
+		if (itemStack.is(Items.SHEARS)) {
+			if (player.level() instanceof ServerLevel world) {
+				this.breakAndDropItem(world, this.damageSources().generic());
 				this.spawnBreakParticles();
 				this.kill(world);
-				itemStack.damage(1, player);
+				itemStack.hurtWithoutBreaking(1, player);
 			}
-			return ActionResult.SUCCESS;
-		} else if (itemStack.isOf(Items.NAME_TAG)) {
-			if (itemStack.hasChangedComponent(DataComponentTypes.CUSTOM_NAME)) {
-				Text name = itemStack.get(DataComponentTypes.CUSTOM_NAME);
+			return InteractionResult.SUCCESS;
+		} else if (itemStack.is(Items.NAME_TAG)) {
+			if (itemStack.hasNonDefault(DataComponents.CUSTOM_NAME)) {
+				Component name = itemStack.get(DataComponents.CUSTOM_NAME);
 				if (name!=null) {
-					setTargetDummyProfile(ProfileComponent.ofDynamic(name.getLiteralString()));
+					setTargetDummyProfile(ResolvableProfile.createUnresolved(name.tryCollapseToString()));
 					setZombie(false);
-					return ActionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				}
 			}
-			return ActionResult.PASS;
-		} else if (itemStack.isOf(Items.PLAYER_HEAD)) {
-			if (itemStack.hasChangedComponent(DataComponentTypes.PROFILE)) {
-				ProfileComponent PC = itemStack.get(DataComponentTypes.PROFILE);
+			return InteractionResult.PASS;
+		} else if (itemStack.is(Items.PLAYER_HEAD)) {
+			if (itemStack.hasNonDefault(DataComponents.PROFILE)) {
+				ResolvableProfile PC = itemStack.get(DataComponents.PROFILE);
 				if (PC!=null) {
 					setTargetDummyProfile(PC);
 					setZombie(false);
-					return ActionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				}
 			}
-			return ActionResult.PASS;
-		} else if (itemStack.isOf(Items.ZOMBIE_HEAD)||itemStack.isOf(Items.SKELETON_SKULL)||itemStack.isOf(Items.ROTTEN_FLESH)) {
+			return InteractionResult.PASS;
+		} else if (itemStack.is(Items.ZOMBIE_HEAD)||itemStack.is(Items.SKELETON_SKULL)||itemStack.is(Items.ROTTEN_FLESH)) {
 			setTargetDummyProfile(DEFAULT_INFO);
 			setZombie(true);
-			return ActionResult.SUCCESS;
-		} else if (itemStack.isOf(Items.HAY_BLOCK)) {
+			return InteractionResult.SUCCESS;
+		} else if (itemStack.is(Items.HAY_BLOCK)) {
 			setTargetDummyProfile(DEFAULT_INFO);
 			setZombie(false);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		} else if (player.isSpectator()) {
-			return ActionResult.SUCCESS;
-		} else if (player.getEntityWorld().isClient()) {
-			return ActionResult.SUCCESS_SERVER;
+			return InteractionResult.SUCCESS;
+		} else if (player.level().isClientSide()) {
+			return InteractionResult.SUCCESS_SERVER;
 		} else {
-			EquipmentSlot equipmentSlot = this.getPreferredEquipmentSlot(itemStack);
+			EquipmentSlot equipmentSlot = this.getEquipmentSlotForItem(itemStack);
 			if (itemStack.isEmpty()) {
                 EquipmentSlot equipmentSlot3 = this.getSlotFromPosition(hitPos);
-				if (this.hasStackEquipped(equipmentSlot3) && this.equip(player, equipmentSlot3, itemStack, hand)) {
-					return ActionResult.SUCCESS_SERVER;
+				if (this.hasItemInSlot(equipmentSlot3) && this.equip(player, equipmentSlot3, itemStack, hand)) {
+					return InteractionResult.SUCCESS_SERVER;
 				}
 			} else {
 				if (this.equip(player, equipmentSlot, itemStack, hand)) {
-					return ActionResult.SUCCESS_SERVER;
+					return InteractionResult.SUCCESS_SERVER;
 				}
 			}
 
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 	}
 
-	private EquipmentSlot getSlotFromPosition(Vec3d hitPos) {
+	private EquipmentSlot getSlotFromPosition(Vec3 hitPos) {
 		EquipmentSlot equipmentSlot = EquipmentSlot.MAINHAND;
-		double d = hitPos.y / (this.getScale() * this.getScaleFactor());
+		double d = hitPos.y / (this.getScale() * this.getAgeScale());
 		EquipmentSlot equipmentSlot2 = EquipmentSlot.FEET;
-		if (d >= 0.1 && d < 0.1 + 0.45 && this.hasStackEquipped(equipmentSlot2)) {
+		if (d >= 0.1 && d < 0.1 + 0.45 && this.hasItemInSlot(equipmentSlot2)) {
 			equipmentSlot = EquipmentSlot.FEET;
-		} else if (d >= 0.9 + 0.0 && d < 0.9 + 0.7 && this.hasStackEquipped(EquipmentSlot.CHEST)) {
+		} else if (d >= 0.9 + 0.0 && d < 0.9 + 0.7 && this.hasItemInSlot(EquipmentSlot.CHEST)) {
 			equipmentSlot = EquipmentSlot.CHEST;
-		} else if (d >= 0.4 && d < 0.4 + 0.8 && this.hasStackEquipped(EquipmentSlot.LEGS)) {
+		} else if (d >= 0.4 && d < 0.4 + 0.8 && this.hasItemInSlot(EquipmentSlot.LEGS)) {
 			equipmentSlot = EquipmentSlot.LEGS;
-		} else if (d >= 1.6 && this.hasStackEquipped(EquipmentSlot.HEAD)) {
+		} else if (d >= 1.6 && this.hasItemInSlot(EquipmentSlot.HEAD)) {
 			equipmentSlot = EquipmentSlot.HEAD;
-		} else if (!this.hasStackEquipped(EquipmentSlot.MAINHAND) && this.hasStackEquipped(EquipmentSlot.OFFHAND)) {
+		} else if (!this.hasItemInSlot(EquipmentSlot.MAINHAND) && this.hasItemInSlot(EquipmentSlot.OFFHAND)) {
 			equipmentSlot = EquipmentSlot.OFFHAND;
 		}
 
@@ -246,19 +256,19 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	}
 
 
-	private boolean equip(PlayerEntity player, EquipmentSlot slot, ItemStack stack, Hand hand) {
-		ItemStack itemStack = this.getEquippedStack(slot);
-        if (player.isInCreativeMode() && itemStack.isEmpty() && !stack.isEmpty()) {
-            this.equipStack(slot, stack.copyWithCount(1));
+	private boolean equip(Player player, EquipmentSlot slot, ItemStack stack, InteractionHand hand) {
+		ItemStack itemStack = this.getItemBySlot(slot);
+        if (player.hasInfiniteMaterials() && itemStack.isEmpty() && !stack.isEmpty()) {
+            this.setItemSlot(slot, stack.copyWithCount(1));
             return true;
         } else if (stack.isEmpty() || stack.getCount() <= 1) {
-            this.equipStack(slot, stack);
-            player.setStackInHand(hand, itemStack);
+            this.setItemSlot(slot, stack);
+            player.setItemInHand(hand, itemStack);
             return true;
         } else if (!itemStack.isEmpty()) {
             return false;
         } else {
-            this.equipStack(slot, stack.split(1));
+            this.setItemSlot(slot, stack.split(1));
             return true;
         }
 	}
@@ -272,47 +282,47 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	}
 
 	@Override
-	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+	public boolean hurtServer(@NonNull ServerLevel world, @NonNull DamageSource source, float amount) {
 		if (this.isRemoved()) {
 			return false;
-		} else if (!world.getGameRules().getValue(GameRules.DO_MOB_GRIEFING) && source.getAttacker() instanceof MobEntity) {
+		} else if (!world.getGameRules().get(GameRules.MOB_GRIEFING) && source.getEntity() instanceof Mob) {
 			return false;
-		} else if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+		} else if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
 			this.kill(world);
 			return false;
 		} else if (this.isInvulnerableTo(world, source)) {
 			return false;
-		} else if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
+		} else if (source.is(DamageTypeTags.IS_EXPLOSION)) {
 			this.onBreak(world, source);
 			this.kill(world);
 			return false;
-		} else if (source.getAttacker()==null || !((source.getAttacker()) instanceof PlayerEntity)) {
+		} else if (source.getEntity()==null || !((source.getEntity()) instanceof Player)) {
 			return false;
 		} else {
-			amount = this.applyArmorToDamage(source, amount);
-			amount = this.modifyAppliedDamage(source, amount);
-			if (source.getWeaponStack()!=null&&source.getWeaponStack().isOf(Items.SHEARS)) {
-				if (source.isSourceCreativePlayer()) {
+			amount = this.getDamageAfterArmorAbsorb(source, amount);
+			amount = this.getDamageAfterMagicAbsorb(source, amount);
+			if (source.getWeaponItem()!=null&&source.getWeaponItem().is(Items.SHEARS)) {
+				if (source.isCreativePlayer()) {
 					this.playBreakSound();
 				} else {
 					this.breakAndDropItem(world, source);
-					if (source.getAttacker() instanceof PlayerEntity player) source.getWeaponStack().damage(1, player);
+					if (source.getEntity() instanceof Player player) source.getWeaponItem().hurtWithoutBreaking(1, player);
 				}
 				this.spawnBreakParticles();
 				this.kill(world);
 				return true;
-			} else if (source.getAttacker() instanceof PlayerEntity playerEntity && !playerEntity.getAbilities().allowModifyWorld) {
+			} else if (source.getEntity() instanceof Player playerEntity && !playerEntity.getAbilities().mayBuild) {
 				return false;
-			} else if (source.isSourceCreativePlayer()) {
-				long l = world.getTime();
+			} else if (source.isCreativePlayer()) {
+				long l = world.getGameTime();
 				if (l - this.lastHitTime > 5L) {
-					world.sendEntityStatus(this, EntityStatuses.HIT_ARMOR_STAND);
-					this.emitGameEvent(GameEvent.ENTITY_DAMAGE, source.getAttacker());
+					world.broadcastEntityEvent(this, EntityEvent.ARMORSTAND_WOBBLE);
+					this.gameEvent(GameEvent.ENTITY_DAMAGE, source.getEntity());
 					this.lastHitTime = l;
 					lastHitValue = (int) amount;
-					if (this.getEntityWorld() instanceof ServerWorld) {
-						((ServerWorld)this.getEntityWorld())
-								.spawnParticles(ParticleRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
+					if (this.level() instanceof ServerLevel) {
+						((ServerLevel)this.level())
+								.sendParticles(ParticleRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
 					}
 				} else {
 					this.playBreakSound();
@@ -321,14 +331,14 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 				}
 				return true;
 			} else {
-				long l = world.getTime();
-				world.sendEntityStatus(this, EntityStatuses.HIT_ARMOR_STAND);
-				this.emitGameEvent(GameEvent.ENTITY_DAMAGE, source.getAttacker());
+				long l = world.getGameTime();
+				world.broadcastEntityEvent(this, EntityEvent.ARMORSTAND_WOBBLE);
+				this.gameEvent(GameEvent.ENTITY_DAMAGE, source.getEntity());
 				this.lastHitTime = l;
 				lastHitValue = (int) amount;
-				if (this.getEntityWorld() instanceof ServerWorld) {
-					((ServerWorld)this.getEntityWorld())
-							.spawnParticles(ParticleRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
+				if (this.level() instanceof ServerLevel) {
+					((ServerLevel)this.level())
+							.sendParticles(ParticleRegistry.NUMBER, this.getX(), this.getY()+2, this.getZ(), 0, 1, 0, 0, amount);
 				}
 				return true;
 			}
@@ -336,21 +346,21 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	}
 
 	@Override
-	public void handleStatus(byte status) {
-		if (status == EntityStatuses.HIT_ARMOR_STAND) {
-			if (this.getEntityWorld().isClient()) {
-				this.getEntityWorld()
-						.playSoundClient(this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARMOR_STAND_HIT, this.getSoundCategory(), 0.3F, 1.0F, false);
-				this.lastHitTime = this.getEntityWorld().getTime();
+	public void handleEntityEvent(byte status) {
+		if (status == EntityEvent.ARMORSTAND_WOBBLE) {
+			if (this.level().isClientSide()) {
+				this.level()
+						.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.ARMOR_STAND_HIT, this.getSoundSource(), 0.3F, 1.0F, false);
+				this.lastHitTime = this.level().getGameTime();
 			}
 		} else {
-			super.handleStatus(status);
+			super.handleEntityEvent(status);
 		}
 	}
 
 	@Override
-	public boolean shouldRender(double distance) {
-		double d = this.getBoundingBox().getAverageSideLength() * 4.0;
+	public boolean shouldRenderAtSqrDistance(double distance) {
+		double d = this.getBoundingBox().getSize() * 4.0;
 		if (Double.isNaN(d) || d == 0.0) {
 			d = 4.0;
 		}
@@ -360,194 +370,194 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	}
 
 	private void spawnBreakParticles() {
-		if (this.getEntityWorld() instanceof ServerWorld) {
-			((ServerWorld)this.getEntityWorld())
-					.spawnParticles(
-							new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.OAK_PLANKS.getDefaultState()),
+		if (this.level() instanceof ServerLevel) {
+			((ServerLevel)this.level())
+					.sendParticles(
+							new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OAK_PLANKS.defaultBlockState()),
 							this.getX(),
-							this.getBodyY(0.6666666666666666),
+							this.getY(0.6666666666666666),
 							this.getZ(),
 							10,
-							this.getWidth() / 4.0F,
-							this.getHeight() / 4.0F,
-							this.getWidth() / 4.0F,
+							this.getBbWidth() / 4.0F,
+							this.getBbHeight() / 4.0F,
+							this.getBbWidth() / 4.0F,
 							0.05
 					);
 		}
 	}
 
-	private void breakAndDropItem(ServerWorld world, DamageSource damageSource) {
+	private void breakAndDropItem(ServerLevel world, DamageSource damageSource) {
 		ItemStack itemStack = new ItemStack(ItemRegistry.TARGET_DUMMY);
-		itemStack.set(DataComponentTypes.CUSTOM_NAME, this.getCustomName());
-		Block.dropStack(this.getEntityWorld(), this.getBlockPos(), itemStack);
+		itemStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
+		Block.popResource(this.level(), this.blockPosition(), itemStack);
 		this.onBreak(world, damageSource);
 	}
 
-	private void onBreak(ServerWorld world, DamageSource damageSource) {
+	private void onBreak(ServerLevel world, DamageSource damageSource) {
 		this.playBreakSound();
-		this.drop(world, damageSource);
+		this.dropAllDeathLoot(world, damageSource);
 
 		for (EquipmentSlot equipmentSlot : EquipmentSlot.VALUES) {
-			ItemStack itemStack = this.equipment.put(equipmentSlot, ItemStack.EMPTY);
+			ItemStack itemStack = this.equipment.set(equipmentSlot, ItemStack.EMPTY);
 			if (!itemStack.isEmpty()) {
-				Block.dropStack(this.getEntityWorld(), this.getBlockPos().up(), itemStack);
+				Block.popResource(this.level(), this.blockPosition().above(), itemStack);
 			}
 		}
 	}
 
 	private void playBreakSound() {
-		this.getEntityWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARMOR_STAND_BREAK, this.getSoundCategory(), 1.0F, 1.0F);
+		this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ARMOR_STAND_BREAK, this.getSoundSource(), 1.0F, 1.0F);
 	}
 
 	@Override
-	protected void turnHead(float bodyRotation) {
-		this.lastBodyYaw = this.lastYaw;
-		this.bodyYaw = this.getYaw();
+	protected void tickHeadTurn(float bodyRotation) {
+		this.yBodyRotO = this.yRotO;
+		this.yBodyRot = this.getYRot();
 	}
 
 	@Override
-	public void travel(Vec3d movementInput) {
+	public void travel(@NonNull Vec3 movementInput) {
 		if (this.canClip()) {
 			super.travel(movementInput);
 		}
 	}
 
 	@Override
-	public void setBodyYaw(float bodyYaw) {
-		this.lastBodyYaw = this.lastYaw = bodyYaw;
-		this.lastHeadYaw = this.headYaw = bodyYaw;
+	public void setYBodyRot(float bodyYaw) {
+		this.yBodyRotO = this.yRotO = bodyYaw;
+		this.yHeadRotO = this.yHeadRot = bodyYaw;
 	}
 
 	@Override
-	public void setHeadYaw(float headYaw) {
-		this.lastBodyYaw = this.lastYaw = headYaw;
-		this.lastHeadYaw = this.headYaw = headYaw;
+	public void setYHeadRot(float headYaw) {
+		this.yBodyRotO = this.yRotO = headYaw;
+		this.yHeadRotO = this.yHeadRot = headYaw;
 	}
 
 	@Override
-	public void kill(ServerWorld world) {
+	public void kill(@NonNull ServerLevel world) {
 		this.remove(Entity.RemovalReason.KILLED);
-		this.emitGameEvent(GameEvent.ENTITY_DIE);
+		this.gameEvent(GameEvent.ENTITY_DIE);
 	}
 
 	@Override
-	public boolean isImmuneToExplosion(Explosion explosion) {
-		return !explosion.preservesDecorativeEntities() || this.isInvisible();
+	public boolean ignoreExplosion(Explosion explosion) {
+		return !explosion.shouldAffectBlocklikeEntities() || this.isInvisible();
 	}
 
 
-	public void setHeadRotation(EulerAngle angle) {
-		this.dataTracker.set(TRACKER_HEAD_ROTATION, angle);
+	public void setHeadRotation(Rotations angle) {
+		this.entityData.set(TRACKER_HEAD_ROTATION, angle);
 	}
 
-	public void setBodyRotation(EulerAngle angle) {
-		this.dataTracker.set(TRACKER_BODY_ROTATION, angle);
+	public void setBodyRotation(Rotations angle) {
+		this.entityData.set(TRACKER_BODY_ROTATION, angle);
 	}
 
-	public void setLeftArmRotation(EulerAngle angle) {
-		this.dataTracker.set(TRACKER_LEFT_ARM_ROTATION, angle);
+	public void setLeftArmRotation(Rotations angle) {
+		this.entityData.set(TRACKER_LEFT_ARM_ROTATION, angle);
 	}
 
-	public void setRightArmRotation(EulerAngle angle) {
-		this.dataTracker.set(TRACKER_RIGHT_ARM_ROTATION, angle);
+	public void setRightArmRotation(Rotations angle) {
+		this.entityData.set(TRACKER_RIGHT_ARM_ROTATION, angle);
 	}
 
-	public void setLeftLegRotation(EulerAngle angle) {
-		this.dataTracker.set(TRACKER_LEFT_LEG_ROTATION, angle);
+	public void setLeftLegRotation(Rotations angle) {
+		this.entityData.set(TRACKER_LEFT_LEG_ROTATION, angle);
 	}
 
-	public void setRightLegRotation(EulerAngle angle) {
-		this.dataTracker.set(TRACKER_RIGHT_LEG_ROTATION, angle);
+	public void setRightLegRotation(Rotations angle) {
+		this.entityData.set(TRACKER_RIGHT_LEG_ROTATION, angle);
 	}
 
-	public EulerAngle getHeadRotation() {
-		return this.dataTracker.get(TRACKER_HEAD_ROTATION);
+	public Rotations getHeadRotation() {
+		return this.entityData.get(TRACKER_HEAD_ROTATION);
 	}
 
-	public EulerAngle getBodyRotation() {
-		return this.dataTracker.get(TRACKER_BODY_ROTATION);
+	public Rotations getBodyRotation() {
+		return this.entityData.get(TRACKER_BODY_ROTATION);
 	}
 
-	public EulerAngle getLeftArmRotation() {
-		return this.dataTracker.get(TRACKER_LEFT_ARM_ROTATION);
+	public Rotations getLeftArmRotation() {
+		return this.entityData.get(TRACKER_LEFT_ARM_ROTATION);
 	}
 
-	public EulerAngle getRightArmRotation() {
-		return this.dataTracker.get(TRACKER_RIGHT_ARM_ROTATION);
+	public Rotations getRightArmRotation() {
+		return this.entityData.get(TRACKER_RIGHT_ARM_ROTATION);
 	}
 
-	public EulerAngle getLeftLegRotation() {
-		return this.dataTracker.get(TRACKER_LEFT_LEG_ROTATION);
+	public Rotations getLeftLegRotation() {
+		return this.entityData.get(TRACKER_LEFT_LEG_ROTATION);
 	}
 
-	public EulerAngle getRightLegRotation() {
-		return this.dataTracker.get(TRACKER_RIGHT_LEG_ROTATION);
-	}
-
-	@Override
-	public boolean canHit() {
-		return super.canHit();
+	public Rotations getRightLegRotation() {
+		return this.entityData.get(TRACKER_RIGHT_LEG_ROTATION);
 	}
 
 	@Override
-	public boolean handleAttack(Entity attacker) {
-		return attacker instanceof PlayerEntity playerEntity && !this.getEntityWorld().canEntityModifyAt(playerEntity, this.getBlockPos());
+	public boolean isPickable() {
+		return super.isPickable();
 	}
 
 	@Override
-	public Arm getMainArm() {
-		return Arm.RIGHT;
+	public boolean skipAttackInteraction(@NonNull Entity attacker) {
+		return attacker instanceof Player playerEntity && !this.level().mayInteract(playerEntity, this.blockPosition());
 	}
 
 	@Override
-	public LivingEntity.FallSounds getFallSounds() {
-		return new LivingEntity.FallSounds(SoundEvents.ENTITY_ARMOR_STAND_FALL, SoundEvents.ENTITY_ARMOR_STAND_FALL);
+	public @NonNull HumanoidArm getMainArm() {
+		return HumanoidArm.RIGHT;
+	}
+
+	@Override
+	public LivingEntity.@NonNull Fallsounds getFallSounds() {
+		return new LivingEntity.Fallsounds(SoundEvents.ARMOR_STAND_FALL, SoundEvents.ARMOR_STAND_FALL);
 	}
 
 	@Nullable
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return SoundEvents.ENTITY_ARMOR_STAND_HIT;
+	protected SoundEvent getHurtSound(@NonNull DamageSource source) {
+		return SoundEvents.ARMOR_STAND_HIT;
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_ARMOR_STAND_BREAK;
+		return SoundEvents.ARMOR_STAND_BREAK;
 	}
 
 	@Override
-	public void onStruckByLightning(ServerWorld world, LightningEntity lightning) {
+	public void thunderHit(@NonNull ServerLevel world, @NonNull LightningBolt lightning) {
 	}
 
 	@Override
-	public boolean isAffectedBySplashPotions() {
+	public boolean isAffectedByPotions() {
 		return false;
 	}
 
 	@Override
-	public boolean addStatusEffect(StatusEffectInstance effect, @Nullable Entity source) {
+	public boolean addEffect(@NonNull MobEffectInstance effect, @Nullable Entity source) {
 		return false;
 	}
 
 	@Override
-	public boolean isMobOrPlayer() {
+	public boolean attackable() {
 		return false;
 	}
 
 	@Override
-	public EntityDimensions getBaseDimensions(EntityPose pose) {
+	public @NonNull EntityDimensions getDefaultDimensions(@NonNull Pose pose) {
 		return this.getType().getDimensions();
 	}
 
 
 	@Override
-	public ItemStack getPickBlockStack() {
+	public ItemStack getPickResult() {
 		return new ItemStack(ItemRegistry.TARGET_DUMMY);
 	}
 
 	@Override
-	public boolean isPartOfGame() {
+	public boolean canBeSeenByAnyone() {
 		return !this.isInvisible();
 	}
 
@@ -567,26 +577,26 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	}
 
 	@Override
-	public void sheared(ServerWorld world, SoundCategory shearedSoundCategory, ItemStack shears) {
-		this.breakAndDropItem(world, this.getDamageSources().generic());
+	public void shear(@NonNull ServerLevel world, @NonNull SoundSource shearedSoundCategory, @NonNull ItemStack shears) {
+		this.breakAndDropItem(world, this.damageSources().generic());
 		this.spawnBreakParticles();
 		this.kill(world);
 	}
 
 	@Override
-	public boolean isShearable() {
+	public boolean readyForShearing() {
 		return true;
 	}
 
-	public record PackedRotation(EulerAngle head, EulerAngle body, EulerAngle leftArm, EulerAngle rightArm, EulerAngle leftLeg, EulerAngle rightLeg) {
+	public record PackedRotation(Rotations head, Rotations body, Rotations leftArm, Rotations rightArm, Rotations leftLeg, Rotations rightLeg) {
 		public static final Codec<TargetDummyEntity.PackedRotation> CODEC = RecordCodecBuilder.create(
 				  instance -> instance.group(
-								EulerAngle.CODEC.optionalFieldOf("Head", TargetDummyEntity.DEFAULT_HEAD_ROTATION).forGetter(TargetDummyEntity.PackedRotation::head),
-								EulerAngle.CODEC.optionalFieldOf("Body", TargetDummyEntity.DEFAULT_BODY_ROTATION).forGetter(TargetDummyEntity.PackedRotation::body),
-								EulerAngle.CODEC.optionalFieldOf("LeftArm", TargetDummyEntity.DEFAULT_LEFT_ARM_ROTATION).forGetter(TargetDummyEntity.PackedRotation::leftArm),
-								EulerAngle.CODEC.optionalFieldOf("RightArm", TargetDummyEntity.DEFAULT_RIGHT_ARM_ROTATION).forGetter(TargetDummyEntity.PackedRotation::rightArm),
-								EulerAngle.CODEC.optionalFieldOf("LeftLeg", TargetDummyEntity.DEFAULT_LEFT_LEG_ROTATION).forGetter(TargetDummyEntity.PackedRotation::leftLeg),
-								EulerAngle.CODEC.optionalFieldOf("RightLeg", TargetDummyEntity.DEFAULT_RIGHT_LEG_ROTATION).forGetter(TargetDummyEntity.PackedRotation::rightLeg)
+								Rotations.CODEC.optionalFieldOf("Head", TargetDummyEntity.DEFAULT_HEAD_ROTATION).forGetter(TargetDummyEntity.PackedRotation::head),
+								Rotations.CODEC.optionalFieldOf("Body", TargetDummyEntity.DEFAULT_BODY_ROTATION).forGetter(TargetDummyEntity.PackedRotation::body),
+								Rotations.CODEC.optionalFieldOf("LeftArm", TargetDummyEntity.DEFAULT_LEFT_ARM_ROTATION).forGetter(TargetDummyEntity.PackedRotation::leftArm),
+								Rotations.CODEC.optionalFieldOf("RightArm", TargetDummyEntity.DEFAULT_RIGHT_ARM_ROTATION).forGetter(TargetDummyEntity.PackedRotation::rightArm),
+								Rotations.CODEC.optionalFieldOf("LeftLeg", TargetDummyEntity.DEFAULT_LEFT_LEG_ROTATION).forGetter(TargetDummyEntity.PackedRotation::leftLeg),
+								Rotations.CODEC.optionalFieldOf("RightLeg", TargetDummyEntity.DEFAULT_RIGHT_LEG_ROTATION).forGetter(TargetDummyEntity.PackedRotation::rightLeg)
 						)
 						.apply(instance, TargetDummyEntity.PackedRotation::new)
 		);

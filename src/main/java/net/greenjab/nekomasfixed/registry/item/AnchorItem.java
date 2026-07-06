@@ -1,9 +1,9 @@
 package net.greenjab.nekomasfixed.registry.item;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class AnchorItem extends Item {
-    public AnchorItem(Item.Settings settings) {
+    public AnchorItem(Item.Properties settings) {
         super(settings);
     }
 }

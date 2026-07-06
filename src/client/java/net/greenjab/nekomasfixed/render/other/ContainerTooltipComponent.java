@@ -4,38 +4,39 @@ package net.greenjab.nekomasfixed.render.other;
 import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
-public class ContainerTooltipComponent implements TooltipComponent {
-    private static final Identifier BUNDLE_SLOT_BACKGROUND_TEXTURE = Identifier.ofVanilla("container/bundle/slot_background");
-    private final ContainerComponent contents;
+public class ContainerTooltipComponent implements ClientTooltipComponent {
+    private static final Identifier BUNDLE_SLOT_BACKGROUND_TEXTURE = Identifier.withDefaultNamespace("container/bundle/slot_background");
+    private final ItemContainerContents contents;
     private int numberOfSlots;
 
-    public ContainerTooltipComponent(ContainerComponent contents) {
+    public ContainerTooltipComponent(ItemContainerContents contents) {
         this.contents = contents;
-        numberOfSlots = (int) Math.min(27, contents.streamNonEmpty().count());
+        numberOfSlots = (int) Math.min(27, contents.nonEmptyStream().count());
     }
 
     @Override
-    public int getHeight(TextRenderer textRenderer) {
+    public int getHeight(@NonNull Font textRenderer) {
         return this.getHeightOfNonEmpty();
     }
 
     @Override
-    public int getWidth(TextRenderer textRenderer) {
+    public int getWidth(@NonNull Font textRenderer) {
         return this.getColumnsHeight() ;
     }
 
     @Override
-    public boolean isSticky() {
+    public boolean showTooltipWithItemInHand() {
         return true;
     }
 
@@ -53,7 +54,7 @@ public class ContainerTooltipComponent implements TooltipComponent {
     }
     private int getColumns() {
         if (numberOfSlots == 0) return 0;
-        return MathHelper.ceil(Math.max(Math.sqrt(numberOfSlots), numberOfSlots / 3.0));
+        return Mth.ceil(Math.max(Math.sqrt(numberOfSlots), numberOfSlots / 3.0));
     }
 
     private int getColumnsHeight() {
@@ -62,11 +63,11 @@ public class ContainerTooltipComponent implements TooltipComponent {
 
 
     @Override
-    public void drawItems(TextRenderer textRenderer, int x, int y, int width, int height, DrawContext context) {
+    public void renderImage(@NonNull Font textRenderer, int x, int y, int width, int height, @NonNull GuiGraphics context) {
             this.drawNonEmptyTooltip(textRenderer, x, y, context);
     }
 
-    private void drawNonEmptyTooltip(TextRenderer textRenderer, int x, int y, DrawContext context) {
+    private void drawNonEmptyTooltip(Font textRenderer, int x, int y, GuiGraphics context) {
         List<ItemStack> list = this.firstStacksInContents();
         numberOfSlots = list.size();
         if (!list.isEmpty()) {
@@ -85,16 +86,16 @@ public class ContainerTooltipComponent implements TooltipComponent {
     }
 
     private List<ItemStack> firstStacksInContents() {
-        int i = (int) Math.min(this.contents.streamNonEmpty().count(), 27);
-        return this.contents.streamNonEmpty().toList().subList(0, i);
+        int i = (int) Math.min(this.contents.nonEmptyStream().count(), 27);
+        return this.contents.nonEmptyStream().toList().subList(0, i);
     }
 
-    private void drawItem(int index, int x, int y, List<ItemStack> stacks, int seed, TextRenderer textRenderer, DrawContext drawContext) {
+    private void drawItem(int index, int x, int y, List<ItemStack> stacks, int seed, Font textRenderer, GuiGraphics drawContext) {
         ItemStack itemStack = stacks.get(index);
-        drawContext.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUNDLE_SLOT_BACKGROUND_TEXTURE, x, y, 24, 24);
+        drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, BUNDLE_SLOT_BACKGROUND_TEXTURE, x, y, 24, 24);
 
-        drawContext.drawItem(itemStack, x + 4, y + 4, seed);
-        drawContext.drawStackOverlay(textRenderer, itemStack, x + 4, y + 4);
+        drawContext.renderItem(itemStack, x + 4, y + 4, seed);
+        drawContext.renderItemDecorations(textRenderer, itemStack, x + 4, y + 4);
     }
 
 }

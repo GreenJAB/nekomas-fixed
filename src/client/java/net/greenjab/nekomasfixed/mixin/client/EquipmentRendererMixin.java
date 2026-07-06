@@ -4,44 +4,44 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.equipment.EquipmentModel;
-import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
-import net.minecraft.item.equipment.EquipmentAsset;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
+import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(EquipmentRenderer.class)
+@Mixin(EquipmentLayerRenderer.class)
 @Environment(EnvType.CLIENT)
 public class EquipmentRendererMixin {
 
-    @Unique private static final EquipmentModel turtleArmorModel = createHumanoidOnlyModel("turtle_scute");
-    @Unique private static final EquipmentModel netheriteCrownModel = createHumanoidOnlyModel("netherite_crown");
-    @Unique private static final EquipmentModel copperCrownModel = createHumanoidOnlyModel("copper_crown");
-    @Unique private static final EquipmentModel ironCrownModel = createHumanoidOnlyModel("iron_crown");
-    @Unique private static final EquipmentModel goldenCrownModel = createHumanoidOnlyModel("golden_crown");
-    @Unique private static final EquipmentModel diamondCrownModel = createHumanoidOnlyModel("diamond_crown");
+    @Unique private static final EquipmentClientInfo turtleArmorModel = createHumanoidOnlyModel("turtle_scute");
+    @Unique private static final EquipmentClientInfo netheriteCrownModel = createHumanoidOnlyModel("netherite_crown");
+    @Unique private static final EquipmentClientInfo copperCrownModel = createHumanoidOnlyModel("copper_crown");
+    @Unique private static final EquipmentClientInfo ironCrownModel = createHumanoidOnlyModel("iron_crown");
+    @Unique private static final EquipmentClientInfo goldenCrownModel = createHumanoidOnlyModel("golden_crown");
+    @Unique private static final EquipmentClientInfo diamondCrownModel = createHumanoidOnlyModel("diamond_crown");
 
-    @ModifyExpressionValue(method = "render(Lnet/minecraft/client/render/entity/equipment/EquipmentModel$LayerType;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;ILnet/minecraft/util/Identifier;II)V", at = @At(
+    @ModifyExpressionValue(method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V", at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/render/entity/equipment/EquipmentModelLoader;get(Lnet/minecraft/registry/RegistryKey;)Lnet/minecraft/client/render/entity/equipment/EquipmentModel;"
+            target = "Lnet/minecraft/client/resources/model/EquipmentAssetManager;get(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/client/resources/model/EquipmentClientInfo;"
     ))
-    private EquipmentModel useNewArmorModel(EquipmentModel original, @Local(argsOnly = true) RegistryKey<EquipmentAsset> assetKey) {
-        if (assetKey.getValue().toString().toLowerCase().contains("turtle_scute")) return turtleArmorModel;
-        if(assetKey.getValue().toString().toLowerCase().contains("netherite_crown")) return netheriteCrownModel;
-        if(assetKey.getValue().toString().toLowerCase().contains("copper_crown")) return copperCrownModel;
-        if(assetKey.getValue().toString().toLowerCase().contains("iron_crown")) return ironCrownModel;
-        if(assetKey.getValue().toString().toLowerCase().contains("golden_crown")) return goldenCrownModel;
-        if(assetKey.getValue().toString().toLowerCase().contains("diamond_crown")) return diamondCrownModel;
+    private EquipmentClientInfo useNewArmorModel(EquipmentClientInfo original, @Local(argsOnly = true) ResourceKey<EquipmentAsset> assetKey) {
+        if (assetKey.identifier().toString().toLowerCase().contains("turtle_scute")) return turtleArmorModel;
+        if(assetKey.identifier().toString().toLowerCase().contains("netherite_crown")) return netheriteCrownModel;
+        if(assetKey.identifier().toString().toLowerCase().contains("copper_crown")) return copperCrownModel;
+        if(assetKey.identifier().toString().toLowerCase().contains("iron_crown")) return ironCrownModel;
+        if(assetKey.identifier().toString().toLowerCase().contains("golden_crown")) return goldenCrownModel;
+        if(assetKey.identifier().toString().toLowerCase().contains("diamond_crown")) return diamondCrownModel;
         return original;
     }
 
     @Unique
-    private static EquipmentModel createHumanoidOnlyModel(String id) {
-        return EquipmentModel.builder()
-                .addHumanoidLayers(Identifier.ofVanilla(id))
+    private static EquipmentClientInfo createHumanoidOnlyModel(String id) {
+        return EquipmentClientInfo.builder()
+                .addHumanoidLayers(Identifier.withDefaultNamespace(id))
                 .build();
     }
 

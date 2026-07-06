@@ -2,22 +2,22 @@ package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AnimalEntity.class)
+@Mixin(Animal.class)
 public class AnimalEntityMixin {
 
-    @Inject(method = "interactMob", at= @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AnimalEntity;lovePlayer(Lnet/minecraft/entity/player/PlayerEntity;)V", ordinal = 0))
-    private void saveLastEatenFlower(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir, @Local ItemStack itemStack) {
-        if (((AnimalEntity)(Object)this) instanceof MoobloomEntity moobloomEntity) {
+    @Inject(method = "mobInteract", at= @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Animal;setInLove(Lnet/minecraft/world/entity/player/Player;)V", ordinal = 0))
+    private void saveLastEatenFlower(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir, @Local ItemStack itemStack) {
+        if (((Animal)(Object)this) instanceof MoobloomEntity moobloomEntity) {
             moobloomEntity.setLastFlowerEaten(itemStack.copy());
         }
     }

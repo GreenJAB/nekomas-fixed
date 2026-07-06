@@ -5,136 +5,137 @@ import it.unimi.dsi.fastutil.ints.IntList;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.greenjab.nekomasfixed.util.ModColors;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.FireworkExplosionComponent;
-import net.minecraft.component.type.FireworksComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.Property;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.item.component.Fireworks;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PyrotechnicsTableScreenHandler extends ScreenHandler {
+public class PyrotechnicsTableScreenHandler extends AbstractContainerMenu {
 
-    private final Inventory input = new SimpleInventory(14){
+    private final Container input = new SimpleContainer(14){
         @Override
-        public void markDirty() {
-            super.markDirty();
-            onContentChanged(this);
+        public void setChanged() {
+            super.setChanged();
+            slotsChanged(this);
         }
     };
-    private final Inventory output = new SimpleInventory(1);
-    private final Property selectedPattern = Property.create();
+    private final Container output = new SimpleContainer(1);
+    private final DataSlot selectedPattern = DataSlot.standalone();
 
-    public PyrotechnicsTableScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+    public PyrotechnicsTableScreenHandler(int syncId, Inventory playerInventory) {
+        this(syncId, playerInventory, ContainerLevelAccess.NULL);
     }
 
-    public PyrotechnicsTableScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+    public PyrotechnicsTableScreenHandler(int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(ScreenHandlerRegistry.PYROTECHNICS_TABLE_HANDLER, syncId);
-        this.addProperty(selectedPattern);
+        this.addDataSlot(selectedPattern);
 
         // dyes / stars
         this.addSlot(new Slot(this.input, 0, 8, 16)
-        { @Override public boolean canInsert(ItemStack stack) {
-                return stack.isOf(Items.FIREWORK_STAR)||stack.getItem() instanceof DyeItem;}});
+        { @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return stack.is(Items.FIREWORK_STAR)||stack.getItem() instanceof DyeItem;}});
         this.addSlot(new Slot(this.input, 1, 8+18, 16)
-        {   @Override public boolean isEnabled() {
-                return slots.get(0).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
-                    : slots.get(0).getStack().isOf(Items.FIREWORK_STAR) &&stack.isOf(Items.FIREWORK_STAR);}});
+        {   @Override public boolean isActive() {
+                return slots.get(0).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
+                    : slots.get(0).getItem().is(Items.FIREWORK_STAR) &&stack.is(Items.FIREWORK_STAR);}});
         this.addSlot(new Slot(this.input, 2, 8+18*2, 16)
-        {   @Override public boolean isEnabled() {
-                return slots.get(1).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
-                        : slots.get(0).getStack().isOf(Items.FIREWORK_STAR) &&stack.isOf(Items.FIREWORK_STAR);}});
+        {   @Override public boolean isActive() {
+                return slots.get(1).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
+                        : slots.get(0).getItem().is(Items.FIREWORK_STAR) &&stack.is(Items.FIREWORK_STAR);}});
         this.addSlot(new Slot(this.input, 3, 8+18*3, 16)
-        {   @Override public boolean isEnabled() {
-                return slots.get(2).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
-                        : slots.get(0).getStack().isOf(Items.FIREWORK_STAR) &&stack.isOf(Items.FIREWORK_STAR);}});
+        {   @Override public boolean isActive() {
+                return slots.get(2).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
+                        : slots.get(0).getItem().is(Items.FIREWORK_STAR) &&stack.is(Items.FIREWORK_STAR);}});
         this.addSlot(new Slot(this.input, 4, 8+18*4, 16)
-        {   @Override public boolean isEnabled() {
-                return slots.get(3).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
-                        : slots.get(0).getStack().isOf(Items.FIREWORK_STAR) &&stack.isOf(Items.FIREWORK_STAR);}});
+        {   @Override public boolean isActive() {
+                return slots.get(3).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
+                        : slots.get(0).getItem().is(Items.FIREWORK_STAR) &&stack.is(Items.FIREWORK_STAR);}});
         // fade / gunpowder
         this.addSlot(new Slot(this.input, 5, 8, 35)
-        {   @Override public boolean isEnabled() {
-                return slots.get(0).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
-                        : slots.get(0).getStack().isOf(Items.FIREWORK_STAR) && stack.isOf(Items.GUNPOWDER);}});
+        {   @Override public boolean isActive() {
+                return slots.get(0).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
+                        : slots.get(0).getItem().is(Items.FIREWORK_STAR) && stack.is(Items.GUNPOWDER);}});
         this.addSlot(new Slot(this.input, 6, 8+18, 35)
-        {   @Override public boolean isEnabled() {
-                return slots.get(5).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
-                        : slots.get(0).getStack().isOf(Items.FIREWORK_STAR) && stack.isOf(Items.GUNPOWDER);}});
+        {   @Override public boolean isActive() {
+                return slots.get(5).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
+                        : slots.get(0).getItem().is(Items.FIREWORK_STAR) && stack.is(Items.GUNPOWDER);}});
         this.addSlot(new Slot(this.input, 7, 8+18*2, 35)
-        {   @Override public boolean isEnabled() {
-                return slots.get(6).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
-                    : slots.get(0).getStack().isOf(Items.FIREWORK_STAR) && stack.isOf(Items.GUNPOWDER);}});
+        {   @Override public boolean isActive() {
+                return slots.get(6).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem ? stack.getItem() instanceof DyeItem
+                    : slots.get(0).getItem().is(Items.FIREWORK_STAR) && stack.is(Items.GUNPOWDER);}});
         this.addSlot(new Slot(this.input, 8, 8+18*3, 35)
-        {   @Override public boolean isEnabled() {
-                return (slots.get(7).hasStack() && slots.get(0).getStack().getItem() instanceof DyeItem) || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem && stack.getItem() instanceof DyeItem;}});
+        {   @Override public boolean isActive() {
+                return (slots.get(7).hasItem() && slots.get(0).getItem().getItem() instanceof DyeItem) || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem && stack.getItem() instanceof DyeItem;}});
         this.addSlot(new Slot(this.input, 9, 8+18*4, 35)
-        {   @Override public boolean isEnabled() {
-                return slots.get(8).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem && stack.getItem() instanceof DyeItem;}});
+        {   @Override public boolean isActive() {
+                return slots.get(8).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem && stack.getItem() instanceof DyeItem;}});
         // shape
         this.addSlot(new Slot(this.input, 10, 80, 54)
-        {   @Override public boolean isEnabled() {
-                return slots.get(0).getStack().getItem() instanceof DyeItem || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return isEnabled() && (stack.isOf(Items.FIRE_CHARGE)|| stack.isOf(Items.GOLD_NUGGET)|| stack.isOf(Items.CREEPER_BANNER_PATTERN)|| stack.isOf(Items.FEATHER));}});
+        {   @Override public boolean isActive() {
+                return slots.get(0).getItem().getItem() instanceof DyeItem || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return isActive() && (stack.is(Items.FIRE_CHARGE)|| stack.is(Items.GOLD_NUGGET)|| stack.is(Items.CREEPER_BANNER_PATTERN)|| stack.is(Items.FEATHER));}});
         // glowstone
         this.addSlot(new Slot(this.input, 11, 80-18, 73)
-        {   @Override public boolean isEnabled() {
-                return slots.get(0).getStack().getItem() instanceof DyeItem || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return isEnabled() && (stack.isOf(Items.GLOWSTONE_DUST));}});
+        {   @Override public boolean isActive() {
+                return slots.get(0).getItem().getItem() instanceof DyeItem || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return isActive() && (stack.is(Items.GLOWSTONE_DUST));}});
         // diamond
         this.addSlot(new Slot(this.input, 12, 80, 73)
-        {   @Override public boolean isEnabled() {
-                return slots.get(0).getStack().getItem() instanceof DyeItem || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return isEnabled() && (stack.isOf(Items.DIAMOND));}});
+        {   @Override public boolean isActive() {
+                return slots.get(0).getItem().getItem() instanceof DyeItem || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return isActive() && (stack.is(Items.DIAMOND));}});
         // gunpowder / paper
         this.addSlot(new Slot(this.input, 13, 99, 73)
-        {    @Override public boolean isEnabled() {
-                return slots.get(0).hasStack() || this.hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
-                return slots.get(0).getStack().getItem() instanceof DyeItem ? stack.isOf(Items.GUNPOWDER)
-                    : slots.get(0).getStack().isOf(Items.FIREWORK_STAR) && stack.isOf(Items.PAPER);}});
+        {    @Override public boolean isActive() {
+                return slots.get(0).hasItem() || this.hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
+                return slots.get(0).getItem().getItem() instanceof DyeItem ? stack.is(Items.GUNPOWDER)
+                    : slots.get(0).getItem().is(Items.FIREWORK_STAR) && stack.is(Items.PAPER);}});
 
         this.addSlot(new Slot(this.output, 0, 152, 73) {
-            @Override public boolean isEnabled() {
-                return slots.get(0).hasStack();}
-            @Override public boolean canInsert(ItemStack stack) {
+            @Override public boolean isActive() {
+                return slots.get(0).hasItem();}
+            @Override public boolean mayPlace(@NonNull ItemStack stack) {
                 return false;}
-            @Override public void onTakeItem(final PlayerEntity player, final ItemStack carried) {
-                slots.stream().filter(slot -> slot.inventory==input).forEach(slot -> slot.takeStack(slot.getStack().isOf(Items.CREEPER_BANNER_PATTERN)?0:1));}
+            @Override public void onTake(final @NonNull Player player, final @NonNull ItemStack carried) {
+                slots.stream().filter(slot -> slot.container==input).forEach(slot -> slot.remove(slot.getItem().is(Items.CREEPER_BANNER_PATTERN)?0:1));}
         });
 
         for (int m = 0; m < 3; ++m)
@@ -143,41 +144,41 @@ public class PyrotechnicsTableScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public void onContentChanged(Inventory inventory) {
-        super.onContentChanged(inventory);
+    public void slotsChanged(@NonNull Container inventory) {
+        super.slotsChanged(inventory);
         if (inventory == this.input) {
             this.updateResult();
-            this.sendContentUpdates();
+            this.broadcastChanges();
         }
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slotIndex) {
+    public @NonNull ItemStack quickMoveStack(@NonNull Player player, int slotIndex) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(slotIndex);
-        if (slot != null && slot.hasStack()) {
-            ItemStack itemStack2 = slot.getStack();
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemStack2 = slot.getItem();
             itemStack = itemStack2.copy();
             if (slotIndex < 15) {
-                if (!this.insertItem(itemStack2, 15, 51, true)) {
+                if (!this.moveItemStackTo(itemStack2, 15, 51, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(itemStack2, 0, 14, false)) {
+            } else if (!this.moveItemStackTo(itemStack2, 0, 14, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemStack2.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+                slot.setByPlayer(ItemStack.EMPTY);
             } else {
-                slot.markDirty();
+                slot.setChanged();
             }
-            slot.onTakeItem(player, itemStack2);
+            slot.onTake(player, itemStack2);
         }
         return itemStack;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
+    public boolean stillValid(@NonNull Player player) {
         return true;
     }
 
@@ -186,7 +187,7 @@ public class PyrotechnicsTableScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public boolean onButtonClick(PlayerEntity player, int id) {
+    public boolean clickMenuButton(@NonNull Player player, int id) {
         if (id >= 0 && id < 8) {
             this.selectedPattern.set(id);
             return true;
@@ -194,71 +195,71 @@ public class PyrotechnicsTableScreenHandler extends ScreenHandler {
         return false;
     }
 
-    private static final Map<Item, FireworkExplosionComponent.Type> TYPE_MODIFIER_MAP = Map.of(
+    private static final Map<Item, FireworkExplosion.Shape> TYPE_MODIFIER_MAP = Map.of(
             Items.FIRE_CHARGE,
-            FireworkExplosionComponent.Type.LARGE_BALL,
+            FireworkExplosion.Shape.LARGE_BALL,
             Items.FEATHER,
-            FireworkExplosionComponent.Type.BURST,
+            FireworkExplosion.Shape.BURST,
             Items.GOLD_NUGGET,
-            FireworkExplosionComponent.Type.STAR,
+            FireworkExplosion.Shape.STAR,
             Items.CREEPER_BANNER_PATTERN,
-            FireworkExplosionComponent.Type.CREEPER
+            FireworkExplosion.Shape.CREEPER
     );
 
     // Placeholder for the crafting logic later
     private void updateResult() {
         ItemStack newOutput = ItemStack.EMPTY;
-        if (slots.get(0).hasStack()) {
-            if (slots.get(0).getStack().getItem() instanceof DyeItem && slots.get(13).getStack().isOf(Items.GUNPOWDER)) {
-                if (slots.stream().filter(slot -> slot.getIndex()<10 && slot.hasStack() && slot.inventory==input).allMatch(slot -> slot.getStack().getItem() instanceof DyeItem)) {
-                    FireworkExplosionComponent.Type type = TYPE_MODIFIER_MAP.getOrDefault(slots.get(10).getStack().getItem(), FireworkExplosionComponent.Type.SMALL_BALL);
-                    boolean twinkle = slots.get(11).getStack().isOf(Items.GLOWSTONE_DUST);
-                    boolean trail = slots.get(12).getStack().isOf(Items.DIAMOND);
+        if (slots.get(0).hasItem()) {
+            if (slots.get(0).getItem().getItem() instanceof DyeItem && slots.get(13).getItem().is(Items.GUNPOWDER)) {
+                if (slots.stream().filter(slot -> slot.getContainerSlot()<10 && slot.hasItem() && slot.container==input).allMatch(slot -> slot.getItem().getItem() instanceof DyeItem)) {
+                    FireworkExplosion.Shape type = TYPE_MODIFIER_MAP.getOrDefault(slots.get(10).getItem().getItem(), FireworkExplosion.Shape.SMALL_BALL);
+                    boolean twinkle = slots.get(11).getItem().is(Items.GLOWSTONE_DUST);
+                    boolean trail = slots.get(12).getItem().is(Items.DIAMOND);
                     IntList colorList = new IntArrayList();
-                    slots.stream().filter(slot -> slot.getIndex()<5 && slot.hasStack() && slot.inventory==input).forEach(slot -> {
-                        Item item = slot.getStack().getItem();
+                    slots.stream().filter(slot -> slot.getContainerSlot()<5 && slot.hasItem() && slot.container==input).forEach(slot -> {
+                        Item item = slot.getItem().getItem();
                         if (item.equals(ItemRegistry.AMBER_DYE)) colorList.add(ModColors.AMBER.getColor());
                         else if (item.equals(ItemRegistry.AQUA_DYE)) colorList.add(ModColors.AQUA.getColor());
                         else if (item.equals(ItemRegistry.MAROON_DYE)) colorList.add(ModColors.MAROON.getColor());
                         else if (item.equals(ItemRegistry.INDIGO_DYE)) colorList.add(ModColors.INDIGO.getColor());
-                        else colorList.add(((DyeItem)item).getColor().getFireworkColor());});
+                        else colorList.add(((DyeItem)item).getDyeColor().getFireworkColor());});
                     IntList fadeList = new IntArrayList();
-                    slots.stream().filter(slot -> slot.getIndex()>=5 && slot.getIndex()<10 && slot.hasStack() && slot.inventory==input).forEach(slot -> {
-                        Item item = slot.getStack().getItem();
+                    slots.stream().filter(slot -> slot.getContainerSlot()>=5 && slot.getContainerSlot()<10 && slot.hasItem() && slot.container==input).forEach(slot -> {
+                        Item item = slot.getItem().getItem();
                         if (item.equals(ItemRegistry.AMBER_DYE)) fadeList.add(ModColors.AMBER.getColor());
                         else if (item.equals(ItemRegistry.AQUA_DYE)) fadeList.add(ModColors.AQUA.getColor());
                         else if (item.equals(ItemRegistry.MAROON_DYE)) fadeList.add(ModColors.MAROON.getColor());
                         else if (item.equals(ItemRegistry.INDIGO_DYE)) fadeList.add(ModColors.INDIGO.getColor());
-                        else fadeList.add(((DyeItem)item).getColor().getFireworkColor());});
+                        else fadeList.add(((DyeItem)item).getDyeColor().getFireworkColor());});
 
                     newOutput = new ItemStack(Items.FIREWORK_STAR);
-                    newOutput.set(DataComponentTypes.FIREWORK_EXPLOSION, new FireworkExplosionComponent(type, colorList, fadeList, trail, twinkle));
+                    newOutput.set(DataComponents.FIREWORK_EXPLOSION, new FireworkExplosion(type, colorList, fadeList, trail, twinkle));
                 }
-            } else if (slots.get(0).getStack().isOf(Items.FIREWORK_STAR) && slots.get(13).getStack().isOf(Items.PAPER)) {
-                if (slots.stream().filter(slot -> slot.getIndex()<5 && slot.hasStack() && slot.inventory==input).allMatch(slot -> slot.getStack().isOf(Items.FIREWORK_STAR))) {
-                    if (slots.stream().filter(slot -> slot.getIndex() >= 5 && slot.getIndex() < 10 && slot.hasStack() && slot.inventory==input).allMatch(slot -> slot.getStack().isOf(Items.GUNPOWDER))) {
-                        if (!slots.get(10).hasStack()&&!slots.get(11).hasStack()&&!slots.get(12).hasStack()){
-                            int i = Math.toIntExact((slots.stream().filter(slot -> slot.getIndex() >= 5 && slot.getIndex() < 10 && slot.hasStack() && slot.inventory==input).count()));
+            } else if (slots.get(0).getItem().is(Items.FIREWORK_STAR) && slots.get(13).getItem().is(Items.PAPER)) {
+                if (slots.stream().filter(slot -> slot.getContainerSlot()<5 && slot.hasItem() && slot.container==input).allMatch(slot -> slot.getItem().is(Items.FIREWORK_STAR))) {
+                    if (slots.stream().filter(slot -> slot.getContainerSlot() >= 5 && slot.getContainerSlot() < 10 && slot.hasItem() && slot.container==input).allMatch(slot -> slot.getItem().is(Items.GUNPOWDER))) {
+                        if (!slots.get(10).hasItem()&&!slots.get(11).hasItem()&&!slots.get(12).hasItem()){
+                            int i = Math.toIntExact((slots.stream().filter(slot -> slot.getContainerSlot() >= 5 && slot.getContainerSlot() < 10 && slot.hasItem() && slot.container==input).count()));
                             if (i>0) {
-                                List<FireworkExplosionComponent> list = new ArrayList<>();
-                                slots.stream().filter(slot -> slot.getIndex() < 5 && slot.hasStack() && slot.inventory == input).forEach(slot -> {
-                                    FireworkExplosionComponent fireworkExplosionComponent = slot.getStack().get(DataComponentTypes.FIREWORK_EXPLOSION);
+                                List<FireworkExplosion> list = new ArrayList<>();
+                                slots.stream().filter(slot -> slot.getContainerSlot() < 5 && slot.hasItem() && slot.container == input).forEach(slot -> {
+                                    FireworkExplosion fireworkExplosionComponent = slot.getItem().get(DataComponents.FIREWORK_EXPLOSION);
                                     if (fireworkExplosionComponent != null) list.add(fireworkExplosionComponent);});
 
                                 newOutput = new ItemStack(Items.FIREWORK_ROCKET, 5);
-                                newOutput.set(DataComponentTypes.FIREWORKS, new FireworksComponent(i, list));
+                                newOutput.set(DataComponents.FIREWORKS, new Fireworks(i, list));
                             }
                         }
                     }
                 }
             }
         }
-        output.setStack(0, newOutput);
+        output.setItem(0, newOutput);
     }
 
     @Override
-    public void onClosed(PlayerEntity player) {
-        super.onClosed(player);
-        this.dropInventory(player, this.input);
+    public void removed(@NonNull Player player) {
+        super.removed(player);
+        this.clearContainer(player, this.input);
     }
 }

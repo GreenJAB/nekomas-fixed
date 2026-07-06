@@ -1,57 +1,57 @@
 package net.greenjab.nekomasfixed.registry.item;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 
 public class RopeItem extends BlockItem {
-    public RopeItem(Block block, Item.Settings settings) {
+    public RopeItem(Block block, Item.Properties settings) {
         super(block, settings);
     }
 
-    protected boolean canPlaceAt(World world, BlockPos pos) {
-        BlockState blockState = world.getBlockState(pos.up());
-        return blockState.isOf(BlockRegistry.ROPE) || blockState.isIn(BlockTags.LEAVES) || blockState.isSideSolidFullSquare(world, pos, Direction.DOWN);
+    protected boolean canPlaceAt(Level world, BlockPos pos) {
+        BlockState blockState = world.getBlockState(pos.above());
+        return blockState.is(BlockRegistry.ROPE) || blockState.is(BlockTags.LEAVES) || blockState.isFaceSturdy(world, pos, Direction.DOWN);
     }
 
     @Nullable
     @Override
-    public ItemPlacementContext getPlacementContext(ItemPlacementContext context) {
-        BlockPos blockPos = context.getBlockPos().offset(context.getSide().getOpposite());
-        World world = context.getWorld();
+    public BlockPlaceContext updatePlacementContext(BlockPlaceContext context) {
+        BlockPos blockPos = context.getClickedPos().relative(context.getClickedFace().getOpposite());
+        Level world = context.getLevel();
         BlockState blockState = world.getBlockState(blockPos);
         Block block = this.getBlock();
-        if (!blockState.isOf(block)) {
-            return canPlaceAt(context.getWorld(), blockPos.offset(context.getSide()))?context:null;
+        if (!blockState.is(block)) {
+            return canPlaceAt(context.getLevel(), blockPos.relative(context.getClickedFace()))?context:null;
         } else {
             Direction direction = Direction.DOWN;
-            BlockPos.Mutable mutable = blockPos.mutableCopy().move(direction);
+            BlockPos.MutableBlockPos mutable = blockPos.mutable().move(direction);
             while (true) {
-                if (!world.isClient() && !world.isInBuildLimit(mutable)) {
-                    PlayerEntity playerEntity = context.getPlayer();
-                    int j = world.getTopYInclusive();
-                    if (playerEntity instanceof ServerPlayerEntity && mutable.getY() > j) {
-                        ((ServerPlayerEntity)playerEntity).sendMessageToClient(Text.translatable("argument.pos.outofbounds").formatted(Formatting.RED), true);
+                if (!world.isClientSide() && !world.isInWorldBounds(mutable)) {
+                    Player playerEntity = context.getPlayer();
+                    int j = world.getMaxY();
+                    if (playerEntity instanceof ServerPlayer && mutable.getY() > j) {
+                        ((ServerPlayer)playerEntity).sendSystemMessage(Component.translatable("argument.pos.outofbounds").withStyle(ChatFormatting.RED), true);
                     }
                     break;
                 }
 
                 blockState = world.getBlockState(mutable);
-                if (!blockState.isOf(this.getBlock())) {
-                    if (blockState.canReplace(context)) {
-                        return ItemPlacementContext.offset(context, mutable, direction);
+                if (!blockState.is(this.getBlock())) {
+                    if (blockState.canBeReplaced(context)) {
+                        return BlockPlaceContext.at(context, mutable, direction);
                     }
                     break;
                 }
@@ -63,7 +63,7 @@ public class RopeItem extends BlockItem {
         }
     }
 
-    protected boolean checkStatePlacement() {
+    protected boolean mustSurvive() {
         return false;
     }
 }

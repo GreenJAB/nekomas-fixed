@@ -3,22 +3,26 @@ package net.greenjab.nekomasfixed.registry.other;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.component.ComponentsAccess;
-import net.minecraft.entity.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.tooltip.TooltipAppender;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.storage.NbtWriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.ErrorReporter;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
+import net.minecraft.world.item.component.TypedEntityData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.TagValueOutput;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 
 import java.util.Arrays;
@@ -26,7 +30,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) implements TooltipAppender {
+public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) implements TooltipProvider {
 	private static final Logger LOGGER = LogUtils.getLogger();
 
 	public static final List<String> IRRELEVANT_ANIMAL_NBT_KEYS = Arrays.asList(
@@ -58,13 +62,13 @@ public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) imp
 	public record StoredEntityData(TypedEntityData<EntityType<?>> entityData, long tickEnteredHive) {
 
 		public static final Codec<StoredEntityData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				TypedEntityData.createCodec(EntityType.CODEC).fieldOf("entity_data").forGetter(StoredEntityData::entityData),
+				TypedEntityData.codec(EntityType.CODEC).fieldOf("entity_data").forGetter(StoredEntityData::entityData),
 				Codec.LONG.fieldOf("tick_entered_hive").forGetter(StoredEntityData::tickEnteredHive)
 				).apply(instance, StoredEntityData::new));
 
-		public static final PacketCodec<RegistryByteBuf, StoredEntityData> PACKET_CODEC = PacketCodec.tuple(
-				TypedEntityData.createPacketCodec(EntityType.PACKET_CODEC), StoredEntityData::entityData,
-				PacketCodecs.VAR_LONG, StoredEntityData::tickEnteredHive,
+		public static final StreamCodec<RegistryFriendlyByteBuf, StoredEntityData> PACKET_CODEC = StreamCodec.composite(
+				TypedEntityData.streamCodec(EntityType.STREAM_CODEC), StoredEntityData::entityData,
+				ByteBufCodecs.VAR_LONG, StoredEntityData::tickEnteredHive,
 				StoredEntityData::new
 		);
 
@@ -72,39 +76,39 @@ public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) imp
 
 		public static StoredEntityData of(Entity entity) {
 			StoredEntityData data;
-			try (ErrorReporter.Logging logging = new ErrorReporter.Logging(entity.getErrorReporterContext(), LOGGER)) {
-				NbtWriteView nbtWriteView = NbtWriteView.create(logging, entity.getRegistryManager());
-				entity.saveData(nbtWriteView);
-				IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtWriteView::remove);
-				NbtCompound nbtCompound = nbtWriteView.getNbt();
-				data = new StoredEntityData(TypedEntityData.create(entity.getType(), nbtCompound),
-						entity.getEntityWorld().getTime());
+			try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(entity.problemPath(), LOGGER)) {
+				TagValueOutput nbtWriteView = TagValueOutput.createWithContext(logging, entity.registryAccess());
+				entity.save(nbtWriteView);
+				IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtWriteView::discard);
+				CompoundTag nbtCompound = nbtWriteView.buildResult();
+				data = new StoredEntityData(TypedEntityData.of(entity.getType(), nbtCompound),
+						entity.level().getGameTime());
 			}
 			return data;
 		}
 
 		@Nullable
-		public Entity loadEntity(World world, BlockPos pos) {
-			NbtCompound nbtCompound = this.entityData.copyNbtWithoutId();
+		public Entity loadEntity(Level world, BlockPos pos) {
+			CompoundTag nbtCompound = this.entityData.copyTagWithoutId();
 			IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtCompound::remove);
-			return EntityType.loadEntityWithPassengers(this.entityData.getType(), nbtCompound, world, SpawnReason.LOAD, entity -> entity);
+			return EntityType.loadEntityRecursive(this.entityData.type(), nbtCompound, world, EntitySpawnReason.LOAD, entity -> entity);
 		}
 	}
 
 	public static final Codec<AnimalComponent> CODEC = StoredEntityData.LIST_CODEC
 			.xmap(AnimalComponent::new, AnimalComponent::animal);
 
-	public static final PacketCodec<RegistryByteBuf, AnimalComponent> PACKET_CODEC = StoredEntityData.PACKET_CODEC
-			.collect(PacketCodecs.toList())
-			.xmap(AnimalComponent::new, AnimalComponent::animal);
+	public static final StreamCodec<RegistryFriendlyByteBuf, AnimalComponent> PACKET_CODEC = StoredEntityData.PACKET_CODEC
+			.apply(ByteBufCodecs.list())
+			.map(AnimalComponent::new, AnimalComponent::animal);
 
 	public static final AnimalComponent DEFAULT = new AnimalComponent(List.of());
 
 	@Override
-	public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
+	public void addToTooltip(Item.@NonNull TooltipContext context, @NonNull Consumer<Component> textConsumer, @NonNull TooltipFlag type, @NonNull DataComponentGetter components) {
 		if (!this.animal.isEmpty()) {
 			TypedEntityData<EntityType<?>> entityData = this.animal.get(0).entityData();
-			NbtCompound nbt = entityData.copyNbtWithoutId();
+			CompoundTag nbt = entityData.copyTagWithoutId();
 			Optional<String> name = nbt.getString("CustomName");
 			Optional<Integer> age = nbt.getInt("Age");
 			Optional<String> variant = nbt.getString("variant");
@@ -114,12 +118,12 @@ public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) imp
 				String s2 = s.substring(1);
 				variant = Optional.of(s1+s2);
 			}
-			textConsumer.accept(Text.translatable("container.nautilus",
+			textConsumer.accept(Component.translatable("container.nautilus",
 					(age.isPresent() && age.get()<0?"Baby ":""),
 							variant.map(s -> s + " ").orElse(""),
-							Text.translatable(entityData.getType().getTranslationKey()),
+							Component.translatable(entityData.type().getDescriptionId()),
 							name.map(s -> ": \"" + s + "\"").orElse("")
-			).formatted(Formatting.GRAY));
+			).withStyle(ChatFormatting.GRAY));
 
 		}
 	}

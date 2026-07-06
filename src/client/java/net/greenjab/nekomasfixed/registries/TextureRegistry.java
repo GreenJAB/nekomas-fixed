@@ -2,18 +2,18 @@ package net.greenjab.nekomasfixed.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.render.block.entity.state.ClamBlockEntityRenderState;
-import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.resources.model.Material;
 
-import static net.minecraft.client.render.TexturedRenderLayers.CHEST_SPRITE_MAPPER;
+import static net.minecraft.client.renderer.Sheets.CHEST_MAPPER;
 
 public class TextureRegistry {
 
-    public static final SpriteIdentifier CLAM_SPRITE = new SpriteIdentifier(CHEST_SPRITE_MAPPER.sheet(), NekomasFixed.id("clam").withPrefixedPath(CHEST_SPRITE_MAPPER.prefix() + "/"));
-    public static final SpriteIdentifier CLAM_BLUE_SPRITE = new SpriteIdentifier(CHEST_SPRITE_MAPPER.sheet(), NekomasFixed.id("clam_blue").withPrefixedPath(CHEST_SPRITE_MAPPER.prefix() + "/"));
-    public static final SpriteIdentifier CLAM_PINK_SPRITE = new SpriteIdentifier(CHEST_SPRITE_MAPPER.sheet(), NekomasFixed.id("clam_pink").withPrefixedPath(CHEST_SPRITE_MAPPER.prefix() + "/"));
-    public static final SpriteIdentifier CLAM_PURPLE_SPRITE = new SpriteIdentifier(CHEST_SPRITE_MAPPER.sheet(), NekomasFixed.id("clam_purple").withPrefixedPath(CHEST_SPRITE_MAPPER.prefix() + "/"));
+    public static final Material CLAM_SPRITE = new Material(CHEST_MAPPER.sheet(), NekomasFixed.id("clam").withPrefix(CHEST_MAPPER.prefix() + "/"));
+    public static final Material CLAM_BLUE_SPRITE = new Material(CHEST_MAPPER.sheet(), NekomasFixed.id("clam_blue").withPrefix(CHEST_MAPPER.prefix() + "/"));
+    public static final Material CLAM_PINK_SPRITE = new Material(CHEST_MAPPER.sheet(), NekomasFixed.id("clam_pink").withPrefix(CHEST_MAPPER.prefix() + "/"));
+    public static final Material CLAM_PURPLE_SPRITE = new Material(CHEST_MAPPER.sheet(), NekomasFixed.id("clam_purple").withPrefix(CHEST_MAPPER.prefix() + "/"));
 
-    public static SpriteIdentifier getClamTextureId(ClamBlockEntityRenderState.Variant variant) {
+    public static Material getClamTextureId(ClamBlockEntityRenderState.Variant variant) {
         return switch (variant) {
             case BLUE -> CLAM_BLUE_SPRITE;
             case PINK -> CLAM_PINK_SPRITE;

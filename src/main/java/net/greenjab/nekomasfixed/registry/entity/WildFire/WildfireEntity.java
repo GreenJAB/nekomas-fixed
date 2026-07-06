@@ -2,74 +2,78 @@ package net.greenjab.nekomasfixed.registry.entity.WildFire;
 
 import com.mojang.serialization.Dynamic;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.boss.BossBar;
-import net.minecraft.entity.boss.ServerBossBar;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.WindChargeEntity;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.profiler.Profilers;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.debug.DebugTrackable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.debug.DebugValueSource;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.BossEvent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.WindCharge;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
 
-public class WildfireEntity extends HostileEntity {
+public class WildfireEntity extends Monster {
 	public float eyeOffset = 0.5F;
 	public float clientFireTime = 0;
 	public float clientExtraSpin = 0;
-	private final ServerBossBar bossBar;
+	private final ServerBossEvent bossBar;
 	private BlockPos spawnPos;
-	private static final TrackedData<Byte> WILDFIRE_FLAGS = DataTracker.registerData(WildfireEntity.class, TrackedDataHandlerRegistry.BYTE);
+	private static final EntityDataAccessor<Byte> WILDFIRE_FLAGS = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BYTE);
 
-	public WildfireEntity(EntityType<? extends WildfireEntity> entityType, World world) {
+	public WildfireEntity(EntityType<? extends WildfireEntity> entityType, Level world) {
 		super(entityType, world);
-		this.setPathfindingPenalty(PathNodeType.WATER, -1.0F);
-		this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
-		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
-		this.bossBar = (new ServerBossBar(this.getDisplayName(), BossBar.Color.YELLOW, BossBar.Style.PROGRESS));
-		this.experiencePoints = 50;
+		this.setPathfindingMalus(PathType.WATER, -1.0F);
+		this.setPathfindingMalus(PathType.LAVA, 8.0F);
+		this.setPathfindingMalus(PathType.DANGER_FIRE, 0.0F);
+		this.setPathfindingMalus(PathType.DAMAGE_FIRE, 0.0F);
+		this.bossBar = (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS));
+		this.xpReward = 50;
 		setShieldsActive(4);
 	}
 
-	public static boolean canSpawn(EntityType<WildfireEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+	public static boolean canSpawn(EntityType<WildfireEntity> type, LevelAccessor world, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
 		return true;
 	}
 
 	@Override
-	public boolean canSpawn(WorldView world) {
-		return world.doesNotIntersectEntities(this);
+	public boolean checkSpawnObstruction(LevelReader world) {
+		return world.isUnobstructed(this);
 	}
 
 	public BlockPos getSpawnPos(){
@@ -77,9 +81,9 @@ public class WildfireEntity extends HostileEntity {
 	}
 
 	@Override
-	protected void writeCustomData(WriteView view) {
-		super.writeCustomData(view);
-		view.putInt("State", this.dataTracker.get(WILDFIRE_FLAGS));
+	protected void addAdditionalSaveData(@NonNull ValueOutput view) {
+		super.addAdditionalSaveData(view);
+		view.putInt("State", this.entityData.get(WILDFIRE_FLAGS));
 		if (spawnPos==null) spawnPos = new BlockPos(0, 0, 0);
 		view.putInt("spawnX", spawnPos.getX());
 		view.putInt("spawnY", spawnPos.getY());
@@ -87,195 +91,195 @@ public class WildfireEntity extends HostileEntity {
 	}
 
 	@Override
-	protected void readCustomData(ReadView view) {
-		super.readCustomData(view);
-		this.dataTracker.set(WILDFIRE_FLAGS, (byte)view.getInt("State", 0));
-		spawnPos = new BlockPos(view.getInt("spawnX", 0), view.getInt("spawnY", 0), view.getInt("spawnZ", 0));
+	protected void readAdditionalSaveData(@NonNull ValueInput view) {
+		super.readAdditionalSaveData(view);
+		this.entityData.set(WILDFIRE_FLAGS, (byte)view.getIntOr("State", 0));
+		spawnPos = new BlockPos(view.getIntOr("spawnX", 0), view.getIntOr("spawnY", 0), view.getIntOr("spawnZ", 0));
 		if (this.hasCustomName()) {
 			this.bossBar.setName(this.getDisplayName());
 		}
 	}
-	public void setCustomName(@Nullable Text name) {
+	public void setCustomName(@Nullable Component name) {
 		super.setCustomName(name);
 		this.bossBar.setName(this.getDisplayName());
 	}
 
 	@Override
-	protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
-		return WildfireBrain.create(this, this.createBrainProfile().deserialize(dynamic));
+	protected @NonNull Brain<?> makeBrain(@NonNull Dynamic<?> dynamic) {
+		return WildfireBrain.create(this, this.brainProvider().makeBrain(dynamic));
 	}
 
 	@Override
-	public Brain<WildfireEntity> getBrain() {
+	public @NonNull Brain<WildfireEntity> getBrain() {
 		return (Brain<WildfireEntity>)super.getBrain();
 	}
 
 	@Override
-	protected Brain.Profile<WildfireEntity> createBrainProfile() {
-		return Brain.createProfile(WildfireBrain.MEMORY_MODULES, WildfireBrain.SENSORS);
+	protected Brain.@NonNull Provider<WildfireEntity> brainProvider() {
+		return Brain.provider(WildfireBrain.MEMORY_MODULES, WildfireBrain.SENSORS);
 	}
 
-	public static DefaultAttributeContainer.Builder createWildfireAttributes() {
-		return HostileEntity.createHostileAttributes()
-				.add(EntityAttributes.MAX_HEALTH, 150.0)
-				.add(EntityAttributes.ATTACK_DAMAGE, 6.0)
-				.add(EntityAttributes.MOVEMENT_SPEED, 0.5F)
-				.add(EntityAttributes.FOLLOW_RANGE, 48.0);
+	public static AttributeSupplier.Builder createWildfireAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, 150.0)
+				.add(Attributes.ATTACK_DAMAGE, 6.0)
+				.add(Attributes.MOVEMENT_SPEED, 0.5F)
+				.add(Attributes.FOLLOW_RANGE, 48.0);
 	}
 
 	@Override
-	protected void initDataTracker(DataTracker.Builder builder) {
-		super.initDataTracker(builder);
-		builder.add(WILDFIRE_FLAGS, (byte)16);
+	protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(WILDFIRE_FLAGS, (byte)16);
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.ENTITY_BLAZE_AMBIENT;
+		return SoundEvents.BLAZE_AMBIENT;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return SoundEvents.ENTITY_BLAZE_HURT;
+	protected @NonNull SoundEvent getHurtSound(@NonNull DamageSource source) {
+		return SoundEvents.BLAZE_HURT;
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_BLAZE_DEATH;
+	protected @NonNull SoundEvent getDeathSound() {
+		return SoundEvents.BLAZE_DEATH;
 	}
 
 	public Optional<LivingEntity> getHurtBy() {
 		return this.getBrain()
-				.getOptionalRegisteredMemory(MemoryModuleType.HURT_BY)
-				.map(DamageSource::getAttacker)
+				.getMemory(MemoryModuleType.HURT_BY)
+				.map(DamageSource::getEntity)
 				.filter(attacker -> attacker instanceof LivingEntity)
 				.map(livingAttacker -> (LivingEntity)livingAttacker);
 	}
 
 	@Override
-	public float getBrightnessAtEyes() {
+	public float getLightLevelDependentMagicValue() {
 		return 1.0F;
 	}
 
 	@Override
-	public void tickMovement() {
-		if (spawnPos == null || spawnPos.isWithinDistance(new BlockPos(0, 0 ,0), 1))
+	public void aiStep() {
+		if (spawnPos == null || spawnPos.closerThan(new BlockPos(0, 0 ,0), 1))
 			spawnPos = new BlockPos(this.getBlockX(), this.getBlockY(), this.getBlockZ());
-		if (!this.isOnGround() && this.getVelocity().y < 0.0) {
-			this.setVelocity(this.getVelocity().multiply(1.0, (this.eyeOffset > -1?0.85:0.6), 1.0));
+		if (!this.onGround() && this.getDeltaMovement().y < 0.0) {
+			this.setDeltaMovement(this.getDeltaMovement().multiply(1.0, (this.eyeOffset > -1?0.85:0.6), 1.0));
 		}
 
-		if (this.getEntityWorld().isClient()) {
+		if (this.level().isClientSide()) {
 			if (this.random.nextInt(24) == 0 && !this.isSilent()) {
-				this.getEntityWorld()
-						.playSoundClient(
+				this.level()
+						.playLocalSound(
 								this.getX() + 0.5,
 								this.getY() + 0.5,
 								this.getZ() + 0.5,
-								SoundEvents.ENTITY_BLAZE_BURN,
-								this.getSoundCategory(),
+								SoundEvents.BLAZE_BURN,
+								this.getSoundSource(),
 								1.0F + this.random.nextFloat(),
 								this.random.nextFloat() * 0.7F + 0.3F,
 								false
 						);
 			}
 
-			if (this.getEntityWorld().getTime()%2==0) {
-				this.getEntityWorld().addParticleClient(ParticleTypes.LARGE_SMOKE, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), 0.0, 0.0, 0.0);
-				this.getEntityWorld().addParticleClient(isSoulActive()?ParticleTypes.SOUL:ParticleTypes.LAVA, this.getParticleX(1), this.getRandomBodyY(), this.getParticleZ(1), 0.0, 0.0, 0.0);
+			if (this.level().getGameTime()%2==0) {
+				this.level().addParticle(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0.0, 0.0, 0.0);
+				this.level().addParticle(isSoulActive()?ParticleTypes.SOUL:ParticleTypes.LAVA, this.getRandomX(1), this.getRandomY(), this.getRandomZ(1), 0.0, 0.0, 0.0);
 			}
 
-			this.clientFireTime= MathHelper.clamp(this.clientFireTime +0.5f/20f*(this.isOnFire()?1:-1), 0, 1);
+			this.clientFireTime= Mth.clamp(this.clientFireTime +0.5f/20f*(this.isOnFire()?1:-1), 0, 1);
 			this.clientExtraSpin+=this.clientFireTime*4;
 		}
 
-		super.tickMovement();
+		super.aiStep();
 	}
 
 	@Override
-	public boolean hurtByWater() {
+	public boolean isSensitiveToWater() {
 		return true;
 	}
 
 	@Override
-	protected void mobTick(ServerWorld world) {
+	protected void customServerAiStep(@NonNull ServerLevel world) {
 		LivingEntity livingEntity = this.getTarget();
-		this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
-		if (livingEntity != null && this.canTarget(livingEntity)) {
+		this.bossBar.setProgress(this.getHealth() / this.getMaxHealth());
+		if (livingEntity != null && this.canAttack(livingEntity)) {
 
-			if (this.canSee(livingEntity)) {
-				brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+			if (this.hasLineOfSight(livingEntity)) {
+				brain.eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 			}
 
-			Vec3d vec3d = this.getVelocity();
+			Vec3 vec3d = this.getDeltaMovement();
 
 			double d = livingEntity.getEyeY() - (this.getEyeY() + this.eyeOffset);
 			if (this.eyeOffset > -1 && d>-3) {
-				BlockHitResult blockHitResult = this.getEntityWorld()
-						.raycast(
-								new RaycastContext(
-										this.getEyePos(), this.getEntityPos().add(0, -3, 0), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this
+				BlockHitResult blockHitResult = this.level()
+						.clip(
+								new ClipContext(
+										this.getEyePosition(), this.position().add(0, -3, 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this
 								)
 						);
 				if (blockHitResult.getType() == HitResult.Type.MISS ) {
 					if ( livingEntity.getEyeY() > this.getEyeY() + this.eyeOffset) {
-						this.setVelocity(this.getVelocity().add(0.0, (0.3F - vec3d.y) * 0.6F, 0.0));
+						this.setDeltaMovement(this.getDeltaMovement().add(0.0, (0.3F - vec3d.y) * 0.6F, 0.0));
 					}
-					this.setVelocity(this.getVelocity().add(livingEntity.getEyePos().subtract(this.getEntityPos()).getHorizontal().normalize().multiply(0.03f)));
+					this.setDeltaMovement(this.getDeltaMovement().add(livingEntity.getEyePosition().subtract(this.position()).horizontal().normalize().scale(0.03f)));
 				}
 			} else {
 				if ( livingEntity.getEyeY() > this.getEyeY() + this.eyeOffset) {
-					this.setVelocity(this.getVelocity().add(0.0, (0.3F - vec3d.y) * 0.6F, 0.0));
-					this.velocityDirty = true;
+					this.setDeltaMovement(this.getDeltaMovement().add(0.0, (0.3F - vec3d.y) * 0.6F, 0.0));
+					this.needsSync = true;
 				}
 			}
 		}
 
-		if (world.getTime()%20==0) {
-			if (world.getBlockState(this.getBlockPos()).isIn(BlockTags.FIRE))this.heal(1);
+		if (world.getGameTime()%20==0) {
+			if (world.getBlockState(this.blockPosition()).is(BlockTags.FIRE))this.heal(1);
 			int lastShields = getShieldsActive();
-			int newShields = (int)MathHelper.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4);
+			int newShields = (int)Mth.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4);
 			setShieldsActive(newShields);
 			if (newShields < lastShields) {
-				world.playSoundFromEntity(null, this, SoundEvents.ITEM_WOLF_ARMOR_BREAK.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+				world.playSound(null, this, SoundEvents.WOLF_ARMOR_BREAK.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
 			} else if (newShields > lastShields) {
-				world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 0.7F, 2.0F);
+				world.playSound(null, this, SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 0.7F, 2.0F);
 			}
 		}
 
-		Profiler profiler = Profilers.get();
+		ProfilerFiller profiler = Profiler.get();
 		profiler.push("wildfireBrain");
 		this.getBrain().tick(world, this);
-		profiler.swap("wildfireActivityUpdate");
+		profiler.popPush("wildfireActivityUpdate");
 		WildfireBrain.updateActivities(this);
 		profiler.pop();
-		super.mobTick(world);
+		super.customServerAiStep(world);
 	}
 
 	@Nullable
 	@Override
 	public LivingEntity getTarget() {
-		return this.getTargetInBrain();
+		return this.getTargetFromBrain();
 	}
 
 	@Override
-	public void registerTracking(ServerWorld world, DebugTrackable.Tracker tracker) {
-		super.registerTracking(world, tracker);
-		tracker.track(
+	public void registerDebugValues(@NonNull ServerLevel world, DebugValueSource.@NonNull Registration tracker) {
+		super.registerDebugValues(world, tracker);
+		tracker.register(
 				OtherRegistry.WILDFIRES,
 				 () -> new WildfireDebugData(
-						this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).map(Entity::getId),
-						this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.BREEZE_JUMP_TARGET)
+						this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).map(Entity::getId),
+						this.getBrain().getMemory(MemoryModuleType.BREEZE_JUMP_TARGET)
 				)
 		);
 	}
 
-	public void onStartedTrackingBy(ServerPlayerEntity player) {
-		super.onStartedTrackingBy(player);
+	public void startSeenByPlayer(@NonNull ServerPlayer player) {
+		super.startSeenByPlayer(player);
 		this.bossBar.addPlayer(player);
 	}
-	public void onStoppedTrackingBy(ServerPlayerEntity player) {
-		super.onStoppedTrackingBy(player);
+	public void stopSeenByPlayer(@NonNull ServerPlayer player) {
+		super.stopSeenByPlayer(player);
 		this.bossBar.removePlayer(player);
 	}
 	
@@ -286,59 +290,59 @@ public class WildfireEntity extends HostileEntity {
 	}
 
 	private boolean isFireActive() {
-		return (this.dataTracker.get(WILDFIRE_FLAGS) & 1) != 0;
+		return (this.entityData.get(WILDFIRE_FLAGS) & 1) != 0;
 	}
 
 	public void setFireActive(boolean fireActive) {
-		byte b = this.dataTracker.get(WILDFIRE_FLAGS);
+		byte b = this.entityData.get(WILDFIRE_FLAGS);
 		if (fireActive) {
 			b = (byte)(b | 1);
 		} else {
 			b = (byte)(b & -(1+1));
 		}
 
-		this.dataTracker.set(WILDFIRE_FLAGS, b);
+		this.entityData.set(WILDFIRE_FLAGS, b);
 	}
 
 	public boolean isSoulActive() {
-		return (this.dataTracker.get(WILDFIRE_FLAGS) & 2) != 0;
+		return (this.entityData.get(WILDFIRE_FLAGS) & 2) != 0;
 	}
 
 	public void setSoulActive(boolean soulActive) {
-		byte b = this.dataTracker.get(WILDFIRE_FLAGS);
+		byte b = this.entityData.get(WILDFIRE_FLAGS);
 		if (soulActive) {
 			b = (byte)(b | 2);
 		} else {
 			b = (byte)(b & -(2+1));
 		}
-		this.bossBar.setColor(BossBar.Color.BLUE);
-		this.dataTracker.set(WILDFIRE_FLAGS, b);
+		this.bossBar.setColor(BossEvent.BossBarColor.BLUE);
+		this.entityData.set(WILDFIRE_FLAGS, b);
 	}
 
 	public int getShieldsActive() {
-		return (this.dataTracker.get(WILDFIRE_FLAGS) & 28)/4;
+		return (this.entityData.get(WILDFIRE_FLAGS) & 28)/4;
 	}
 
 	public void setShieldsActive(int shieldsActive) {
-		byte b = this.dataTracker.get(WILDFIRE_FLAGS);
+		byte b = this.entityData.get(WILDFIRE_FLAGS);
 		b = (byte)(b & -(28+1));
 		b = (byte)(b | 4*shieldsActive);
 
-		this.dataTracker.set(WILDFIRE_FLAGS, b);
+		this.entityData.set(WILDFIRE_FLAGS, b);
 	}
 
 	@Override
-	public boolean damage(ServerWorld world, DamageSource source, float amount) {
-		if(this == source.getAttacker())return false;
+	public boolean hurtServer(@NonNull ServerLevel world, DamageSource source, float amount) {
+		if(this == source.getEntity())return false;
 		if (!isOnFire()) {
-			Entity entity = source.getSource();
-			if (entity instanceof PersistentProjectileEntity || entity instanceof WindChargeEntity) {
+			Entity entity = source.getDirectEntity();
+			if (entity instanceof AbstractArrow || entity instanceof WindCharge) {
 				if (random.nextInt(4)<getShieldsActive()) {
-					world.playSoundFromEntity(null, this, SoundEvents.ITEM_SHIELD_BLOCK.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+					world.playSound(null, this, SoundEvents.SHIELD_BLOCK.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
 					return false;
 				}
 			}
 		}
-		return super.damage(world,source,amount);
+		return super.hurtServer(world,source,amount);
 	}
 }

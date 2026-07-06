@@ -4,10 +4,14 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
-import net.minecraft.client.render.model.json.WeightedVariant;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.NonNull;
 
 
@@ -17,28 +21,28 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(@NonNull BlockStateModelGenerator blockStateModelGenerator) {
+    public void generateBlockStateModels(@NonNull BlockModelGenerators blockStateModelGenerator) {
 
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.WHITE_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.ORANGE_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.MAGENTA_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.LIGHT_BLUE_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.YELLOW_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.LIME_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.PINK_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.GRAY_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.LIGHT_GRAY_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.CYAN_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.PURPLE_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BLUE_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BROWN_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.GREEN_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.RED_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.BLACK_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.AMBER_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.AQUA_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.INDIGO_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(BlockRegistry.MAROON_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.WHITE_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.ORANGE_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.MAGENTA_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.LIGHT_BLUE_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.YELLOW_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.LIME_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.PINK_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.GRAY_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.LIGHT_GRAY_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.CYAN_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.PURPLE_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.BLUE_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.BROWN_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.GREEN_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.RED_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.BLACK_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.AMBER_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.AQUA_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.INDIGO_BRICKS);
+        blockStateModelGenerator.createTrivialCube(BlockRegistry.MAROON_BRICKS);
 
         registerSlab(blockStateModelGenerator, BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_SLAB);
@@ -105,57 +109,57 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateItemModels(@NonNull ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(ItemRegistry.WHITE_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.ORANGE_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.MAGENTA_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.LIGHT_BLUE_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.YELLOW_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.LIME_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.PINK_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.GRAY_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.LIGHT_GRAY_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.CYAN_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.PURPLE_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.BLUE_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.BROWN_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.GREEN_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.RED_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.BLACK_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.AMBER_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.AQUA_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.INDIGO_DYED_BRUSH, Models.GENERATED);
-        itemModelGenerator.register(ItemRegistry.MAROON_DYED_BRUSH, Models.GENERATED);
+    public void generateItemModels(@NonNull ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateFlatItem(ItemRegistry.WHITE_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.ORANGE_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.MAGENTA_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.LIGHT_BLUE_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.YELLOW_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.LIME_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.PINK_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.GRAY_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.LIGHT_GRAY_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.CYAN_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.PURPLE_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.BLUE_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.BROWN_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.GREEN_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.RED_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.BLACK_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.AMBER_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.AQUA_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.INDIGO_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.MAROON_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
     }
 
-    public void registerSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Block slab) {
-        TextureMap textureMap = TextureMap.all(block);
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(Models.SLAB.upload(slab, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant2 = BlockStateModelGenerator.createWeightedVariant(Models.SLAB_TOP.upload(slab, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant3 = BlockStateModelGenerator.createWeightedVariant(
-                Models.CUBE_COLUMN.uploadWithoutVariant(slab, "_double", textureMap, blockStateModelGenerator.modelCollector)
+    public void registerSlab(BlockModelGenerators blockStateModelGenerator, Block block, Block slab) {
+        TextureMapping textureMap = TextureMapping.cube(block);
+        MultiVariant weightedVariant = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_BOTTOM.create(slab, textureMap, blockStateModelGenerator.modelOutput));
+        MultiVariant weightedVariant2 = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_TOP.create(slab, textureMap, blockStateModelGenerator.modelOutput));
+        MultiVariant weightedVariant3 = BlockModelGenerators.plainVariant(
+                ModelTemplates.CUBE_COLUMN.createWithOverride(slab, "_double", textureMap, blockStateModelGenerator.modelOutput)
         );
 
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSlabBlockState(slab, weightedVariant, weightedVariant2, weightedVariant3));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSlab(slab, weightedVariant, weightedVariant2, weightedVariant3));
     }
 
-    public void registerStairs(BlockStateModelGenerator blockStateModelGenerator, Block block, Block stairs) {
-        TextureMap textureMap = TextureMap.all(block);
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(Models.INNER_STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant2 = BlockStateModelGenerator.createWeightedVariant(Models.STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant3 = BlockStateModelGenerator.createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createStairsBlockState(stairs, weightedVariant, weightedVariant2, weightedVariant3));
+    public void registerStairs(BlockModelGenerators blockStateModelGenerator, Block block, Block stairs) {
+        TextureMapping textureMap = TextureMapping.cube(block);
+        MultiVariant weightedVariant = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, textureMap, blockStateModelGenerator.modelOutput));
+        MultiVariant weightedVariant2 = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(stairs, textureMap, blockStateModelGenerator.modelOutput));
+        MultiVariant weightedVariant3 = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, textureMap, blockStateModelGenerator.modelOutput));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairs, weightedVariant, weightedVariant2, weightedVariant3));
     }
 
 
-    public void registerWall(BlockStateModelGenerator blockStateModelGenerator, Block block, Block wall) {
-        TextureMap textureMap = TextureMap.all(block);
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant2 = BlockStateModelGenerator.createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant3 = BlockStateModelGenerator.createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, textureMap, blockStateModelGenerator.modelCollector));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createWallBlockState(wall, weightedVariant, weightedVariant2, weightedVariant3));
-        Identifier identifier = Models.WALL_INVENTORY.upload(wall, textureMap, blockStateModelGenerator.modelCollector);
-        blockStateModelGenerator.registerParentedItemModel(wall, identifier);
+    public void registerWall(BlockModelGenerators blockStateModelGenerator, Block block, Block wall) {
+        TextureMapping textureMap = TextureMapping.cube(block);
+        MultiVariant weightedVariant = BlockModelGenerators.plainVariant(ModelTemplates.WALL_POST.create(wall, textureMap, blockStateModelGenerator.modelOutput));
+        MultiVariant weightedVariant2 = BlockModelGenerators.plainVariant(ModelTemplates.WALL_LOW_SIDE.create(wall, textureMap, blockStateModelGenerator.modelOutput));
+        MultiVariant weightedVariant3 = BlockModelGenerators.plainVariant(ModelTemplates.WALL_TALL_SIDE.create(wall, textureMap, blockStateModelGenerator.modelOutput));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createWall(wall, weightedVariant, weightedVariant2, weightedVariant3));
+        Identifier identifier = ModelTemplates.WALL_INVENTORY.create(wall, textureMap, blockStateModelGenerator.modelOutput);
+        blockStateModelGenerator.registerSimpleItemModel(wall, identifier);
     }
 
 }

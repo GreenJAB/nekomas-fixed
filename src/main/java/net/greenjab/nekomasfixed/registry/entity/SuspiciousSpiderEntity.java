@@ -1,65 +1,70 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.SpiderEntity;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public class SuspiciousSpiderEntity extends SpiderEntity {
+public class SuspiciousSpiderEntity extends Spider {
 
-    public SuspiciousSpiderEntity(EntityType<? extends SpiderEntity> entityType, World world) {
+    public SuspiciousSpiderEntity(EntityType<? extends Spider> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static DefaultAttributeContainer.Builder createSuspiciousSpiderAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.MAX_HEALTH, 16.0F).add(EntityAttributes.MOVEMENT_SPEED, 0.3F);
+    public static AttributeSupplier.Builder createSuspiciousSpiderAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 16.0F).add(Attributes.MOVEMENT_SPEED, 0.3F);
     }
 
     @Override
-    public @Nullable EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData);
-        if (entityData instanceof SpiderEntity.SpiderData spiderData) {
-            spiderData.setEffect(random);
-            RegistryEntry<StatusEffect> registryEntry = spiderData.effect;
-            if (registryEntry != null) this.addStatusEffect(new StatusEffectInstance(registryEntry, -1));
+    public @Nullable SpawnGroupData finalizeSpawn(@NonNull ServerLevelAccessor world, @NonNull DifficultyInstance difficulty, @NonNull EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
+        entityData = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
+        if (entityData instanceof Spider.SpiderEffectsGroupData spiderData) {
+            spiderData.setRandomEffect(random);
+            Holder<MobEffect> registryEntry = spiderData.effect;
+            if (registryEntry != null) this.addEffect(new MobEffectInstance(registryEntry, -1));
         }
         return entityData;
     }
 
     @Override
-    public boolean tryAttack(ServerWorld world, Entity target) {
-        boolean bl = super.tryAttack(world, target);
+    public boolean doHurtTarget(@NonNull ServerLevel world, @NonNull Entity target) {
+        boolean bl = super.doHurtTarget(world, target);
         if (bl && target instanceof LivingEntity)
-            ((LivingEntity)target).addStatusEffect(getRandomStatusEffectOnHit());
+            ((LivingEntity)target).addEffect(getRandomStatusEffectOnHit());
         return bl;
     }
 
-    private StatusEffectInstance getRandomStatusEffectOnHit(){
+    private MobEffectInstance getRandomStatusEffectOnHit(){
         int i = random.nextInt(4);
         return switch (i) {
-            case 0 -> new StatusEffectInstance(StatusEffects.WEAKNESS, 200, 1, false, true);
-            case 1 -> new StatusEffectInstance(StatusEffects.BLINDNESS, 200, 1, false, true);
-            case 2 -> new StatusEffectInstance(StatusEffects.POISON, 200, 1, false, true);
-            default -> new StatusEffectInstance(StatusEffects.WITHER, 200, 1, false, true);
+            case 0 -> new MobEffectInstance(MobEffects.WEAKNESS, 200, 1, false, true);
+            case 1 -> new MobEffectInstance(MobEffects.BLINDNESS, 200, 1, false, true);
+            case 2 -> new MobEffectInstance(MobEffects.POISON, 200, 1, false, true);
+            default -> new MobEffectInstance(MobEffects.WITHER, 200, 1, false, true);
         };
     }
 
     public static boolean canSpawn(
-            EntityType<? extends MobEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random
+            EntityType<? extends Mob> type, ServerLevelAccessor world, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random
     ) {
-        return canSpawnInDark(type, world, spawnReason, pos, random) && (SpawnReason.isAnySpawner(spawnReason) || !world.isSkyVisible(pos));
+        return checkMonsterSpawnRules(type, world, spawnReason, pos, random) && (EntitySpawnReason.isSpawner(spawnReason) || !world.canSeeSky(pos));
     }
 }

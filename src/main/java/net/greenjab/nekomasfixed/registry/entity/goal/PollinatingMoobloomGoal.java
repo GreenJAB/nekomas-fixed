@@ -1,21 +1,20 @@
 package net.greenjab.nekomasfixed.registry.entity.goal;
 
 import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.BeeEntity;
-
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.bee.Bee;
 import java.util.List;
 
 public class PollinatingMoobloomGoal extends Goal {
-    private final BeeEntity bee;
+    private final Bee bee;
     private MoobloomEntity target;
 
-    public PollinatingMoobloomGoal(BeeEntity bee) {this.bee = bee;}
+    public PollinatingMoobloomGoal(Bee bee) {this.bee = bee;}
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (bee.hasNectar()) {return false;}
-        List<MoobloomEntity> list = bee.getEntityWorld().getEntitiesByClass(MoobloomEntity.class, bee.getBoundingBox().expand(8), entity -> !entity.getDataTracker().get(MoobloomEntity.SHEARED));
+        List<MoobloomEntity> list = bee.level().getEntitiesOfClass(MoobloomEntity.class, bee.getBoundingBox().inflate(8), entity -> !entity.getEntityData().get(MoobloomEntity.SHEARED));
         if (list.isEmpty()) {return false;}
 
         this.target = list.get(0);
@@ -24,29 +23,29 @@ public class PollinatingMoobloomGoal extends Goal {
 
     @Override
     public void start() {
-        bee.getNavigation().startMovingTo(target, 1.2D);
+        bee.getNavigation().moveTo(target, 1.2D);
     }
 
     @Override
     public void tick() {
         if (target == null) return;
-        bee.getLookControl().lookAt(target);
+        bee.getLookControl().setLookAt(target);
 
-        if (bee.squaredDistanceTo(target) < 2.0D) {
+        if (bee.distanceToSqr(target) < 2.0D) {
             bee.setHasNectar(true);
 
         } else {
-            bee.getNavigation().startMovingTo(target, 1.2D);
+            bee.getNavigation().moveTo(target, 1.2D);
         }
     }
 
     @Override
-    public boolean shouldContinue() {
-        return target != null && target.isAlive() && !bee.hasNectar() && !target.getDataTracker().get(MoobloomEntity.SHEARED);
+    public boolean canContinueToUse() {
+        return target != null && target.isAlive() && !bee.hasNectar() && !target.getEntityData().get(MoobloomEntity.SHEARED);
     }
 
     @Override
-    public boolean canStop(){
+    public boolean isInterruptable(){
         return bee.hasNectar();
     }
 }

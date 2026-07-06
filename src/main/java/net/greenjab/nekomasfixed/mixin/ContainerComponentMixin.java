@@ -1,21 +1,21 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import net.minecraft.component.ComponentsAccess;
-import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemContainerContents;
 
-@Mixin(ContainerComponent.class)
+@Mixin(ItemContainerContents.class)
 public class ContainerComponentMixin {
 
-    @Inject(method = "appendTooltip", at = @At("HEAD"), cancellable = true)
-    private void removeNormalTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components, CallbackInfo ci){
+    @Inject(method = "addToTooltip", at = @At("HEAD"), cancellable = true)
+    private void removeNormalTooltip(Item.TooltipContext context, Consumer<Component> textConsumer, TooltipFlag type, DataComponentGetter components, CallbackInfo ci){
         ci.cancel();
     }
 }

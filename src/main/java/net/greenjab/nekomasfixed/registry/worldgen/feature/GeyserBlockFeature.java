@@ -2,33 +2,33 @@ package net.greenjab.nekomasfixed.registry.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
-import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 
-public class GeyserBlockFeature extends Feature<SimpleBlockFeatureConfig> {
-    public GeyserBlockFeature(Codec<SimpleBlockFeatureConfig> configCodec) {
+public class GeyserBlockFeature extends Feature<SimpleBlockConfiguration> {
+    public GeyserBlockFeature(Codec<SimpleBlockConfiguration> configCodec) {
         super(configCodec);
     }
 
     @Override
-    public boolean generate(FeatureContext<SimpleBlockFeatureConfig> context) {
+    public boolean place(FeaturePlaceContext<SimpleBlockConfiguration> context) {
 
-        StructureWorldAccess world = context.getWorld();
-        BlockPos start = context.getOrigin();
-        if (!world.isAir(start) || world.isAir(start.down())) {
+        WorldGenLevel world = context.level();
+        BlockPos start = context.origin();
+        if (!world.isEmptyBlock(start) || world.isEmptyBlock(start.below())) {
             return false;
         }
 
         boolean adjacentToTerrain = false;
 
-        for (Direction dir : Direction.Type.HORIZONTAL) {
-            BlockPos pos = start.offset(dir);
+        for (Direction dir : Direction.Plane.HORIZONTAL) {
+            BlockPos pos = start.relative(dir);
 
-            if (world.getBlockState(pos).isSolidBlock(world, pos)) {
+            if (world.getBlockState(pos).isRedstoneConductor(world, pos)) {
                 adjacentToTerrain = true;
                 break;
             }
@@ -38,7 +38,7 @@ public class GeyserBlockFeature extends Feature<SimpleBlockFeatureConfig> {
             return false;
         }
 
-        world.setBlockState(start.down(), BlockRegistry.GEYSER.getDefaultState(), 3);
+        world.setBlock(start.below(), BlockRegistry.GEYSER.defaultBlockState(), 3);
         return true;
     }
 }

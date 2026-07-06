@@ -1,10 +1,12 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.MelonBlock;
-import net.minecraft.block.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -17,16 +19,16 @@ import java.util.function.Function;
 @Mixin(Blocks.class)
 public class BlocksMixin {
 
-    @Redirect(method="<clinit>", at = @At( value = "INVOKE", target = "Lnet/minecraft/block/Blocks;register(Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/block/AbstractBlock$Settings;)Lnet/minecraft/block/Block;", ordinal = 0), slice = @Slice( from =
-    @At(value = "FIELD", target = "Lnet/minecraft/block/BlockKeys;MELON:Lnet/minecraft/registry/RegistryKey;", opcode = Opcodes.GETSTATIC), to =
-    @At(value = "FIELD",target = "Lnet/minecraft/block/Blocks;MELON:Lnet/minecraft/block/Block;", opcode = Opcodes.PUTSTATIC)))
-    private static Block newMelon(RegistryKey<Block> key, AbstractBlock.Settings settings2) {
+    @Redirect(method="<clinit>", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/block/Blocks;register(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;", ordinal = 0), slice = @Slice( from =
+    @At(value = "FIELD", target = "Lnet/minecraft/references/Blocks;MELON:Lnet/minecraft/resources/ResourceKey;", opcode = Opcodes.GETSTATIC), to =
+    @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/Blocks;MELON:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.PUTSTATIC)))
+    private static Block newMelon(ResourceKey<Block> key, BlockBehaviour.Properties settings2) {
         return register(key, settings -> new MelonBlock(false, settings), settings2);
     }
 
     @Unique
-    private static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        Block block = factory.apply(settings.registryKey(key));
-        return Registry.register(Registries.BLOCK, key, block);
+    private static Block register(ResourceKey<Block> key, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
+        Block block = factory.apply(settings.setId(key));
+        return Registry.register(BuiltInRegistries.BLOCK, key, block);
     }
 }

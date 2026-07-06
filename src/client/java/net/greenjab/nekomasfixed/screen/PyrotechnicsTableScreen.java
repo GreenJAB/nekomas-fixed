@@ -3,27 +3,28 @@ package net.greenjab.nekomasfixed.screen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.cursor.StandardCursors;
-import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import com.mojang.blaze3d.platform.cursor.CursorTypes;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class PyrotechnicsTableScreen extends HandledScreen<PyrotechnicsTableScreenHandler> {
+public class PyrotechnicsTableScreen extends AbstractContainerScreen<PyrotechnicsTableScreenHandler> {
 
     private static final Identifier TEXTURE = NekomasFixed.id("textures/gui/container/pyrotechnics_table.png");
 
@@ -44,91 +45,91 @@ public class PyrotechnicsTableScreen extends HandledScreen<PyrotechnicsTableScre
     private static final Identifier GLOWSTONE_ICON = NekomasFixed.id("container/pyrotechnics_table/glowstone");
     private static final Identifier DIAMOND = NekomasFixed.id("container/pyrotechnics_table/diamond");
 
-    private final CyclingSlotIcon dyeOrStarSlotIcon = new CyclingSlotIcon(0);
+    private final CyclingSlotBackground dyeOrStarSlotIcon = new CyclingSlotBackground(0);
     private static final List<Identifier> DYE_OR_STAR_TEXTURES = List.of(
             DYE_ICON, FIREWORK_STAR_ICON);
 
-    private final CyclingSlotIcon shapeSlotIcon = new CyclingSlotIcon(10);
+    private final CyclingSlotBackground shapeSlotIcon = new CyclingSlotBackground(10);
     private static final List<Identifier> SHAPE_TEXTURES = List.of(
             EMPTY_ICON, FIRE_CHARGE_ICON, GOLD_NUGGET_ICON, CREEPER_PATTERN_ICON, FEATHER_ICON);
 
-    private final CyclingSlotIcon twinkleSlotIcon = new CyclingSlotIcon(11);
+    private final CyclingSlotBackground twinkleSlotIcon = new CyclingSlotBackground(11);
     private static final List<Identifier> TWINKLE_TEXTURES = List.of(
             EMPTY_ICON, GLOWSTONE_ICON);
 
-    private final CyclingSlotIcon trailSlotIcon = new CyclingSlotIcon(12);
+    private final CyclingSlotBackground trailSlotIcon = new CyclingSlotBackground(12);
     private static final List<Identifier> TRAIL_TEXTURES = List.of(
             EMPTY_ICON, DIAMOND);
 
-    private static final Identifier CHEST_SLOTS_TEXTURE = Identifier.ofVanilla("container/horse/chest_slots");
+    private static final Identifier CHEST_SLOTS_TEXTURE = Identifier.withDefaultNamespace("container/horse/chest_slots");
 
-    private static final List<Pair<String, Item>> ANIMATIONS = List.of(
-        new Pair<>("small_ball", Items.AIR),
-        new Pair<>("large_ball", Items.FIRE_CHARGE),
-        new Pair<>("star", Items.GOLD_NUGGET),
-        new Pair<>("creeper", Items.CREEPER_BANNER_PATTERN),
-        new Pair<>("burst", Items.FEATHER),
-        new Pair<>("none", Items.AIR),
-        new Pair<>("twinkle", Items.GLOWSTONE_DUST),
-        new Pair<>("trail", Items.DIAMOND)
+    private static final List<Tuple<String, Item>> ANIMATIONS = List.of(
+        new Tuple<>("small_ball", Items.AIR),
+        new Tuple<>("large_ball", Items.FIRE_CHARGE),
+        new Tuple<>("star", Items.GOLD_NUGGET),
+        new Tuple<>("creeper", Items.CREEPER_BANNER_PATTERN),
+        new Tuple<>("burst", Items.FEATHER),
+        new Tuple<>("none", Items.AIR),
+        new Tuple<>("twinkle", Items.GLOWSTONE_DUST),
+        new Tuple<>("trail", Items.DIAMOND)
     );
 
     private final int totalPatterns = 8;
 
-    public PyrotechnicsTableScreen(PyrotechnicsTableScreenHandler handler, PlayerInventory inventory, Text title) {
+    public PyrotechnicsTableScreen(PyrotechnicsTableScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
-        this.backgroundHeight = 186;
-        this.playerInventoryTitleY = this.backgroundHeight - 94;
+        this.imageHeight = 186;
+        this.inventoryLabelY = this.imageHeight - 94;
     }
 
     @Override
-    public void handledScreenTick() {
-        super.handledScreenTick();
-        this.dyeOrStarSlotIcon.updateTexture(DYE_OR_STAR_TEXTURES);
-        this.shapeSlotIcon.updateTexture(SHAPE_TEXTURES);
-        this.twinkleSlotIcon.updateTexture(TWINKLE_TEXTURES);
-        this.trailSlotIcon.updateTexture(TRAIL_TEXTURES);
+    public void containerTick() {
+        super.containerTick();
+        this.dyeOrStarSlotIcon.tick(DYE_OR_STAR_TEXTURES);
+        this.shapeSlotIcon.tick(SHAPE_TEXTURES);
+        this.twinkleSlotIcon.tick(TWINKLE_TEXTURES);
+        this.trailSlotIcon.tick(TRAIL_TEXTURES);
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        this.renderMain(context, mouseX, mouseY, deltaTicks);
-        this.renderCursorStack(context, mouseX, mouseY);
-        this.renderLetGoTouchStack(context);
-        this.drawMouseoverTooltip(context, mouseX, mouseY);
+    public void render(@NonNull GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
+        this.renderContents(context, mouseX, mouseY, deltaTicks);
+        this.renderCarriedItem(context, mouseX, mouseY);
+        this.renderSnapbackItem(context);
+        this.renderTooltip(context, mouseX, mouseY);
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0.0F, 0.0F, this.backgroundWidth, this.backgroundHeight, 256, 256);
+    protected void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
+        context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
-        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, NekomasFixed.id("container/pyrotechnics_table/"+ANIMATIONS.get(this.handler.getSelectedPattern()).getLeft()), x+98, y+15, 71, 71);
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, NekomasFixed.id("container/pyrotechnics_table/"+ANIMATIONS.get(this.menu.getSelectedPattern()).getA()), leftPos+98, topPos+15, 71, 71);
 
-        for (Slot slot : handler.slots){
-            if (slot.isEnabled() && slot.getIndex()>0 && slot.inventory instanceof SimpleInventory) {
-                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, x+slot.x-1, y+slot.y-1, 18, 18);
-                if (!slot.hasStack()){
-                    if (slot.canInsert(Items.WHITE_DYE.getDefaultStack()))
-                        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, DYE_ICON, x + slot.x, y + slot.y, 16, 16, ColorHelper.getWhite(1));
-                    else if (slot.canInsert(Items.FIREWORK_STAR.getDefaultStack()))
-                        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, FIREWORK_STAR_ICON, x + slot.x, y + slot.y, 16, 16, ColorHelper.getWhite(1));
-                    else if (slot.canInsert(Items.GUNPOWDER.getDefaultStack()))
-                        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, GUNPOWDER_ICON, x + slot.x, y + slot.y, 16, 16, ColorHelper.getWhite(1));
-                    else if (slot.canInsert(Items.PAPER.getDefaultStack()))
-                        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, PAPER_ICON, x + slot.x, y + slot.y, 16, 16, ColorHelper.getWhite(1));
+        for (Slot slot : this.menu.slots){
+            if (slot.isActive() && slot.getContainerSlot()>0 && slot.container instanceof SimpleContainer) {
+                context.blitSprite(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, leftPos+slot.x-1, topPos+slot.y-1, 18, 18);
+                if (!slot.hasItem()){
+                    if (slot.mayPlace(Items.WHITE_DYE.getDefaultInstance()))
+                        context.blitSprite(RenderPipelines.GUI_TEXTURED, DYE_ICON, leftPos + slot.x, topPos + slot.y, 16, 16, ARGB.white(1));
+                    else if (slot.mayPlace(Items.FIREWORK_STAR.getDefaultInstance()))
+                        context.blitSprite(RenderPipelines.GUI_TEXTURED, FIREWORK_STAR_ICON, leftPos + slot.x, topPos + slot.y, 16, 16, ARGB.white(1));
+                    else if (slot.mayPlace(Items.GUNPOWDER.getDefaultInstance()))
+                        context.blitSprite(RenderPipelines.GUI_TEXTURED, GUNPOWDER_ICON, leftPos + slot.x, topPos + slot.y, 16, 16, ARGB.white(1));
+                    else if (slot.mayPlace(Items.PAPER.getDefaultInstance()))
+                        context.blitSprite(RenderPipelines.GUI_TEXTURED, PAPER_ICON, leftPos + slot.x, topPos + slot.y, 16, 16, ARGB.white(1));
                 }
             }
         }
-        this.dyeOrStarSlotIcon.render(this.handler, context, deltaTicks, this.x, this.y);
-        if (handler.slots.get(0).hasStack() && handler.slots.get(0).getStack().getItem() instanceof DyeItem){
-            this.shapeSlotIcon.render(this.handler, context, deltaTicks, this.x, this.y);
-            this.twinkleSlotIcon.render(this.handler, context, deltaTicks, this.x, this.y);
-            this.trailSlotIcon.render(this.handler, context, deltaTicks, this.x, this.y);
+        this.dyeOrStarSlotIcon.render(this.menu, context, deltaTicks, this.leftPos, this.topPos);
+        if (this.menu.slots.get(0).hasItem() && this.menu.slots.get(0).getItem().getItem() instanceof DyeItem){
+            this.shapeSlotIcon.render(this.menu, context, deltaTicks, this.leftPos, this.topPos);
+            this.twinkleSlotIcon.render(this.menu, context, deltaTicks, this.leftPos, this.topPos);
+            this.trailSlotIcon.render(this.menu, context, deltaTicks, this.leftPos, this.topPos);
         }
-        if (handler.slots.get(14).isEnabled()) context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, x+151, y+72, 18, 18);
+        if (this.menu.slots.get(14).isActive()) context.blitSprite(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, leftPos+151, topPos+72, 18, 18);
 
-        int gridStartX = x + 8;//27
-        int gridStartY = y + 53;
+        int gridStartX = leftPos + 8;//27
+        int gridStartY = topPos + 53;
 
         for (int row = 0; row < 2; ++row) {
             for (int col = 0; col < 5; ++col) {
@@ -140,27 +141,27 @@ public class PyrotechnicsTableScreen extends HandledScreen<PyrotechnicsTableScre
 
                 boolean bl = mouseX >= bx && mouseY >= by && mouseX < bx + 14 && mouseY < by + 18;
                 Identifier identifier2;
-                if (index == this.handler.getSelectedPattern()) {
+                if (index == this.menu.getSelectedPattern()) {
                     identifier2 = BUTTON_SELECTED_TEXTURE;
                 } else if (bl) {
                     identifier2 = BUTTON_HIGHLIGHTED_TEXTURE;
-                    context.drawTooltip(Text.translatable("container.nekomasfixed.pyrotechnics_table."+ANIMATIONS.get(index).getLeft()), mouseX, mouseY);
-                    context.setCursor(StandardCursors.POINTING_HAND);
+                    context.setTooltipForNextFrame(Component.translatable("container.nekomasfixed.pyrotechnics_table."+ANIMATIONS.get(index).getA()), mouseX, mouseY);
+                    context.requestCursor(CursorTypes.POINTING_HAND);
                 } else {
                     identifier2 = BUTTON_TEXTURE;
                 }
 
-                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, identifier2, bx, by, 14, 18);
-                context.drawItem(ANIMATIONS.get(index).getRight().getDefaultStack(), bx-1, by+1);
+                context.blitSprite(RenderPipelines.GUI_TEXTURED, identifier2, bx, by, 14, 18);
+                context.renderItem(ANIMATIONS.get(index).getB().getDefaultInstance(), bx-1, by+1);
             }
         }
     }
 
 
     @Override
-    public boolean mouseClicked(Click click, boolean doubled) {
-        int gridX = this.x + 8;//27
-        int gridY = this.y + 53;
+    public boolean mouseClicked(@NonNull MouseButtonEvent click, boolean doubled) {
+        int gridX = this.leftPos + 8;//27
+        int gridY = this.topPos + 53;
         for (int row = 0; row < 2; ++row) {
             for (int col = 0; col < 5; ++col) {
                 int index = row * 5 + col;
@@ -168,7 +169,7 @@ public class PyrotechnicsTableScreen extends HandledScreen<PyrotechnicsTableScre
                 double dx = click.x() - (double)(gridX + col * 14); //+ row * 14*2);
                 double dy = click.y() - (double)(gridY + row * 19);
                 if (dx >= 0.0 && dy >= 0.0 && dx < 14.0 && dy < 18.0) {
-                    this.client.interactionManager.clickButton(this.handler.syncId, index);
+                    this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, index);
                     return true;
                 }
             }

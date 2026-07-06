@@ -2,9 +2,9 @@ package net.greenjab.nekomasfixed.render.entity.state;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.state.SkeletonEntityRenderState;
+import net.minecraft.client.renderer.entity.state.SkeletonRenderState;
 
 @Environment(EnvType.CLIENT)
-public class DrenchedEntityRenderState extends SkeletonEntityRenderState {
+public class DrenchedEntityRenderState extends SkeletonRenderState {
     public int variant = 0;
 }

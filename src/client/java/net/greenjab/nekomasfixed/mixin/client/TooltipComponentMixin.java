@@ -4,18 +4,18 @@ import net.greenjab.nekomasfixed.registry.other.AnimalTooltipData;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
 import net.greenjab.nekomasfixed.render.other.AnimalTooltipComponent;
 import net.greenjab.nekomasfixed.render.other.ContainerTooltipComponent;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.item.tooltip.TooltipData;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TooltipComponent.class)
+@Mixin(ClientTooltipComponent.class)
 public interface TooltipComponentMixin {
 
-    @Inject(method = "of(Lnet/minecraft/item/tooltip/TooltipData;)Lnet/minecraft/client/gui/tooltip/TooltipComponent;", at = @At(value = "HEAD"), cancellable = true)
-    private static void useContainerTooltip(TooltipData tooltipData, CallbackInfoReturnable<TooltipComponent> cir) {
+    @Inject(method = "create(Lnet/minecraft/world/inventory/tooltip/TooltipComponent;)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent;", at = @At(value = "HEAD"), cancellable = true)
+    private static void useContainerTooltip(TooltipComponent tooltipData, CallbackInfoReturnable<ClientTooltipComponent> cir) {
         if (tooltipData instanceof ContainerTooltipData containerTooltipData) {
             cir.setReturnValue(new ContainerTooltipComponent(containerTooltipData.contents()));
         } else if (tooltipData instanceof AnimalTooltipData animalTooltipData) {

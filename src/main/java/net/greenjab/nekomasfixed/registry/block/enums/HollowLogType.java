@@ -2,11 +2,10 @@ package net.greenjab.nekomasfixed.registry.block.enums;
 
 import net.greenjab.nekomasfixed.registry.block.HollowLogBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PillarBlock;
-
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,9 +47,9 @@ public enum HollowLogType {
     }
 
     public static BlockState getHollowState(BlockState baseLog) {
-        BlockState hollowState = getHollowBlock(baseLog.getBlock()).getDefaultState();
-        if (!hollowState.isOf(Blocks.AIR) && hollowState.contains(PillarBlock.AXIS)) {
-            return hollowState.with(HollowLogBlock.AXIS, baseLog.get(PillarBlock.AXIS));
+        BlockState hollowState = getHollowBlock(baseLog.getBlock()).defaultBlockState();
+        if (!hollowState.is(Blocks.AIR) && hollowState.hasProperty(RotatedPillarBlock.AXIS)) {
+            return hollowState.setValue(HollowLogBlock.AXIS, baseLog.getValue(RotatedPillarBlock.AXIS));
         }
         return hollowState;
     }
