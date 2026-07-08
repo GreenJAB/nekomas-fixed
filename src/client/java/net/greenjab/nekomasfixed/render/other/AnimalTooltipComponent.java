@@ -5,7 +5,7 @@ import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.nbt.CompoundTag;
@@ -52,11 +52,11 @@ public class AnimalTooltipComponent implements ClientTooltipComponent {
 
 
     @Override
-    public void renderImage(@NonNull Font textRenderer, int x, int y, int width, int height, @NonNull GuiGraphics context) {
+    public void extractImage(@NonNull Font textRenderer, int x, int y, int width, int height, @NonNull GuiGraphicsExtractor context) {
             this.drawNonEmptyTooltip(x, y, context);
     }
 
-    private void drawNonEmptyTooltip( int x, int y, GuiGraphics context) {
+    private void drawNonEmptyTooltip( int x, int y, GuiGraphicsExtractor context) {
         Level world = Minecraft.getInstance().level;
         if (world!=null &&!animalComponent.animal().isEmpty()) {
             TypedEntityData<EntityType<?>> entityData = animalComponent.animal().get(0).entityData();
@@ -69,7 +69,7 @@ public class AnimalTooltipComponent implements ClientTooltipComponent {
                 time *= (float) (2 * Math.PI) / (20 * 1000.0f);
                 float dx = 10 * (float) (Math.cos(7 * time) + Math.sin(3 * time));
                 float dy = 10 * (float) (Math.cos(5 * time) + Math.sin(2 * time));
-                InventoryScreen.renderEntityInInventoryFollowsMouse(context, x, y - 20, x + getWidth(), y + getHeight(), 40, 0.25F, x - 15 + dx, y + 30 + dy, (LivingEntity) entity);
+                InventoryScreen.extractEntityInInventoryFollowsMouse(context, x, y - 20, x + getWidth(), y + getHeight(), 40, 0.25F, x - 15 + dx, y + 30 + dy, (LivingEntity) entity);
                 entity.discard();
             }
         }

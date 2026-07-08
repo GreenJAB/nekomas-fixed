@@ -65,10 +65,10 @@ public class RaiderEntityMixin {
     private void updatePatrol(Raider RE, AbstractBoat boatEntity) {
         if (boatEntity instanceof BigBoatEntity bigBoatEntity && RE == bigBoatEntity.getFirstPassenger()) {
             Level world = RE.level();
-            if (world.getGameTime() % 20 == 0 && world.random.nextInt(10) == 0) {
+            if (world.getGameTime() % 20 == 0 && world.getRandom().nextInt(10) == 0) {
                 if (!RE.hasPatrolTarget()) {
-                    if (world.random.nextInt(10) == 0) RE.setPatrolTarget(null);
-                    RandomSource random = world.random;
+                    if (world.getRandom().nextInt(10) == 0) RE.setPatrolTarget(null);
+                    RandomSource random = world.getRandom();
                     BlockPos pos = RE.blockPosition();
                     pos = pos.offset(-50 + random.nextInt(100), 0, -50 + random.nextInt(100));
                     if (validOcean(pos, world, RE)) {
@@ -81,7 +81,7 @@ public class RaiderEntityMixin {
                         }
                     }
                 } else {
-                    if (RE.getPatrolTarget().closerToCenterThan(RE.position(), 20.0) || world.random.nextInt(3) == 0) {
+                    if (RE.getPatrolTarget().closerToCenterThan(RE.position(), 20.0) || world.getRandom().nextInt(3) == 0) {
                         RE.setPatrolTarget(null);
                     }
                 }

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -46,7 +46,6 @@ public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<Soup
             this.itemModelManager.updateForTopItem(itemRenderState, blockEntity.getInputs().get(j), ItemDisplayContext.FIXED, blockEntity.getLevel(), null, i + j);
             state.inputItems.add(itemRenderState);
         }
-        state.tint = SoupCauldronBlock.blendFoodColors(state.stirProgress, blockEntity.getInputs());
 
     }
 
@@ -59,12 +58,13 @@ public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<Soup
                 matrices.pushPose();
                 float bob = (float)Math.sin(state.animationTime * 0.1f) * 0.02f;
                 float stir = state.stirProgress*state.stirProgress;
-                matrices.translate(0.5F, 1F + bob - stir*0.08f, 0.5F);
+                matrices.translate(0.5F, 1F + bob - stir*0.2f, 0.5F);
                 Direction direction2 = Direction.from2DDataValue((i + Direction.NORTH.get2DDataValue()) % 4);
                 matrices.mulPose(Axis.YN.rotationDegrees(720*stir - direction2.toYRot()));
                 matrices.mulPose(Axis.XN.rotationDegrees(-70.0F));
                 matrices.translate(-0.23*(1-stir), -0.1, 0.0F);
                 matrices.scale(0.275F, 0.375F, 0.275F);
+                matrices.scale(1-stir, 1-stir, 1-stir);
                 itemRenderState.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
                 matrices.popPose();
             }

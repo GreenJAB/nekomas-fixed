@@ -18,7 +18,7 @@ public class TargetDummyArmorEntityModel extends HumanoidModel<TargetDummyEntity
 	}
 
 	public static ArmorModelSet<LayerDefinition> getEquipmentModelData(CubeDeformation hatDilation, CubeDeformation armorDilation) {
-		return createArmorMeshSet(TargetDummyArmorEntityModel::getTexturedModelData, hatDilation, armorDilation)
+		return createArmorMeshSet(TargetDummyArmorEntityModel::getTexturedModelData, ADULT_ARMOR_PARTS_PER_SLOT, hatDilation, armorDilation)
 				.map( modelData -> LayerDefinition.create(modelData, 64, 32));
 	}
 

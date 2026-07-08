@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.datagen;
 
 import com.mojang.datafixers.util.Pair;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.AllDyes;
@@ -14,6 +14,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jspecify.annotations.NonNull;
@@ -24,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 import static net.minecraft.data.recipes.RecipeBuilder.getDefaultRecipeId;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public ModRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -90,13 +91,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     createRingRecipe(RecipeCategory.MISC, ItemDyeMap.DYE.get(colour), Items.BRUSH, ItemDyeMap.BRUSH.get(colour), "dyed_brush", 1)
                             .save(output);
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICKS, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICKS.get(colour).asItem(), "dyed_bricks_dyed", 8)
-                            .save(output, getDefaultRecipeId(BlockDyeMap.BRICKS.get(colour).asItem()) + "_dyed");
+                            .save(output, getDefaultRecipeId((ItemInstance) BlockDyeMap.BRICKS.get(colour).asItem()) + "_dyed");
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_SLAB, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_SLAB.get(colour).asItem(), "dyed_brick_slab_dyed", 8)
-                            .save(output, getDefaultRecipeId(BlockDyeMap.BRICK_SLAB.get(colour).asItem()) + "_dyed");
+                            .save(output, getDefaultRecipeId((ItemInstance) BlockDyeMap.BRICK_SLAB.get(colour).asItem()) + "_dyed");
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_STAIRS, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), "dyed_brick_stairs_dyed", 8)
-                            .save(output, getDefaultRecipeId(BlockDyeMap.BRICK_STAIRS.get(colour).asItem()) + "_dyed");
+                            .save(output, getDefaultRecipeId((ItemInstance) BlockDyeMap.BRICK_STAIRS.get(colour).asItem()) + "_dyed");
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_WALL, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_WALL.get(colour).asItem(), "dyed_brick_wall_dyed", 8)
-                            .save(output, getDefaultRecipeId(BlockDyeMap.BRICK_WALL.get(colour).asItem()) + "_dyed");
+                            .save(output, getDefaultRecipeId((ItemInstance) BlockDyeMap.BRICK_WALL.get(colour).asItem()) + "_dyed");
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem(), 2);
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
@@ -130,7 +131,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     shapeless(RecipeCategory.BUILDING_BLOCKS, hollow.getFirst(), 1)
                             .requires(hollow.getSecond())
                             .unlockedBy(getHasName(hollow.getSecond()), has(hollow.getSecond()))
-                            .save(output, getDefaultRecipeId(hollow.getFirst()) + "_from_hollow_log");
+                            .save(output, getDefaultRecipeId((ItemInstance) hollow.getFirst()) + "_from_hollow_log");
                 }
 
 

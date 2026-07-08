@@ -1,17 +1,10 @@
 {
-  "type": "nekomasfixed:coral_nautilus",
+  "type": "minecraft:crafting_transmute",
   "category": "misc",
-  "key": {
-    "#": "nekomasfixed:zombie_nautilus_block",
-    "C": "#nekomasfixed:corals"
-  },
-  "pattern": [
-    "CCC",
-    "C#C",
-    "CCC"
-  ],
+  "group": "nautilus_deco",
+  "input": "nekomasfixed:zombie_nautilus_block",
+  "material": "#nekomasfixed:corals",
   "result": {
-    "count": 1,
     "id": "nekomasfixed:coral_nautilus_block"
   }
 }

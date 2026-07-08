@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
@@ -58,9 +59,9 @@ public class FakeBoatEntity extends Entity {
 		return owner.hurtServer(world, source, amount);
 	}
 	@Override
-	public @NonNull InteractionResult interact(@NonNull Player player, @NonNull InteractionHand hand) {
+	public @NonNull InteractionResult interact(@NonNull Player player, @NonNull InteractionHand hand, @NonNull Vec3 location) {
 		if (owner==null || owner.getPassengers().contains(player)) return InteractionResult.PASS;
-		return owner.interact(player, hand);
+		return owner.interact(player, hand, location);
 	}
 
 	@Override
@@ -103,7 +104,7 @@ public class FakeBoatEntity extends Entity {
 							&& !entity.isPassenger()
 							&& owner.hasEnoughSpaceFor(entity)
 							&& entity instanceof LivingEntity
-							&& !entity.getType().is(EntityTypeTags.CANNOT_BE_PUSHED_ONTO_BOATS)) {
+							&& !entity.is(EntityTypeTags.CANNOT_BE_PUSHED_ONTO_BOATS)) {
 						entity.startRiding(owner);
 					} else {
 						this.push(entity);

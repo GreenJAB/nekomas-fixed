@@ -1,8 +1,8 @@
 package net.greenjab.nekomasfixed.util;
 
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 
 public interface CustomShulkerBoxTextureHolder {
-    void nekomasfixed$setCustomTexture(Material texture);
-    Material nekomasfixed$getCustomTexture();
+    void nekomasfixed$setCustomTexture(SpriteId texture);
+    SpriteId nekomasfixed$getCustomTexture();
 }

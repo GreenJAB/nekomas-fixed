@@ -169,7 +169,7 @@ public class MoobloomEntity extends Cow {
             MoobloomEntityVariants secondVariant = MoobloomEntityVariants.fromPath(mate.getEntityData().get(VARIANT));
             MoobloomEntityVariants flowerVariant = MoobloomEntityVariants.fromFlower(this.LastFlowerEaten.getItem());
             MoobloomEntityVariants flowerVariant2 = MoobloomEntityVariants.fromFlower(mate.getLastFlowerEaten().getItem());
-            double random = world.random.nextFloat();
+            double random = world.getRandom().nextFloat();
             if (random <= 0.35) {
                 result = thisVariant.path;
             } else if (random <= 0.7) {

@@ -8,10 +8,12 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.object.equipment.ShieldModel;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.sprite.SpriteId;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -25,12 +27,12 @@ import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
 public class WildfireShieldModelRenderer implements SpecialModelRenderer<DataComponentMap> {
-	private final MaterialSet spriteHolder;
+	private final SpriteGetter spriteHolder;
 	private final ShieldModel model;
 	public static final Identifier TEXTURE = NekomasFixed.id("textures/entity/wildfire_shield/default.png");
 	public static final Identifier TEXTURE_SOUL = NekomasFixed.id("textures/entity/wildfire_shield/soul.png");
 
-	public WildfireShieldModelRenderer(MaterialSet spriteHolder, ShieldModel model) {
+	public WildfireShieldModelRenderer(SpriteGetter spriteHolder, ShieldModel model) {
 		this.spriteHolder = spriteHolder;
 		this.model = model;
 	}
@@ -41,11 +43,11 @@ public class WildfireShieldModelRenderer implements SpecialModelRenderer<DataCom
 	}
 
 	public void submit(
-            @Nullable DataComponentMap componentMap, @NonNull ItemDisplayContext itemDisplayContext, PoseStack matrixStack, SubmitNodeCollector orderedRenderCommandQueue,
+            @Nullable DataComponentMap componentMap, PoseStack matrixStack, SubmitNodeCollector orderedRenderCommandQueue,
             int i, int j, boolean bl, int k) {
 		matrixStack.pushPose();
 		matrixStack.scale(1.0F, -1.0F, -1.0F);
-		Material spriteIdentifier = ModelBakery.NO_PATTERN_SHIELD;
+		SpriteId spriteIdentifier = Sheets.SHIELD_BASE_NO_PATTERN;
 		orderedRenderCommandQueue.submitModelPart(
 				this.model.handle(), matrixStack, this.model.renderType(spriteIdentifier.atlasLocation()),
 				i, j, this.spriteHolder.get(spriteIdentifier),
@@ -66,7 +68,7 @@ public class WildfireShieldModelRenderer implements SpecialModelRenderer<DataCom
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Unbaked() implements SpecialModelRenderer.Unbaked {
+	public record Unbaked() implements SpecialModelRenderer.Unbaked<DataComponentMap> {
 		public static final WildfireShieldModelRenderer.Unbaked INSTANCE = new WildfireShieldModelRenderer.Unbaked();
 		public static final MapCodec<WildfireShieldModelRenderer.Unbaked> CODEC = MapCodec.unit(INSTANCE);
 
@@ -76,8 +78,8 @@ public class WildfireShieldModelRenderer implements SpecialModelRenderer<DataCom
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakingContext context) {
-			return new WildfireShieldModelRenderer(context.materials(), new ShieldModel(context.entityModelSet().bakeLayer(ModelLayers.SHIELD)));
+		public WildfireShieldModelRenderer bake(SpecialModelRenderer.BakingContext context) {
+			return new WildfireShieldModelRenderer(context.sprites(), new ShieldModel(context.entityModelSet().bakeLayer(ModelLayers.SHIELD)));
 		}
 	}
 }

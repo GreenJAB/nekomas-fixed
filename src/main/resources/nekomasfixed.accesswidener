@@ -1,4 +1,4 @@
-accessWidener v2 named
+accessWidener v2 official
 accessible method net/minecraft/core/component/DataComponents register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/core/component/DataComponentType;
 accessible field net/minecraft/world/level/storage/loot/BuiltInLootTables LOCATIONS Ljava/util/Set;
 accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
@@ -16,9 +16,6 @@ accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/worl
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible method net/minecraft/client/animation/KeyframeAnimation bake (Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/animation/AnimationDefinition;)Lnet/minecraft/client/animation/KeyframeAnimation;
 accessible method net/minecraft/world/level/block/Block registerDefaultState (Lnet/minecraft/world/level/block/state/BlockState;)V
-accessible field net/minecraft/client/renderer/blockentity/BedRenderer headModel Lnet/minecraft/client/model/Model$Simple;
-accessible method net/minecraft/client/renderer/blockentity/BedRenderer submitPiece (Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/model/Model$Simple;Lnet/minecraft/core/Direction;Lnet/minecraft/client/resources/model/Material;IIZLnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;I)V
-accessible field net/minecraft/client/renderer/blockentity/BedRenderer footModel Lnet/minecraft/client/model/Model$Simple;
 accessible method net/minecraft/world/level/block/ObserverBlock startSignal (Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;)V
 accessible method net/minecraft/world/entity/animal/bee/Bee setHasNectar (Z)V
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimToTreasureGoal
@@ -29,3 +26,6 @@ accessible method net/minecraft/world/level/block/state/properties/WoodType regi
 accessible field net/minecraft/world/level/block/entity/BaseContainerBlockEntity name Lnet/minecraft/network/chat/Component;
 accessible method net/minecraft/world/entity/monster/skeleton/AbstractSkeleton getStepSound ()Lnet/minecraft/sounds/SoundEvent;
 accessible method net/minecraft/world/entity/Mob isSunBurnTick ()Z
+accessible field net/minecraft/core/cauldron/CauldronInteractions ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
+accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
+accessible method net/minecraft/world/level/block/FireBlock setFlammable (Lnet/minecraft/world/level/block/Block;II)V

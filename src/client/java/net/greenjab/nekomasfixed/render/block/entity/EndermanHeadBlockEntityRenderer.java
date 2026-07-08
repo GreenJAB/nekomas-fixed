@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -93,7 +93,7 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
 			}
 		}
 
-		RenderType renderLayer = RenderTypes.entityCutoutNoCull(TEXTURE);
+		RenderType renderLayer = RenderTypes.entityCutout(TEXTURE);
 		RenderType renderLayerEyes = RenderTypes.eyes(TEXTURE_EYES);
 		orderedRenderCommandQueue.submitModel(this.endermanHeadModel, endermanHeadBlockEntityRenderState, matrixStack,
 				renderLayer, endermanHeadBlockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0, endermanHeadBlockEntityRenderState.breakProgress);

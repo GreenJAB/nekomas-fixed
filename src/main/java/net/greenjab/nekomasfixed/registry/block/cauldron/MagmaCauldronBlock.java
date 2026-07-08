@@ -5,6 +5,7 @@ import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -69,9 +70,9 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         builder.add(MAGMA_LEVEL);
     }
 
-    private static CauldronInteraction.InteractionMap createBehaviorMap() {
-        CauldronInteraction.InteractionMap behaviorMap = CauldronInteraction.newInteractionMap("magma");
-        Map<Item, CauldronInteraction> map = behaviorMap.map();
+    private static CauldronInteraction.Dispatcher createBehaviorMap() {
+        CauldronInteraction.Dispatcher map = new CauldronInteraction.Dispatcher();
+        CauldronInteractions.ID_MAPPER.put("magma", map);
 
         map.put(Items.AIR, (state, world, pos, player, hand, stack) -> {
             if(state.getValue(MAGMA_LEVEL) == MAX_LEVEL) {
@@ -99,7 +100,7 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
             return InteractionResult.SUCCESS;
         });
 
-        return behaviorMap;
+        return map;
     }
 
     @Override

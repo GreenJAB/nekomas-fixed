@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class ItemGroupRegistry {
 
-    public static final CreativeModeTab NEKOMASFIXED = FabricItemGroup.builder().title(Component.translatable("itemgroup.nekomasfixed"))
+    public static final CreativeModeTab NEKOMASFIXED = FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.nekomasfixed"))
             .icon( () -> new ItemStack(ItemRegistry.CLAM))
             .displayItems(
                     (displayContext, entries) -> {
@@ -141,7 +141,7 @@ public class ItemGroupRegistry {
 
                     }).build();
 
-    public static final CreativeModeTab NEKOMASFIXEDCOLOURS = FabricItemGroup.builder().title(Component.translatable("itemgroup.nekomasfixedcolours"))
+    public static final CreativeModeTab NEKOMASFIXEDCOLOURS = FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.nekomasfixedcolours"))
             .icon( () -> new ItemStack(ItemRegistry.AMBER_DYE))
             .displayItems(
                     (displayContext, entries) -> {

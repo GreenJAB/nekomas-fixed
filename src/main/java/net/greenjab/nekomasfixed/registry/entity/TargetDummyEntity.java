@@ -177,7 +177,7 @@ public class TargetDummyEntity extends Avatar implements Shearable {
 	}
 
 	@Override
-	public @NonNull InteractionResult interactAt(Player player, @NonNull Vec3 hitPos, @NonNull InteractionHand hand) {
+	public @NonNull InteractionResult interact(Player player, @NonNull InteractionHand hand, @NonNull Vec3 hitPos) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS)) {
 			if (player.level() instanceof ServerLevel world) {
@@ -548,6 +548,11 @@ public class TargetDummyEntity extends Avatar implements Shearable {
 	@Override
 	public @NonNull EntityDimensions getDefaultDimensions(@NonNull Pose pose) {
 		return this.getType().getDimensions();
+	}
+
+	@Override
+	public @NonNull ResolvableProfile getProfile() {
+		return null;
 	}
 
 

@@ -64,7 +64,7 @@ public abstract class ServerWorldMixin {
         ServerPlayer player = this.getRandomPlayer();
         if (ModConfigValues.enableCopperBuff && bl && serverWorld.isThundering() && player != null) {
             int armor = getCopperArmor(player);
-            if (armor > 0 && serverWorld.random.nextInt(14000-2000*armor) == 0) {
+            if (armor > 0 && serverWorld.getRandom().nextInt(14000-2000*armor) == 0) {
                 BlockPos blockPos = player.blockPosition();
                 if (serverWorld.isRainingAt(blockPos)) {
                     LightningBolt lightningEntity = EntityType.LIGHTNING_BOLT.create(serverWorld, EntitySpawnReason.EVENT);

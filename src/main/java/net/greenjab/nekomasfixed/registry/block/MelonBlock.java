@@ -218,7 +218,7 @@ public class MelonBlock extends Block {
 	@Override
 	public void animateTick(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull RandomSource random) {
 		if (!glistering)return;
-		if (world.random.nextInt(2)!=0) return;
-		ParticleUtils.spawnParticlesOnBlockFace(world, pos, ParticleTypes.END_ROD, UniformInt.of(1, 1), Direction.getRandom(world.random), () -> new Vec3(0, 0, 0), 0.55);
+		if (world.getRandom().nextInt(2)!=0) return;
+		ParticleUtils.spawnParticlesOnBlockFace(world, pos, ParticleTypes.END_ROD, UniformInt.of(1, 1), Direction.getRandom(world.getRandom()), () -> new Vec3(0, 0, 0), 0.55);
 	}
 }

@@ -36,7 +36,7 @@ public enum GoatHornType implements StringRepresentable {
     }
 
     public static GoatHornType fromInstrument(InstrumentComponent instrument) {
-        ResourceKey<Instrument> key = instrument.instrument().key().orElse(Instruments.CALL_GOAT_HORN);
+        ResourceKey<Instrument> key = instrument.instrument().unwrapKey().orElse(Instruments.CALL_GOAT_HORN);
         if (key == Instruments.CALL_GOAT_HORN) return CALL;
         if (key == Instruments.SING_GOAT_HORN) return SING;
         if (key == Instruments.SEEK_GOAT_HORN) return SEEK;

@@ -11,24 +11,23 @@ import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.behavior.DoNothing;
-import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
-import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
-import net.minecraft.world.entity.ai.behavior.RunOne;
-import net.minecraft.world.entity.ai.behavior.StartAttacking;
-import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
-import net.minecraft.world.entity.ai.behavior.Swim;
+import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.animal.golem.CopperGolem;
+import net.minecraft.world.entity.monster.breeze.Breeze;
 import net.minecraft.world.entity.schedule.Activity;
 import org.jspecify.annotations.NonNull;
 
-public class WildfireBrain {
+public class WildfireAi {
 	static final List<SensorType<? extends Sensor<? super WildfireEntity>>> SENSORS = ImmutableList.of(
 			SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, OtherRegistry.WILDFIRE_ATTACK_ENTITY_SENSOR
 	);
@@ -55,7 +54,7 @@ public class WildfireBrain {
 			MemoryModuleType.SNIFF_COOLDOWN //stay in fire to heal
 	);
 
-	protected static Brain<?> create(WildfireEntity wildFire, Brain<WildfireEntity> brain) {
+	/*protected static Brain<?> create(WildfireEntity wildFire, Brain<WildfireEntity> brain) {
 		addCoreTasks(brain);
 		addIdleTasks(brain);
 		addFightTasks(wildFire, brain);
@@ -63,28 +62,42 @@ public class WildfireBrain {
 		brain.setDefaultActivity(Activity.FIGHT);
 		brain.useDefaultActivity();
 		return brain;
+	}*/
+
+	protected static List<ActivityData<WildfireEntity>> getActivities(final WildfireEntity wildfire) {
+		return List.of(initCoreActivity(), initIdleActivity(), initFightActivity(wildfire));
+	}
+	static void updateActivities(WildfireEntity wildFire) {
+		wildFire.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
 	}
 
-	private static void addCoreTasks(Brain<WildfireEntity> brain) {
-		brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim<>(0.8F), new LookAtTargetSink(45, 90)));
+	private static ActivityData<WildfireEntity> initCoreActivity() {
+		return ActivityData.create(
+				Activity.CORE,
+				0,
+				ImmutableList.of(
+						new Swim<>(0.8F), new LookAtTargetSink(45, 90)
+				)
+		);
 	}
 
-	private static void addIdleTasks(Brain<WildfireEntity> brain) {
-		brain.addActivity(
+	private static ActivityData<WildfireEntity> initIdleActivity() {
+		return ActivityData.create(
 				Activity.IDLE,
 				ImmutableList.of(
-						Pair.of(
-								0, StartAttacking.create((world, wildFire) -> wildFire.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))
-						),
-						Pair.of(1, StartAttacking.create((world, wildFire) -> wildFire.getHurtBy())),
-						Pair.of(2, new WildfireBrain.SlideAroundTask(20, 40)),
+						Pair.of(0, StartAttacking.create((world, wildFire) -> wildFire.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
+						Pair.of(1, StartAttacking.create((world, wildFire) -> wildFire.getBrain().getMemory(MemoryModuleType.HURT_BY)
+								.map(DamageSource::getEntity)
+								.filter(/* lambda$initIdleActivity$2 */ entity -> entity instanceof LivingEntity)
+								.map(/* lambda$initIdleActivity$3 */ entity -> (LivingEntity)entity))),
+						Pair.of(2, new WildfireAi.SlideAroundTask(20, 40)),
 						Pair.of(3, new RunOne<>(ImmutableList.of(Pair.of(new DoNothing(20, 100), 1),Pair.of(new WildfireSlideTowardsTargetTask(), 3))))
 				)
 		);
 	}
 
-	private static void addFightTasks(WildfireEntity wildFire, Brain<WildfireEntity> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<WildfireEntity> initFightActivity(WildfireEntity wildFire) {
+		return ActivityData.create(
 				Activity.FIGHT,
 				ImmutableList.of(
 						Pair.of(0, StopAttackingIfTargetInvalid.create(Sensor.wasEntityAttackableLastNTicks(wildFire, 1).negate()::test)),
@@ -98,10 +111,6 @@ public class WildfireBrain {
 						Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT)
 				)
 		);
-	}
-
-	static void updateActivities(WildfireEntity wildFire) {
-		wildFire.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
 	}
 
 	public static class SlideAroundTask extends MoveToTargetSink {

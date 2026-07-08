@@ -170,7 +170,7 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
 
 	@Override
 	protected int getAnalogOutputSignal(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
-		return (int)(((world.getDayTime()+5000)%12000)/1000)+1;
+		return (int)(((world.getOverworldClockTime()+5000)%12000)/1000)+1;
 	}
 
 	@Override

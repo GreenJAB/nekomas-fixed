@@ -68,7 +68,7 @@ public class GlowTorchBlock extends BaseTorchBlock implements SimpleWaterloggedB
 
 	@Override
 	public void animateTick(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-		if (world.random.nextInt(4)!=0) return;
+		if (world.getRandom().nextInt(4)!=0) return;
 		if (state.getValue(WATERLOGGED)) {
 			double d = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
 			double e = pos.getY() + 0.7 + (random.nextDouble() - 0.5) * 0.2;

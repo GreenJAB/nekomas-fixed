@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(NameTagFeatureRenderer.class)
 public class LabelCommandRendererMixin {
 
-    @ModifyArg(method = "render", at = @At(value = "INVOKE", target ="Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)V"), index = 4)
+    @ModifyArg(method = "renderTranslucent", at = @At(value = "INVOKE", target ="Lnet/minecraft/client/gui/Font;drawInBatch(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4fc;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)V"), index = 4)
     private boolean fixLight(boolean shadow, @Local SubmitNodeStorage.NameTagSubmit labelCommand) {
         if (labelCommand.distanceToCameraSq() == 100.6789){
             return true;

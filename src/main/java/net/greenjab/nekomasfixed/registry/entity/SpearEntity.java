@@ -156,7 +156,7 @@ public class SpearEntity extends Entity {
 					p.stabAttack(EquipmentSlot.MAINHAND, target, f, true, direction.getAxis().isHorizontal(), false);
 
 					p.onAttack();
-					p.lungeForwardMaybe();
+					p.postPiercingAttack();
 				}
 			}
 		}

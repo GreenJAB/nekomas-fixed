@@ -13,7 +13,7 @@ public class NumberParticle extends Particle {
      private final double damage;
     public static ParticleRenderType particleTextureSheet = new ParticleRenderType("number");
     NumberParticle(ClientLevel world, double x, double y, double z, double damage) {
-        super(world, x+world.random.nextGaussian()/5f, y+world.random.nextGaussian()/10f, z+world.random.nextGaussian()/5f);
+        super(world, x+ world.getRandom().nextGaussian()/5f, y+ world.getRandom().nextGaussian()/10f, z+ world.getRandom().nextGaussian()/5f);
         this.damage = damage;
         this.friction = 0.66F;
         this.speedUpWhenYMotionIsBlocked = true;

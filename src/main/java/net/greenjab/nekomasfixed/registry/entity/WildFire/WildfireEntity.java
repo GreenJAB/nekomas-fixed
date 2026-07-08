@@ -30,9 +30,14 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.animal.golem.CopperGolem;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.breeze.Breeze;
+import net.minecraft.world.entity.monster.breeze.BreezeAi;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.WindCharge;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -46,6 +51,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class WildfireEntity extends Monster {
@@ -56,13 +62,17 @@ public class WildfireEntity extends Monster {
 	private BlockPos spawnPos;
 	private static final EntityDataAccessor<Byte> WILDFIRE_FLAGS = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BYTE);
 
+	private static final Brain.Provider<WildfireEntity> BRAIN_PROVIDER = Brain.provider(
+			List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, OtherRegistry.WILDFIRE_ATTACK_ENTITY_SENSOR), WildfireAi::getActivities
+	);
+
 	public WildfireEntity(EntityType<? extends WildfireEntity> entityType, Level world) {
 		super(entityType, world);
 		this.setPathfindingMalus(PathType.WATER, -1.0F);
 		this.setPathfindingMalus(PathType.LAVA, 8.0F);
-		this.setPathfindingMalus(PathType.DANGER_FIRE, 0.0F);
-		this.setPathfindingMalus(PathType.DAMAGE_FIRE, 0.0F);
-		this.bossBar = (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS));
+		this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 0.0F);
+		this.setPathfindingMalus(PathType.FIRE, 0.0F);
+		this.bossBar = (new ServerBossEvent(Mth.createInsecureUUID(this.level().getRandom()), this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS));
 		this.xpReward = 50;
 		setShieldsActive(4);
 	}
@@ -105,18 +115,16 @@ public class WildfireEntity extends Monster {
 	}
 
 	@Override
-	protected @NonNull Brain<?> makeBrain(@NonNull Dynamic<?> dynamic) {
-		return WildfireBrain.create(this, this.brainProvider().makeBrain(dynamic));
-	}
-
-	@Override
 	public @NonNull Brain<WildfireEntity> getBrain() {
 		return (Brain<WildfireEntity>)super.getBrain();
 	}
 
 	@Override
-	protected Brain.@NonNull Provider<WildfireEntity> brainProvider() {
-		return Brain.provider(WildfireBrain.MEMORY_MODULES, WildfireBrain.SENSORS);
+	protected Brain<WildfireEntity> makeBrain(final Brain.Packed input) {
+		Brain<WildfireEntity> brain = BRAIN_PROVIDER.makeBrain(this, input);
+		brain.setDefaultActivity(Activity.FIGHT);
+		brain.useDefaultActivity();
+		return brain;
 	}
 
 	public static AttributeSupplier.Builder createWildfireAttributes() {
@@ -146,14 +154,6 @@ public class WildfireEntity extends Monster {
 	@Override
 	protected @NonNull SoundEvent getDeathSound() {
 		return SoundEvents.BLAZE_DEATH;
-	}
-
-	public Optional<LivingEntity> getHurtBy() {
-		return this.getBrain()
-				.getMemory(MemoryModuleType.HURT_BY)
-				.map(DamageSource::getEntity)
-				.filter(attacker -> attacker instanceof LivingEntity)
-				.map(livingAttacker -> (LivingEntity)livingAttacker);
 	}
 
 	@Override
@@ -251,7 +251,7 @@ public class WildfireEntity extends Monster {
 		profiler.push("wildfireBrain");
 		this.getBrain().tick(world, this);
 		profiler.popPush("wildfireActivityUpdate");
-		WildfireBrain.updateActivities(this);
+		WildfireAi.updateActivities(this);
 		profiler.pop();
 		super.customServerAiStep(world);
 	}

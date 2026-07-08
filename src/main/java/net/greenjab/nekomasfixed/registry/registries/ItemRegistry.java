@@ -107,10 +107,14 @@ public class ItemRegistry {
             .component(DataComponents.WEAPON, new Weapon(1)).fireResistant());
     public static final Item WILDFIRE_SHIELD = register("wildfire_shield", WildfireShieldItem::new,
             new Item.Properties().rarity(Rarity.RARE).durability(336).repairable(ItemTags.REPAIRS_NETHERITE_ARMOR).equippableUnswappable(EquipmentSlot.OFFHAND)
-                    .component(DataComponents.BLOCKS_ATTACKS, new BlocksAttacks(0.25F, 1.0F,
-                            List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
-                            new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD),
-                            Optional.of(SoundEvents.SHIELD_BLOCK), Optional.of(SoundEvents.SHIELD_BREAK)))
+                    .delayedComponent(DataComponents.BLOCKS_ATTACKS,context ->
+                            new BlocksAttacks(
+                                    0.25F,1.0F,
+                                    List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                                    new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                                    Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+                                    Optional.of(SoundEvents.SHIELD_BLOCK),
+                                    Optional.of(SoundEvents.SHIELD_BREAK)))
                     .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK).fireResistant());
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::createArmorTrimTemplate, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant());
 

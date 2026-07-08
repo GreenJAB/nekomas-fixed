@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -46,9 +47,9 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
         return Items.CAULDRON.getDefaultInstance();
     }
 
-    private static CauldronInteraction.InteractionMap createBehaviorMap() {
-        CauldronInteraction.InteractionMap behaviorMap = CauldronInteraction.newInteractionMap("ice");
-        Map<Item, CauldronInteraction> map = behaviorMap.map();
+    private static CauldronInteraction.Dispatcher createBehaviorMap() {
+        CauldronInteraction.Dispatcher map = new CauldronInteraction.Dispatcher();
+        CauldronInteractions.ID_MAPPER.put("ice", map);
 
         map.put(Items.AIR, (state, world, pos, player, hand, stack) -> {
             if (!world.isClientSide()) {
@@ -58,7 +59,7 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
             }
             return InteractionResult.SUCCESS;
         });
-        return behaviorMap;
+        return map;
     }
 
     protected void entityInside(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Entity entity, InsideBlockEffectApplier handler, boolean bl) {

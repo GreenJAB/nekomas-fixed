@@ -141,7 +141,7 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
     @Override
     public boolean placeLiquid(LevelAccessor world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull FluidState fluidState) {
         if (world.getBlockEntity(pos) instanceof HollowLogBlockEntity logBE) {
-            if (!(logBE.getStoredBlock()==Blocks.AIR.defaultBlockState()||logBE.getStoredStack().getItem().getName().getString().toLowerCase().contains("glass"))) return false;
+            if (!(logBE.getStoredBlock()==Blocks.AIR.defaultBlockState()||logBE.getStoredStack().getItemName().getString().toLowerCase().contains("glass"))) return false;
         }
         return SimpleWaterloggedBlock.super.placeLiquid(world, pos, state, fluidState);
     }
@@ -149,7 +149,7 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
     @Override
     public boolean canPlaceLiquid(@Nullable LivingEntity filler, BlockGetter world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Fluid fluid) {
         if (world.getBlockEntity(pos) instanceof HollowLogBlockEntity logBE) {
-            if (!(logBE.getStoredBlock()==Blocks.AIR.defaultBlockState()||logBE.getStoredStack().getItem().getName().getString().toLowerCase().contains("glass"))) return false;
+            if (!(logBE.getStoredBlock()==Blocks.AIR.defaultBlockState()||logBE.getStoredStack().getItemName().getString().toLowerCase().contains("glass"))) return false;
         }
         return SimpleWaterloggedBlock.super.canPlaceLiquid(filler, world, pos, state, fluid);
     }
@@ -184,7 +184,7 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
                         world.sendBlockUpdated(pos, state, state, 3);
                         if (state.getValue(AXIS)== Direction.Axis.Y)
                             state = state.setValue(SOLID_INSIDE, true);
-                        if (!stack.getItem().getName().getString().toLowerCase().contains("glass"))
+                        if (!stack.getItemName().getString().toLowerCase().contains("glass"))
                             state = state.setValue(WATERLOGGED, false);
                         if (blockItem.getBlock().defaultBlockState().getLightEmission() > 0)
                             state = state.setValue(LIGHT_LEVEL, blockItem.getBlock().defaultBlockState().getLightEmission());

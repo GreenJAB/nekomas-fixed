@@ -98,7 +98,7 @@ public class ClamBlockEntity extends RandomizableContainerBlockEntity implements
 		blockEntity.lidAnimator.shouldBeOpen(state.getValue(ClamBlock.OPEN));
 		blockEntity.lidAnimator.tickLid();
 		if (state.getValue(ClamBlock.OPEN) && state.getValue(ClamBlock.WATERLOGGED) && blockEntity.lidAnimator.getOpenness(0)<1){
-			blockEntity.level().addParticle(ParticleTypes.BUBBLE, pos.getX()+0.5+world.random.nextGaussian()*0.15, pos.getY()+0.2, pos.getZ()+0.5+world.random.nextGaussian()*0.15, 0.0, 0.75, 0.0);
+			blockEntity.level().addParticle(ParticleTypes.BUBBLE, pos.getX()+0.5+ world.getRandom().nextGaussian()*0.15, pos.getY()+0.2, pos.getZ()+0.5+ world.getRandom().nextGaussian()*0.15, 0.0, 0.75, 0.0);
 		}
 
 	}

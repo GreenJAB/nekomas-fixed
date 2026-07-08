@@ -187,7 +187,7 @@ public class TermitehiveBlock extends BaseEntityBlock {
 
             for (TermiteEntity termiteEntity : list) {
                 if (termiteEntity.getTarget() == null) {
-                    Player playerEntity = Util.getRandom(list2, world.random);
+                    Player playerEntity = Util.getRandom(list2, world.getRandom());
                     termiteEntity.setTarget(playerEntity);
                 }
             }

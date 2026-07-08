@@ -199,7 +199,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
                             world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(LIT, true));
                             player.swing(hand, true);
                             stack.hurtWithoutBreaking(1, player);
-                            world.playSound(null, pos, net.minecraft.sounds.SoundEvents.FLINTANDSTEEL_USE, net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.4F + 0.8F);
+                            world.playSound(null, pos, net.minecraft.sounds.SoundEvents.FLINTANDSTEEL_USE, net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
                             return InteractionResult.SUCCESS;
                         }
                     }

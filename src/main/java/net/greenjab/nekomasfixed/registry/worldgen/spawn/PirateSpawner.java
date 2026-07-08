@@ -37,11 +37,11 @@ public class PirateSpawner implements CustomSpawner {
     public void tick(@NonNull ServerLevel world, boolean spawnMonsters) {
         if (spawnMonsters) {
             if (world.getGameRules().get(GameRules.SPAWN_PATROLS)) {
-                RandomSource random = world.random;
+                RandomSource random = world.getRandom();
                 this.cooldown--;
                 if (this.cooldown <= 0) {
                     this.cooldown = this.cooldown + 12000 + random.nextInt(1200);
-                    long l = world.getDayTime() / 24000L;
+                    long l = world.getGameTime() / 24000L;
                     if (l >= 5L && world.isBrightOutside()) {
                     if (random.nextInt(3) == 0) {//5
                         int i = world.players().size();

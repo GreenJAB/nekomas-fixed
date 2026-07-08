@@ -22,7 +22,7 @@ public abstract class PersistentProjectileEntityMixin {
 
     @Inject(method = "doPostHurtEffects", at = @At("HEAD"))
     private void onHit(LivingEntity target, CallbackInfo ci) {
-        if (((AbstractArrow)(Object) this) instanceof Arrow arrowEntity && !arrowEntity.getTags().contains("areaEffect")) {
+        if (((AbstractArrow)(Object) this) instanceof Arrow arrowEntity && !arrowEntity.entityTags().contains("areaEffect")) {
             ItemStack arrow = arrowEntity.getPickupItemStackOrigin();
             PotionContents contents = arrow.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
             if (contents != null && contents != PotionContents.EMPTY) {
@@ -35,7 +35,7 @@ public abstract class PersistentProjectileEntityMixin {
 
     @Inject(method = "setInGround", at = @At("HEAD"))
     private void onHit(boolean inGround, CallbackInfo ci) {
-        if (((AbstractArrow)(Object) this) instanceof Arrow arrowEntity && !arrowEntity.getTags().contains("areaEffect")) {
+        if (((AbstractArrow)(Object) this) instanceof Arrow arrowEntity && !arrowEntity.entityTags().contains("areaEffect")) {
             ItemStack arrow = arrowEntity.getPickupItemStackOrigin();
             PotionContents contents = arrow.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
             if (contents != null && contents != PotionContents.EMPTY) {

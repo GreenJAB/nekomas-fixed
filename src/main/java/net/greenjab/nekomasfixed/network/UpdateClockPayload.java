@@ -34,6 +34,6 @@ public record UpdateClockPayload(int x, int y, int z, int timer, boolean hasBell
     }
 
     public static void register() {
-        PayloadTypeRegistry.playS2C().register(PACKET_ID, PACKET_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(PACKET_ID, PACKET_CODEC);
     }
 }

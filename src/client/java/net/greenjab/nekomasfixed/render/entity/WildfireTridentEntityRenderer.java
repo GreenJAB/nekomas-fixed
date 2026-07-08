@@ -9,10 +9,10 @@ import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.state.ThrownTridentRenderState;
+import net.minecraft.client.renderer.feature.ItemFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
@@ -41,19 +41,17 @@ public class WildfireTridentEntityRenderer extends EntityRenderer<WildfireTriden
 		matrixStack.pushPose();
 		matrixStack.mulPose(Axis.YP.rotationDegrees(tridentEntityRenderState.yRot - 90.0F));
 		matrixStack.mulPose(Axis.ZP.rotationDegrees(tridentEntityRenderState.xRot + 90.0F));
-		List<RenderType> list = ItemRenderer.getFoilRenderTypes(this.model.renderType(TEXTURE), false, tridentEntityRenderState.isFoil);
-
-		for (int i = 0; i < list.size(); i++) {
-			orderedRenderCommandQueue.order(i)
+		orderedRenderCommandQueue.order(0)
+				.submitModel(this.model, Unit.INSTANCE, matrixStack, TEXTURE, tridentEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, tridentEntityRenderState.outlineColor, null);
+		if (tridentEntityRenderState.isFoil) {
+			orderedRenderCommandQueue.order(1)
 					.submitModel(
 							this.model,
 							Unit.INSTANCE,
 							matrixStack,
-							list.get(i),
+							ItemFeatureRenderer.getFoilRenderType(this.model.renderType(TEXTURE), false),
 							tridentEntityRenderState.lightCoords,
 							OverlayTexture.NO_OVERLAY,
-							-1,
-							null,
 							tridentEntityRenderState.outlineColor,
 							null
 					);

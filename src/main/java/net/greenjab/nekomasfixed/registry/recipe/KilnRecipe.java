@@ -1,21 +1,31 @@
 package net.greenjab.nekomasfixed.registry.recipe;
 
+import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
-import net.minecraft.world.item.crafting.CookingBookCategory;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.*;
 import org.jspecify.annotations.NonNull;
 
 
 public class KilnRecipe extends AbstractCookingRecipe {
-    public KilnRecipe(String string, CookingBookCategory cookingRecipeCategory, Ingredient ingredient, ItemStack itemStack, float f, int i) {
-        super(string, cookingRecipeCategory, ingredient, itemStack, f, i);
+    public static final MapCodec<KilnRecipe> MAP_CODEC = cookingMapCodec(KilnRecipe::new, 100);
+    public static final StreamCodec<RegistryFriendlyByteBuf, KilnRecipe> STREAM_CODEC = cookingStreamCodec(KilnRecipe::new);
+    public static final RecipeSerializer<KilnRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+
+    public KilnRecipe(
+            final Recipe.CommonInfo commonInfo,
+            final AbstractCookingRecipe.CookingBookInfo bookInfo,
+            final Ingredient ingredient,
+            final ItemStackTemplate result,
+            final float experience,
+            final int cookingTime
+    ) {
+        super(commonInfo, bookInfo, ingredient, result, experience, cookingTime);
     }
 
     protected @NonNull Item furnaceIcon() {
@@ -23,7 +33,7 @@ public class KilnRecipe extends AbstractCookingRecipe {
     }
 
     public @NonNull RecipeSerializer<KilnRecipe> getSerializer() {
-        return RecipeRegistry.KILNING_RECIPE_SERIALIZER;
+        return SERIALIZER;
     }
 
     public @NonNull RecipeType<KilnRecipe> getType() {

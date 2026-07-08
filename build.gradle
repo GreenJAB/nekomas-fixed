@@ -3,7 +3,7 @@ plugins {
 	alias(libs.plugins.yamlang)
 }
 
-version = "0.5.0v1-1.21.11"
+version = "0.5.0-26.1.2"
 group = "net.green_jab.nekomasfixed"
 
 base {
@@ -53,13 +53,11 @@ repositories {
 
 dependencies {
 	minecraft(libs.minecraft)
-	//mappings(variantOf(libs.yarn.mappings) { classifier("v2") })
-	mappings loom.officialMojangMappings()
-	modImplementation(libs.fabric.loader)
-	modImplementation(libs.fabric.api)
+	implementation(libs.fabric.loader)
+	implementation(libs.fabric.api)
 	vineflowerDecompilerClasspath(libs.vineflower)
-	modApi "me.shedaniel.cloth:cloth-config-fabric:21.11.153"
-	modApi "com.terraformersmc:modmenu:17.0.0"
+	api "me.shedaniel.cloth:cloth-config-fabric:26.1.154"
+	api "com.terraformersmc:modmenu:18.0.0-beta.1"
 }
 
 tasks.processResources {
@@ -78,7 +76,7 @@ yamlang {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 25
 }
 
 java {

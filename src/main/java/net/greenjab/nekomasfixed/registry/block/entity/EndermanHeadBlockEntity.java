@@ -94,7 +94,7 @@ public class EndermanHeadBlockEntity extends BlockEntity implements ItemOwner {
 			}
 		}
 
-		if (state.getBlock() instanceof AbstractEndermanHeadBlock && newPower>0 && world.getGameTime() % 10L == 0L && world.random.nextInt(10)==0){
+		if (state.getBlock() instanceof AbstractEndermanHeadBlock && newPower>0 && world.getGameTime() % 10L == 0L && world.getRandom().nextInt(10)==0){
 			world.playSound(null, pos, SoundEvents.ENDERMAN_SCREAM, SoundSource.BLOCKS, 0.3F, 0.8f);
 		}
 	}

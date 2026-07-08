@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(FireworkStarRecipe.class)
 public class FireworkStarRecipeMixin {
 
-    @Redirect(method = "assemble(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;",
+    @Redirect(method = "assemble(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/world/item/ItemStack;",
             at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/ints/IntList;add(I)Z"))
     private boolean craftCustom(IntList intList, int original, @Local ItemStack itemStack) {
         Item item = itemStack.getItem();

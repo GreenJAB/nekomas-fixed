@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 public class SoupCauldronBlockEntityRenderState extends BlockEntityRenderState {
     public List<ItemStackRenderState> inputItems = Collections.emptyList();
-    public int tint;
     public float animationTime;
     public float stirProgress;
 }

@@ -1,17 +1,10 @@
 {
-  "type": "nekomasfixed:zombie_nautilus",
+  "type": "minecraft:crafting_transmute",
   "category": "misc",
-  "key": {
-    "#": "nekomasfixed:nautilus_block",
-    "!": "minecraft:rotten_flesh"
-  },
-  "pattern": [
-    "!!!",
-    "!#!",
-    "!!!"
-  ],
+  "group": "nautilus_deco",
+  "input": "nekomasfixed:nautilus_block",
+  "material": "minecraft:rotten_flesh",
   "result": {
-    "count": 1,
     "id": "nekomasfixed:zombie_nautilus_block"
   }
 }

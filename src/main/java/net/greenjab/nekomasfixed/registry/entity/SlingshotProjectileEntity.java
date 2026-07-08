@@ -52,7 +52,7 @@ public class SlingshotProjectileEntity extends ThrowableItemProjectile {
 
     private ParticleOptions getParticleParameters() {
         ItemStack itemStack = this.getItem();
-        return itemStack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleOption(ParticleTypes.ITEM, itemStack);
+        return itemStack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleOption(ParticleTypes.ITEM, itemStack.getItem());
     }
 
     @Override

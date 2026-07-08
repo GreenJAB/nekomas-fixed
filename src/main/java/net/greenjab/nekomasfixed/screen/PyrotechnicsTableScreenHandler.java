@@ -14,10 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.FireworkExplosion;
 import net.minecraft.world.item.component.Fireworks;
 import org.jspecify.annotations.NonNull;
@@ -222,7 +219,7 @@ public class PyrotechnicsTableScreenHandler extends AbstractContainerMenu {
                         else if (item.equals(ItemRegistry.AQUA_DYE)) colorList.add(ModColors.AQUA.getColor());
                         else if (item.equals(ItemRegistry.MAROON_DYE)) colorList.add(ModColors.MAROON.getColor());
                         else if (item.equals(ItemRegistry.INDIGO_DYE)) colorList.add(ModColors.INDIGO.getColor());
-                        else colorList.add(((DyeItem)item).getDyeColor().getFireworkColor());});
+                        else colorList.add(item.components().getOrDefault(DataComponents.DYE, DyeColor.WHITE).getFireworkColor());});
                     IntList fadeList = new IntArrayList();
                     slots.stream().filter(slot -> slot.getContainerSlot()>=5 && slot.getContainerSlot()<10 && slot.hasItem() && slot.container==input).forEach(slot -> {
                         Item item = slot.getItem().getItem();
@@ -230,7 +227,7 @@ public class PyrotechnicsTableScreenHandler extends AbstractContainerMenu {
                         else if (item.equals(ItemRegistry.AQUA_DYE)) fadeList.add(ModColors.AQUA.getColor());
                         else if (item.equals(ItemRegistry.MAROON_DYE)) fadeList.add(ModColors.MAROON.getColor());
                         else if (item.equals(ItemRegistry.INDIGO_DYE)) fadeList.add(ModColors.INDIGO.getColor());
-                        else fadeList.add(((DyeItem)item).getDyeColor().getFireworkColor());});
+                        else fadeList.add(item.components().getOrDefault(DataComponents.DYE, DyeColor.WHITE).getFireworkColor());});
 
                     newOutput = new ItemStack(Items.FIREWORK_STAR);
                     newOutput.set(DataComponents.FIREWORK_EXPLOSION, new FireworkExplosion(type, colorList, fadeList, trail, twinkle));

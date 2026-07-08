@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.screen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -76,10 +76,9 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
 
     private final int totalPatterns = 8;
 
+
     public PyrotechnicsTableScreen(PyrotechnicsTableScreenHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title);
-        this.imageHeight = 186;
-        this.inventoryLabelY = this.imageHeight - 94;
+        super(handler, inventory, title, 176, 186);
     }
 
     @Override
@@ -92,39 +91,39 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
     }
 
     @Override
-    public void render(@NonNull GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
-        this.renderContents(context, mouseX, mouseY, deltaTicks);
-        this.renderCarriedItem(context, mouseX, mouseY);
-        this.renderSnapbackItem(context);
-        this.renderTooltip(context, mouseX, mouseY);
+    public void extractRenderState(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
+        this.extractContents(context, mouseX, mouseY, deltaTicks);
+        this.extractCarriedItem(context, mouseX, mouseY);
+        this.extractSnapbackItem(context);
+        this.extractTooltip(context, mouseX, mouseY);
     }
 
     @Override
-    protected void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
         context.blitSprite(RenderPipelines.GUI_TEXTURED, NekomasFixed.id("container/pyrotechnics_table/"+ANIMATIONS.get(this.menu.getSelectedPattern()).getA()), leftPos+98, topPos+15, 71, 71);
-
         for (Slot slot : this.menu.slots){
             if (slot.isActive() && slot.getContainerSlot()>0 && slot.container instanceof SimpleContainer) {
                 context.blitSprite(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, leftPos+slot.x-1, topPos+slot.y-1, 18, 18);
+
                 if (!slot.hasItem()){
                     if (slot.mayPlace(Items.WHITE_DYE.getDefaultInstance()))
-                        context.blitSprite(RenderPipelines.GUI_TEXTURED, DYE_ICON, leftPos + slot.x, topPos + slot.y, 16, 16, ARGB.white(1));
+                        context.blitSprite(RenderPipelines.GUI_TEXTURED, DYE_ICON, leftPos + slot.x, topPos + slot.y, 16, 16);
                     else if (slot.mayPlace(Items.FIREWORK_STAR.getDefaultInstance()))
-                        context.blitSprite(RenderPipelines.GUI_TEXTURED, FIREWORK_STAR_ICON, leftPos + slot.x, topPos + slot.y, 16, 16, ARGB.white(1));
+                        context.blitSprite(RenderPipelines.GUI_TEXTURED, FIREWORK_STAR_ICON, 16, 16, 0, 0, leftPos + slot.x, topPos + slot.y, 16, 16);
                     else if (slot.mayPlace(Items.GUNPOWDER.getDefaultInstance()))
-                        context.blitSprite(RenderPipelines.GUI_TEXTURED, GUNPOWDER_ICON, leftPos + slot.x, topPos + slot.y, 16, 16, ARGB.white(1));
+                        context.blitSprite(RenderPipelines.GUI_TEXTURED, GUNPOWDER_ICON, 16, 16, 0, 0, leftPos + slot.x, topPos + slot.y, 16, 16);
                     else if (slot.mayPlace(Items.PAPER.getDefaultInstance()))
-                        context.blitSprite(RenderPipelines.GUI_TEXTURED, PAPER_ICON, leftPos + slot.x, topPos + slot.y, 16, 16, ARGB.white(1));
+                        context.blitSprite(RenderPipelines.GUI_TEXTURED, PAPER_ICON, 16, 16, 0, 0, leftPos + slot.x, topPos + slot.y, 16, 16);
                 }
             }
         }
-        this.dyeOrStarSlotIcon.render(this.menu, context, deltaTicks, this.leftPos, this.topPos);
+        this.dyeOrStarSlotIcon.extractRenderState(this.menu, context, deltaTicks, this.leftPos, this.topPos);
         if (this.menu.slots.get(0).hasItem() && this.menu.slots.get(0).getItem().getItem() instanceof DyeItem){
-            this.shapeSlotIcon.render(this.menu, context, deltaTicks, this.leftPos, this.topPos);
-            this.twinkleSlotIcon.render(this.menu, context, deltaTicks, this.leftPos, this.topPos);
-            this.trailSlotIcon.render(this.menu, context, deltaTicks, this.leftPos, this.topPos);
+            this.shapeSlotIcon.extractRenderState(this.menu, context, deltaTicks, this.leftPos, this.topPos);
+            this.twinkleSlotIcon.extractRenderState(this.menu, context, deltaTicks, this.leftPos, this.topPos);
+            this.trailSlotIcon.extractRenderState(this.menu, context, deltaTicks, this.leftPos, this.topPos);
         }
         if (this.menu.slots.get(14).isActive()) context.blitSprite(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, leftPos+151, topPos+72, 18, 18);
 
@@ -152,7 +151,7 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
                 }
 
                 context.blitSprite(RenderPipelines.GUI_TEXTURED, identifier2, bx, by, 14, 18);
-                context.renderItem(ANIMATIONS.get(index).getB().getDefaultInstance(), bx-1, by+1);
+                context.item(ANIMATIONS.get(index).getB().getDefaultInstance(), bx-1, by+1);
             }
         }
     }

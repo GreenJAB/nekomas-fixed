@@ -20,14 +20,14 @@ public abstract class EatGrassGoalMixin {
     @Final
     private Mob mob;
 
-    @WrapOperation(method = {"canUse"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-    private boolean canStartOnMycelium(BlockState instance, Block block, Operation<Boolean> original) {
+    @WrapOperation(method = {"canUse"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
+    private boolean canStartOnMycelium(BlockState instance, Object o, Operation<Boolean> original) {
         if (instance.is(Blocks.MYCELIUM)) return true;
-        return original.call(instance, block);
+        return original.call(instance, o);
     }
 
-    @WrapOperation(method = {"tick"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-    private boolean eatMycelium(BlockState instance, Block block, Operation<Boolean> original) {
+    @WrapOperation(method = {"tick"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
+    private boolean eatMycelium(BlockState instance, Object o, Operation<Boolean> original) {
         if (mob instanceof Sheep sheep) {
             if (instance.is(Blocks.MYCELIUM)) {
                 if (sheep.isSheared()) ((SpottedSheepAccess) sheep).nekomasfixed$setSpotted(true);
@@ -36,6 +36,6 @@ public abstract class EatGrassGoalMixin {
                 if (sheep.isSheared()) ((SpottedSheepAccess) sheep).nekomasfixed$setSpotted(false);
             }
         }
-        return original.call(instance, block);
+        return original.call(instance, o);
     }
 }

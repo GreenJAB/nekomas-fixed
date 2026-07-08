@@ -71,7 +71,7 @@ public class ItemStackMixin {
 			if (stack.getComponents().has(ComponentRegistry.STORED_TIME)) {
 				stack.remove(ComponentRegistry.STORED_TIME);
 			} else {
-				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((world.getDayTime() + 6000) % 24000)));
+				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((world.getOverworldClockTime() + 6000) % 24000)));
 			}
 		}
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
@@ -22,7 +22,7 @@ public class ContainerTooltipComponent implements ClientTooltipComponent {
 
     public ContainerTooltipComponent(ItemContainerContents contents) {
         this.contents = contents;
-        numberOfSlots = (int) Math.min(27, contents.nonEmptyStream().count());
+        numberOfSlots = (int) Math.min(27, contents.nonEmptyItemCopyStream().count());
     }
 
     @Override
@@ -63,11 +63,11 @@ public class ContainerTooltipComponent implements ClientTooltipComponent {
 
 
     @Override
-    public void renderImage(@NonNull Font textRenderer, int x, int y, int width, int height, @NonNull GuiGraphics context) {
+    public void extractImage(@NonNull Font textRenderer, int x, int y, int width, int height, @NonNull GuiGraphicsExtractor context) {
             this.drawNonEmptyTooltip(textRenderer, x, y, context);
     }
 
-    private void drawNonEmptyTooltip(Font textRenderer, int x, int y, GuiGraphics context) {
+    private void drawNonEmptyTooltip(Font textRenderer, int x, int y, GuiGraphicsExtractor context) {
         List<ItemStack> list = this.firstStacksInContents();
         numberOfSlots = list.size();
         if (!list.isEmpty()) {
@@ -86,16 +86,16 @@ public class ContainerTooltipComponent implements ClientTooltipComponent {
     }
 
     private List<ItemStack> firstStacksInContents() {
-        int i = (int) Math.min(this.contents.nonEmptyStream().count(), 27);
-        return this.contents.nonEmptyStream().toList().subList(0, i);
+        int i = (int) Math.min(this.contents.nonEmptyItemCopyStream().count(), 27);
+        return this.contents.nonEmptyItemCopyStream().toList().subList(0, i);
     }
 
-    private void drawItem(int index, int x, int y, List<ItemStack> stacks, int seed, Font textRenderer, GuiGraphics drawContext) {
+    private void drawItem(int index, int x, int y, List<ItemStack> stacks, int seed, Font textRenderer, GuiGraphicsExtractor drawContext) {
         ItemStack itemStack = stacks.get(index);
         drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, BUNDLE_SLOT_BACKGROUND_TEXTURE, x, y, 24, 24);
 
-        drawContext.renderItem(itemStack, x + 4, y + 4, seed);
-        drawContext.renderItemDecorations(textRenderer, itemStack, x + 4, y + 4);
+        drawContext.item(itemStack, x + 4, y + 4, seed);
+        drawContext.itemDecorations(textRenderer, itemStack, x + 4, y + 4);
     }
 
 }

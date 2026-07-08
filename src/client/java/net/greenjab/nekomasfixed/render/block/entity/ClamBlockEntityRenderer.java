@@ -20,11 +20,11 @@ import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -35,15 +35,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Environment(EnvType.CLIENT)
 public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> implements BlockEntityRenderer<@NonNull T, ClamBlockEntityRenderState> {
-	private final MaterialSet materials;
+	private static final Logger log = LoggerFactory.getLogger(ClamBlockEntityRenderer.class);
+	private final SpriteGetter materials;
 	private final ClamBlockModel clamModel;
 	private final ItemModelResolver itemModelManager;
 
 	public ClamBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-		this.materials = context.materials();
+		this.materials = context.sprites();
 		this.clamModel = new ClamBlockModel(context.bakeLayer(ModEntityLayerRegistry.CLAM));
 		this.itemModelManager = context.itemModelResolver();
 	}
@@ -92,7 +95,7 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 		float f = clamBlockEntityRenderState.lidAnimationProgress;
 		f = 1.0F - f;
 		f = 1.0F - f * f * f;
-		Material spriteIdentifier = TextureRegistry.getClamTextureId(clamBlockEntityRenderState.variant);
+		SpriteId spriteIdentifier = TextureRegistry.getClamTextureId(clamBlockEntityRenderState.variant);
 		RenderType renderLayer = spriteIdentifier.renderType(RenderTypes::entityCutout);
 		TextureAtlasSprite sprite = this.materials.get(spriteIdentifier);
 		orderedRenderCommandQueue.submitModel(
@@ -111,12 +114,9 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 		matrixStack.popPose();
 
 		if (clamBlockEntityRenderState.lidAnimationProgress>0) {
-			Direction direction = clamBlockEntityRenderState.blockState.getValue(ClamBlock.FACING);
-			float d = direction.getAxis().isHorizontal() ? -direction.toYRot() : 180.0F;
-
 			ItemStackRenderState itemRenderState = clamBlockEntityRenderState.itemRenderState;
 			if (itemRenderState != null) {
-				this.renderItem(clamBlockEntityRenderState, itemRenderState, matrixStack, orderedRenderCommandQueue, d);
+				this.renderItem(clamBlockEntityRenderState, itemRenderState, matrixStack, orderedRenderCommandQueue, -clamBlockEntityRenderState.yaw);
 			}
 		}
 	}

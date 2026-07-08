@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.registries;
 
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClockBlockModel;
@@ -75,53 +75,53 @@ public class ModEntityLayerRegistry {
     public static void registerEntityModelLayer() {
         System.out.println("register EntityModelLayer");
 
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BAOBAB_BOAT, BoatModel::createBoatModel);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BAOBAB_CHEST_BOAT, BoatModel::createChestBoatModel);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TERMITE, TermiteModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM_BABY, MoobloomEntityModel::getBabyTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.SUSPICIOUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.DRENCHED, DrenchedEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.RIME, RimeEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.DERELICT, DerelictEntityModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BAOBAB_BOAT, BoatModel::createBoatModel);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BAOBAB_CHEST_BOAT, BoatModel::createChestBoatModel);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TERMITE, TermiteModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM, MoobloomEntityModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.MOOBLOOM_BABY, MoobloomEntityModel::getBabyTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.SUSPICIOUS_SPIDER, SuspiciousSpiderEntityModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.DRENCHED, DrenchedEntityModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.RIME, RimeEntityModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.DERELICT, DerelictEntityModel::getTexturedModelData);
 
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.CLAM, ClamBlockModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.CLOCK, ClockBlockModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.ENDERMAN_HEAD, EndermanHeadBlockModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.ENDERMAN_EYES, EndermanEyesBlockModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_ACACIA_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_BAMBOO_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_BIRCH_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_CHERRY_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_DARK_OAK_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_JUNGLE_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_MANGROVE_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_OAK_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_PALE_OAK_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_SPRUCE_BOAT, BigBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_BAOBAB_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.CLAM, ClamBlockModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.CLOCK, ClockBlockModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.ENDERMAN_HEAD, EndermanHeadBlockModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.ENDERMAN_EYES, EndermanEyesBlockModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_ACACIA_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_BAMBOO_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_BIRCH_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_CHERRY_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_DARK_OAK_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_JUNGLE_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_MANGROVE_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_OAK_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_PALE_OAK_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_SPRUCE_BOAT, BigBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.BIG_BAOBAB_BOAT, BigBoatEntityModel::getChestTexturedModelData);
 
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_ACACIA_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_BAMBOO_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_BIRCH_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_CHERRY_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_DARK_OAK_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_JUNGLE_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_MANGROVE_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_OAK_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_PALE_OAK_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_BAOBAB_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_ACACIA_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_BAMBOO_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_BIRCH_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_CHERRY_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_DARK_OAK_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_JUNGLE_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_MANGROVE_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_OAK_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_PALE_OAK_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.HUGE_BAOBAB_BOAT, HugeBoatEntityModel::getChestTexturedModelData);
 
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY, TargetDummyEntityModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY, TargetDummyEntityModel::getTexturedModelData);
         ArmorModelSet<LayerDefinition> equipmentModelData6 = TargetDummyEntityModel.getEquipmentModelData(new CubeDeformation(0.5F), new CubeDeformation(1.0F));
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.head(), equipmentModelData6::head);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.chest(), equipmentModelData6::chest);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.legs(), equipmentModelData6::legs);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.feet(), equipmentModelData6::feet);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.head(), equipmentModelData6::head);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.chest(), equipmentModelData6::chest);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.legs(), equipmentModelData6::legs);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_EQUIPMENT.feet(), equipmentModelData6::feet);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TARGET_DUMMY_BASE, BasePlateEntityModel::getTexturedModelData);
 
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILD_FIRE, WildfireEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILDFIRE_TRIDENT, TridentModel::createLayer);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILD_FIRE, WildfireEntityModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILDFIRE_TRIDENT, TridentModel::createLayer);
     }
 }

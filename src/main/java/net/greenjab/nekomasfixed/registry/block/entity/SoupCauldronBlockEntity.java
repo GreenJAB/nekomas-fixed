@@ -101,7 +101,7 @@ public class SoupCauldronBlockEntity extends BlockEntity implements LidBlockEnti
                         .recipeAccess()
                         .getRecipeFor(RecipeType.SMELTING, singleStackRecipeInput, world);
                 if (optional.isPresent() && !item.is(Items.CHORUS_FRUIT)) {
-                    ItemStack itemStack = (((RecipeHolder)optional.get()).value()).assemble(singleStackRecipeInput, world.registryAccess());
+                    ItemStack itemStack = (((RecipeHolder)optional.get()).value()).assemble(singleStackRecipeInput);
                     if (!itemStack.isEmpty()) updatedInputs.add(itemStack);
                     else updatedInputs.add(item);
                 } else updatedInputs.add(item);
@@ -124,12 +124,11 @@ public class SoupCauldronBlockEntity extends BlockEntity implements LidBlockEnti
         blockEntity.CookingAnimator.step();
         float progress = blockEntity.CookingAnimator.getProgress(0);
         if (progress>0&&progress<1){
-            blockEntity.level.addParticle(ParticleTypes.BUBBLE_POP, pos.getX()+0.5+world.random.nextGaussian()*0.25, pos.getY()+1, pos.getZ()+0.5+world.random.nextGaussian()*0.25, 0.0, 0.0, 0.0);
+            blockEntity.level.addParticle(ParticleTypes.BUBBLE_POP, pos.getX()+0.5+ world.getRandom().nextGaussian()*0.25, pos.getY()+1, pos.getZ()+0.5+ world.getRandom().nextGaussian()*0.25, 0.0, 0.0, 0.0);
             blockEntity.level.sendBlockUpdated(pos, state, state, 3);
         }
     }
 
-    @Override
     public float getOpenNess(float tickProgress) {
         return this.CookingAnimator.getProgress(tickProgress);
     }

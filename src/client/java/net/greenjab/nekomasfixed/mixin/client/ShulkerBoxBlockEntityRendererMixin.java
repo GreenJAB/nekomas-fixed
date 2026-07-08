@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.ShulkerBoxRenderer;
 import net.minecraft.client.renderer.blockentity.state.ShulkerBoxRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,18 +29,18 @@ public class ShulkerBoxBlockEntityRendererMixin {
             CallbackInfo ci) {
 
         String identifier = null;
-        if (ShulkerBoxBlockEntity.getBlockState().getBlock() == BlockRegistry.AMBER_SHULKER_BOX) identifier = "entity/shulker/amber";
-        else if (ShulkerBoxBlockEntity.getBlockState().getBlock() == BlockRegistry.AQUA_SHULKER_BOX) identifier = "entity/shulker/aqua";
-        else if (ShulkerBoxBlockEntity.getBlockState().getBlock() == BlockRegistry.MAROON_SHULKER_BOX) identifier = "entity/shulker/maroon";
-        else if (ShulkerBoxBlockEntity.getBlockState().getBlock() == BlockRegistry.INDIGO_SHULKER_BOX) identifier = "entity/shulker/indigo";
+        if (ShulkerBoxBlockEntity.getBlockState().getBlock() == BlockRegistry.AMBER_SHULKER_BOX) identifier = "entity/shulker/shulker_amber";
+        else if (ShulkerBoxBlockEntity.getBlockState().getBlock() == BlockRegistry.AQUA_SHULKER_BOX) identifier = "entity/shulker/shulker_aqua";
+        else if (ShulkerBoxBlockEntity.getBlockState().getBlock() == BlockRegistry.MAROON_SHULKER_BOX) identifier = "entity/shulker/shulker_maroon";
+        else if (ShulkerBoxBlockEntity.getBlockState().getBlock() == BlockRegistry.INDIGO_SHULKER_BOX) identifier = "entity/shulker/shulker_indigo";
         if (identifier!=null) ((CustomShulkerBoxTextureHolder) state).nekomasfixed$setCustomTexture(
-                new Material(Sheets.SHULKER_SHEET,NekomasFixed.id(identifier)));
+                new SpriteId(Sheets.SHULKER_SHEET,NekomasFixed.id(identifier)));
     }
 
-    @ModifyVariable(method = "submit(Lnet/minecraft/client/renderer/blockentity/state/ShulkerBoxRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
+    @ModifyVariable(method = "submit(Lnet/minecraft/client/renderer/blockentity/state/ShulkerBoxRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
             at = @At(value = "STORE"), ordinal = 0)
-    private Material replaceTexture(Material original, ShulkerBoxRenderState state) {
-        Material custom = ((CustomShulkerBoxTextureHolder) state).nekomasfixed$getCustomTexture();
+    private SpriteId replaceTexture(SpriteId original, ShulkerBoxRenderState state) {
+        SpriteId custom = ((CustomShulkerBoxTextureHolder) state).nekomasfixed$getCustomTexture();
         if (custom != null) return custom;
         return original;
     }

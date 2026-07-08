@@ -51,7 +51,7 @@ public class TermiteMoundFeature extends Feature<SimpleBlockConfiguration> {
                                 if (random.nextBoolean()) blockEntity.addTermite(TermitehiveBlockEntity.TermiteData.create(random.nextInt(599)));
                             });
                         } else if(isSupported){
-                            world.setBlock(pos, context.config().toPlace().getState(random, pos), 3);
+                            world.setBlock(pos, context.config().toPlace().getState(world, random, pos), 3);
                         }
                     }
                 }

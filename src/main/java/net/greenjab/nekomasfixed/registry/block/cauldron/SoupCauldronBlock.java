@@ -29,7 +29,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -100,12 +99,12 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
             ItemStack soup = new ItemStack(ItemRegistry.SPECIAL_STEW);
             List<ItemStack> copiedInputs = be.getInputs().stream().map(ItemStack::copy).toList();
             soup.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(copiedInputs));
-            soup.set(DataComponents.DYED_COLOR, new DyedItemColor(blendFoodColors(1, copiedInputs)));
+            soup.set(DataComponents.DYED_COLOR, new DyedItemColor(blendFoodColors(copiedInputs)));
             player.setItemInHand(InteractionHand.MAIN_HAND, ItemUtils.createFilledResult(stack, player, soup));
             world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
             for (ItemStack ingredient : copiedInputs) {
                 UseRemainder remainder = ingredient.get(DataComponents.USE_REMAINDER);
-                if (remainder != null) Block.popResource(world, pos, remainder.convertInto());
+                if (remainder != null) Block.popResource(world, pos, remainder.convertInto().create());
             }
             return InteractionResult.SUCCESS;
         } else if(stack.is(Items.AIR)){
@@ -163,7 +162,7 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
                         .recipeAccess()
                         .getRecipeFor(RecipeType.SMELTING, singleStackRecipeInput, world);
                 if (optional.isPresent() && !item.is(Items.CHORUS_FRUIT)) {
-                    ItemStack itemStack = (((RecipeHolder) optional.get()).value()).assemble(singleStackRecipeInput, world.registryAccess());
+                    ItemStack itemStack = (((RecipeHolder) optional.get()).value()).assemble(singleStackRecipeInput);
                     if (!itemStack.isEmpty()) item=itemStack;
                 }
                 FoodProperties food = item.get(DataComponents.FOOD);
@@ -210,15 +209,6 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
             Map.entry(ItemRegistry.BAOBAB_FRUIT, 0x686D24)
     );
 
-    public static int getTintIndex(BlockAndTintGetter world, BlockPos pos, int tintIndex){
-        if(world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soupCauldronBlockEntity){
-            float f = soupCauldronBlockEntity.getOpenNess(0);
-            return tintIndex == 0 ? blendFoodColors(f, soupCauldronBlockEntity.getInputs()) : 0xFFFFFFFF;
-        }else{
-            return -1;
-        }
-    }
-
     public static Optional<Integer> getFoodColor(ItemStack stack) {
         if (stack == null || stack.isEmpty()) return Optional.empty();
 
@@ -231,43 +221,28 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
         return Optional.empty();
     }
 
-    public static int blendFoodColors(float f, List<ItemStack> items) {
-        float totalR = 0.0F;
-        float totalG = 0.0F;
-        float totalB = 0.0F;
-        float totalWeight = 0.0F;
+    public static int blendFoodColors(List<ItemStack> items) {
+        int totalR = 0;
+        int totalG = 0;
+        int totalB = 0;
+        int totalWeight = 0;
 
         for (ItemStack stack : items) {
             if (stack.isEmpty()) continue;
-
             Optional<Integer> colorOpt = getFoodColor(stack);
             if (colorOpt.isEmpty()) continue;
             int color = colorOpt.get();
-
-            float r = (float)(color >> 16 & 255) / 255.0F;
-            float g = (float)(color >> 8 & 255) / 255.0F;
-            float b = (float)(color & 255) / 255.0F;
-
-            totalR += r;
-            totalG += g;
-            totalB += b;
-            totalWeight += 1;
+            totalR += color >> 16 & 255;
+            totalG += color >> 8 & 255;
+            totalB += color & 255;
+            totalWeight++;
         }
-
         if (totalWeight == 0) return 0x385DC6; // fallback
 
-        float r = totalR / totalWeight;
-        float g = totalG / totalWeight;
-        float b = totalB / totalWeight;
+        int r = totalR / totalWeight;
+        int g = totalG / totalWeight;
+        int b = totalB / totalWeight;
 
-        r *= 255.0F;
-        g *= 255.0F;
-        b *= 255.0F;
-
-        int finalR = (int)(f*r+(1-f)*56);
-        int finalG = (int)(f*g+(1-f)*93);
-        int finalB = (int)(f*b+(1-f)*198);
-
-        return (finalR << 16) | (finalG << 8) | finalB;
+        return (r << 16) | (g << 8) | b;
     }
 }

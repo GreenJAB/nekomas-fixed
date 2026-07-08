@@ -138,7 +138,7 @@ public class ClockBlockEntity extends BlockEntity implements ItemOwner {
 	public static void tick(Level world, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
 		boolean powered = state.getValue(AbstractClockBlock.POWERED);
 		boolean shouldBePowered = false;
-		if ((int) ((world.getDayTime() + 6000) % 24000)==blockEntity.storedTime) {
+		if ((int) ((world.getOverworldClockTime() + 6000) % 24000)==blockEntity.storedTime) {
 			blockEntity.timer=0;
 		}
 		if (blockEntity.timer>-timerDuration) {

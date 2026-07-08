@@ -86,7 +86,7 @@ public class WildfireBombTask extends Behavior<WildfireEntity> {
 				brain.getMemory(MemoryModuleType.BREEZE_SHOOT_RECOVERING).isEmpty()) {
 				brain.setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT_RECOVERING, Unit.INSTANCE, SHOOT_COOLDOWN_EXPIRY);
 
-				Optional<Vec3> optional = LongJumpUtil.calculateJumpVectorForAngle(wildFireEntity, livingEntity.position(), 1.11f, serverWorld.random.nextInt(10) + 45, false);
+				Optional<Vec3> optional = LongJumpUtil.calculateJumpVectorForAngle(wildFireEntity, livingEntity.position(), 1.11f, serverWorld.getRandom().nextInt(10) + 45, false);
 				if (optional.isPresent()) {
 					int i = brain.getMemory(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS).orElse(-1);
 					brain.setMemoryWithExpiry(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, i+1, 60);

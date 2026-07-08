@@ -20,8 +20,7 @@ import static net.greenjab.nekomasfixed.util.ModColors.*;
 @Mixin(DyeItem.class)
 public class DyeItemMixin {
     @Inject(method = "tryApplyToSign", at = @At("RETURN"), cancellable = true)
-    private void changeDye(Level world, SignBlockEntity signBlockEntity, boolean front, Player player, CallbackInfoReturnable<Boolean> cir) {
-        ItemStack stack = player.getItemInHand(player.getUsedItemHand());
+    private void changeDye(Level world, SignBlockEntity signBlockEntity, boolean front, ItemStack stack, Player player, CallbackInfoReturnable<Boolean> cir) {
         if (stack.is(ItemRegistry.AMBER_DYE)) {
             applyDye(signBlockEntity, front, AMBER.getColor());
             cir.setReturnValue(true);
@@ -39,7 +38,6 @@ public class DyeItemMixin {
             applyDye(signBlockEntity, front, MAROON.getColor());
             cir.setReturnValue(true);
         }
-
     }
 
     @Unique

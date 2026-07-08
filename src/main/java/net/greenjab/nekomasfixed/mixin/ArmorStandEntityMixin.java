@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ArmorStand.class)
 public class ArmorStandEntityMixin {
-    @Inject(method = "interactAt", at = @At("HEAD"), cancellable = true)
-    private void interactAt(Player player, Vec3 hitPos, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+    @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
+    private void interactAt(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> cir) {
         if(player!=null && player.isShiftKeyDown()){
             ArmorStand armorStandEntity = (ArmorStand) (Object) this;
             player.swing(hand, true);

@@ -138,7 +138,7 @@ public class TermitehiveBlockEntity extends BlockEntity {
             TermitehiveBlockEntity.TermiteState termiteState
     ) {
 
-        Direction direction = Direction.fromYRot(world.random.nextInt(360));
+        Direction direction = Direction.fromYRot(world.getRandom().nextInt(360));
         BlockPos blockPos = pos.relative(direction);
         boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty();
         if (bl && termiteState != TermitehiveBlockEntity.TermiteState.EMERGENCY) {

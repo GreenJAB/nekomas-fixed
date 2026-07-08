@@ -118,7 +118,7 @@ public class BigBoatEntity extends AbstractChestBoat {
 	}
 
 	@Override
-	public @NonNull InteractionResult interact(Player player, @NonNull InteractionHand hand) {
+	public @NonNull InteractionResult interact(Player player, @NonNull InteractionHand hand, @NonNull Vec3 location) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.CHEST)) {
 			if (!hasChest() && getPassengers().size()<4) {
@@ -146,7 +146,7 @@ public class BigBoatEntity extends AbstractChestBoat {
 			}
 			return InteractionResult.SUCCESS;
 		} else {
-			return super.interact(player, hand);
+			return super.interact(player, hand, location);
 		}
 	}
 

@@ -24,7 +24,7 @@ public class WildfireTridentModelRenderer implements NoDataSpecialModelRenderer 
 	}
 
 	@Override
-	public void submit(@NonNull ItemDisplayContext displayContext, PoseStack matrices, SubmitNodeCollector queue, int light, int overlay, boolean glint, int i) {
+	public void submit(PoseStack matrices, SubmitNodeCollector queue, int light, int overlay, boolean glint, int i) {
 		matrices.pushPose();
 		matrices.scale(1.0F, -1.0F, -1.0F);
 		queue.submitModelPart(this.model.root(), matrices, this.model.renderType(WildfireTridentEntityRenderer.TEXTURE), light, overlay, null, false, glint, -1, null, i);
@@ -39,7 +39,7 @@ public class WildfireTridentModelRenderer implements NoDataSpecialModelRenderer 
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Unbaked() implements SpecialModelRenderer.Unbaked {
+	public record Unbaked() implements NoDataSpecialModelRenderer.Unbaked {
 		public static final MapCodec<WildfireTridentModelRenderer.Unbaked> CODEC = MapCodec.unit(new WildfireTridentModelRenderer.Unbaked());
 
 		@Override
@@ -48,7 +48,7 @@ public class WildfireTridentModelRenderer implements NoDataSpecialModelRenderer 
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakingContext context) {
+		public WildfireTridentModelRenderer bake(SpecialModelRenderer.BakingContext context) {
 			return new WildfireTridentModelRenderer(new TridentModel(context.entityModelSet().bakeLayer(ModEntityLayerRegistry.WILDFIRE_TRIDENT)));
 		}
 	}

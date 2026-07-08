@@ -25,6 +25,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,7 +41,7 @@ public class PlayerEntityMixin {
 
     @Unique
     private void checkForEdibles(Player PE){
-        if (PE.level().random.nextInt(15*20) > 0) return;
+        if (PE.level().getRandom().nextInt(15*20) > 0) return;
         Random random = new Random();
         Container inventory = PE.getInventory();
         int i = random.nextInt(inventory.getContainerSize());
@@ -106,10 +107,10 @@ public class PlayerEntityMixin {
         return target.hurtOrSimulate(source, amount);
     }
 
-    @WrapOperation(method = "interactOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;"))
-    private InteractionResult allowOffhandAttack(Entity instance, Player player, InteractionHand hand, Operation<InteractionResult> original) {
+    @WrapOperation(method = "interactOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/InteractionResult;"))
+    private InteractionResult allowOffhandAttack(Entity instance, Player player, InteractionHand hand, Vec3 location, Operation<InteractionResult> original) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && player.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) return InteractionResult.PASS;
-        return original.call(instance, player, hand);
+        return original.call(instance, player, hand, location);
     }
 
     @Inject(method = "baseDamageScaleFactor", at = @At("HEAD"), cancellable = true)
