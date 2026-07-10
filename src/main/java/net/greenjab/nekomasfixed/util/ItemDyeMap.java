@@ -9,8 +9,6 @@ public class ItemDyeMap {
     public static final EnumMap<AllDyes, Item> DYE = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Item> BRUSH = new EnumMap<>(AllDyes.class);
 
-    //this class provides all the mappings for both datagen and server side logic... its used by tagProvider and DyedBRushItem
-
     static {
         DYE.put(AllDyes.WHITE, Items.WHITE_DYE);
         DYE.put(AllDyes.ORANGE, Items.ORANGE_DYE);

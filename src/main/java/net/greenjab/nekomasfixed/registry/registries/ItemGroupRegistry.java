@@ -12,7 +12,7 @@ public class ItemGroupRegistry {
     public static final CreativeModeTab NEKOMASFIXED = FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.nekomasfixed"))
             .icon( () -> new ItemStack(ItemRegistry.CLAM))
             .displayItems(
-                    (displayContext, entries) -> {
+                    (_, entries) -> {
                         entries.accept(ItemRegistry.CLAM);
                         entries.accept(ItemRegistry.CLAM_BLUE);
                         entries.accept(ItemRegistry.CLAM_PINK);
@@ -144,7 +144,7 @@ public class ItemGroupRegistry {
     public static final CreativeModeTab NEKOMASFIXEDCOLOURS = FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.nekomasfixedcolours"))
             .icon( () -> new ItemStack(ItemRegistry.AMBER_DYE))
             .displayItems(
-                    (displayContext, entries) -> {
+                    (_, entries) -> {
 
                         entries.accept(ItemRegistry.AMBER_WOOL);
                         entries.accept(ItemRegistry.AQUA_WOOL);

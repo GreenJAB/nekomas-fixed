@@ -27,20 +27,16 @@ public class EndermanEyesBlockModel<S extends EndermanHeadBlockEntityRenderState
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 
-		modelPartData.addOrReplaceChild(
-				"head", CubeListBuilder.create().texOffs(0, 0).addBox(4.0F, 0.0F, 4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.1F)), PartPose.ZERO
-		);
+		modelPartData.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0)
+				.addBox(4.0F, 0.0F, 4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.1F)), PartPose.ZERO);
 		return LayerDefinition.create(modelData, 64, 32);
 	}
 
 	public void setupAnim(@NonNull S state) {
 		super.setupAnim(state);
 		if (state.powered) {
-			if (state.wall) {
-				this.head.y -= 2.5F;
-			} else {
-				this.head.y -= 5.0F;
-			}
+			if (state.wall) this.head.y -= 2.5F;
+			else this.head.y -= 5.0F;
 		}
 	}
 }

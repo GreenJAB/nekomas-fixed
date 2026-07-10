@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectileEntity;
+import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectile;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -31,45 +31,31 @@ public class SlingshotItem extends ProjectileWeaponItem {
     }
 
     @Override
-    public boolean releaseUsing(@NonNull ItemStack stack, @NonNull Level world, @NonNull LivingEntity user, int remainingUseTicks) {
+    public boolean releaseUsing(@NonNull ItemStack stack, @NonNull Level level, @NonNull LivingEntity user, int remainingUseTicks) {
         if (!(user instanceof Player playerEntity)) {
             return false;
         } else {
             ItemStack itemStack = playerEntity.getProjectile(stack);
-            if (itemStack.isEmpty()) {
-                return false;
-            } else {
-                if (itemStack.is(Items.ARROW)) itemStack = Items.IRON_NUGGET.getDefaultInstance();
-                int i = this.getUseDuration(stack, user) - remainingUseTicks;
-                float f = getPullProgress(i);
-                if (f < 0.99) {
-                    return false;
-                } else {
-                    List<ItemStack> list = draw(stack, itemStack, playerEntity);
-                    if (world instanceof ServerLevel serverWorld && !list.isEmpty()) {
-                        this.shoot(serverWorld, playerEntity, playerEntity.getUsedItemHand(), stack, list, f * 3.0F*((itemStack.is(Items.AMETHYST_SHARD)||itemStack.is(Items.RESIN_CLUMP))?(1/2f):2/3f), 1.0F, f == 1.0F, null);
-                    }
-
-                    world.playSound(
-                            null,
-                            playerEntity.getX(),
-                            playerEntity.getY(),
-                            playerEntity.getZ(),
-                            SoundEvents.ARROW_SHOOT,
-                            SoundSource.PLAYERS,
-                            1.0F,
-                            1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F
-                    );
-                    playerEntity.awardStat(Stats.ITEM_USED.get(this));
-                    return true;
-                }
-            }
+            if (itemStack.isEmpty()) return false;
+            if (itemStack.is(Items.ARROW)) itemStack = Items.IRON_NUGGET.getDefaultInstance();
+            float f = getPullProgress(this.getUseDuration(stack, user) - remainingUseTicks);
+            if (f < 0.99) return false;
+            List<ItemStack> list = draw(stack, itemStack, playerEntity);
+            if (level instanceof ServerLevel serverLevel && !list.isEmpty()) this.shoot(
+                    serverLevel, playerEntity, playerEntity.getUsedItemHand(), stack, list,
+                    f * 3.0F*((itemStack.is(Items.AMETHYST_SHARD)||itemStack.is(Items.RESIN_CLUMP))?(1/2f):2/3f),
+                    1.0F, f == 1.0F, null);
+            level.playSound(null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(),
+                    SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS,
+                    1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            playerEntity.awardStat(Stats.ITEM_USED.get(this));
+            return true;
         }
     }
 
     @Override
-    protected @NonNull Projectile createProjectile(@NonNull Level world, @NonNull LivingEntity shooter, @NonNull ItemStack weaponStack, @NonNull ItemStack projectileStack, boolean critical) {
-        return new SlingshotProjectileEntity(world, shooter, projectileStack, weaponStack, NekomasFixed.enchantLevel(weaponStack, "shatter")!=0);
+    protected @NonNull Projectile createProjectile(@NonNull Level level, @NonNull LivingEntity shooter, @NonNull ItemStack weaponStack, @NonNull ItemStack projectileStack, boolean critical) {
+        return new SlingshotProjectile(level, shooter, projectileStack, weaponStack, NekomasFixed.enchantLevel(weaponStack, "shatter")!=0);
     }
 
     @Override
@@ -80,10 +66,7 @@ public class SlingshotItem extends ProjectileWeaponItem {
     public static float getPullProgress(int useTicks) {
         float f = useTicks / 20.0F;
         f = (f * f + f * 2.0F) / 1.5F;
-        if (f > 1.0F) {
-            f = 1.0F;
-        }
-
+        if (f > 1.0F) f = 1.0F;
         return f;
     }
 
@@ -98,19 +81,15 @@ public class SlingshotItem extends ProjectileWeaponItem {
     }
 
     @Override
-    public @NonNull InteractionResult use(@NonNull Level world, Player user, @NonNull InteractionHand hand) {
+    public @NonNull InteractionResult use(@NonNull Level level, Player user, @NonNull InteractionHand hand) {
         ItemStack itemStack = user.getItemInHand(hand);
         boolean bl = !user.getProjectile(itemStack).isEmpty();
-        if (!user.hasInfiniteMaterials() && !bl) {
-            return InteractionResult.FAIL;
-        } else {
-            user.startUsingItem(hand);
-            return InteractionResult.CONSUME;
-        }
+        if (!user.hasInfiniteMaterials() && !bl) return InteractionResult.FAIL;
+        user.startUsingItem(hand);
+        return InteractionResult.CONSUME;
     }
 
-    public static final Predicate<ItemStack> SLINGSHOT_PROJECTILES =
-            stack -> stack.is(ModTags.SLINGSHOT_PROJECTILES);
+    public static final Predicate<ItemStack> SLINGSHOT_PROJECTILES =stack -> stack.is(ModTags.SLINGSHOT_PROJECTILES);
 
     @Override
     public @NonNull Predicate<ItemStack> getAllSupportedProjectiles() {

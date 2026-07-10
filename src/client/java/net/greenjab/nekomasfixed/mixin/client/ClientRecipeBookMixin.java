@@ -18,9 +18,9 @@ import java.util.Map;
 public class ClientRecipeBookMixin {
 
     @Inject(method = "rebuildCollections", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/recipebook/SearchRecipeBookCategory;values()[Lnet/minecraft/client/gui/screens/recipebook/SearchRecipeBookCategory;"))
-    private void kilnRecipeBookRefresh(CallbackInfo ci, @Local(ordinal = 1) Map<ExtendedRecipeBookCategory, List<RecipeCollection>> map2) {
-        map2.put(RecipeRegistry.KILNING, RecipeRegistry.KILNING.getCategories()
-                        .stream().flatMap( group -> (map2.getOrDefault(group, List.of())).stream())
+    private void kilnRecipeBookRefresh(CallbackInfo ci, @Local(ordinal = 1) Map<ExtendedRecipeBookCategory, List<RecipeCollection>> byCategory) {
+        byCategory.put(RecipeRegistry.KILNING, RecipeRegistry.KILNING.getCategories()
+                        .stream().flatMap( group -> (byCategory.getOrDefault(group, List.of())).stream())
                         .collect(ImmutableList.toImmutableList()));
     }
 }

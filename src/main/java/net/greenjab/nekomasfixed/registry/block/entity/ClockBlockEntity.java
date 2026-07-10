@@ -135,10 +135,10 @@ public class ClockBlockEntity extends BlockEntity implements ItemOwner {
 		return this.getBlockState().getValue(FloorClockBlock.ROTATION);
 	}
 
-	public static void tick(Level world, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
+	public static void tick(Level level, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
 		boolean powered = state.getValue(AbstractClockBlock.POWERED);
 		boolean shouldBePowered = false;
-		if ((int) ((world.getOverworldClockTime() + 6000) % 24000)==blockEntity.storedTime) {
+		if ((int) ((level.getOverworldClockTime() + 6000) % 24000)==blockEntity.storedTime) {
 			blockEntity.timer=0;
 		}
 		if (blockEntity.timer>-timerDuration) {
@@ -147,28 +147,28 @@ public class ClockBlockEntity extends BlockEntity implements ItemOwner {
 				shouldBePowered = true;
 			}
 		}
-		if (world.getGameTime() % 20L == 0L) {
-			if (world instanceof ServerLevel serverWorld) {
-				world.updateNeighbourForOutputSignal(pos, state.getBlock());
+		if (level.getGameTime() % 20L == 0L) {
+			if (level instanceof ServerLevel serverLevel) {
+				level.updateNeighbourForOutputSignal(pos, state.getBlock());
 				UpdateClockPayload payload = new UpdateClockPayload(pos.getX(), pos.getY(), pos.getZ(), blockEntity.getTimer(), blockEntity.hasBell(), blockEntity.getShowsTime());
-                sendToAround(serverWorld.getServer()
+                sendToAround(serverLevel.getServer()
 								.getPlayerList(),
 						null,
 						pos.getX(),
 						pos.getY(),
 						pos.getZ(),
 						100,
-						world.dimension(),
+						level.dimension(),
 						payload
 				);
 			}
 		}
 		if (powered!=shouldBePowered) {
-			((AbstractClockBlock)state.getBlock()).setPower(world, pos, state, shouldBePowered);
+			((AbstractClockBlock)state.getBlock()).setPower(level, pos, state, shouldBePowered);
 		}
-		if (state.getBlock() instanceof FloorClockBlock && shouldBePowered && world.getGameTime() % 5L == 0L){
-			world.gameEvent(null, GameEvent.NOTE_BLOCK_PLAY, pos);
-			world.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 0.3F, 2f);
+		if (state.getBlock() instanceof FloorClockBlock && shouldBePowered && level.getGameTime() % 5L == 0L){
+			level.gameEvent(null, GameEvent.NOTE_BLOCK_PLAY, pos);
+			level.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 0.3F, 2f);
 		}
 	}
 
@@ -186,7 +186,7 @@ public class ClockBlockEntity extends BlockEntity implements ItemOwner {
 		}
 	}
 
-	public static void clientTick(Level world, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
+	public static void clientTick(Level level, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
 		if (blockEntity.timer>-timerDuration) {
 			blockEntity.timer--;
 		}

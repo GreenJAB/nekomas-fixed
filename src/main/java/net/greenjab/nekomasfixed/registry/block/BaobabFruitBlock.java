@@ -35,7 +35,7 @@ public class BaobabFruitBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    public @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+    public @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
         return state.getValue(AGE) == 0 ? SHAPE_AGE_0 : SHAPE_AGE_1;
     }
 
@@ -51,41 +51,41 @@ public class BaobabFruitBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    protected void randomTick(@NonNull BlockState state, ServerLevel world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-        if (world.getRandom().nextInt(5) == 0) {
+    protected void randomTick(@NonNull BlockState state, ServerLevel level, @NonNull BlockPos pos, @NonNull RandomSource random) {
+        if (level.getRandom().nextInt(5) == 0) {
             int rope = 0;
             for (; rope < 8; rope++) {
-                if (!world.getBlockState(pos.above(rope + 1)).is(BlockRegistry.ROPE)) break;
+                if (!level.getBlockState(pos.above(rope + 1)).is(BlockRegistry.ROPE)) break;
             }
-            if (world.getBlockState(pos.above(rope + 1)).is(BlockTags.LEAVES)) {
-                if (world.getBlockState(pos.below()).is(BlockTags.REPLACEABLE)) {
+            if (level.getBlockState(pos.above(rope + 1)).is(BlockTags.LEAVES)) {
+                if (level.getBlockState(pos.below()).is(BlockTags.REPLACEABLE)) {
                     if (rope > 3) {
-                        if (world.getRandom().nextInt(9 - rope) == 0)
-                            world.setBlock(pos, state.setValue(AGE, 1), Block.UPDATE_CLIENTS);
+                        if (level.getRandom().nextInt(9 - rope) == 0)
+                            level.setBlock(pos, state.setValue(AGE, 1), Block.UPDATE_CLIENTS);
                         else {
-                            world.setBlock(pos, BlockRegistry.ROPE.defaultBlockState().setValue(RopeBlock.ATTACHED, true), Block.UPDATE_CLIENTS);
-                            world.setBlock(pos.below(), state.setValue(AGE, 0), Block.UPDATE_CLIENTS);
+                            level.setBlock(pos, BlockRegistry.ROPE.defaultBlockState().setValue(RopeBlock.ATTACHED, true), Block.UPDATE_CLIENTS);
+                            level.setBlock(pos.below(), state.setValue(AGE, 0), Block.UPDATE_CLIENTS);
                         }
                     } else {
-                        world.setBlock(pos, BlockRegistry.ROPE.defaultBlockState().setValue(RopeBlock.ATTACHED, true), Block.UPDATE_CLIENTS);
-                        world.setBlock(pos.below(), state.setValue(AGE, 0), Block.UPDATE_CLIENTS);
+                        level.setBlock(pos, BlockRegistry.ROPE.defaultBlockState().setValue(RopeBlock.ATTACHED, true), Block.UPDATE_CLIENTS);
+                        level.setBlock(pos.below(), state.setValue(AGE, 0), Block.UPDATE_CLIENTS);
                     }
-                } else world.setBlock(pos, state.setValue(AGE, 1), Block.UPDATE_CLIENTS);
+                } else level.setBlock(pos, state.setValue(AGE, 1), Block.UPDATE_CLIENTS);
             }
         }
     }
 
     @Override
-    protected boolean canSurvive(@NonNull BlockState state, LevelReader world, BlockPos pos) {
-        return world.getBlockState(pos.above()).is(BlockRegistry.ROPE) || world.getBlockState(pos.above()).is(BlockTags.LEAVES) ;
+    protected boolean canSurvive(@NonNull BlockState state, LevelReader level, BlockPos pos) {
+        return level.getBlockState(pos.above()).is(BlockRegistry.ROPE) || level.getBlockState(pos.above()).is(BlockTags.LEAVES) ;
     }
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockState blockState = this.defaultBlockState();
-        LevelReader worldView = ctx.getLevel();
+        LevelReader level = ctx.getLevel();
         BlockPos blockPos = ctx.getClickedPos();
-        if(canSurvive(blockState, worldView, blockPos)) {
+        if(canSurvive(blockState, level, blockPos)) {
             return this.defaultBlockState().setValue(AGE, 1);
         }
 
@@ -93,23 +93,23 @@ public class BaobabFruitBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    protected @NonNull BlockState updateShape(BlockState state, @NonNull LevelReader world, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
-        return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    protected @NonNull BlockState updateShape(BlockState state, @NonNull LevelReader level, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
+        return !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
-    public boolean isValidBonemealTarget(@NonNull LevelReader world, @NonNull BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(@NonNull LevelReader level, @NonNull BlockPos pos, BlockState state) {
         return state.getValue(AGE) < 2;
     }
 
     @Override
-    public boolean isBonemealSuccess(@NonNull Level world, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state) {
+    public boolean isBonemealSuccess(@NonNull Level level, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state) {
         return true;
     }
 
     @Override
-    public void performBonemeal(@NonNull ServerLevel world, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state) {
+    public void performBonemeal(@NonNull ServerLevel level, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state) {
         if(this.defaultBlockState().getValue(AGE) < 1){
-            world.setBlock(pos, state.setValue(AGE, 1), 2);
+            level.setBlock(pos, state.setValue(AGE, 1), 2);
         }
     }
 }

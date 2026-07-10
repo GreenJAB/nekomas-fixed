@@ -18,8 +18,7 @@ public class SickleItem extends Item {
         super(settings);
     }
 
-
-    public @NonNull InteractionResult use(@NonNull Level world, @NonNull Player user, @NonNull InteractionHand hand) {
+    public @NonNull InteractionResult use(@NonNull Level level, @NonNull Player user, @NonNull InteractionHand hand) {
         if (hand == InteractionHand.MAIN_HAND) return InteractionResult.PASS;
         if (!user.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES))  return InteractionResult.PASS;
         if (user.getAttackStrengthScale(0)<0.5) return InteractionResult.PASS;
@@ -38,15 +37,11 @@ public class SickleItem extends Item {
         if (user.level().isClientSide()) return InteractionResult.SUCCESS;
 
         int tt = user.attackStrengthTicker;
-
         swapHands(user);
         user.detectEquipmentUpdates();
-
         user.attackStrengthTicker =1000;
         user.attack(entity);
-
         swapHands(user);
-
         user.attackStrengthTicker =tt;
         return InteractionResult.SUCCESS;
     }
@@ -56,5 +51,4 @@ public class SickleItem extends Item {
         user.setItemInHand(InteractionHand.OFF_HAND, user.getItemInHand(InteractionHand.MAIN_HAND));
         user.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
     }
-
 }

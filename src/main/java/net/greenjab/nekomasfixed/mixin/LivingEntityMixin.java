@@ -30,7 +30,7 @@ public abstract class LivingEntityMixin {
     public abstract void stopRiding();
 
     @ModifyVariable(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;isSleeping()Z"), ordinal = 0, argsOnly = true)
-    private float turtleChestplateBlock(float amount, @Local(argsOnly = true) DamageSource source) {
+    private float turtleChestplateBlock(float damage, @Local(argsOnly = true) DamageSource source) {
         LivingEntity LE = (LivingEntity)(Object)this;
         if (LE.getItemBySlot(EquipmentSlot.CHEST).is(ItemRegistry.TURTLE_CHESTPLATE)) {
             Vec3 vec3d = source.getSourcePosition();
@@ -44,24 +44,24 @@ public abstract class LivingEntityMixin {
                 d = 0;
             }
 
-            float f = getReductionAmount(LE, amount, d);
+            float f = getReductionAmount(LE, damage, d);
             if (f > 0.0F && source.getDirectEntity() instanceof LivingEntity) {
-                LE.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak((f == amount ? 3 : 1), LE, EquipmentSlot.CHEST);
+                LE.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak((f == damage ? 3 : 1), LE, EquipmentSlot.CHEST);
             }
-            if (amount - f <=0 ) return 0.00123f;
-            return amount - f;
+            if (damage - f <=0 ) return 0.00123f;
+            return damage - f;
         }
         if (LE.getItemBySlot(EquipmentSlot.HEAD).is(Items.TURTLE_HELMET)) {
             if (source.typeHolder().is(DamageTypes.MACE_SMASH)) {
-                LE.getItemBySlot(EquipmentSlot.HEAD).hurtAndBreak((int)amount, LE, EquipmentSlot.CHEST);
+                LE.getItemBySlot(EquipmentSlot.HEAD).hurtAndBreak((int) damage, LE, EquipmentSlot.CHEST);
                 return 0.00123f;
             }
         }
 
-        return amount;
+        return damage;
     }
     @Inject(method = "blockUsingItem", at = @At("HEAD"))
-    private void onShieldHit(ServerLevel world, LivingEntity attacker, CallbackInfo ci) {
+    private void onShieldHit(ServerLevel level, LivingEntity attacker, CallbackInfo ci) {
         LivingEntity defender = (LivingEntity)(Object)this;
         ItemStack activeItem = defender.getUseItem();
 
@@ -81,20 +81,20 @@ public abstract class LivingEntityMixin {
     }
 
     @Inject(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getUseItem()Lnet/minecraft/world/item/ItemStack;"), cancellable = true)
-    private void cancel0Damage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (amount==0.00123f)cir.setReturnValue(true);
+    private void cancel0Damage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        if (damage ==0.00123f)cir.setReturnValue(true);
     }
 
     @Inject(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;resolveMobResponsibleForDamage(Lnet/minecraft/world/damagesource/DamageSource;)V"))
-    private void leechingEnchant(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void leechingEnchant(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         if (source.getEntity() instanceof Player PE) {
             int i = NekomasFixed.enchantLevel(PE.getMainHandItem(), "leeching");
-            if (i != 0) PE.heal((i * 0.0125f + 0.0125f) * amount);
+            if (i != 0) PE.heal((i * 0.0125f + 0.0125f) * damage);
         }
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"))
-    private void dismountEnchant(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void dismountEnchant(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity entity = (LivingEntity)(Object)this;
         if (source.getEntity() instanceof Player PE) {
             int i = NekomasFixed.enchantLevel(PE.getMainHandItem(), "dismount");
@@ -104,7 +104,6 @@ public abstract class LivingEntityMixin {
             }
         }
     }
-
 
     @Unique
     public float getReductionAmount(LivingEntity LE, float damage, double angle) {

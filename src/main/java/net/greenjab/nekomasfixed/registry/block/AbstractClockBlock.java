@@ -59,8 +59,8 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-		if (world.getBlockEntity(pos) instanceof ClockBlockEntity clockBlockEntity && !hand.equals(InteractionHand.OFF_HAND)) {
+	protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+		if (level.getBlockEntity(pos) instanceof ClockBlockEntity clockBlockEntity && !hand.equals(InteractionHand.OFF_HAND)) {
 			clockBlockEntity.setChanged();
 			if (state.is(BlockRegistry.CLOCK)){
 				if (stack.is(Items.BELL)) {
@@ -75,9 +75,9 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
 						clockBlockEntity.setBell(false);
 						clockBlockEntity.setTimer(-60);
 						stack.hurtWithoutBreaking(1, player);
-						ItemEntity itemEntity = new ItemEntity(world, pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5 , Items.BELL.getDefaultInstance());
+						ItemEntity itemEntity = new ItemEntity(level, pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5 , Items.BELL.getDefaultInstance());
 						itemEntity.setDefaultPickUpDelay();
-						world.addFreshEntity(itemEntity);
+						level.addFreshEntity(itemEntity);
 					}
 					return InteractionResult.SUCCESS;
 				}
@@ -107,18 +107,18 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
 
 	@Nullable
 	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
-		return createTickerHelper(type, BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, world.isClientSide()?ClockBlockEntity::clientTick:ClockBlockEntity::tick);
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
+		return createTickerHelper(type, BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, level.isClientSide()?ClockBlockEntity::clientTick:ClockBlockEntity::tick);
 	}
 
 	@Override
-	protected int getSignal(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Direction direction) {
+	protected int getSignal(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull Direction direction) {
 		return state.getValue(POWERED) ? 15 : 0;
 	}
 
 	@Override
-	protected int getDirectSignal(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Direction direction) {
-		return direction == Direction.UP ? state.getSignal(world, pos, direction) : 0;
+	protected int getDirectSignal(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull Direction direction) {
+		return direction == Direction.UP ? state.getSignal(level, pos, direction) : 0;
 	}
 
 	@Override
@@ -126,41 +126,41 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
 		return true;
 	}
 
-	public void setPower(Level world, BlockPos pos,BlockState state,boolean power) {
+	public void setPower(Level level, BlockPos pos, BlockState state, boolean power) {
 		state = state.setValue(AbstractClockBlock.POWERED, power);
-		world.setBlock(pos, state, Block.UPDATE_ALL);
-		updateNeighbors(state, world, pos);
+		level.setBlock(pos, state, Block.UPDATE_ALL);
+		updateNeighbors(state, level, pos);
 	}
-	public void updateNeighbors(BlockState state, Level world, BlockPos pos) {
+	public void updateNeighbors(BlockState state, Level level, BlockPos pos) {
 		Direction direction = Direction.DOWN;
 		Orientation wireOrientation = ExperimentalRedstoneUtils.initialOrientation(
-				world, direction, Direction.UP
+				level, direction, Direction.UP
 		);
-		world.updateNeighborsAt(pos, this, wireOrientation);
-		world.updateNeighborsAt(pos.relative(direction), this, wireOrientation);
+		level.updateNeighborsAt(pos, this, wireOrientation);
+		level.updateNeighborsAt(pos.relative(direction), this, wireOrientation);
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, boolean moved) {
+	protected void affectNeighborsAfterRemoval(BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, boolean moved) {
 		if (state.getValue(POWERED)) {
-			this.updateNeighbors(state.setValue(POWERED, false), world, pos);
+			this.updateNeighbors(state.setValue(POWERED, false), level, pos);
 		}
 	}
 
 	@Override
-	public void animateTick(BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull RandomSource random) {
+	public void animateTick(BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull RandomSource random) {
 		if (state.getValue(POWERED)) {
-			addParticle(state, world, pos, random);
-			addParticle(state, world, pos, random);
-			addParticle(state, world, pos, random);
+			addParticle(state, level, pos, random);
+			addParticle(state, level, pos, random);
+			addParticle(state, level, pos, random);
 		}
 	}
 
-	public void addParticle(BlockState state, Level world, BlockPos pos, RandomSource random) {
+	public void addParticle(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		double d = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.4;
 		double e = pos.getY() + 0.4 + (random.nextDouble() - 0.5) * 0.2;
 		double f = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.4;
-		world.addParticle(DustParticleOptions.REDSTONE, d, e, f, 0.0, 0.0, 0.0);
+		level.addParticle(DustParticleOptions.REDSTONE, d, e, f, 0.0, 0.0, 0.0);
 	}
 
 	@Override
@@ -169,8 +169,8 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
-		return (int)(((world.getOverworldClockTime()+5000)%12000)/1000)+1;
+	protected int getAnalogOutputSignal(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
+		return (int)(((level.getOverworldClockTime()+5000)%12000)/1000)+1;
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
 	@Override
 	protected @NonNull BlockState updateShape(
             @NonNull BlockState state,
-            @NonNull LevelReader world,
+            @NonNull LevelReader level,
             @NonNull ScheduledTickAccess tickView,
             @NonNull BlockPos pos,
             @NonNull Direction direction,
@@ -189,13 +189,13 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
             @NonNull BlockState neighborState,
             @NonNull RandomSource random
 	) {
-		return direction == Direction.DOWN && !this.canSurvive(state, world, pos)
+		return direction == Direction.DOWN && !this.canSurvive(state, level, pos)
 				? Blocks.AIR.defaultBlockState()
-				: super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+				: super.updateShape(state, level, tickView, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
-	protected boolean canSurvive(@NonNull BlockState state, @NonNull LevelReader world, BlockPos pos) {
-		return canSupportCenter(world, pos.below(), Direction.UP);
+	protected boolean canSurvive(@NonNull BlockState state, @NonNull LevelReader level, BlockPos pos) {
+		return canSupportCenter(level, pos.below(), Direction.UP);
 	}
 }

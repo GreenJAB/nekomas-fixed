@@ -39,29 +39,19 @@ public class SuspiciousSpiderEntityModel extends EntityModel<LivingEntityRenderS
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
-        modelPartData.addOrReplaceChild(
-                PartNames.HEAD, CubeListBuilder.create().texOffs(32, 4).addBox(-4.0F, -4.0F, -8.0F, 8.0F, 8.0F, 8.0F), PartPose.offset(0.0F, 15.0F, -3.0F)
-        );
+        modelPartData.addOrReplaceChild(PartNames.HEAD, CubeListBuilder.create().texOffs(32, 4).addBox(-4.0F, -4.0F, -8.0F, 8.0F, 8.0F, 8.0F), PartPose.offset(0.0F, 15.0F, -3.0F));
         PartDefinition root = modelPartData.addOrReplaceChild("body0", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -3.0F, -3.0F, 6.0F, 6.0F, 6.0F), PartPose.offset(0.0F, 15.0F, 0.0F));
         modelPartData.addOrReplaceChild("body1", CubeListBuilder.create().texOffs(0, 12).addBox(-5.0F, -4.0F, -6.0F, 10.0F, 8.0F, 12.0F), PartPose.offset(0.0F, 15.0F, 9.0F));
         CubeListBuilder modelPartBuilder = CubeListBuilder.create().texOffs(18, 0).addBox(-15.0F, -1.0F, -1.0F, 16.0F, 2.0F, 2.0F);
         CubeListBuilder modelPartBuilder2 = CubeListBuilder.create().texOffs(18, 0).mirror().addBox(-1.0F, -1.0F, -1.0F, 16.0F, 2.0F, 2.0F);
-        modelPartData.addOrReplaceChild(
-                PartNames.RIGHT_HIND_LEG, modelPartBuilder, PartPose.offsetAndRotation(-4.0F, 15.0F, 2.0F, 0.0F, (float) (Math.PI / 4), (float) (-Math.PI / 4))
-        );
-        modelPartData.addOrReplaceChild(
-                PartNames.LEFT_HIND_LEG, modelPartBuilder2, PartPose.offsetAndRotation(4.0F, 15.0F, 2.0F, 0.0F, (float) (-Math.PI / 4), (float) (Math.PI / 4))
-        );
+        modelPartData.addOrReplaceChild(PartNames.RIGHT_HIND_LEG, modelPartBuilder, PartPose.offsetAndRotation(-4.0F, 15.0F, 2.0F, 0.0F, (float) (Math.PI / 4), (float) (-Math.PI / 4)));
+        modelPartData.addOrReplaceChild(PartNames.LEFT_HIND_LEG, modelPartBuilder2, PartPose.offsetAndRotation(4.0F, 15.0F, 2.0F, 0.0F, (float) (-Math.PI / 4), (float) (Math.PI / 4)));
         modelPartData.addOrReplaceChild("right_middle_hind_leg", modelPartBuilder, PartPose.offsetAndRotation(-4.0F, 15.0F, 1.0F, 0.0F, (float) (Math.PI / 8), -0.58119464F));
         modelPartData.addOrReplaceChild("left_middle_hind_leg", modelPartBuilder2, PartPose.offsetAndRotation(4.0F, 15.0F, 1.0F, 0.0F, (float) (-Math.PI / 8), 0.58119464F));
         modelPartData.addOrReplaceChild("right_middle_front_leg", modelPartBuilder, PartPose.offsetAndRotation(-4.0F, 15.0F, 0.0F, 0.0F, (float) (-Math.PI / 8), -0.58119464F));
         modelPartData.addOrReplaceChild("left_middle_front_leg", modelPartBuilder2, PartPose.offsetAndRotation(4.0F, 15.0F, 0.0F, 0.0F, (float) (Math.PI / 8), 0.58119464F));
-        modelPartData.addOrReplaceChild(
-                PartNames.RIGHT_FRONT_LEG, modelPartBuilder, PartPose.offsetAndRotation(-4.0F, 15.0F, -1.0F, 0.0F, (float) (-Math.PI / 4), (float) (-Math.PI / 4))
-        );
-        modelPartData.addOrReplaceChild(
-                PartNames.LEFT_FRONT_LEG, modelPartBuilder2, PartPose.offsetAndRotation(4.0F, 15.0F, -1.0F, 0.0F, (float) (Math.PI / 4), (float) (Math.PI / 4))
-        );
+        modelPartData.addOrReplaceChild(PartNames.RIGHT_FRONT_LEG, modelPartBuilder, PartPose.offsetAndRotation(-4.0F, 15.0F, -1.0F, 0.0F, (float) (-Math.PI / 4), (float) (-Math.PI / 4)));
+        modelPartData.addOrReplaceChild(PartNames.LEFT_FRONT_LEG, modelPartBuilder2, PartPose.offsetAndRotation(4.0F, 15.0F, -1.0F, 0.0F, (float) (Math.PI / 4), (float) (Math.PI / 4)));
 
         PartDefinition mushroom1 = root.addOrReplaceChild("mushroom1", CubeListBuilder.create().texOffs(5, 42).addBox(-4.0F, 4.0F, 0.0F, 8.0F, 0.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, 0.0F));
         mushroom1.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(5, 42).addBox(-4.0F, -4.0F, 0.0F, 8.0F, 8.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
@@ -105,5 +95,4 @@ public class SuspiciousSpiderEntityModel extends EntityModel<LivingEntityRenderS
         this.rightFrontLeg.zRot += o;
         this.leftFrontLeg.zRot -= o;
     }
-
 }

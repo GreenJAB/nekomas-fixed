@@ -18,9 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LightningRodBlockMixin {
 
     @Inject(method = "onLightningStrike", at = @At("HEAD"))
-    private void tryMakeLightningBottle(BlockState state, Level world, BlockPos pos, CallbackInfo ci) {
+    private void tryMakeLightningBottle(BlockState state, Level level, BlockPos pos, CallbackInfo ci) {
         if (state.getValue(LightningRodBlock.FACING) == Direction.UP) {
-            if (world.getBlockEntity(pos.below()) instanceof BrewingStandBlockEntity brewingStand) {
+            if (level.getBlockEntity(pos.below()) instanceof BrewingStandBlockEntity brewingStand) {
                 for (int i = 0; i <3;i++) {
                     if (brewingStand.items.get(i).getItem() == Items.GLASS_BOTTLE) {
                         brewingStand.items.set(i, PotionContents.createItemStack(Items.POTION, ItemRegistry.LIGHTNING));

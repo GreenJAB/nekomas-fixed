@@ -35,12 +35,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Environment(EnvType.CLIENT)
 public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> implements BlockEntityRenderer<@NonNull T, ClamBlockEntityRenderState> {
-	private static final Logger log = LoggerFactory.getLogger(ClamBlockEntityRenderer.class);
 	private final SpriteGetter materials;
 	private final ClamBlockModel clamModel;
 	private final ItemModelResolver itemModelManager;
@@ -56,24 +53,17 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 		return new ClamBlockEntityRenderState();
 	}
 
-	public void extractRenderState(
-            @NonNull T blockEntity,
-            @NonNull ClamBlockEntityRenderState clamBlockEntityRenderState,
-            float f,
-            @NonNull Vec3 vec3d,
-            @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand
-	) {
+	public void extractRenderState(@NonNull T blockEntity, @NonNull ClamBlockEntityRenderState clamBlockEntityRenderState,
+				float f, @NonNull Vec3 vec3d, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, clamBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
 		boolean bl = blockEntity.getLevel() != null;
 		BlockState blockState = bl ? blockEntity.getBlockState() : BlockRegistry.CLAM.defaultBlockState().setValue(ClamBlock.FACING, Direction.SOUTH);
 		clamBlockEntityRenderState.yaw = (blockState.getValue(ClamBlock.FACING)).toYRot();
 		clamBlockEntityRenderState.variant = this.getVariant(blockEntity);
-
 		clamBlockEntityRenderState.lidAnimationProgress = ClamBlock.getAnimationProgressRetriever(blockEntity).getFallback().get(f);
-
 		if (clamBlockEntityRenderState.lidAnimationProgress > 0 && blockEntity instanceof ClamBlockEntity clamBlockEntity) {
 			NonNullList<ItemStack> defaultedList = clamBlockEntity.getItems();
-			ItemStack itemStack = defaultedList.get(0);
+			ItemStack itemStack = defaultedList.getFirst();
 			if (!itemStack.isEmpty()) {
 				ItemStackRenderState itemRenderState = new ItemStackRenderState();
 				this.itemModelManager.updateForTopItem(itemRenderState, itemStack, ItemDisplayContext.FIXED, clamBlockEntity.level(), clamBlockEntity, HashCommon.long2int(clamBlockEntity.getBlockPos().asLong()));
@@ -82,12 +72,8 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 		}
 	}
 
-	public void submit(
-            ClamBlockEntityRenderState clamBlockEntityRenderState,
-            PoseStack matrixStack,
-            SubmitNodeCollector orderedRenderCommandQueue,
-            @NonNull CameraRenderState cameraRenderState
-	) {
+	public void submit(ClamBlockEntityRenderState clamBlockEntityRenderState, PoseStack matrixStack,
+					   SubmitNodeCollector orderedRenderCommandQueue, @NonNull CameraRenderState cameraRenderState) {
 		matrixStack.pushPose();
 		matrixStack.translate(0.5F, 0.5F, 0.5F);
 		matrixStack.mulPose(Axis.YP.rotationDegrees(-clamBlockEntityRenderState.yaw));
@@ -98,32 +84,20 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 		SpriteId spriteIdentifier = TextureRegistry.getClamTextureId(clamBlockEntityRenderState.variant);
 		RenderType renderLayer = spriteIdentifier.renderType(RenderTypes::entityCutout);
 		TextureAtlasSprite sprite = this.materials.get(spriteIdentifier);
-		orderedRenderCommandQueue.submitModel(
-				this.clamModel,
-				f,
-				matrixStack,
-				renderLayer,
-				clamBlockEntityRenderState.lightCoords,
-				OverlayTexture.NO_OVERLAY,
-				-1,
-				sprite,
-				0,
-				clamBlockEntityRenderState.breakProgress
-			);
-
+		orderedRenderCommandQueue.submitModel(this.clamModel, f, matrixStack, renderLayer,
+				clamBlockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, sprite,
+				0, clamBlockEntityRenderState.breakProgress);
 		matrixStack.popPose();
 
 		if (clamBlockEntityRenderState.lidAnimationProgress>0) {
 			ItemStackRenderState itemRenderState = clamBlockEntityRenderState.itemRenderState;
-			if (itemRenderState != null) {
-				this.renderItem(clamBlockEntityRenderState, itemRenderState, matrixStack, orderedRenderCommandQueue, -clamBlockEntityRenderState.yaw);
-			}
+			if (itemRenderState != null) this.renderItem(clamBlockEntityRenderState, itemRenderState,
+					matrixStack, orderedRenderCommandQueue, -clamBlockEntityRenderState.yaw);
 		}
 	}
 
-	private void renderItem(
-			ClamBlockEntityRenderState state, ItemStackRenderState itemRenderState, PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees
-	) {
+	private void renderItem(ClamBlockEntityRenderState state, ItemStackRenderState itemRenderState, PoseStack matrices,
+							SubmitNodeCollector queue, float rotationDegrees) {
 		Vec3 vec3d = new Vec3(0, -0.37, -0.11);
 		matrices.pushPose();
 		matrices.translate(0.5F, 0.5F, 0.5F);

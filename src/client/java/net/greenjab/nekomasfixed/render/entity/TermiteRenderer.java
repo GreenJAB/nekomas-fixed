@@ -6,10 +6,10 @@ import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;import net.gre
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
-import net.greenjab.nekomasfixed.registry.entity.TermiteEntity;
+import net.greenjab.nekomasfixed.registry.entity.Termite;
 import org.jspecify.annotations.NonNull;
 
-public class TermiteRenderer extends MobRenderer<TermiteEntity, TermiteRenderState, TermiteModel> {
+public class TermiteRenderer extends MobRenderer<Termite, TermiteRenderState, TermiteModel> {
     public TermiteRenderer(EntityRendererProvider.Context context) {
         super(context, new TermiteModel(context.bakeLayer(ModEntityLayerRegistry.TERMITE)), 0.25f);
     }
@@ -25,7 +25,7 @@ public class TermiteRenderer extends MobRenderer<TermiteEntity, TermiteRenderSta
         return NekomasFixed.id("textures/entity/termite/termite.png");
     }
 
-    public void extractRenderState(@NonNull TermiteEntity entity, @NonNull TermiteRenderState state, float f) {
+    public void extractRenderState(@NonNull Termite entity, @NonNull TermiteRenderState state, float f) {
         super.extractRenderState(entity, state, f);
         state.swipeAnimationState.copyFrom(entity.swipeAnimationState);
     }

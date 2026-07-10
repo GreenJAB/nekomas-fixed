@@ -57,14 +57,14 @@ public class AnimalTooltipComponent implements ClientTooltipComponent {
     }
 
     private void drawNonEmptyTooltip( int x, int y, GuiGraphicsExtractor context) {
-        Level world = Minecraft.getInstance().level;
-        if (world!=null &&!animalComponent.animal().isEmpty()) {
-            TypedEntityData<EntityType<?>> entityData = animalComponent.animal().get(0).entityData();
+        Level level = Minecraft.getInstance().level;
+        if (level !=null &&!animalComponent.animal().isEmpty()) {
+            TypedEntityData<EntityType<?>> entityData = animalComponent.animal().getFirst().entityData();
             CompoundTag nbtCompound = entityData.copyTagWithoutId();
             AnimalComponent.IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtCompound::remove);
-            Entity entity = EntityType.loadEntityRecursive(entityData.type(), nbtCompound, world, EntitySpawnReason.LOAD, entityx -> entityx);
+            Entity entity = EntityType.loadEntityRecursive(entityData.type(), nbtCompound, level, EntitySpawnReason.LOAD, entityx -> entityx);
             if (entity!=null) {
-                entity.tickCount = Math.toIntExact(world.getGameTime());
+                entity.tickCount = Math.toIntExact(level.getGameTime());
                 float time = System.currentTimeMillis() % (20 * 1000);
                 time *= (float) (2 * Math.PI) / (20 * 1000.0f);
                 float dx = 10 * (float) (Math.cos(7 * time) + Math.sin(3 * time));

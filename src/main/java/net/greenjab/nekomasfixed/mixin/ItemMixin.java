@@ -19,28 +19,28 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ItemMixin {
 
 	@Inject(method="isFoil", at = @At(value = "HEAD"), cancellable = true)
-	private void clockHasStoredTime(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-		if (stack.hasNonDefault(ComponentRegistry.STORED_TIME)) cir.setReturnValue(true);
+	private void clockHasStoredTime(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
+		if (itemStack.hasNonDefault(ComponentRegistry.STORED_TIME)) cir.setReturnValue(true);
 	}
 
 	@Inject(method="onUseTick", at=@At("HEAD"))
 	private void customUsageTick(
-			Level world,
-			LivingEntity user,
-			ItemStack stack,
-			int remainingUseTicks,
+			Level level,
+			LivingEntity livingEntity,
+			ItemStack itemStack,
+			int ticksRemaining,
 			CallbackInfo ci
 	) {
-		if (!world.isClientSide() || !stack.is(Items.GOAT_HORN)) return;
+		if (!level.isClientSide() || !itemStack.is(Items.GOAT_HORN)) return;
 
-		if (user.tickCount % 3 == 0 && !world.isClientSide() ) {
-            ServerLevel serverWorld = (ServerLevel) world;
-			if(serverWorld.structureManager().getStructureWithPieceAt(user.blockPosition(), StructureTags.VILLAGE).isValid()) {
-				serverWorld.sendParticles(
+		if (livingEntity.tickCount % 3 == 0 && !level.isClientSide() ) {
+            ServerLevel serverLevel = (ServerLevel) level;
+			if(serverLevel.structureManager().getStructureWithPieceAt(livingEntity.blockPosition(), StructureTags.VILLAGE).isValid()) {
+				serverLevel.sendParticles(
 						ParticleTypes.POOF,
-						user.getX(),
-						user.getY() + 0.5,
-						user.getZ(),
+						livingEntity.getX(),
+						livingEntity.getY() + 0.5,
+						livingEntity.getZ(),
 						20,
 						0.4, 0.2, 0.4,
 						0.05

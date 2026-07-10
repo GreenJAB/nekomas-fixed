@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.block.entity.TermitehiveBlockEntity;
-import net.greenjab.nekomasfixed.registry.entity.TermiteEntity;
+import net.greenjab.nekomasfixed.registry.entity.Termite;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -65,53 +65,45 @@ public class TermitehiveBlock extends BaseEntityBlock {
     }
 
     @Override
-    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level world, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
-        if (world.isClientSide()) return null;
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
+        if (level.isClientSide()) return null;
 
         if (type == BlockEntityTypeRegistry.TERMITE_HIVE_BLOCK_ENTITY) {
-            return (world1, pos, state1, blockEntity) -> {
+            return (level1, pos, state1, blockEntity) -> {
                 if (blockEntity instanceof TermitehiveBlockEntity hive) {
-                    TermitehiveBlockEntity.serverTick(world1, pos, state1, hive);
-
+                    TermitehiveBlockEntity.serverTick(level1, pos, state1, hive);
                     int current = state1.getValue(TERMITES);
                     int actual = hive.getTermiteCount();
-
-                    if (current != actual) {
-                        world1.setBlock(pos, state1.setValue(TERMITES, actual), 3);
-                    }
+                    if (current != actual) level1.setBlock(pos, state1.setValue(TERMITES, actual), 3);
                 }
             };
         }
-
         return null;
     }
 
     @Override
-    public @NonNull BlockState playerWillDestroy(@NonNull Level world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
-        if (world instanceof ServerLevel serverWorld
+    public @NonNull BlockState playerWillDestroy(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
+        if (level instanceof ServerLevel serverLevel
                 && player.preventsBlockDrops()
-                && serverWorld.getGameRules().get(GameRules.BLOCK_DROPS)
-                && world.getBlockEntity(pos) instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
+                && serverLevel.getGameRules().get(GameRules.BLOCK_DROPS)
+                && level.getBlockEntity(pos) instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
             boolean bl = !termitehiveBlockEntity.hasNoTermites();
             if (bl) {
                 ItemStack itemStack = new ItemStack(this);
                 itemStack.applyComponents(termitehiveBlockEntity.collectComponents());
-                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+                ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                 itemEntity.setDefaultPickUpDelay();
-                world.addFreshEntity(itemEntity);
+                level.addFreshEntity(itemEntity);
             }
         }
-        return super.playerWillDestroy(world, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
 
     @Override
-    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader world, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
-        ItemStack itemStack = super.getCloneItemStack(world, pos, state, includeData);
-        if (includeData) {
-            itemStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(TERMITES, state.getValue(TERMITES)));
-        }
-
+    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+        ItemStack itemStack = super.getCloneItemStack(level, pos, state, includeData);
+        if (includeData) itemStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(TERMITES, state.getValue(TERMITES)));
         return itemStack;
     }
 
@@ -135,7 +127,7 @@ public class TermitehiveBlock extends BaseEntityBlock {
     @Override
     protected @NonNull BlockState updateShape(
             @NonNull BlockState state,
-            LevelReader world,
+            LevelReader level,
             @NonNull ScheduledTickAccess tickView,
             @NonNull BlockPos pos,
             @NonNull Direction direction,
@@ -143,11 +135,10 @@ public class TermitehiveBlock extends BaseEntityBlock {
             @NonNull BlockState neighborState,
             @NonNull RandomSource random
     ) {
-        if (world.getBlockState(neighborPos).getBlock() instanceof FireBlock && world.getBlockEntity(pos) instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
+        if (level.getBlockState(neighborPos).getBlock() instanceof FireBlock && level.getBlockEntity(pos) instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
             termitehiveBlockEntity.angerTermites(TermitehiveBlockEntity.TermiteState.EMERGENCY);
         }
-
-        return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+        return super.updateShape(state, level, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
 
@@ -157,38 +148,34 @@ public class TermitehiveBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void playerDestroy(@NonNull Level world, @NonNull Player player, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable BlockEntity blockEntity, @NonNull ItemStack tool) {
-        super.playerDestroy(world, player, pos, state, blockEntity, tool);
-        if (!world.isClientSide() && blockEntity instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
+    public void playerDestroy(@NonNull Level level, @NonNull Player player, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable BlockEntity blockEntity, @NonNull ItemStack tool) {
+        super.playerDestroy(level, player, pos, state, blockEntity, tool);
+        if (!level.isClientSide() && blockEntity instanceof TermitehiveBlockEntity termitehiveBlockEntity) {
             if (!EnchantmentHelper.hasTag(tool, EnchantmentTags.PREVENTS_BEE_SPAWNS_WHEN_MINING)) {
                 termitehiveBlockEntity.angerTermites(TermitehiveBlockEntity.TermiteState.EMERGENCY);
-                Containers.updateNeighboursAfterDestroy(state, world, pos);
-                this.angerNearbyTermites(world, pos);
+                Containers.updateNeighboursAfterDestroy(state, level, pos);
+                this.angerNearbyTermites(level, pos);
             }
-
             CriteriaTriggers.BEE_NEST_DESTROYED.trigger((ServerPlayer)player, state, tool, termitehiveBlockEntity.getTermiteCount());
         }
     }
 
     @Override
-    protected void onExplosionHit(@NonNull BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, @NonNull Explosion explosion, @NonNull BiConsumer<ItemStack, BlockPos> stackMerger) {
-        super.onExplosionHit(state, world, pos, explosion, stackMerger);
-        this.angerNearbyTermites(world, pos);
+    protected void onExplosionHit(@NonNull BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, @NonNull Explosion explosion, @NonNull BiConsumer<ItemStack, BlockPos> stackMerger) {
+        super.onExplosionHit(state, level, pos, explosion, stackMerger);
+        this.angerNearbyTermites(level, pos);
     }
 
-    private void angerNearbyTermites(Level world, BlockPos pos) {
+    private void angerNearbyTermites(Level level, BlockPos pos) {
         AABB box = new AABB(pos).inflate(8.0, 6.0, 8.0);
-        List<TermiteEntity> list = world.getEntitiesOfClass(TermiteEntity.class, box);
+        List<Termite> list = level.getEntitiesOfClass(Termite.class, box);
         if (!list.isEmpty()) {
-            List<Player> list2 = world.getEntitiesOfClass(Player.class, box);
-            if (list2.isEmpty()) {
-                return;
-            }
-
-            for (TermiteEntity termiteEntity : list) {
-                if (termiteEntity.getTarget() == null) {
-                    Player playerEntity = Util.getRandom(list2, world.getRandom());
-                    termiteEntity.setTarget(playerEntity);
+            List<Player> list2 = level.getEntitiesOfClass(Player.class, box);
+            if (list2.isEmpty())  return;
+            for (Termite termite : list) {
+                if (termite.getTarget() == null) {
+                    Player playerEntity = Util.getRandom(list2, level.getRandom());
+                    termite.setTarget(playerEntity);
                 }
             }
         }

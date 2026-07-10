@@ -65,7 +65,7 @@ public class SoupCauldronBlockEntity extends BlockEntity implements LidBlockEnti
         setChanged();
 
         if(level != null && !level.isClientSide()) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-        ItemStack removed = inputs.remove(inputs.size()-1);
+        ItemStack removed = inputs.removeLast();
         if (inputs.isEmpty()) level.setBlockAndUpdate(worldPosition, Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3));
         return removed;
     }
@@ -91,15 +91,15 @@ public class SoupCauldronBlockEntity extends BlockEntity implements LidBlockEnti
         return saveWithoutMetadata(registries);
     }
 
-    public void setStirred(Level world) {
+    public void setStirred(Level level) {
         this.hasStirred = true;
-        if (world instanceof ServerLevel serverWorld) {
+        if (level instanceof ServerLevel serverLevel) {
             List<ItemStack> updatedInputs = new ArrayList<>();
             for (ItemStack item : inputs) {
                 SingleRecipeInput singleStackRecipeInput = new SingleRecipeInput(item);
-                Optional<RecipeHolder<SmeltingRecipe>> optional = serverWorld
+                Optional<RecipeHolder<SmeltingRecipe>> optional = serverLevel
                         .recipeAccess()
-                        .getRecipeFor(RecipeType.SMELTING, singleStackRecipeInput, world);
+                        .getRecipeFor(RecipeType.SMELTING, singleStackRecipeInput, level);
                 if (optional.isPresent() && !item.is(Items.CHORUS_FRUIT)) {
                     ItemStack itemStack = (((RecipeHolder)optional.get()).value()).assemble(singleStackRecipeInput);
                     if (!itemStack.isEmpty()) updatedInputs.add(itemStack);
@@ -111,20 +111,20 @@ public class SoupCauldronBlockEntity extends BlockEntity implements LidBlockEnti
         }
         setChanged();
 
-        if (world != null && !world.isClientSide()) {
-            world.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
 
     public List<ItemStack> getInputs() {return inputs;}
 
 
-    public static void clientTick(Level world, BlockPos pos, BlockState state, SoupCauldronBlockEntity blockEntity) {
+    public static void clientTick(Level level, BlockPos pos, BlockState state, SoupCauldronBlockEntity blockEntity) {
         blockEntity.CookingAnimator.setStarted(blockEntity.hasStirred);
         blockEntity.CookingAnimator.step();
         float progress = blockEntity.CookingAnimator.getProgress(0);
         if (progress>0&&progress<1){
-            blockEntity.level.addParticle(ParticleTypes.BUBBLE_POP, pos.getX()+0.5+ world.getRandom().nextGaussian()*0.25, pos.getY()+1, pos.getZ()+0.5+ world.getRandom().nextGaussian()*0.25, 0.0, 0.0, 0.0);
+            blockEntity.level.addParticle(ParticleTypes.BUBBLE_POP, pos.getX()+0.5+ level.getRandom().nextGaussian()*0.25, pos.getY()+1, pos.getZ()+0.5+ level.getRandom().nextGaussian()*0.25, 0.0, 0.0, 0.0);
             blockEntity.level.sendBlockUpdated(pos, state, state, 3);
         }
     }

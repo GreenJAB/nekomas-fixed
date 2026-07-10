@@ -40,7 +40,7 @@ public class FloorEndermanHeadHead extends AbstractEndermanHeadBlock {
 	}
 
 	@Override
-	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 		return state.getValue(POWER)>0?SHAPE_POWERED:SHAPE;
 	}
 

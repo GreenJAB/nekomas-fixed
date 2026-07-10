@@ -41,27 +41,14 @@ public class WildfireEntityModel extends EntityModel<WildfireEntityRenderState> 
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 
-		PartDefinition modelPartData2 = modelPartData.addOrReplaceChild(
-				PartNames.HEAD,
-				CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F), PartPose.offset(0, -3, 0));
-		modelPartData2.addOrReplaceChild(
-				PartNames.HAT, CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5f)), PartPose.ZERO
-		);
-
-		modelPartData.addOrReplaceChild(
-				"pillar", CubeListBuilder.create().texOffs(8, 32).addBox(-2.0F, 3.0F, -2.0F, 4.0F, 18.0F, 4.0F), PartPose.ZERO
-		);
-
+		PartDefinition modelPartData2 = modelPartData.addOrReplaceChild(PartNames.HEAD, CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F), PartPose.offset(0, -3, 0));
+		modelPartData2.addOrReplaceChild(PartNames.HAT, CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5f)), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("pillar", CubeListBuilder.create().texOffs(8, 32).addBox(-2.0F, 3.0F, -2.0F, 4.0F, 18.0F, 4.0F), PartPose.ZERO);
 
 		CubeListBuilder modelPartBuilder = CubeListBuilder.create().texOffs(0, 32).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 8.0F, 2.0F);
-		for (int i = 0; i < 12; i++) {
-			modelPartData.addOrReplaceChild(getRodName(i), modelPartBuilder, PartPose.offset(0, 0, 0));
-		}
-
+		for (int i = 0; i < 12; i++) modelPartData.addOrReplaceChild(getRodName(i), modelPartBuilder, PartPose.offset(0, 0, 0));
 		CubeListBuilder modelPartBuilder2 = CubeListBuilder.create().texOffs(32, 0).addBox(-6.0F, 0.0F, 0.5F, 12.0F, 22.0F, 1.0F);
-		for (int i = 0; i < 4; i++) {
-			modelPartData.addOrReplaceChild(getShieldName(i), modelPartBuilder2, PartPose.offset(0, 0, 0));
-		}
+		for (int i = 0; i < 4; i++) modelPartData.addOrReplaceChild(getShieldName(i), modelPartBuilder2, PartPose.offset(0, 0, 0));
 
 		return LayerDefinition.create(modelData, 64, 64);
 	}

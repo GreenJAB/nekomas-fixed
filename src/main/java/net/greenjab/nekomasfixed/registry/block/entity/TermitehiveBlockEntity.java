@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.greenjab.nekomasfixed.registry.entity.TermiteEntity;
 import net.greenjab.nekomasfixed.registry.other.TermitesComponent;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
@@ -105,7 +104,7 @@ public class TermitehiveBlockEntity extends BlockEntity {
     }
 
 
-    public void tryEnterMound(TermiteEntity entity) {
+    public void tryEnterMound(net.greenjab.nekomasfixed.registry.entity.Termite entity) {
         if (this.termites.size() < 2) {
             entity.stopRiding();
             entity.ejectPassengers();
@@ -131,22 +130,22 @@ public class TermitehiveBlockEntity extends BlockEntity {
     }
 
     private static boolean releaseTermite(
-            Level world,
+            Level level,
             BlockPos pos,
             TermitehiveBlockEntity.TermiteData termite,
             @Nullable List<Entity> entities,
             TermitehiveBlockEntity.TermiteState termiteState
     ) {
 
-        Direction direction = Direction.fromYRot(world.getRandom().nextInt(360));
+        Direction direction = Direction.fromYRot(level.getRandom().nextInt(360));
         BlockPos blockPos = pos.relative(direction);
-        boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty();
+        boolean bl = !level.getBlockState(blockPos).getCollisionShape(level, blockPos).isEmpty();
         if (bl && termiteState != TermitehiveBlockEntity.TermiteState.EMERGENCY) {
             return false;
         } else {
-            Entity entity = termite.loadEntity(world);
+            Entity entity = termite.loadEntity(level);
             if (entity != null) {
-                if (entity instanceof TermiteEntity termiteEntity) {
+                if (entity instanceof net.greenjab.nekomasfixed.registry.entity.Termite termiteEntity) {
 
                     if (entities != null) {
                         entities.add(termiteEntity);
@@ -160,16 +159,16 @@ public class TermitehiveBlockEntity extends BlockEntity {
                     entity.snapTo(e, g, h, entity.getYRot(), entity.getXRot());
                 }
 
-                world.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 1.0F);
-                world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, world.getBlockState(pos)));
-                return world.addFreshEntity(entity);
+                level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, level.getBlockState(pos)));
+                return level.addFreshEntity(entity);
             } else {
                 return false;
             }
         }
     }
 
-    private static void tickTermites(Level world, BlockPos pos, BlockState state, List<TermitehiveBlockEntity.Termite> termites) {
+    private static void tickTermites(Level level, BlockPos pos, BlockState state, List<TermitehiveBlockEntity.Termite> termites) {
         boolean bl = false;
         Iterator<TermitehiveBlockEntity.Termite> iterator = termites.iterator();
 
@@ -177,7 +176,7 @@ public class TermitehiveBlockEntity extends BlockEntity {
             TermitehiveBlockEntity.Termite termite = iterator.next();
             if (termite.canExitHive()) {
                 TermitehiveBlockEntity.TermiteState termiteState = TermitehiveBlockEntity.TermiteState.TERMITE_RELEASED;
-                if (releaseTermite(world, pos, termite.createData(), null, termiteState)) {
+                if (releaseTermite(level, pos, termite.createData(), null, termiteState)) {
                     bl = true;
                     iterator.remove();
                 }
@@ -185,17 +184,17 @@ public class TermitehiveBlockEntity extends BlockEntity {
         }
 
         if (bl) {
-            setChanged(world, pos, state);
+            setChanged(level, pos, state);
         }
     }
 
-    public static void serverTick(Level world, BlockPos pos, BlockState state, TermitehiveBlockEntity blockEntity) {
-        tickTermites(world, pos, state, blockEntity.termites);
-        if (!blockEntity.termites.isEmpty() && world.getRandom().nextDouble() < 0.005) {
+    public static void serverTick(Level level, BlockPos pos, BlockState state, TermitehiveBlockEntity blockEntity) {
+        tickTermites(level, pos, state, blockEntity.termites);
+        if (!blockEntity.termites.isEmpty() && level.getRandom().nextDouble() < 0.005) {
             double d = pos.getX() + 0.5;
             double e = pos.getY();
             double f = pos.getZ() + 0.5;
-            world.playSound(null, d, e, f, SoundEvents.BEEHIVE_WORK, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(null, d, e, f, SoundEvents.BEEHIVE_WORK, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
     }
 
@@ -237,7 +236,7 @@ public class TermitehiveBlockEntity extends BlockEntity {
     }
 
    /* @Override
-    public void registerTracking(ServerWorld world, DebugTrackable.Tracker tracker) {
+    public void registerTracking(ServerWorld level, DebugTrackable.Tracker tracker) {
         tracker.track(DebugSubscriptionTypes.TERMITE_HIVES, () -> TermiteHiveDebugData.fromTermitehive(this));
     }*/
 
@@ -299,10 +298,10 @@ public class TermitehiveBlockEntity extends BlockEntity {
         }
 
         @Nullable
-        public Entity loadEntity(Level world) {
+        public Entity loadEntity(Level level) {
             CompoundTag nbtCompound = this.entityData.copyTagWithoutId();
             TermitehiveBlockEntity.IRRELEVANT_TERMITE_NBT_KEYS.forEach(nbtCompound::remove);
-            Entity entity = EntityType.loadEntityRecursive(this.entityData.type(), nbtCompound, world, EntitySpawnReason.LOAD, EntityProcessor.NOP);
+            Entity entity = EntityType.loadEntityRecursive(this.entityData.type(), nbtCompound, level, EntitySpawnReason.LOAD, EntityProcessor.NOP);
             if (entity != null && entity.getType()==EntityTypeRegistry.TERMITE) {
                 return entity;
             } else {

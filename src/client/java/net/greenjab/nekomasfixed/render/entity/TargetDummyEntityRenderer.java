@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
-import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
+import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
 import net.greenjab.nekomasfixed.render.entity.feature.BasePlateFeatureRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyArmorEntityModel;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyEntityModel;
@@ -30,13 +30,13 @@ import net.minecraft.world.item.component.ResolvableProfile;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import static net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity.*;
+import static net.greenjab.nekomasfixed.registry.entity.TargetDummy.*;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
 @Environment(EnvType.CLIENT)
-public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyEntity, TargetDummyEntityRenderState, TargetDummyArmorEntityModel> {
+public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy, TargetDummyEntityRenderState, TargetDummyArmorEntityModel> {
 	private final PlayerSkinRenderCache skinCache;
 	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/target_dummy/default.png");
 	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/target_dummy/zombie.png");
@@ -59,9 +59,7 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 	}
 
 	public @NonNull Identifier getTextureLocation(TargetDummyEntityRenderState TargetDummyEntityRenderState) {
-		if (TargetDummyEntityRenderState.skinTextures == null){
-			return TargetDummyEntityRenderState.isZombie?ZOMBIE_TEXTURE:TEXTURE;
-		}
+		if (TargetDummyEntityRenderState.skinTextures == null) return TargetDummyEntityRenderState.isZombie?ZOMBIE_TEXTURE:TEXTURE;
 		return TargetDummyEntityRenderState.skinTextures.body().texturePath();
 	}
 
@@ -69,35 +67,31 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 		return new TargetDummyEntityRenderState();
 	}
 
-	public void extractRenderState(@NonNull TargetDummyEntity targetDummyEntity, @NonNull TargetDummyEntityRenderState targetDummyEntityRenderState, float f) {
-		super.extractRenderState(targetDummyEntity, targetDummyEntityRenderState, f);
-		HumanoidMobRenderer.extractHumanoidRenderState(targetDummyEntity, targetDummyEntityRenderState, f, this.itemModelResolver);
-		targetDummyEntityRenderState.skinTextures = getSkin(targetDummyEntity);
-		targetDummyEntityRenderState.isZombie = targetDummyEntity.isZombie();
-		targetDummyEntityRenderState.yaw = Mth.rotLerp(f, targetDummyEntity.yRotO, targetDummyEntity.getYRot());
-		targetDummyEntityRenderState.bodyRotation = targetDummyEntity.getBodyRotation();
-		targetDummyEntityRenderState.headRotation = targetDummyEntity.getHeadRotation();
-		targetDummyEntityRenderState.leftArmRotation = targetDummyEntity.getLeftArmRotation();
-		targetDummyEntityRenderState.rightArmRotation = targetDummyEntity.getRightArmRotation();
+	public void extractRenderState(@NonNull TargetDummy targetDummy, @NonNull TargetDummyEntityRenderState targetDummyEntityRenderState, float f) {
+		super.extractRenderState(targetDummy, targetDummyEntityRenderState, f);
+		HumanoidMobRenderer.extractHumanoidRenderState(targetDummy, targetDummyEntityRenderState, f, this.itemModelResolver);
+		targetDummyEntityRenderState.skinTextures = getSkin(targetDummy);
+		targetDummyEntityRenderState.isZombie = targetDummy.isZombie();
+		targetDummyEntityRenderState.yaw = Mth.rotLerp(f, targetDummy.yRotO, targetDummy.getYRot());
+		targetDummyEntityRenderState.bodyRotation = targetDummy.getBodyRotation();
+		targetDummyEntityRenderState.headRotation = targetDummy.getHeadRotation();
+		targetDummyEntityRenderState.leftArmRotation = targetDummy.getLeftArmRotation();
+		targetDummyEntityRenderState.rightArmRotation = targetDummy.getRightArmRotation();
 		if (targetDummyEntityRenderState.isZombie) {
-			if (targetDummyEntityRenderState.leftArmRotation.equals(DEFAULT_LEFT_ARM_ROTATION)) {
+			if (targetDummyEntityRenderState.leftArmRotation.equals(DEFAULT_LEFT_ARM_ROTATION))
 				targetDummyEntityRenderState.leftArmRotation = new Rotations(-90.0F, 0.0F, -5.0F);
-			}
-			if (targetDummyEntityRenderState.rightArmRotation.equals(DEFAULT_RIGHT_ARM_ROTATION)) {
+			if (targetDummyEntityRenderState.rightArmRotation.equals(DEFAULT_RIGHT_ARM_ROTATION))
 				targetDummyEntityRenderState.rightArmRotation = new Rotations(-90.0F, 0.0F, 5.0F);
-			}
 		}
 
-		targetDummyEntityRenderState.leftLegRotation = targetDummyEntity.getLeftLegRotation();
-		targetDummyEntityRenderState.rightLegRotation = targetDummyEntity.getRightLegRotation();
-		targetDummyEntityRenderState.timeSinceLastHit = (float)(targetDummyEntity.level().getGameTime() - targetDummyEntity.lastHitTime) + f;
+		targetDummyEntityRenderState.leftLegRotation = targetDummy.getLeftLegRotation();
+		targetDummyEntityRenderState.rightLegRotation = targetDummy.getRightLegRotation();
+		targetDummyEntityRenderState.timeSinceLastHit = (float)(targetDummy.level().getGameTime() - targetDummy.lastHitTime) + f;
 	}
 
-	public PlayerSkin getSkin(TargetDummyEntity targetDummyEntity) {
-		ResolvableProfile p = targetDummyEntity.getTargetDummyProfile();
-		if (p==null || p.equals(DEFAULT_INFO)) {
-			return null;
-		}
+	public PlayerSkin getSkin(TargetDummy targetDummy) {
+		ResolvableProfile p = targetDummy.getTargetDummyProfile();
+		if (p==null || p.equals(DEFAULT_INFO)) return null;
         return skinCache.getOrDefault(p).playerSkin();
 	}
 
@@ -112,22 +106,18 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummyE
 
 	protected void setupRotations(TargetDummyEntityRenderState TargetDummyEntityRenderState, PoseStack matrixStack, float f, float g) {
 		matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - f));
-		if (TargetDummyEntityRenderState.timeSinceLastHit < 5.0F) {
+		if (TargetDummyEntityRenderState.timeSinceLastHit < 5.0F)
 			matrixStack.mulPose(Axis.YP.rotationDegrees(Mth.sin(TargetDummyEntityRenderState.timeSinceLastHit / 1.5F * (float) Math.PI) * 3.0F));
-		}
 	}
 
-	protected boolean shouldShowName(TargetDummyEntity TargetDummyEntity, double d) {
-		return TargetDummyEntity.isCustomNameVisible();
+	protected boolean shouldShowName(TargetDummy TargetDummy, double d) {
+		return TargetDummy.isCustomNameVisible();
 	}
 
 	@Nullable
 	protected RenderType getRenderType(@NonNull TargetDummyEntityRenderState TargetDummyEntityRenderState, boolean bl, boolean bl2, boolean bl3) {
 			Identifier identifier = this.getTextureLocation(TargetDummyEntityRenderState);
-			if (bl2) {
-				return RenderTypes.entityTranslucent(identifier, false);
-			} else {
-				return bl ? RenderTypes.entityCutout(identifier, false) : null;
-			}
+			if (bl2) return RenderTypes.entityTranslucent(identifier, false);
+			else return bl ? RenderTypes.entityCutout(identifier, false) : null;
 	}
 }

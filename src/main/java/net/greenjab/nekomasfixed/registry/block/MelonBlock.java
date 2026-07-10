@@ -113,7 +113,7 @@ public class MelonBlock extends Block {
 	}
 
 	@Override
-	public @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+	public @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
 
 		if (!player.getItemInHand(hand).isEmpty()) {
 			return InteractionResult.FAIL;
@@ -126,16 +126,16 @@ public class MelonBlock extends Block {
 				return InteractionResult.FAIL;
 			} else {
 				if (slices(state)==1) {
-					world.removeBlock(pos, false);
-					world.gameEvent(player, GameEvent.BLOCK_DESTROY, pos);
+					level.removeBlock(pos, false);
+					level.gameEvent(player, GameEvent.BLOCK_DESTROY, pos);
 				} else {
-					world.setBlockAndUpdate(pos, state.setValue(CORNERS[i], false));
+					level.setBlockAndUpdate(pos, state.setValue(CORNERS[i], false));
 				}
 
-				if (!world.isClientSide()) {
+				if (!level.isClientSide()) {
 					player.getFoodData().eat(1, 0.1F);
 					if (glistering) player.heal(0.5f);
-					world.gameEvent(player, GameEvent.EAT, pos);
+					level.gameEvent(player, GameEvent.EAT, pos);
 				}
 
 				return InteractionResult.SUCCESS;
@@ -170,10 +170,10 @@ public class MelonBlock extends Block {
 		if (this.drops.isEmpty()) {
 			return Collections.emptyList();
 		} else {
-			LootParams lootWorldContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
-			ServerLevel serverWorld = lootWorldContext.getLevel();
-			LootTable lootTable = serverWorld.getServer().reloadableRegistries().getLootTable(this.drops.get());
-			List<ItemStack> stacks = lootTable.getRandomItems(lootWorldContext);
+			LootParams lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
+			ServerLevel level = lootContext.getLevel();
+			LootTable lootTable = level.getServer().reloadableRegistries().getLootTable(this.drops.get());
+			List<ItemStack> stacks = lootTable.getRandomItems(lootContext);
 			int slices = (int) IntStream.range(0, 8).filter(j -> hasCorner(state, j)).count();
 			ArrayList<ItemStack> newstacks = new ArrayList<>(List.of());
 			if (glistering) {
@@ -194,7 +194,7 @@ public class MelonBlock extends Block {
 	}
 
 	@Override
-	public @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+	public @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 		return SHAPES[toInt(state)];
 	}
 
@@ -204,7 +204,7 @@ public class MelonBlock extends Block {
 	}
 
 	@Override
-	public float getShadeBrightness(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos) {
+	public float getShadeBrightness(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos) {
 		return isFull(state) ? 0.2F : 1.0F;
 	}
 
@@ -216,9 +216,9 @@ public class MelonBlock extends Block {
 	}
 
 	@Override
-	public void animateTick(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull RandomSource random) {
+	public void animateTick(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull RandomSource random) {
 		if (!glistering)return;
-		if (world.getRandom().nextInt(2)!=0) return;
-		ParticleUtils.spawnParticlesOnBlockFace(world, pos, ParticleTypes.END_ROD, UniformInt.of(1, 1), Direction.getRandom(world.getRandom()), () -> new Vec3(0, 0, 0), 0.55);
+		if (level.getRandom().nextInt(2)!=0) return;
+		ParticleUtils.spawnParticlesOnBlockFace(level, pos, ParticleTypes.END_ROD, UniformInt.of(1, 1), Direction.getRandom(level.getRandom()), () -> new Vec3(0, 0, 0), 0.55);
 	}
 }

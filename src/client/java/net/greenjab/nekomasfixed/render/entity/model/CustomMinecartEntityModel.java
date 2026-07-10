@@ -21,15 +21,14 @@ public class CustomMinecartEntityModel extends MinecartModel {
 
     public CustomMinecartEntityModel(ModelPart root) {
         super(root);
-
         ModelPart group = root.getChild("group");
         ModelPart wheels = group.getChild("wheels");
         this.wheel1 = wheels.getChild("wheel1");
         this.wheel2 = wheels.getChild("wheel2");
         this.wheel3 = wheels.getChild("wheel3");
         this.wheel4 = wheels.getChild("wheel4");
-
     }
+
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();

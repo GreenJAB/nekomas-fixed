@@ -6,6 +6,5 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class HollowLogBlockEntityRenderState extends BlockEntityRenderState {
-    //public BlockState blockState = Blocks.AIR.defaultBlockState();
     public BlockModelRenderState displayBlockModel = new BlockModelRenderState();
 }

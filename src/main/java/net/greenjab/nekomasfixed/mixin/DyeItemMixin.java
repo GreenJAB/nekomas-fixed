@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,29 +21,29 @@ import static net.greenjab.nekomasfixed.util.ModColors.*;
 @Mixin(DyeItem.class)
 public class DyeItemMixin {
     @Inject(method = "tryApplyToSign", at = @At("RETURN"), cancellable = true)
-    private void changeDye(Level world, SignBlockEntity signBlockEntity, boolean front, ItemStack stack, Player player, CallbackInfoReturnable<Boolean> cir) {
-        if (stack.is(ItemRegistry.AMBER_DYE)) {
-            applyDye(signBlockEntity, front, AMBER.getColor());
+    private void changeDye(Level level, SignBlockEntity sign, boolean isFrontText, ItemStack item, Player player, CallbackInfoReturnable<Boolean> cir) {
+        if (item.is(ItemRegistry.AMBER_DYE)) {
+            applyDye(sign, isFrontText, AMBER.getColor());
             cir.setReturnValue(true);
         }
-        if (stack.is(ItemRegistry.AQUA_DYE)) {
-            applyDye(signBlockEntity, front, AQUA.getColor());
+        if (item.is(ItemRegistry.AQUA_DYE)) {
+            applyDye(sign, isFrontText, AQUA.getColor());
             cir.setReturnValue(true);
         }
-        if (stack.is(ItemRegistry.INDIGO_DYE)) {
-            applyDye(signBlockEntity, front, INDIGO.getColor());
+        if (item.is(ItemRegistry.INDIGO_DYE)) {
+            applyDye(sign, isFrontText, INDIGO.getColor());
             cir.setReturnValue(true);
         }
 
-        if (stack.is(ItemRegistry.MAROON_DYE)) {
-            applyDye(signBlockEntity, front, MAROON.getColor());
+        if (item.is(ItemRegistry.MAROON_DYE)) {
+            applyDye(sign, isFrontText, MAROON.getColor());
             cir.setReturnValue(true);
         }
     }
 
     @Unique
     private void applyDye(SignBlockEntity sign, boolean front, int color) {
-        var signText = sign.getText(front);
+        SignText signText = sign.getText(front);
         for (int i = 0; i < 4; i++) {
             Component line = signText.getMessage(i, false);
             MutableComponent newLine = line.plainCopy();

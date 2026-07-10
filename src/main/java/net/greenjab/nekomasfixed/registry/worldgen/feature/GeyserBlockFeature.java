@@ -19,25 +19,17 @@ public class GeyserBlockFeature extends Feature<SimpleBlockConfiguration> {
 
         WorldGenLevel world = context.level();
         BlockPos start = context.origin();
-        if (!world.isEmptyBlock(start) || world.isEmptyBlock(start.below())) {
-            return false;
-        }
-
+        if (!world.isEmptyBlock(start) || world.isEmptyBlock(start.below())) return false;
         boolean adjacentToTerrain = false;
 
         for (Direction dir : Direction.Plane.HORIZONTAL) {
             BlockPos pos = start.relative(dir);
-
             if (world.getBlockState(pos).isRedstoneConductor(world, pos)) {
                 adjacentToTerrain = true;
                 break;
             }
         }
-
-        if (!adjacentToTerrain) {
-            return false;
-        }
-
+        if (!adjacentToTerrain) return false;
         world.setBlock(start.below(), BlockRegistry.GEYSER.defaultBlockState(), 3);
         return true;
     }

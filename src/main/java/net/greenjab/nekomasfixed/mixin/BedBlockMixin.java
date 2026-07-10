@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BedBlockMixin implements MessyBedAccessor {
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void setDefaultState(DyeColor color, BlockBehaviour.Properties settings, CallbackInfo ci) {
+    private void setDefaultState(DyeColor color, BlockBehaviour.Properties properties, CallbackInfo ci) {
         BedBlock self = (BedBlock)(Object)this;
         self.registerDefaultState(self.defaultBlockState().setValue(MessyBedAccessor.IS_MESSY, false));
     }
@@ -35,22 +35,22 @@ public class BedBlockMixin implements MessyBedAccessor {
     }
 
     @Inject(method =  "useWithoutItem", at = @At("HEAD"), cancellable = true)
-        protected void onUse(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
-        if(!world.isClientSide()){
+        protected void onUse(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
+        if(!level.isClientSide()){
             BlockPos otherPos = state.getValue(BedBlock.PART) == BedPart.FOOT ? pos.relative(state.getValue(BedBlock.FACING)) :pos.relative(state.getValue(BedBlock.FACING).getOpposite()) ;
             if(player.isShiftKeyDown() && player.getMainHandItem().isEmpty() && state.getValue(MessyBedAccessor.IS_MESSY)){
-                BlockState otherState = world.getBlockState(otherPos);
-                world.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.IS_MESSY, false));
-                world.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.IS_MESSY, false));
+                BlockState otherState = level.getBlockState(otherPos);
+                level.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.IS_MESSY, false));
+                level.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.IS_MESSY, false));
                 player.swing(InteractionHand.MAIN_HAND, true);
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
             }
 
-            if(world.isDarkOutside() && !state.getValue(MessyBedAccessor.IS_MESSY) && !state.getValue(BedBlock.OCCUPIED)){
-                BlockState otherState = world.getBlockState(otherPos);
-                world.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.IS_MESSY, true));
-                world.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.IS_MESSY, true));
+            if(level.isDarkOutside() && !state.getValue(MessyBedAccessor.IS_MESSY) && !state.getValue(BedBlock.OCCUPIED)){
+                BlockState otherState = level.getBlockState(otherPos);
+                level.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.IS_MESSY, true));
+                level.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.IS_MESSY, true));
             }
         }
     }

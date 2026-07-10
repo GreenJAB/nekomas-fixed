@@ -33,13 +33,11 @@ public class DrenchedEntityModel extends SkeletonModel<DrenchedEntityRenderState
 
         bone2Data.addOrReplaceChild("plane_1",
                 CubeListBuilder.create().texOffs(33, 1).addBox(-4.0F, -9.0F, 0.0F, 8.0F, 9.0F, 0.0F),
-                PartPose.offsetAndRotation(0.0F, -8.0F, 0.0F, 0.0F, ((float)Math.PI / 4F), 0.0F)
-        );
+                PartPose.offsetAndRotation(0.0F, -8.0F, 0.0F, 0.0F, ((float)Math.PI / 4F), 0.0F));
 
         bone2Data.addOrReplaceChild("plane_2",
                 CubeListBuilder.create().texOffs(33, 1).addBox(-4.0F, -9.0F, 0.0F, 8.0F, 9.0F, 0.0F),
-                PartPose.offsetAndRotation(0.0F, -8.0F, 0.0F, 0.0F, -((float)Math.PI / 4F), 0.0F)
-        );
+                PartPose.offsetAndRotation(0.0F, -8.0F, 0.0F, 0.0F, -((float)Math.PI / 4F), 0.0F));
 
         return LayerDefinition.create(modelData, 128, 128);
     }

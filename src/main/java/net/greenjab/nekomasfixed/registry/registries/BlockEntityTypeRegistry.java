@@ -31,7 +31,8 @@ public class BlockEntityTypeRegistry {
     public static final BlockEntityType<SoupCauldronBlockEntity> SOUP_CAULDRON_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("soup_cauldron"),
             FabricBlockEntityTypeBuilder.create(SoupCauldronBlockEntity::new, BlockRegistry.SOUP_CAULDRON).build());
 
-    public static final BlockEntityType<HollowLogBlockEntity> HOLLOW_LOG_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_log"),
+    public static final BlockEntityType<HollowLogBlockEntity> HOLLOW_LOG_BLOCK_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("hollow_log"),
             FabricBlockEntityTypeBuilder.create(HollowLogBlockEntity::new,
                     BlockRegistry.HOLLOW_OAK_LOG,
                     BlockRegistry.HOLLOW_SPRUCE_LOG,
@@ -48,22 +49,20 @@ public class BlockEntityTypeRegistry {
                     BlockRegistry.HOLLOW_BAOBAB_LOG
             ).build());
 
-    public static final BlockEntityType<StackedCakeBlockEntity> STACKED_CAKE_BLOCK_ENTITY =
-            Registry.register(
-                    BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                    NekomasFixed.id("cake"),
-                    FabricBlockEntityTypeBuilder.create(
-                            StackedCakeBlockEntity::new,
-                            BlockRegistry.SWEETBERRY_CAKE,
-                            BlockRegistry.PAN_CAKE,
-                            BlockRegistry.GLOWBERRY_CAKE,
-                            BlockRegistry.APPLE_CAKE,
-                            BlockRegistry.VANILLA_CAKE,
-                            BlockRegistry.COOKIE_CAKE,
-                            BlockRegistry.CHOCOLATE_CAKE,
-                            BlockRegistry.BEETROOT_CAKE
-                    ).build()
-            );
+    public static final BlockEntityType<StackedCakeBlockEntity> STACKED_CAKE_BLOCK_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE,
+            NekomasFixed.id("cake"),
+            FabricBlockEntityTypeBuilder.create(
+                    StackedCakeBlockEntity::new,
+                    BlockRegistry.SWEETBERRY_CAKE,
+                    BlockRegistry.PAN_CAKE,
+                    BlockRegistry.GLOWBERRY_CAKE,
+                    BlockRegistry.APPLE_CAKE,
+                    BlockRegistry.VANILLA_CAKE,
+                    BlockRegistry.COOKIE_CAKE,
+                    BlockRegistry.CHOCOLATE_CAKE,
+                    BlockRegistry.BEETROOT_CAKE
+            ).build());
 
 
     public static void registerBlockEntityType() {

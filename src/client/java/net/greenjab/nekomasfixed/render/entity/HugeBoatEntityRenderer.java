@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registry.entity.HugeBoatEntity;
+import net.greenjab.nekomasfixed.registry.entity.HugeBoat;
 import net.greenjab.nekomasfixed.render.entity.model.HugeBoatEntityModel;
 import net.greenjab.nekomasfixed.render.entity.state.BigBoatEntityRenderState;
 import net.greenjab.nekomasfixed.render.entity.state.HugeBoatEntityRenderState;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
-public class HugeBoatEntityRenderer extends BigBoatEntityRenderer<HugeBoatEntity, HugeBoatEntityRenderState, HugeBoatEntityModel<HugeBoatEntityRenderState>> {
+public class HugeBoatEntityRenderer extends BigBoatEntityRenderer<HugeBoat, HugeBoatEntityRenderState, HugeBoatEntityModel<HugeBoatEntityRenderState>> {
 
 	public HugeBoatEntityRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
 		super(context, layer);
@@ -41,8 +41,8 @@ public class HugeBoatEntityRenderer extends BigBoatEntityRenderer<HugeBoatEntity
 		return new HugeBoatEntityRenderState();
 	}
 
-	public void extractRenderState(@NonNull HugeBoatEntity hugeBoatEntity, @NonNull HugeBoatEntityRenderState hugeBoatEntityRenderState, float f) {
-		super.extractRenderState(hugeBoatEntity, hugeBoatEntityRenderState, f);
+	public void extractRenderState(@NonNull HugeBoat hugeBoat, @NonNull HugeBoatEntityRenderState hugeBoatEntityRenderState, float f) {
+		super.extractRenderState(hugeBoat, hugeBoatEntityRenderState, f);
 		hugeBoatEntityRenderState.huge = true;
 	}
 }

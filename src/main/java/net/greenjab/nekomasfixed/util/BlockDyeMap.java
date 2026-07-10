@@ -25,8 +25,6 @@ public class BlockDyeMap {
     public static final EnumMap<AllDyes, Block> SHULKER_BOX = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Block> BED = new EnumMap<>(AllDyes.class);
 
-    //this class provides all the mappings for both datagen and server side logic... its used by tagProvider and DyedBRushItem
-
     static {
         WOOL.put(AllDyes.WHITE, Blocks.WHITE_WOOL);
         WOOL.put(AllDyes.ORANGE, Blocks.ORANGE_WOOL);

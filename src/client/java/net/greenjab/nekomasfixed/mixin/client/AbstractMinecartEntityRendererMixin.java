@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.*;
 public class AbstractMinecartEntityRendererMixin {
 
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "(Lnet/minecraft/client/model/geom/ModelPart;)Lnet/minecraft/client/model/object/cart/MinecartModel;"))
-    private static MinecartModel useCustomMinecartModel(ModelPart modelPart) {
-        return new CustomMinecartEntityModel(modelPart);
+    private static MinecartModel useCustomMinecartModel(ModelPart root) {
+        return new CustomMinecartEntityModel(root);
     }
 }

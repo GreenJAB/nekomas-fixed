@@ -27,23 +27,12 @@ public class BasePlateFeatureRenderer extends RenderLayer<TargetDummyEntityRende
 		this.model = new BasePlateEntityModel(entityModels.bakeLayer(ModEntityLayerRegistry.TARGET_DUMMY_BASE));
 	}
 
-
-	public void submit(
-            @NonNull PoseStack matrixStack, @NonNull SubmitNodeCollector orderedRenderCommandQueue, int i, TargetDummyEntityRenderState targetDummyRenderState, float f, float g
-	) {
-		if (!targetDummyRenderState.isInvisible) {
-			int j = LivingEntityRenderer.getOverlayCoords(targetDummyRenderState, 0.0F);
-			RenderType renderLayer = RenderTypes.entitySolid(TEXTURE);
-			orderedRenderCommandQueue.submitModel(
-					this.model,
-					targetDummyRenderState,
-					matrixStack,
-					renderLayer,
-					i,
-					j,
-					targetDummyRenderState.outlineColor,
-					null
-			);
-		}
+	public void submit(@NonNull PoseStack matrixStack, @NonNull SubmitNodeCollector orderedRenderCommandQueue, int i,
+					   TargetDummyEntityRenderState targetDummyRenderState, float f, float g) {
+		if (targetDummyRenderState.isInvisible) return;
+		int j = LivingEntityRenderer.getOverlayCoords(targetDummyRenderState, 0.0F);
+		RenderType renderLayer = RenderTypes.entitySolid(TEXTURE);
+		orderedRenderCommandQueue.submitModel(this.model, targetDummyRenderState, matrixStack, renderLayer, i, j,
+				targetDummyRenderState.outlineColor, null);
 	}
 }

@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.render.entity.state;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registry.entity.TargetDummyEntity;
+import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.core.Rotations;
@@ -14,10 +14,10 @@ public class TargetDummyEntityRenderState extends HumanoidRenderState {
 	public boolean isZombie;
 	public float yaw;
 	public float timeSinceLastHit;
-	public Rotations headRotation = TargetDummyEntity.DEFAULT_HEAD_ROTATION;
-	public Rotations bodyRotation = TargetDummyEntity.DEFAULT_BODY_ROTATION;
-	public Rotations leftArmRotation = TargetDummyEntity.DEFAULT_LEFT_ARM_ROTATION;
-	public Rotations rightArmRotation = TargetDummyEntity.DEFAULT_RIGHT_ARM_ROTATION;
-	public Rotations leftLegRotation = TargetDummyEntity.DEFAULT_LEFT_LEG_ROTATION;
-	public Rotations rightLegRotation = TargetDummyEntity.DEFAULT_RIGHT_LEG_ROTATION;
+	public Rotations headRotation = TargetDummy.DEFAULT_HEAD_ROTATION;
+	public Rotations bodyRotation = TargetDummy.DEFAULT_BODY_ROTATION;
+	public Rotations leftArmRotation = TargetDummy.DEFAULT_LEFT_ARM_ROTATION;
+	public Rotations rightArmRotation = TargetDummy.DEFAULT_RIGHT_ARM_ROTATION;
+	public Rotations leftLegRotation = TargetDummy.DEFAULT_LEFT_LEG_ROTATION;
+	public Rotations rightLegRotation = TargetDummy.DEFAULT_RIGHT_LEG_ROTATION;
 }

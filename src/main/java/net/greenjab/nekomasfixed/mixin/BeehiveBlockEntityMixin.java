@@ -24,39 +24,39 @@ import java.util.List;
 public class BeehiveBlockEntityMixin {
 
     @Inject(method = "releaseOccupant", at = @At("HEAD"))
-    private static void onReleaseBee(Level world, BlockPos pos, BlockState state,
-                                     BeehiveBlockEntity.Occupant bee, @Nullable List<Entity> entities,
-                                     BeehiveBlockEntity.BeeReleaseStatus beeState, @Nullable BlockPos flowerPos,
+    private static void onReleaseBee(Level level, BlockPos blockPos, BlockState state,
+                                     BeehiveBlockEntity.Occupant beeData, @Nullable List<Entity> spawned,
+                                     BeehiveBlockEntity.BeeReleaseStatus releaseStatus, @Nullable BlockPos savedFlowerPos,
                                      CallbackInfoReturnable<Boolean> cir) {
-        if (beeState != BeehiveBlockEntity.BeeReleaseStatus.HONEY_DELIVERED) return;
-        BlockPos belowPos = pos.below();
-        BlockState belowState = world.getBlockState(belowPos);
+        if (releaseStatus != BeehiveBlockEntity.BeeReleaseStatus.HONEY_DELIVERED) return;
+        BlockPos belowPos = blockPos.below();
+        BlockState belowState = level.getBlockState(belowPos);
         int i = 0;
         while (belowState.is(Blocks.AIR) && i<3) {
             belowPos = belowPos.below();
-            belowState = world.getBlockState(belowPos);
+            belowState = level.getBlockState(belowPos);
             i++;
         }
         if (belowState.getBlock() == BlockRegistry.HONEY_CAULDRON && state.getValue(BeehiveBlock.HONEY_LEVEL) == 5) {
-            incrementHoneyLevel(world, belowPos, belowState);
+            incrementHoneyLevel(level, belowPos, belowState);
         }
         else if (belowState.getBlock() == Blocks.CAULDRON && state.getValue(BeehiveBlock.HONEY_LEVEL) == 5) {
-            world.setBlockAndUpdate(belowPos, BlockRegistry.HONEY_CAULDRON.defaultBlockState()
+            level.setBlockAndUpdate(belowPos, BlockRegistry.HONEY_CAULDRON.defaultBlockState()
                     .setValue(HoneyCauldronBlock.HONEY_LEVEL, 1));
-            world.playSound(null, belowPos, SoundEvents.BEEHIVE_DRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(null, belowPos, SoundEvents.BEEHIVE_DRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
 
         }
     }
 
     @Unique
-    private static void incrementHoneyLevel(Level world, BlockPos pos, BlockState state) {
-        if (world.isClientSide()) return;
+    private static void incrementHoneyLevel(Level level, BlockPos pos, BlockState state) {
+        if (level.isClientSide()) return;
         if (state.getBlock() != BlockRegistry.HONEY_CAULDRON) return;
 
         int currentLevel = state.getValue(HoneyCauldronBlock.HONEY_LEVEL);
         if (currentLevel >= HoneyCauldronBlock.MAX_LEVEL) return;
 
-        world.setBlockAndUpdate(pos, state.setValue(HoneyCauldronBlock.HONEY_LEVEL, currentLevel + 1));
-        world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.setBlockAndUpdate(pos, state.setValue(HoneyCauldronBlock.HONEY_LEVEL, currentLevel + 1));
+        level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 }

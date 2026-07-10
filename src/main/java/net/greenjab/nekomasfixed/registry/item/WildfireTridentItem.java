@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.registry.item;
 
 import java.util.List;
 
-import net.greenjab.nekomasfixed.registry.entity.WildfireTridentEntity;
+import net.greenjab.nekomasfixed.registry.entity.WildfireTrident;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Position;
@@ -57,63 +57,46 @@ public class WildfireTridentItem extends Item implements ProjectileItem {
         return 72000;
     }
 
-    public boolean releaseUsing(@NonNull ItemStack stack, @NonNull Level world, @NonNull LivingEntity user, int remainingUseTicks) {
+    public boolean releaseUsing(@NonNull ItemStack stack, @NonNull Level level, @NonNull LivingEntity user, int remainingUseTicks) {
         if (user instanceof Player playerEntity) {
             int i = this.getUseDuration(stack, user) - remainingUseTicks;
-            if (i < 10) {
-                return false;
-            } else {
-                float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, playerEntity);
-                if (f > 0.0F && !playerEntity.isOnFire()) {
-                    return false;
-                } else if (stack.nextDamageWillBreak()) {
-                    return false;
-                } else {
-                    Holder<SoundEvent> registryEntry = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
-                    playerEntity.awardStat(Stats.ITEM_USED.get(this));
-                    if (world instanceof ServerLevel serverWorld) {
-                        stack.hurtWithoutBreaking(1, playerEntity);
-                        if (f == 0.0F) {
-                            ItemStack itemStack = stack.consumeAndReturn(1, playerEntity);
-                            WildfireTridentEntity tridentEntity = Projectile.spawnProjectileFromRotation(WildfireTridentEntity::new, serverWorld, itemStack, playerEntity, 0.0F, 2.5F, 1.0F);
-                            if (playerEntity.hasInfiniteMaterials()) {
-                                tridentEntity.pickup = Pickup.CREATIVE_ONLY;
-                            }
-
-                            world.playSound(null, tridentEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
-                            return true;
-                        }
-                    }
-
-                    if (f > 0.0F) {
-                        float g = playerEntity.getYRot();
-                        float h = playerEntity.getXRot();
-                        float j = -Mth.sin((g * ((float)Math.PI / 180F))) * Mth.cos((h * ((float)Math.PI / 180F)));
-                        float k = -Mth.sin((h * ((float)Math.PI / 180F)));
-                        float l = Mth.cos((g * ((float)Math.PI / 180F))) * Mth.cos((h * ((float)Math.PI / 180F)));
-                        float m = Mth.sqrt(j * j + k * k + l * l);
-                        j *= f / m;
-                        k *= f / m;
-                        l *= f / m;
-                        playerEntity.push(j, k, l);
-                        playerEntity.startAutoSpinAttack(20, 8.0F, stack);
-                        if (playerEntity.onGround()) {
-                            playerEntity.move(MoverType.SELF, new Vec3(0.0F, 1.1999999F, 0.0F));
-                        }
-
-                        world.playSound(null, playerEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
-                        return true;
-                    } else {
-                        return false;
-                    }
+            if (i < 10) return false;
+            float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, playerEntity);
+            if (f > 0.0F && !playerEntity.isOnFire()) return false;
+            if (stack.nextDamageWillBreak()) return false;
+            Holder<SoundEvent> registryEntry = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
+            playerEntity.awardStat(Stats.ITEM_USED.get(this));
+            if (level instanceof ServerLevel serverLevel) {
+                stack.hurtWithoutBreaking(1, playerEntity);
+                if (f == 0.0F) {
+                    ItemStack itemStack = stack.consumeAndReturn(1, playerEntity);
+                    WildfireTrident tridentEntity = Projectile.spawnProjectileFromRotation(WildfireTrident::new, serverLevel, itemStack, playerEntity, 0.0F, 2.5F, 1.0F);
+                    if (playerEntity.hasInfiniteMaterials()) tridentEntity.pickup = Pickup.CREATIVE_ONLY;
+                    level.playSound(null, tridentEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    return true;
                 }
             }
-        } else {
-            return false;
-        }
+
+            if (f > 0.0F) {
+                float g = playerEntity.getYRot();
+                float h = playerEntity.getXRot();
+                float j = -Mth.sin((g * ((float)Math.PI / 180F))) * Mth.cos((h * ((float)Math.PI / 180F)));
+                float k = -Mth.sin((h * ((float)Math.PI / 180F)));
+                float l = Mth.cos((g * ((float)Math.PI / 180F))) * Mth.cos((h * ((float)Math.PI / 180F)));
+                float m = Mth.sqrt(j * j + k * k + l * l);
+                j *= f / m;
+                k *= f / m;
+                l *= f / m;
+                playerEntity.push(j, k, l);
+                playerEntity.startAutoSpinAttack(20, 8.0F, stack);
+                if (playerEntity.onGround())  playerEntity.move(MoverType.SELF, new Vec3(0.0F, 1.1999999F, 0.0F));
+                level.playSound(null, playerEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                return true;
+            } else return false;
+        } else return false;
     }
 
-    public @NonNull InteractionResult use(@NonNull Level world, Player user, @NonNull InteractionHand hand) {
+    public @NonNull InteractionResult use(@NonNull Level level, Player user, @NonNull InteractionHand hand) {
         ItemStack itemStack = user.getItemInHand(hand);
         if (itemStack.nextDamageWillBreak()) {
             return InteractionResult.FAIL;
@@ -125,11 +108,9 @@ public class WildfireTridentItem extends Item implements ProjectileItem {
         }
     }
 
-    public @NonNull Projectile asProjectile(@NonNull Level world, Position pos, ItemStack stack, @NonNull Direction direction) {
-        WildfireTridentEntity tridentEntity = new WildfireTridentEntity(world, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1));
+    public @NonNull Projectile asProjectile(@NonNull Level level, Position pos, ItemStack stack, @NonNull Direction direction) {
+        WildfireTrident tridentEntity = new WildfireTrident(level, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1));
         tridentEntity.pickup = Pickup.ALLOWED;
         return tridentEntity;
     }
-
-
 }

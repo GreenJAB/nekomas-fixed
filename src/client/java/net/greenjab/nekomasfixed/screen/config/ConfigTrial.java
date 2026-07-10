@@ -13,34 +13,21 @@ public class ConfigTrial {
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parentScreen)
                 .setTitle(Component.literal("Nekomas Fixed Config"));
-
-        ConfigCategory netherCategory = builder.getOrCreateCategory(Component.literal("Nether Features"));
-        ConfigCategory worldCategory = builder.getOrCreateCategory(Component.literal("World Features"));
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-        netherCategory.addEntry(
-                entryBuilder.startTextDescription(
-                        Component.literal("=== Nether Improvements ===").withColor(0xBA2720)
-                ).build()
-        );
+        ConfigCategory netherCategory = builder.getOrCreateCategory(Component.literal("Nether Features"));
+        netherCategory.addEntry(entryBuilder.startTextDescription(Component.literal("=== Nether Improvements ===").withColor(0xBA2720)).build());
+        netherCategory.addEntry(entryBuilder.startBooleanToggle(Component.literal("Do Food Rotting"),
+                ModConfigValues.netherFoodRotting).setDefaultValue(true).setTooltip(Component.literal(
+                        "All food items except for the golden ones rot in nether over time"))
+                .setSaveConsumer(val -> ModConfigValues.netherFoodRotting = val).build());
 
-        netherCategory.addEntry(entryBuilder.startBooleanToggle(Component.literal("Do Food Rotting"), ModConfigValues.netherFoodRotting)
-                .setDefaultValue(true)
-                .setTooltip(Component.literal("All food items except for the golden ones rot in nether over time"))
-                .setSaveConsumer(val -> ModConfigValues.netherFoodRotting = val)
-                .build());
-
-        worldCategory.addEntry(
-                entryBuilder.startTextDescription(
-                        Component.literal("=== World Improvements ===").withColor(MapColor.COLOR_LIGHT_BLUE.col)
-                ).build()
-        );
-
-        worldCategory.addEntry(entryBuilder.startBooleanToggle(Component.literal("Enable Copper Buffs"), ModConfigValues.enableCopperBuff)
-                .setDefaultValue(true)
-                .setTooltip(Component.literal("Lightning striking a player with full copper gear would give the player speed "))
-                .setSaveConsumer(val -> ModConfigValues.enableCopperBuff = val)
-                .build());
+        ConfigCategory worldCategory = builder.getOrCreateCategory(Component.literal("World Features"));
+        worldCategory.addEntry(entryBuilder.startTextDescription(Component.literal("=== World Improvements ===").withColor(MapColor.COLOR_LIGHT_BLUE.col)).build());
+        worldCategory.addEntry(entryBuilder.startBooleanToggle(Component.literal("Enable Copper Buffs"),
+                ModConfigValues.enableCopperBuff).setDefaultValue(true).setTooltip(Component.literal(
+                        "Lightning striking a player with full copper gear would give the player speed "))
+                .setSaveConsumer(val -> ModConfigValues.enableCopperBuff = val).build());
 
         builder.setSavingRunnable(() -> {});
 

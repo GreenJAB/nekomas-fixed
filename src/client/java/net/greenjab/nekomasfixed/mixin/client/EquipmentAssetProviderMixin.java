@@ -15,12 +15,12 @@ import java.util.function.BiConsumer;
 @Mixin(EquipmentAssetProvider.class)
 public class EquipmentAssetProviderMixin {
     @Inject(method = "bootstrap", at = @At("HEAD"), cancellable = true)
-    private static void customBootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> equipmentBiConsumer, CallbackInfo ci) {
-        equipmentBiConsumer.accept(ModEquipmentAssetKeys.NETHERITE_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("netherite_crown"), false).build());
-        equipmentBiConsumer.accept(ModEquipmentAssetKeys.COPPER_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("copper_crown"), false).build());
-        equipmentBiConsumer.accept(ModEquipmentAssetKeys.IRON_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("iron_crown"), false).build());
-        equipmentBiConsumer.accept(ModEquipmentAssetKeys.GOLDEN_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("golden_crown"), false).build());
-        equipmentBiConsumer.accept(ModEquipmentAssetKeys.DIAMOND_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("diamond_crown"), false).build());
+    private static void customBootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> consumer, CallbackInfo ci) {
+        consumer.accept(ModEquipmentAssetKeys.NETHERITE_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("netherite_crown"), false).build());
+        consumer.accept(ModEquipmentAssetKeys.COPPER_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("copper_crown"), false).build());
+        consumer.accept(ModEquipmentAssetKeys.IRON_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("iron_crown"), false).build());
+        consumer.accept(ModEquipmentAssetKeys.GOLDEN_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("golden_crown"), false).build());
+        consumer.accept(ModEquipmentAssetKeys.DIAMOND_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("diamond_crown"), false).build());
         ci.cancel();
     }
 }

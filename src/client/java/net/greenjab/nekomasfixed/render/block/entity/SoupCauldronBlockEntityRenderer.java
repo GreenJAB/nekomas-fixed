@@ -70,5 +70,4 @@ public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<Soup
             }
         }
     }
-
 }

@@ -39,7 +39,7 @@ public class FloorClockBlock extends AbstractClockBlock {
 	}
 
 	@Override
-	protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+	protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 		return SHAPE;
 	}
 

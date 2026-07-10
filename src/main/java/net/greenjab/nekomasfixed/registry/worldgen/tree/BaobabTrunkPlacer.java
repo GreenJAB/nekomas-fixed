@@ -11,7 +11,6 @@ import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -40,7 +39,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, int treeHeight, BlockPos origin, TreeConfiguration config) {
+    public @NonNull List<FoliagePlacer.FoliageAttachment> placeTrunk(@NonNull WorldGenLevel level, @NonNull BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, int treeHeight, BlockPos origin, TreeConfiguration config) {
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         boolean water = false;
         if (level instanceof WorldGenRegion chunkRegion)
@@ -109,7 +108,6 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 }
             }
         }
-
         return list;
     }
 }

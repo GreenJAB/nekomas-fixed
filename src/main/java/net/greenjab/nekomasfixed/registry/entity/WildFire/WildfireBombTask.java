@@ -96,7 +96,7 @@ public class WildfireBombTask extends Behavior<WildfireEntity> {
 						v = v.yRot((float) (22.5 * j * Math.PI / 180.0));
 						if (i == -1) v = v.scale(0);
 
-						FireBombEntity fireBombEntity = new FireBombEntity(serverWorld, wildFireEntity);
+						FireBomb fireBombEntity = new FireBomb(serverWorld, wildFireEntity);
 						fireBombEntity.setPos(fireBombEntity.getX(), wildFireEntity.getY(0.5) + 0.5, fireBombEntity.getZ());
 						Projectile.spawnProjectileUsingShoot(fireBombEntity, serverWorld, ItemStack.EMPTY, v.x, v.y, v.z, (float) v.length() * (1-i/20f), 0.0F);
 						wildFireEntity.playSound(SoundEvents.BREEZE_SHOOT, 1.5F, 1.0F);

@@ -49,16 +49,16 @@ public class ItemStackMixin {
 	}
 
 	@Inject(method = "addDetailsToTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;addToTooltip(Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/world/item/Item$TooltipContext;Lnet/minecraft/world/item/component/TooltipDisplay;Ljava/util/function/Consumer;Lnet/minecraft/world/item/TooltipFlag;)V", ordinal = 0))
-	private void addTooltips(Item.TooltipContext context, TooltipDisplay displayComponent, Player player,
-								TooltipFlag type, Consumer<Component> textConsumer, CallbackInfo ci) {
+	private void addTooltips(Item.TooltipContext context, TooltipDisplay display, Player player,
+	                         TooltipFlag tooltipFlag, Consumer<Component> builder, CallbackInfo ci) {
 		ItemStack stack = (ItemStack)(Object)this;
-		stack.addToTooltip(ComponentRegistry.ANIMAL, context, displayComponent, textConsumer, type);
-		stack.addToTooltip(ComponentRegistry.STORED_TIME, context, displayComponent, textConsumer, type);
-		stack.addToTooltip(ComponentRegistry.COMBO_MULTIPLIER, context, displayComponent, textConsumer, type);
+		stack.addToTooltip(ComponentRegistry.ANIMAL, context, display, builder, tooltipFlag);
+		stack.addToTooltip(ComponentRegistry.STORED_TIME, context, display, builder, tooltipFlag);
+		stack.addToTooltip(ComponentRegistry.COMBO_MULTIPLIER, context, display, builder, tooltipFlag);
 	}
 
 	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;"))
-	private void useBlockItem(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+	private void useBlockItem(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 		ItemStack stack = (ItemStack)(Object)this;
 		if (stack.is(ModTags.CLAMTAG)) {
 			int c = stack.getOrDefault(ComponentRegistry.CLAM_STATE, 0)>0?0:1;
@@ -71,7 +71,7 @@ public class ItemStackMixin {
 			if (stack.getComponents().has(ComponentRegistry.STORED_TIME)) {
 				stack.remove(ComponentRegistry.STORED_TIME);
 			} else {
-				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((world.getOverworldClockTime() + 6000) % 24000)));
+				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((level.getOverworldClockTime() + 6000) % 24000)));
 			}
 		}
 	}

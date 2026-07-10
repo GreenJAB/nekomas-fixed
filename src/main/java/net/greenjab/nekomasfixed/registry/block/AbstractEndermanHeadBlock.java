@@ -52,18 +52,18 @@ public abstract class AbstractEndermanHeadBlock extends BaseEntityBlock {
 
 	@Nullable
 	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
-		return createTickerHelper(type, BlockEntityTypeRegistry.ENDERMAN_HEAD_BLOCK_ENTITY, world.isClientSide()? null: EndermanHeadBlockEntity::tick);
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
+		return createTickerHelper(type, BlockEntityTypeRegistry.ENDERMAN_HEAD_BLOCK_ENTITY, level.isClientSide()? null: EndermanHeadBlockEntity::tick);
 	}
 
 	@Override
-	protected int getSignal(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Direction direction) {
+	protected int getSignal(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull Direction direction) {
 		return state.getValue(POWER);
 	}
 
 	@Override
-	protected int getDirectSignal(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Direction direction) {
-		return direction == Direction.UP ? state.getSignal(world, pos, direction) : 0;
+	protected int getDirectSignal(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull Direction direction) {
+		return direction == Direction.UP ? state.getSignal(level, pos, direction) : 0;
 	}
 
 	@Override
@@ -71,24 +71,24 @@ public abstract class AbstractEndermanHeadBlock extends BaseEntityBlock {
 		return true;
 	}
 
-	public void setPower(Level world, BlockPos pos,BlockState state, int power) {
+	public void setPower(Level level, BlockPos pos, BlockState state, int power) {
 		state = state.setValue(AbstractEndermanHeadBlock.POWER, power);
-		world.setBlock(pos, state, Block.UPDATE_ALL);
-		updateNeighbors(state, world, pos);
+		level.setBlock(pos, state, Block.UPDATE_ALL);
+		updateNeighbors(state, level, pos);
 	}
-	public void updateNeighbors(BlockState state, Level world, BlockPos pos) {
+	public void updateNeighbors(BlockState state, Level level, BlockPos pos) {
 		Direction direction = Direction.DOWN;
 		Orientation wireOrientation = ExperimentalRedstoneUtils.initialOrientation(
-				world, direction, Direction.UP
+				level, direction, Direction.UP
 		);
-		world.updateNeighborsAt(pos, this, wireOrientation);
-		world.updateNeighborsAt(pos.relative(direction), this, wireOrientation);
+		level.updateNeighborsAt(pos, this, wireOrientation);
+		level.updateNeighborsAt(pos.relative(direction), this, wireOrientation);
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, boolean moved) {
+	protected void affectNeighborsAfterRemoval(BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, boolean moved) {
 		if (state.getValue(POWER)>0) {
-			this.updateNeighbors(state.setValue(POWER, 0), world, pos);
+			this.updateNeighbors(state.setValue(POWER, 0), level, pos);
 		}
 	}
 

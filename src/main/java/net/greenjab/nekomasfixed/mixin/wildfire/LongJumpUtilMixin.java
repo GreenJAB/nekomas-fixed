@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 public class LongJumpUtilMixin {
 
     @ModifyExpressionValue(method = "calculateJumpVectorForAngle", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Mob;getGravity()D"))
-    private static double projectileGravity(double original, @Local(ordinal = 0, argsOnly = true) float max) {
-        if (max == 1.11f) return 0.03;
+    private static double projectileGravity(double original, @Local(ordinal = 0, argsOnly = true) float maxJumpVelocity) {
+        if (maxJumpVelocity == 1.11f) return 0.03;
         return original;
     }
 }

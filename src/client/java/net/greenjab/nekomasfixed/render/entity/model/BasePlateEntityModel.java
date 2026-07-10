@@ -26,9 +26,8 @@ public class BasePlateEntityModel extends TargetDummyArmorEntityModel {
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition modelData = PlayerModel.createMesh(CubeDeformation.NONE, false);
 		PartDefinition modelPartData = modelData.getRoot().clearRecursively();
-		modelPartData.addOrReplaceChild(
-				"base_plate", CubeListBuilder.create().texOffs(0, 32).addBox(-6.0F, 11.0F, -6.0F, 12.0F, 1.0F, 12.0F), PartPose.offset(0.0F, 12.0F, 0.0F)
-		);
+		modelPartData.addOrReplaceChild("base_plate", CubeListBuilder.create().texOffs(0, 32)
+				.addBox(-6.0F, 11.0F, -6.0F, 12.0F, 1.0F, 12.0F), PartPose.offset(0.0F, 12.0F, 0.0F));
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 

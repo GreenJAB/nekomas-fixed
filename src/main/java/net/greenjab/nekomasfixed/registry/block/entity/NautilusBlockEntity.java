@@ -68,7 +68,7 @@ public class NautilusBlockEntity extends BlockEntity {
 	}
 
 	public boolean releaseAnimal(
-		Level world,
+		Level level,
 		BlockPos pos,
 		BlockState state,
 		AnimalComponent.StoredEntityData animal,
@@ -76,10 +76,10 @@ public class NautilusBlockEntity extends BlockEntity {
 	) {
 		Direction direction = state.getValue(NautilusBlock.FACING);
 		BlockPos blockPos = pos.relative(direction);
-		boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty() ;
+		boolean bl = !level.getBlockState(blockPos).getCollisionShape(level, blockPos).isEmpty() ;
 		if (bl) return false;
-		if (animal.tickEnteredHive() == world.getGameTime()) return false;
-		Entity entity = animal.loadEntity(world, pos);
+		if (animal.tickEnteredHive() == level.getGameTime()) return false;
+		Entity entity = animal.loadEntity(level);
 		if (entity != null) {
 			if (entities != null) entities.add(entity);
 			double d = 0.55 + entity.getBbWidth() / 2.0F;
@@ -91,9 +91,9 @@ public class NautilusBlockEntity extends BlockEntity {
 			entity.setYHeadRot(direction.toYRot());
 			entity.yRotO =direction.toYRot();
 			entity.snapTo(e, g, h, direction.toYRot(), entity.getXRot());
-			world.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 1.0F);
-			world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, world.getBlockState(pos)));
-			return world.addFreshEntity(entity);
+			level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+			level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, level.getBlockState(pos)));
+			return level.addFreshEntity(entity);
 		} else return false;
 	}
 
@@ -125,7 +125,7 @@ public class NautilusBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void removeComponentsFromTag(ValueOutput view) {
+	public void removeComponentsFromTag(@NonNull ValueOutput view) {
 		super.removeComponentsFromTag(view);
 		view.discard("animal");
 	}

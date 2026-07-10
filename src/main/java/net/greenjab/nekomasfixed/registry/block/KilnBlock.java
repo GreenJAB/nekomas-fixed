@@ -41,13 +41,13 @@ public class KilnBlock extends AbstractFurnaceBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NonNull Level world, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
-        return createFurnaceTicker(world, type, BlockEntityTypeRegistry.KILN_BLOCK_ENTITY);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NonNull Level level, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
+        return createFurnaceTicker(level, type, BlockEntityTypeRegistry.KILN_BLOCK_ENTITY);
     }
 
     @Override
-    protected void openContainer(Level world, @NonNull BlockPos pos, @NonNull Player player) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
+    protected void openContainer(Level level, @NonNull BlockPos pos, @NonNull Player player) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof KilnBlockEntity) {
             player.openMenu((MenuProvider)blockEntity);
             player.awardStat(Stats.INTERACT_WITH_BLAST_FURNACE);
@@ -55,13 +55,13 @@ public class KilnBlock extends AbstractFurnaceBlock {
     }
 
     @Override
-    public void animateTick(BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull RandomSource random) {
+    public void animateTick(BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull RandomSource random) {
         if (state.getValue(LIT)) {
             double d = pos.getX() + 0.5;
             double e = pos.getY();
             double f = pos.getZ() + 0.5;
             if (random.nextDouble() < 0.1) {
-                world.playLocalSound(d, e, f, SoundEvents.BLASTFURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                level.playLocalSound(d, e, f, SoundEvents.BLASTFURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
             }
 
             Direction direction = state.getValue(FACING);
@@ -70,9 +70,7 @@ public class KilnBlock extends AbstractFurnaceBlock {
             double i = axis == Direction.Axis.X ? direction.getStepX() * 0.52 : h;
             double j = random.nextDouble() * 9.0 / 16.0;
             double k = axis == Direction.Axis.Z ? direction.getStepZ() * 0.52 : h;
-            world.addParticle(ParticleTypes.SMOKE, d + i, e + j, f + k, 0.0, 0.0, 0.0);
+            level.addParticle(ParticleTypes.SMOKE, d + i, e + j, f + k, 0.0, 0.0, 0.0);
         }
     }
-
-
 }

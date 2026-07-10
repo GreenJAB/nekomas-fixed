@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -82,38 +83,38 @@ public class EndermanHeadBlockEntity extends BlockEntity implements ItemOwner {
 		return this.getBlockState().getValue(FloorEndermanHeadHead.ROTATION);
 	}
 
-	public static void tick(Level world, BlockPos pos, BlockState state, EndermanHeadBlockEntity blockEntity) {
+	public static void tick(Level level, BlockPos pos, BlockState state, EndermanHeadBlockEntity blockEntity) {
 		int power = state.getValue(AbstractEndermanHeadBlock.POWER);
 		int newPower = 0;
-		if (world instanceof ServerLevel serverWorld && world.getGameTime() % 10L==0L) {
-			newPower = getPlayerLooking(world, serverWorld.getServer()
-							.getPlayerList(),pos,world.dimension());
+		if (level instanceof ServerLevel serverLevel && level.getGameTime() % 10L==0L) {
+			newPower = getPlayerLooking(level, serverLevel.getServer()
+							.getPlayerList(),pos, level.dimension());
 			if (power!=newPower) {
-				((AbstractEndermanHeadBlock)state.getBlock()).setPower(world, pos, state, newPower);
-				if (power == 0) world.playSound(null, pos, SoundEvents.ENDERMAN_SCREAM, SoundSource.BLOCKS, 0.3F, 0.8f);
+				((AbstractEndermanHeadBlock)state.getBlock()).setPower(level, pos, state, newPower);
+				if (power == 0) level.playSound(null, pos, SoundEvents.ENDERMAN_SCREAM, SoundSource.BLOCKS, 0.3F, 0.8f);
 			}
 		}
 
-		if (state.getBlock() instanceof AbstractEndermanHeadBlock && newPower>0 && world.getGameTime() % 10L == 0L && world.getRandom().nextInt(10)==0){
-			world.playSound(null, pos, SoundEvents.ENDERMAN_SCREAM, SoundSource.BLOCKS, 0.3F, 0.8f);
+		if (state.getBlock() instanceof AbstractEndermanHeadBlock && newPower>0 && level.getGameTime() % 10L == 0L && level.getRandom().nextInt(10)==0){
+			level.playSound(null, pos, SoundEvents.ENDERMAN_SCREAM, SoundSource.BLOCKS, 0.3F, 0.8f);
 		}
 	}
 
-	public static int getPlayerLooking(Level world, PlayerList playerManager, BlockPos pos, ResourceKey<Level> worldKey) {
+	public static int getPlayerLooking(Level level, PlayerList playerManager, BlockPos pos, ResourceKey<Level> levelKey) {
 		int max = 0;
 		for (int i = 0; i < playerManager.getPlayers().size(); i++) {
 			ServerPlayer SPE = playerManager.getPlayers().get(i);
 			if (!LivingEntity.PLAYER_NOT_WEARING_DISGUISE_ITEM.test(SPE)) continue;
 			if (SPE.isSpectator()) continue;
-			if (SPE.level().dimension() == worldKey) {
+			if (SPE.level().dimension() == levelKey) {
 				double x1 = pos.getX() - SPE.getX();
 				double y1 = pos.getY() - SPE.getY();
 				double z1 = pos.getZ() - SPE.getZ();
 				double dist = Math.sqrt(x1 * x1 + y1 * y1 + z1 * z1);
 				if (dist < 50) {
-					BlockHitResult hitResult = raycast(world, SPE);
+					BlockHitResult hitResult = raycast(level, SPE);
 					if (pos.equals(hitResult.getBlockPos())) {
-						int v = (int) Math.min(Math.max((48-dist)/3,1),15);
+						int v = (int) Mth.clamp((48 - dist) / 3, 1, 15);
 						if (v>max) max = v;
 						if (max == 15) return 15;
 					}
@@ -123,9 +124,9 @@ public class EndermanHeadBlockEntity extends BlockEntity implements ItemOwner {
 		return max;
 	}
 
-	protected static BlockHitResult raycast(Level world, Player player) {
+	protected static BlockHitResult raycast(Level level, Player player) {
 		Vec3 vec3d = player.getEyePosition();
 		Vec3 vec3d2 = vec3d.add(player.calculateViewVector(player.getXRot(), player.getYRot()).scale(45));
-		return world.clip(new ClipContext(vec3d, vec3d2, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
+		return level.clip(new ClipContext(vec3d, vec3d2, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
 	}
 }

@@ -49,49 +49,48 @@ public class WallClockBlock extends AbstractClockBlock {
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, boolean moved) {
+	protected void affectNeighborsAfterRemoval(BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, boolean moved) {
 		if (!moved && state.getValue(POWERED)) {
-			this.updateNeighbors(state, world, pos);
+			this.updateNeighbors(state, level, pos);
 		}
 	}
 
 	@Override
-	protected int getDirectSignal(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Direction direction) {
-		return direction == state.getValue(FACING) ? state.getSignal(world, pos, direction) : 0;
+	protected int getDirectSignal(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull Direction direction) {
+		return direction == state.getValue(FACING) ? state.getSignal(level, pos, direction) : 0;
 	}
 
 	@Override
-	public void updateNeighbors(BlockState state, Level world, BlockPos pos) {
+	public void updateNeighbors(BlockState state, Level level, BlockPos pos) {
 		Direction direction = state.getValue(FACING).getOpposite();
 		Orientation wireOrientation = ExperimentalRedstoneUtils.initialOrientation(
-				world, direction, Direction.UP
-		);
-		world.updateNeighborsAt(pos, this, wireOrientation);
-		world.updateNeighborsAt(pos.relative(direction), this, wireOrientation);
+				level, direction, Direction.UP);
+		level.updateNeighborsAt(pos, this, wireOrientation);
+		level.updateNeighborsAt(pos.relative(direction), this, wireOrientation);
 	}
 
-	public void addParticle(BlockState state,Level world, BlockPos pos, RandomSource random) {
+	public void addParticle(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		Direction dir = state.getValue(FACING);
 		double d = pos.getX() + 0.5 + (dir.getAxis()==Direction.Axis.Z?(random.nextDouble() - 0.5) * 0.4 : -dir.getStepX()*0.4);
 		double e = pos.getY() + 0.5 + (random.nextDouble() - 0.5) * 0.4;
 		double f = pos.getZ() + 0.5 + (dir.getAxis()==Direction.Axis.X?(random.nextDouble() - 0.5) * 0.4 : -dir.getStepZ()*0.4);
-		world.addParticle(DustParticleOptions.REDSTONE, d, e, f, 0.0, 0.0, 0.0);
+		level.addParticle(DustParticleOptions.REDSTONE, d, e, f, 0.0, 0.0, 0.0);
 	}
 
 	@Override
-	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 		return SHAPES_BY_DIRECTION.get(state.getValue(FACING));
 	}
 
 	@Override
-	protected boolean canSurvive(@NonNull BlockState state, @NonNull LevelReader world, BlockPos pos) {
-		return canPlaceAt(world, pos, state.getValue(FACING));
+	protected boolean canSurvive(@NonNull BlockState state, @NonNull LevelReader level, BlockPos pos) {
+		return canPlaceAt(level, pos, state.getValue(FACING));
 	}
 
 	@Override
 	protected @NonNull BlockState updateShape(
             @NonNull BlockState state,
-            @NonNull LevelReader world,
+            @NonNull LevelReader level,
             @NonNull ScheduledTickAccess tickView,
             @NonNull BlockPos pos,
             @NonNull Direction direction,
@@ -99,13 +98,13 @@ public class WallClockBlock extends AbstractClockBlock {
             @NonNull BlockState neighborState,
             @NonNull RandomSource random
 	) {
-		return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : state;
+		return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : state;
 	}
 
-	public static boolean canPlaceAt(LevelReader world, BlockPos pos, Direction facing) {
+	public static boolean canPlaceAt(LevelReader level, BlockPos pos, Direction facing) {
 		BlockPos blockPos = pos.relative(facing.getOpposite());
-		BlockState blockState = world.getBlockState(blockPos);
-		return blockState.isFaceSturdy(world, blockPos, facing);
+		BlockState blockState = level.getBlockState(blockPos);
+		return blockState.isFaceSturdy(level, blockPos, facing);
 	}
 
 	@Override
@@ -124,7 +123,6 @@ public class WallClockBlock extends AbstractClockBlock {
 				}
 			}
 		}
-
 		return null;
 	}
 

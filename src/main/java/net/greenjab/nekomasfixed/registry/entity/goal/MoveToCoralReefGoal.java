@@ -21,8 +21,8 @@ public class MoveToCoralReefGoal extends Goal {
     }
 
     private BlockPos searchCoralReef() {
-        if (dolphin.level() instanceof ServerLevel serverWorld) {
-            Pair<BlockPos, Holder<Biome>> pair = serverWorld.findClosestBiome3d(
+        if (dolphin.level() instanceof ServerLevel level) {
+            Pair<BlockPos, Holder<Biome>> pair = level.findClosestBiome3d(
                     entry -> entry.is(Biomes.WARM_OCEAN),
                     dolphin.blockPosition(),5000,32,64);
             if (pair != null) return pair.getFirst();

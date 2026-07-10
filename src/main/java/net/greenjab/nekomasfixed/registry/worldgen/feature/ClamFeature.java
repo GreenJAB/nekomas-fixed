@@ -33,32 +33,32 @@ public class ClamFeature extends Feature<CountConfiguration> {
 	public boolean place(FeaturePlaceContext<CountConfiguration> context) {
 		int i = 0;
 		RandomSource random = context.random();
-		WorldGenLevel world = context.level();
+		WorldGenLevel level = context.level();
 		BlockPos blockPos = context.origin();
 		int j = context.config().count().sample(random);
 
 		for (int k = 0; k < j; k++) {
 			int l = random.nextInt(8) - random.nextInt(8);
 			int m = random.nextInt(8) - random.nextInt(8);
-			int n = world.getHeight(Heightmap.Types.OCEAN_FLOOR, blockPos.getX() + l, blockPos.getZ() + m);
+			int n = level.getHeight(Heightmap.Types.OCEAN_FLOOR, blockPos.getX() + l, blockPos.getZ() + m);
 			BlockPos blockPos2 = new BlockPos(blockPos.getX() + l, n, blockPos.getZ() + m);
-			Block clamType =  getClam(world.getRandom().nextFloat());
+			Block clamType =  getClam(level.getRandom().nextFloat());
 			BlockState blockState =clamType.defaultBlockState().setValue(ClamBlock.WATERLOGGED, true).setValue(ClamBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
-			if (world.getBlockState(blockPos2).is(Blocks.WATER) &&
-					world.getBlockState(blockPos2.above()).is(Blocks.WATER) &&
-					world.getBlockState(blockPos2.below()).is(Blocks.SAND) &&
-					blockState.canSurvive(world, blockPos2)) {
-				world.setBlock(blockPos2, blockState, Block.UPDATE_CLIENTS);
-				world.getBlockEntity(blockPos2, BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY)
+			if (level.getBlockState(blockPos2).is(Blocks.WATER) &&
+					level.getBlockState(blockPos2.above()).is(Blocks.WATER) &&
+					level.getBlockState(blockPos2.below()).is(Blocks.SAND) &&
+					blockState.canSurvive(level, blockPos2)) {
+				level.setBlock(blockPos2, blockState, Block.UPDATE_CLIENTS);
+				level.getBlockEntity(blockPos2, BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY)
 						.ifPresent(blockEntity -> {
-							LootTable lootTable = world.getServer()
+							LootTable lootTable = level.getServer()
 									.reloadableRegistries()
 									.getLootTable(LootTableRegistry.CLAM_LOOT_TABLE);
 
-							LootParams lootContextParameterSet = (new LootParams.Builder(world.getLevel())).withParameter(LootContextParams.ORIGIN, blockPos2.getCenter()).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(clamType)).create(LootContextParamSets.FISHING);
+							LootParams lootContextParameterSet = (new LootParams.Builder(level.getLevel())).withParameter(LootContextParams.ORIGIN, blockPos2.getCenter()).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(clamType)).create(LootContextParamSets.FISHING);
 
 							ObjectArrayList<ItemStack> loots = lootTable.getRandomItems(lootContextParameterSet);
-							if (!loots.isEmpty()) blockEntity.setHeldStack(loots.get(0));
+							if (!loots.isEmpty()) blockEntity.setHeldStack(loots.getFirst());
 						});
 				i++;
 			}

@@ -42,9 +42,8 @@ public class SpearEntity extends Entity {
 	protected static final EntityDataAccessor<Direction> DIRECTION = SynchedEntityData.defineId(SpearEntity.class, EntityDataSerializers.DIRECTION);
 	protected static final EntityDataAccessor<ItemStack> SPEAR = SynchedEntityData.defineId(SpearEntity.class, EntityDataSerializers.ITEM_STACK);
 
-
-	public SpearEntity(EntityType<? extends SpearEntity> entityType, Level world) {
-		super(entityType, world);
+	public SpearEntity(EntityType<? extends SpearEntity> entityType, Level level) {
+		super(entityType, level);
 	}
 
 	@Override
@@ -86,17 +85,8 @@ public class SpearEntity extends Entity {
 				AABB box = this.getBoundingBox().inflate(b.x, b.y, b.z);
 				List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, box);
 				if (!list.isEmpty()) {
-					this.level()
-							.playLocalSound(
-									this.getX(),
-									this.getY(),
-									this.getZ(),
-									SoundEvents.SPEAR_HIT.value(),
-									this.getSoundSource(),
-									1.0F,
-									1f,
-									false
-							);
+					this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.SPEAR_HIT.value(),
+							this.getSoundSource(), 1.0F, 1f, false);
 					for (int i = 0; i < 12; i++) {
 						double d = this.getX() + (this.random.nextDouble() * 2.0 - 1.0) * this.getBbWidth() * 0.5;
 						double e = this.getY() + 0.05 + this.random.nextDouble();
@@ -106,7 +96,6 @@ public class SpearEntity extends Entity {
 						double j = (this.random.nextDouble() * 2.0 - 1.0) * 0.3;
 						this.level().addParticle(ParticleTypes.CRIT, d, e, f, g, h, j);
 					}
-
 				}
 			}
 		} else if (--this.warmup < 0) {
@@ -131,8 +120,8 @@ public class SpearEntity extends Entity {
 
 	private void damage(LivingEntity target) {
 		if (target.isAlive() && !target.isInvulnerable()) {
-			if (this.level() instanceof ServerLevel serverWorld) {
-				Player p = new Player(serverWorld, new GameProfile(UUID.randomUUID(), "Dispenser")) {
+			if (this.level() instanceof ServerLevel level) {
+				Player player = new Player(level, new GameProfile(UUID.randomUUID(), "Dispenser")) {
 					@Override
 					public @NotNull GameType gameMode() {
 						return GameType.SURVIVAL;
@@ -141,22 +130,22 @@ public class SpearEntity extends Entity {
 				ItemStack stack = entityData.get(SPEAR);
 				Direction direction = entityData.get(DIRECTION);
 				if (direction.getAxis().isHorizontal()) {
-					p.absSnapTo(this.getX(), this.getY(), this.getZ(), direction.toYRot(), 0);
+					player.absSnapTo(this.getX(), this.getY(), this.getZ(), direction.toYRot(), 0);
 				} else {
-					p.absSnapTo(this.getX(), this.getY(), this.getZ(), 0, direction==Direction.UP?-90:90);
+					player.absSnapTo(this.getX(), this.getY(), this.getZ(), 0, direction==Direction.UP?-90:90);
 				}
-				p.attackStrengthTicker =1000;
-				p.getInventory().setItem(0, stack);
+				player.attackStrengthTicker =1000;
+				player.getInventory().setItem(0, stack);
 				PiercingWeapon piercingWeaponComponent = stack.get(DataComponents.PIERCING_WEAPON);
 				if (piercingWeaponComponent != null) {
-					piercingWeaponComponent.attack(p, EquipmentSlot.MAINHAND);
+					piercingWeaponComponent.attack(player, EquipmentSlot.MAINHAND);
 
-					float f = EnchantmentHelper.modifyDamage(serverWorld, stack, target, stack.getDamageSource(p, () -> p.damageSources().playerAttack(p)), getDamageValue(stack));
-					p.attackStrengthTicker =1000;
-					p.stabAttack(EquipmentSlot.MAINHAND, target, f, true, direction.getAxis().isHorizontal(), false);
+					float f = EnchantmentHelper.modifyDamage(level, stack, target, stack.getDamageSource(player, () -> player.damageSources().playerAttack(player)), getDamageValue(stack));
+					player.attackStrengthTicker =1000;
+					player.stabAttack(EquipmentSlot.MAINHAND, target, f, true, direction.getAxis().isHorizontal(), false);
 
-					p.onAttack();
-					p.postPiercingAttack();
+					player.onAttack();
+					player.postPiercingAttack();
 				}
 			}
 		}
@@ -171,24 +160,13 @@ public class SpearEntity extends Entity {
 	public void handleEntityEvent(byte status) {
 		super.handleEntityEvent(status);
 		if (status == EntityEvent.START_ATTACKING) {
-			if (!this.isSilent()) {
-				this.level()
-						.playLocalSound(
-								this.getX(),
-								this.getY(),
-								this.getZ(),
-								SoundEvents.PISTON_EXTEND,
-								this.getSoundSource(),
-								0.7F,
-								0.7f,
-								false
-						);
-			}
+			if (!this.isSilent()) this.level().playLocalSound(this.getX(),this.getY(),this.getZ(),SoundEvents.PISTON_EXTEND,
+					this.getSoundSource(),0.7F,0.7f,false);
 		}
 	}
 
 	@Override
-	public boolean hurtServer(@NonNull ServerLevel world, @NonNull DamageSource source, float amount) {
+	public boolean hurtServer(@NonNull ServerLevel level, @NonNull DamageSource source, float amount) {
 		return false;
 	}
 }

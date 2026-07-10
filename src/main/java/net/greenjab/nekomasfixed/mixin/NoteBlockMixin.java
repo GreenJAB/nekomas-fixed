@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class NoteBlockMixin {
 
 	@Inject(method="getCustomSoundId", at = @At(value = "HEAD"), cancellable = true)
-	private void endermanHeadSound(Level world, BlockPos pos, CallbackInfoReturnable<Identifier> cir) {
-		if (world.getBlockEntity(pos.above()) instanceof EndermanHeadBlockEntity) cir.setReturnValue(SoundEvents.ENDERMAN_AMBIENT.location());
+	private void endermanHeadSound(Level level, BlockPos pos, CallbackInfoReturnable<Identifier> cir) {
+		if (level.getBlockEntity(pos.above()) instanceof EndermanHeadBlockEntity) cir.setReturnValue(SoundEvents.ENDERMAN_AMBIENT.location());
 	}
 }

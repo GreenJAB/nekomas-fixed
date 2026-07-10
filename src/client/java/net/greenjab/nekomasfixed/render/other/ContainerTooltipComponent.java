@@ -61,7 +61,6 @@ public class ContainerTooltipComponent implements ClientTooltipComponent {
         return this.getColumns() * 24;
     }
 
-
     @Override
     public void extractImage(@NonNull Font textRenderer, int x, int y, int width, int height, @NonNull GuiGraphicsExtractor context) {
             this.drawNonEmptyTooltip(textRenderer, x, y, context);
@@ -82,7 +81,6 @@ public class ContainerTooltipComponent implements ClientTooltipComponent {
                 }
             }
         }
-
     }
 
     private List<ItemStack> firstStacksInContents() {
@@ -93,9 +91,7 @@ public class ContainerTooltipComponent implements ClientTooltipComponent {
     private void drawItem(int index, int x, int y, List<ItemStack> stacks, int seed, Font textRenderer, GuiGraphicsExtractor drawContext) {
         ItemStack itemStack = stacks.get(index);
         drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, BUNDLE_SLOT_BACKGROUND_TEXTURE, x, y, 24, 24);
-
         drawContext.item(itemStack, x + 4, y + 4, seed);
         drawContext.itemDecorations(textRenderer, itemStack, x + 4, y + 4);
     }
-
 }

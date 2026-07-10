@@ -38,11 +38,9 @@ public class BigBoatEntityModel<S extends BigBoatEntityRenderState> extends Enti
 	}
 	public void setupAnim(@NonNull S bigBoatEntityRenderState) {
 		super.setupAnim(bigBoatEntityRenderState);
-
 		chest_bottom.visible = bigBoatEntityRenderState.hasChest;
 		chest_lid.visible = bigBoatEntityRenderState.hasChest;
 		chest_lock.visible = bigBoatEntityRenderState.hasChest;
-
 		setPaddleAngles(bigBoatEntityRenderState.leftPaddleAngle, 0, this.leftPaddle, bigBoatEntityRenderState.players>0);
 		setPaddleAngles(bigBoatEntityRenderState.rightPaddleAngle, 1, this.rightPaddle, bigBoatEntityRenderState.players>0);
 		setPaddleAngles(bigBoatEntityRenderState.leftPaddleAngle, 0, this.leftPaddle2, bigBoatEntityRenderState.players>1);
@@ -54,15 +52,11 @@ public class BigBoatEntityModel<S extends BigBoatEntityRenderState> extends Enti
 		modelPart.xRot = (float)Math.PI;
 		modelPart.zRot = Mth.clampedLerp((Mth.sin(-angle) + 1.0F) / 2.0F, (float) (-Math.PI / 3), (float) (-Math.PI / 12));
 		modelPart.yRot = Mth.clampedLerp((Mth.sin(-angle + 1.0F) + 1.0F) / 2.0F, (float) (-Math.PI / 4), (float) (Math.PI / 4));
-		if (paddle == 1) {
-			modelPart.yRot = (float) Math.PI - modelPart.yRot;
-		} else {
-			modelPart.zRot = -modelPart.zRot;
-		}
+		if (paddle == 1) modelPart.yRot = (float) Math.PI - modelPart.yRot;
+		else modelPart.zRot = -modelPart.zRot;
 	}
 
 	public static void addParts(PartDefinition modelPartData) {
-
 		modelPartData.addOrReplaceChild("boat_1", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, 0.0F, -0.0F, 16.0F, 3.0F, 23.0F), PartPose.ZERO);
 		modelPartData.addOrReplaceChild("boat_2", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, 0.0F, -23.0F, 16.0F, 3.0F, 23.0F), PartPose.ZERO);
 		modelPartData.addOrReplaceChild("boat_3", CubeListBuilder.create().texOffs(0, 3).addBox(7.0F, -6.0F, 23.0F, 2.0F, 6.0F, 3.0F), PartPose.ZERO);
@@ -86,49 +80,34 @@ public class BigBoatEntityModel<S extends BigBoatEntityRenderState> extends Enti
 
 		modelPartData.addOrReplaceChild("stand", CubeListBuilder.create().texOffs(48, 64).addBox(-1.0F, -45F, 8.0F, 2.0F, 45.0F, 2.0F), PartPose.ZERO.scaled(0.999f));
 
-
 		float dist = 20f;
-		modelPartData.addOrReplaceChild(
-				"left_paddle",
+		modelPartData.addOrReplaceChild("left_paddle",
 				CubeListBuilder.create().texOffs(62, 0).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(10.0F, -6.0F, -0.0F-dist, 0.0F, 0.0F, (float) (Math.PI / 16))
-		);
-		modelPartData.addOrReplaceChild(
-				"right_paddle",
+				PartPose.offsetAndRotation(10.0F, -6.0F, -0.0F-dist, 0.0F, 0.0F, (float) (Math.PI / 16)));
+		modelPartData.addOrReplaceChild("right_paddle",
 				CubeListBuilder.create().texOffs(62, 20).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(-10.0F, -6.0F, -0.0F-dist, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
-		);
-		modelPartData.addOrReplaceChild(
-				"left_paddle2",
+				PartPose.offsetAndRotation(-10.0F, -6.0F, -0.0F-dist, 0.0F, (float) Math.PI, (float) (Math.PI / 16)));
+		modelPartData.addOrReplaceChild("left_paddle2",
 				CubeListBuilder.create().texOffs(62, 0).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(10.0F, -6.0F, -0.0F, 0.0F, 0.0F, (float) (Math.PI / 16))
-		);
-		modelPartData.addOrReplaceChild(
-				"right_paddle2",
+				PartPose.offsetAndRotation(10.0F, -6.0F, -0.0F, 0.0F, 0.0F, (float) (Math.PI / 16)));
+		modelPartData.addOrReplaceChild("right_paddle2",
 				CubeListBuilder.create().texOffs(62, 20).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(-10.0F, -6.0F, -0.0F, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
-		);
+				PartPose.offsetAndRotation(-10.0F, -6.0F, -0.0F, 0.0F, (float) Math.PI, (float) (Math.PI / 16)));
 	}
 
 	public static LayerDefinition getChestTexturedModelData() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 		addParts(modelPartData);
-		modelPartData.addOrReplaceChild(
-			PartNames.CHEST_BOTTOM,
+		modelPartData.addOrReplaceChild(PartNames.CHEST_BOTTOM,
 			CubeListBuilder.create().texOffs(0, 92).addBox(0.0F, 0.0F, 0.0F, 12.0F, 8.0F, 12.0F),
-			PartPose.offsetAndRotation(-6.0F, -8.0F, 13.0F, 0.0F, 0, 0.0F)
-		);
-		modelPartData.addOrReplaceChild(
-			PartNames.CHEST_LID,
+			PartPose.offsetAndRotation(-6.0F, -8.0F, 13.0F, 0.0F, 0, 0.0F));
+		modelPartData.addOrReplaceChild(PartNames.CHEST_LID,
 			CubeListBuilder.create().texOffs(0, 75).addBox(0.0F, 0.0F, 0.0F, 12.0F, 4.0F, 12.0F),
-			PartPose.offsetAndRotation(-6.0F, -12.0F, 13.0F, 0f, 0, 0.0F)
-		);
-		modelPartData.addOrReplaceChild(
-			PartNames.CHEST_LOCK,
+			PartPose.offsetAndRotation(-6.0F, -12.0F, 13.0F, 0f, 0, 0.0F));
+		modelPartData.addOrReplaceChild(PartNames.CHEST_LOCK,
 			CubeListBuilder.create().texOffs(0, 75).addBox(0.0F, 0.0F, 0.0F, 2.0F, 4.0F, 1.0F),
-			PartPose.offsetAndRotation(-1.0F, -9.0F, 12.0F, 0.0F, 0, 0.0F)
-		);
+			PartPose.offsetAndRotation(-1.0F, -9.0F, 12.0F, 0.0F, 0, 0.0F));
 		return LayerDefinition.create(modelData, 128, 128);
 	}
 }

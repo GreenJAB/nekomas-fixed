@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBombEntity;
+import net.greenjab.nekomasfixed.registry.entity.WildFire.FireBomb;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -20,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 
 
 @Environment(EnvType.CLIENT)
-public class FireBombEntityRenderer extends EntityRenderer<FireBombEntity, EntityRenderState> {
+public class FireBombEntityRenderer extends EntityRenderer<FireBomb, EntityRenderState> {
 	private static final Identifier TEXTURE = Identifier.withDefaultNamespace("textures/item/blaze_powder.png");
 	private static final RenderType LAYER = RenderTypes.entityTranslucentEmissive(TEXTURE);
 
@@ -28,7 +28,7 @@ public class FireBombEntityRenderer extends EntityRenderer<FireBombEntity, Entit
 		super(context);
 	}
 
-	protected int getBlockLightLevel(@NonNull FireBombEntity fireBombEntity, @NonNull BlockPos blockPos) {
+	protected int getBlockLightLevel(@NonNull FireBomb fireBombEntity, @NonNull BlockPos blockPos) {
 		return 15;
 	}
 

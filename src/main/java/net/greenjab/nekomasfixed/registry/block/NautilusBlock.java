@@ -68,26 +68,26 @@ public class NautilusBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
+	protected int getAnalogOutputSignal(BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
 		return state.getValue(OCCUPIED)?15:0;
 	}
 
 	@Override
-	public void playerDestroy(@NonNull Level world, @NonNull Player player, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable BlockEntity blockEntity, @NonNull ItemStack tool) {
-		super.playerDestroy(world, player, pos, state, blockEntity, tool);
+	public void playerDestroy(@NonNull Level level, @NonNull Player player, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable BlockEntity blockEntity, @NonNull ItemStack tool) {
+		super.playerDestroy(level, player, pos, state, blockEntity, tool);
 	}
 
 	@Override
-	protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-		boolean occupied = hasAnimal(world, pos);
-		if (world instanceof ServerLevel serverWorld) {
+	protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+		boolean occupied = hasAnimal(level, pos);
+		if (level instanceof ServerLevel serverLevel) {
 			if (occupied) {
-				if (world.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
+				if (level.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
 					List<Entity > list = nautilusBlockEntity.tryReleaseAnimal(state);
 					if (!list.isEmpty()) {
-						world.setBlockAndUpdate(pos, state.setValue(NautilusBlock.OCCUPIED, false));
+						level.setBlockAndUpdate(pos, state.setValue(NautilusBlock.OCCUPIED, false));
 						if (stack.is(Items.LEAD)) {
-							if (list.get(0) instanceof Leashable leashable) {
+							if (list.getFirst() instanceof Leashable leashable) {
 								leashable.setLeashedTo(player, true);
 								stack.shrink(1);
 							}
@@ -95,7 +95,7 @@ public class NautilusBlock extends BaseEntityBlock {
 					}
 				}
 			} else {
-				List<Entity> list = serverWorld.getEntities(player, player.getBoundingBox().inflate(10));
+				List<Entity> list = serverLevel.getEntities(player, player.getBoundingBox().inflate(10));
 				for (Entity entity : list) {
 					if (!player.isSecondaryUseActive()
 							&& entity instanceof Leashable leashable
@@ -105,11 +105,11 @@ public class NautilusBlock extends BaseEntityBlock {
 						List<Leashable> list2 = Leashable.leashableInArea(entity, leashablex -> leashablex.getLeashHolder() == player);
 						for (Leashable entity2 : list2) {
 							if (entity2 instanceof Animal animalEntity) {
-								if (world.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
+								if (level.getBlockEntity(pos) instanceof NautilusBlockEntity nautilusBlockEntity) {
 									if (animalEntity.getBoundingBox().getXsize()<1 &&
 										animalEntity.getBoundingBox().getYsize()<1.5f) {
 										nautilusBlockEntity.tryEnterNautilus(animalEntity);
-										world.setBlockAndUpdate(pos, state.setValue(NautilusBlock.OCCUPIED, true));
+										level.setBlockAndUpdate(pos, state.setValue(NautilusBlock.OCCUPIED, true));
 										return InteractionResult.SUCCESS;
 									}
 								}
@@ -122,11 +122,11 @@ public class NautilusBlock extends BaseEntityBlock {
 			return InteractionResult.SUCCESS;
 		}
 
-		return super.useItemOn(stack, state, world, pos, player, hand, hit);
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
-	private boolean hasAnimal(Level world, BlockPos pos) {
-		return world.getBlockEntity(pos) instanceof NautilusBlockEntity NautilusBlockEntity && NautilusBlockEntity.hasAnimal();
+	private boolean hasAnimal(Level level, BlockPos pos) {
+		return level.getBlockEntity(pos) instanceof NautilusBlockEntity NautilusBlockEntity && NautilusBlockEntity.hasAnimal();
 	}
 
 
@@ -147,24 +147,24 @@ public class NautilusBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public @NonNull BlockState playerWillDestroy(@NonNull Level world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
-		if (world instanceof ServerLevel serverWorld
+	public @NonNull BlockState playerWillDestroy(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
+		if (level instanceof ServerLevel serverLevel
 			&& player.preventsBlockDrops()
-			&& serverWorld.getGameRules().get(GameRules.BLOCK_DROPS)
-			&& world.getBlockEntity(pos) instanceof NautilusBlockEntity NautilusBlockEntity) {
+			&& serverLevel.getGameRules().get(GameRules.BLOCK_DROPS)
+			&& level.getBlockEntity(pos) instanceof NautilusBlockEntity NautilusBlockEntity) {
 			boolean occupied = state.getValue(OCCUPIED);
 			boolean bl = NautilusBlockEntity.hasAnimal();
 			if (bl || occupied) {
 				ItemStack itemStack = getItemStack(this.getNautilusBlockType());
 				itemStack.applyComponents(NautilusBlockEntity.collectComponents());
 				itemStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(OCCUPIED, occupied));
-				ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+				ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), itemStack);
 				itemEntity.setDefaultPickUpDelay();
-				world.addFreshEntity(itemEntity);
+				level.addFreshEntity(itemEntity);
 			}
 		}
 
-		return super.playerWillDestroy(world, pos, state, player);
+		return super.playerWillDestroy(level, pos, state, player);
 	}
 	
 	public static ItemStack getItemStack(@Nullable NautilusBlockType nautilusBlockType) {
@@ -184,8 +184,8 @@ public class NautilusBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader world, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
-		ItemStack itemStack = super.getCloneItemStack(world, pos, state, includeData);
+	protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+		ItemStack itemStack = super.getCloneItemStack(level, pos, state, includeData);
 		if (includeData) {
 			itemStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(OCCUPIED, state.getValue(OCCUPIED)));
 		}

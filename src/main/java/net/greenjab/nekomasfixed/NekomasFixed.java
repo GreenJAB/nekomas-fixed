@@ -64,3 +64,5 @@ public class NekomasFixed implements ModInitializer {
 		return level;
 	}
 }
+
+//TODO wildfire brain fix

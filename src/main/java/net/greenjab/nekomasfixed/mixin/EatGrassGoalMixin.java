@@ -6,7 +6,6 @@ import net.greenjab.nekomasfixed.util.SpottedSheepAccess;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.animal.sheep.Sheep;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;

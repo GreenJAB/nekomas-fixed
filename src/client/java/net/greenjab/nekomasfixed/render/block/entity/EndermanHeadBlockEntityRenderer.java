@@ -54,8 +54,7 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
             @NonNull EndermanHeadBlockEntityRenderState endermanHeadBlockEntityRenderState,
             float f,
             @NonNull Vec3 vec3d,
-            @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand
-	) {
+            @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand) {
 		BlockEntityRenderer.super.extractRenderState(endermanSkullBlockEntity, endermanHeadBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
 		BlockState blockState = endermanSkullBlockEntity.getBlockState();
 
@@ -65,32 +64,24 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
 		endermanHeadBlockEntityRenderState.yaw = RotationSegment.convertToDegrees(i);
 		endermanHeadBlockEntityRenderState.wall = bl;
 		endermanHeadBlockEntityRenderState.powered = blockState.getValue(AbstractEndermanHeadBlock.POWER)>0;
-
 	}
 
 	public void submit(
             EndermanHeadBlockEntityRenderState endermanHeadBlockEntityRenderState,
             PoseStack matrixStack,
             @NonNull SubmitNodeCollector orderedRenderCommandQueue,
-            @NonNull CameraRenderState cameraRenderState
-	) {
+            @NonNull CameraRenderState cameraRenderState) {
 		matrixStack.pushPose();
 		Direction dir = endermanHeadBlockEntityRenderState.facing;
-		if (dir == null) {
-			matrixStack.translate(0.5F, 0.0F, 0.5F);
-		} else {
-			matrixStack.translate(0.5F - dir.getStepX() * 0.2499F, 0.25F, 0.5F - dir.getStepZ() * 0.2499F);
-		}
+		if (dir == null) matrixStack.translate(0.5F, 0.0F, 0.5F);
+		else matrixStack.translate(0.5F - dir.getStepX() * 0.2499F, 0.25F, 0.5F - dir.getStepZ() * 0.2499F);
 
 		matrixStack.scale(-1.0F, -1.0F, 1.0F);
 		matrixStack.mulPose(Axis.YP.rotationDegrees(endermanHeadBlockEntityRenderState.yaw));
 		matrixStack.translate(-0.5F, -0.5f, -0.5F);
 		if (endermanHeadBlockEntityRenderState.powered) {
-			if (endermanHeadBlockEntityRenderState.wall) {
-				matrixStack.translate(this.random.nextGaussian() * 0.02, this.random.nextGaussian() * 0.02, 0.0F);
-				} else {
-				matrixStack.translate(this.random.nextGaussian() * 0.02, 0.0F, this.random.nextGaussian() * 0.02);
-			}
+			if (endermanHeadBlockEntityRenderState.wall) matrixStack.translate(this.random.nextGaussian() * 0.02, this.random.nextGaussian() * 0.02, 0.0F);
+			else matrixStack.translate(this.random.nextGaussian() * 0.02, 0.0F, this.random.nextGaussian() * 0.02);
 		}
 
 		RenderType renderLayer = RenderTypes.entityCutout(TEXTURE);
@@ -101,5 +92,4 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
 				renderLayerEyes, endermanHeadBlockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0, endermanHeadBlockEntityRenderState.breakProgress);
 		matrixStack.popPose();
 	}
-
 }

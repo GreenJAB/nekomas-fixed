@@ -31,7 +31,6 @@ public class HugeBoatEntityModel<S extends HugeBoatEntityRenderState> extends Bi
 	}
 
 	public static void addParts(PartDefinition modelPartData) {
-
 		modelPartData.addOrReplaceChild("boat_1", CubeListBuilder.create().texOffs(0, 4).addBox(-13F, 0F, -32F, 26F, 3F, 33F), PartPose.ZERO);
 		modelPartData.addOrReplaceChild("boat_2", CubeListBuilder.create().texOffs(0, 0).addBox(-13F, 0F, 1F, 26F, 3F, 33F), PartPose.ZERO);
 		modelPartData.addOrReplaceChild("boat_3", CubeListBuilder.create().texOffs(0, 3).addBox(12F, -6F, 34F, 2F, 6F, 3F), PartPose.ZERO);
@@ -74,61 +73,40 @@ public class HugeBoatEntityModel<S extends HugeBoatEntityRenderState> extends Bi
 		modelPartData.addOrReplaceChild("stand_1", CubeListBuilder.create().texOffs(48, 64).addBox(-1F, -45F, 5F, 2F, 45F, 2F), PartPose.ZERO.scaled(0.999f));
 		modelPartData.addOrReplaceChild("stand_2", CubeListBuilder.create().texOffs(48, 64).addBox(-1F, -35F, -18F, 2F, 35F, 2F), PartPose.ZERO.scaled(0.999f));
 
-
 		float dist = 23f;
-		modelPartData.addOrReplaceChild(
-				"left_paddle",
+		modelPartData.addOrReplaceChild("left_paddle",
 				CubeListBuilder.create().texOffs(62, 0).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(15.0F, -6.0F, -5.0F-dist, 0.0F, 0.0F, (float) (Math.PI / 16))
-		);
-		modelPartData.addOrReplaceChild(
-				"right_paddle",
+				PartPose.offsetAndRotation(15.0F, -6.0F, -5.0F-dist, 0.0F, 0.0F, (float) (Math.PI / 16)));
+		modelPartData.addOrReplaceChild("right_paddle",
 				CubeListBuilder.create().texOffs(62, 20).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(-15.0F, -6.0F, -5.0F-dist, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
-		);
-		modelPartData.addOrReplaceChild(
-				"left_paddle2",
+				PartPose.offsetAndRotation(-15.0F, -6.0F, -5.0F-dist, 0.0F, (float) Math.PI, (float) (Math.PI / 16)));
+		modelPartData.addOrReplaceChild("left_paddle2",
 				CubeListBuilder.create().texOffs(62, 0).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(15.0F, -6.0F, -5.0F, 0.0F, 0.0F, (float) (Math.PI / 16))
-		);
-		modelPartData.addOrReplaceChild(
-				"right_paddle2",
+				PartPose.offsetAndRotation(15.0F, -6.0F, -5.0F, 0.0F, 0.0F, (float) (Math.PI / 16)));
+		modelPartData.addOrReplaceChild("right_paddle2",
 				CubeListBuilder.create().texOffs(62, 20).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(-15.0F, -6.0F, -5.0F, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
-		);
-		modelPartData.addOrReplaceChild(
-				"left_paddle3",
+				PartPose.offsetAndRotation(-15.0F, -6.0F, -5.0F, 0.0F, (float) Math.PI, (float) (Math.PI / 16)));
+		modelPartData.addOrReplaceChild("left_paddle3",
 				CubeListBuilder.create().texOffs(62, 0).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, -1.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(15.0F, -6.0F, -5.0F+dist, 0.0F, 0.0F, (float) (Math.PI / 16))
-		);
-		modelPartData.addOrReplaceChild(
-				"right_paddle3",
+				PartPose.offsetAndRotation(15.0F, -6.0F, -5.0F+dist, 0.0F, 0.0F, (float) (Math.PI / 16)));
+		modelPartData.addOrReplaceChild("right_paddle3",
 				CubeListBuilder.create().texOffs(62, 20).addBox(-5.0F, 0.0F, -1.0F, 18.0F, 2.0F, 2.0F).addBox(8F, -3.0F, 0.001F, 7.0F, 6.0F, 1.0F),
-				PartPose.offsetAndRotation(-15.0F, -6.0F, -5.0F+dist, 0.0F, (float) Math.PI, (float) (Math.PI / 16))
-		);
-
+				PartPose.offsetAndRotation(-15.0F, -6.0F, -5.0F+dist, 0.0F, (float) Math.PI, (float) (Math.PI / 16)));
 	}
 
 	public static LayerDefinition getChestTexturedModelData() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 		addParts(modelPartData);
-		modelPartData.addOrReplaceChild(
-				PartNames.CHEST_BOTTOM,
+		modelPartData.addOrReplaceChild(PartNames.CHEST_BOTTOM,
 				CubeListBuilder.create().texOffs(0, 92).addBox(0.0F, 0.0F, 0.0F, 12.0F, 8.0F, 12.0F),
-				PartPose.offsetAndRotation(-6.0F, -8.0F, 31.0F, 0.0F, 0, 0.0F)
-		);
-		modelPartData.addOrReplaceChild(
-				PartNames.CHEST_LID,
+				PartPose.offsetAndRotation(-6.0F, -8.0F, 31.0F, 0.0F, 0, 0.0F));
+		modelPartData.addOrReplaceChild(PartNames.CHEST_LID,
 				CubeListBuilder.create().texOffs(0, 75).addBox(0.0F, 0.0F, 0.0F, 12.0F, 4.0F, 12.0F),
-				PartPose.offsetAndRotation(-6.0F, -12.0F, 31.0F, 0f, 0, 0.0F)
-		);
-		modelPartData.addOrReplaceChild(
-				PartNames.CHEST_LOCK,
+				PartPose.offsetAndRotation(-6.0F, -12.0F, 31.0F, 0f, 0, 0.0F));
+		modelPartData.addOrReplaceChild(PartNames.CHEST_LOCK,
 				CubeListBuilder.create().texOffs(0, 75).addBox(0.0F, 0.0F, 0.0F, 2.0F, 4.0F, 1.0F),
-				PartPose.offsetAndRotation(-1.0F, -9.0F, 30.0F, 0.0F, 0, 0.0F)
-		);
+				PartPose.offsetAndRotation(-1.0F, -9.0F, 30.0F, 0.0F, 0, 0.0F));
 		return LayerDefinition.create(modelData, 128, 128);
 	}
-
 }

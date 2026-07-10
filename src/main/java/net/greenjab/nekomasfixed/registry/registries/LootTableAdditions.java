@@ -20,14 +20,12 @@ public class LootTableAdditions {
     public static void registerLootTableAdds() {
         System.out.println("register LootTableAdds");
 
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, holder) -> {
+        LootTableEvents.MODIFY.register((key, tableBuilder, _, holder) -> {
             if (key == BuiltInLootTables.CHARGED_CREEPER) {
                 LootItemCondition.Builder predicate = LootItemEntityPropertyCondition.hasProperties(
                         LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(holder.lookupOrThrow(Registries.ENTITY_TYPE), EntityType.ENDERMAN)));
                 LootPool.Builder poolBuilder = LootPool.lootPool().add(NestedLootTable.lootTableReference(LootTableRegistry.SUPER_CHARGED_CREEPER_ENDERMAN_LOOT_TABLE).when(predicate));
                 tableBuilder.pool(poolBuilder.build());
-                //tableBuilder.modifyPools(builder -> builder.//builder
-                //        .with(LootTableEntry.builder(LootTableRegistry.SUPER_CHARGED_CREEPER_ENDERMAN_LOOT_TABLE).conditionally(predicate)));
             } else if (key == BuiltInLootTables.SHIPWRECK_TREASURE) {
                 tableBuilder.pool(LootPool.lootPool().add(LootItem.lootTableItem(ItemRegistry.BOAT_UPGRADE_TEMPLATE)).add(LootItem.lootTableItem(Items.AIR)).build());
             } else if (key == BuiltInLootTables.STRONGHOLD_LIBRARY) {

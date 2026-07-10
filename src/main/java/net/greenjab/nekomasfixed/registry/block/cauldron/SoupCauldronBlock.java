@@ -72,27 +72,27 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
         super(settings);
     }
 
-    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader world, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
         return Items.CAULDRON.getDefaultInstance();
     }
 
     @Override
-    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
         Random random = new Random();
-        if (!(world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity be)) {
+        if (!(level.getBlockEntity(pos) instanceof SoupCauldronBlockEntity be)) {
             return InteractionResult.FAIL;
-        } else if (stack.is(Items.STICK) && (world.getBlockState(pos.below()).is(BlockTags.FIRE) || world.getBlockState(pos.below()).is(BlockTags.CAMPFIRES))) {
+        } else if (stack.is(Items.STICK) && (level.getBlockState(pos.below()).is(BlockTags.FIRE) || level.getBlockState(pos.below()).is(BlockTags.CAMPFIRES))) {
             if(be.hasStirred){return InteractionResult.FAIL;}
-            be.setStirred(world);
-            if (world.isClientSide()) for (int i = 0; i < 4; i++) world.addAlwaysVisibleParticle(ParticleTypes.POOF, true, pos.getX()+(0.5 + (random.nextDouble())*(random.nextBoolean()?1:-1)), pos.getY() + 1.0 , pos.getZ()+0.5+(random.nextDouble() * (random.nextBoolean()?1:-1)), 0.001  * (random.nextBoolean()?1:-1), 0.0001, 0.001 *  (random.nextBoolean()?1:-1));
+            be.setStirred(level);
+            if (level.isClientSide()) for (int i = 0; i < 4; i++) level.addAlwaysVisibleParticle(ParticleTypes.POOF, true, pos.getX()+(0.5 + (random.nextDouble())*(random.nextBoolean()?1:-1)), pos.getY() + 1.0 , pos.getZ()+0.5+(random.nextDouble() * (random.nextBoolean()?1:-1)), 0.001  * (random.nextBoolean()?1:-1), 0.0001, 0.001 *  (random.nextBoolean()?1:-1));
             return InteractionResult.SUCCESS;
-        } else if ((FOOD_COLORS.containsKey(stack.getItem())) && (world.getBlockState(pos.below()).is(BlockTags.FIRE) || world.getBlockState(pos.below()).is(BlockTags.CAMPFIRES)) ) {
+        } else if ((FOOD_COLORS.containsKey(stack.getItem())) && (level.getBlockState(pos.below()).is(BlockTags.FIRE) || level.getBlockState(pos.below()).is(BlockTags.CAMPFIRES)) ) {
             if(be.hasStirred){return InteractionResult.FAIL;}
             if(be.getInputs().size()>=4){return InteractionResult.FAIL;}
-            if (!world.isClientSide()) {
+            if (!level.isClientSide()) {
                 if (be.addInput(stack)) stack.consume(1, player);
             }
-            world.updateNeighbourForOutputSignal(pos, this);
+            level.updateNeighbourForOutputSignal(pos, this);
             return InteractionResult.SUCCESS;
         } else if(stack.is(Items.BOWL)){
             if(!be.hasStirred){return InteractionResult.FAIL;}
@@ -101,10 +101,10 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
             soup.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(copiedInputs));
             soup.set(DataComponents.DYED_COLOR, new DyedItemColor(blendFoodColors(copiedInputs)));
             player.setItemInHand(InteractionHand.MAIN_HAND, ItemUtils.createFilledResult(stack, player, soup));
-            world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+            level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
             for (ItemStack ingredient : copiedInputs) {
                 UseRemainder remainder = ingredient.get(DataComponents.USE_REMAINDER);
-                if (remainder != null) Block.popResource(world, pos, remainder.convertInto().create());
+                if (remainder != null) Block.popResource(level, pos, remainder.convertInto().create());
             }
             return InteractionResult.SUCCESS;
         } else if(stack.is(Items.AIR)){
@@ -115,12 +115,12 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
     }
 
     @Override
-    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
         return OUTLINE_SHAPE;
     }
 
     @Override
-    protected @NonNull VoxelShape getInteractionShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos) {
+    protected @NonNull VoxelShape getInteractionShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos) {
         return RAYCAST_SHAPE;
     }
 
@@ -141,8 +141,8 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
 
     @org.jetbrains.annotations.Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
-        return world.isClientSide() ? createTickerHelper(type, BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY, SoupCauldronBlockEntity::clientTick) : null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
+        return level.isClientSide() ? createTickerHelper(type, BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY, SoupCauldronBlockEntity::clientTick) : null;
     }
 
     public static SoupCauldronBlock.PropertyRetriever< Float2FloatFunction> getAnimationProgressRetriever(LidBlockEntity progress) {
@@ -153,14 +153,14 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
     }
 
     @Override
-    protected int getAnalogOutputSignal(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
+    protected int getAnalogOutputSignal(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
         int hunger = 0;
-        if(world instanceof ServerLevel serverWorld && world.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soupCauldronBlockEntity) {
+        if(level instanceof ServerLevel serverLevel && level.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soupCauldronBlockEntity) {
             for (ItemStack item : soupCauldronBlockEntity.getInputs()) {
                 SingleRecipeInput singleStackRecipeInput = new SingleRecipeInput(item);
-                Optional<RecipeHolder<SmeltingRecipe>> optional = serverWorld
+                Optional<RecipeHolder<SmeltingRecipe>> optional = serverLevel
                         .recipeAccess()
-                        .getRecipeFor(RecipeType.SMELTING, singleStackRecipeInput, world);
+                        .getRecipeFor(RecipeType.SMELTING, singleStackRecipeInput, level);
                 if (optional.isPresent() && !item.is(Items.CHORUS_FRUIT)) {
                     ItemStack itemStack = (((RecipeHolder) optional.get()).value()).assemble(singleStackRecipeInput);
                     if (!itemStack.isEmpty()) item=itemStack;

@@ -80,35 +80,35 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
     }
 
     @Override
-    public @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+    public @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
         return SHAPE.get(state.getValue(FACING));
     }
 
     @Override
-    public @NonNull VoxelShape getCollisionShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
-        return getShape(state, world, pos, context);
+    public @NonNull VoxelShape getCollisionShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+        return getShape(state, level, pos, context);
     }
 
     @Override
-    public @NonNull VoxelShape getInteractionShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos) {
-        return getShape(state, world, pos, CollisionContext.empty());
+    public @NonNull VoxelShape getInteractionShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos) {
+        return getShape(state, level, pos, CollisionContext.empty());
     }
 
     @Override
-    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-        if(!world.isClientSide()){
+    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+        if(!level.isClientSide()){
             if (state.getValue(TORCH) != GoatHornTorchType.NONE) {
                 if (stack.is(Items.SHEARS)) {
-                    world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), state.getValue(TORCH).toItem().getDefaultInstance()));
-                    world.setBlockAndUpdate(pos, state.setValue(TORCH, GoatHornTorchType.NONE));
-                    world.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), state.getValue(TORCH).toItem().getDefaultInstance()));
+                    level.setBlockAndUpdate(pos, state.setValue(TORCH, GoatHornTorchType.NONE));
+                    level.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
                     stack.hurtWithoutBreaking(1, player);
                     return InteractionResult.SUCCESS;
                 }
             } else {
                 GoatHornTorchType type = GoatHornTorchType.fromItem(stack.getItem(), state.getValue(WATERLOGGED));
                 if (type != GoatHornTorchType.NONE) {
-                    world.setBlockAndUpdate(pos, state.setValue(TORCH, type));
+                    level.setBlockAndUpdate(pos, state.setValue(TORCH, type));
                     stack.consume(1, player);
                     return InteractionResult.SUCCESS;
                 }
@@ -118,7 +118,7 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
     }
 
     @Override
-    public void animateTick(BlockState state, @NonNull Level world, BlockPos pos, @NonNull RandomSource random) {
+    public void animateTick(BlockState state, @NonNull Level level, BlockPos pos, @NonNull RandomSource random) {
         Direction facing = state.getValue(FACING);
         double d = pos.getX() + 0.5;
         double e = pos.getY() + 1;
@@ -133,8 +133,8 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
 
         GoatHornTorchType type = state.getValue(TORCH);
         if (type == GoatHornTorchType.NONE || type == GoatHornTorchType.GLOW_TORCH_OFF) {return;}
-        world.addParticle(ParticleTypes.SMOKE, d, e, f, 0, 0, 0);
-        world.addParticle(type.getParticle(), d, e, f, 0, 0, 0);
+        level.addParticle(ParticleTypes.SMOKE, d, e, f, 0, 0, 0);
+        level.addParticle(type.getParticle(), d, e, f, 0, 0, 0);
     }
 
     @Override
@@ -142,16 +142,16 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
         if (this.drops.isEmpty()) {
             return Collections.emptyList();
         } else {
-            LootParams lootWorldContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
-            ServerLevel serverWorld = lootWorldContext.getLevel();
-            LootTable lootTable = serverWorld.getServer().reloadableRegistries().getLootTable(this.drops.get());
-            List<ItemStack> drops = lootTable.getRandomItems(lootWorldContext);
+            LootParams lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
+            ServerLevel level = lootContext.getLevel();
+            LootTable lootTable = level.getServer().reloadableRegistries().getLootTable(this.drops.get());
+            List<ItemStack> drops = lootTable.getRandomItems(lootContext);
 
             if (state.getValue(TORCH) != GoatHornTorchType.NONE) {
                 drops.add(state.getValue(TORCH).toItem().getDefaultInstance());
             }
 
-            Holder<Instrument> entry = serverWorld.registryAccess().lookupOrThrow(Registries.INSTRUMENT).getOrThrow(state.getValue(HORN).getInstrument());
+            Holder<Instrument> entry = level.registryAccess().lookupOrThrow(Registries.INSTRUMENT).getOrThrow(state.getValue(HORN).getInstrument());
             drops.add(InstrumentItem.create(Items.GOAT_HORN, entry));
 
             return drops;
@@ -164,19 +164,19 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
     }
 
     @Override
-    protected void neighborChanged(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Block sourceBlock, @Nullable Orientation wireOrientation, boolean notify) {
-        if (!world.isClientSide()) {
+    protected void neighborChanged(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Block sourceBlock, @Nullable Orientation wireOrientation, boolean notify) {
+        if (!level.isClientSide()) {
             boolean bl = state.getValue(POWERED);
-            if (bl != world.hasNeighborSignal(pos)) {
-                if (bl) world.scheduleTick(pos, this, 20);
+            if (bl != level.hasNeighborSignal(pos)) {
+                if (bl) level.scheduleTick(pos, this, 20);
                 else {
-                    Holder<Instrument> entry = world.registryAccess()
+                    Holder<Instrument> entry = level.registryAccess()
                             .lookupOrThrow(net.minecraft.core.registries.Registries.INSTRUMENT)
                             .getOrThrow(state.getValue(GoatHornBlock.HORN).getInstrument());
-                    world.playSound(null, pos, entry.value().soundEvent().value(), SoundSource.RECORDS, 3.0F, 1.0F);
-                    world.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
-                    if (world instanceof ServerLevel serverWorld) {
-                        serverWorld.sendParticles(ParticleTypes.NOTE, pos.getX()+0.5,pos.getY() +0.85,pos.getZ()+0.5,
+                    level.playSound(null, pos, entry.value().soundEvent().value(), SoundSource.RECORDS, 3.0F, 1.0F);
+                    level.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.NOTE, pos.getX()+0.5,pos.getY() +0.85,pos.getZ()+0.5,
                                 0,0.1, 0.1, 0.1,0);
                     }
                 }
@@ -196,48 +196,48 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
         return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
-    protected @NonNull BlockState updateShape(BlockState state, @NonNull LevelReader world, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
-        if (state.getValue(WATERLOGGED)) tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
-        if (!state.canSurvive(world, pos)) tickView.scheduleTick(pos, this, 1);
+    protected @NonNull BlockState updateShape(BlockState state, @NonNull LevelReader level, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
+        if (state.getValue(WATERLOGGED)) tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        if (!state.canSurvive(level, pos)) tickView.scheduleTick(pos, this, 1);
         return state;
     }
 
     @Override
-    public boolean placeLiquid(@NonNull LevelAccessor world, @NonNull BlockPos pos, BlockState state, @NonNull FluidState fluidState) {
+    public boolean placeLiquid(@NonNull LevelAccessor level, @NonNull BlockPos pos, BlockState state, @NonNull FluidState fluidState) {
         if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.getType() == Fluids.WATER) {
-            if (!world.isClientSide()) {
+            if (!level.isClientSide()) {
                 if (state.getValue(TORCH)==GoatHornTorchType.GLOW_TORCH_OFF) state = state.setValue(TORCH, GoatHornTorchType.GLOW_TORCH);
-                world.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, true), Block.UPDATE_ALL);
-                world.scheduleTick(pos, fluidState.getType(), fluidState.getType().getTickDelay(world));
+                level.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, true), Block.UPDATE_ALL);
+                level.scheduleTick(pos, fluidState.getType(), fluidState.getType().getTickDelay(level));
             }
             return true;
         } else return false;
     }
 
     @Override
-    public @NonNull ItemStack pickupBlock(@Nullable LivingEntity drainer, @NonNull LevelAccessor world, @NonNull BlockPos pos, BlockState state) {
+    public @NonNull ItemStack pickupBlock(@Nullable LivingEntity drainer, @NonNull LevelAccessor level, @NonNull BlockPos pos, BlockState state) {
         if (state.getValue(BlockStateProperties.WATERLOGGED)) {
             if (state.getValue(TORCH)==GoatHornTorchType.GLOW_TORCH) state = state.setValue(TORCH, GoatHornTorchType.GLOW_TORCH_OFF);
-            world.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, false), Block.UPDATE_ALL);
-            if (!state.canSurvive(world, pos)) world.destroyBlock(pos, true);
+            level.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, false), Block.UPDATE_ALL);
+            if (!state.canSurvive(level, pos)) level.destroyBlock(pos, true);
             return new ItemStack(Items.WATER_BUCKET);
         } else return ItemStack.EMPTY;
     }
 
     @Override
-    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         Direction facing = state.getValue(FACING);
         BlockPos supportPos = pos.relative(facing);
-        return world.getBlockState(supportPos).isFaceSturdy(world, supportPos, facing.getOpposite());
+        return level.getBlockState(supportPos).isFaceSturdy(level, supportPos, facing.getOpposite());
     }
 
     @Override
-    protected void tick(BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-        if (!state.canSurvive(world, pos)) {
-            world.destroyBlock(pos, true);
+    protected void tick(BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, @NonNull RandomSource random) {
+        if (!state.canSurvive(level, pos)) {
+            level.destroyBlock(pos, true);
         } else {
-            if (state.getValue(POWERED) && !world.hasNeighborSignal(pos)) {
-                world.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
+            if (state.getValue(POWERED) && !level.hasNeighborSignal(pos)) {
+                level.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
             }
         }
     }

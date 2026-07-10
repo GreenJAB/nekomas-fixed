@@ -1,23 +1,23 @@
 package net.greenjab.nekomasfixed.registry.entity.goal;
 
-import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomEntity;
+import net.greenjab.nekomasfixed.registry.entity.Moobloom.Moobloom;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.bee.Bee;
 import java.util.List;
 
 public class PollinatingMoobloomGoal extends Goal {
     private final Bee bee;
-    private MoobloomEntity target;
+    private Moobloom target;
 
     public PollinatingMoobloomGoal(Bee bee) {this.bee = bee;}
 
     @Override
     public boolean canUse() {
         if (bee.hasNectar()) {return false;}
-        List<MoobloomEntity> list = bee.level().getEntitiesOfClass(MoobloomEntity.class, bee.getBoundingBox().inflate(8), entity -> !entity.getEntityData().get(MoobloomEntity.SHEARED));
+        List<Moobloom> list = bee.level().getEntitiesOfClass(Moobloom.class, bee.getBoundingBox().inflate(8), entity -> !entity.getEntityData().get(Moobloom.SHEARED));
         if (list.isEmpty()) {return false;}
 
-        this.target = list.get(0);
+        this.target = list.getFirst();
         return true;
     }
 
@@ -41,7 +41,7 @@ public class PollinatingMoobloomGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return target != null && target.isAlive() && !bee.hasNectar() && !target.getEntityData().get(MoobloomEntity.SHEARED);
+        return target != null && target.isAlive() && !bee.hasNectar() && !target.getEntityData().get(Moobloom.SHEARED);
     }
 
     @Override

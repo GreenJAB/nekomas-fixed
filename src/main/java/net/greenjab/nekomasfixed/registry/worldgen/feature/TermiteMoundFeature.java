@@ -25,12 +25,8 @@ public class TermiteMoundFeature extends Feature<SimpleBlockConfiguration> {
         BlockPos start = context.origin();
 
         int x,y,z;
-        if (!world.getBlockState(start.below()).isRedstoneConductor(world, start.below())) {
-            return false;
-        }
-        if (!world.getBlockState(start).isAir()) {
-            return false;
-        }
+        if (!world.getBlockState(start.below()).isRedstoneConductor(world, start.below())) return false;
+        if (!world.getBlockState(start).isAir()) return false;
 
         float maxRadius = 3.5f - random.nextFloat() * 1.5f;
 
@@ -59,6 +55,4 @@ public class TermiteMoundFeature extends Feature<SimpleBlockConfiguration> {
         }
         return true;
     }
-
-
 }

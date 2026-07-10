@@ -26,20 +26,20 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
     @Override
     public @NonNull InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
-        Level world = context.getLevel();
+        Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        GlobalPos Gpos = new GlobalPos(world.dimension(), pos);
+        GlobalPos Gpos = new GlobalPos(level.dimension(), pos);
         BlockState state = context.getLevel().getBlockState(pos);
-        world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+        level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
         if (player != null) {
             player.swing(player.getUsedItemHand(), true);
             context.getItemInHand().hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
-            STRUCK_WIRES.put(Gpos, world.getGameTime() + (player.isShiftKeyDown() ? 1 : 16));
-        } else STRUCK_WIRES.put(Gpos, world.getGameTime() + 16);
-        if (state.is(Blocks.OBSERVER) && world instanceof ServerLevel serverWorld)
-            if (state.getBlock() instanceof ObserverBlock observerBlock) observerBlock.startSignal(serverWorld, world, pos);
-        state.handleNeighborChanged(world, pos, Blocks.AIR, null, false);
-        world.updateNeighborsAt(pos, state.getBlock());
+            STRUCK_WIRES.put(Gpos, level.getGameTime() + (player.isShiftKeyDown() ? 1 : 16));
+        } else STRUCK_WIRES.put(Gpos, level.getGameTime() + 16);
+        if (state.is(Blocks.OBSERVER) && level instanceof ServerLevel serverLevel)
+            if (state.getBlock() instanceof ObserverBlock observerBlock) observerBlock.startSignal(serverLevel, level, pos);
+        state.handleNeighborChanged(level, pos, Blocks.AIR, null, false);
+        level.updateNeighborsAt(pos, state.getBlock());
         return InteractionResult.SUCCESS;
     }
 }

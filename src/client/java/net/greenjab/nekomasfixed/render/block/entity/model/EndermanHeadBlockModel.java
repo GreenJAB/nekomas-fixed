@@ -29,12 +29,10 @@ public class EndermanHeadBlockModel<S extends EndermanHeadBlockEntityRenderState
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 
-		modelPartData.addOrReplaceChild(
-				"head", CubeListBuilder.create().texOffs(0, 0).addBox(4.0F, 0.0F, 4.0F, 8.0F, 8.0F, 8.0F), PartPose.ZERO
-		);
-		modelPartData.addOrReplaceChild(
-				"mouth", CubeListBuilder.create().texOffs(0, 16).addBox(4.0F, 0.0F, 4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(-0.5F)), PartPose.ZERO
-		);
+		modelPartData.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0)
+				.addBox(4.0F, 0.0F, 4.0F, 8.0F, 8.0F, 8.0F), PartPose.ZERO);
+		modelPartData.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(0, 16)
+				.addBox(4.0F, 0.0F, 4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(-0.5F)), PartPose.ZERO);
 
 		return LayerDefinition.create(modelData, 64, 32);
 	}
@@ -45,9 +43,7 @@ public class EndermanHeadBlockModel<S extends EndermanHeadBlockEntityRenderState
 			if (state.wall) {
 				this.head.y -= 2.5F;
 				this.mouth.y += 2.5F;
-			} else {
-				this.head.y -= 5.0F;
-			}
+			} else this.head.y -= 5.0F;
 		}
 	}
 }

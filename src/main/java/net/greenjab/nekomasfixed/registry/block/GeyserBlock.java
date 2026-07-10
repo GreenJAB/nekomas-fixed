@@ -25,46 +25,44 @@ public class GeyserBlock extends Block {
     }
 
     @Override
-    public @NonNull VoxelShape getInteractionShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos) {return Shapes.block();}
+    public @NonNull VoxelShape getInteractionShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos) {return Shapes.block();}
 
     @Override
-    public @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {return Shapes.block();}
+    public @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {return Shapes.block();}
 
     @Override
-    public void stepOn(Level world, @NonNull BlockPos pos, @NonNull BlockState state, Entity entity) {
+    public void stepOn(Level level, @NonNull BlockPos pos, @NonNull BlockState state, Entity entity) {
             entity.igniteForSeconds(3);
             entity.setDeltaMovement(entity.getDeltaMovement().x, 1.2, entity.getDeltaMovement().z);
-            if(world.isClientSide()){
+            if(level.isClientSide()){
                 java.util.Random random = new java.util.Random();
                 for(int i = 0; i<=20; ++i){
-                    world.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, true, pos.getX()+(0.5 + (random.nextDouble())*(random.nextBoolean()?1:-1)), pos.getY() + 1.0 , pos.getZ()+0.5+(random.nextDouble() * (random.nextBoolean()?1:-1)), 0.001  * (random.nextBoolean()?1:-1), 0.0001, 0.001 *  (random.nextBoolean()?1:-1));
-                    if(i<=10)world.addAlwaysVisibleParticle(ParticleTypes.FLAME, true, pos.getX()+0.5, pos.getY() + 1.0 , pos.getZ()+0.5, 0, 0.2, 0);
+                    level.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, true, pos.getX()+(0.5 + (random.nextDouble())*(random.nextBoolean()?1:-1)), pos.getY() + 1.0 , pos.getZ()+0.5+(random.nextDouble() * (random.nextBoolean()?1:-1)), 0.001  * (random.nextBoolean()?1:-1), 0.0001, 0.001 *  (random.nextBoolean()?1:-1));
+                    if(i<=10) level.addAlwaysVisibleParticle(ParticleTypes.FLAME, true, pos.getX()+0.5, pos.getY() + 1.0 , pos.getZ()+0.5, 0, 0.2, 0);
                 }
             }
     }
 
     @Override
-    public void animateTick(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-        if (world.isClientSide()) {
-            world.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, true, pos.getX() + 0.5 + random.nextDouble()/2 * (random.nextBoolean()?1:-1), pos.getY() + random.nextDouble() + random.nextDouble(), pos.getZ() + 0.5 + random.nextDouble()/2 * (random.nextBoolean()?1:-1), 0.0, 0.07, 0.0);
+    public void animateTick(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull RandomSource random) {
+        if (level.isClientSide()) {
+            level.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, true, pos.getX() + 0.5 + random.nextDouble()/2 * (random.nextBoolean()?1:-1), pos.getY() + random.nextDouble() + random.nextDouble(), pos.getZ() + 0.5 + random.nextDouble()/2 * (random.nextBoolean()?1:-1), 0.0, 0.07, 0.0);
         }
     }
 
     @Override
-    public @NonNull BlockState playerWillDestroy(Level world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
-        if (!world.isClientSide()) {
+    public @NonNull BlockState playerWillDestroy(Level level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
+        if (!level.isClientSide()) {
             ItemStack tool = player.getMainHandItem();
-
-            boolean silkTouch =EnchantmentHelper.getItemEnchantmentLevel(world.registryAccess()
+            boolean silkTouch =EnchantmentHelper.getItemEnchantmentLevel(level.registryAccess()
                                     .lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
                                     .getOrThrow(Enchantments.SILK_TOUCH), tool) > 0;
-
             if (!silkTouch) {
-                world.setBlockAndUpdate(pos, Blocks.LAVA.defaultBlockState());
+                level.setBlockAndUpdate(pos, Blocks.LAVA.defaultBlockState());
                 return state;
             }
         }
-        return super.playerWillDestroy(world, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
 }

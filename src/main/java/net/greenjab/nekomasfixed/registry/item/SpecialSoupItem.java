@@ -25,7 +25,7 @@ public class SpecialSoupItem extends Item {
     }
 
     @Override
-    public @NonNull InteractionResult use(@NonNull Level world, Player user, @NonNull InteractionHand hand) {
+    public @NonNull InteractionResult use(@NonNull Level level, Player user, @NonNull InteractionHand hand) {
         user.startUsingItem(hand);
         return InteractionResult.CONSUME;
     }
@@ -41,22 +41,20 @@ public class SpecialSoupItem extends Item {
     }
 
     @Override
-    public @NonNull ItemStack finishUsingItem(@NonNull ItemStack stack, Level world, @NonNull LivingEntity user) {
-        if (!world.isClientSide() && user instanceof Player player) {
+    public @NonNull ItemStack finishUsingItem(@NonNull ItemStack stack, Level level, @NonNull LivingEntity user) {
+        if (!level.isClientSide() && user instanceof Player player) {
             ItemContainerContents c = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.fromItems(List.of()));
             List<ItemStack> ingredients = c.allItemsCopyStream().toList();
             for (ItemStack ingredient : ingredients) {
                 PotionContents potions = ingredient.get(DataComponents.POTION_CONTENTS);
                 if (potions != null) potions.getAllEffects().forEach(effect -> player.addEffect(new MobEffectInstance(effect.withScaledDuration(0.5f))));
-
                 FoodProperties food = ingredient.get(DataComponents.FOOD);
                 if (food != null) player.getFoodData().eat(Mth.ceil(food.nutrition()/2f), food.saturation()/2f);
-
                 Consumable consume = ingredient.get(DataComponents.CONSUMABLE);
-                if (consume != null) consume.onConsume(world, user, stack.copy());
+                if (consume != null) consume.onConsume(level, user, stack.copy());
             }
         }
         Consumable consumableComponent = stack.get(DataComponents.CONSUMABLE);
-        return consumableComponent != null ? consumableComponent.onConsume(world, user, stack) : stack;
+        return consumableComponent != null ? consumableComponent.onConsume(level, user, stack) : stack;
     }
 }

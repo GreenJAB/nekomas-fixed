@@ -45,30 +45,29 @@ public class WallEndermanHeadHead extends AbstractEndermanHeadBlock {
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, boolean moved) {
+	protected void affectNeighborsAfterRemoval(BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, boolean moved) {
 		if (!moved && state.getValue(POWER)>0) {
-			this.updateNeighbors(state, world, pos);
+			this.updateNeighbors(state, level, pos);
 		}
 	}
 
 	@Override
-	protected int getDirectSignal(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Direction direction) {
-		return direction == state.getValue(FACING) ? state.getSignal(world, pos, direction) : 0;
+	protected int getDirectSignal(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull Direction direction) {
+		return direction == state.getValue(FACING) ? state.getSignal(level, pos, direction) : 0;
 	}
 
 	@Override
-	public void updateNeighbors(BlockState state, Level world, BlockPos pos) {
+	public void updateNeighbors(BlockState state, Level level, BlockPos pos) {
 		Direction direction = state.getValue(FACING).getOpposite();
 		Orientation wireOrientation = ExperimentalRedstoneUtils.initialOrientation(
-				world, direction, Direction.UP
-		);
-		world.updateNeighborsAt(pos, this, wireOrientation);
-		world.updateNeighborsAt(pos.relative(direction), this, wireOrientation);
+				level, direction, Direction.UP);
+		level.updateNeighborsAt(pos, this, wireOrientation);
+		level.updateNeighborsAt(pos.relative(direction), this, wireOrientation);
 	}
 
 
 	@Override
-	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 		return state.getValue(POWER)>0?SHAPES_POWERED_BY_DIRECTION.get(state.getValue(FACING)):SHAPES_BY_DIRECTION.get(state.getValue(FACING));
 	}
 
@@ -88,7 +87,6 @@ public class WallEndermanHeadHead extends AbstractEndermanHeadBlock {
 				}
 			}
 		}
-
 		return null;
 	}
 

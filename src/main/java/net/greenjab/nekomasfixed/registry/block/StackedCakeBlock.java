@@ -56,13 +56,13 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
 
     @Override
     protected @NonNull Iterable<Vec3> getParticleOffsets(BlockState state) {
-        int HEIGHT = ((state.getValue(SLICES)-1)/7)+1;
-        return List.of((new Vec3(8.0F, 8f + 8f * HEIGHT - ((2 * (HEIGHT-1)) - (HEIGHT >= 3 ? -2 : 0)), 8.0F)).scale(0.0625F));
+        int height = ((state.getValue(SLICES)-1)/7)+1;
+        return List.of((new Vec3(8.0F, 8f + 8f * height - ((2 * (height -1)) - (height >= 3 ? -2 : 0)), 8.0F)).scale(0.0625F));
     }
 
     @Override
-    protected boolean canSurvive(@NonNull BlockState state, LevelReader world, BlockPos pos) {
-        return world.getBlockState(pos.below()).isSolid();
+    protected boolean canSurvive(@NonNull BlockState state, LevelReader level, BlockPos pos) {
+        return level.getBlockState(pos.below()).isSolid();
     }
 
     @Override
@@ -79,30 +79,30 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
     public @NonNull MapCodec<StackedCakeBlock> codec(){return CODEC;}
 
     static {
-        for (int layer = 0; layer < 3; layer++) {
-            double scale = 1-0.2*layer;
+        for (int height = 0; height < 3; height++) {
+            double scale = 1-0.2* height;
             double yMinT = 0;
-            if (layer == 1) yMinT = 8;
-            if (layer == 2) yMinT = 8 + 8*(1-0.2);
+            if (height == 1) yMinT = 8;
+            if (height == 2) yMinT = 8 + 8*(1-0.2);
             final double yMin = yMinT;
             final double yMax = yMin + 8 * scale;
-            SHAPES_BY_BITES_AND_LAYER.put(layer, Block.boxes(6, slices -> Block.box(8+(7 - (slices+1) * 2)*scale, yMin, 8-7*scale, 8+7*scale, yMax, 8+7*scale)));
-            CANDLE_SHAPES.put(layer, Block.box(7, yMax, 7, 9, yMax+6, 9));
+            SHAPES_BY_BITES_AND_LAYER.put(height, Block.boxes(6, slices -> Block.box(8+(7 - (slices+1) * 2)*scale, yMin, 8-7*scale, 8+7*scale, yMax, 8+7*scale)));
+            CANDLE_SHAPES.put(height, Block.box(7, yMax, 7, 9, yMax+6, 9));
         }
     }
 
     @Override
-    public void setPlacedBy(@NonNull Level world, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable LivingEntity placer, @NonNull ItemStack itemStack) {
-        super.setPlacedBy(world, pos, state, placer, itemStack);
+    public void setPlacedBy(@NonNull Level level, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable LivingEntity placer, @NonNull ItemStack itemStack) {
+        super.setPlacedBy(level, pos, state, placer, itemStack);
     }
 
-    protected InteractionResult tryEat(Level world, BlockPos pos, BlockState state, Player player) {
+    protected InteractionResult tryEat(Level level, BlockPos pos, BlockState state, Player player) {
         if (!player.canEat(false)) {
             return InteractionResult.PASS;
         } else {
             if (state.getValue(CANDLE)) {
-                if (world.getBlockEntity(pos) instanceof StackedCakeBlockEntity blockEntity) {
-                    popResource(world, pos.above(), blockEntity.CANDLE_STATE.getBlock().asItem().getDefaultInstance());
+                if (level.getBlockEntity(pos) instanceof StackedCakeBlockEntity blockEntity) {
+                    popResource(level, pos.above(), blockEntity.CANDLE_STATE.getBlock().asItem().getDefaultInstance());
                     blockEntity.CANDLE_STATE = Blocks.AIR.defaultBlockState();
                     blockEntity.setChanged();
                 }
@@ -112,24 +112,24 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
             player.awardStat(Stats.EAT_CAKE_SLICE);
             player.getFoodData().eat(2, 0.1F);
 
-            if(world.getBlockEntity(pos) instanceof StackedCakeBlockEntity blockEntity){
-                int i = state.getValue(SLICES)-1;
-                int h = i/7;
+            if(level.getBlockEntity(pos) instanceof StackedCakeBlockEntity blockEntity){
+                int totalSlices = state.getValue(SLICES)-1;
+                int height = totalSlices /7;
                 BlockState currentState = state;
-                if (h==1) currentState = blockEntity.LAYER_2_STATE;
-                if (h==2) currentState = blockEntity.LAYER_3_STATE;
+                if (height ==1) currentState = blockEntity.LAYER_2_STATE;
+                if (height ==2) currentState = blockEntity.LAYER_3_STATE;
 
                 if(!currentState.hasProperty(StackedCakeBlock.SLICES)) return InteractionResult.FAIL;
-                world.gameEvent(player, GameEvent.EAT, pos);
-                if (i%7==0) {
-                    if (h==1) blockEntity.LAYER_2_STATE=Blocks.AIR.defaultBlockState();
-                    else if (h==2) blockEntity.LAYER_3_STATE=Blocks.AIR.defaultBlockState();
-                    if (i==0) world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                    else world.setBlock(pos, state.setValue(SLICES,i), 3);
+                level.gameEvent(player, GameEvent.EAT, pos);
+                if (totalSlices %7==0) {
+                    if (height ==1) blockEntity.LAYER_2_STATE=Blocks.AIR.defaultBlockState();
+                    else if (height ==2) blockEntity.LAYER_3_STATE=Blocks.AIR.defaultBlockState();
+                    if (totalSlices ==0) level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                    else level.setBlock(pos, state.setValue(SLICES, totalSlices), 3);
                 } else {
-                    if (h==1) blockEntity.LAYER_2_STATE=currentState.setValue(SLICES,i%7);
-                    else if (h==2) blockEntity.LAYER_3_STATE=currentState.setValue(SLICES,i%7);
-                    world.setBlock(pos, state.setValue(SLICES,i), 3);
+                    if (height ==1) blockEntity.LAYER_2_STATE=currentState.setValue(SLICES, totalSlices %7);
+                    else if (height ==2) blockEntity.LAYER_3_STATE=currentState.setValue(SLICES, totalSlices %7);
+                    level.setBlock(pos, state.setValue(SLICES, totalSlices), 3);
                 }
                 blockEntity.setChanged();
             }
@@ -138,44 +138,43 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
     }
 
     @Override
-    protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
-        int h = (state.getValue(SLICES)-1)/7;
-        int s = (state.getValue(SLICES)-1)%7;
+    protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+        int height = (state.getValue(SLICES)-1)/7;
+        int slice = (state.getValue(SLICES)-1)%7;
         if (state.getValue(CANDLE)){
-            if (h==0) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[s], CANDLE_SHAPES.get(0));
-            else if (h==1) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[6], SHAPES_BY_BITES_AND_LAYER.get(1)[s], CANDLE_SHAPES.get(1));
-            else if (h==2) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[6], SHAPES_BY_BITES_AND_LAYER.get(1)[6], SHAPES_BY_BITES_AND_LAYER.get(2)[s], CANDLE_SHAPES.get(2));
+            if (height ==0) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[slice], CANDLE_SHAPES.get(0));
+            else if (height ==1) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[6], SHAPES_BY_BITES_AND_LAYER.get(1)[slice], CANDLE_SHAPES.get(1));
+            else if (height ==2) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[6], SHAPES_BY_BITES_AND_LAYER.get(1)[6], SHAPES_BY_BITES_AND_LAYER.get(2)[slice], CANDLE_SHAPES.get(2));
         } else {
-            if (h == 0) return SHAPES_BY_BITES_AND_LAYER.get(0)[s];
-            else if (h == 1) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[6], SHAPES_BY_BITES_AND_LAYER.get(1)[s]);
-            else if (h == 2) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[6], SHAPES_BY_BITES_AND_LAYER.get(1)[6], SHAPES_BY_BITES_AND_LAYER.get(2)[s]);
+            if (height == 0) return SHAPES_BY_BITES_AND_LAYER.get(0)[slice];
+            else if (height == 1) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[6], SHAPES_BY_BITES_AND_LAYER.get(1)[slice]);
+            else if (height == 2) return Shapes.or(SHAPES_BY_BITES_AND_LAYER.get(0)[6], SHAPES_BY_BITES_AND_LAYER.get(1)[6], SHAPES_BY_BITES_AND_LAYER.get(2)[slice]);
         }
-        return SHAPES_BY_BITES_AND_LAYER.get(0)[s];
+        return SHAPES_BY_BITES_AND_LAYER.get(0)[slice];
     }
 
     public void addCakeLayer(ItemStack stack, StackedCakeBlockEntity entity, BlockState state){
-        int h = (state.getValue(SLICES)-1)/7;
+        int height = (state.getValue(SLICES)-1)/7;
         if (stack.getItem() instanceof BlockItem blockItem) {
-            if (h==0) entity.LAYER_2_STATE=blockItem.getBlock().defaultBlockState();
+            if (height ==0) entity.LAYER_2_STATE=blockItem.getBlock().defaultBlockState();
             else entity.LAYER_3_STATE=blockItem.getBlock().defaultBlockState();
-
             entity.setChanged();
         }
     }
 
     @Override
-    protected @NonNull BlockState updateShape(@NonNull BlockState state, @NonNull LevelReader world, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
-        return direction == Direction.DOWN && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    protected @NonNull BlockState updateShape(@NonNull BlockState state, @NonNull LevelReader level, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
+        return direction == Direction.DOWN && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
-    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-        if (world.isClientSide()) return InteractionResult.SUCCESS;
-        else if (world.getBlockEntity(pos) instanceof StackedCakeBlockEntity stackedCakeBlockEntity){
+    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+        if (level.isClientSide()) return InteractionResult.SUCCESS;
+        else if (level.getBlockEntity(pos) instanceof StackedCakeBlockEntity stackedCakeBlockEntity){
             if (state.getValue(SLICES) == 7 || state.getValue(SLICES) == 14 || state.getValue(SLICES) == 21) {
                 if (player.getMainHandItem().is(ModTags.STACKED_CAKES) && state.getValue(SLICES) != 21) {
                     this.addCakeLayer(stack, stackedCakeBlockEntity, state);
-                    world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(SLICES, state.getValue(SLICES)+7));
+                    level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(SLICES, state.getValue(SLICES)+7));
                     player.swing(hand, true);
                     stack.consume(1, player);
                     return InteractionResult.SUCCESS;
@@ -184,7 +183,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
                         if (stack.getItem() instanceof BlockItem blockItem) {
                             BlockState candleState = blockItem.getBlock().defaultBlockState();
                             stackedCakeBlockEntity.CANDLE_STATE = candleState.setValue(CandleBlock.LIT, false);
-                            world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(CANDLE, true).setValue(CandleBlock.LIT, false));
+                            level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(CANDLE, true).setValue(CandleBlock.LIT, false));
                             player.swing(hand, true);
                             stack.consume(1, player);
                             return InteractionResult.SUCCESS;
@@ -196,16 +195,16 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
                         if (!candleState.getValue(CandleBlock.LIT)) {
                             stackedCakeBlockEntity.CANDLE_STATE = candleState.setValue(CandleBlock.LIT, true);
                             stackedCakeBlockEntity.setChanged();
-                            world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(LIT, true));
+                            level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(LIT, true));
                             player.swing(hand, true);
                             stack.hurtWithoutBreaking(1, player);
-                            world.playSound(null, pos, net.minecraft.sounds.SoundEvents.FLINTANDSTEEL_USE, net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+                            level.playSound(null, pos, net.minecraft.sounds.SoundEvents.FLINTANDSTEEL_USE, net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                             return InteractionResult.SUCCESS;
                         }
                     }
                 }
             }
-            return tryEat(world, pos, state, player);
+            return tryEat(level, pos, state, player);
         }
         return InteractionResult.PASS;
     }
@@ -216,7 +215,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
+    protected int getAnalogOutputSignal(BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
         return state.getValue(SLICES);
     }
 

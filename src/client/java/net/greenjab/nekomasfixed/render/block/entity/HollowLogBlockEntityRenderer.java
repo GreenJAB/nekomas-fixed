@@ -29,12 +29,11 @@ public class HollowLogBlockEntityRenderer implements BlockEntityRenderer<HollowL
         return new HollowLogBlockEntityRenderState();
     }
 
-    public void extractRenderState(HollowLogBlockEntity blockEntity,
-                                   HollowLogBlockEntityRenderState state,
+    public void extractRenderState(@NonNull HollowLogBlockEntity blockEntity,
+                                   @NonNull HollowLogBlockEntityRenderState state,
                                    float tickProgress,
                                    @NonNull Vec3 cameraPos,
                                    @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand) {
-
         BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlayCommand);
         this.blockModelResolver.update(state.displayBlockModel, blockEntity.getStoredBlock(), BLOCK_DISPLAY_CONTEXT);
     }

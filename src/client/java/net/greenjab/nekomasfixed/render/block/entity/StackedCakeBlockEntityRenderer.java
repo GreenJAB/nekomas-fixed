@@ -42,32 +42,32 @@ public class StackedCakeBlockEntityRenderer implements BlockEntityRenderer<Stack
 
     @Override
     public void submit(StackedCakeBlockEntityRenderState state, @NonNull PoseStack matrices, @NonNull SubmitNodeCollector queue, @NonNull CameraRenderState cameraState) {
-        int i = 1;
+        int height = 1;
         BlockModelRenderState displayBlockModel_layer_2 = state.displayBlockModel_layer_2;
         if (!displayBlockModel_layer_2.isEmpty()) {
             matrices.pushPose();
-            float scale = (float)(1.0 - (0.2 * i));
-            matrices.translate((1.0f - scale) / 2.0f, i * 0.5f, (1.0f - scale) / 2.0f);
+            float scale = (float)(1.0 - (0.2 * height));
+            matrices.translate((1.0f - scale) / 2.0f, height * 0.5f, (1.0f - scale) / 2.0f);
             matrices.scale(scale, scale, scale);
             displayBlockModel_layer_2.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             matrices.popPose();
-            i=2;
+            height =2;
             BlockModelRenderState displayBlockModel_layer_3 = state.displayBlockModel_layer_3;
             if (!displayBlockModel_layer_3.isEmpty()) {
                 matrices.pushPose();
-                scale = (float)(1.0 - (0.2 * i));
-                matrices.translate((1.0f - scale) / 2.0f, i*0.5 -0.1, (1.0f - scale) / 2.0f);
+                scale = (float)(1.0 - (0.2 * height));
+                matrices.translate((1.0f - scale) / 2.0f, height *0.5 -0.1, (1.0f - scale) / 2.0f);
                 matrices.scale(scale, scale, scale);
                 displayBlockModel_layer_3.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
                 matrices.popPose();
-                i=3;
+                height =3;
             }
         }
 
         BlockModelRenderState displayBlockModel_candle = state.displayBlockModel_candle;
         if (!displayBlockModel_candle.isEmpty()) {
             matrices.pushPose();
-            matrices.translate(0, i * 0.5f - ((i-1) * 0.1) - ((Math.max(0, i-2)) * 0.1), 0);
+            matrices.translate(0, height * 0.5f - ((height -1) * 0.1) - ((Math.max(0, height -2)) * 0.1), 0);
             displayBlockModel_candle.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             matrices.popPose();
         }

@@ -1,7 +1,6 @@
 package net.greenjab.nekomasfixed.registry.block.cauldron;
 
 import com.mojang.serialization.MapCodec;
-import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.cauldron.CauldronInteraction;
@@ -14,7 +13,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.InsideBlockEffectType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -45,16 +43,16 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
                 .setValue(MAGMA_LEVEL, MAX_LEVEL));
     }
 
-    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader world, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
         return Items.CAULDRON.getDefaultInstance();
     }
 
     @Override
-    protected @NonNull VoxelShape getEntityInsideCollisionShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Entity entity) {
+    protected @NonNull VoxelShape getEntityInsideCollisionShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull Entity entity) {
         return INSIDE_COLLISION_SHAPE;
     }
 
-    protected void entityInside(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Entity entity, InsideBlockEffectApplier handler, boolean bl) {
+    protected void entityInside(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Entity entity, InsideBlockEffectApplier handler, boolean bl) {
         handler.apply(InsideBlockEffectType.CLEAR_FREEZE);
         handler.apply(InsideBlockEffectType.LAVA_IGNITE);
         handler.runAfter(InsideBlockEffectType.LAVA_IGNITE, Entity::lavaHurt);
@@ -74,12 +72,12 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         CauldronInteraction.Dispatcher map = new CauldronInteraction.Dispatcher();
         CauldronInteractions.ID_MAPPER.put("magma", map);
 
-        map.put(Items.AIR, (state, world, pos, player, hand, stack) -> {
+        map.put(Items.AIR, (state, level, pos, player, hand, stack) -> {
             if(state.getValue(MAGMA_LEVEL) == MAX_LEVEL) {
-                if (!world.isClientSide()) {
+                if (!level.isClientSide()) {
                     player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.MAGMA_BLOCK)));
-                    world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
-                    world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+                    level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
                 return InteractionResult.SUCCESS;
             } else {
@@ -87,13 +85,12 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
             }
         });
 
-        map.put(Items.MAGMA_CREAM, (state, world, pos, player, hand, stack) -> {
-            int level = state.getValue(MAGMA_LEVEL);
-            if (level < MAX_LEVEL) {
-                if (!world.isClientSide()) {
+        map.put(Items.MAGMA_CREAM, (state, level, pos, player, _, stack) -> {
+            if (state.getValue(MAGMA_LEVEL) < MAX_LEVEL) {
+                if (!level.isClientSide()) {
                     stack.consume(1, player);
-                    world.setBlockAndUpdate(pos, state.setValue(MAGMA_LEVEL, level + 1));
-                    world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY,
+                    level.setBlockAndUpdate(pos, state.setValue(MAGMA_LEVEL, state.getValue(MAGMA_LEVEL) + 1));
+                    level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY,
                             SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
             }
@@ -104,22 +101,13 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
     }
 
     @Override
-    protected void tick(@NonNull BlockState state, ServerLevel world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-        if (!world.isClientSide()) {
-                int currentLevel = state.getValue(MAGMA_LEVEL);
-                if (currentLevel < MAX_LEVEL) {
-                    world.setBlockAndUpdate(pos, state.setValue(MAGMA_LEVEL, currentLevel + 1));
-                    world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY,
+    protected void tick(@NonNull BlockState state, ServerLevel level, @NonNull BlockPos pos, @NonNull RandomSource random) {
+        if (!level.isClientSide()) {
+                if (state.getValue(MAGMA_LEVEL) < MAX_LEVEL) {
+                    level.setBlockAndUpdate(pos, state.setValue(MAGMA_LEVEL, state.getValue(MAGMA_LEVEL) + 1));
+                    level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY,
                             SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
-        }
-        world.scheduleTick(pos, this, 2000);
-    }
-
-    @Override
-    protected void onPlace(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull BlockState oldState, boolean notify) {
-        if (!world.isClientSide()) {
-            world.scheduleTick(pos, this, 2000);
         }
     }
 
@@ -134,7 +122,7 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
+    protected int getAnalogOutputSignal(BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
         return state.getValue(MAGMA_LEVEL);
     }
 

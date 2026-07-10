@@ -36,18 +36,12 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 		this.itemModelManager = context.itemModelResolver();
 	}
 
-
 	public @NonNull ClockBlockEntityRenderState createRenderState() {
 		return new ClockBlockEntityRenderState();
 	}
 
-	public void extractRenderState(
-            @NonNull T clockBlockEntity,
-            @NonNull ClockBlockEntityRenderState clockBlockEntityRenderState,
-            float f,
-            @NonNull Vec3 vec3d,
-            @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand
-	) {
+	public void extractRenderState(@NonNull T clockBlockEntity, @NonNull ClockBlockEntityRenderState clockBlockEntityRenderState,
+					float f, @NonNull Vec3 vec3d, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand) {
 		BlockEntityRenderer.super.extractRenderState(clockBlockEntity, clockBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
 		clockBlockEntityRenderState.poweredTicks = 0;
 		BlockState blockState = clockBlockEntity.getBlockState();
@@ -72,16 +66,11 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 			ItemStackRenderState bellRenderState = new ItemStackRenderState();
 			this.itemModelManager.updateForTopItem(bellRenderState, Items.BELL.getDefaultInstance(), ItemDisplayContext.FIXED, clockBlockEntity2.level(), clockBlockEntity2, HashCommon.long2int(clockBlockEntity.getBlockPos().asLong())+1 );
 			clockBlockEntityRenderState.bellRenderState = bellRenderState;
-
 		}
 	}
 
-	public void submit(
-            ClockBlockEntityRenderState clockBlockEntityRenderState,
-            @NonNull PoseStack matrixStack,
-            @NonNull SubmitNodeCollector orderedRenderCommandQueue,
-            @NonNull CameraRenderState cameraRenderState
-	) {
+	public void submit(ClockBlockEntityRenderState clockBlockEntityRenderState, @NonNull PoseStack matrixStack,
+					   @NonNull SubmitNodeCollector orderedRenderCommandQueue, @NonNull CameraRenderState cameraRenderState) {
 		/*matrixStack.push();
 		matrixStack.translate(0.5F, 0.5F, 0.5F);
 		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-clockBlockEntityRenderState.yaw));
@@ -142,9 +131,8 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 		}
 	}
 
-	private void renderClock(
-			ClockBlockEntityRenderState state, ItemStackRenderState itemRenderState, PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees, boolean wall
-	) {
+	private void renderClock(ClockBlockEntityRenderState state, ItemStackRenderState itemRenderState,
+							 PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees, boolean wall) {
 		Vec3 vec3d = new Vec3(0,  wall?0:-0.15, wall?0.46875:-0.1);
 		matrices.pushPose();
 		matrices.mulPose(Axis.YP.rotationDegrees(-rotationDegrees));
@@ -156,9 +144,8 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 		matrices.popPose();
 	}
 
-	private void renderStand(
-			ClockBlockEntityRenderState state, ItemStackRenderState itemRenderState, PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees
-	) {
+	private void renderStand(ClockBlockEntityRenderState state, ItemStackRenderState itemRenderState,
+							 PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees) {
 		Vec3 vec3d = new Vec3(0, -0.35, 0.2);
 		matrices.pushPose();
 		matrices.mulPose(Axis.YP.rotationDegrees(-rotationDegrees));
@@ -170,9 +157,8 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 		matrices.popPose();
 	}
 
-	private void renderBell(
-			ClockBlockEntityRenderState state, ItemStackRenderState itemRenderState, PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees
-	) {
+	private void renderBell(ClockBlockEntityRenderState state, ItemStackRenderState itemRenderState,
+							PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees) {
 		Vec3 vec3d = new Vec3(0, 0.35, 0.1);
 		matrices.pushPose();
 		matrices.mulPose(Axis.YP.rotationDegrees(-rotationDegrees));
@@ -183,5 +169,4 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 		itemRenderState.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 		matrices.popPose();
 	}
-
 }

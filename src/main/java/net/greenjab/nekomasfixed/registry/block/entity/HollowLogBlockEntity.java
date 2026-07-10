@@ -129,7 +129,7 @@ public class HollowLogBlockEntity extends BlockEntity implements Container {
         this.storedStack.set(0, itemStack);
     }
     public ItemStack getHeldStack() {
-        return this.storedStack.get(0);
+        return this.storedStack.getFirst();
     }
 
     @Override

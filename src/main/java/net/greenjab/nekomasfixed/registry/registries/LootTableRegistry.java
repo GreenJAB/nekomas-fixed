@@ -14,11 +14,8 @@ public class LootTableRegistry {
         return registerLootTable(ResourceKey.create(Registries.LOOT_TABLE, NekomasFixed.id(id)));
     }
     private static ResourceKey<LootTable> registerLootTable(ResourceKey<LootTable> key) {
-        if (BuiltInLootTables.LOCATIONS.add(key)) {
-            return key;
-        } else {
-            throw new IllegalArgumentException(key.identifier() + " is already a registered built-in loot table");
-        }
+        if (BuiltInLootTables.LOCATIONS.add(key))return key;
+        else throw new IllegalArgumentException(key.identifier() + " is already a registered built-in loot table");
     }
 
     public static void registerLootTables() {

@@ -18,14 +18,14 @@ public class BaobabSeedsItem extends Item {
 
     @Override
     public @NonNull InteractionResult useOn(UseOnContext context) {
-        Level world = context.getLevel();
+        Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        BlockState state = world.getBlockState(pos);
+        BlockState state = level.getBlockState(pos);
         Player player = context.getPlayer();
         if(state.is(BlockTags.LEAVES)){
             BlockPos below = pos.below();
-            if (world.getBlockState(below).isAir() || world.getBlockState(below).is(BlockTags.REPLACEABLE)) {
-                world.setBlockAndUpdate(below, BlockRegistry.BAOBAB_FRUIT.defaultBlockState());
+            if (level.getBlockState(below).isAir() || level.getBlockState(below).is(BlockTags.REPLACEABLE)) {
+                level.setBlockAndUpdate(below, BlockRegistry.BAOBAB_FRUIT.defaultBlockState());
                 context.getItemInHand().consume(1, player);
             }
             return InteractionResult.SUCCESS;

@@ -19,11 +19,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Block.class)
 public class BlockMixin {
     @Inject(method = "playerDestroy", at = @At("HEAD"))
-    private void customAfterBreak(Level world, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
+    private void customAfterBreak(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack destroyedWith, CallbackInfo ci) {
         if(state.is(Blocks.MAGMA_BLOCK) && player!=null){
             ItemStack stack = player.getMainHandItem();
             Holder<Enchantment> silkTouchEntry =
-                    world.registryAccess().getOrThrow(Holder.direct(Enchantments.SILK_TOUCH).value());
+                    level.registryAccess().getOrThrow(Holder.direct(Enchantments.SILK_TOUCH).value());
             if(!stack.isEnchanted() && stack.getEnchantments().getLevel(silkTouchEntry)>0 || !stack.getEnchantments().keySet().contains(silkTouchEntry) || player.getMainHandItem().isEmpty()){
                 player.level().setBlockAndUpdate(pos, Blocks.LAVA.defaultBlockState());
             }

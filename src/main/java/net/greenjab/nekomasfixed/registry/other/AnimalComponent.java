@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -34,29 +33,9 @@ public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) imp
 	private static final Logger LOGGER = LogUtils.getLogger();
 
 	public static final List<String> IRRELEVANT_ANIMAL_NBT_KEYS = Arrays.asList(
-			"Air",
-			"drop_chances",
-			"Brain",
-			"CanPickUpLoot",
-			"DeathTime",
-			"fall_distance",
-			"FallFlying",
-			"Fire",
-			"HurtByTimestamp",
-			"HurtTime",
-			"LeftHanded",
-			"Motion",
-			"NoGravity",
-			"OnGround",
-			"PortalCooldown",
-			"Pos",
-			"Rotation",
-			"sleeping_pos",
-			"CannotEnterHiveTicks",
-			"hive_pos",
-			"Passengers",
-			"leash",
-			"UUID"
+			"Air", "drop_chances", "Brain", "CanPickUpLoot", "DeathTime", "fall_distance", "FallFlying",
+			"Fire", "HurtByTimestamp", "HurtTime", "LeftHanded", "Motion", "NoGravity", "OnGround", "PortalCooldown",
+			"Pos", "Rotation", "sleeping_pos", "CannotEnterHiveTicks", "hive_pos", "Passengers", "leash", "UUID"
 	);
 
 	public record StoredEntityData(TypedEntityData<EntityType<?>> entityData, long tickEnteredHive) {
@@ -88,10 +67,10 @@ public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) imp
 		}
 
 		@Nullable
-		public Entity loadEntity(Level world, BlockPos pos) {
+		public Entity loadEntity(Level level) {
 			CompoundTag nbtCompound = this.entityData.copyTagWithoutId();
 			IRRELEVANT_ANIMAL_NBT_KEYS.forEach(nbtCompound::remove);
-			return EntityType.loadEntityRecursive(this.entityData.type(), nbtCompound, world, EntitySpawnReason.LOAD, entity -> entity);
+			return EntityType.loadEntityRecursive(this.entityData.type(), nbtCompound, level, EntitySpawnReason.LOAD, entity -> entity);
 		}
 	}
 
@@ -107,7 +86,7 @@ public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) imp
 	@Override
 	public void addToTooltip(Item.@NonNull TooltipContext context, @NonNull Consumer<Component> textConsumer, @NonNull TooltipFlag type, @NonNull DataComponentGetter components) {
 		if (!this.animal.isEmpty()) {
-			TypedEntityData<EntityType<?>> entityData = this.animal.get(0).entityData();
+			TypedEntityData<EntityType<?>> entityData = this.animal.getFirst().entityData();
 			CompoundTag nbt = entityData.copyTagWithoutId();
 			Optional<String> name = nbt.getString("CustomName");
 			Optional<Integer> age = nbt.getInt("Age");
@@ -124,8 +103,6 @@ public record AnimalComponent(List<AnimalComponent.StoredEntityData> animal) imp
 							Component.translatable(entityData.type().getDescriptionId()),
 							name.map(s -> ": \"" + s + "\"").orElse("")
 			).withStyle(ChatFormatting.GRAY));
-
 		}
 	}
-
 }

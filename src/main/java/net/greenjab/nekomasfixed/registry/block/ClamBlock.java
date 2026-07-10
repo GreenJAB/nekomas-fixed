@@ -104,7 +104,7 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	@Override
 	protected @NonNull BlockState updateShape(
             BlockState state,
-            @NonNull LevelReader world,
+            @NonNull LevelReader level,
             @NonNull ScheduledTickAccess tickView,
             @NonNull BlockPos pos,
             @NonNull Direction direction,
@@ -113,20 +113,20 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
             @NonNull RandomSource random
 	) {
 		if (state.getValue(WATERLOGGED)) {
-			tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+			tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
-		return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+		return super.updateShape(state, level, tickView, pos, direction, neighborPos, neighborState, random);
 	}
 
-	private void tryLaunch(BlockState state, Level world, BlockPos pos) {
+	private void tryLaunch(BlockState state, Level level, BlockPos pos) {
 		boolean wasPowered = state.getValue(POWERED);
-		boolean isPowered = world.hasNeighborSignal(pos);
+		boolean isPowered = level.hasNeighborSignal(pos);
 		if (wasPowered != isPowered) {
 			if (isPowered && !state.getValue(OPEN)) {
-				List<Entity> entities = world.getEntities(null, new AABB(pos));
+				List<Entity> entities = level.getEntities(null, new AABB(pos));
 				for (Entity entity : entities) {
 					if (entity instanceof LivingEntity || entity instanceof ItemEntity) {
-						float power = world.getBestNeighborSignal(pos);
+						float power = level.getBestNeighborSignal(pos);
 						power = (float) (Math.sqrt(power) / 4.0f);
 						float dirx = -state.getValue(ClamBlock.FACING).getStepX();
 						float dirz = -state.getValue(ClamBlock.FACING).getStepZ();
@@ -144,35 +144,29 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 					}
 				}
 			}
-			world.setBlock(pos, state.setValue(POWERED, isPowered).setValue(OPEN, isPowered), Block.UPDATE_CLIENTS);
+			level.setBlock(pos, state.setValue(POWERED, isPowered).setValue(OPEN, isPowered), Block.UPDATE_CLIENTS);
 		}
 	}
 
 	@Override
-	public void setPlacedBy(Level world, @NonNull BlockPos pos, @NonNull BlockState state, LivingEntity placer, @NonNull ItemStack itemStack) {
-		if (!world.isClientSide()) {
-			tryLaunch(state, world, pos);
-		}
+	public void setPlacedBy(Level level, @NonNull BlockPos pos, @NonNull BlockState state, LivingEntity placer, @NonNull ItemStack itemStack) {
+		if (!level.isClientSide()) tryLaunch(state, level, pos);
 	}
 
 	@Override
-	protected void neighborChanged(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Block sourceBlock, @Nullable Orientation wireOrientation, boolean notify) {
-		if (!world.isClientSide()) {
-			tryLaunch(state, world, pos);
-		}
+	protected void neighborChanged(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Block sourceBlock, @Nullable Orientation wireOrientation, boolean notify) {
+		if (!level.isClientSide()) tryLaunch(state, level, pos);
 	}
 
 	@Override
-	protected void onPlace(BlockState state, @NonNull Level world, @NonNull BlockPos pos, BlockState oldState, boolean notify) {
+	protected void onPlace(BlockState state, @NonNull Level level, @NonNull BlockPos pos, BlockState oldState, boolean notify) {
 		if (!oldState.is(state.getBlock())) {
-			if (!world.isClientSide() && world.getBlockEntity(pos) == null) {
-				tryLaunch(state, world, pos);
-			}
+			if (!level.isClientSide() && level.getBlockEntity(pos) == null) tryLaunch(state, level, pos);
 		}
 	}
 
 	@Override
-	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+	protected @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 		return SHAPES_BY_DIRECTION.get((state.getValue(FACING)));
 	}
 
@@ -190,35 +184,35 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(@NonNull BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, boolean moved) {
-		Containers.updateNeighboursAfterDestroy(state, world, pos);
+	protected void affectNeighborsAfterRemoval(@NonNull BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, boolean moved) {
+		Containers.updateNeighboursAfterDestroy(state, level, pos);
 	}
 
 	@Override
-	protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-		if (world.getBlockEntity(pos) instanceof ClamBlockEntity clamBlockEntity && !hand.equals(InteractionHand.OFF_HAND)) {
-			if (world.isClientSide()) {
+	protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+		if (level.getBlockEntity(pos) instanceof ClamBlockEntity clamBlockEntity && !hand.equals(InteractionHand.OFF_HAND)) {
+			if (level.isClientSide()) {
 				return InteractionResult.SUCCESS;
 			} else {
 				if (!(Boolean)state.getValue(OPEN) || player.isShiftKeyDown()) {
 					BlockState blockState = state.cycle(OPEN);
-					world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
-					world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
+					level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+					level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
 					return InteractionResult.SUCCESS;
 				}
 				Inventory playerInventory = player.getInventory();
 					boolean bl = swapSingleStack(stack, player, clamBlockEntity, playerInventory);
 					if (bl) {
-						this.playSound(world, pos, stack.isEmpty() ? SoundEvents.SHELF_TAKE_ITEM : SoundEvents.SHELF_SINGLE_SWAP);
+						this.playSound(level, pos, stack.isEmpty() ? SoundEvents.SHELF_TAKE_ITEM : SoundEvents.SHELF_SINGLE_SWAP);
 					} else {
 						if (stack.isEmpty()) {
 							BlockState blockState = state.cycle(OPEN);
-							world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
-							world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
+							level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+							level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
 							return InteractionResult.SUCCESS;
 						}
 
-						this.playSound(world, pos, SoundEvents.SHELF_PLACE_ITEM);
+						this.playSound(level, pos, SoundEvents.SHELF_PLACE_ITEM);
 					}
 					return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
 			}
@@ -235,16 +229,16 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 		clamBlockEntity.markDirty(GameEvent.ITEM_INTERACT_FINISH);
 		return !itemStack.isEmpty();
 	}
-	private void playSound(LevelAccessor world, BlockPos pos, SoundEvent sound) {
-		world.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+	private void playSound(LevelAccessor level, BlockPos pos, SoundEvent sound) {
+		level.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
 	}
 
 	@Override
-	protected @NonNull InteractionResult useWithoutItem(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull BlockHitResult hit) {
-		if (!world.isClientSide()) {
+	protected @NonNull InteractionResult useWithoutItem(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull BlockHitResult hit) {
+		if (!level.isClientSide()) {
 			BlockState blockState = state.cycle(OPEN);
-			world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
-			world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
+			level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+			level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
 		}
 		return InteractionResult.SUCCESS;
 	}
@@ -264,8 +258,8 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 	@Nullable
 	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
-		return world.isClientSide() ? createTickerHelper(type, BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntity::clientTick) : null;
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {
+		return level.isClientSide() ? createTickerHelper(type, BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntity::clientTick) : null;
 	}
 
 	@Override
@@ -274,11 +268,11 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	}
 
 	@Override
-	protected void randomTick(@NonNull BlockState state, ServerLevel world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-		BlockEntity blockEntity = world.getBlockEntity(pos);
+	protected void randomTick(@NonNull BlockState state, ServerLevel level, @NonNull BlockPos pos, @NonNull RandomSource random) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof ClamBlockEntity clamBlockEntity) {
-			ItemStack item = clamBlockEntity.getItems().get(0);
-			BlockState below = world.getBlockState(pos.below());
+			ItemStack item = clamBlockEntity.getItems().getFirst();
+			BlockState below = level.getBlockState(pos.below());
 			if (below.is(Blocks.SAND) || below.is(Blocks.GRAVEL) || below.is(Blocks.DIRT)) {
 				if (state.getValue(OPEN)) {
 					if (item.isEmpty()) {
@@ -290,32 +284,32 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 					}
 					if (!state.getValue(POWERED) && random.nextInt(Math.max(64 - item.getCount(),1)) < 4) {
 						BlockState blockState = state.cycle(OPEN);
-						world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+						level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
 					}
 				} else {
 					if (item.is(Items.SAND) || item.is(Items.GRAVEL) || item.is(Items.DIRT)) {
 						clamBlockEntity.setHeldStack(item.copyWithCount(item.getCount() - 1));
 						if (random.nextInt(16) == 0) {
-                            LootTable lootTable = world.getServer()
+                            LootTable lootTable = level.getServer()
 									.reloadableRegistries()
 									.getLootTable(LootTableRegistry.CLAM_LOOT_TABLE);
 
-							LootParams lootContextParameterSet = (new LootParams.Builder(world)).withParameter(LootContextParams.ORIGIN, pos.getCenter()).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(this.getClamType())).create(LootContextParamSets.FISHING);
+							LootParams lootContextParameterSet = (new LootParams.Builder(level)).withParameter(LootContextParams.ORIGIN, pos.getCenter()).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(this.getClamType())).create(LootContextParamSets.FISHING);
 
 							ObjectArrayList<ItemStack> loots = lootTable.getRandomItems(lootContextParameterSet);
 							if (!loots.isEmpty()) {
-								ItemStack itemStack = clamBlockEntity.getItems().get(0);
-								ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
+								ItemStack itemStack = clamBlockEntity.getItems().getFirst();
+								ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
 								itemEntity.setDefaultPickUpDelay();
-								world.addFreshEntity(itemEntity);
+								level.addFreshEntity(itemEntity);
 
-								clamBlockEntity.setHeldStack(loots.get(0));
+								clamBlockEntity.setHeldStack(loots.getFirst());
 							}
 						}
 					}
 					if (!state.getValue(POWERED) && random.nextInt(item.getCount() + 1) < 4) {
 						BlockState blockState = state.cycle(OPEN);
-						world.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+						level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
 					}
 				}
 			}
@@ -328,8 +322,8 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
-		return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(world.getBlockEntity(pos));
+	protected int getAnalogOutputSignal(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
+		return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
 	}
 
 	@Override
@@ -348,25 +342,23 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	}
 
 	@Override
-	public @NonNull BlockState playerWillDestroy(Level world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
-		BlockEntity blockEntity = world.getBlockEntity(pos);
+	public @NonNull BlockState playerWillDestroy(Level level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Player player) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof ClamBlockEntity clamBlockEntity) {
 			int cstate = state.getValueOrElse(ClamBlock.OPEN, false)?1:0;
-			if (cstate==1&&!clamBlockEntity.getItems().isEmpty()&&!clamBlockEntity.getItems().get(0).isEmpty()) cstate++;
+			if (cstate==1 && !clamBlockEntity.getItems().isEmpty() && !clamBlockEntity.getItems().getFirst().isEmpty()) cstate++;
 			clamBlockEntity.setState(cstate);
-			if (!world.isClientSide() && player.preventsBlockDrops()) {
-
+			if (!level.isClientSide() && player.preventsBlockDrops()) {
 				ItemStack itemStack = getItemStack(this.getClamType());
 				itemStack.applyComponents(blockEntity.collectComponents());
-				ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
+				ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
 				itemEntity.setDefaultPickUpDelay();
-				world.addFreshEntity(itemEntity);
-			}else {
+				level.addFreshEntity(itemEntity);
+			} else {
 				clamBlockEntity.unpackLootTable(player);
 			}
 		}
-
-		return super.playerWillDestroy(world, pos, state, player);
+		return super.playerWillDestroy(level, pos, state, player);
 	}
 
 	@Override

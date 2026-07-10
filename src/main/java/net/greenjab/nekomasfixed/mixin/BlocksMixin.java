@@ -22,8 +22,8 @@ public class BlocksMixin {
     @Redirect(method="<clinit>", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/block/Blocks;register(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;", ordinal = 0), slice = @Slice( from =
     @At(value = "FIELD", target = "Lnet/minecraft/references/BlockIds;MELON:Lnet/minecraft/resources/ResourceKey;", opcode = Opcodes.GETSTATIC), to =
     @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/Blocks;MELON:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.PUTSTATIC)))
-    private static Block newMelon(ResourceKey<Block> key, BlockBehaviour.Properties settings2) {
-        return register(key, settings -> new MelonBlock(false, settings), settings2);
+    private static Block newMelon(ResourceKey<Block> id, BlockBehaviour.Properties properties) {
+        return register(id, settings -> new MelonBlock(false, settings), properties);
     }
 
     @Unique

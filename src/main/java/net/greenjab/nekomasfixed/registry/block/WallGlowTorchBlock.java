@@ -45,19 +45,19 @@ public class WallGlowTorchBlock extends GlowTorchBlock {
 	}
 
 	@Override
-	protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+	protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
 		return WallTorchBlock.getShape(state);
 	}
 
 	@Override
-	protected boolean canSurvive(BlockState state, @NonNull LevelReader world, @NonNull BlockPos pos) {
-		return WallTorchBlock.canSurvive(world, pos, state.getValue(FACING));
+	protected boolean canSurvive(BlockState state, @NonNull LevelReader level, @NonNull BlockPos pos) {
+		return WallTorchBlock.canSurvive(level, pos, state.getValue(FACING));
 	}
 
 	@Override
 	protected @NonNull BlockState updateShape(
             BlockState state,
-            @NonNull LevelReader world,
+            @NonNull LevelReader level,
             @NonNull ScheduledTickAccess tickView,
             @NonNull BlockPos pos,
             @NonNull Direction direction,
@@ -65,10 +65,8 @@ public class WallGlowTorchBlock extends GlowTorchBlock {
             @NonNull BlockState neighborState,
             @NonNull RandomSource random
 	) {
-		if (state.getValue(WATERLOGGED)) {
-			tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
-		}
-		return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : state;
+		if (state.getValue(WATERLOGGED)) tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : state;
 	}
 
 	@Nullable
@@ -80,14 +78,14 @@ public class WallGlowTorchBlock extends GlowTorchBlock {
 	}
 
 	@Override
-	public void animateTick(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-		if (world.getRandom().nextInt(4)!=0) return;
+	public void animateTick(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull RandomSource random) {
+		if (level.getRandom().nextInt(4)!=0) return;
 		if (state.getValue(WATERLOGGED)) {
 			Direction direction = (state.getValue(FACING)).getOpposite();
 			double e = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2 + 0.27 * direction.getStepX();
 			double f = pos.getY() + 0.7 + (random.nextDouble() - 0.5) * 0.2 + 0.22;
 			double g = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2 + 0.27 * direction.getStepZ();
-			world.addParticle(ParticleTypes.SCRAPE, e, f, g, 0.0, 0.0, 0.0);
+			level.addParticle(ParticleTypes.SCRAPE, e, f, g, 0.0, 0.0, 0.0);
 		}
 	}
 

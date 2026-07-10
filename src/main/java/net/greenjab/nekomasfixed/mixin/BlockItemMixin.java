@@ -22,30 +22,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockItemMixin {
 
     @Inject(method="onDestroyed", at = @At( value = "HEAD"), cancellable = true)
-    private void releaseAnimalOnNautilusDestroyed(ItemEntity itemEntity, CallbackInfo ci) {
-        AnimalComponent animalComponent = itemEntity.getItem().get(ComponentRegistry.ANIMAL);
+    private void releaseAnimalOnNautilusDestroyed(ItemEntity entity, CallbackInfo ci) {
+        AnimalComponent animalComponent = entity.getItem().get(ComponentRegistry.ANIMAL);
         if (animalComponent != null && !animalComponent.animal().isEmpty()) {
-            AnimalComponent.StoredEntityData animal = animalComponent.animal().get(0);
-            Level world = itemEntity.level();
-            BlockPos pos = itemEntity.blockPosition();
-            Entity entity = animal.loadEntity(world, pos);
-            if (entity != null) {
+            AnimalComponent.StoredEntityData animal = animalComponent.animal().getFirst();
+            Level level = entity.level();
+            BlockPos pos = entity.blockPosition();
+            Entity releasedEntity = animal.loadEntity(level);
+            if (releasedEntity != null) {
                 double e = pos.getX() + 0.5;
-                double g = pos.getY() + 0.5 - entity.getBbHeight() / 2.0F;
-                double h = pos.getZ() + 0.5;entity.snapTo(e, g, h, entity.getYRot(), entity.getXRot());
-                world.addFreshEntity(entity);
+                double g = pos.getY() + 0.5 - releasedEntity.getBbHeight() / 2.0F;
+                double h = pos.getZ() + 0.5;
+                releasedEntity.snapTo(e, g, h, releasedEntity.getYRot(), releasedEntity.getXRot());
+                level.addFreshEntity(releasedEntity);
             }
             ci.cancel();
         }
     }
 
     @Inject(method="updateBlockStateFromTag", at = @At( value = "HEAD"))
-    private void placeOpenClam(BlockPos pos, Level world, ItemStack stack, BlockState state, CallbackInfoReturnable<BlockState> cir) {
-        if (stack.is(ModTags.CLAMTAG)) {
-            Integer i = stack.getOrDefault(ComponentRegistry.CLAM_STATE, 0);
+    private void placeOpenClam(BlockPos pos, Level level, ItemStack itemStack, BlockState placedState, CallbackInfoReturnable<BlockState> cir) {
+        if (itemStack.is(ModTags.CLAMTAG)) {
+            Integer i = itemStack.getOrDefault(ComponentRegistry.CLAM_STATE, 0);
             if (i > 0) {
-                state = state.setValue(ClamBlock.OPEN, true);
-                world.setBlock(pos, state, Block.UPDATE_CLIENTS);
+                placedState = placedState.setValue(ClamBlock.OPEN, true);
+                level.setBlock(pos, placedState, Block.UPDATE_CLIENTS);
             }
         }
     }

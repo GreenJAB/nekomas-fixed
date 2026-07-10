@@ -93,7 +93,7 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
     @Override
     protected @NonNull BlockState updateShape(
             BlockState state,
-            @NonNull LevelReader world,
+            @NonNull LevelReader level,
             @NonNull ScheduledTickAccess tickView,
             @NonNull BlockPos pos,
             @NonNull Direction direction,
@@ -102,9 +102,9 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
             @NonNull RandomSource random
     ) {
         if (state.getValue(WATERLOGGED)) {
-            tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+            tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+        return super.updateShape(state, level, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
@@ -139,23 +139,23 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
     }
 
     @Override
-    public boolean placeLiquid(LevelAccessor world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull FluidState fluidState) {
-        if (world.getBlockEntity(pos) instanceof HollowLogBlockEntity logBE) {
+    public boolean placeLiquid(LevelAccessor level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull FluidState fluidState) {
+        if (level.getBlockEntity(pos) instanceof HollowLogBlockEntity logBE) {
             if (!(logBE.getStoredBlock()==Blocks.AIR.defaultBlockState()||logBE.getStoredStack().getItemName().getString().toLowerCase().contains("glass"))) return false;
         }
-        return SimpleWaterloggedBlock.super.placeLiquid(world, pos, state, fluidState);
+        return SimpleWaterloggedBlock.super.placeLiquid(level, pos, state, fluidState);
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable LivingEntity filler, BlockGetter world, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Fluid fluid) {
-        if (world.getBlockEntity(pos) instanceof HollowLogBlockEntity logBE) {
+    public boolean canPlaceLiquid(@Nullable LivingEntity filler, BlockGetter level, @NonNull BlockPos pos, @NonNull BlockState state, @NonNull Fluid fluid) {
+        if (level.getBlockEntity(pos) instanceof HollowLogBlockEntity logBE) {
             if (!(logBE.getStoredBlock()==Blocks.AIR.defaultBlockState()||logBE.getStoredStack().getItemName().getString().toLowerCase().contains("glass"))) return false;
         }
-        return SimpleWaterloggedBlock.super.canPlaceLiquid(filler, world, pos, state, fluid);
+        return SimpleWaterloggedBlock.super.canPlaceLiquid(filler, level, pos, state, fluid);
     }
 
     @Override
-    public @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+    public @NonNull VoxelShape getShape(BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
         return state.getValue(SOLID_INSIDE)? SHAPES_BY_AXIS_FILLED.get(state.getValue(AXIS)):SHAPES_BY_AXIS.get(state.getValue(AXIS));
     }
 
@@ -164,9 +164,9 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
        return new HollowLogBlockEntity(pos, state);
     }
 
-    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-        if (world instanceof ServerLevel serverWorld) {
-            BlockEntity be = world.getBlockEntity(pos);
+    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+        if (level instanceof ServerLevel serverLevel) {
+            BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof HollowLogBlockEntity logBE) {
                 if (stack.getItem() instanceof BlockItem blockItem) {
                     if (blockItem.getBlock().defaultBlockState().is(BlockTags.FLOWERS) && logBE.getStoredBlock().is(BlockTags.FLOWER_POTS)) {
@@ -181,14 +181,14 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
                     if (HollowLogBlockEntity.canStoreBlock(logBE, blockItem, state.getValue(AXIS)== Direction.Axis.Y)) {
                         logBE.setStoredBlock(stack.copyWithCount(1), blockItem.getBlock().defaultBlockState());
                         stack.consume(1, player);
-                        world.sendBlockUpdated(pos, state, state, 3);
+                        level.sendBlockUpdated(pos, state, state, 3);
                         if (state.getValue(AXIS)== Direction.Axis.Y)
                             state = state.setValue(SOLID_INSIDE, true);
                         if (!stack.getItemName().getString().toLowerCase().contains("glass"))
                             state = state.setValue(WATERLOGGED, false);
                         if (blockItem.getBlock().defaultBlockState().getLightEmission() > 0)
                             state = state.setValue(LIGHT_LEVEL, blockItem.getBlock().defaultBlockState().getLightEmission());
-                        world.setBlockAndUpdate(pos, state);
+                        level.setBlockAndUpdate(pos, state);
 
                         return InteractionResult.SUCCESS;
                     }
@@ -196,17 +196,17 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
                     if (stack.is(Items.SHEARS)) {
                         if (logBE.getStoredBlock()!=Blocks.AIR.defaultBlockState())
                             stack.hurtAndBreak(1, player, hand);
-                        if (logBE.getStoredBlock().is(BlockTags.FLOWER_POTS)&&!logBE.getStoredStack().is(Items.FLOWER_POT)) popResource(serverWorld, pos, Items.FLOWER_POT.getDefaultInstance());
-                        popResource(serverWorld, pos, logBE.getStoredStack());
+                        if (logBE.getStoredBlock().is(BlockTags.FLOWER_POTS)&&!logBE.getStoredStack().is(Items.FLOWER_POT)) popResource(serverLevel, pos, Items.FLOWER_POT.getDefaultInstance());
+                        popResource(serverLevel, pos, logBE.getStoredStack());
                         logBE.setStoredBlock(ItemStack.EMPTY, Blocks.AIR.defaultBlockState());
-                        world.setBlockAndUpdate(pos, state.setValue(LIGHT_LEVEL, 0).setValue(SOLID_INSIDE, false));
-                        world.sendBlockUpdated(pos, state, state, 3);
+                        level.setBlockAndUpdate(pos, state.setValue(LIGHT_LEVEL, 0).setValue(SOLID_INSIDE, false));
+                        level.sendBlockUpdated(pos, state, state, 3);
                         return InteractionResult.SUCCESS;
                     }
                     /*if (stack.isIn(ItemTags.HOES) && logBE.getStoredBlock().isIn(BlockTags.DIRT)) {
                         stack.damage(1, player, hand);
                         logBE.setStoredBlock(Items.DIRT.getDefaultStack(), Blocks.FARMLAND.getDefaultState());
-                        world.updateListeners(pos, state, state, 2);
+                        level.updateListeners(pos, state, state, 2);
                         return ActionResult.SUCCESS;
                     }*/
                 }
@@ -214,10 +214,10 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
             }
         } else {
             if (stack.is(Items.BUCKET) || stack.is(Items.WATER_BUCKET))
-               return super.useItemOn(stack, state, world, pos, player, hand, hit);
+               return super.useItemOn(stack, state, level, pos, player, hand, hit);
             return InteractionResult.SUCCESS;
         }
-        return super.useItemOn(stack, state, world, pos, player, hand, hit);
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }
 
     @Override

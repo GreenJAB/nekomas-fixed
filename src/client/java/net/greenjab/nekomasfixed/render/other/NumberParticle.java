@@ -12,8 +12,9 @@ import org.jspecify.annotations.NonNull;
 public class NumberParticle extends Particle {
      private final double damage;
     public static ParticleRenderType particleTextureSheet = new ParticleRenderType("number");
-    NumberParticle(ClientLevel world, double x, double y, double z, double damage) {
-        super(world, x+ world.getRandom().nextGaussian()/5f, y+ world.getRandom().nextGaussian()/10f, z+ world.getRandom().nextGaussian()/5f);
+    NumberParticle(ClientLevel level, double x, double y, double z, double damage) {
+        super(level, x+ level.getRandom().nextGaussian()/5f, y+ level.getRandom().nextGaussian()/10f,
+                z+ level.getRandom().nextGaussian()/5f);
         this.damage = damage;
         this.friction = 0.66F;
         this.speedUpWhenYMotionIsBlocked = true;
@@ -24,11 +25,8 @@ public class NumberParticle extends Particle {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        if (this.age++ >= this.lifetime) {
-            this.remove();
-        } else {
-            this.move(0, 0.015, 0);
-        }
+        if (this.age++ >= this.lifetime) this.remove();
+        else this.move(0, 0.015, 0);
     }
 
     @Override
@@ -50,10 +48,9 @@ public class NumberParticle extends Particle {
         public Factory() {
         }
 
-        public Particle createParticle(
-                @NonNull SimpleParticleType simpleParticleType, @NonNull ClientLevel clientWorld, double d, double e, double f, double g, double h, double i, @NonNull RandomSource random
-        ) {
-            return new NumberParticle(clientWorld, d, e, f, g);
+        public Particle createParticle(@NonNull SimpleParticleType simpleParticleType, @NonNull ClientLevel level,
+                                       double d, double e, double f, double g, double h, double i, @NonNull RandomSource random) {
+            return new NumberParticle(level, d, e, f, g);
         }
     }
 }

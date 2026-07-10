@@ -27,12 +27,8 @@ public class NumberParticleRenderer extends ParticleGroup<NumberParticle> {
 
     @Override
     public @NonNull ParticleGroupRenderState extractRenderState(@NonNull Frustum frustum, @NonNull Camera camera, float tickProgress) {
-        return new NumberParticleRenderer.Result(
-                this.particles
-                        .stream()
-                        .map(numberParticle -> NumberParticleRenderer.State.create(numberParticle, camera, tickProgress))
-                        .toList()
-        );
+        return new NumberParticleRenderer.Result(this.particles.stream().map(numberParticle ->
+                NumberParticleRenderer.State.create(numberParticle, camera, tickProgress)).toList());
     }
 
     @Environment(EnvType.CLIENT)
@@ -40,7 +36,8 @@ public class NumberParticleRenderer extends ParticleGroup<NumberParticle> {
         @Override
         public void submit(@NonNull SubmitNodeCollector orderedRenderCommandQueue, @NonNull CameraRenderState cameraRenderState) {
             for (NumberParticleRenderer.State state : this.states) {
-                orderedRenderCommandQueue.submitNameTag(state.matrices, new Vec3(0, 0, 0), 0, Component.nullToEmpty(state.damage), true, state.color, 100.6789, cameraRenderState);
+                orderedRenderCommandQueue.submitNameTag(state.matrices, new Vec3(0, 0, 0), 0,
+                        Component.nullToEmpty(state.damage), true, state.color, 100.6789, cameraRenderState);
             }
         }
     }
@@ -55,7 +52,7 @@ public class NumberParticleRenderer extends ParticleGroup<NumberParticle> {
             float age = particle.getAge()+tickProgress;
             float ageScale = (float) (Math.sin(Math.min(age,8)/5)*Math.min(0.5+particle.getDamage()/10.0, 2));
 
-            int ii = ARGB.colorFromFloat(Math.max(Math.min((particle.getLifetime()-age)/8f, 1), 0), 1.0F, 1.0F, 1.0F);
+            int ii = ARGB.colorFromFloat(Math.clamp((particle.getLifetime() - age) / 8f, 0, 1), 1.0F, 1.0F, 1.0F);
             matrixStack.translate(pos);
             matrixStack.scale(ageScale, ageScale, ageScale);
 

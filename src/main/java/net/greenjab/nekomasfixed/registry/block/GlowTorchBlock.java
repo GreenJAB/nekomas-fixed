@@ -40,7 +40,7 @@ public class GlowTorchBlock extends BaseTorchBlock implements SimpleWaterloggedB
 	@Override
 	protected @NonNull BlockState updateShape(
             BlockState state,
-            @NonNull LevelReader world,
+            @NonNull LevelReader level,
             @NonNull ScheduledTickAccess tickView,
             @NonNull BlockPos pos,
             @NonNull Direction direction,
@@ -49,9 +49,9 @@ public class GlowTorchBlock extends BaseTorchBlock implements SimpleWaterloggedB
             @NonNull RandomSource random
 	) {
 		if (state.getValue(WATERLOGGED)) {
-			tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+			tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
-		return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+		return super.updateShape(state, level, tickView, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -67,13 +67,13 @@ public class GlowTorchBlock extends BaseTorchBlock implements SimpleWaterloggedB
 	}
 
 	@Override
-	public void animateTick(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-		if (world.getRandom().nextInt(4)!=0) return;
+	public void animateTick(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull RandomSource random) {
+		if (level.getRandom().nextInt(4)!=0) return;
 		if (state.getValue(WATERLOGGED)) {
 			double d = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
 			double e = pos.getY() + 0.7 + (random.nextDouble() - 0.5) * 0.2;
 			double f = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
-			world.addParticle(ParticleTypes.GLOW, d, e, f, 0.0, 0.0, 0.0);
+			level.addParticle(ParticleTypes.GLOW, d, e, f, 0.0, 0.0, 0.0);
 		}
 	}
 

@@ -17,12 +17,12 @@ public class LightningEffect extends InstantenousMobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(ServerLevel world, LivingEntity entity, int amplifier) {
-        if (world.canSeeSky(entity.blockPosition())) {
-            LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(world, EntitySpawnReason.EVENT);
+    public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
+        if (level.canSeeSky(entity.blockPosition())) {
+            LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
             if (lightning != null) {
                 lightning.snapTo(entity.getX(), entity.getY(), entity.getZ());
-                world.addFreshEntity(lightning);
+                level.addFreshEntity(lightning);
             }
         }
         return true;
@@ -30,13 +30,13 @@ public class LightningEffect extends InstantenousMobEffect {
 
     @Override
     public void applyInstantenousEffect(
-            ServerLevel world, @org.jspecify.annotations.Nullable Entity effectEntity, @Nullable Entity attacker, LivingEntity target, int amplifier, double proximity
+            ServerLevel level, @org.jspecify.annotations.Nullable Entity effectEntity, @Nullable Entity attacker, LivingEntity target, int amplifier, double proximity
     ) {
-        if (world.canSeeSky(target.blockPosition())) {
-            LightningBolt lightning =EntityType.LIGHTNING_BOLT.create(world, EntitySpawnReason.EVENT);
+        if (level.canSeeSky(target.blockPosition())) {
+            LightningBolt lightning =EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
             if (lightning != null) {
                 lightning.snapTo(target.getX(), target.getY(), target.getZ());
-                world.addFreshEntity(lightning);
+                level.addFreshEntity(lightning);
             }
         }
     }

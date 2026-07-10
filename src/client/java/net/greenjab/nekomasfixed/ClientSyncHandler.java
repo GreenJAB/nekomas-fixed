@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 public class ClientSyncHandler {
     public static void init() {
         ClientPlayNetworking.registerGlobalReceiver(UpdateClockPayload.PACKET_ID, ClientSyncHandler::updateClockTimer);
-
     }
 
     private static void updateClockTimer(UpdateClockPayload payload, ClientPlayNetworking.Context context) {
@@ -20,5 +19,4 @@ public class ClientSyncHandler {
             }
         });
     }
-
 }

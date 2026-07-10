@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.InsideBlockEffectType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -27,8 +26,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
 
-import java.util.Map;
-
 public class IceCauldronBlock extends AbstractCauldronBlock {
     public static final MapCodec<IceCauldronBlock> CODEC = simpleCodec(IceCauldronBlock::new);
     private static final VoxelShape ICE_SHAPE = Block.column(12.0, 4.0, 15.0);
@@ -43,7 +40,7 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
         super(settings, createBehaviorMap());
     }
 
-    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader world, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
         return Items.CAULDRON.getDefaultInstance();
     }
 
@@ -51,26 +48,19 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
         CauldronInteraction.Dispatcher map = new CauldronInteraction.Dispatcher();
         CauldronInteractions.ID_MAPPER.put("ice", map);
 
-        map.put(Items.AIR, (state, world, pos, player, hand, stack) -> {
-            if (!world.isClientSide()) {
+        map.put(Items.AIR, (_, level, pos, player, hand, stack) -> {
+            if (!level.isClientSide()) {
                 player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.ICE)));
-                world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
-                world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+                level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
             return InteractionResult.SUCCESS;
         });
         return map;
     }
 
-    protected void entityInside(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Entity entity, InsideBlockEffectApplier handler, boolean bl) {
+    protected void entityInside(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Entity entity, InsideBlockEffectApplier handler, boolean bl) {
        handler.apply(InsideBlockEffectType.FREEZE);
-    }
-
-    @Override
-    protected void onPlace(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull BlockState oldState, boolean notify) {
-        if (!world.isClientSide()) {
-            world.scheduleTick(pos, this, 200);
-        }
     }
 
     @Override
@@ -84,12 +74,12 @@ public class IceCauldronBlock extends AbstractCauldronBlock {
     }
 
     @Override
-    protected @NonNull VoxelShape getEntityInsideCollisionShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull Entity entity) {
+    protected @NonNull VoxelShape getEntityInsideCollisionShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull Entity entity) {
         return INSIDE_COLLISION_SHAPE;
     }
 
     @Override
-    protected int getAnalogOutputSignal(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos, @NonNull Direction direction) {
+    protected int getAnalogOutputSignal(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
         return 3;
     }
 }

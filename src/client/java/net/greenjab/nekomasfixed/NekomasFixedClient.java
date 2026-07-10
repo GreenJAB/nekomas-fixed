@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -33,28 +34,25 @@ public class NekomasFixedClient implements ClientModInitializer {
 		MenuScreens.register(ScreenHandlerRegistry.PYROTECHNICS_TABLE_HANDLER, PyrotechnicsTableScreen::new);
 
 		BlockColorRegistry.register(List.of(soup()), BlockRegistry.SOUP_CAULDRON);
-
 	}
 
 	public static BlockTintSource soup() {
 		return new BlockTintSource() {
 			@Override
-			public int color(final BlockState state) {
+			public int color(final @NonNull BlockState state) {
 				return -1;
 			}
 
 			@Override
-			public int colorInWorld(final BlockState state, final BlockAndTintGetter level, final BlockPos pos) {
-				if(level.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soupCauldronBlockEntity){
+			public int colorInWorld(final @NonNull BlockState state, final @NonNull BlockAndTintGetter level, final @NonNull BlockPos pos) {
+				if (level.getBlockEntity(pos) instanceof SoupCauldronBlockEntity soupCauldronBlockEntity){
 					float f = soupCauldronBlockEntity.getOpenNess(0);
 					int s = SoupCauldronBlock.blendFoodColors(soupCauldronBlockEntity.getInputs());
 					int w = BiomeColors.getAverageWaterColor(level, pos);
 					return ((int)(f*(s >> 16 & 255)+(1-f)*(w >> 16 & 255)) << 16)
 							| ((int)(f*(s >> 8 & 255)+(1-f)*(w >> 8 & 255)) << 8)
 							| (int)(f*(s & 255)+(1-f)*(w & 255))-(int)Math.pow(2,24);
-				} else {
-					return BiomeColors.getAverageWaterColor(level, pos);
-				}
+				} else return BiomeColors.getAverageWaterColor(level, pos);
 			}
 		};
 	}

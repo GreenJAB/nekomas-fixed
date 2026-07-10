@@ -76,7 +76,6 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
 
     private final int totalPatterns = 8;
 
-
     public PyrotechnicsTableScreen(PyrotechnicsTableScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, 176, 186);
     }
@@ -106,7 +105,6 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
         for (Slot slot : this.menu.slots){
             if (slot.isActive() && slot.getContainerSlot()>0 && slot.container instanceof SimpleContainer) {
                 context.blitSprite(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, leftPos+slot.x-1, topPos+slot.y-1, 18, 18);
-
                 if (!slot.hasItem()){
                     if (slot.mayPlace(Items.WHITE_DYE.getDefaultInstance()))
                         context.blitSprite(RenderPipelines.GUI_TEXTURED, DYE_ICON, leftPos + slot.x, topPos + slot.y, 16, 16);
@@ -140,22 +138,18 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
 
                 boolean bl = mouseX >= bx && mouseY >= by && mouseX < bx + 14 && mouseY < by + 18;
                 Identifier identifier2;
-                if (index == this.menu.getSelectedPattern()) {
-                    identifier2 = BUTTON_SELECTED_TEXTURE;
-                } else if (bl) {
+                if (index == this.menu.getSelectedPattern()) identifier2 = BUTTON_SELECTED_TEXTURE;
+                else if (bl) {
                     identifier2 = BUTTON_HIGHLIGHTED_TEXTURE;
                     context.setTooltipForNextFrame(Component.translatable("container.nekomasfixed.pyrotechnics_table."+ANIMATIONS.get(index).getA()), mouseX, mouseY);
                     context.requestCursor(CursorTypes.POINTING_HAND);
-                } else {
-                    identifier2 = BUTTON_TEXTURE;
-                }
+                } else identifier2 = BUTTON_TEXTURE;
 
                 context.blitSprite(RenderPipelines.GUI_TEXTURED, identifier2, bx, by, 14, 18);
                 context.item(ANIMATIONS.get(index).getB().getDefaultInstance(), bx-1, by+1);
             }
         }
     }
-
 
     @Override
     public boolean mouseClicked(@NonNull MouseButtonEvent click, boolean doubled) {

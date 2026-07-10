@@ -48,37 +48,33 @@ public class RopeBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        Level world = ctx.getLevel();
+        Level level = ctx.getLevel();
         BlockPos pos = ctx.getClickedPos();
-        boolean connected = world.getBlockState(pos.above()).is(BlockRegistry.ROPE)|| world.getBlockState(pos.above()).is(BlockTags.LEAVES);
+        boolean connected = level.getBlockState(pos.above()).is(BlockRegistry.ROPE)|| level.getBlockState(pos.above()).is(BlockTags.LEAVES);
         return this.defaultBlockState()
-                .setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER)
+                .setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER)
                 .setValue(ATTACHED, connected);
     }
 
-    protected @NonNull BlockState updateShape(BlockState state, @NonNull LevelReader world, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
-        if (state.getValue(WATERLOGGED)) {
-            tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
-        }
-        if (!state.canSurvive(world, pos)) tickView.scheduleTick(pos, this, 1);
+    protected @NonNull BlockState updateShape(BlockState state, @NonNull LevelReader level, @NonNull ScheduledTickAccess tickView, @NonNull BlockPos pos, @NonNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState, @NonNull RandomSource random) {
+        if (state.getValue(WATERLOGGED)) tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        if (!state.canSurvive(level, pos)) tickView.scheduleTick(pos, this, 1);
         return state;
     }
 
     @Override
-    protected boolean canSurvive(@NonNull BlockState state, LevelReader world, BlockPos pos) {
-        BlockState blockState = world.getBlockState(pos.above());
-        return blockState.is(BlockRegistry.ROPE) || blockState.is(BlockTags.LEAVES) || blockState.isFaceSturdy(world, pos, Direction.DOWN);
+    protected boolean canSurvive(@NonNull BlockState state, LevelReader level, BlockPos pos) {
+        BlockState blockState = level.getBlockState(pos.above());
+        return blockState.is(BlockRegistry.ROPE) || blockState.is(BlockTags.LEAVES) || blockState.isFaceSturdy(level, pos, Direction.DOWN);
     }
 
     @Override
-    protected void tick(BlockState state, @NonNull ServerLevel world, @NonNull BlockPos pos, @NonNull RandomSource random) {
-        if (!state.canSurvive(world, pos)) {
-            world.destroyBlock(pos, true);
-        }
+    protected void tick(BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, @NonNull RandomSource random) {
+        if (!state.canSurvive(level, pos)) level.destroyBlock(pos, true);
     }
 
     @Override
-    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter world, @NonNull BlockPos pos, @NonNull CollisionContext context) {
+    protected @NonNull VoxelShape getShape(@NonNull BlockState state, @NonNull BlockGetter level, @NonNull BlockPos pos, @NonNull CollisionContext context) {
         return SHAPE;
     }
 

@@ -15,11 +15,11 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.greenjab.nekomasfixed.registry.entity.DrenchedEntity;
+import net.greenjab.nekomasfixed.registry.entity.Drenched;
 import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
-public class DrenchedEntityRenderer extends HumanoidMobRenderer<DrenchedEntity, DrenchedEntityRenderState, DrenchedEntityModel> {
+public class DrenchedEntityRenderer extends HumanoidMobRenderer<Drenched, DrenchedEntityRenderState, DrenchedEntityModel> {
 
     private static final Identifier[] TEXTURES = new Identifier[]{
             NekomasFixed.id( "textures/entity/drenched/purple.png"),
@@ -29,14 +29,12 @@ public class DrenchedEntityRenderer extends HumanoidMobRenderer<DrenchedEntity, 
 
     public DrenchedEntityRenderer(EntityRendererProvider.Context context) {
         super(context, new DrenchedEntityModel(context.bakeLayer(ModEntityLayerRegistry.DRENCHED)), 0.5F);
-        this.addLayer(
-                new HumanoidArmorLayer<>(
-                        this, ArmorModelSet.bake(ModelLayers.SKELETON_ARMOR, context.getModelSet(), DrenchedEntityModel::new), context.getEquipmentRenderer()
-                )
-        );
+        this.addLayer(new HumanoidArmorLayer<>(this,
+                ArmorModelSet.bake(ModelLayers.SKELETON_ARMOR, context.getModelSet(), DrenchedEntityModel::new),
+                context.getEquipmentRenderer()));
     }
 
-    public void extractRenderState(@NonNull DrenchedEntity entity, @NonNull DrenchedEntityRenderState state, float tickDelta) {
+    public void extractRenderState(@NonNull Drenched entity, @NonNull DrenchedEntityRenderState state, float tickDelta) {
         super.extractRenderState(entity, state, tickDelta);
         state.variant = entity.getVariant();
         state.isAggressive = entity.isAggressive();
@@ -46,9 +44,7 @@ public class DrenchedEntityRenderer extends HumanoidMobRenderer<DrenchedEntity, 
 
     @Override
     public @NonNull Identifier getTextureLocation(DrenchedEntityRenderState state) {
-        if (state.variant < 0 || state.variant >= TEXTURES.length) {
-            return TEXTURES[0];
-        }
+        if (state.variant < 0 || state.variant >= TEXTURES.length) return TEXTURES[0];
         return TEXTURES[state.variant];
     }
 

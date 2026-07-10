@@ -8,7 +8,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -32,17 +31,17 @@ public class PyrotechnicsTableBlock extends HorizontalDirectionalBlock {
         return CODEC;
     }
 
-    protected @NonNull InteractionResult useWithoutItem(@NonNull BlockState state, Level world, @NonNull BlockPos pos, @NonNull Player player, @NonNull BlockHitResult hit) {
-        if (!world.isClientSide()) {
-            player.openMenu(state.getMenuProvider(world, pos));
+    protected @NonNull InteractionResult useWithoutItem(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull BlockHitResult hit) {
+        if (!level.isClientSide()) {
+            player.openMenu(state.getMenuProvider(level, pos));
         }
 
         return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected MenuProvider getMenuProvider(@NonNull BlockState state, @NonNull Level world, @NonNull BlockPos pos) {
-        return new SimpleMenuProvider((syncId, inventory, player) -> new PyrotechnicsTableScreenHandler(syncId, inventory, ContainerLevelAccess.create(world, pos)), TITLE);
+    protected MenuProvider getMenuProvider(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos) {
+        return new SimpleMenuProvider((syncId, inventory, _) -> new PyrotechnicsTableScreenHandler(syncId, inventory), TITLE);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
