@@ -84,6 +84,7 @@
   "item.nekomasfixed.diamond_sickle": "Diamond Sickle",
   "item.nekomasfixed.netherite_sickle": "Netherite Sickle",
   "component.nekomasfixed.combo": "Combo Damage: %s",
+  "component.nekomasfixed.duel_wield": "Can Duel Wield in Off-Hand",
 
   "block.nekomasfixed.sweetberry_cake": "Sweet Berry Cake",
   "block.nekomasfixed.pan_cake": "Pan Cake",

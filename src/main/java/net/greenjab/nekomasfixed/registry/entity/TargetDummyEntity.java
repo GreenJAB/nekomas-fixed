@@ -45,6 +45,7 @@ import java.util.function.Predicate;
 
 public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	protected static final TrackedData<ProfileComponent> PROFILE = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.PROFILE);
+	protected static final TrackedData<Boolean> ZOMBIE = DataTracker.registerData(TargetDummyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final ProfileComponent DEFAULT_INFO = ProfileComponent.Static.EMPTY;
 	public static final EulerAngle DEFAULT_HEAD_ROTATION = new EulerAngle(0.0F, 0.0F, 0.0F);
 	public static final EulerAngle DEFAULT_BODY_ROTATION = new EulerAngle(0.0F, 0.0F, 0.0F);
@@ -62,7 +63,6 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 			&& abstractMinecartEntity.isRideable();
 	private int lastHitValue;
 	public long lastHitTime;
-	private boolean isZombie;
 
 	public TargetDummyEntity(EntityType<? extends TargetDummyEntity> entityType, World world) {
 		super(entityType, world);
@@ -100,6 +100,7 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	protected void initDataTracker(DataTracker.Builder builder) {
 		super.initDataTracker(builder);
 		builder.add(PROFILE, DEFAULT_INFO);
+		builder.add(ZOMBIE, false);
 		builder.add(TRACKER_HEAD_ROTATION, DEFAULT_HEAD_ROTATION);
 		builder.add(TRACKER_BODY_ROTATION, DEFAULT_BODY_ROTATION);
 		builder.add(TRACKER_LEFT_ARM_ROTATION, DEFAULT_LEFT_ARM_ROTATION);
@@ -117,11 +118,11 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 	}
 
 	public boolean isZombie() {
-		return isZombie;
+		return this.dataTracker.get(ZOMBIE);
 	}
 
 	private void setZombie(boolean zombie) {
-		isZombie = zombie;
+		this.dataTracker.set(ZOMBIE, zombie);
 	}
 
 	@Override
@@ -135,7 +136,7 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 		view.put("profile", ProfileComponent.CODEC, this.getTargetDummyProfile());
 		view.put("Pose", TargetDummyEntity.PackedRotation.CODEC, this.packRotation());
 		view.put("LastDamage", Codec.INT, lastHitValue);
-		view.put("IsZombie", Codec.BOOL, isZombie);
+		view.put("IsZombie", Codec.BOOL, isZombie());
 	}
 
 	@Override

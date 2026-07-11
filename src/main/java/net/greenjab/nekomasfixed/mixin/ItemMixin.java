@@ -24,27 +24,14 @@ public class ItemMixin {
 	}
 
 	@Inject(method="usageTick", at=@At("HEAD"))
-	private void customUsageTick(
-			World world,
-			LivingEntity user,
-			ItemStack stack,
-			int remainingUseTicks,
-			CallbackInfo ci
-	) {
+	private void customUsageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks, CallbackInfo ci) {
 		if (!world.isClient() || !stack.isOf(Items.GOAT_HORN)) return;
 
 		if (user.age % 3 == 0 && !world.isClient() ) {
             ServerWorld serverWorld = (ServerWorld) world;
 			if(serverWorld.getStructureAccessor().getStructureContaining(user.getBlockPos(), StructureTags.VILLAGE).hasChildren()) {
-				serverWorld.spawnParticles(
-						ParticleTypes.POOF,
-						user.getX(),
-						user.getY() + 0.5,
-						user.getZ(),
-						20,
-						0.4, 0.2, 0.4,
-						0.05
-				);
+				serverWorld.spawnParticles(ParticleTypes.POOF, user.getX(), user.getY() + 0.5, user.getZ(),
+						20, 0.4, 0.2, 0.4, 0.05);
 			}
 		}
 	}

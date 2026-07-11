@@ -33,7 +33,6 @@
     "LivingEntityMixin",
     "NoteBlockMixin",
     "PersistentProjectileEntityMixin",
-    "PillagerEntityMixin",
     "PistonBlockMixin",
     "PlayerEntityMixin",
     "PointOfInterestTypesMixin",

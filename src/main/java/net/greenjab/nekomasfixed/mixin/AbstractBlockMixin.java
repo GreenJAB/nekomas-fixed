@@ -12,6 +12,8 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -52,6 +54,7 @@ public class AbstractBlockMixin {
 
                 if (world.getBlockState(placePos).isIn(BlockTags.REPLACEABLE) && state.isSideSolidFullSquare(world, pos, hit.getSide())) {
                     world.setBlockState(placePos, newState);
+                    world.playSound(null, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     player.getMainHandStack().decrementUnlessCreative(1, player);
                     cir.setReturnValue(ActionResult.SUCCESS);
                 }

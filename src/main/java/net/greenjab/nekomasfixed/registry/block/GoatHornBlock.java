@@ -84,22 +84,21 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(!world.isClient()){
-            if (state.get(TORCH) != GoatHornTorchType.NONE) {
-                if (stack.isOf(Items.SHEARS)) {
-                    world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), state.get(TORCH).toItem().getDefaultStack()));
-                    world.setBlockState(pos, state.with(TORCH, GoatHornTorchType.NONE));
-                    world.playSoundFromEntity(null, player, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                    stack.damage(1, player);
-                    return ActionResult.SUCCESS;
-                }
-            } else {
-                GoatHornTorchType type = GoatHornTorchType.fromItem(stack.getItem(), state.get(WATERLOGGED));
-                if (type != GoatHornTorchType.NONE) {
-                    world.setBlockState(pos, state.with(TORCH, type));
-                    stack.decrementUnlessCreative(1, player);
-                    return ActionResult.SUCCESS;
-                }
+        if (state.get(TORCH) != GoatHornTorchType.NONE) {
+            if (stack.isOf(Items.SHEARS)) {
+                world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), state.get(TORCH).toItem().getDefaultStack()));
+                world.setBlockState(pos, state.with(TORCH, GoatHornTorchType.NONE));
+                world.playSound(null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                stack.damage(1, player);
+                return ActionResult.SUCCESS;
+            }
+        } else {
+            GoatHornTorchType type = GoatHornTorchType.fromItem(stack.getItem(), state.get(WATERLOGGED));
+            if (type != GoatHornTorchType.NONE) {
+                world.setBlockState(pos, state.with(TORCH, type));
+                world.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                stack.decrementUnlessCreative(1, player);
+                return ActionResult.SUCCESS;
             }
         }
         return ActionResult.PASS;

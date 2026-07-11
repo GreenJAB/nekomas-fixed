@@ -1,7 +1,7 @@
 {
   "loot_tables_to_eject": [
     {
-      "data": "nekomasfixed:spawners/wild_fire",
+      "data": "nekomasfixed:spawners/wildfire",
       "weight": 1
     }
   ],
@@ -11,7 +11,7 @@
     {
       "data": {
         "entity": {
-          "id": "nekomasfixed:wild_fire"
+          "id": "nekomasfixed:wildfire"
         }
       },
       "weight": 1

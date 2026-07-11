@@ -24,5 +24,6 @@ public record ComboComponent(int multiplier) implements TooltipAppender {
 		string.append(" ... ");
 		string.append((10 * multiplier)).append("%");
 		textConsumer.accept(Text.translatable("component.nekomasfixed.combo", string.toString()).formatted(Formatting.GRAY));
+		textConsumer.accept(Text.translatable("component.nekomasfixed.duel_wield").formatted(Formatting.GRAY));
 	}
 }

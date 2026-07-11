@@ -148,11 +148,10 @@ public class NetherFortressGeneratorMixin {
             world.setBlockState(blockPos, Blocks.TRIAL_SPAWNER.getDefaultState(), 2);
             BlockEntity blockEntity = world.getBlockEntity(blockPos);
             if (blockEntity instanceof TrialSpawnerBlockEntity trialSpawnerBlockEntity) {
-                //trialSpawnerBlockEntity.setEntityType(EntityTypeRegistry.WILD_FIRE, random);
                 NbtCompound nbt = new NbtCompound();
                 nbt.putString("id", "minecraft:trial_spawner");
-                nbt.putString("normal_config", "nekomasfixed:trial_chamber/wild_fire/normal");
-                nbt.putString("ominous_config", "nekomasfixed:trial_chamber/wild_fire/ominous");
+                nbt.putString("normal_config", "nekomasfixed:trial_chamber/wildfire/normal");
+                nbt.putString("ominous_config", "nekomasfixed:trial_chamber/wildfire/ominous");
 
                 try (ErrorReporter.Logging logging = new ErrorReporter.Logging(LogUtils.getLogger())) {
                     trialSpawnerBlockEntity.read(NbtReadView.create(logging, world.getRegistryManager(), nbt));

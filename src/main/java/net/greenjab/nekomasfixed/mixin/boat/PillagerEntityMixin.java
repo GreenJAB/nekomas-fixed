@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.mixin.boat;
 
 import net.greenjab.nekomasfixed.mixin.accessor.MobEntityAccessor;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ai.goal.ChargeKineticWeaponGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.PillagerEntity;
 import net.minecraft.item.ItemStack;
@@ -26,13 +27,8 @@ public class PillagerEntityMixin {
     @Inject(method = "initEquipment", at = @At("HEAD"), cancellable = true)
     protected void initSpearEquipment(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
         PillagerEntity pillager = (PillagerEntity)(Object)this;
-        int randInt = random.nextInt(3) + 1;
-        if (randInt == 1) {
-            pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
-        } else {
-            pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
-        }
-        pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
+        if (random.nextInt(20)==0) pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
+        else pillager.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
         ci.cancel();
     }
     @Inject(method = "initGoals", at = @At("TAIL"))
@@ -41,6 +37,9 @@ public class PillagerEntityMixin {
         ((MobEntityAccessor) pillager).getGoalSelector()
                 .add(3, new MeleeAttackGoal(pillager, 1.2, false));
     }
-
-
+    @Inject(method = "initGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ai/goal/GoalSelector;add(ILnet/minecraft/entity/ai/goal/Goal;)V",ordinal = 0))
+    protected void spearGoal(CallbackInfo ci) {
+        PillagerEntity pillager = (PillagerEntity) (Object) this;
+        pillager.goalSelector.add(1, new ChargeKineticWeaponGoal<>(pillager, 1.0, 1.0, 10.0F, 2.0F));
+    }
 }
