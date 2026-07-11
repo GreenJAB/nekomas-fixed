@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.registry.entity.WildFire;
 
-import com.mojang.serialization.Dynamic;
 import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -31,10 +30,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.animal.golem.CopperGolem;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.breeze.Breeze;
-import net.minecraft.world.entity.monster.breeze.BreezeAi;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.WindCharge;
 import net.minecraft.world.entity.schedule.Activity;
@@ -52,7 +48,6 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 public class WildfireEntity extends Monster {
 	public float eyeOffset = 0.5F;
@@ -62,12 +57,16 @@ public class WildfireEntity extends Monster {
 	private BlockPos spawnPos;
 	private static final EntityDataAccessor<Byte> WILDFIRE_FLAGS = SynchedEntityData.defineId(WildfireEntity.class, EntityDataSerializers.BYTE);
 
-	private static final Brain.Provider<WildfireEntity> BRAIN_PROVIDER = Brain.provider(
-			List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, OtherRegistry.WILDFIRE_ATTACK_ENTITY_SENSOR), WildfireAi::getActivities
+	private static final Brain.Provider<WildfireEntity> BRAIN_PROVIDER = Brain.provider(List.of(
+			SensorType.NEAREST_LIVING_ENTITIES,
+			SensorType.HURT_BY,
+			SensorType.NEAREST_PLAYERS,
+			OtherRegistry.WILDFIRE_ATTACK_ENTITY_SENSOR),
+			WildfireAi::getActivities
 	);
 
-	public WildfireEntity(EntityType<? extends WildfireEntity> entityType, Level world) {
-		super(entityType, world);
+	public WildfireEntity(EntityType<? extends WildfireEntity> entityType, Level level) {
+		super(entityType, level);
 		this.setPathfindingMalus(PathType.WATER, -1.0F);
 		this.setPathfindingMalus(PathType.LAVA, 8.0F);
 		this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 0.0F);
@@ -77,13 +76,13 @@ public class WildfireEntity extends Monster {
 		setShieldsActive(4);
 	}
 
-	public static boolean canSpawn(EntityType<WildfireEntity> type, LevelAccessor world, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
+	public static boolean canSpawn(EntityType<WildfireEntity> type, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
 		return true;
 	}
 
 	@Override
-	public boolean checkSpawnObstruction(LevelReader world) {
-		return world.isUnobstructed(this);
+	public boolean checkSpawnObstruction(LevelReader level) {
+		return level.isUnobstructed(this);
 	}
 
 	public BlockPos getSpawnPos(){
@@ -202,7 +201,7 @@ public class WildfireEntity extends Monster {
 	}
 
 	@Override
-	protected void customServerAiStep(@NonNull ServerLevel world) {
+	protected void customServerAiStep(@NonNull ServerLevel level) {
 		LivingEntity livingEntity = this.getTarget();
 		this.bossBar.setProgress(this.getHealth() / this.getMaxHealth());
 		if (livingEntity != null && this.canAttack(livingEntity)) {
@@ -235,25 +234,25 @@ public class WildfireEntity extends Monster {
 			}
 		}
 
-		if (world.getGameTime()%20==0) {
-			if (world.getBlockState(this.blockPosition()).is(BlockTags.FIRE))this.heal(1);
+		if (level.getGameTime()%20==0) {
+			if (level.getBlockState(this.blockPosition()).is(BlockTags.FIRE))this.heal(1);
 			int lastShields = getShieldsActive();
 			int newShields = (int)Mth.clamp(5*this.getHealth()/this.getMaxHealth(), 0, 4);
 			setShieldsActive(newShields);
 			if (newShields < lastShields) {
-				world.playSound(null, this, SoundEvents.WOLF_ARMOR_BREAK.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+				level.playSound(null, this, SoundEvents.WOLF_ARMOR_BREAK.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
 			} else if (newShields > lastShields) {
-				world.playSound(null, this, SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 0.7F, 2.0F);
+				level.playSound(null, this, SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 0.7F, 2.0F);
 			}
 		}
 
 		ProfilerFiller profiler = Profiler.get();
 		profiler.push("wildfireBrain");
-		this.getBrain().tick(world, this);
+		this.getBrain().tick(level, this);
 		profiler.popPush("wildfireActivityUpdate");
 		WildfireAi.updateActivities(this);
 		profiler.pop();
-		super.customServerAiStep(world);
+		super.customServerAiStep(level);
 	}
 
 	@Nullable
@@ -263,8 +262,8 @@ public class WildfireEntity extends Monster {
 	}
 
 	@Override
-	public void registerDebugValues(@NonNull ServerLevel world, DebugValueSource.@NonNull Registration tracker) {
-		super.registerDebugValues(world, tracker);
+	public void registerDebugValues(@NonNull ServerLevel level, DebugValueSource.@NonNull Registration tracker) {
+		super.registerDebugValues(level, tracker);
 		tracker.register(
 				OtherRegistry.WILDFIRES,
 				 () -> new WildfireDebugData(
@@ -332,17 +331,17 @@ public class WildfireEntity extends Monster {
 	}
 
 	@Override
-	public boolean hurtServer(@NonNull ServerLevel world, DamageSource source, float amount) {
+	public boolean hurtServer(@NonNull ServerLevel level, DamageSource source, float amount) {
 		if(this == source.getEntity())return false;
 		if (!isOnFire()) {
 			Entity entity = source.getDirectEntity();
 			if (entity instanceof AbstractArrow || entity instanceof WindCharge) {
 				if (random.nextInt(4)<getShieldsActive()) {
-					world.playSound(null, this, SoundEvents.SHIELD_BLOCK.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+					level.playSound(null, this, SoundEvents.SHIELD_BLOCK.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
 					return false;
 				}
 			}
 		}
-		return super.hurtServer(world,source,amount);
+		return super.hurtServer(level,source,amount);
 	}
 }

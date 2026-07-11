@@ -18,30 +18,34 @@ import java.util.Map;
 
 public class WildfireSlideTowardsTargetTask extends Behavior<WildfireEntity> {
 	public WildfireSlideTowardsTargetTask() {
-		super(
-			Map.of(
-					MemoryModuleType.WALK_TARGET,
-					MemoryStatus.VALUE_ABSENT,
-					MemoryModuleType.BREEZE_SHOOT,
-					MemoryStatus.VALUE_ABSENT,
-					MemoryModuleType.BREEZE_LEAVING_WATER,
-					MemoryStatus.VALUE_ABSENT
-			),200
-		);
+		super(Map.of(
+				MemoryModuleType.WALK_TARGET,
+				MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.BREEZE_SHOOT,
+				MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.BREEZE_LEAVING_WATER,
+				MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.TOUCH_COOLDOWN,
+				MemoryStatus.REGISTERED,
+				MemoryModuleType.SNIFF_COOLDOWN,
+				MemoryStatus.REGISTERED,
+				MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
+				MemoryStatus.REGISTERED
+		),200);
 	}
 
-    protected boolean canStillUse(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+    protected boolean canStillUse(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		if (wildFireEntity.hurtTime>=9) return false;
 		if (wildFireEntity.getBrain().hasMemoryValue(MemoryModuleType.TOUCH_COOLDOWN)) return true;
 		if (wildFireEntity.getBrain().hasMemoryValue(MemoryModuleType.SNIFF_COOLDOWN)) {
             return wildFireEntity.getBrain().getTimeUntilExpiry(MemoryModuleType.SNIFF_COOLDOWN) >= 5
 					&& wildFireEntity.getBrain().getTimeUntilExpiry(MemoryModuleType.SNIFF_COOLDOWN) <= 50
-					&& serverWorld.getBlockState(wildFireEntity.blockPosition()).is(BlockTags.FIRE);
+					&& level.getBlockState(wildFireEntity.blockPosition()).is(BlockTags.FIRE);
 		}
 		return true;
 	}
 
-	protected void start(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void start(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		wildFireEntity.eyeOffset = -0.5f;
 		Vec3 fire = WildfireMovementUtil.findFirePos(wildFireEntity, false);
 		if (fire != null) {
@@ -51,14 +55,14 @@ public class WildfireSlideTowardsTargetTask extends Behavior<WildfireEntity> {
 		wildFireEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, 60L);
 		wildFireEntity.setFireActive(false);
 	}
-	protected void tick(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void tick(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		Brain<WildfireEntity> brain = wildFireEntity.getBrain();
 		WalkTarget target = brain.getMemory(MemoryModuleType.WALK_TARGET).orElse(null);
 		if (target != null) {
 			wildFireEntity.lookAt(EntityAnchorArgument.Anchor.EYES, target.getTarget().currentPosition());
 		} else {
 			if (brain.hasMemoryValue(MemoryModuleType.TOUCH_COOLDOWN)) {
-				if (!serverWorld.getBlockState(wildFireEntity.blockPosition()).is(BlockTags.FIRE)) {
+				if (!level.getBlockState(wildFireEntity.blockPosition()).is(BlockTags.FIRE)) {
 					Vec3 fire = WildfireMovementUtil.findFirePos(wildFireEntity, false);
 					if (fire != null) {
 						wildFireEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.containing(fire), 0.6F, 0), 200L);
@@ -78,12 +82,11 @@ public class WildfireSlideTowardsTargetTask extends Behavior<WildfireEntity> {
 					}
 				}
 			}
-
             brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(livingEntity -> wildFireEntity.lookAt(EntityAnchorArgument.Anchor.EYES, livingEntity.position()));
         }
 	}
 
-	protected void stop(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void stop(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		int i = wildFireEntity.getRandom().nextInt(wildFireEntity.getShieldsActive()>1?3:2);
 		if (i == 0)	wildFireEntity.setPose(Pose.SHOOTING);
 		else if (i == 1) wildFireEntity.setPose(Pose.LONG_JUMPING);
@@ -93,7 +96,5 @@ public class WildfireSlideTowardsTargetTask extends Behavior<WildfireEntity> {
 		wildFireEntity.getBrain().eraseMemory(MemoryModuleType.TOUCH_COOLDOWN);
 		wildFireEntity.getBrain().eraseMemory(MemoryModuleType.BREEZE_SHOOT_COOLDOWN);
 		wildFireEntity.getBrain().eraseMemory(MemoryModuleType.BREEZE_LEAVING_WATER);
-
 	}
-
 }

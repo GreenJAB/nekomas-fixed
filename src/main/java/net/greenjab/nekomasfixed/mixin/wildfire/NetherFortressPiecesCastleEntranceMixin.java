@@ -148,19 +148,16 @@ public class NetherFortressPiecesCastleEntranceMixin {
             level.setBlock(blockPos, Blocks.TRIAL_SPAWNER.defaultBlockState(), 2);
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof TrialSpawnerBlockEntity trialSpawnerBlockEntity) {
-                //trialSpawnerBlockEntity.setEntityType(EntityTypeRegistry.WILD_FIRE, random);
                 CompoundTag nbt = new CompoundTag();
                 nbt.putString("id", "minecraft:trial_spawner");
-                nbt.putString("normal_config", "nekomasfixed:trial_chamber/wild_fire/normal");
-                nbt.putString("ominous_config", "nekomasfixed:trial_chamber/wild_fire/ominous");
+                nbt.putString("normal_config", "nekomasfixed:trial_chamber/wildfire/normal");
+                nbt.putString("ominous_config", "nekomasfixed:trial_chamber/wildfire/ominous");
 
                 try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(LogUtils.getLogger())) {
                     trialSpawnerBlockEntity.loadWithComponents(TagValueInput.create(logging, level.registryAccess(), nbt));
                 }
-
             }
         }
         ci.cancel();
     }
-
 }

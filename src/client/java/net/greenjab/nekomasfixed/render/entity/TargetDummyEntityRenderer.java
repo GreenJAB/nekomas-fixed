@@ -29,11 +29,9 @@ import net.minecraft.world.entity.player.PlayerSkin;
 import net.minecraft.world.item.component.ResolvableProfile;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-
-import static net.greenjab.nekomasfixed.registry.entity.TargetDummy.*;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import static net.greenjab.nekomasfixed.registry.entity.TargetDummy.*;
 
 @Environment(EnvType.CLIENT)
 public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy, TargetDummyEntityRenderState, TargetDummyArmorEntityModel> {

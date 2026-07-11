@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
@@ -25,9 +26,12 @@ public class StackedCakeBlockEntityRenderer implements BlockEntityRenderer<Stack
 
     public void extractRenderState(@NonNull StackedCakeBlockEntity blockEntity, @NonNull StackedCakeBlockEntityRenderState state, float f, @NonNull Vec3 vec3d, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, state, f, vec3d, crumblingOverlayCommand);
-        this.blockModelResolver.update(state.displayBlockModel_layer_2, blockEntity.LAYER_2_STATE, BLOCK_DISPLAY_CONTEXT);
-        this.blockModelResolver.update(state.displayBlockModel_layer_3, blockEntity.LAYER_3_STATE, BLOCK_DISPLAY_CONTEXT);
-        this.blockModelResolver.update(state.displayBlockModel_candle, blockEntity.CANDLE_STATE, BLOCK_DISPLAY_CONTEXT);
+        if (blockEntity.LAYER_2_STATE.is(Blocks.AIR)) state.displayBlockModel_layer_2.clear();
+        else this.blockModelResolver.update(state.displayBlockModel_layer_2, blockEntity.LAYER_2_STATE, BLOCK_DISPLAY_CONTEXT);
+        if (blockEntity.LAYER_3_STATE.is(Blocks.AIR)) state.displayBlockModel_layer_3.clear();
+        else this.blockModelResolver.update(state.displayBlockModel_layer_3, blockEntity.LAYER_3_STATE, BLOCK_DISPLAY_CONTEXT);
+        if (blockEntity.CANDLE_STATE.is(Blocks.AIR)) state.displayBlockModel_candle.clear();
+        else this.blockModelResolver.update(state.displayBlockModel_candle, blockEntity.CANDLE_STATE, BLOCK_DISPLAY_CONTEXT);
     }
 
     @Override

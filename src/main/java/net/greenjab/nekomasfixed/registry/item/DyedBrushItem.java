@@ -100,7 +100,7 @@ public class DyedBrushItem extends Item {
                 level.setBlockAndUpdate(pos, getSpottedWool(color).defaultBlockState());
                 used = true;
                 this.afterUse(context);
-            } else if (state.is(BlockTags.WOOL) && !state.is(getWool(color))) {
+            } else if (state.is(BlockTags.WOOL) && !state.is(ModTags.SPOTTED_WOOLS) &&!state.is(getWool(color))) {
                 level.setBlockAndUpdate(pos, getWool(color).defaultBlockState());
                 used = true;
                 this.afterUse(context);
@@ -114,7 +114,7 @@ public class DyedBrushItem extends Item {
                 level.setBlockAndUpdate(pos, getSpottedCarpet(color).defaultBlockState());
                 used = true;
                 this.afterUse(context);
-            } else if (state.is(BlockTags.WOOL_CARPETS) && !state.is(getCarpet(color))) {
+            } else if (state.is(BlockTags.WOOL_CARPETS) && !state.is(ModTags.SPOTTED_CARPETS) && !state.is(getCarpet(color))) {
                 level.setBlockAndUpdate(pos, getCarpet(color).defaultBlockState());
                 used = true;
                 this.afterUse(context);

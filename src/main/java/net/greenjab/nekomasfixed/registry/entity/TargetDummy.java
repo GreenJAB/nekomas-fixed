@@ -55,6 +55,7 @@ import java.util.function.Predicate;
 
 public class TargetDummy extends Avatar implements Shearable {
 	protected static final EntityDataAccessor<ResolvableProfile> PROFILE = SynchedEntityData.defineId(TargetDummy.class, EntityDataSerializers.RESOLVABLE_PROFILE);
+	protected static final EntityDataAccessor<Boolean> ZOMBIE = SynchedEntityData.defineId(TargetDummy.class, EntityDataSerializers.BOOLEAN);
 	public static final ResolvableProfile DEFAULT_INFO = ResolvableProfile.Static.EMPTY;
 	public static final Rotations DEFAULT_HEAD_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
 	public static final Rotations DEFAULT_BODY_ROTATION = new Rotations(0.0F, 0.0F, 0.0F);
@@ -72,7 +73,6 @@ public class TargetDummy extends Avatar implements Shearable {
 			&& abstractMinecartEntity.isRideable();
 	private int lastHitValue;
 	public long lastHitTime;
-	private boolean isZombie;
 
 	public TargetDummy(EntityType<? extends TargetDummy> entityType, Level level) {
 		super(entityType, level);
@@ -110,6 +110,7 @@ public class TargetDummy extends Avatar implements Shearable {
 	protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(PROFILE, DEFAULT_INFO);
+		builder.define(ZOMBIE, false);
 		builder.define(TRACKER_HEAD_ROTATION, DEFAULT_HEAD_ROTATION);
 		builder.define(TRACKER_BODY_ROTATION, DEFAULT_BODY_ROTATION);
 		builder.define(TRACKER_LEFT_ARM_ROTATION, DEFAULT_LEFT_ARM_ROTATION);
@@ -127,11 +128,11 @@ public class TargetDummy extends Avatar implements Shearable {
 	}
 
 	public boolean isZombie() {
-		return isZombie;
+		return this.entityData.get(ZOMBIE);
 	}
 
 	private void setZombie(boolean zombie) {
-		isZombie = zombie;
+		this.entityData.set(ZOMBIE, zombie);
 	}
 
 	@Override
@@ -145,7 +146,7 @@ public class TargetDummy extends Avatar implements Shearable {
 		view.store("profile", ResolvableProfile.CODEC, this.getTargetDummyProfile());
 		view.store("Pose", TargetDummy.PackedRotation.CODEC, this.packRotation());
 		view.store("LastDamage", Codec.INT, lastHitValue);
-		view.store("IsZombie", Codec.BOOL, isZombie);
+		view.store("IsZombie", Codec.BOOL, isZombie());
 	}
 
 	@Override

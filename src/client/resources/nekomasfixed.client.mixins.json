@@ -6,18 +6,19 @@
     "AbstractMinecartEntityRendererMixin",
     "BedRendererMixin",
     "BedRenderStateMixin",
-    "HumanoidModelMixin",
-    "HumanoidMobRendererMixin",
-    "MultiPlayerGameModeMixin",
     "ClientRecipeBookMixin",
+    "ClientTooltipComponentMixin",
     "EquipmentAssetProviderMixin",
     "EquipmentLayerRendererMixin",
     "FlameFeatureRendererMixin",
+    "HumanoidMobRendererMixin",
+    "HumanoidModelMixin",
     "ItemInHandRendererMixin",
-    "NameTagFeatureRendererStorageMixin",
-    "NameTagFeatureRendererMixin",
     "MinecartModelMixin",
     "MinecraftMixin",
+    "MultiPlayerGameModeMixin",
+    "NameTagFeatureRendererMixin",
+    "NameTagFeatureRendererStorageMixin",
     "ParticleEngineMixin",
     "ParticleResourcesMixin",
     "SheepRendererMixin",
@@ -25,12 +26,12 @@
     "SheepWoolLayerMixin",
     "ShulkerBoxRendererMixin",
     "ShulkerBoxRenderStateMixin",
-    "SpecialModelRenderersMixin",
-    "ClientTooltipComponentMixin"
+    "SpecialModelRenderersMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
+    "IllagerModelMixin"
   ]
 }

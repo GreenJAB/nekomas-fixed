@@ -20,19 +20,17 @@ public class WildfireAttackablesSensor extends NearestLivingEntitySensor<Wildfir
 		return ImmutableSet.copyOf(Iterables.concat(super.requires(), List.of(MemoryModuleType.NEAREST_ATTACKABLE)));
 	}
 
-	protected void doTick(@NonNull ServerLevel serverWorld, @NonNull WildfireEntity wildFireEntity) {
-		super.doTick(serverWorld, wildFireEntity);
+	protected void doTick(@NonNull ServerLevel level, @NonNull WildfireEntity wildFireEntity) {
+		super.doTick(level, wildFireEntity);
 		wildFireEntity.getBrain()
 			.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES)
 			.stream()
 			.flatMap(Collection::stream)
 			.filter(EntitySelector.NO_CREATIVE_OR_SPECTATOR)
-			.filter(target -> Sensor.isEntityAttackable(serverWorld, wildFireEntity, target))
+			.filter(target -> Sensor.isEntityAttackable(level, wildFireEntity, target))
 			.filter(target -> target instanceof Player || target instanceof AgeableMob)
 			.findFirst()
-			.ifPresentOrElse(
-				target -> wildFireEntity.getBrain().setMemory(MemoryModuleType.NEAREST_ATTACKABLE, target),
-				() -> wildFireEntity.getBrain().eraseMemory(MemoryModuleType.NEAREST_ATTACKABLE)
-			);
+			.ifPresentOrElse(target -> wildFireEntity.getBrain().setMemory(MemoryModuleType.NEAREST_ATTACKABLE, target),
+				() -> wildFireEntity.getBrain().eraseMemory(MemoryModuleType.NEAREST_ATTACKABLE));
 	}
 }

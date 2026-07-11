@@ -23,20 +23,23 @@ public class WildfireShootTask extends Behavior<WildfireEntity> {
 
 	@VisibleForTesting
 	public WildfireShootTask() {
-		super(
-			ImmutableMap.of(
-					MemoryModuleType.ATTACK_TARGET,
-					MemoryStatus.VALUE_PRESENT,
-					MemoryModuleType.WALK_TARGET,
-					MemoryStatus.VALUE_ABSENT,
-					MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
-					MemoryStatus.VALUE_ABSENT
-			),
-			SHOOT_CHARGING_EXPIRY + RECOVER_EXPIRY
-		);
+		super(ImmutableMap.of(
+				MemoryModuleType.ATTACK_TARGET,
+				MemoryStatus.VALUE_PRESENT,
+				MemoryModuleType.WALK_TARGET,
+				MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
+				MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.BREEZE_SHOOT,
+				MemoryStatus.REGISTERED,
+				MemoryModuleType.BREEZE_SHOOT_CHARGING,
+				MemoryStatus.REGISTERED,
+				MemoryModuleType.BREEZE_SHOOT_RECOVERING,
+				MemoryStatus.REGISTERED
+		), SHOOT_CHARGING_EXPIRY + RECOVER_EXPIRY);
 	}
 
-	protected boolean checkExtraStartConditions(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity) {
+	protected boolean checkExtraStartConditions(@NonNull ServerLevel level, WildfireEntity wildFireEntity) {
 		if (wildFireEntity.getPose() != Pose.SHOOTING) return false;
 		return wildFireEntity.getBrain()
                 .getMemory(MemoryModuleType.ATTACK_TARGET)
@@ -51,11 +54,11 @@ public class WildfireShootTask extends Behavior<WildfireEntity> {
                 .orElse(false);
 	}
 
-	protected boolean canStillUse(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected boolean canStillUse(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		return wildFireEntity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET); //&& wildFireEntity.getBrain().hasMemoryModule(MemoryModuleType.BREEZE_SHOOT);
 	}
 
-	protected void start(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void start(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		wildFireEntity.setPose(Pose.STANDING);
 		wildFireEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT_CHARGING, Unit.INSTANCE, SHOOT_CHARGING_EXPIRY);
 		wildFireEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE,SHOOT_CHARGING_EXPIRY + RECOVER_EXPIRY);
@@ -64,14 +67,14 @@ public class WildfireShootTask extends Behavior<WildfireEntity> {
 		wildFireEntity.eyeOffset = -6;
 	}
 
-	protected void stop(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void stop(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		wildFireEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 200L);
 		wildFireEntity.getBrain().eraseMemory(MemoryModuleType.BREEZE_SHOOT);
 		wildFireEntity.setFireActive(false);
 		wildFireEntity.eyeOffset = -0.5f;
 	}
 
-	protected void tick(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void tick(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		Brain<WildfireEntity> brain = wildFireEntity.getBrain();
 		LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 		if (livingEntity != null) {

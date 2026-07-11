@@ -1,10 +1,9 @@
 package net.greenjab.nekomasfixed.mixin.boat;
 
-import net.greenjab.nekomasfixed.mixin.accessor.MobAccessor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.SpearUseGoal;
 import net.minecraft.world.entity.monster.illager.Pillager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,24 +22,18 @@ public class PillagerMixin {
     private float shootFurther2(float distance) {
         return 12;
     }
+
     @Inject(method = "populateDefaultEquipmentSlots", at = @At("HEAD"), cancellable = true)
     protected void initSpearEquipment(RandomSource random, DifficultyInstance difficulty, CallbackInfo ci) {
         Pillager pillager = (Pillager)(Object)this;
-        int randInt = random.nextInt(3) + 1;
-        if (randInt == 1) {
-            pillager.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
-        } else {
-            pillager.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
-        }
-        pillager.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
+        if (random.nextInt(20)==0) pillager.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
+        else pillager.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
         ci.cancel();
     }
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void addMeleeGoalForSpear(CallbackInfo ci) {
-        Pillager pillager = (Pillager)(Object)this;
-        ((MobAccessor) pillager).getGoalSelector()
-                .addGoal(3, new MeleeAttackGoal(pillager, 1.2, false));
+
+    @Inject(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V",ordinal = 0))
+    protected void spearGoal(CallbackInfo ci) {
+        Pillager pillager = (Pillager) (Object) this;
+        pillager.goalSelector.addGoal(1, new SpearUseGoal<>(pillager, 1.0, 1.0, 10.0F, 2.0F));
     }
-
-
 }

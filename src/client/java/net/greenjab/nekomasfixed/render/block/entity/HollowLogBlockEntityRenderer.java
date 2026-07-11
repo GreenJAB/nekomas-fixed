@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
@@ -35,7 +36,8 @@ public class HollowLogBlockEntityRenderer implements BlockEntityRenderer<HollowL
                                    @NonNull Vec3 cameraPos,
                                    @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand) {
         BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlayCommand);
-        this.blockModelResolver.update(state.displayBlockModel, blockEntity.getStoredBlock(), BLOCK_DISPLAY_CONTEXT);
+        if (blockEntity.getStoredBlock().is(Blocks.AIR)) state.displayBlockModel.clear();
+        else this.blockModelResolver.update(state.displayBlockModel, blockEntity.getStoredBlock(), BLOCK_DISPLAY_CONTEXT);
     }
 
     @Override

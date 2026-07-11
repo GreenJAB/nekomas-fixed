@@ -29,7 +29,7 @@ public class ConfigTrial {
                         "Lightning striking a player with full copper gear would give the player speed "))
                 .setSaveConsumer(val -> ModConfigValues.enableCopperBuff = val).build());
 
-        builder.setSavingRunnable(() -> {});
+        builder.setSavingRunnable(ModConfigValues::saveConfigs);
 
         return builder.build();
     }

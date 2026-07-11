@@ -5,6 +5,8 @@ import net.greenjab.nekomasfixed.registry.block.entity.StackedCakeBlockEntity;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
@@ -111,6 +113,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
 
             player.awardStat(Stats.EAT_CAKE_SLICE);
             player.getFoodData().eat(2, 0.1F);
+            level.playSound(null, player, SoundEvents.GENERIC_EAT.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
 
             if(level.getBlockEntity(pos) instanceof StackedCakeBlockEntity blockEntity){
                 int totalSlices = state.getValue(SLICES)-1;
@@ -175,7 +178,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
                 if (player.getMainHandItem().is(ModTags.STACKED_CAKES) && state.getValue(SLICES) != 21) {
                     this.addCakeLayer(stack, stackedCakeBlockEntity, state);
                     level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(SLICES, state.getValue(SLICES)+7));
-                    player.swing(hand, true);
+                    level.playSound(null, player, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.PLAYERS, 1.0F, 1.0F);
                     stack.consume(1, player);
                     return InteractionResult.SUCCESS;
                 } else if (player.getMainHandItem().is(ItemTags.CANDLES)) {
@@ -184,7 +187,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
                             BlockState candleState = blockItem.getBlock().defaultBlockState();
                             stackedCakeBlockEntity.CANDLE_STATE = candleState.setValue(CandleBlock.LIT, false);
                             level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(CANDLE, true).setValue(CandleBlock.LIT, false));
-                            player.swing(hand, true);
+                            level.playSound(null, player, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.PLAYERS, 1.0F, 1.0F);
                             stack.consume(1, player);
                             return InteractionResult.SUCCESS;
                         }
@@ -196,9 +199,8 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
                             stackedCakeBlockEntity.CANDLE_STATE = candleState.setValue(CandleBlock.LIT, true);
                             stackedCakeBlockEntity.setChanged();
                             level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(LIT, true));
-                            player.swing(hand, true);
                             stack.hurtWithoutBreaking(1, player);
-                            level.playSound(null, pos, net.minecraft.sounds.SoundEvents.FLINTANDSTEEL_USE, net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+                            level.playSound(null, player, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                             return InteractionResult.SUCCESS;
                         }
                     }

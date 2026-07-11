@@ -95,23 +95,22 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
     }
 
     @Override
-    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-        if(!level.isClientSide()){
-            if (state.getValue(TORCH) != GoatHornTorchType.NONE) {
-                if (stack.is(Items.SHEARS)) {
-                    level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), state.getValue(TORCH).toItem().getDefaultInstance()));
-                    level.setBlockAndUpdate(pos, state.setValue(TORCH, GoatHornTorchType.NONE));
-                    level.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
-                    stack.hurtWithoutBreaking(1, player);
-                    return InteractionResult.SUCCESS;
-                }
-            } else {
-                GoatHornTorchType type = GoatHornTorchType.fromItem(stack.getItem(), state.getValue(WATERLOGGED));
-                if (type != GoatHornTorchType.NONE) {
-                    level.setBlockAndUpdate(pos, state.setValue(TORCH, type));
-                    stack.consume(1, player);
-                    return InteractionResult.SUCCESS;
-                }
+    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+        if (state.getValue(TORCH) != GoatHornTorchType.NONE) {
+            if (stack.is(Items.SHEARS)) {
+                level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), state.getValue(TORCH).toItem().getDefaultInstance()));
+                level.setBlockAndUpdate(pos, state.setValue(TORCH, GoatHornTorchType.NONE));
+                level.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+                stack.hurtWithoutBreaking(1, player);
+                return InteractionResult.SUCCESS;
+            }
+        } else {
+            GoatHornTorchType type = GoatHornTorchType.fromItem(stack.getItem(), state.getValue(WATERLOGGED));
+            if (type != GoatHornTorchType.NONE) {
+                level.setBlockAndUpdate(pos, state.setValue(TORCH, type));
+                level.playSound(null, player, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.PLAYERS, 1.0F, 1.0F);
+                stack.consume(1, player);
+                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.PASS;

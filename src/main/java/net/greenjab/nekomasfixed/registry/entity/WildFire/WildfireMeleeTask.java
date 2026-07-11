@@ -29,39 +29,38 @@ public class WildfireMeleeTask extends Behavior<WildfireEntity> {
 
 	@VisibleForTesting
 	public WildfireMeleeTask() {
-		super(
-			ImmutableMap.of(
-					MemoryModuleType.ATTACK_TARGET,
-					MemoryStatus.VALUE_PRESENT,
-					MemoryModuleType.WALK_TARGET,
-					MemoryStatus.VALUE_ABSENT,
-					MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
-					MemoryStatus.VALUE_ABSENT
-			),
-				MELEE_CHARGING_EXPIRY + MELEE_EXPIRY
-		);
+		super(ImmutableMap.of(
+				MemoryModuleType.ATTACK_TARGET,
+				MemoryStatus.VALUE_PRESENT,
+				MemoryModuleType.WALK_TARGET,
+				MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.BREEZE_SHOOT_COOLDOWN,
+				MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.BREEZE_SHOOT,
+				MemoryStatus.REGISTERED,
+				MemoryModuleType.BREEZE_SHOOT_CHARGING,
+				MemoryStatus.REGISTERED,
+				MemoryModuleType.BREEZE_SHOOT_RECOVERING,
+				MemoryStatus.REGISTERED
+		), MELEE_CHARGING_EXPIRY + MELEE_EXPIRY);
 	}
 
-	protected boolean checkExtraStartConditions(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity) {
+	protected boolean checkExtraStartConditions(@NonNull ServerLevel level, WildfireEntity wildFireEntity) {
 		if (wildFireEntity.getPose() != Pose.SPIN_ATTACK) return false;
 		return wildFireEntity.getBrain()
                 .getMemory(MemoryModuleType.ATTACK_TARGET)
                 .map(target -> isTargetWithinRange(wildFireEntity, target))
                 .map(withinRange -> {
-                    if (!withinRange) {
-                        wildFireEntity.getBrain().eraseMemory(MemoryModuleType.BREEZE_SHOOT);
-                    }
-
+                    if (!withinRange) wildFireEntity.getBrain().eraseMemory(MemoryModuleType.BREEZE_SHOOT);
                     return withinRange;
-                })
-                .orElse(false);
+                }).orElse(false);
 	}
 
-	protected boolean canStillUse(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected boolean canStillUse(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		return wildFireEntity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && wildFireEntity.getBrain().hasMemoryValue(MemoryModuleType.BREEZE_SHOOT);
 	}
 
-	protected void start(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void start(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		wildFireEntity.setPose(Pose.STANDING);
 		wildFireEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT_CHARGING, Unit.INSTANCE, MELEE_CHARGING_EXPIRY);
 		wildFireEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT, Unit.INSTANCE,MELEE_CHARGING_EXPIRY + MELEE_EXPIRY);
@@ -69,15 +68,14 @@ public class WildfireMeleeTask extends Behavior<WildfireEntity> {
 		wildFireEntity.setFireActive(true);
 	}
 
-	protected void stop(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void stop(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		wildFireEntity.getBrain().setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT_COOLDOWN, Unit.INSTANCE, 200L);
 		wildFireEntity.getBrain().eraseMemory(MemoryModuleType.BREEZE_SHOOT);
 		wildFireEntity.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
-		//Brain b = wildFireEntity.getBrain();
 		wildFireEntity.setFireActive(false);
 	}
 
-	protected void tick(@NonNull ServerLevel serverWorld, WildfireEntity wildFireEntity, long l) {
+	protected void tick(@NonNull ServerLevel level, WildfireEntity wildFireEntity, long l) {
 		Brain<WildfireEntity> brain = wildFireEntity.getBrain();
 		LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 		if (livingEntity != null) {
@@ -86,24 +84,21 @@ public class WildfireMeleeTask extends Behavior<WildfireEntity> {
 				&& brain.getMemory(MemoryModuleType.BREEZE_SHOOT_RECOVERING).isEmpty()) {
 				brain.setMemoryWithExpiry(MemoryModuleType.BREEZE_SHOOT_RECOVERING, Unit.INSTANCE, MELEE_HIT_COOLDOWN_EXPIRY);
 
-				if (serverWorld.getBlockState(wildFireEntity.blockPosition()).is(BlockTags.REPLACEABLE)) {
-					serverWorld.setBlockAndUpdate(wildFireEntity.blockPosition(), Blocks.FIRE.defaultBlockState());
-				}
+				if (level.getBlockState(wildFireEntity.blockPosition()).is(BlockTags.REPLACEABLE))
+					level.setBlockAndUpdate(wildFireEntity.blockPosition(), Blocks.FIRE.defaultBlockState());
 
-				List<LivingEntity> list = serverWorld.getEntitiesOfClass(LivingEntity.class, wildFireEntity.getBoundingBox().inflate(1.5, 0, 1.5), e -> !(e instanceof WildfireEntity) && e.isAlive());
+				List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, wildFireEntity.getBoundingBox().inflate(1.5, 0, 1.5), e -> !(e instanceof WildfireEntity) && e.isAlive());
 				for (LivingEntity entity : list) {
 					double f = entity.getX() - wildFireEntity.getX();
 					double g = entity.getZ() - wildFireEntity.getZ();
 					double h = Math.max(f * f + g * g, 0.1);
 					entity.push(f / h * 2.0, 0.2F, g / h * 2.0);
-
 					DamageSource damageSource = wildFireEntity.damageSources().mobAttack(wildFireEntity);
-					entity.hurtServer(serverWorld, damageSource, wildFireEntity.isSoulActive()?6.0F:4.0F);
-					EnchantmentHelper.doPostAttackEffects(serverWorld, entity, damageSource);
+					entity.hurtServer(level, damageSource, wildFireEntity.isSoulActive()?6.0F:4.0F);
+					EnchantmentHelper.doPostAttackEffects(level, entity, damageSource);
 				}
 			}
 			wildFireEntity.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(BlockPos.containing(livingEntity.position()), wildFireEntity.isSoulActive()?0.65F:0.5F, 0));
-
 		}
 	}
 
