@@ -6,6 +6,8 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockBehaviour.class)
-public class ABlockBehaviourMixin {
+public class BlockBehaviourMixin {
 
     @Inject(method = "useItemOn", at= @At("HEAD"), cancellable = true)
     private void customOnUseWithItem(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
@@ -54,6 +56,7 @@ public class ABlockBehaviourMixin {
 
                 if (level.getBlockState(placePos).is(BlockTags.REPLACEABLE) && state.isFaceSturdy(level, pos, hitResult.getDirection())) {
                     level.setBlockAndUpdate(placePos, newState);
+                    level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     player.getMainHandItem().consume(1, player);
                     cir.setReturnValue(InteractionResult.SUCCESS);
                 }

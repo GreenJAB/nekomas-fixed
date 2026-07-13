@@ -24,27 +24,14 @@ public class ItemMixin {
 	}
 
 	@Inject(method="onUseTick", at=@At("HEAD"))
-	private void customUsageTick(
-			Level level,
-			LivingEntity livingEntity,
-			ItemStack itemStack,
-			int ticksRemaining,
-			CallbackInfo ci
-	) {
+	private void customUsageTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int ticksRemaining, CallbackInfo ci) {
 		if (!level.isClientSide() || !itemStack.is(Items.GOAT_HORN)) return;
 
 		if (livingEntity.tickCount % 3 == 0 && !level.isClientSide() ) {
             ServerLevel serverLevel = (ServerLevel) level;
 			if(serverLevel.structureManager().getStructureWithPieceAt(livingEntity.blockPosition(), StructureTags.VILLAGE).isValid()) {
-				serverLevel.sendParticles(
-						ParticleTypes.POOF,
-						livingEntity.getX(),
-						livingEntity.getY() + 0.5,
-						livingEntity.getZ(),
-						20,
-						0.4, 0.2, 0.4,
-						0.05
-				);
+				serverLevel.sendParticles(ParticleTypes.POOF, livingEntity.getX(), livingEntity.getY() + 0.5, livingEntity.getZ(),
+						20, 0.4, 0.2, 0.4, 0.05);
 			}
 		}
 	}

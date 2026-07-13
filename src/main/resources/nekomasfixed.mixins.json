@@ -3,7 +3,7 @@
   "package": "net.greenjab.nekomasfixed.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ABlockBehaviourMixin",
+    "BlockBehaviourMixin",
     "AnimalMixin",
     "ArmorStandMixin",
     "BedBlockMixin",
