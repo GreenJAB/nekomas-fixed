@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
@@ -101,7 +102,7 @@ public class NautilusBlock extends BaseEntityBlock {
 							&& entity instanceof Leashable leashable
 							&& leashable.canBeLeashed()
 							&& entity.isAlive()
-							&& entity.distanceToSqr(pos.getCenter())<10) {
+							&& entity.distanceToSqr(Vec3.atCenterOf(pos))<10) {
 						List<Leashable> list2 = Leashable.leashableInArea(entity, leashablex -> leashablex.getLeashHolder() == player);
 						for (Leashable entity2 : list2) {
 							if (entity2 instanceof Animal animalEntity) {

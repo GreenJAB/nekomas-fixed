@@ -78,7 +78,7 @@ public class BlockRegistry {
     public static final Block ZOMBIE_NAUTILUS_BLOCK = register("zombie_nautilus_block", settings -> new NautilusBlock(NautilusBlockType.ZOMBIE, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.CORAL_BLOCK).pushReaction(PushReaction.DESTROY));
     public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block",settings -> new NautilusBlock(NautilusBlockType.CORAL, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.CORAL_BLOCK).pushReaction(PushReaction.DESTROY));
     public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
-    public static final Block GEYSER = register("geyser", GeyserBlock::new , BlockBehaviour.Properties.of().randomTicks().strength(0.5f, 0.5f).lightLevel(state -> Blocks.LAVA.defaultBlockState().getLightEmission()));
+    public static final Block GEYSER = register("geyser", GeyserBlock::new , BlockBehaviour.Properties.of().randomTicks().strength(0.5f, 0.5f).lightLevel(_ -> 15));
     public static final Block KILN = register("kiln", KilnBlock::new,BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM)
             .sound(SoundType.GILDED_BLACKSTONE).requiresCorrectToolForDrops().strength(3.5f));
     public static final Block PYROTECHNICS_TABLE = register("pyrotechnics_table", PyrotechnicsTableBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava());
@@ -377,23 +377,23 @@ public class BlockRegistry {
     public static final Block INDIGO_BRICK_WALL = register("indigo_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofLegacyCopy(INDIGO_BRICKS).forceSolidOn());
     public static final Block MAROON_BRICK_WALL = register("maroon_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofLegacyCopy(MAROON_BRICKS).forceSolidOn());
 
-    public static final Block CLEAR_FROGLIGHT = register("clear_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block CLOUDY_FROGLIGHT = register("cloudy_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block CASCADING_FROGLIGHT = register("cascading_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block CLOUDBURST_FROGLIGHT = register("cloudburst_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(0.3F).lightLevel((state) -> 10).sound(SoundType.FROGLIGHT));
-    public static final Block CHAMOISEE_FROGLIGHT = register("chamoisee_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block SANGUINE_FROGLIGHT = register("sanguine_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block VERMILION_FROGLIGHT = register("vermilion_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block MANDARIN_FROGLIGHT = register("mandarin_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block LEMON_FROGLIGHT = register("lemon_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block KIWI_FROGLIGHT = register("kiwi_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block SEAFOAM_FROGLIGHT = register("seafoam_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_NYLIUM).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block TEAL_FROGLIGHT = register("teal_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block CERULEAN_FROGLIGHT = register("cerulean_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block NAVY_FROGLIGHT = register("navy_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block LAVENDER_FROGLIGHT = register("lavender_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_HYPHAE).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block THULIAN_FROGLIGHT = register("thulian_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
-    public static final Block SAKURA_FROGLIGHT = register("sakura_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(0.3F).lightLevel((state) -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block CLEAR_FROGLIGHT = register("clear_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block CLOUDY_FROGLIGHT = register("cloudy_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block CASCADING_FROGLIGHT = register("cascading_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block CLOUDBURST_FROGLIGHT = register("cloudburst_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(0.3F).lightLevel(_ -> 10).sound(SoundType.FROGLIGHT));
+    public static final Block CHAMOISEE_FROGLIGHT = register("chamoisee_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block SANGUINE_FROGLIGHT = register("sanguine_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block VERMILION_FROGLIGHT = register("vermilion_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block MANDARIN_FROGLIGHT = register("mandarin_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block LEMON_FROGLIGHT = register("lemon_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block KIWI_FROGLIGHT = register("kiwi_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block SEAFOAM_FROGLIGHT = register("seafoam_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_NYLIUM).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block TEAL_FROGLIGHT = register("teal_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block CERULEAN_FROGLIGHT = register("cerulean_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block NAVY_FROGLIGHT = register("navy_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block LAVENDER_FROGLIGHT = register("lavender_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_HYPHAE).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block THULIAN_FROGLIGHT = register("thulian_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
+    public static final Block SAKURA_FROGLIGHT = register("sakura_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(0.3F).lightLevel(_ -> 15).sound(SoundType.FROGLIGHT));
 
     public static final Block WHITE_SPOTTED_WOOL = register("white_spotted_wool", BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sound(SoundType.WOOL).ignitedByLava());
     public static final Block LIGHT_GRAY_SPOTTED_WOOL = register("light_gray_spotted_wool", BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sound(SoundType.WOOL).ignitedByLava());
@@ -492,11 +492,12 @@ public class BlockRegistry {
         return register(id,
                 settings -> new BedBlock(color, settings),
                 BlockBehaviour.Properties.of()
-                        .mapColor((state) -> state.getValue(BedBlock.PART) == BedPart.FOOT
+                        .mapColor(state -> state.getValue(BedBlock.PART) == BedPart.FOOT
                                 ? color.getMapColor()
                                 : MapColor.WOOL)
                         .sound(SoundType.WOOD)
                         .strength(0.2F)
+                        .bounceRestitution(0.75F)
                         .noOcclusion()
                         .ignitedByLava()
                         .pushReaction(PushReaction.DESTROY)

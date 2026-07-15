@@ -26,31 +26,31 @@ public class BedBlockMixin implements MessyBedAccessor {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void setDefaultState(DyeColor color, BlockBehaviour.Properties properties, CallbackInfo ci) {
         BedBlock self = (BedBlock)(Object)this;
-        self.registerDefaultState(self.defaultBlockState().setValue(MessyBedAccessor.IS_MESSY, false));
+        self.registerDefaultState(self.defaultBlockState().setValue(MessyBedAccessor.MESSY, false));
     }
 
     @Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
     protected void appendProperties(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
-        builder.add(MessyBedAccessor.IS_MESSY);
+        builder.add(MessyBedAccessor.MESSY);
     }
 
     @Inject(method =  "useWithoutItem", at = @At("HEAD"), cancellable = true)
         protected void onUse(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
         if(!level.isClientSide()){
             BlockPos otherPos = state.getValue(BedBlock.PART) == BedPart.FOOT ? pos.relative(state.getValue(BedBlock.FACING)) :pos.relative(state.getValue(BedBlock.FACING).getOpposite()) ;
-            if(player.isShiftKeyDown() && player.getMainHandItem().isEmpty() && state.getValue(MessyBedAccessor.IS_MESSY)){
+            if(player.isShiftKeyDown() && player.getMainHandItem().isEmpty() && state.getValue(MessyBedAccessor.MESSY)){
                 BlockState otherState = level.getBlockState(otherPos);
-                level.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.IS_MESSY, false));
-                level.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.IS_MESSY, false));
+                level.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.MESSY, false));
+                level.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.MESSY, false));
                 player.swing(InteractionHand.MAIN_HAND, true);
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
             }
 
-            if(level.isDarkOutside() && !state.getValue(MessyBedAccessor.IS_MESSY) && !state.getValue(BedBlock.OCCUPIED)){
+            if(level.isDarkOutside() && !state.getValue(MessyBedAccessor.MESSY) && !state.getValue(BedBlock.OCCUPIED)){
                 BlockState otherState = level.getBlockState(otherPos);
-                level.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.IS_MESSY, true));
-                level.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.IS_MESSY, true));
+                level.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.MESSY, true));
+                level.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.MESSY, true));
             }
         }
     }

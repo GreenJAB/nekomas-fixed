@@ -1,10 +1,10 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.EntityTypePredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -23,7 +23,7 @@ public class LootTableAdditions {
         LootTableEvents.MODIFY.register((key, tableBuilder, _, holder) -> {
             if (key == BuiltInLootTables.CHARGED_CREEPER) {
                 LootItemCondition.Builder predicate = LootItemEntityPropertyCondition.hasProperties(
-                        LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(holder.lookupOrThrow(Registries.ENTITY_TYPE), EntityType.ENDERMAN)));
+                        LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(holder.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypes.ENDERMAN)));
                 LootPool.Builder poolBuilder = LootPool.lootPool().add(NestedLootTable.lootTableReference(LootTableRegistry.SUPER_CHARGED_CREEPER_ENDERMAN_LOOT_TABLE).when(predicate));
                 tableBuilder.pool(poolBuilder.build());
             } else if (key == BuiltInLootTables.SHIPWRECK_TREASURE) {

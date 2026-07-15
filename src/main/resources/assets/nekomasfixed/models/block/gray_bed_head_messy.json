@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_bed_head",
+  "textures": {
+    "east": "nekomasfixed:block/gray_bed_head_east_messy",
+    "up": "nekomasfixed:block/gray_bed_head_up_messy",
+    "west": "nekomasfixed:block/gray_bed_head_west_messy"
+  }
+}

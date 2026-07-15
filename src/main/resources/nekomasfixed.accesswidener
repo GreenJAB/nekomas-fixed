@@ -29,3 +29,4 @@ accessible method net/minecraft/world/entity/Mob isSunBurnTick ()Z
 accessible field net/minecraft/core/cauldron/CauldronInteractions ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
 accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
 accessible method net/minecraft/world/level/block/FireBlock setFlammable (Lnet/minecraft/world/level/block/Block;II)V
+accessible class net/minecraft/client/renderer/feature/NameTagFeatureRenderer$GlyphRenderer

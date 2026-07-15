@@ -71,45 +71,20 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 
 	public void submit(ClockBlockEntityRenderState clockBlockEntityRenderState, @NonNull PoseStack matrixStack,
 					   @NonNull SubmitNodeCollector orderedRenderCommandQueue, @NonNull CameraRenderState cameraRenderState) {
-		/*matrixStack.push();
-		matrixStack.translate(0.5F, 0.5F, 0.5F);
-		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-clockBlockEntityRenderState.yaw));
-		matrixStack.translate(-0.5F, -0.5F, -0.5F);
-		float f = clockBlockEntityRenderState.lidAnimationProgress;
-		f = 1.0F - f;
-		f = 1.0F - f * f * f;
-		SpriteIdentifier spriteIdentifier = TextureRegistry.getClockTextureId(clockBlockEntityRenderState.variant);
-		RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayers::entityCutout);
-		Sprite sprite = this.materials.getSprite(spriteIdentifier);
-		orderedRenderCommandQueue.submitModel(
-				this.clockModel,
-				f,
-				matrixStack,
-				renderLayer,
-				clockBlockEntityRenderState.lightmapCoordinates,
-				OverlayTexture.DEFAULT_UV,
-				-1,
-				sprite,
-				0,
-				clockBlockEntityRenderState.crumblingOverlay
-			);
-
-		matrixStack.pop();*/
 		int ii = ARGB.colorFromFloat(1, 1.0F, 1.0F, 1.0F);
 		if (clockBlockEntityRenderState.dayTime !=-1) {
 			int hour = clockBlockEntityRenderState.dayTime/1000;
 			int min = ((clockBlockEntityRenderState.dayTime%1000)*60)/1000;
 			String string = (hour<10?"0":"") + hour + ":" + (min<10?"0":"") + min;
 				orderedRenderCommandQueue.submitNameTag(matrixStack, clockBlockEntityRenderState.wall ? new Vec3(-0.4 * Math.sin(clockBlockEntityRenderState.yaw * Math.PI / 180.0) + 0.5, 0.75, 0.4 * Math.cos(clockBlockEntityRenderState.yaw * Math.PI / 180.0) + 0.5) : new Vec3(0.5, 0.5, 0.5), 0,
-						Component.nullToEmpty(string), true, ii, 100, cameraRenderState);
-
+						Component.nullToEmpty(string), true, ii, cameraRenderState);
 		} else {
 			int time = clockBlockEntityRenderState.timer + 20;
 			int min = time / 1200;
 			int sec = (time - min * 1200) / 20;
 			if (time > 20) {
 				orderedRenderCommandQueue.submitNameTag(matrixStack, clockBlockEntityRenderState.wall ? new Vec3(-0.4 * Math.sin(clockBlockEntityRenderState.yaw * Math.PI / 180.0) + 0.5, 0.75, 0.4 * Math.cos(clockBlockEntityRenderState.yaw * Math.PI / 180.0) + 0.5) : new Vec3(0.5, 0.5, 0.5), 0,
-						Component.nullToEmpty((min != 0 ? min + " Minute" + (min != 1 ? "s" : "") + ", " : "") + sec + " Second" + (sec != 1 ? "s" : "")), true, ii, 100, cameraRenderState);
+						Component.nullToEmpty((min != 0 ? min + " Minute" + (min != 1 ? "s" : "") + ", " : "") + sec + " Second" + (sec != 1 ? "s" : "")), true, ii, cameraRenderState);
 
 			}
 		}

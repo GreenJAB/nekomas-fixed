@@ -22,6 +22,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Unique;
 
 public class ClamFeature extends Feature<CountConfiguration> {
@@ -55,7 +56,7 @@ public class ClamFeature extends Feature<CountConfiguration> {
 									.reloadableRegistries()
 									.getLootTable(LootTableRegistry.CLAM_LOOT_TABLE);
 
-							LootParams lootContextParameterSet = (new LootParams.Builder(level.getLevel())).withParameter(LootContextParams.ORIGIN, blockPos2.getCenter()).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(clamType)).create(LootContextParamSets.FISHING);
+							LootParams lootContextParameterSet = (new LootParams.Builder(level.getLevel())).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(blockPos2)).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(clamType)).create(LootContextParamSets.FISHING);
 
 							ObjectArrayList<ItemStack> loots = lootTable.getRandomItems(lootContextParameterSet);
 							if (!loots.isEmpty()) blockEntity.setHeldStack(loots.getFirst());

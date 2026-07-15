@@ -141,7 +141,7 @@ public class ClamBlockEntity extends RandomizableContainerBlockEntity implements
 
 	@Override
 	public @NonNull Vec3 position() {
-		return this.getBlockPos().getCenter();
+		return Vec3.atCenterOf(this.getBlockPos());
 	}
 
 	@Override

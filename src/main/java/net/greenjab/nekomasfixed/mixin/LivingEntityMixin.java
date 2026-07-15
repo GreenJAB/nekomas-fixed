@@ -61,7 +61,7 @@ public abstract class LivingEntityMixin {
         return damage;
     }
     @Inject(method = "blockUsingItem", at = @At("HEAD"))
-    private void onShieldHit(ServerLevel level, LivingEntity attacker, CallbackInfo ci) {
+    private void onShieldHit(ServerLevel level, LivingEntity attacker, DamageSource source, float damage, CallbackInfo ci) {
         LivingEntity defender = (LivingEntity)(Object)this;
         ItemStack activeItem = defender.getUseItem();
 
@@ -71,7 +71,7 @@ public abstract class LivingEntityMixin {
                     attacker.igniteForTicks(20 * 3);
                     attacker.knockback(1.0,
                             attacker.getX() + player.getX(),
-                            attacker.getZ() + player.getZ());
+                            attacker.getZ() + player.getZ(), source, damage);
                 } else {
                     attacker.igniteForTicks(20);
                 }

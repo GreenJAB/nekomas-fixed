@@ -10,11 +10,7 @@ import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,7 +63,7 @@ public abstract class ServerLevelMixin {
             if (armor > 0 && level.getRandom().nextInt(14000-2000*armor) == 0) {
                 BlockPos blockPos = player.blockPosition();
                 if (level.isRainingAt(blockPos)) {
-                    LightningBolt lightningEntity = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
+                    LightningBolt lightningEntity = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
                     if (lightningEntity != null) {
                         lightningEntity.snapTo(Vec3.atBottomCenterOf(blockPos));
                         player.addEffect(new MobEffectInstance(MobEffects.SPEED, 3*armor * 20, armor, false, false, false));

@@ -55,8 +55,8 @@ public class WildfireJumpTask extends Behavior<WildfireEntity> {
 			blockPos = livingEntity.blockPosition().offset(0, 4, 0);
 		BlockState blockState = level.getBlockState(blockPos.below());
 		if (wildFire.getType().isBlockDangerous(blockState)) return false;
-		else if (WildfireMovementUtil.cantMoveTo(wildFire, blockPos.getCenter())
-				&& WildfireMovementUtil.cantMoveTo(wildFire, blockPos.above(4).getCenter())) return false;
+		else if (WildfireMovementUtil.cantMoveTo(wildFire, Vec3.atCenterOf(blockPos))
+				&& WildfireMovementUtil.cantMoveTo(wildFire, Vec3.atCenterOf(blockPos.above(4)))) return false;
 		else {
 			wildFire.getBrain().setMemory(MemoryModuleType.BREEZE_JUMP_TARGET, blockPos);
 			return true;
@@ -79,7 +79,7 @@ public class WildfireJumpTask extends Behavior<WildfireEntity> {
 		wildFireEntity.setPose(Pose.DIGGING);
 		level.playSound(null, wildFireEntity, SoundEvents.BREEZE_CHARGE, SoundSource.HOSTILE, 1.0F, 1.0F);
 		wildFireEntity.getBrain().getMemory(MemoryModuleType.BREEZE_JUMP_TARGET)
-			.ifPresent( jumpTarget -> wildFireEntity.lookAt(EntityAnchorArgument.Anchor.EYES, jumpTarget.getCenter()));
+			.ifPresent( jumpTarget -> wildFireEntity.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(jumpTarget)));
 	}
 
 	protected void tick(@NonNull ServerLevel level, @NonNull WildfireEntity wildFireEntity, long l) {

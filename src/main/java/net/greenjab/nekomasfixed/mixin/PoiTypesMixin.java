@@ -17,7 +17,7 @@ import java.util.Optional;
 public class PoiTypesMixin {
     @Inject(method = "forState", at = @At("HEAD"), cancellable = true)
     private static void nekomasfixed$ignoreMessyBeds(BlockState state, CallbackInfoReturnable<Optional<Holder<PoiType>>> cir) {
-        if (state.hasProperty(MessyBedAccessor.IS_MESSY) && state.getValue(MessyBedAccessor.IS_MESSY) && state.getBlock() instanceof BedBlock) {
+        if (state.hasProperty(MessyBedAccessor.MESSY) && state.getValue(MessyBedAccessor.MESSY) && state.getBlock() instanceof BedBlock) {
             cir.setReturnValue(Optional.empty());
         }
     }

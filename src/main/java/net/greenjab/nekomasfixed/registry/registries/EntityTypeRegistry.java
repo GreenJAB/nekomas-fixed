@@ -12,6 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
@@ -59,7 +60,7 @@ public class EntityTypeRegistry {
 
     public static List<EntityType<BigBoat>> bigBoats = List.of(BIG_ACACIA_BOAT, BIG_BAMBOO_BOAT, BIG_BIRCH_BOAT, BIG_CHERRY_BOAT, BIG_DARK_OAK_BOAT, BIG_JUNGLE_BOAT, BIG_MANGROVE_BOAT, BIG_OAK_BOAT, BIG_PALE_OAK_BOAT, BIG_SPRUCE_BOAT, BIG_BAOBAB_BOAT);
     public static List<EntityType<HugeBoat>> hugeBoats = List.of(HUGE_ACACIA_BOAT, HUGE_BAMBOO_BOAT, HUGE_BIRCH_BOAT, HUGE_CHERRY_BOAT, HUGE_DARK_OAK_BOAT, HUGE_JUNGLE_BOAT, HUGE_MANGROVE_BOAT, HUGE_OAK_BOAT, HUGE_PALE_OAK_BOAT, HUGE_SPRUCE_BOAT, HUGE_BAOBAB_BOAT);
-    public static List<EntityType<? extends AbstractBoat>> boats = List.of(EntityType.ACACIA_BOAT, EntityType.BAMBOO_RAFT, EntityType.BIRCH_BOAT, EntityType.CHERRY_BOAT, EntityType.DARK_OAK_BOAT, EntityType.JUNGLE_BOAT, EntityType.MANGROVE_BOAT, EntityType.OAK_BOAT, EntityType.PALE_OAK_BOAT, EntityType.SPRUCE_BOAT, BAOBAB_BOAT);
+    public static List<EntityType<? extends AbstractBoat>> boats = List.of(EntityTypes.ACACIA_BOAT, EntityTypes.BAMBOO_RAFT, EntityTypes.BIRCH_BOAT, EntityTypes.CHERRY_BOAT, EntityTypes.DARK_OAK_BOAT, EntityTypes.JUNGLE_BOAT, EntityTypes.MANGROVE_BOAT, EntityTypes.OAK_BOAT, EntityTypes.PALE_OAK_BOAT, EntityTypes.SPRUCE_BOAT, BAOBAB_BOAT);
 
 
     public static final EntityType<TargetDummy> TARGET_DUMMY = register("target_dummy",

@@ -11,7 +11,7 @@ import org.jspecify.annotations.NonNull;
 @Environment(EnvType.CLIENT)
 public class NumberParticle extends Particle {
      private final double damage;
-    public static ParticleRenderType particleTextureSheet = new ParticleRenderType("number");
+    public static ParticleRenderType particleTextureSheet = new ParticleRenderType("number","NB");
     NumberParticle(ClientLevel level, double x, double y, double z, double damage) {
         super(level, x+ level.getRandom().nextGaussian()/5f, y+ level.getRandom().nextGaussian()/10f,
                 z+ level.getRandom().nextGaussian()/5f);

@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Items;
 import java.util.List;
 
-public class KilnScreen extends AbstractFurnaceScreen<KilnScreenHandler> {
+public class KilnScreen extends AbstractFurnaceScreen<KilnMenu> {
     private static final Identifier TEXTURE = NekomasFixed.id("textures/gui/container/kiln.png");
     private static final Identifier LIT_PROGRESS_TEXTURE = Identifier.withDefaultNamespace("container/furnace/lit_progress");
     private static final Identifier BURN_PROGRESS_TEXTURE = Identifier.withDefaultNamespace("container/furnace/burn_progress");
@@ -22,7 +22,7 @@ public class KilnScreen extends AbstractFurnaceScreen<KilnScreenHandler> {
             new RecipeBookComponent.TabInfo(Items.CLAY_BALL, RecipeRegistry.KILNING_MISC)
     );
 
-    public KilnScreen(KilnScreenHandler handler, Inventory inventory, Component title) {
+    public KilnScreen(KilnMenu handler, Inventory inventory, Component title) {
         super(
                 handler,
                 inventory,

@@ -45,7 +45,6 @@
     "SnifferEntityMixin",
     "ZombieMixin",
     "accessor.FlowerPotBlockAccessor",
-    "accessor.MobAccessor",
     "accessor.SnifferAccessor",
     "boat.AbstractBoatMixin",
     "boat.BodyRotationControlMixin",

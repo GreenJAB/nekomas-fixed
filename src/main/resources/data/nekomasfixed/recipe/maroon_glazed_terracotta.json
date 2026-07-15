@@ -1,7 +1,7 @@
 
 {
   "type": "minecraft:smelting",
-  "category": "building",
+  "category": "blocks",
   "cookingtime": 200,
   "experience": 0.1,
   "ingredient": "nekomasfixed:maroon_terracotta",

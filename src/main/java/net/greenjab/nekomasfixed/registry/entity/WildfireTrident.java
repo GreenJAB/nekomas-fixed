@@ -14,6 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
@@ -124,7 +125,7 @@ public class WildfireTrident extends AbstractArrow {
 
 		this.dealtDamage = true;
 		if (entity.hurtOrSimulate(damageSource, damage)) {
-			if (entity.getType() == EntityType.ENDERMAN) return;
+			if (entity.getType() == EntityTypes.ENDERMAN) return;
 
 			if (this.level() instanceof ServerLevel level) {
 				EnchantmentHelper.doPostAttackEffectsWithItemSourceOnBreak(level, entity, damageSource,

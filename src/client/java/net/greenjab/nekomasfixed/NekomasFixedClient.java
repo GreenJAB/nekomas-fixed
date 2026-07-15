@@ -30,8 +30,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 
 		ClientSyncHandler.init();
 
-		MenuScreens.register(ScreenHandlerRegistry.KILN_SCREEN_HANDLER, KilnScreen::new);
-		MenuScreens.register(ScreenHandlerRegistry.PYROTECHNICS_TABLE_HANDLER, PyrotechnicsTableScreen::new);
+		MenuScreens.register(ScreenHandlerRegistry.KILN, KilnScreen::new);
+		MenuScreens.register(ScreenHandlerRegistry.PYROTECHNICS, PyrotechnicsTableScreen::new);
 
 		BlockColorRegistry.register(List.of(soup()), BlockRegistry.SOUP_CAULDRON);
 	}

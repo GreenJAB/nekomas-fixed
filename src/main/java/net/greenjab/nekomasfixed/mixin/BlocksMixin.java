@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.block.MelonBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -18,12 +19,11 @@ import java.util.function.Function;
 
 @Mixin(Blocks.class)
 public class BlocksMixin {
-
-    @Redirect(method="<clinit>", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/block/Blocks;register(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;", ordinal = 0), slice = @Slice( from =
-    @At(value = "FIELD", target = "Lnet/minecraft/references/BlockIds;MELON:Lnet/minecraft/resources/ResourceKey;", opcode = Opcodes.GETSTATIC), to =
+    @Redirect(method="<clinit>", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/block/Blocks;register(Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;", ordinal = 0), slice = @Slice( from =
+    @At(value = "FIELD", target = "Lnet/minecraft/references/BlockItemIds;MELON:Lnet/minecraft/references/BlockItemId;", opcode = Opcodes.GETSTATIC), to =
     @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/Blocks;MELON:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.PUTSTATIC)))
-    private static Block newMelon(ResourceKey<Block> id, BlockBehaviour.Properties properties) {
-        return register(id, settings -> new MelonBlock(false, settings), properties);
+    private static Block newMelon(BlockItemId id, BlockBehaviour.Properties properties) {
+        return register(id.block(), settings -> new MelonBlock(false, settings), properties);
     }
 
     @Unique

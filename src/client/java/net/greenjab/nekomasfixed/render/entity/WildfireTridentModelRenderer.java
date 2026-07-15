@@ -7,9 +7,10 @@ import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
 import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.util.Unit;
 import org.joml.Vector3fc;
 import org.jspecify.annotations.NonNull;
 
@@ -24,11 +25,11 @@ public class WildfireTridentModelRenderer implements NoDataSpecialModelRenderer 
 	}
 
 	@Override
-	public void submit(PoseStack matrices, SubmitNodeCollector queue, int light, int overlay, boolean glint, int i) {
-		matrices.pushPose();
-		matrices.scale(1.0F, -1.0F, -1.0F);
-		queue.submitModelPart(this.model.root(), matrices, this.model.renderType(WildfireTridentEntityRenderer.TEXTURE), light, overlay, null, false, glint, -1, null, i);
-		matrices.popPose();
+	public void submit(@NonNull PoseStack matrices, SubmitNodeCollector queue, int light, int overlay, boolean glint, int i) {
+		queue.order(0).submitModel(this.model, Unit.INSTANCE, matrices, ThrownWildfireTridentRenderer.TEXTURE, light, overlay, i, null);
+		if (glint) {
+			queue.order(1).submitModel(this.model, Unit.INSTANCE, matrices, RenderTypes.entityGlint(), light, overlay, i, null);
+		}
 	}
 
 	@Override

@@ -28,7 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-
+	//TODO test if need itemowner
 public class EndermanHeadBlockEntity extends BlockEntity implements ItemOwner {
 
 	protected EndermanHeadBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
@@ -75,7 +75,7 @@ public class EndermanHeadBlockEntity extends BlockEntity implements ItemOwner {
 
 	@Override
 	public Vec3 position() {
-		return this.getBlockPos().getCenter();
+		return Vec3.atCenterOf(this.getBlockPos());
 	}
 
 	@Override

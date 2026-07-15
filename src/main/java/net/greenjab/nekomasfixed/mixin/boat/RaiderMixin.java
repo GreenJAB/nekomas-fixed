@@ -36,7 +36,7 @@ public class RaiderMixin {
             if (RE.getTarget()!=null) target = RE.getTarget().position();
             else {
                 updatePatrol(RE, boatEntity);
-                if (RE.hasPatrolTarget()) target = RE.getPatrolTarget().getCenter();
+                if (RE.hasPatrolTarget()) target = Vec3.atCenterOf(RE.getPatrolTarget());
             }
 
             if (target!=null) {
@@ -102,7 +102,7 @@ public class RaiderMixin {
             }
         }
         BlockHitResult blockHitResult = RE.level()
-                .clip(new ClipContext(RE.position(), pos.getCenter(), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, RE));
+                .clip(new ClipContext(RE.position(), Vec3.atCenterOf(pos), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, RE));
         return blockHitResult.getType() == HitResult.Type.MISS;
     }
 

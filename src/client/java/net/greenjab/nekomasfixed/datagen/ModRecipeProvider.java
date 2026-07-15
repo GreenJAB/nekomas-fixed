@@ -56,7 +56,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 woodenBoat(ItemRegistry.BAOBAB_BOAT, ItemRegistry.BAOBAB_PLANKS);
                 chestBoat(ItemRegistry.BAOBAB_CHEST_BOAT, ItemRegistry.BAOBAB_PLANKS);
                 shelf(ItemRegistry.BAOBAB_SHELF, ItemRegistry.STRIPPED_BAOBAB_LOG);
-                hangingSign(ItemRegistry.BAOBAB_HANGING_SIGN, ItemRegistry.BAOBAB_LOG);
 
                 fenceBuilder(ItemRegistry.BAOBAB_FENCE, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
                         .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
@@ -78,6 +77,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .save(output);
                 signBuilder(ItemRegistry.BAOBAB_SIGN, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
                         .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
+                        .save(output);
+                hangingSignBuilder(ItemRegistry.BAOBAB_HANGING_SIGN, Ingredient.of(ItemRegistry.BAOBAB_LOG))
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_LOG), has(ItemRegistry.BAOBAB_LOG))
                         .save(output);
                 slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_SLAB, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
                         .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))

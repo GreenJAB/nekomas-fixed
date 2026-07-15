@@ -1,7 +1,64 @@
 {
   "variants": {
-    "": {
-      "model": "minecraft:block/bed"
+    "facing=east,part=foot,messy=false": {
+      "model": "nekomasfixed:block/amber_bed_foot",
+      "y": 90
+    },
+    "facing=east,part=head,messy=false": {
+      "model": "nekomasfixed:block/amber_bed_head",
+      "y": 90
+    },
+    "facing=north,part=foot,messy=false": {
+      "model": "nekomasfixed:block/amber_bed_foot"
+    },
+    "facing=north,part=head,messy=false": {
+      "model": "nekomasfixed:block/amber_bed_head"
+    },
+    "facing=south,part=foot,messy=false": {
+      "model": "nekomasfixed:block/amber_bed_foot",
+      "y": 180
+    },
+    "facing=south,part=head,messy=false": {
+      "model": "nekomasfixed:block/amber_bed_head",
+      "y": 180
+    },
+    "facing=west,part=foot,messy=false": {
+      "model": "nekomasfixed:block/amber_bed_foot",
+      "y": 270
+    },
+    "facing=west,part=head,messy=false": {
+      "model": "nekomasfixed:block/amber_bed_head",
+      "y": 270
+    },
+    "facing=east,part=foot,messy=true": {
+      "model": "nekomasfixed:block/amber_bed_foot_messy",
+      "y": 90
+    },
+    "facing=east,part=head,messy=true": {
+      "model": "nekomasfixed:block/amber_bed_head_messy",
+      "y": 90
+    },
+    "facing=north,part=foot,messy=true": {
+      "model": "nekomasfixed:block/amber_bed_foot_messy"
+    },
+    "facing=north,part=head,messy=true": {
+      "model": "nekomasfixed:block/amber_bed_head_messy"
+    },
+    "facing=south,part=foot,messy=true": {
+      "model": "nekomasfixed:block/amber_bed_foot_messy",
+      "y": 180
+    },
+    "facing=south,part=head,messy=true": {
+      "model": "nekomasfixed:block/amber_bed_head_messy",
+      "y": 180
+    },
+    "facing=west,part=foot,messy=true": {
+      "model": "nekomasfixed:block/amber_bed_foot_messy",
+      "y": 270
+    },
+    "facing=west,part=head,messy=true": {
+      "model": "nekomasfixed:block/amber_bed_head_messy",
+      "y": 270
     }
   }
 }

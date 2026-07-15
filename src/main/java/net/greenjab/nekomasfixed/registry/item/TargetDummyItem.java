@@ -11,6 +11,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.PostSpawnProcessor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,8 +21,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
-
-import java.util.function.Consumer;
 
 public class TargetDummyItem extends Item {
     public TargetDummyItem(Item.Properties settings) {
@@ -40,8 +39,8 @@ public class TargetDummyItem extends Item {
         AABB box = EntityTypeRegistry.TARGET_DUMMY.getDimensions().makeBoundingBox(vec3d.x(), vec3d.y(), vec3d.z());
         if (level.noCollision(null, box) && level.getEntities(null, box).isEmpty()) {
             if (level instanceof ServerLevel serverLevel) {
-                Consumer<TargetDummy> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, context.getPlayer());
-                TargetDummy targetDummy = EntityTypeRegistry.TARGET_DUMMY.create(serverLevel, consumer, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
+                PostSpawnProcessor<TargetDummy> entityConfig = EntityType.createDefaultStackConfig(serverLevel, itemStack, context.getPlayer());
+                TargetDummy targetDummy = EntityTypeRegistry.TARGET_DUMMY.create(serverLevel, entityConfig, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
                 if (targetDummy == null)  return InteractionResult.FAIL;
                 float f = Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                 targetDummy.snapTo(targetDummy.getX(), targetDummy.getY(), targetDummy.getZ(), f, 0.0F);

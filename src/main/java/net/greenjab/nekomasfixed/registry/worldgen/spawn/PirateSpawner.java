@@ -13,7 +13,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raid;
@@ -88,9 +88,9 @@ public class PirateSpawner implements CustomSpawner {
 
     private boolean spawnBoat(ServerLevel world, BlockPos pos, RandomSource random, int boatType, boolean captain) {
         BlockState blockState = world.getBlockState(pos);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(world, pos, blockState, blockState.getFluidState(), EntityType.PILLAGER)) {
+        if (!NaturalSpawner.isValidEmptySpawnBlock(world, pos, blockState, blockState.getFluidState(), EntityTypes.PILLAGER)) {
             return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityType.PILLAGER, world, EntitySpawnReason.PATROL, pos, random)) {
+        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityTypes.PILLAGER, world, EntitySpawnReason.PATROL, pos, random)) {
             return false;
         } else {
             if (captain) return spawnCaptainBoat(world, pos, random, boatType);
@@ -107,9 +107,9 @@ public class PirateSpawner implements CustomSpawner {
         bigBoat.setHasChest(true);
         bigBoat.setContainerLootTable(ResourceKey.create(Registries.LOOT_TABLE, NekomasFixed.id("chests/patrol_boat")));
         bigBoat.setContainerLootTableSeed(random.nextLong());
-        bigBoat.snapTo(pos.getCenter());
+        bigBoat.snapTo(Vec3.atCenterOf(pos));
         for (int i = 0; i < world.getDifficulty().getId();i++) {
-            PatrollingMonster patrolEntity = EntityType.PILLAGER.create(world, EntitySpawnReason.PATROL);
+            PatrollingMonster patrolEntity = EntityTypes.PILLAGER.create(world, EntitySpawnReason.PATROL);
             patrolEntity.setPos(pos.getX(), pos.getY(), pos.getZ());
             patrolEntity.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), EntitySpawnReason.PATROL, null);
             patrolEntity.startRiding(bigBoat);
@@ -121,8 +121,8 @@ public class PirateSpawner implements CustomSpawner {
     boolean spawnSmallBoat(ServerLevel world, BlockPos pos, RandomSource random, int boatType){
         AbstractBoat boatEntity = EntityTypeRegistry.boats.get(boatType).create(world, EntitySpawnReason.PATROL);
         if (boatEntity != null) {
-            boatEntity.snapTo(pos.getCenter());
-            PatrollingMonster patrolEntity = EntityType.PILLAGER.create(world, EntitySpawnReason.PATROL);
+            boatEntity.snapTo(Vec3.atCenterOf(pos));
+            PatrollingMonster patrolEntity = EntityTypes.PILLAGER.create(world, EntitySpawnReason.PATROL);
             patrolEntity.setPos(pos.getX(), pos.getY(), pos.getZ());
             patrolEntity.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), EntitySpawnReason.PATROL, null);
             patrolEntity.startRiding(boatEntity);

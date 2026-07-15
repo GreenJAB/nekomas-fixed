@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.registry.block.entity;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
-import net.greenjab.nekomasfixed.screen.KilnScreenHandler;
+import net.greenjab.nekomasfixed.screen.KilnMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -32,6 +32,6 @@ public class KilnBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected @NonNull AbstractContainerMenu createMenu(int syncId, @NonNull Inventory playerInventory) {
-        return new KilnScreenHandler(syncId, playerInventory, this, this.dataAccess);
+        return new KilnMenu(syncId, playerInventory, this, this.dataAccess);
     }
 }

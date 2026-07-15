@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
-import net.greenjab.nekomasfixed.screen.PyrotechnicsTableScreenHandler;
+import net.greenjab.nekomasfixed.screen.PyrotechnicsMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -41,7 +41,7 @@ public class PyrotechnicsTableBlock extends HorizontalDirectionalBlock {
 
     @Override
     protected MenuProvider getMenuProvider(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos) {
-        return new SimpleMenuProvider((syncId, inventory, _) -> new PyrotechnicsTableScreenHandler(syncId, inventory), TITLE);
+        return new SimpleMenuProvider((syncId, inventory, _) -> new PyrotechnicsMenu(syncId, inventory), TITLE);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {

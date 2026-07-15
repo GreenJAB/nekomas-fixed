@@ -139,8 +139,7 @@ public class SpearEntity extends Entity {
 				PiercingWeapon piercingWeaponComponent = stack.get(DataComponents.PIERCING_WEAPON);
 				if (piercingWeaponComponent != null) {
 					piercingWeaponComponent.attack(player, EquipmentSlot.MAINHAND);
-
-					float f = EnchantmentHelper.modifyDamage(level, stack, target, stack.getDamageSource(player, () -> player.damageSources().playerAttack(player)), getDamageValue(stack));
+					float f = EnchantmentHelper.modifyDamage(level, stack, target, stack.getDamageSource(player), getDamageValue(stack));
 					player.attackStrengthTicker =1000;
 					player.stabAttack(EquipmentSlot.MAINHAND, target, f, true, direction.getAxis().isHorizontal(), false);
 

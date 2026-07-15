@@ -20,7 +20,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
-        valueLookupBuilder(ModTags.DYED_BRICKS)
+        //TODO datagen tags
+        /*valueLookupBuilder(ModTags.DYED_BRICKS)
                 .add((Block) BlockDyeMap.BRICKS.values());
         valueLookupBuilder(ModTags.DYED_BRICK_SLABS)
                 .add((Block) BlockDyeMap.BRICK_SLAB.values());
@@ -83,7 +84,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.BRICK_SLAB)
                 .add(Blocks.BRICK_STAIRS)
                 .add(Blocks.BRICK_WALL)
-                .add(Blocks.SHULKER_BOX);
+                .add(Blocks.SHULKER_BOX);*/
     }
 
 }

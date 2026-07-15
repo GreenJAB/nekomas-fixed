@@ -30,22 +30,22 @@ public abstract class EntityMixin {
 
     @Unique
     private Item getSpottedWoolItem(Item original) {
-        if (original == Items.WHITE_WOOL) return BlockRegistry.WHITE_SPOTTED_WOOL.asItem();
-        if (original == Items.ORANGE_WOOL) return BlockRegistry.ORANGE_SPOTTED_WOOL.asItem();
-        if (original == Items.MAGENTA_WOOL) return BlockRegistry.MAGENTA_SPOTTED_WOOL.asItem();
-        if (original == Items.LIGHT_BLUE_WOOL) return BlockRegistry.LIGHT_BLUE_SPOTTED_WOOL.asItem();
-        if (original == Items.YELLOW_WOOL) return BlockRegistry.YELLOW_SPOTTED_WOOL.asItem();
-        if (original == Items.LIME_WOOL) return BlockRegistry.LIME_SPOTTED_WOOL.asItem();
-        if (original == Items.PINK_WOOL) return BlockRegistry.PINK_SPOTTED_WOOL.asItem();
-        if (original == Items.GRAY_WOOL) return BlockRegistry.GRAY_SPOTTED_WOOL.asItem();
-        if (original == Items.LIGHT_GRAY_WOOL) return BlockRegistry.LIGHT_GRAY_SPOTTED_WOOL.asItem();
-        if (original == Items.CYAN_WOOL) return BlockRegistry.CYAN_SPOTTED_WOOL.asItem();
-        if (original == Items.PURPLE_WOOL) return BlockRegistry.PURPLE_SPOTTED_WOOL.asItem();
-        if (original == Items.BLUE_WOOL) return BlockRegistry.BLUE_SPOTTED_WOOL.asItem();
-        if (original == Items.BROWN_WOOL) return BlockRegistry.BROWN_SPOTTED_WOOL.asItem();
-        if (original == Items.GREEN_WOOL) return BlockRegistry.GREEN_SPOTTED_WOOL.asItem();
-        if (original == Items.RED_WOOL) return BlockRegistry.RED_SPOTTED_WOOL.asItem();
-        if (original == Items.BLACK_WOOL) return BlockRegistry.BLACK_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.white()) return BlockRegistry.WHITE_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.orange()) return BlockRegistry.ORANGE_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.magenta()) return BlockRegistry.MAGENTA_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.lightBlue()) return BlockRegistry.LIGHT_BLUE_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.yellow()) return BlockRegistry.YELLOW_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.lime()) return BlockRegistry.LIME_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.pink()) return BlockRegistry.PINK_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.gray()) return BlockRegistry.GRAY_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.lightGray()) return BlockRegistry.LIGHT_GRAY_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.cyan()) return BlockRegistry.CYAN_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.purple()) return BlockRegistry.PURPLE_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.blue()) return BlockRegistry.BLUE_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.brown()) return BlockRegistry.BROWN_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.green()) return BlockRegistry.GREEN_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.red()) return BlockRegistry.RED_SPOTTED_WOOL.asItem();
+        if (original == Items.WOOL.black()) return BlockRegistry.BLACK_SPOTTED_WOOL.asItem();
 
         if (original == ItemRegistry.AMBER_WOOL) return BlockRegistry.AMBER_SPOTTED_WOOL.asItem();
         if (original == ItemRegistry.AQUA_WOOL) return BlockRegistry.AQUA_SPOTTED_WOOL.asItem();

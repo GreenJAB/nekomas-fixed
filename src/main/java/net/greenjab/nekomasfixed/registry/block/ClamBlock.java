@@ -294,7 +294,7 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 									.reloadableRegistries()
 									.getLootTable(LootTableRegistry.CLAM_LOOT_TABLE);
 
-							LootParams lootContextParameterSet = (new LootParams.Builder(level)).withParameter(LootContextParams.ORIGIN, pos.getCenter()).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(this.getClamType())).create(LootContextParamSets.FISHING);
+							LootParams lootContextParameterSet = (new LootParams.Builder(level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos)).withParameter(LootContextParams.TOOL, null).withParameter(LootContextParams.THIS_ENTITY, null).withLuck(getLuck(this.getClamType())).create(LootContextParamSets.FISHING);
 
 							ObjectArrayList<ItemStack> loots = lootTable.getRandomItems(lootContextParameterSet);
 							if (!loots.isEmpty()) {

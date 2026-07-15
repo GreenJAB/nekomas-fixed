@@ -35,10 +35,10 @@ public class WildfireMovementUtil {
 				mutable.setWithOffset(blockPos, x, y, z);
 			}
 			if (wildFire.isWithinHome(mutable) && wildFire.level().getBlockState(mutable).is(BlockTags.FIRE)) {
-				return mutable.getCenter();
+				return Vec3.atCenterOf(mutable);
 			}
 		}
-		if (findAnyway) return mutable.getCenter();
+		if (findAnyway) return Vec3.atCenterOf(mutable);
 		return null;
 	}
 }

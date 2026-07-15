@@ -4,6 +4,7 @@ import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ConversionParams;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.Level;
@@ -30,7 +31,7 @@ public abstract class ZombieMixin extends Monster {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickDrenchedConversion(CallbackInfo ci) {
-        if (this.level() instanceof ServerLevel level && this.isAlive() && this.isInPowderSnow && this.getType() == EntityType.ZOMBIE) {
+        if (this.level() instanceof ServerLevel level && this.isAlive() && this.isInPowderSnow && this.getType() == EntityTypes.ZOMBIE) {
             this.inPowderSnowTime++;
             if (this.inPowderSnowTime >= 450) {
                 Zombie ZE = (Zombie)(Object)this;

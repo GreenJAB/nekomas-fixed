@@ -127,7 +127,7 @@ public class ClockBlockEntity extends BlockEntity implements ItemOwner {
 
 	@Override
 	public @NonNull Vec3 position() {
-		return this.getBlockPos().getCenter();
+		return Vec3.atCenterOf(this.getBlockPos());
 	}
 
 	@Override

@@ -96,7 +96,7 @@ public class PlayerMixin {
                 livingTarget.knockback(
                         0.4,
                         Mth.sin(PE.getYRot() * ((float)Math.PI / 180F)),
-                        (-Mth.cos(PE.getYRot() * ((float)Math.PI / 180F)))
+                        (-Mth.cos(PE.getYRot() * ((float)Math.PI / 180F))), source, damage
                 );
             }
             return true;

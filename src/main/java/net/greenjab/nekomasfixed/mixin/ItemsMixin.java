@@ -2,6 +2,8 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.core.Direction;
+import net.minecraft.references.BlockItemId;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.StandingAndWallBlockItem;
@@ -20,16 +22,17 @@ import java.util.function.BiFunction;
 @Mixin(Items.class)
 public class ItemsMixin {
 
+
 	@Shadow
-	private static Item registerBlock(Block block, BiFunction<Block, Item.Properties, Item> itemFactory, Item.Properties properties) {
+	private static Item registerBlock(BlockItemId id, Block block, BiFunction<Block, Item.Properties, Item> itemFactory, Item.Properties properties) {
 		throw new UnsupportedOperationException("Implemented via mixin");
 	}
 
-	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Items;registerItem(Ljava/lang/String;)Lnet/minecraft/world/item/Item;"), slice = @Slice( from =
-	@At(value = "CONSTANT", args = "stringValue=clock"), to =
+	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Items;registerItem(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/item/Item;"), slice = @Slice( from =
+	@At(value = "FIELD", target = "Lnet/minecraft/references/ItemIds;CLOCK:Lnet/minecraft/resources/ResourceKey;", opcode = Opcodes.GETSTATIC), to =
 	@At(value = "FIELD",target = "Lnet/minecraft/world/item/Items;CLOCK:Lnet/minecraft/world/item/Item;", opcode = Opcodes.PUTSTATIC)))
-	private static Item wallFloorClock(String name) {
-		return registerBlock(BlockRegistry.CLOCK, (block, settings) -> new StandingAndWallBlockItem(
+	private static Item wallFloorClock(ResourceKey<Item> id) {
+		return registerBlock(BlockItemId.create("clock"), BlockRegistry.CLOCK, (block, settings) -> new StandingAndWallBlockItem(
 						block, BlockRegistry.WALL_CLOCK, Direction.DOWN, Waypoint.addHideAttribute(settings)),
 				new Item.Properties());
 	}

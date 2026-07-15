@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(ItemInHandRenderer.class)
 public class ItemInHandRendererMixin {
 
-    @ModifyConstant(method="renderArmWithItem", constant = @Constant(floatValue = 20.0f))
+    @ModifyConstant(method="submitArmWithItem", constant = @Constant(floatValue = 20.0f))
     private float slingshotFasterPullTime(float constant, @Local(argsOnly = true) AbstractClientPlayer player) {
        if (player.getUseItem().is(ItemRegistry.SLINGSHOT)) {
            return constant/2;

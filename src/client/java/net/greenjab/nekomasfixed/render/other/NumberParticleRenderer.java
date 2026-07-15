@@ -37,13 +37,13 @@ public class NumberParticleRenderer extends ParticleGroup<NumberParticle> {
         public void submit(@NonNull SubmitNodeCollector orderedRenderCommandQueue, @NonNull CameraRenderState cameraRenderState) {
             for (NumberParticleRenderer.State state : this.states) {
                 orderedRenderCommandQueue.submitNameTag(state.matrices, new Vec3(0, 0, 0), 0,
-                        Component.nullToEmpty(state.damage), true, state.color, 100.6789, cameraRenderState);
+                        Component.nullToEmpty(state.damage), false, state.color, cameraRenderState);
             }
         }
     }
 
     @Environment(EnvType.CLIENT)
-    public  record State(String damage, PoseStack matrices, RenderType renderLayer, int color) {
+    public record State(String damage, PoseStack matrices, RenderType renderLayer, int color) {
 
         public static NumberParticleRenderer.State create(NumberParticle particle, Camera camera, float tickProgress) {
             PoseStack matrixStack = new PoseStack();
@@ -52,7 +52,7 @@ public class NumberParticleRenderer extends ParticleGroup<NumberParticle> {
             float age = particle.getAge()+tickProgress;
             float ageScale = (float) (Math.sin(Math.min(age,8)/5)*Math.min(0.5+particle.getDamage()/10.0, 2));
 
-            int ii = ARGB.colorFromFloat(Math.clamp((particle.getLifetime() - age) / 8f, 0, 1), 1.0F, 1.0F, 1.0F);
+            int ii = ARGB.color((int) (Math.clamp((particle.getLifetime() - age) / 8f, 0, 1)*255), 254, 255, 255);
             matrixStack.translate(pos);
             matrixStack.scale(ageScale, ageScale, ageScale);
 
