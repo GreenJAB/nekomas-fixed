@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.HolderLookup;
@@ -21,6 +22,11 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
         //TODO datagen tags
+
+        //tag(ModTags.DYED_BRICKS).add(BlockRegistry.WHITE_BRICKS.properties().blockId());
+        //tag(ModTags.DYED_BRICKS).add(BlockRegistry.WHITE_BRICKS.properties().blockId());
+        //BlockDyeMap.BRICKS.values().forEach(b->tag(ModTags.DYED_BRICKS).add(b.properties().blockId()));
+        //BlockDyeMap.BRICKS.values().forEach(b->tag(ModTags.DYED_BRICKS).add(b.properties().blockId()));
         /*valueLookupBuilder(ModTags.DYED_BRICKS)
                 .add((Block) BlockDyeMap.BRICKS.values());
         valueLookupBuilder(ModTags.DYED_BRICK_SLABS)

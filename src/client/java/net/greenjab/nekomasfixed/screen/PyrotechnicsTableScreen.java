@@ -25,24 +25,24 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class PyrotechnicsTableScreen extends AbstractContainerScreen<PyrotechnicsMenu> {
 
-    private static final Identifier TEXTURE = NekomasFixed.id("textures/gui/container/pyrotechnics_table.png");
+    private static final Identifier TEXTURE = NekomasFixed.id("textures/gui/container/pyrotechnics.png");
 
-    private static final Identifier BUTTON_SELECTED_TEXTURE = NekomasFixed.id("container/pyrotechnics_table/button_selected");
-    private static final Identifier BUTTON_HIGHLIGHTED_TEXTURE = NekomasFixed.id("container/pyrotechnics_table/button_highlighted");
-    private static final Identifier BUTTON_TEXTURE = NekomasFixed.id("container/pyrotechnics_table/button");
+    private static final Identifier BUTTON_SELECTED_TEXTURE = NekomasFixed.id("container/pyrotechnics/button_selected");
+    private static final Identifier BUTTON_HIGHLIGHTED_TEXTURE = NekomasFixed.id("container/pyrotechnics/button_highlighted");
+    private static final Identifier BUTTON_TEXTURE = NekomasFixed.id("container/pyrotechnics/button");
 
-    private static final Identifier DYE_ICON = NekomasFixed.id("container/pyrotechnics_table/dye");
-    private static final Identifier PAPER_ICON = NekomasFixed.id("container/pyrotechnics_table/paper");
-    private static final Identifier GUNPOWDER_ICON = NekomasFixed.id("container/pyrotechnics_table/gunpowder");
-    private static final Identifier FIREWORK_STAR_ICON = NekomasFixed.id("container/pyrotechnics_table/firework_star");
+    private static final Identifier DYE_ICON = NekomasFixed.id("container/pyrotechnics/dye");
+    private static final Identifier PAPER_ICON = NekomasFixed.id("container/pyrotechnics/paper");
+    private static final Identifier GUNPOWDER_ICON = NekomasFixed.id("container/pyrotechnics/gunpowder");
+    private static final Identifier FIREWORK_STAR_ICON = NekomasFixed.id("container/pyrotechnics/firework_star");
 
-    private static final Identifier EMPTY_ICON = NekomasFixed.id("container/pyrotechnics_table/empty");
-    private static final Identifier FIRE_CHARGE_ICON = NekomasFixed.id("container/pyrotechnics_table/fire_charge");
-    private static final Identifier GOLD_NUGGET_ICON = NekomasFixed.id("container/pyrotechnics_table/gold_nugget");
-    private static final Identifier CREEPER_PATTERN_ICON = NekomasFixed.id("container/pyrotechnics_table/creeper_pattern");
-    private static final Identifier FEATHER_ICON = NekomasFixed.id("container/pyrotechnics_table/feather");
-    private static final Identifier GLOWSTONE_ICON = NekomasFixed.id("container/pyrotechnics_table/glowstone");
-    private static final Identifier DIAMOND = NekomasFixed.id("container/pyrotechnics_table/diamond");
+    private static final Identifier EMPTY_ICON = NekomasFixed.id("container/pyrotechnics/empty");
+    private static final Identifier FIRE_CHARGE_ICON = NekomasFixed.id("container/pyrotechnics/fire_charge");
+    private static final Identifier GOLD_NUGGET_ICON = NekomasFixed.id("container/pyrotechnics/gold_nugget");
+    private static final Identifier CREEPER_PATTERN_ICON = NekomasFixed.id("container/pyrotechnics/creeper_pattern");
+    private static final Identifier FEATHER_ICON = NekomasFixed.id("container/pyrotechnics/feather");
+    private static final Identifier GLOWSTONE_ICON = NekomasFixed.id("container/pyrotechnics/glowstone");
+    private static final Identifier DIAMOND = NekomasFixed.id("container/pyrotechnics/diamond");
 
     private final CyclingSlotBackground dyeOrStarSlotIcon = new CyclingSlotBackground(0);
     private static final List<Identifier> DYE_OR_STAR_TEXTURES = List.of(
@@ -99,7 +99,7 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
     public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, NekomasFixed.id("container/pyrotechnics_table/"+ANIMATIONS.get(this.menu.getSelectedPattern()).getFirst()), leftPos+98, topPos+15, 71, 71);
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, NekomasFixed.id("container/pyrotechnics/"+ANIMATIONS.get(this.menu.getSelectedPattern()).getFirst()), leftPos+98, topPos+15, 71, 71);
         for (Slot slot : this.menu.slots){
             if (slot.isActive() && slot.getContainerSlot()>0 && slot.container instanceof SimpleContainer) {
                 context.blitSprite(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, leftPos+slot.x-1, topPos+slot.y-1, 18, 18);
@@ -139,7 +139,7 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
                 if (index == this.menu.getSelectedPattern()) identifier2 = BUTTON_SELECTED_TEXTURE;
                 else if (bl) {
                     identifier2 = BUTTON_HIGHLIGHTED_TEXTURE;
-                    context.setTooltipForNextFrame(Component.translatable("container.nekomasfixed.pyrotechnics_table."+ANIMATIONS.get(index).getFirst()), mouseX, mouseY);
+                    context.setTooltipForNextFrame(Component.translatable("container.nekomasfixed.pyrotechnics."+ANIMATIONS.get(index).getFirst()), mouseX, mouseY);
                     context.requestCursor(CursorTypes.POINTING_HAND);
                 } else identifier2 = BUTTON_TEXTURE;
 

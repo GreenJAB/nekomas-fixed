@@ -20,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 public class PyrotechnicsTableBlock extends HorizontalDirectionalBlock {
 
     public static final MapCodec<PyrotechnicsTableBlock> CODEC = simpleCodec(PyrotechnicsTableBlock::new);
-    private static final Component TITLE = Component.translatable("container.nekomasfixed.pyrotechnics_table");
+    private static final Component TITLE = Component.translatable("container.nekomasfixed.pyrotechnics");
 
     public PyrotechnicsTableBlock(Properties settings) {
         super(settings);

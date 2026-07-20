@@ -20,9 +20,9 @@ public class ScreenHandlerRegistry {
     public static final MenuType<PyrotechnicsMenu> PYROTECHNICS =
             Registry.register(
                     BuiltInRegistries.MENU,
-                    NekomasFixed.id("pyrotechnics_table"),
+                    NekomasFixed.id("pyrotechnics"),
                     new MenuType<>(PyrotechnicsMenu::new, FeatureFlags.VANILLA_SET)
-            );//TODO remove table
+            );
 
     public static void registerScreenHandlers() {
         NekomasFixed.LOGGER.info("Registering screen handlers for " + "nekomasfixed");

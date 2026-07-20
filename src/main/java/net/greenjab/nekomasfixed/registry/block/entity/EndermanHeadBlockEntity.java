@@ -1,7 +1,6 @@
 package net.greenjab.nekomasfixed.registry.block.entity;
 
 import net.greenjab.nekomasfixed.registry.block.AbstractEndermanHeadBlock;
-import net.greenjab.nekomasfixed.registry.block.FloorEndermanHeadHead;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentGetter;
@@ -14,7 +13,6 @@ import net.minecraft.server.players.PlayerList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
@@ -27,9 +25,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-	//TODO test if need itemowner
-public class EndermanHeadBlockEntity extends BlockEntity implements ItemOwner {
+public class EndermanHeadBlockEntity extends BlockEntity {
 
 	protected EndermanHeadBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
 		super(blockEntityType, blockPos, blockState);
@@ -66,21 +62,6 @@ public class EndermanHeadBlockEntity extends BlockEntity implements ItemOwner {
 	@Override
 	protected void collectImplicitComponents(DataComponentMap.@NonNull Builder builder) {
 		super.collectImplicitComponents(builder);
-	}
-
-	@Override
-	public @Nullable Level level() {
-		return this.level;
-	}
-
-	@Override
-	public Vec3 position() {
-		return Vec3.atCenterOf(this.getBlockPos());
-	}
-
-	@Override
-	public float getVisualRotationYInDegrees() {
-		return this.getBlockState().getValue(FloorEndermanHeadHead.ROTATION);
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, EndermanHeadBlockEntity blockEntity) {
