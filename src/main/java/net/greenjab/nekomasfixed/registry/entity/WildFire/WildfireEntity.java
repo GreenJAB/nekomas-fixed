@@ -106,6 +106,7 @@ public class WildfireEntity extends Monster {
 		spawnPos = new BlockPos(view.getIntOr("spawnX", 0), view.getIntOr("spawnY", 0), view.getIntOr("spawnZ", 0));
 		if (this.hasCustomName()) {
 			this.bossBar.setName(this.getDisplayName());
+			if (isSoulActive()) this.bossBar.setColor(BossEvent.BossBarColor.BLUE);
 		}
 	}
 	public void setCustomName(@Nullable Component name) {

@@ -152,8 +152,11 @@ public class PyrotechnicsTableScreenHandler extends AbstractContainerMenu {
         if (slot.hasItem()) {
             ItemStack itemStack2 = slot.getItem();
             itemStack = itemStack2.copy();
-            if (slotIndex < 15) if (!this.moveItemStackTo(itemStack2, 15, 51, true)) return ItemStack.EMPTY;
-            else if (!this.moveItemStackTo(itemStack2, 0, 14, false)) return ItemStack.EMPTY;
+            if (slotIndex < 15) {
+                if (!this.moveItemStackTo(itemStack2, 15, 51, true)) return ItemStack.EMPTY;
+            } else {
+                if (!this.moveItemStackTo(itemStack2, 0, 14, false)) return ItemStack.EMPTY;
+            }
 
             if (itemStack2.isEmpty()) slot.setByPlayer(ItemStack.EMPTY);
             else slot.setChanged();
