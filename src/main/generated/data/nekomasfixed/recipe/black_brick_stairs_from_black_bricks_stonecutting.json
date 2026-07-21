@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "nekomasfixed:black_bricks",
   "result": {
-    "count": 1,
     "id": "nekomasfixed:black_brick_stairs"
   }
 }

@@ -4,7 +4,7 @@
   "group": "dyed_brick_wall_dyed",
   "key": {
     "#": "minecraft:brick_wall",
-    "D": "minecraft:lime_dye"
+    "D": "minecraft:lime_wool"
   },
   "pattern": [
     "###",

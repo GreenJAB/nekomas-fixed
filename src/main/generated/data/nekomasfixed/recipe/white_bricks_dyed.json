@@ -4,7 +4,7 @@
   "group": "dyed_bricks_dyed",
   "key": {
     "#": "minecraft:bricks",
-    "D": "minecraft:white_dye"
+    "D": "minecraft:white_wool"
   },
   "pattern": [
     "###",

@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "nekomasfixed:aqua_bricks",
   "result": {
-    "count": 1,
     "id": "nekomasfixed:aqua_brick_stairs"
   }
 }

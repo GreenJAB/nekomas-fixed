@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_light_gray_dye": {
+    "has_light_gray_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:light_gray_dye"
+            "items": "minecraft:light_gray_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_brick_wall",
-      "has_light_gray_dye"
+      "has_light_gray_wool"
     ]
   ],
   "rewards": {

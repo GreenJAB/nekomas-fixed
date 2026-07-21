@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "spotted_carpet_dye",
   "ingredients": [
-    "minecraft:green_dye",
+    "minecraft:green_wool",
     [
       "nekomasfixed:white_spotted_carpet",
       "nekomasfixed:orange_spotted_carpet",
@@ -27,7 +26,6 @@
     ]
   ],
   "result": {
-    "count": 1,
     "id": "nekomasfixed:green_spotted_carpet"
   }
 }

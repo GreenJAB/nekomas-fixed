@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "spotted_carpet_dye",
   "ingredients": [
     "nekomasfixed:indigo_dye",
@@ -27,7 +26,6 @@
     ]
   ],
   "result": {
-    "count": 1,
     "id": "nekomasfixed:indigo_spotted_carpet"
   }
 }

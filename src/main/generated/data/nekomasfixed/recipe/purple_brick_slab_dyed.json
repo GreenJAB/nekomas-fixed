@@ -4,7 +4,7 @@
   "group": "dyed_brick_slab_dyed",
   "key": {
     "#": "minecraft:brick_slab",
-    "D": "minecraft:purple_dye"
+    "D": "minecraft:purple_wool"
   },
   "pattern": [
     "###",

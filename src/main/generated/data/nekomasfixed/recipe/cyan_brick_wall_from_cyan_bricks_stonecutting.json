@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "nekomasfixed:cyan_bricks",
   "result": {
-    "count": 1,
     "id": "nekomasfixed:cyan_brick_wall"
   }
 }

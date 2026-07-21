@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "spotted_carpet_dye",
   "ingredients": [
-    "minecraft:orange_dye",
+    "minecraft:orange_wool",
     [
       "nekomasfixed:white_spotted_carpet",
       "nekomasfixed:magenta_spotted_carpet",
@@ -27,7 +26,6 @@
     ]
   ],
   "result": {
-    "count": 1,
     "id": "nekomasfixed:orange_spotted_carpet"
   }
 }

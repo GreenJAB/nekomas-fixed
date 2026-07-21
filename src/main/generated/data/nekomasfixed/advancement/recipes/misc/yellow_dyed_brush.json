@@ -17,11 +17,11 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_yellow_dye": {
+    "has_yellow_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:yellow_dye"
+            "items": "minecraft:yellow_wool"
           }
         ]
       },
@@ -31,7 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_yellow_dye",
+      "has_yellow_wool",
       "has_brush"
     ]
   ],

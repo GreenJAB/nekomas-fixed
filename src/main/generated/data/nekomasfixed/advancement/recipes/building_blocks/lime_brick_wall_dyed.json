@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_lime_dye": {
+    "has_lime_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:lime_dye"
+            "items": "minecraft:lime_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_brick_wall",
-      "has_lime_dye"
+      "has_lime_wool"
     ]
   ],
   "rewards": {

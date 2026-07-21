@@ -17,11 +17,11 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_white_dye": {
+    "has_white_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:white_dye"
+            "items": "minecraft:white_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_brick_stairs",
-      "has_white_dye"
+      "has_white_wool"
     ]
   ],
   "rewards": {

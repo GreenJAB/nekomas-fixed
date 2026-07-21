@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_brown_dye": {
+    "has_brown_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:brown_dye"
+            "items": "minecraft:brown_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_brick_wall",
-      "has_brown_dye"
+      "has_brown_wool"
     ]
   ],
   "rewards": {

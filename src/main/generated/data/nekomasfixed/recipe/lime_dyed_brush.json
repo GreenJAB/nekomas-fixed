@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "dyed_brush",
   "key": {
-    "#": "minecraft:lime_dye",
+    "#": "minecraft:lime_wool",
     "D": "minecraft:brush"
   },
   "pattern": [
@@ -12,7 +11,6 @@
     "###"
   ],
   "result": {
-    "count": 1,
     "id": "nekomasfixed:lime_dyed_brush"
   }
 }

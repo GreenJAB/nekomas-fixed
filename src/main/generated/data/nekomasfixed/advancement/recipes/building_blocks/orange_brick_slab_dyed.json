@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_orange_dye": {
+    "has_orange_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:orange_dye"
+            "items": "minecraft:orange_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_brick_slab",
-      "has_orange_dye"
+      "has_orange_wool"
     ]
   ],
   "rewards": {

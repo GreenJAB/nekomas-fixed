@@ -4,7 +4,7 @@
   "group": "dyed_brick_stairs_dyed",
   "key": {
     "#": "minecraft:brick_stairs",
-    "D": "minecraft:brown_dye"
+    "D": "minecraft:brown_wool"
   },
   "pattern": [
     "###",

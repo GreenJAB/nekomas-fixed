@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "dyed_brush",
   "key": {
-    "#": "minecraft:red_dye",
+    "#": "minecraft:red_wool",
     "D": "minecraft:brush"
   },
   "pattern": [
@@ -12,7 +11,6 @@
     "###"
   ],
   "result": {
-    "count": 1,
     "id": "nekomasfixed:red_dyed_brush"
   }
 }

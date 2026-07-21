@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_pink_dye": {
+    "has_pink_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:pink_dye"
+            "items": "minecraft:pink_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_brick_stairs",
-      "has_pink_dye"
+      "has_pink_wool"
     ]
   ],
   "rewards": {

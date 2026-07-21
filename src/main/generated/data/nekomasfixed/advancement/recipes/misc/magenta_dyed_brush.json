@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_magenta_dye": {
+    "has_magenta_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:magenta_dye"
+            "items": "minecraft:magenta_wool"
           }
         ]
       },
@@ -31,7 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_magenta_dye",
+      "has_magenta_wool",
       "has_brush"
     ]
   ],

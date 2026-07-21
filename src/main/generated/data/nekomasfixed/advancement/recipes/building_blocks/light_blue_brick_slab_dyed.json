@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_light_blue_dye": {
+    "has_light_blue_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:light_blue_dye"
+            "items": "minecraft:light_blue_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_brick_slab",
-      "has_light_blue_dye"
+      "has_light_blue_wool"
     ]
   ],
   "rewards": {

@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_cyan_dye": {
+    "has_cyan_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:cyan_dye"
+            "items": "minecraft:cyan_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_bricks",
-      "has_cyan_dye"
+      "has_cyan_wool"
     ]
   ],
   "rewards": {

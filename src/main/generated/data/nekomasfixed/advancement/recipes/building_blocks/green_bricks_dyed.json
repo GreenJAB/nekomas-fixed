@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_green_dye": {
+    "has_green_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:green_dye"
+            "items": "minecraft:green_wool"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_bricks",
-      "has_green_dye"
+      "has_green_wool"
     ]
   ],
   "rewards": {

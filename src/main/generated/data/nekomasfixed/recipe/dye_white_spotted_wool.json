@@ -3,7 +3,7 @@
   "category": "building",
   "group": "spotted_wool",
   "ingredients": [
-    "minecraft:white_dye",
+    "minecraft:white_wool",
     [
       "nekomasfixed:orange_spotted_wool",
       "nekomasfixed:magenta_spotted_wool",
@@ -27,7 +27,6 @@
     ]
   ],
   "result": {
-    "count": 1,
     "id": "nekomasfixed:white_spotted_wool"
   }
 }

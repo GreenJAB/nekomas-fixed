@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_black_dye": {
+    "has_black_wool": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:black_dye"
+            "items": "minecraft:black_wool"
           }
         ]
       },
@@ -31,7 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_black_dye",
+      "has_black_wool",
       "has_brush"
     ]
   ],
