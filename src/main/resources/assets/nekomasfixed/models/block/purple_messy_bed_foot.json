@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/template_bed_foot",
+  "textures": {
+    "east": "nekomasfixed:block/purple_messy_bed_foot_east",
+    "south": "nekomasfixed:block/purple_messy_bed_foot_south",
+    "up": "nekomasfixed:block/purple_messy_bed_foot_up",
+    "west": "nekomasfixed:block/purple_messy_bed_foot_west"
+  }
+}
