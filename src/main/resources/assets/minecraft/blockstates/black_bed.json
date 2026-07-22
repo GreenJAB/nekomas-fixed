@@ -31,33 +31,33 @@
       "y": 270
     },
     "facing=east,part=foot,messy=true": {
-      "model": "nekomasfixed:block/black_bed_foot_messy",
+      "model": "nekomasfixed:block/black_messy_bed_foot",
       "y": 90
     },
     "facing=east,part=head,messy=true": {
-      "model": "nekomasfixed:block/black_bed_head_messy",
+      "model": "nekomasfixed:block/black_messy_bed_head",
       "y": 90
     },
     "facing=north,part=foot,messy=true": {
-      "model": "nekomasfixed:block/black_bed_foot_messy"
+      "model": "nekomasfixed:block/black_messy_bed_foot"
     },
     "facing=north,part=head,messy=true": {
-      "model": "nekomasfixed:block/black_bed_head_messy"
+      "model": "nekomasfixed:block/black_messy_bed_head"
     },
     "facing=south,part=foot,messy=true": {
-      "model": "nekomasfixed:block/black_bed_foot_messy",
+      "model": "nekomasfixed:block/black_messy_bed_foot",
       "y": 180
     },
     "facing=south,part=head,messy=true": {
-      "model": "nekomasfixed:block/black_bed_head_messy",
+      "model": "nekomasfixed:block/black_messy_bed_head",
       "y": 180
     },
     "facing=west,part=foot,messy=true": {
-      "model": "nekomasfixed:block/black_bed_foot_messy",
+      "model": "nekomasfixed:block/black_messy_bed_foot",
       "y": 270
     },
     "facing=west,part=head,messy=true": {
-      "model": "nekomasfixed:block/black_bed_head_messy",
+      "model": "nekomasfixed:block/black_messy_bed_head",
       "y": 270
     }
   }
