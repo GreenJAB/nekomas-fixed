@@ -245,4 +245,10 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
     protected @NonNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
         return CODEC;
     }
+
+
+    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+        Holder<Instrument> entry = level.registryAccess().lookupOrThrow(Registries.INSTRUMENT).getOrThrow(state.getValue(HORN).getInstrument());
+        return InstrumentItem.create(Items.GOAT_HORN, entry);
+    }
 }

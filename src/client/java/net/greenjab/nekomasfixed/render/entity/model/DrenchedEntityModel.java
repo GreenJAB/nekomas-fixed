@@ -46,17 +46,15 @@ public class DrenchedEntityModel extends SkeletonModel<DrenchedEntityRenderState
     public void setupAnim(@NonNull DrenchedEntityRenderState drenchedEntityRenderState) {
         super.setupAnim(drenchedEntityRenderState);
 
-        float f = drenchedEntityRenderState.swimAmount;
-        if (f > 0.0F) {
-            this.rightArm.xRot = Mth.rotLerpRad(f, this.rightArm.xRot, (float) (-Math.PI * 4.0 / 5.0))
-                    + f * 0.35F * Mth.sin(0.1F * drenchedEntityRenderState.ageInTicks);
-            this.leftArm.xRot = Mth.rotLerpRad(f, this.leftArm.xRot, (float) (-Math.PI * 4.0 / 5.0))
-                    - f * 0.35F * Mth.sin(0.1F * drenchedEntityRenderState.ageInTicks);
-            this.rightArm.zRot = Mth.rotLerpRad(f, this.rightArm.zRot, -0.15F);
-            this.leftArm.zRot = Mth.rotLerpRad(f, this.leftArm.zRot, 0.15F);
-            this.leftLeg.xRot = this.leftLeg.xRot - f * 0.55F * Mth.sin(0.1F * drenchedEntityRenderState.ageInTicks);
-            this.rightLeg.xRot = this.rightLeg.xRot + f * 0.55F * Mth.sin(0.1F * drenchedEntityRenderState.ageInTicks);
-            this.head.xRot = 0;
+        float swimAmount = drenchedEntityRenderState.swimAmount;
+        if (swimAmount > 0.0F) {
+            this.rightArm.xRot = Mth.rotLerpRad(swimAmount, this.rightArm.xRot, (float) (-Math.PI * 4.0 / 5.0 - 90*Math.PI/180.0)) + swimAmount * 0.35F * Mth.sin((0.1F * drenchedEntityRenderState.ageInTicks));
+            this.leftArm.xRot = Mth.rotLerpRad(swimAmount, this.leftArm.xRot, (float) (-Math.PI * 4.0 / 5.0 - 90*Math.PI/180.0)) - swimAmount * 0.35F * Mth.sin((0.1F * drenchedEntityRenderState.ageInTicks));
+            this.rightArm.zRot = Mth.rotLerpRad(swimAmount, this.rightArm.zRot, -0.15F);
+            this.leftArm.zRot = Mth.rotLerpRad(swimAmount, this.leftArm.zRot, 0.15F);
+            this.leftLeg.xRot -= swimAmount * 0.55F * Mth.sin((0.1F * drenchedEntityRenderState.ageInTicks));
+            this.rightLeg.xRot += swimAmount * 0.55F * Mth.sin((0.1F * drenchedEntityRenderState.ageInTicks));
+            this.head.xRot = 0.0F;
         }
     }
 }

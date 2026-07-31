@@ -29,7 +29,7 @@ public abstract class SkeletonMixin extends Monster {
         if (this.level() instanceof ServerLevel level && this.isAlive() && this.isEyeInFluid(FluidTags.WATER)) {
             this.inWaterTime++;
             if (this.inWaterTime >= 900) {
-                this.convertTo(EntityTypeRegistry.DRENCHED, ConversionParams.single((Skeleton)(Object)this, true, true), _ -> {});
+                this.convertTo(EntityTypeRegistry.DRENCHED, ConversionParams.single((Skeleton)(Object)this, true, true), drenched -> drenched.setVariant(this.random.nextInt(3)));
                 if (!this.isSilent()) level.levelEvent(null, LevelEvent.SOUND_ZOMBIE_TO_DROWNED, this.blockPosition(), 0);
             }
         } else this.inWaterTime = 0;

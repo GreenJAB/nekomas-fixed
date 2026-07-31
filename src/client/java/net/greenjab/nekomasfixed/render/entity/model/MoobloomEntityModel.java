@@ -10,25 +10,14 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.util.Mth;
+
 import java.util.Set;
 
 public class MoobloomEntityModel extends QuadrupedModel<MoobloomEntityRenderState> {
     public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(false, 8.0F, 6.0F, Set.of("head"));
 
-    private final ModelPart head;
-    protected boolean child;
-    private final ModelPart right_hind_leg;
-    private final ModelPart left_hind_leg;
-    private final ModelPart right_front_leg;
-    private final ModelPart left_front_leg;
     public MoobloomEntityModel(ModelPart root) {
         super(root);
-        this.head = this.root.getChild("head");
-        this.right_hind_leg = this.root.getChild("right_hind_leg");
-        this.left_hind_leg = this.root.getChild("left_hind_leg");
-        this.right_front_leg = this.root.getChild("right_front_leg");
-        this.left_front_leg = this.root.getChild("left_front_leg");
     }
 
     public static LayerDefinition getTexturedModelData() {
@@ -73,35 +62,5 @@ public class MoobloomEntityModel extends QuadrupedModel<MoobloomEntityRenderStat
         flower3.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(0, 16).addBox(0.0F, -8.0F, -8.0F, 0.0F, 16.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -8.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
 
         return modelData;
-    }
-
-    @Override
-    public void setupAnim(MoobloomEntityRenderState state) {
-        this.child = state.baby;
-
-        super.setupAnim(state);
-
-        float swing = state.walkAnimationPos;
-        float amount = state.walkAnimationSpeed;
-
-        this.right_hind_leg.xRot = Mth.cos(swing * 0.6662F) * 1.4F * amount;
-        this.left_hind_leg.xRot  = Mth.cos(swing * 0.6662F + (float)Math.PI) * 1.4F * amount;
-
-        this.right_front_leg.xRot = Mth.cos(swing * 0.6662F + (float)Math.PI) * 1.4F * amount;
-        this.left_front_leg.xRot  = Mth.cos(swing * 0.6662F) * 1.4F * amount;
-
-        this.setHeadAngles(state.bodyRot, state.xRot);
-    }
-
-    private void setHeadAngles(float headYaw, float headPitch) {
-        headYaw = Mth.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = Mth.clamp(headPitch, -25.0F, 45.0F);
-
-        this.head.yRot = headYaw * 0.017453292F;
-        this.head.xRot = headPitch * 0.017453292F;
-    }
-
-    public ModelPart getHead() {
-        return this.head;
     }
 }

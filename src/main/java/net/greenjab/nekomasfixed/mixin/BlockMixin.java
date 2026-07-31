@@ -24,7 +24,7 @@ public class BlockMixin {
             ItemStack stack = player.getMainHandItem();
             Holder<Enchantment> silkTouchEntry =
                     level.registryAccess().getOrThrow(Holder.direct(Enchantments.SILK_TOUCH).value());
-            if(!stack.isEnchanted() && stack.getEnchantments().getLevel(silkTouchEntry)>0 || !stack.getEnchantments().keySet().contains(silkTouchEntry) || player.getMainHandItem().isEmpty()){
+            if(level.getRandom().nextInt(5)==0&&!stack.isEnchanted() && stack.getEnchantments().getLevel(silkTouchEntry)>0 || !stack.getEnchantments().keySet().contains(silkTouchEntry) || player.getMainHandItem().isEmpty()){
                 player.level().setBlockAndUpdate(pos, Blocks.LAVA.defaultBlockState());
             }
         }

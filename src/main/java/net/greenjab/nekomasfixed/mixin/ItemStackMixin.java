@@ -73,6 +73,7 @@ public class ItemStackMixin {
 			} else {
 				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((level.getOverworldClockTime() + 6000) % 24000)));
 			}
+			player.swing(hand);
 		}
 	}
 
