@@ -42,6 +42,7 @@
     "ServerLevelMixin",
     "SheepMixin",
     "SkeletonMixin",
+    "RecipeManagerMixin",
     "SnifferEntityMixin",
     "ZombieMixin",
     "accessor.FlowerPotBlockAccessor",

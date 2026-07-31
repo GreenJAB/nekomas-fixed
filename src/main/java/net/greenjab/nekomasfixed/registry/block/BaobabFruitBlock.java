@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import org.jspecify.annotations.Nullable;
 
 public class BaobabFruitBlock extends Block implements BonemealableBlock {
@@ -111,5 +113,9 @@ public class BaobabFruitBlock extends Block implements BonemealableBlock {
         if(this.defaultBlockState().getValue(AGE) < 1){
             level.setBlock(pos, state.setValue(AGE, 1), 2);
         }
+    }
+
+    protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
+        return ItemRegistry.BAOBAB_FRUIT.getDefaultInstance();
     }
 }

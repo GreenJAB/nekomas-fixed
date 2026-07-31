@@ -166,7 +166,7 @@ public class ClockBlockEntity extends BlockEntity implements ItemOwner {
 		if (powered!=shouldBePowered) {
 			((AbstractClockBlock)state.getBlock()).setPower(level, pos, state, shouldBePowered);
 		}
-		if (state.getBlock() instanceof FloorClockBlock && shouldBePowered && level.getGameTime() % 5L == 0L){
+		if (blockEntity.hasBell() && state.getBlock() instanceof FloorClockBlock && shouldBePowered && level.getGameTime() % 5L == 0L){
 			level.gameEvent(null, GameEvent.NOTE_BLOCK_PLAY, pos);
 			level.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 0.3F, 2f);
 		}
