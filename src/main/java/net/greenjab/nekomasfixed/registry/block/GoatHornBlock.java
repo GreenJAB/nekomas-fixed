@@ -234,4 +234,9 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
     protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
         return CODEC;
     }
+
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        RegistryEntry<Instrument> entry = world.getRegistryManager().getOrThrow(RegistryKeys.INSTRUMENT).getOrThrow(state.get(HORN).getInstrument());
+        return GoatHornItem.getStackForInstrument(Items.GOAT_HORN, entry);
+    }
 }

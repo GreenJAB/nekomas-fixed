@@ -5,8 +5,6 @@ import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -66,8 +64,6 @@ public abstract class ServerWorldMixin {
                     LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(serverWorld, SpawnReason.EVENT);
                     if (lightningEntity != null) {
                         lightningEntity.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(blockPos));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 3*armor * 20, armor, false, false, false));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1, armor, false, false, false));
                         serverWorld.spawnEntity(lightningEntity);
                     }
                 }

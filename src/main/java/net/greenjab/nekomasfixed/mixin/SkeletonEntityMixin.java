@@ -29,7 +29,7 @@ public abstract class SkeletonEntityMixin extends HostileEntity {
         if (this.getEntityWorld() instanceof ServerWorld serverWorld && this.isAlive() && this.isSubmergedIn(FluidTags.WATER)) {
             this.inWaterTime++;
             if (this.inWaterTime >= 900) {
-                this.convertTo(EntityTypeRegistry.DRENCHED, EntityConversionContext.create((SkeletonEntity)(Object)this, true, true),drenched -> {});
+                this.convertTo(EntityTypeRegistry.DRENCHED, EntityConversionContext.create((SkeletonEntity)(Object)this, true, true),drenched -> drenched.setVariant(this.random.nextInt(3)));
                 if (!this.isSilent()) serverWorld.syncWorldEvent(null, WorldEvents.ZOMBIE_CONVERTS_TO_DROWNED, this.getBlockPos(), 0);
             }
         } else this.inWaterTime = 0;

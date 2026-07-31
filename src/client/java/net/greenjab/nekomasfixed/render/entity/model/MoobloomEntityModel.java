@@ -5,26 +5,14 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BabyModelTransformer;
 import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
-import net.minecraft.util.math.MathHelper;
 
 import java.util.Set;
 
 public class MoobloomEntityModel extends QuadrupedEntityModel<MoobloomEntityRenderState> {
     public static final ModelTransformer BABY_TRANSFORMER = new BabyModelTransformer(false, 8.0F, 6.0F, Set.of("head"));
 
-    private final ModelPart head;
-    protected boolean child;
-    private final ModelPart right_hind_leg;
-    private final ModelPart left_hind_leg;
-    private final ModelPart right_front_leg;
-    private final ModelPart left_front_leg;
     public MoobloomEntityModel(ModelPart root) {
         super(root);
-        this.head = this.root.getChild("head");
-        this.right_hind_leg = this.root.getChild("right_hind_leg");
-        this.left_hind_leg = this.root.getChild("left_hind_leg");
-        this.right_front_leg = this.root.getChild("right_front_leg");
-        this.left_front_leg = this.root.getChild("left_front_leg");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -69,35 +57,5 @@ public class MoobloomEntityModel extends QuadrupedEntityModel<MoobloomEntityRend
         flower3.addChild("cube_r3", ModelPartBuilder.create().uv(0, 16).cuboid(0.0F, -8.0F, -8.0F, 0.0F, 16.0F, 16.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -8.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
 
         return modelData;
-    }
-
-    @Override
-    public void setAngles(MoobloomEntityRenderState state) {
-        this.child = state.baby;
-
-        super.setAngles(state);
-
-        float swing = state.limbSwingAnimationProgress;
-        float amount = state.limbSwingAmplitude;
-
-        this.right_hind_leg.pitch = MathHelper.cos(swing * 0.6662F) * 1.4F * amount;
-        this.left_hind_leg.pitch  = MathHelper.cos(swing * 0.6662F + (float)Math.PI) * 1.4F * amount;
-
-        this.right_front_leg.pitch = MathHelper.cos(swing * 0.6662F + (float)Math.PI) * 1.4F * amount;
-        this.left_front_leg.pitch  = MathHelper.cos(swing * 0.6662F) * 1.4F * amount;
-
-        this.setHeadAngles(state.bodyYaw, state.pitch);
-    }
-
-    private void setHeadAngles(float headYaw, float headPitch) {
-        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = MathHelper.clamp(headPitch, -25.0F, 45.0F);
-
-        this.head.yaw = headYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
-    }
-
-    public ModelPart getHead() {
-        return this.head;
     }
 }

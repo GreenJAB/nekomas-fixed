@@ -2,8 +2,10 @@ package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -106,5 +108,9 @@ public class BaobabFruitBlock extends Block implements Fertilizable {
         if(this.getDefaultState().get(AGE) < 1){
             world.setBlockState(pos, state.with(AGE, 1), 2);
         }
+    }
+
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return ItemRegistry.BAOBAB_FRUIT.getDefaultStack();
     }
 }

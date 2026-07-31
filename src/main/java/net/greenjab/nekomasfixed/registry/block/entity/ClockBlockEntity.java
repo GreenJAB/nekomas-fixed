@@ -165,7 +165,7 @@ public class ClockBlockEntity extends BlockEntity implements HeldItemContext {
 		if (powered!=shouldBePowered) {
 			((AbstractClockBlock)state.getBlock()).setPower(world, pos, state, shouldBePowered);
 		}
-		if (state.getBlock() instanceof FloorClockBlock && shouldBePowered && world.getTime() % 5L == 0L){
+		if (blockEntity.hasBell() && state.getBlock() instanceof FloorClockBlock && shouldBePowered && world.getTime() % 5L == 0L){
 			world.emitGameEvent(null, GameEvent.NOTE_BLOCK_PLAY, pos);
 			world.playSound(null, pos, SoundEvents.BLOCK_BELL_USE, SoundCategory.BLOCKS, 0.3F, 2f);
 		}
