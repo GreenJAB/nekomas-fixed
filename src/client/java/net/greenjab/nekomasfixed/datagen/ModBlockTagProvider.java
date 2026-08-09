@@ -41,6 +41,13 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
 
+        tag(ModTags.SULFUR_BLOCKS)
+                .add(Blocks.SULFUR.properties().blockId())
+                .add(Blocks.SULFUR_BRICKS.properties().blockId())
+                .add(Blocks.CHISELED_SULFUR.properties().blockId())
+                .add(Blocks.POTENT_SULFUR.properties().blockId())
+                .add(Blocks.POLISHED_SULFUR.properties().blockId());
+
         tag(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .addTag(ModTags.DYED_BRICKS)
                 .addTag(ModTags.DYED_BRICK_SLABS)

@@ -43,6 +43,9 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(BlockRegistry.AQUA_BRICKS);
         blockStateModelGenerator.createTrivialCube(BlockRegistry.INDIGO_BRICKS);
         blockStateModelGenerator.createTrivialCube(BlockRegistry.MAROON_BRICKS);
+        blockStateModelGenerator.createFloorFireModels(BlockRegistry.SULFUR_FIRE);
+        blockStateModelGenerator.createTopFireModels(BlockRegistry.SULFUR_FIRE);
+        blockStateModelGenerator.createSideFireModels(BlockRegistry.SULFUR_FIRE);
 
         registerSlab(blockStateModelGenerator, BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_SLAB);
