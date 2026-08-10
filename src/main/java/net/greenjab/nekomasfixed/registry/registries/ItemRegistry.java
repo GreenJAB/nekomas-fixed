@@ -476,7 +476,7 @@ public class ItemRegistry {
     public static final Item INDIGO_SPOTTED_CARPET = register(BlockRegistry.INDIGO_SPOTTED_CARPET);
     public static final Item MAROON_SPOTTED_CARPET = register(BlockRegistry.MAROON_SPOTTED_CARPET);
 
-
+//sulfur related
     public static final Item SULFUR_LANTERN =register(BlockRegistry.SULFUR_LANTERN);
     public static final Item GOLD_CHAIN =register(BlockRegistry.GOLD_CHAIN);
 
