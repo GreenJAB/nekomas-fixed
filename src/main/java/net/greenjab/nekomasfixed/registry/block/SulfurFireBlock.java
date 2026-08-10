@@ -70,10 +70,10 @@ public class SulfurFireBlock extends BaseFireBlock {
         effectApplier.apply(InsideBlockEffectType.FIRE_IGNITE);
         effectApplier.runAfter(InsideBlockEffectType.FIRE_IGNITE, (e) -> e.hurt(e.level().damageSources().inFire(), super.fireDamage));
         if(entity instanceof Player player ){
-            player.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 40, 3, false, true));
+            player.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 80, 0, true, true));
+
         }
     }
-
 
 
     @Override
@@ -86,9 +86,9 @@ public class SulfurFireBlock extends BaseFireBlock {
         BlockState belowState = level.getBlockState(below);
         if (!this.canBurn(belowState) && !belowState.isFaceSturdy(level, below, Direction.UP)) {
             if (this.canBurn(level.getBlockState(pos.west()))) {
-                for(int i = 0; i < 2; ++i) {
+                for(int i = 0; i < 1; ++i) {
                     double xx = (double)pos.getX() + random.nextDouble() * (double)0.1F;
-                    double yy = (double)pos.getY() + random.nextDouble() + 0.3;
+                    double yy = (double)pos.getY() + random.nextDouble() + 1;
                     double zz = (double)pos.getZ() + random.nextDouble();
                     level.addParticle(PARTICLE_SMOKE, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
                     if(i<1) level.addParticle(PARTICLE_GAS, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
@@ -96,9 +96,9 @@ public class SulfurFireBlock extends BaseFireBlock {
             }
 
             if (this.canBurn(level.getBlockState(pos.east()))) {
-                for(int i = 0; i < 2; ++i) {
+                for(int i = 0; i < 1; ++i) {
                     double xx = (double)(pos.getX() + 1) - random.nextDouble() * (double)0.1F;
-                    double yy = (double)pos.getY() + random.nextDouble() + 0.3;
+                    double yy = (double)pos.getY() + random.nextDouble() + 1;
                     double zz = (double)pos.getZ() + random.nextDouble();
                     level.addParticle(PARTICLE_SMOKE, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
                     if(i<1) level.addParticle(PARTICLE_GAS, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
@@ -107,9 +107,9 @@ public class SulfurFireBlock extends BaseFireBlock {
             }
 
             if (this.canBurn(level.getBlockState(pos.north()))) {
-                for(int i = 0; i < 2; ++i) {
+                for(int i = 0; i < 1; ++i) {
                     double xx = (double)pos.getX() + random.nextDouble();
-                    double yy = (double)pos.getY() + random.nextDouble() + 0.3;
+                    double yy = (double)pos.getY() + random.nextDouble() + 1;
                     double zz = (double)pos.getZ() + random.nextDouble() * (double)0.1F;
                     level.addParticle(PARTICLE_SMOKE, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
                     if(i<1) level.addParticle(PARTICLE_GAS, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
@@ -118,9 +118,9 @@ public class SulfurFireBlock extends BaseFireBlock {
             }
 
             if (this.canBurn(level.getBlockState(pos.south()))) {
-                for(int i = 0; i < 2; ++i) {
+                for(int i = 0; i < 1; ++i) {
                     double xx = (double)pos.getX() + random.nextDouble();
-                    double yy = (double)pos.getY() + random.nextDouble() + 0.3;
+                    double yy = (double)pos.getY() + random.nextDouble() + 1;
                     double zz = (double)(pos.getZ() + 1) - random.nextDouble() * (double)0.1F;
                     level.addParticle(PARTICLE_SMOKE, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
                     if(i<1) level.addParticle(PARTICLE_GAS, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
@@ -128,9 +128,9 @@ public class SulfurFireBlock extends BaseFireBlock {
             }
 
             if (this.canBurn(level.getBlockState(pos.above()))) {
-                for(int i = 0; i < 2; ++i) {
+                for(int i = 0; i < 1; ++i) {
                     double xx = (double)pos.getX() + random.nextDouble();
-                    double yy = (double)(pos.getY() + 1) - random.nextDouble() * (double)0.3F;
+                    double yy = (double)(pos.getY() + 1) - random.nextDouble() * (double)1;
                     double zz = (double)pos.getZ() + random.nextDouble();
                     level.addParticle(PARTICLE_SMOKE, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
                     if(i<1) level.addParticle(PARTICLE_GAS, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
@@ -139,7 +139,7 @@ public class SulfurFireBlock extends BaseFireBlock {
         } else {
             for(int i = 0; i < 3; ++i) {
                 double xx = (double)pos.getX() + random.nextDouble();
-                double yy = (double)pos.getY() + random.nextDouble() * (double)0.5F + (double)0.5F;
+                double yy = (double)pos.getY() + random.nextDouble() * (double)0.5F + (double)1F;
                 double zz = (double)pos.getZ() + random.nextDouble();
                 level.addParticle(PARTICLE_SMOKE, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);
                 if(i<1) level.addParticle(PARTICLE_GAS, xx, yy, zz, (double)0.0F, (double)0.0F, (double)0.0F);

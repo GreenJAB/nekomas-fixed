@@ -447,9 +447,10 @@ public class BlockRegistry {
     public static final Block INDIGO_SPOTTED_CARPET = register("indigo_spotted_carpet", CarpetBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sound(SoundType.WOOL).ignitedByLava());
     public static final Block MAROON_SPOTTED_CARPET = register("maroon_spotted_carpet", CarpetBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sound(SoundType.WOOL).ignitedByLava());
 
-    ///  SULFURE RELATED STUFF
+    ///  SULFUR RELATED STUFF
     public static final Block SULFUR_FIRE = register("sulfur_fire", SulfurFireBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).replaceable().noCollision().instabreak().lightLevel((statex) -> 10).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY));
-
+    public static final Block SULFUR_LANTERN = register("sulfur_lantern", LanternBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN).lightLevel((statex) -> 10).noOcclusion().pushReaction(PushReaction.DESTROY));
+    public static final Block GOLD_CHAIN = register("gold_chain", ChainBlock::new, BlockBehaviour.Properties.of().forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion());
 
 
     private static Block register(String id, BlockBehaviour.Properties settings) {

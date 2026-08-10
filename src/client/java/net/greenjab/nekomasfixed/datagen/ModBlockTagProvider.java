@@ -2,10 +2,12 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
@@ -47,6 +49,12 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.CHISELED_SULFUR.properties().blockId())
                 .add(Blocks.POTENT_SULFUR.properties().blockId())
                 .add(Blocks.POLISHED_SULFUR.properties().blockId());
+
+        tag(BlockTags.LANTERNS)
+                .add(BlockRegistry.SULFUR_LANTERN.properties().blockId());
+
+        tag(BlockTags.CHAINS)
+                .add(BlockRegistry.GOLD_CHAIN.properties().blockId());
 
         tag(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .addTag(ModTags.DYED_BRICKS)

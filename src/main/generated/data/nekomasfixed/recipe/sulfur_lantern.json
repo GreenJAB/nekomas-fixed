@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": "minecraft:gold_nugget",
+    "T": "minecraft:sulfur"
+  },
+  "pattern": [
+    "III",
+    "ITI",
+    "III"
+  ],
+  "result": {
+    "id": "nekomasfixed:sulfur_lantern"
+  }
+}
