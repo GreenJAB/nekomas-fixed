@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModModelLayerRegistry;
 import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -50,7 +50,7 @@ public class WildfireTridentModelRenderer implements NoDataSpecialModelRenderer 
 
 		@Override
 		public WildfireTridentModelRenderer bake(SpecialModelRenderer.BakingContext context) {
-			return new WildfireTridentModelRenderer(new TridentModel(context.entityModelSet().bakeLayer(ModEntityLayerRegistry.WILDFIRE_TRIDENT)));
+			return new WildfireTridentModelRenderer(new TridentModel(context.entityModelSet().bakeLayer(ModModelLayerRegistry.WILDFIRE_TRIDENT)));
 		}
 	}
 }

@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.HashCommon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModModelLayerRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.block.ClamBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
@@ -44,7 +44,7 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 
 	public ClamBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
 		this.materials = context.sprites();
-		this.clamModel = new ClamBlockModel(context.bakeLayer(ModEntityLayerRegistry.CLAM));
+		this.clamModel = new ClamBlockModel(context.bakeLayer(ModModelLayerRegistry.CLAM));
 		this.itemModelManager = context.itemModelResolver();
 	}
 

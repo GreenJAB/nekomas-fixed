@@ -12,6 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MinecartModelMixin {
     @Inject(method = "createBodyLayer", at = @At(value = "HEAD"), cancellable = true)
     private static void useCustomMinecartModel(CallbackInfoReturnable<LayerDefinition> cir) {
-        cir.setReturnValue(CustomMinecartEntityModel.getTexturedModelData());
+        cir.setReturnValue(CustomMinecartModel.getTexturedModelData());
     }
 }

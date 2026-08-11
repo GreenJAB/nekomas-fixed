@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModModelLayerRegistry;
 import net.greenjab.nekomasfixed.registry.block.AbstractEndermanHeadBlock;
 import net.greenjab.nekomasfixed.registry.block.FloorEndermanHeadHead;
 import net.greenjab.nekomasfixed.registry.block.WallEndermanHeadHead;
@@ -40,8 +40,8 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
 	private static final Identifier TEXTURE_EYES = Identifier.withDefaultNamespace("textures/entity/enderman/enderman_eyes.png");
 
 	public EndermanHeadBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-		this.endermanHeadModel = new EndermanHeadBlockModel<>(context.bakeLayer(ModEntityLayerRegistry.ENDERMAN_HEAD));
-		this.endermanEyesModel = new EndermanEyesBlockModel<>(context.bakeLayer(ModEntityLayerRegistry.ENDERMAN_HEAD));
+		this.endermanHeadModel = new EndermanHeadBlockModel<>(context.bakeLayer(ModModelLayerRegistry.ENDERMAN_HEAD));
+		this.endermanEyesModel = new EndermanEyesBlockModel<>(context.bakeLayer(ModModelLayerRegistry.ENDERMAN_HEAD));
 	}
 
 

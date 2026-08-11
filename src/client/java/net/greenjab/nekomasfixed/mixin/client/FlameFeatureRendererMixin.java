@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.greenjab.nekomasfixed.render.entity.state.WildfireEntityRenderState;
+import net.greenjab.nekomasfixed.render.entity.state.WildfireRenderState;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.feature.FlameFeatureRenderer;
 import net.minecraft.client.resources.model.sprite.SpriteId;
@@ -26,8 +26,8 @@ public class FlameFeatureRendererMixin {
     private SpriteId soulFire0(SpriteId sprite, @Local(argsOnly = true) List<FlameFeatureRenderer.Submit> submits) {
         AtomicBoolean soul = new AtomicBoolean(false);
         submits.forEach(e-> {
-            if (e.entityRenderState() instanceof WildfireEntityRenderState wildFireEntityRenderState) {
-                if (wildFireEntityRenderState.soul) soul.set(true);
+            if (e.entityRenderState() instanceof WildfireRenderState wildFireRenderState) {
+                if (wildFireRenderState.soul) soul.set(true);
             }
         });
         if (soul.get()) return SOUL_FIRE_0;
@@ -37,8 +37,8 @@ public class FlameFeatureRendererMixin {
     private SpriteId soulFire1(SpriteId sprite, @Local(argsOnly = true) List<FlameFeatureRenderer.Submit> submits) {
         AtomicBoolean soul = new AtomicBoolean(false);
         submits.forEach(e-> {
-            if (e.entityRenderState() instanceof WildfireEntityRenderState wildFireEntityRenderState) {
-                if (wildFireEntityRenderState.soul) soul.set(true);
+            if (e.entityRenderState() instanceof WildfireRenderState wildFireRenderState) {
+                if (wildFireRenderState.soul) soul.set(true);
             }
         });
         if (soul.get()) return SOUL_FIRE_1;

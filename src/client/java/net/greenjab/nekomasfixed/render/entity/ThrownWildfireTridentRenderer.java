@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.render.entity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModModelLayerRegistry;
 import net.greenjab.nekomasfixed.registry.entity.WildfireTrident;
 import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -26,7 +26,7 @@ public class ThrownWildfireTridentRenderer extends EntityRenderer<WildfireTriden
 
 	public ThrownWildfireTridentRenderer(EntityRendererProvider.Context context) {
 		super(context);
-		this.model = new TridentModel(context.bakeLayer(ModEntityLayerRegistry.WILDFIRE_TRIDENT));
+		this.model = new TridentModel(context.bakeLayer(ModModelLayerRegistry.WILDFIRE_TRIDENT));
 	}
 
 	public void submit(
