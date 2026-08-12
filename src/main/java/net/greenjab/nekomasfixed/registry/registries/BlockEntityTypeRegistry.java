@@ -28,6 +28,9 @@ public class BlockEntityTypeRegistry {
     public static final BlockEntityType<TermitehiveBlockEntity> TERMITE_HIVE_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("termite_hive"),
             FabricBlockEntityTypeBuilder.create(TermitehiveBlockEntity::new, BlockRegistry.TERMITE_HIVE).build());
 
+    public static final BlockEntityType<GoatHornBlockEntity> GOAT_HORN_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("goat_horn"),
+            FabricBlockEntityTypeBuilder.create(GoatHornBlockEntity::new, BlockRegistry.GOAT_HORN).build());
+
     public static final BlockEntityType<SoupCauldronBlockEntity> SOUP_CAULDRON_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("soup_cauldron"),
             FabricBlockEntityTypeBuilder.create(SoupCauldronBlockEntity::new, BlockRegistry.SOUP_CAULDRON).build());
 

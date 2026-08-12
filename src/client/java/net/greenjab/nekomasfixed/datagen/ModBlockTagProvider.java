@@ -56,6 +56,17 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         tag(BlockTags.CHAINS)
                 .add(BlockRegistry.GOLD_CHAIN.properties().blockId());
 
+        tag(ModTags.TORCHES)
+                .add(Blocks.TORCH.properties().blockId())
+                .add(Blocks.REDSTONE_TORCH.properties().blockId())
+                .add(Blocks.REDSTONE_WALL_TORCH.properties().blockId())
+                .add(Blocks.SOUL_TORCH.properties().blockId())
+                .add(Blocks.SOUL_WALL_TORCH.properties().blockId())
+                .add(Blocks.COPPER_TORCH.properties().blockId())
+                .add(Blocks.COPPER_WALL_TORCH.properties().blockId())
+                .add(BlockRegistry.GLOW_TORCH.properties().blockId())
+                .add(BlockRegistry.GLOW_WALL_TORCH.properties().blockId());
+
         tag(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .addTag(ModTags.DYED_BRICKS)
                 .addTag(ModTags.DYED_BRICK_SLABS)
