@@ -139,7 +139,9 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemRegistry.AQUA_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.INDIGO_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.MAROON_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.QUIVER, ModelTemplates.FLAT_ITEM);
     }
+
 
     public void registerSlab(BlockModelGenerators blockStateModelGenerator, Block block, Block slab) {
         TextureMapping textureMap = TextureMapping.cube(block);

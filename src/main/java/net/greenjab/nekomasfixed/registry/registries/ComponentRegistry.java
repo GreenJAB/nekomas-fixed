@@ -1,10 +1,13 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
+import com.mojang.serialization.Codec;
+import net.greenjab.nekomasfixed.registry.item.quiver.QuiverContents;
 import net.greenjab.nekomasfixed.registry.other.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 
 import java.util.function.UnaryOperator;
@@ -26,6 +29,11 @@ public class ComponentRegistry {
     public static final DataComponentType<ComboComponent> COMBO_MULTIPLIER = registerComponent(
             "combo_multiplier", builder -> builder.persistent(ComboComponent.CODEC).networkSynchronized(ComboComponent.PACKET_CODEC).cacheEncoding());
 
+    public static final DataComponentType<QuiverContents> QUIVER_CONTENTS = registerComponent("quiver_contents", (b) -> b.persistent(QuiverContents.CODEC).networkSynchronized(QuiverContents.STREAM_CODEC).cacheEncoding());
+
+
     private static <T> DataComponentType<T> registerComponent(String id, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, id, builderOperator.apply(DataComponentType.builder()).build());}
+
+
 }

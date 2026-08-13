@@ -2,6 +2,8 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
+import net.greenjab.nekomasfixed.registry.item.quiver.QuiverContents;
+import net.greenjab.nekomasfixed.registry.item.quiver.QuiverItem;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.*;
 import net.minecraft.ChatFormatting;
@@ -479,6 +481,8 @@ public class ItemRegistry {
 //sulfur related
     public static final Item SULFUR_LANTERN =register(BlockRegistry.SULFUR_LANTERN);
     public static final Item GOLD_CHAIN =register(BlockRegistry.GOLD_CHAIN);
+
+    public static final Item QUIVER =register("quiver", QuiverItem::new, (new Item.Properties()).stacksTo(1).component(ComponentRegistry.QUIVER_CONTENTS, QuiverContents.EMPTY));
 
 
 

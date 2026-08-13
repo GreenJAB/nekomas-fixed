@@ -14,6 +14,7 @@ public class EnchantmentRegistry {
     public static final ResourceKey<Enchantment> LEECHING = of("leeching");
     public static final ResourceKey<Enchantment> SHATTER = of("shatter");
 
+
     private static ResourceKey<Enchantment> of(String id) {
         return ResourceKey.create(Registries.ENCHANTMENT, NekomasFixed.id(id));
     }

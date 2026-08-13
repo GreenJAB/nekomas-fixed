@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registries;
 
+import net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
@@ -7,6 +8,7 @@ import net.greenjab.nekomasfixed.render.block.entity.model.ClockBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanEyesBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanHeadBlockModel;
 import net.greenjab.nekomasfixed.render.entity.model.*;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -16,6 +18,7 @@ import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.resources.Identifier;
 
 public class ModEntityLayerRegistry {
+
 
     public static final ModelLayerLocation CLAM = register("clam", "main");
     public static final ModelLayerLocation CLOCK = register("clock", "main");
