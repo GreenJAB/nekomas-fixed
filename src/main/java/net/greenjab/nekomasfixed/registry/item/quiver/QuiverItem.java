@@ -18,8 +18,6 @@ import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.BundleContents;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.math.Fraction;
 import org.jspecify.annotations.Nullable;
@@ -61,7 +59,7 @@ public class QuiverItem extends Item {
         } else {
             ItemStack other = slot.getItem();
             QuiverContents.Mutable contents = new QuiverContents.Mutable(initialContents);
-            if (clickAction == ClickAction.PRIMARY && !other.isEmpty()) {
+            if (clickAction == ClickAction.PRIMARY && !other.isEmpty() && contents.toImmutable().doesItemHasPlace(self)) {
                 if (contents.tryTransfer(slot, player) > 0) {
                     playInsertSound(player);
                 } else {
@@ -144,6 +142,7 @@ public class QuiverItem extends Item {
 
     }
 
+
     public boolean isBarVisible(final ItemStack stack) {
         QuiverContents contents = (QuiverContents)stack.getOrDefault(ComponentRegistry.QUIVER_CONTENTS, QuiverContents.EMPTY);
         return getWeightSafe(contents) > 0;
@@ -156,7 +155,7 @@ public class QuiverItem extends Item {
 
     public int getBarColor(final ItemStack stack) {
         QuiverContents contents = (QuiverContents)stack.getOrDefault(ComponentRegistry.QUIVER_CONTENTS, QuiverContents.EMPTY);
-        return getWeightSafe(contents) >= 0 ? FULL_BAR_COLOR : BAR_COLOR;
+        return getWeightSafe(contents) == QuiverContents.MAX_ARROWS ? FULL_BAR_COLOR : BAR_COLOR;
     }
 
     public static void toggleSelectedItem(final ItemStack stack, final int selectedItem) {
@@ -172,7 +171,7 @@ public class QuiverItem extends Item {
         return ((QuiverContents)stack.getOrDefault(ComponentRegistry.QUIVER_CONTENTS, QuiverContents.EMPTY)).getSelectedItemIndex();
     }
 
-    public static @Nullable ItemStackTemplate getSelectedItem(final ItemStack stack) {
+    public static @Nullable ItemStack getSelectedItem(final ItemStack stack) {
         return ((QuiverContents)stack.getOrDefault(ComponentRegistry.QUIVER_CONTENTS, QuiverContents.EMPTY)).getSelectedItem();
     }
 

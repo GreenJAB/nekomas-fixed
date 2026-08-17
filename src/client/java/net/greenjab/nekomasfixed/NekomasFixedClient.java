@@ -6,6 +6,7 @@ import net.greenjab.nekomasfixed.registries.*;
 import net.greenjab.nekomasfixed.registry.block.cauldron.SoupCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.screen.FletchingScreen;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.greenjab.nekomasfixed.screen.PyrotechnicsTableScreen;
@@ -31,6 +32,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 		ClientSyncHandler.init();
 
 		MenuScreens.register(ScreenHandlerRegistry.KILN, KilnScreen::new);
+		MenuScreens.register(ScreenHandlerRegistry.FLETCHING, FletchingScreen::new);
 		MenuScreens.register(ScreenHandlerRegistry.PYROTECHNICS, PyrotechnicsTableScreen::new);
 
 		BlockColorRegistry.register(List.of(soup()), BlockRegistry.SOUP_CAULDRON);

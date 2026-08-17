@@ -37,6 +37,7 @@
     "PistonBaseBlockMixin",
     "PlayerMixin",
     "PoiTypesMixin",
+    "ProjectileWeaponItemMixin",
     "RecipeManagerMixin",
     "RecipeSerializersMixin",
     "RedstoneWireEvaluatorMixin",

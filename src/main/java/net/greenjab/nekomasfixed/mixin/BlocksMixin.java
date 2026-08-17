@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.block.FletchingTableBlock;
 import net.greenjab.nekomasfixed.registry.block.MelonBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,6 +25,12 @@ public class BlocksMixin {
     @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/Blocks;MELON:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.PUTSTATIC)))
     private static Block newMelon(BlockItemId id, BlockBehaviour.Properties properties) {
         return register(id.block(), settings -> new MelonBlock(false, settings), properties);
+    }
+    @Redirect(method="<clinit>", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/block/Blocks;register(Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;", ordinal = 0), slice = @Slice( from =
+    @At(value = "FIELD", target = "Lnet/minecraft/references/BlockItemIds;FLETCHING_TABLE:Lnet/minecraft/references/BlockItemId;", opcode = Opcodes.GETSTATIC), to =
+    @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/Blocks;FLETCHING_TABLE:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.PUTSTATIC)))
+    private static Block newFletchingTable(BlockItemId id, BlockBehaviour.Properties properties) {
+        return register(id.block(), FletchingTableBlock::new, properties);
     }
 
     @Unique

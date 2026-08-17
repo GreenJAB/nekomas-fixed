@@ -1,19 +1,18 @@
 package net.greenjab.nekomasfixed.screen;
 
-import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
+import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Inventory;import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Blocks;
-import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +37,7 @@ public class FletchingMenu extends AbstractCraftingMenu {
     }
 
     public FletchingMenu(final int containerId, final Inventory inventory, final ContainerLevelAccess access) {
-        super(ScreenHandlerRegistry.FLETCHING, containerId, 3, 3);
+        super(MenuType.CRAFTING, containerId, 3, 3);
         this.access = access;
         this.player = inventory.player;
         this.addResultSlot(this.player, 124, 35);
@@ -46,46 +45,19 @@ public class FletchingMenu extends AbstractCraftingMenu {
         this.addStandardInventorySlots(inventory, 8, 84);
     }
 
-    protected static void slotChangedCraftingGrid(final AbstractContainerMenu menu, final ServerLevel level, final Player player, final CraftingContainer container, final ResultContainer resultSlots, final @Nullable RecipeHolder<CraftingRecipe> recipeHint) {
-        CraftingInput input = container.asCraftInput();
-        ServerPlayer serverPlayer = (ServerPlayer)player;
-        ItemStack result = ItemStack.EMPTY;
-        Optional<RecipeHolder<CraftingRecipe>> maybeRecipe = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level, recipeHint);
-        if (maybeRecipe.isPresent()) {
-            RecipeHolder<CraftingRecipe> recipeHolder = (RecipeHolder)maybeRecipe.get();
-            CraftingRecipe craftingRecipe = (CraftingRecipe)recipeHolder.value();
-            if (resultSlots.setRecipeUsed(serverPlayer, recipeHolder)) {
-                ItemStack recipeResult = craftingRecipe.assemble(input);
-                if (recipeResult.isItemEnabled(level.enabledFeatures())) {
-                    result = recipeResult;
-                }
-            }
-        }
 
-        resultSlots.setItem(0, result);
-        menu.setRemoteSlot(0, result);
-        serverPlayer.connection.send(new ClientboundContainerSetSlotPacket(menu.containerId, menu.incrementStateId(), 0, result));
-    }
 
-    public void slotsChanged(final Container container) {
-        if (!this.placingRecipe) {
-            this.access.execute((level, pos) -> {
-                if (level instanceof ServerLevel serverLevel) {
-                    slotChangedCraftingGrid(this, serverLevel, this.player, this.craftSlots, this.resultSlots, (RecipeHolder)null);
-                }
 
-            });
-        }
 
-    }
 
     public void beginPlacingRecipe() {
         this.placingRecipe = true;
     }
 
+
     public void finishPlacingRecipe(final ServerLevel level, final RecipeHolder<CraftingRecipe> recipe) {
         this.placingRecipe = false;
-        slotChangedCraftingGrid(this, level, this.player, this.craftSlots, this.resultSlots, recipe);
+
     }
 
     public void removed(final Player player) {
@@ -94,7 +66,7 @@ public class FletchingMenu extends AbstractCraftingMenu {
     }
 
     public boolean stillValid(final Player player) {
-        return stillValid(this.access, player, Blocks.CRAFTING_TABLE);
+        return stillValid(this.access, player, Blocks.FLETCHING_TABLE);
     }
 
     public ItemStack quickMoveStack(final Player player, final int slotIndex) {

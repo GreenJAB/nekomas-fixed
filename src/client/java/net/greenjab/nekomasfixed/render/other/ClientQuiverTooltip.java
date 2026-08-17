@@ -1,11 +1,8 @@
 package net.greenjab.nekomasfixed.render.other;
 
-import com.mojang.serialization.DataResult;
 import net.greenjab.nekomasfixed.registry.item.quiver.QuiverContents;
-import net.greenjab.nekomasfixed.registry.item.quiver.QuiverTooltip;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -16,8 +13,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.component.BundleContents;
 import org.apache.commons.lang3.math.Fraction;
+import org.jetbrains.annotations.UnknownNullability;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
@@ -102,7 +99,7 @@ public class ClientQuiverTooltip implements ClientTooltipComponent {
 
     private void extractBundleWithItemsTooltip(final Font font, final int x, final int y, final int w, final int h, final GuiGraphicsExtractor graphics, final Fraction weight) {
         boolean isOverflowing = this.contents.size() > 12;
-        List<ItemStackTemplate> shownItems = this.getShownItems(this.contents.getNumberOfItemsToShow());
+        List<ItemStack> shownItems = this.getShownItems(this.contents.getNumberOfItemsToShow());
         int xStartPos = x + getContentXOffset(w) + 96;
         int yStartPos = y + this.gridSizeY() * 24;
         int slotNumber = 1;
@@ -124,7 +121,7 @@ public class ClientQuiverTooltip implements ClientTooltipComponent {
         extractProgressbar(x + getContentXOffset(w), y + this.itemGridHeight() + 4, font, graphics, weight);
     }
 
-    private List<ItemStackTemplate> getShownItems(final int amountOfItemsToShow) {
+    private List<ItemStack> getShownItems(final int amountOfItemsToShow) {
         int lastToDisplay = Math.min(this.contents.size(), amountOfItemsToShow);
         return this.contents.items().subList(0, lastToDisplay);
     }
@@ -137,14 +134,14 @@ public class ClientQuiverTooltip implements ClientTooltipComponent {
         return shownItems.size() >= slotNumber;
     }
 
-    private int getAmountOfHiddenItems(final List<ItemStackTemplate> shownItems) {
+    private int getAmountOfHiddenItems(final @UnknownNullability List<ItemStack> shownItems) {
         return this.contents.items().stream().skip((long)shownItems.size()).mapToInt(ItemInstance::count).sum();
     }
 
-    private void extractSlot(final int slotNumber, final int drawX, final int drawY, final List<ItemStackTemplate> shownItems, final int slotIndex, final Font font, final GuiGraphicsExtractor graphics) {
+    private void extractSlot(final int slotNumber, final int drawX, final int drawY, final @UnknownNullability List<ItemStack> shownItems, final int slotIndex, final Font font, final GuiGraphicsExtractor graphics) {
         int itemVisualOrderIndex = shownItems.size() - slotNumber;
         boolean hasHighlight = itemVisualOrderIndex == this.contents.getSelectedItemIndex();
-        ItemStack item = ((ItemStackTemplate)shownItems.get(itemVisualOrderIndex)).create();
+        ItemStack item = ((ItemStack)shownItems.get(itemVisualOrderIndex));
         if (hasHighlight) {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT_HIGHLIGHT_BACK_SPRITE, drawX, drawY, 24, 24);
         } else {
@@ -164,9 +161,9 @@ public class ClientQuiverTooltip implements ClientTooltipComponent {
     }
 
     private void extractSelectedItemTooltip(final Font font, final GuiGraphicsExtractor graphics, final int x, final int y, final int w) {
-        ItemStackTemplate selectedItem = this.contents.getSelectedItem();
+        ItemStack selectedItem = this.contents.getSelectedItem();
         if (selectedItem != null) {
-            ItemStack itemStack = selectedItem.create();
+            ItemStack itemStack = selectedItem;
             Component selectedItemName = itemStack.getStyledHoverName();
             int textWidth = font.width(selectedItemName.getVisualOrderText());
             int centerTooltip = x + w / 2 - 12;

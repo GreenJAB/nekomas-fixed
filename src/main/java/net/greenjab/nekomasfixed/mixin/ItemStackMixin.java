@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.item.quiver.QuiverTooltip;
 import net.greenjab.nekomasfixed.registry.other.AnimalTooltipData;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
@@ -46,6 +47,12 @@ public class ItemStackMixin {
 					? Optional.empty()
 					: Optional.ofNullable(itemStack.get(ComponentRegistry.ANIMAL)).map(AnimalTooltipData::new));
 		}
+		else if (itemStack.getComponents().has(ComponentRegistry.QUIVER_CONTENTS)) {
+			TooltipDisplay tooltipDisplayComponent = itemStack.getOrDefault(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT);
+			cir.setReturnValue(!tooltipDisplayComponent.shows(ComponentRegistry.QUIVER_CONTENTS)
+					? Optional.empty()
+					: Optional.ofNullable(itemStack.get(ComponentRegistry.QUIVER_CONTENTS)).map(QuiverTooltip::new));
+		}
 	}
 
 	@Inject(method = "addDetailsToTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;addToTooltip(Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/world/item/Item$TooltipContext;Lnet/minecraft/world/item/component/TooltipDisplay;Ljava/util/function/Consumer;Lnet/minecraft/world/item/TooltipFlag;)V", ordinal = 0))
@@ -54,6 +61,7 @@ public class ItemStackMixin {
 		ItemStack stack = (ItemStack)(Object)this;
 		stack.addToTooltip(ComponentRegistry.ANIMAL, context, display, builder, tooltipFlag);
 		stack.addToTooltip(ComponentRegistry.STORED_TIME, context, display, builder, tooltipFlag);
+		stack.addToTooltip(ComponentRegistry.QUIVER_CONTENTS, context, display, builder, tooltipFlag);
 		stack.addToTooltip(ComponentRegistry.COMBO_MULTIPLIER, context, display, builder, tooltipFlag);
 	}
 

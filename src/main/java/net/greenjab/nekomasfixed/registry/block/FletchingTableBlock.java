@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
+import net.greenjab.nekomasfixed.screen.FletchingMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
@@ -38,6 +39,6 @@ public class FletchingTableBlock extends Block {
     }
 
     protected MenuProvider getMenuProvider(final BlockState state, final Level level, final BlockPos pos) {
-        return new SimpleMenuProvider((containerId, inventory, player) -> new CraftingMenu(containerId, inventory, ContainerLevelAccess.create(level, pos)), CONTAINER_TITLE);
+        return new SimpleMenuProvider((containerId, inventory, player) -> new FletchingMenu(containerId, inventory), CONTAINER_TITLE);
     }
 }

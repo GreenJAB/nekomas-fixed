@@ -4,11 +4,14 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.greenjab.nekomasfixed.registry.item.quiver.QuiverContents;
+import net.greenjab.nekomasfixed.registry.item.quiver.QuiverItem;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.greenjab.nekomasfixed.util.ModData;
 import net.greenjab.nekomasfixed.util.ModTags;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
@@ -25,6 +28,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -34,10 +38,62 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
+import java.util.function.Predicate;
 
 @Mixin(Player.class)
 public class PlayerMixin {
+
+    @Inject(method = "getProjectile", at = @At("HEAD"), cancellable = true)
+    public void getProjectile(ItemStack heldWeapon, CallbackInfoReturnable<ItemStack> cir) {
+        Player player = (Player) (Object) this;
+        if (!(heldWeapon.getItem() instanceof ProjectileWeaponItem weapon)) {
+            cir.setReturnValue(ItemStack.EMPTY);
+            return;
+        }
+
+        Predicate<ItemStack> supportedHeld = weapon.getSupportedHeldProjectiles();
+        ItemStack heldProjectile = ProjectileWeaponItem.getHeldProjectile(player, supportedHeld);
+        if (!heldProjectile.isEmpty()) {
+            cir.setReturnValue(heldProjectile);
+            return;
+        }
+
+        Predicate<ItemStack> supportedAll = weapon.getAllSupportedProjectiles();
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.getItem() instanceof QuiverItem) {
+                QuiverContents contents = stack.get(ComponentRegistry.QUIVER_CONTENTS);
+
+                if (contents == null || contents.isEmpty()) continue;
+                QuiverContents.Mutable mutable = new QuiverContents.Mutable(contents);
+
+                Optional<ItemStack> firstArrow = contents.itemCopyStream().findFirst();
+                if (firstArrow.isPresent() && supportedAll.test(firstArrow.get())) {
+
+                    cir.setReturnValue(firstArrow.get());
+                    return;
+                }
+            }
+        }
+
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (supportedAll.test(stack)) {
+                cir.setReturnValue(stack);
+                return;
+            }
+        }
+
+        if (player.hasInfiniteMaterials()) {
+            cir.setReturnValue(new ItemStack(Items.ARROW));
+        } else {
+            cir.setReturnValue(ItemStack.EMPTY);
+        }
+    }
 
     @Unique
     private void checkForEdibles(Player PE){

@@ -12,6 +12,11 @@
   "block.nekomasfixed.sulfur_lantern": "Sulfur Lantern",
   "block.nekomasfixed.gold_chain": "Golden Chain",
 
+  "tipped_arrow_custom.contains": "Contains",
+  "tipped_arrow_custom.potion_content": "%s",
+  "item.nekomasfixed.tipped_arrow_custom": "Custom Tipped Arrow",
+  "item.nekomasfixed.quiver": "Quiver",
+
   "container.nautilus": "Holding: %s%s%s%s",
   "block.nekomasfixed.nautilus_block": "Nautilus Block",
   "block.nekomasfixed.zombie_nautilus_block": "Zombified Nautilus Block",

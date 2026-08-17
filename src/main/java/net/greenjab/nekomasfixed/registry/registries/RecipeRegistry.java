@@ -6,10 +6,7 @@ import net.greenjab.nekomasfixed.util.ModRecipeBookType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipePropertySet;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 
 public class RecipeRegistry {
 
@@ -18,6 +15,7 @@ public class RecipeRegistry {
     }
 
     public static final ResourceKey<RecipePropertySet> KILN_INPUT = registerRecipePropertySet("kiln_input");
+    public static final ResourceKey<RecipePropertySet> FLETCHING_INPUT = registerRecipePropertySet("fletching_input");
     private static ResourceKey<RecipePropertySet> registerRecipePropertySet(String id) {
         return ResourceKey.create(RecipePropertySet.TYPE_KEY, NekomasFixed.id(id));
     }
@@ -47,5 +45,11 @@ public class RecipeRegistry {
             NekomasFixed.id("kilning_misc"),
             new RecipeBookCategory()
     );
+    public static RecipeBookCategory FLETCHING_QUIVER = Registry.register(
+            BuiltInRegistries.RECIPE_BOOK_CATEGORY,
+            NekomasFixed.id("fletching_quiver"),
+            new RecipeBookCategory()
+    );
    public static final ModRecipeBookType KILNING = new ModRecipeBookType(RecipeRegistry.KILNING_BLOCK, RecipeRegistry.KILNING_MISC);
+   public static final ModRecipeBookType FLETCHING = new ModRecipeBookType(RecipeRegistry.FLETCHING_QUIVER);
 }
