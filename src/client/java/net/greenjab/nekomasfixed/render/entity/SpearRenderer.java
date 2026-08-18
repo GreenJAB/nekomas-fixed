@@ -64,12 +64,15 @@ public class SpearRenderer extends EntityRenderer<SpearEntity, SpearRenderState>
 			matrixStack.translate(new Vec3(0, -1.1+Math.min(-Math.abs((spearRenderState.ageInTicks-10)/5)+2,1), 0));
 			matrixStack.mulPose(Axis.YP.rotationDegrees(45));
 			matrixStack.mulPose(Axis.ZP.rotationDegrees(-45));
-
+			matrixStack.scale(1, 1, 0.01f);
 			itemStackRenderState.submit(matrixStack, orderedRenderCommandQueue, spearRenderState.light, OverlayTexture.NO_OVERLAY, 0);
+			matrixStack.scale(1, 1, 100f);
 			matrixStack.mulPose(Axis.ZP.rotationDegrees(45));
 			matrixStack.mulPose(Axis.YP.rotationDegrees(90));
 			matrixStack.mulPose(Axis.ZP.rotationDegrees(-45));
+			matrixStack.scale(1, 1, 0.01f);
 			itemStackRenderState.submit(matrixStack, orderedRenderCommandQueue, spearRenderState.light, OverlayTexture.NO_OVERLAY, 0);
+			matrixStack.scale(1, 1, 100f);
 			matrixStack.popPose();
 		}
 	}

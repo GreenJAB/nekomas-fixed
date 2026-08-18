@@ -3,7 +3,7 @@ plugins {
 	alias(libs.plugins.yamlang)
 }
 
-version = "0.5.1-26.2"
+version = "0.5.2-26.2"
 group = "net.green_jab.nekomasfixed"
 
 base {
