@@ -13,7 +13,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raid;
@@ -89,9 +89,9 @@ public class PatrolSpawnerMixin {
 
     @Unique private boolean spawnBoat(ServerLevel level, BlockPos pos, RandomSource random, int boatType, boolean captain) {
         BlockState blockState = level.getBlockState(pos);
-        if (!NaturalSpawner.isValidEmptySpawnBlock(level, pos, blockState, blockState.getFluidState(), EntityType.PILLAGER)) {
+        if (!NaturalSpawner.isValidEmptySpawnBlock(level, pos, blockState, blockState.getFluidState(), EntityTypes.PILLAGER)) {
             return false;
-        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityType.PILLAGER, level, EntitySpawnReason.PATROL, pos, random)) {
+        } else if (!PatrollingMonster.checkPatrollingMonsterSpawnRules(EntityTypes.PILLAGER, level, EntitySpawnReason.PATROL, pos, random)) {
             return false;
         } else {
             if (captain) return spawnCaptainBoat(level, pos, random, boatType);
@@ -108,9 +108,9 @@ public class PatrolSpawnerMixin {
         bigBoat.setHasChest(true);
         bigBoat.setContainerLootTable(ResourceKey.create(Registries.LOOT_TABLE, NekomasFixed.id("chests/patrol_boat")));
         bigBoat.setContainerLootTableSeed(random.nextLong());
-        bigBoat.setPos(pos.getCenter());
+        bigBoat.setPos(Vec3.atCenterOf(pos));
         for (int i = 0; i < level.getDifficulty().getId(); i++) {
-            PatrollingMonster patrolEntity = EntityType.PILLAGER.create(level, EntitySpawnReason.PATROL);
+            PatrollingMonster patrolEntity = EntityTypes.PILLAGER.create(level, EntitySpawnReason.PATROL);
             patrolEntity.setPos(pos.getX(), pos.getY(), pos.getZ());
             patrolEntity.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), EntitySpawnReason.PATROL, null);
             patrolEntity.startRiding(bigBoat);
@@ -123,8 +123,8 @@ public class PatrolSpawnerMixin {
     @Unique boolean spawnSmallBoat(ServerLevel level, BlockPos pos, RandomSource random, int boatType){
         AbstractBoat boatEntity = EntityTypeRegistry.boats.get(boatType).create(level, EntitySpawnReason.PATROL);
         if (boatEntity != null) {
-            boatEntity.setPos(pos.getCenter());
-            PatrollingMonster patrolEntity = EntityType.PILLAGER.create(level, EntitySpawnReason.PATROL);
+            boatEntity.setPos(Vec3.atCenterOf(pos));
+            PatrollingMonster patrolEntity = EntityTypes.PILLAGER.create(level, EntitySpawnReason.PATROL);
             patrolEntity.setPos(pos.getX(), pos.getY(), pos.getZ());
             patrolEntity.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), EntitySpawnReason.PATROL, null);
             patrolEntity.startRiding(boatEntity);
