@@ -60,9 +60,9 @@ public abstract class ServerLevelMixin {
         ProfilerFiller profiler = Profiler.get();
         profiler.push("thunder");
         ServerPlayer player = this.getRandomPlayer();
-        if (ModConfigValues.enableCopperBuff && bl && level.isThundering() && player != null) {
+        if (level.getRandom().nextInt(100) == 0 && ModConfigValues.enableCopperBuff && bl && level.isThundering() && player != null) {
             int armor = getCopperArmor(player);
-            if (armor > 0 && level.getRandom().nextInt(14000-2000*armor) == 0) {
+            if (armor > 0 && level.getRandom().nextInt(1400-200*armor) == 0) {
                 BlockPos blockPos = player.blockPosition();
                 if (level.isRainingAt(blockPos)) {
                     LightningBolt lightningEntity = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
