@@ -56,9 +56,9 @@ public abstract class ServerWorldMixin {
         Profiler profiler = Profilers.get();
         profiler.push("thunder");
         ServerPlayerEntity player = this.getRandomAlivePlayer();
-        if (ModConfigValues.enableCopperBuff && bl && serverWorld.isThundering() && player != null) {
+        if (serverWorld.random.nextInt(100)==0 && ModConfigValues.enableCopperBuff && bl && serverWorld.isThundering() && player != null) {
             int armor = getCopperArmor(player);
-            if (armor > 0 && serverWorld.random.nextInt(14000-2000*armor) == 0) {
+            if (armor > 0 && serverWorld.random.nextInt(1400-200*armor) == 0) {
                 BlockPos blockPos = player.getBlockPos();
                 if (serverWorld.hasRain(blockPos)) {
                     LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(serverWorld, SpawnReason.EVENT);

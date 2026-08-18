@@ -40,7 +40,7 @@ public class BiomeAdditions {
                 EntityTypeRegistry.DRENCHED,  5, 1, 2);
 
 
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.PLAINS, BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.MEADOW), SpawnGroup.CREATURE,
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.MEADOW), SpawnGroup.CREATURE,
                 EntityTypeRegistry.MOOBLOOM, 30, 1, 2);
 
     }

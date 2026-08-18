@@ -112,7 +112,7 @@ public class SlingshotProjectileEntity extends ThrownItemEntity {
     protected void onCollision(HitResult hitResult) {
         if (shatter && getOwner() instanceof LivingEntity entity) {
             shatter = false;
-            for (int i = 0;i<3;i++) {
+            for (int i = 0;i<5;i++) {
                 SlingshotProjectileEntity newSlingshotProjectileEntity = new SlingshotProjectileEntity(this.getEntityWorld(), entity, getStack(), weapon, false);
                 if (hitResult instanceof BlockHitResult blockHitResult) {
                     newSlingshotProjectileEntity.setPosition(this.getX(), this.getY(), this.getZ());
@@ -120,14 +120,14 @@ public class SlingshotProjectileEntity extends ThrownItemEntity {
                     Vec3d vec = blockHitResult.getSide().getDoubleVector();
                     if (Math.signum(this.getVelocity().getComponentAlongAxis(axis))!=Math.signum(vec.getComponentAlongAxis(axis))){
                         Vec3d vec2 = new Vec3d(vec.x==0?1:-0.9,vec.y==0?1:-0.9,vec.z==0?1:-0.9);
-                        Vec3d vec3d = this.getVelocity().multiply(vec2).multiply(0.8).add(new Vec3d(this.getRandom().nextTriangular(0, 1), 0, this.getRandom().nextTriangular(0, 1)));
+                        Vec3d vec3d = this.getVelocity().multiply(vec2).multiply(0.8).add(new Vec3d(this.getRandom().nextTriangular(0, 1), 0.25, this.getRandom().nextTriangular(0, 1)));
                         newSlingshotProjectileEntity.setVelocity(vec3d);
                         newSlingshotProjectileEntity.velocityDirty = true;
                     }
                 } else if (hitResult instanceof EntityHitResult entityHitResult) {
                     Entity e = entityHitResult.getEntity();
                     newSlingshotProjectileEntity.setPosition(e.getX(), this.getY(), e.getZ());
-                    Vec3d vec3d = this.getVelocity().multiply(0.8).add(new Vec3d(this.getRandom().nextTriangular(0, 1), 0, this.getRandom().nextTriangular(0, 1)));
+                    Vec3d vec3d = this.getVelocity().multiply(0.8).add(new Vec3d(this.getRandom().nextTriangular(0, 1), 0.25, this.getRandom().nextTriangular(0, 1)));
                     newSlingshotProjectileEntity.setVelocity(vec3d);
                     newSlingshotProjectileEntity.velocityDirty = true;
                 }
