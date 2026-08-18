@@ -6,6 +6,8 @@ import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.CraftingTableBlock;
+import net.minecraft.world.level.block.SmithingTableBlock;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;

@@ -138,6 +138,9 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.HUGE_BAMBOO_BOAT);
                         entries.accept(ItemRegistry.HUGE_BAOBAB_BOAT);
 
+                        entries.accept(ItemRegistry.SULFUR_LANTERN);
+                        entries.accept(ItemRegistry.GOLD_CHAIN);
+
 
                     }).build();
 

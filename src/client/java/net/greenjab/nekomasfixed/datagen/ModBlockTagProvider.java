@@ -2,10 +2,12 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
@@ -40,6 +42,30 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
 
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
+
+        tag(ModTags.SULFUR_BLOCKS)
+                .add(Blocks.SULFUR.properties().blockId())
+                .add(Blocks.SULFUR_BRICKS.properties().blockId())
+                .add(Blocks.CHISELED_SULFUR.properties().blockId())
+                .add(Blocks.POTENT_SULFUR.properties().blockId())
+                .add(Blocks.POLISHED_SULFUR.properties().blockId());
+
+        tag(BlockTags.LANTERNS)
+                .add(BlockRegistry.SULFUR_LANTERN.properties().blockId());
+
+        tag(BlockTags.CHAINS)
+                .add(BlockRegistry.GOLD_CHAIN.properties().blockId());
+
+        tag(ModTags.TORCHES)
+                .add(Blocks.TORCH.properties().blockId())
+                .add(Blocks.REDSTONE_TORCH.properties().blockId())
+                .add(Blocks.REDSTONE_WALL_TORCH.properties().blockId())
+                .add(Blocks.SOUL_TORCH.properties().blockId())
+                .add(Blocks.SOUL_WALL_TORCH.properties().blockId())
+                .add(Blocks.COPPER_TORCH.properties().blockId())
+                .add(Blocks.COPPER_WALL_TORCH.properties().blockId())
+                .add(BlockRegistry.GLOW_TORCH.properties().blockId())
+                .add(BlockRegistry.GLOW_WALL_TORCH.properties().blockId());
 
         tag(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .addTag(ModTags.DYED_BRICKS)
