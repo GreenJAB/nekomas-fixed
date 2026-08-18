@@ -1,4 +1,6 @@
 // 26.2	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
+4e60b46a1610081371b7f4ec2dd74cc8e42b6c24 data/minecraft/tags/block/chains.json
+168bab13aadb88cf9eb95a278127ca851d860803 data/minecraft/tags/block/lanterns.json
 cc2df6c1fa06a20834ea62c9ae26adc62c893540 data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
 5d327ebedc30c5df3d1585f6e8d78052745d48d9 data/nekomasfixed/tags/block/concrete_powders.json
 2506dff323c1a71bab7c0ec4cbf10a9cab6f346b data/nekomasfixed/tags/block/concretes.json
@@ -12,3 +14,4 @@ f73e41c1264148ca3b490e5491dbcf14ee272ad1 data/nekomasfixed/tags/block/spotted_ca
 3d0f841cf8a65990db78c3fc0e28e31b8c670783 data/nekomasfixed/tags/block/spotted_wools.json
 d80bbc066a147edf4387ddc05419baa947b91490 data/nekomasfixed/tags/block/stained_glass_panes.json
 52666c5253ade4f7e7f0d82dd0f86eb82cb6083e data/nekomasfixed/tags/block/stained_glasses.json
+baf7498437921df8626588cba1952b50ec9bd43c data/nekomasfixed/tags/block/sulfur_blocks.json

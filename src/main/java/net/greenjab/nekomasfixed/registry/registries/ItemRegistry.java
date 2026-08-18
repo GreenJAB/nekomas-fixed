@@ -46,6 +46,7 @@ import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.waypoints.Waypoint;
 import java.util.List;
 import java.util.Optional;
@@ -474,6 +475,10 @@ public class ItemRegistry {
     public static final Item AQUA_SPOTTED_CARPET = register(BlockRegistry.AQUA_SPOTTED_CARPET);
     public static final Item INDIGO_SPOTTED_CARPET = register(BlockRegistry.INDIGO_SPOTTED_CARPET);
     public static final Item MAROON_SPOTTED_CARPET = register(BlockRegistry.MAROON_SPOTTED_CARPET);
+
+
+    public static final Item SULFUR_LANTERN =register(BlockRegistry.SULFUR_LANTERN);
+    public static final Item GOLD_CHAIN =register(BlockRegistry.GOLD_CHAIN);
 
 
 

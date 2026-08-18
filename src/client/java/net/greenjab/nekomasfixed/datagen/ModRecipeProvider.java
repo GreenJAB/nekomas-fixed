@@ -50,6 +50,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(ItemRegistry.STRIPPED_BAOBAB_LOG), has(ItemRegistry.STRIPPED_BAOBAB_LOG))
                         .save(output);
 
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.SULFUR_LANTERN, 1)
+                        .pattern("III")
+                        .pattern("ITI")
+                        .pattern("III")
+                        .define('I', Items.GOLD_NUGGET)
+                        .define('T', Items.SULFUR)
+                        .unlockedBy(getHasName(Items.GOLD_NUGGET), has(Items.GOLD_NUGGET))
+                        .unlockedBy(getHasName(Items.SULFUR), has(Items.SULFUR))
+                        .save(output);
+
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.GOLD_CHAIN, 4)
+                        .pattern("#")
+                        .pattern("T")
+                        .pattern("#")
+                        .define('#', Items.GOLD_NUGGET)
+                        .define('T', Items.GOLD_INGOT)
+                        .unlockedBy(getHasName(Items.GOLD_NUGGET), has(Items.GOLD_NUGGET))
+                        .unlockedBy(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
+                        .save(output);
+
                 woodenBoat(ItemRegistry.BAOBAB_BOAT, ItemRegistry.BAOBAB_PLANKS);
                 chestBoat(ItemRegistry.BAOBAB_CHEST_BOAT, ItemRegistry.BAOBAB_PLANKS);
                 shelf(ItemRegistry.BAOBAB_SHELF, ItemRegistry.STRIPPED_BAOBAB_LOG);

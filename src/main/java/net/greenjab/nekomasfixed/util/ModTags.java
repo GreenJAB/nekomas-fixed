@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 public class ModTags {
     public static final TagKey<Biome> SPAWNS_RIME = TagKey.create(Registries.BIOME, NekomasFixed.id("spawns_rime"));
 
-
+    public static final TagKey<Block> SULFUR_BLOCKS = TagKey.create(Registries.BLOCK, NekomasFixed.id("sulfur_blocks"));
     public static final TagKey<Block> CAN_BE_DYED_WITH_BRUSH = TagKey.create(Registries.BLOCK, NekomasFixed.id("can_be_dyed_with_brush"));
     public static final TagKey<Block> DYED_BRICKS = TagKey.create(Registries.BLOCK, NekomasFixed.id("dyed_bricks"));
     public static final TagKey<Block> DYED_BRICK_SLABS = TagKey.create(Registries.BLOCK, NekomasFixed.id("dyed_brick_slabs"));
