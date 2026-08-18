@@ -10,8 +10,10 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
 
@@ -43,6 +45,11 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(BlockRegistry.AQUA_BRICKS);
         blockStateModelGenerator.createTrivialCube(BlockRegistry.INDIGO_BRICKS);
         blockStateModelGenerator.createTrivialCube(BlockRegistry.MAROON_BRICKS);
+        blockStateModelGenerator.createFloorFireModels(BlockRegistry.SULFUR_FIRE);
+        blockStateModelGenerator.createTopFireModels(BlockRegistry.SULFUR_FIRE);
+        blockStateModelGenerator.createSideFireModels(BlockRegistry.SULFUR_FIRE);
+        blockStateModelGenerator.createLantern(BlockRegistry.SULFUR_LANTERN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(BlockRegistry.GOLD_CHAIN, TexturedModel.CHAIN);
 
         registerSlab(blockStateModelGenerator, BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_SLAB);
         registerSlab(blockStateModelGenerator, BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_SLAB);
@@ -106,6 +113,8 @@ public class ModModelProvider extends FabricModelProvider {
         registerWall(blockStateModelGenerator, BlockRegistry.AQUA_BRICKS, BlockRegistry.AQUA_BRICK_WALL);
         registerWall(blockStateModelGenerator, BlockRegistry.INDIGO_BRICKS, BlockRegistry.INDIGO_BRICK_WALL);
         registerWall(blockStateModelGenerator, BlockRegistry.MAROON_BRICKS, BlockRegistry.MAROON_BRICK_WALL);
+
+
     }
 
     @Override

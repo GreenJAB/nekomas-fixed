@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:torch",
+    "minecraft:redstone_torch",
+    "minecraft:redstone_wall_torch",
+    "minecraft:soul_torch",
+    "minecraft:soul_wall_torch",
+    "minecraft:copper_torch",
+    "minecraft:copper_wall_torch",
+    "nekomasfixed:glow_torch",
+    "nekomasfixed:glow_wall_torch"
+  ]
+}
