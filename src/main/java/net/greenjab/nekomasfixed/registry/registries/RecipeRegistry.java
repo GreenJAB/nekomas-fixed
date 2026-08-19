@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.recipe.CustomTippedArrowRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
 import net.greenjab.nekomasfixed.util.ModRecipeBookType;
 import net.minecraft.core.Registry;
@@ -21,6 +22,7 @@ public class RecipeRegistry {
     }
 
     public static final RecipeType<KilnRecipe> KILN = registerRecipeType("kiln");
+    public static final RecipeType<CustomTippedArrowRecipe> CUSTOM_TIPPED_ARROW_RECIPE = registerRecipeType("custom_tipped_arrow");
 
     static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String id) {
         return Registry.register(

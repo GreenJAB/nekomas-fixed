@@ -10,11 +10,16 @@ import net.greenjab.nekomasfixed.screen.FletchingScreen;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
 import net.greenjab.nekomasfixed.screen.PyrotechnicsTableScreen;
+import net.greenjab.nekomasfixed.util.QuiverComponentChangeProperty;
+import net.greenjab.nekomasfixed.util.QuiverListState;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
@@ -36,6 +41,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 		MenuScreens.register(ScreenHandlerRegistry.PYROTECHNICS, PyrotechnicsTableScreen::new);
 
 		BlockColorRegistry.register(List.of(soup()), BlockRegistry.SOUP_CAULDRON);
+
+
 	}
 
 	public static BlockTintSource soup() {

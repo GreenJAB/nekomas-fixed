@@ -2,19 +2,31 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.greenjab.nekomasfixed.registry.item.quiver.QuiverContents;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.greenjab.nekomasfixed.util.QuiverComponentChangeProperty;
+import net.greenjab.nekomasfixed.util.QuiverListState;
 import net.minecraft.client.data.*;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.SelectItemModel;
+import net.minecraft.client.renderer.item.properties.conditional.ComponentMatches;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 
 public class ModModelProvider extends FabricModelProvider {
@@ -139,7 +151,29 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemRegistry.AQUA_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.INDIGO_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.MAROON_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
+
+
         itemModelGenerator.generateFlatItem(ItemRegistry.QUIVER, ModelTemplates.FLAT_ITEM);
+//        Identifier emptyId = itemModelGenerator.createFlatItemModel(
+//                ItemRegistry.QUIVER, "_empty", ModelTemplates.FLAT_ITEM
+//        );
+//        Identifier fullId = itemModelGenerator.createFlatItemModel(
+//                ItemRegistry.QUIVER, "_full", ModelTemplates.FLAT_ITEM
+//        );
+//
+//        ItemModel.Unbaked EMPTY_QUIVER = ItemModelUtils.plainModel(emptyId);
+//        ItemModel.Unbaked FULL_QUIVER = ItemModelUtils.plainModel(fullId);
+//
+//
+//        ItemModel.Unbaked selectModel = ItemModelUtils.select(
+//                QuiverComponentChangeProperty.INSTANCE,
+//                FULL_QUIVER,
+//                ItemModelUtils.when(QuiverListState.EMPTY, EMPTY_QUIVER),
+//                ItemModelUtils.when(QuiverListState.NOT_EMPTY, FULL_QUIVER)
+//        );
+//
+//        itemModelGenerator.itemModelOutput.accept(ItemRegistry.QUIVER, selectModel);
+
     }
 
 

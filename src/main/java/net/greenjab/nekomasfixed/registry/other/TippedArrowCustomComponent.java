@@ -50,6 +50,8 @@ public record TippedArrowCustomComponent(List<PotionContents> potionContents) im
         }
     }
 
+    
+
 //    @Override
 //    public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter components) {
 //        consumer.accept(Component.nullToEmpty("THIS IS TOOLTIP"));
