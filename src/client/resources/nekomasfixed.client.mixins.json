@@ -30,6 +30,7 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "IllagerModelMixin"
+    "IllagerModelMixin",
+    "LivingEntityRendererMixin"
   ]
 }

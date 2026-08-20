@@ -6,10 +6,12 @@
     "#": "nekomasfixed:red_bricks"
   },
   "pattern": [
+    "#  ",
+    "## ",
     "###"
   ],
   "result": {
-    "count": 6,
+    "count": 4,
     "id": "nekomasfixed:red_brick_stairs"
   }
 }

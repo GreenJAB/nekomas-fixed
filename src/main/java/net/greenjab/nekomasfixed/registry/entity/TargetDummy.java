@@ -192,7 +192,8 @@ public class TargetDummy extends Avatar implements Shearable {
 			if (itemStack.hasNonDefault(DataComponents.CUSTOM_NAME)) {
 				Component name = itemStack.get(DataComponents.CUSTOM_NAME);
 				if (name!=null) {
-					setTargetDummyProfile(ResolvableProfile.createUnresolved(name.tryCollapseToString()));
+					String s = name.tryCollapseToString();
+					if (s != null && !s.isEmpty()) setTargetDummyProfile(ResolvableProfile.createUnresolved(name.tryCollapseToString()));
 					setZombie(false);
 					return InteractionResult.SUCCESS;
 				}

@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "nekomasfixed:block/baobab_sign"
+    "facing=east": {
+      "model": "nekomasfixed:block/baobab_wall_sign",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "nekomasfixed:block/baobab_wall_sign",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "nekomasfixed:block/baobab_wall_sign"
+    },
+    "facing=west": {
+      "model": "nekomasfixed:block/baobab_wall_sign",
+      "y": 90
     }
   }
 }

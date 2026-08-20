@@ -101,7 +101,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
                     slabBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_slab").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
-                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_stairs").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
+                    stairBuilder(BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_stairs").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
                     wallBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_wall").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
                 }
                 ArrayList<Item> spotted_wool = new ArrayList<>();
