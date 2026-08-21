@@ -27,7 +27,7 @@
                 },
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "nekomasfixed:glistering_melon",
+                  "block": "minecraft:melon",
                   "properties": {
                     "corner_1": "true",
                     "corner_2": "true",
@@ -40,7 +40,7 @@
                   }
                 }
               ],
-              "name": "nekomasfixed:glistering_melon"
+              "name": "minecraft:melon"
             },
             {
               "type": "minecraft:item",
@@ -72,7 +72,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "minecraft:glistering_melon_slice"
+              "name": "minecraft:melon_slice"
             }
           ]
         }
@@ -80,5 +80,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "nekomasfixed:blocks/glistering_melon"
+  "random_sequence": "minecraft:blocks/melon"
 }
