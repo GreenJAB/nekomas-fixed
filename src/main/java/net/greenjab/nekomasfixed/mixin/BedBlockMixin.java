@@ -26,7 +26,8 @@ public class BedBlockMixin implements MessyBedAccessor {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void setDefaultState(DyeColor color, AbstractBlock.Settings settings, CallbackInfo ci) {
         BedBlock self = (BedBlock)(Object)this;
-        self.setDefaultState(self.getDefaultState().with(MessyBedAccessor.IS_MESSY, false));
+        if (self.getDefaultState().getProperties().contains(MessyBedAccessor.IS_MESSY))
+            self.setDefaultState(self.getDefaultState().with(MessyBedAccessor.IS_MESSY, false));
     }
 
     @Inject(method = "appendProperties", at = @At("TAIL"))

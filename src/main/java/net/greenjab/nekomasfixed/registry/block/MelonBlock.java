@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.registry.block;
 
-import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -175,19 +174,11 @@ public class MelonBlock extends Block {
 			List<ItemStack> stacks = lootTable.generateLoot(lootWorldContext);
 			int slices = (int) IntStream.range(0, 8).filter(j -> hasCorner(state, j)).count();
 			ArrayList<ItemStack> newstacks = new ArrayList<>(List.of());
-			if (glistering) {
-				stacks.forEach(stack -> {
-					if (stack.isOf(Items.MELON_SLICE) || (stack.isOf(Items.MELON) && slices != 8))
-						newstacks.add(Items.MELON_SLICE.getDefaultStack().copyWithCount(slices));
-					else newstacks.add(stack);
-				});
-			} else {
-				stacks.forEach(stack -> {
-					if (stack.isOf(Items.GLISTERING_MELON_SLICE) || (stack.isOf(BlockRegistry.GLISTERING_MELON.asItem()) && slices != 8))
-						newstacks.add(Items.GLISTERING_MELON_SLICE.getDefaultStack().copyWithCount(slices));
-					else newstacks.add(stack);
-				});
-			}
+			stacks.forEach(stack -> {
+				if (stack.isOf(Items.MELON_SLICE) || stack.isOf(Items.GLISTERING_MELON_SLICE))
+					newstacks.add(stack.getItem().getDefaultStack().copyWithCount(Math.min(stack.getCount(), slices)));
+				else newstacks.add(stack);
+			});
 			return newstacks;
 		}
 	}

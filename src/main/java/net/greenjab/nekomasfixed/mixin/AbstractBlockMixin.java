@@ -55,7 +55,7 @@ public class AbstractBlockMixin {
                 if (world.getBlockState(placePos).isIn(BlockTags.REPLACEABLE) && state.isSideSolidFullSquare(world, pos, hit.getSide())) {
                     world.setBlockState(placePos, newState);
                     world.playSound(null, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    player.getMainHandStack().decrementUnlessCreative(1, player);
+                    stack.decrementUnlessCreative(1, player);
                     cir.setReturnValue(ActionResult.SUCCESS);
                 }
             }
