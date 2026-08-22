@@ -43,6 +43,7 @@
     "ServerWorldMixin",
     "SheepEntityMixin",
     "SkeletonEntityMixin",
+	"SmithingMenuMixin",
     "SnifferEntityMixin",
     "TradeOffersMixin",
     "ZombieEntityMixin",

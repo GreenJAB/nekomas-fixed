@@ -84,7 +84,7 @@ public class BlockRegistry {
     static BlockSetType BAOBAB_BLOCKSETTYPE = BlockSetType.register(new BlockSetType("baobab"));
     static WoodType BAOBAB_WOODTYPE = WoodType.register(new WoodType("baobab", BAOBAB_BLOCKSETTYPE));
     public static final Block BAOBAB_LOG = register("baobab_log", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.OAK_TAN));
-    public static final Block BAOBAB_WOOD = register("baobab_wood", AbstractBlock.Settings.copy(Blocks.OAK_WOOD));
+    public static final Block BAOBAB_WOOD = register("baobab_wood", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_WOOD));
     public static final Block STRIPPED_BAOBAB_LOG = register(
             "stripped_baobab_log", PillarBlock::new, AbstractBlock.Settings.copy(Blocks.STRIPPED_OAK_LOG));
     public static final Block STRIPPED_BAOBAB_WOOD = register(
@@ -144,7 +144,7 @@ public class BlockRegistry {
     public static final Block BAOBAB_BUTTON = register(
             "baobab_button",settings -> new ButtonBlock(BAOBAB_BLOCKSETTYPE, 30, settings), createButtonSettings().burnable()
     );
-    public static final Block BAOBAB_LEAVES = register("baobab_leaves", settings -> new TintedParticleLeavesBlock(0.01F, settings), createLeavesSettings(BlockSoundGroup.GRASS));
+    public static final Block BAOBAB_LEAVES = register("baobab_leaves", settings -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, -9399763), settings), createLeavesSettings(BlockSoundGroup.GRASS));
     public static final Block BAOBAB_SAPLING = register("baobab_sapling",(settings) -> new SaplingBlock(new SaplingGenerator("nekomasfixed:baobab",  Optional.of(ModConfiguredFeatures.BAOBAB_KEY),Optional.empty(), Optional.empty()),  settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_SAPLING));
     public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, AbstractBlock.Settings.create().ticksRandomly().strength(0.2f).blockVision(BlockRegistry::never).burnable().breakInstantly());
     public static final Block ROPE = register("rope", RopeBlock::new, AbstractBlock.Settings.create().strength(0.2f).solidBlock(BlockRegistry::never).burnable().noCollision());
