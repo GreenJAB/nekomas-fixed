@@ -9,42 +9,15 @@ import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.greenjab.nekomasfixed.registry.worldgen.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ButtonBlock;
-import net.minecraft.world.level.block.CandleBlock;
-import net.minecraft.world.level.block.CarpetBlock;
-import net.minecraft.world.level.block.CeilingHangingSignBlock;
-import net.minecraft.world.level.block.ConcretePowderBlock;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.FenceGateBlock;
-import net.minecraft.world.level.block.FireBlock;
-import net.minecraft.world.level.block.GlazedTerracottaBlock;
-import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.ShelfBlock;
-import net.minecraft.world.level.block.ShulkerBoxBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.StainedGlassBlock;
-import net.minecraft.world.level.block.StainedGlassPaneBlock;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.StandingSignBlock;
-import net.minecraft.world.level.block.TintedParticleLeavesBlock;
-import net.minecraft.world.level.block.TrapDoorBlock;
-import net.minecraft.world.level.block.WallBlock;
-import net.minecraft.world.level.block.WallHangingSignBlock;
-import net.minecraft.world.level.block.WallSignBlock;
-import net.minecraft.world.level.block.WoolCarpetBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -117,7 +90,7 @@ public class BlockRegistry {
     static BlockSetType BAOBAB_BLOCKSETTYPE = BlockSetType.register(new BlockSetType("baobab"));
     static WoodType BAOBAB_WOODTYPE = WoodType.register(new WoodType("baobab", BAOBAB_BLOCKSETTYPE));
     public static final Block BAOBAB_LOG = register("baobab_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.WOOD));
-    public static final Block BAOBAB_WOOD = register("baobab_wood", BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD));
+    public static final Block BAOBAB_WOOD = register("baobab_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD));
     public static final Block STRIPPED_BAOBAB_LOG = register(
             "stripped_baobab_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG));
     public static final Block STRIPPED_BAOBAB_WOOD = register(
@@ -177,7 +150,7 @@ public class BlockRegistry {
     public static final Block BAOBAB_BUTTON = register(
             "baobab_button",settings -> new ButtonBlock(BAOBAB_BLOCKSETTYPE, 30, settings), buttonProperties().ignitedByLava()
     );
-    public static final Block BAOBAB_LEAVES = register("baobab_leaves", settings -> new TintedParticleLeavesBlock(0.01F, settings), leavesProperties(SoundType.GRASS));
+    public static final Block BAOBAB_LEAVES = register("baobab_leaves", settings -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, -9399763), settings), leavesProperties(SoundType.GRASS));
     public static final Block BAOBAB_SAPLING = register("baobab_sapling",(settings) -> new SaplingBlock(new TreeGrower("nekomasfixed:baobab",  Optional.of(ModConfiguredFeatures.BAOBAB_KEY),Optional.empty(), Optional.empty()),  settings), BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING));
     public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, BlockBehaviour.Properties.of().randomTicks().strength(0.2f).isViewBlocking(BlockRegistry::never).ignitedByLava().instabreak());
     public static final Block ROPE = register("rope", RopeBlock::new, BlockBehaviour.Properties.of().strength(0.2f).isRedstoneConductor(BlockRegistry::never).ignitedByLava().noCollision());

@@ -1,9 +1,9 @@
 {
   "block.minecraft.clock": "Clock",
-  "item.minecraft.tipped_arrow.effect.lightning": "Arrow of Lightning",
-  "item.minecraft.lingering_potion.effect.lightning": "Lingering Potion of Lightning",
-  "item.minecraft.potion.effect.lightning": "Potion of Lightning",
-  "item.minecraft.splash_potion.effect.lightning": "Splash Potion of Lightning",
+  "item.minecraft.tipped_arrow.effect.lightning": "Lightning on an Arrow",
+  "item.minecraft.lingering_potion.effect.lightning": "Lightning in a Lingering Bottle",
+  "item.minecraft.potion.effect.lightning": "Lightning in a Bottle",
+  "item.minecraft.splash_potion.effect.lightning": "Lightning in a Splash Bottle",
 
   "item.minecraft.turtle_helmet": "Turtle Headgear"
 }
