@@ -43,6 +43,7 @@
     "SheepMixin",
     "SignalGetterMixin",
     "SkeletonMixin",
+    "SmithingMenuMixin",
     "SnifferEntityMixin",
     "ZombieMixin",
     "accessor.FlowerPotBlockAccessor",

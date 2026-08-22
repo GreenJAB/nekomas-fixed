@@ -1,6 +1,6 @@
 {
-  "itemgroup.nekomasfixed": "Nekomas' Fixed Ideas",
-  "itemgroup.nekomasfixedcolours": "Nekomas' Fixed Colours",
+  "itemgroup.nekomasfixed": "Nekoma's Fixed Ideas",
+  "itemgroup.nekomasfixedcolours": "Nekoma's Fixed Colours",
   "title.nekomasfixed.config": "Config",
 
   "block.nekomasfixed.clam": "Clam",
@@ -18,7 +18,7 @@
   "block.nekomasfixed.glistering_melon": "Glistering Melon",
   "block.nekomasfixed.geyser": "Geyser",
 
-  "block.nekomasfixed.kiln": "Kiln Apparatus",
+  "block.nekomasfixed.kiln": "Kiln",
   "container.nekomasfixed.kiln": "Kiln",
   "gui.recipebook.toggleRecipes.kilnable": "Showing Kilnable",
 
@@ -164,8 +164,8 @@
   "item.nekomasfixed.big_cherry_boat": "Big Cherry Boat",
   "entity.nekomasfixed.big_pale_oak_boat": "Big Pale Oak Boat",
   "item.nekomasfixed.big_pale_oak_boat": "Big Pale Oak Boat",
-  "entity.nekomasfixed.big_bamboo_boat": "Big Bamboo Boat",
-  "item.nekomasfixed.big_bamboo_boat": "Big Bamboo Boat",
+  "entity.nekomasfixed.big_bamboo_boat": "Big Bamboo Raft",
+  "item.nekomasfixed.big_bamboo_boat": "Big Bamboo Raft",
   "entity.nekomasfixed.big_baobab_boat": "Big Baobab Boat",
   "item.nekomasfixed.big_baobab_boat": "Big Baobab Boat",
 
@@ -187,8 +187,8 @@
   "item.nekomasfixed.huge_cherry_boat": "Huge Cherry Boat",
   "entity.nekomasfixed.huge_pale_oak_boat": "Huge Pale Oak Boat",
   "item.nekomasfixed.huge_pale_oak_boat": "Huge Pale Oak Boat",
-  "entity.nekomasfixed.huge_bamboo_boat": "Huge Bamboo Boat",
-  "item.nekomasfixed.huge_bamboo_boat": "Huge Bamboo Boat",
+  "entity.nekomasfixed.huge_bamboo_boat": "Huge Bamboo Raft",
+  "item.nekomasfixed.huge_bamboo_boat": "Huge Bamboo Raft",
   "entity.nekomasfixed.huge_baobab_boat": "Huge Baobab Boat",
   "item.nekomasfixed.huge_baobab_boat": "Huge Baobab Boat",
 

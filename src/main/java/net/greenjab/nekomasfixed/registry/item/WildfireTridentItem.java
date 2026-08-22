@@ -62,7 +62,7 @@ public class WildfireTridentItem extends Item implements ProjectileItem {
             int i = this.getUseDuration(stack, user) - remainingUseTicks;
             if (i < 10) return false;
             float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, playerEntity);
-            if (f > 0.0F && !playerEntity.isOnFire()) return false;
+            if (f > 0.0F && !playerEntity.isOnFire() && !playerEntity.isInWaterOrRain()) return false;
             if (stack.nextDamageWillBreak()) return false;
             Holder<SoundEvent> registryEntry = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
             playerEntity.awardStat(Stats.ITEM_USED.get(this));
@@ -100,7 +100,7 @@ public class WildfireTridentItem extends Item implements ProjectileItem {
         ItemStack itemStack = user.getItemInHand(hand);
         if (itemStack.nextDamageWillBreak()) {
             return InteractionResult.FAIL;
-        } else if (EnchantmentHelper.getTridentSpinAttackStrength(itemStack, user) > 0.0F && !user.isOnFire()) {
+        } else if (EnchantmentHelper.getTridentSpinAttackStrength(itemStack, user) > 0.0F && !user.isOnFire() && !user.isInWaterOrRain()) {
             return InteractionResult.FAIL;
         } else {
             user.startUsingItem(hand);
