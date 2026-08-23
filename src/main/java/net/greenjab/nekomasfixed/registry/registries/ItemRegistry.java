@@ -38,10 +38,7 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.component.BlocksAttacks;
-import net.minecraft.world.item.component.BundleContents;
-import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.item.component.Weapon;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
@@ -99,7 +96,7 @@ public class ItemRegistry {
                     Component.nullToEmpty(""),
                     List.of(NekomasFixed.id("container/slot/trident"),NekomasFixed.id("container/slot/shield")),
                     List.of(Identifier.withDefaultNamespace("container/slot/ingot")),
-                    settings),new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant()
+                    settings),new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant().delayedComponent(DataComponents.DAMAGE_RESISTANT, (context) -> new DamageResistant(context.getOrThrow(DamageTypeTags.IS_EXPLOSION)))
     );
     public static final Item WILDFIRE_TRIDENT = register("wildfire_trident", WildfireTridentItem::new, new Item.Properties()
             .rarity(Rarity.RARE).durability(1000).attributes(WildfireTridentItem.createAttributeModifiers())
@@ -116,15 +113,13 @@ public class ItemRegistry {
                                     Optional.of(SoundEvents.SHIELD_BLOCK),
                                     Optional.of(SoundEvents.SHIELD_BREAK)))
                     .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK).fireResistant());
-    public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::createArmorTrimTemplate, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant());
-
-
+    public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::createArmorTrimTemplate, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant().delayedComponent(DataComponents.DAMAGE_RESISTANT, (context) -> new DamageResistant(context.getOrThrow(DamageTypeTags.IS_EXPLOSION))));
 
     public static final Item CROWN_SMITHING_TEMPLATE = register("crown_smithing_template", settings ->
             new SmithingTemplateItem(Component.translatable(Util.makeDescriptionId("item", NekomasFixed.id("helmets")))
                     .withStyle(ChatFormatting.BLUE), Component.translatable(Util.makeDescriptionId("item", NekomasFixed.id("nether_heart")))
                     .withStyle(ChatFormatting.BLUE), Component.nullToEmpty(""), Component.nullToEmpty(""), List.of(NekomasFixed.id("container/slot/helmet")),
-                    List.of(NekomasFixed.id("container/slot/nether_heart")), settings),new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant());
+                    List.of(NekomasFixed.id("container/slot/nether_heart")), settings),new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant().delayedComponent(DataComponents.DAMAGE_RESISTANT, (context) -> new DamageResistant(context.getOrThrow(DamageTypeTags.IS_EXPLOSION))));
     public static final Item COPPER_CROWN = register("copper_crown", Item::new, new Item.Properties().humanoidArmor(ArmorMaterials.COPPER, ArmorType.HELMET)
             .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot()).setEquipSound(SoundEvents.ARMOR_EQUIP_COPPER)
                     .setAsset(ModEquipmentAssetKeys.COPPER_CROWN).build()));

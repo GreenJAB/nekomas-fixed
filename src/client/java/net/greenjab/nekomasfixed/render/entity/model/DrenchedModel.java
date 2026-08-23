@@ -50,8 +50,8 @@ public class DrenchedModel extends SkeletonModel<DrenchedRenderState> {
         if (swimAmount > 0.0F) {
             this.rightArm.xRot = Mth.rotLerpRad(swimAmount, this.rightArm.xRot, (float) (-Math.PI * 4.0 / 5.0 - 90*Math.PI/180.0)) + swimAmount * 0.35F * Mth.sin((0.1F * drenchedRenderState.ageInTicks));
             this.leftArm.xRot = Mth.rotLerpRad(swimAmount, this.leftArm.xRot, (float) (-Math.PI * 4.0 / 5.0 - 90*Math.PI/180.0)) - swimAmount * 0.35F * Mth.sin((0.1F * drenchedRenderState.ageInTicks));
-            this.rightArm.zRot = Mth.rotLerpRad(swimAmount, this.rightArm.zRot, -0.15F);
-            this.leftArm.zRot = Mth.rotLerpRad(swimAmount, this.leftArm.zRot, 0.15F);
+            this.rightArm.zRot = Mth.rotLerpRad(swimAmount, this.rightArm.zRot, -0.15F - (float)(Math.PI));
+            this.leftArm.zRot = Mth.rotLerpRad(swimAmount, this.leftArm.zRot, 0.15F - (float)(Math.PI));
             this.leftLeg.xRot -= swimAmount * 0.55F * Mth.sin((0.1F * drenchedRenderState.ageInTicks));
             this.rightLeg.xRot += swimAmount * 0.55F * Mth.sin((0.1F * drenchedRenderState.ageInTicks));
             this.head.xRot = 0.0F;

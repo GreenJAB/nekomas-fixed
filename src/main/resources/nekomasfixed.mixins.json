@@ -22,6 +22,7 @@
     "EnchantmentMixin",
     "EntityMixin",
     "FarmlandBlockMixin",
+    "FireworkExplosionMixin",
     "FireworkStarRecipeMixin",
     "FoxMixin",
     "InstrumentItemMixin",

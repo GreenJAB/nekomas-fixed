@@ -199,7 +199,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
                             stackedCakeBlockEntity.CANDLE_STATE = candleState.setValue(CandleBlock.LIT, true);
                             stackedCakeBlockEntity.setChanged();
                             level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(LIT, true));
-                            stack.hurtWithoutBreaking(1, player);
+                            stack.hurtAndBreak(1, player, hand);
                             level.playSound(null, player, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                             return InteractionResult.SUCCESS;
                         }
