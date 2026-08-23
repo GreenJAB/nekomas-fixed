@@ -1,4 +1,7 @@
 // 26.2	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
+dc66709a9f7c6746fd97a3e465fc4656eb876b05 data/minecraft/tags/block/slabs.json
+32fc3aeb40dde7152028df199a283b2b19dbc85b data/minecraft/tags/block/stairs.json
+ab585463eabec5a572000f58a11101ea2ec0c31f data/minecraft/tags/block/walls.json
 cc2df6c1fa06a20834ea62c9ae26adc62c893540 data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
 5d327ebedc30c5df3d1585f6e8d78052745d48d9 data/nekomasfixed/tags/block/concrete_powders.json
 2506dff323c1a71bab7c0ec4cbf10a9cab6f346b data/nekomasfixed/tags/block/concretes.json
