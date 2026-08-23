@@ -54,7 +54,7 @@ public class BaobabFruitBlock extends Block implements BonemealableBlock {
 
     @Override
     protected void randomTick(@NonNull BlockState state, ServerLevel level, @NonNull BlockPos pos, @NonNull RandomSource random) {
-        if (level.getRandom().nextInt(5) == 0) {
+        if (level.getRandom().nextInt(2) == 0) {
             int rope = 0;
             for (; rope < 8; rope++) {
                 if (!level.getBlockState(pos.above(rope + 1)).is(BlockRegistry.ROPE)) break;
@@ -100,7 +100,7 @@ public class BaobabFruitBlock extends Block implements BonemealableBlock {
     }
 
     public boolean isValidBonemealTarget(@NonNull LevelReader level, @NonNull BlockPos pos, BlockState state) {
-        return state.getValue(AGE) < 2;
+        return state.getValue(AGE) < 1;
     }
 
     @Override

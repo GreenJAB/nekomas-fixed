@@ -63,18 +63,18 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
 
     private static final Identifier CHEST_SLOTS_TEXTURE = Identifier.withDefaultNamespace("container/horse/chest_slots");
 
+
     private static final List<Tuple<String, Item>> ANIMATIONS = List.of(
-        new Tuple<>("small_ball", Items.AIR),
+        new Tuple<>("none", Items.AIR),
         new Tuple<>("large_ball", Items.FIRE_CHARGE),
         new Tuple<>("star", Items.GOLD_NUGGET),
         new Tuple<>("creeper", Items.CREEPER_BANNER_PATTERN),
         new Tuple<>("burst", Items.FEATHER),
-        new Tuple<>("none", Items.AIR),
         new Tuple<>("twinkle", Items.GLOWSTONE_DUST),
         new Tuple<>("trail", Items.DIAMOND)
     );
 
-    private final int totalPatterns = 8;
+    private final int totalPatterns = 7;
 
     public PyrotechnicsTableScreen(PyrotechnicsTableScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, 176, 186);
@@ -125,46 +125,40 @@ public class PyrotechnicsTableScreen extends AbstractContainerScreen<Pyrotechnic
         }
         if (this.menu.slots.get(14).isActive()) context.blitSprite(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, leftPos+151, topPos+72, 18, 18);
 
-        int gridStartX = leftPos + 8;//27
-        int gridStartY = topPos + 53;
+        int sx = leftPos + 7-14;
+        int sy = topPos + 53+19;
 
-        for (int row = 0; row < 2; ++row) {
-            for (int col = 0; col < 5; ++col) {
-                int index = row * 5 + col;
-                if (index >= totalPatterns) break;
+        for (int index = 0; index < totalPatterns; ++index) {
+            int bx = sx + index * 14;
+            int by = sy;
+            if (index==0) {bx = leftPos +7;by=topPos +53;}
+            if (index>4) bx+=6;
+            boolean bl = mouseX >= bx && mouseY >= by && mouseX < bx + 14 && mouseY < by + 18;
+            Identifier identifier2;
+            if (index == this.menu.getSelectedPattern()) identifier2 = BUTTON_SELECTED_TEXTURE;
+            else if (bl) {
+                identifier2 = BUTTON_HIGHLIGHTED_TEXTURE;
+                context.setTooltipForNextFrame(Component.translatable("container.nekomasfixed.pyrotechnics."+ANIMATIONS.get(index).getA()), mouseX, mouseY);
+                context.requestCursor(CursorTypes.POINTING_HAND);
+            } else identifier2 = BUTTON_TEXTURE;
 
-                int bx = gridStartX + col * 14 ;//+ row * 14 * 2;
-                int by = gridStartY + row * 19;
-
-                boolean bl = mouseX >= bx && mouseY >= by && mouseX < bx + 14 && mouseY < by + 18;
-                Identifier identifier2;
-                if (index == this.menu.getSelectedPattern()) identifier2 = BUTTON_SELECTED_TEXTURE;
-                else if (bl) {
-                    identifier2 = BUTTON_HIGHLIGHTED_TEXTURE;
-                    context.setTooltipForNextFrame(Component.translatable("container.nekomasfixed.pyrotechnics_table."+ANIMATIONS.get(index).getA()), mouseX, mouseY);
-                    context.requestCursor(CursorTypes.POINTING_HAND);
-                } else identifier2 = BUTTON_TEXTURE;
-
-                context.blitSprite(RenderPipelines.GUI_TEXTURED, identifier2, bx, by, 14, 18);
-                context.item(ANIMATIONS.get(index).getB().getDefaultInstance(), bx-1, by+1);
-            }
+            context.blitSprite(RenderPipelines.GUI_TEXTURED, identifier2, bx, by, 14, 18);
+            context.item(ANIMATIONS.get(index).getB().getDefaultInstance(), bx-1, by +1);
         }
     }
 
     @Override
     public boolean mouseClicked(@NonNull MouseButtonEvent click, boolean doubled) {
-        int gridX = this.leftPos + 8;//27
-        int gridY = this.topPos + 53;
-        for (int row = 0; row < 2; ++row) {
-            for (int col = 0; col < 5; ++col) {
-                int index = row * 5 + col;
-                if (index >= totalPatterns) break;
-                double dx = click.x() - (double)(gridX + col * 14); //+ row * 14*2);
-                double dy = click.y() - (double)(gridY + row * 19);
-                if (dx >= 0.0 && dy >= 0.0 && dx < 14.0 && dy < 18.0) {
-                    this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, index);
-                    return true;
-                }
+        int sx = leftPos + 7-14;
+        int sy = topPos + 53+19;
+        for (int index = 0; index < totalPatterns; ++index) {
+            double dx = click.x() - (double) (sx + index * 14);
+            double dy = click.y() - (double) (sy);
+            if (index==0) { dx = click.x() - (leftPos +7);dy = click.y() - (topPos +53);}
+            if (index>4) dx-=6;
+            if (dx >= 0.0 && dy >= 0.0 && dx < 14.0 && dy < 18.0) {
+                this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, index);
+                return true;
             }
         }
         return super.mouseClicked(click, doubled);

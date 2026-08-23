@@ -97,19 +97,19 @@ public class PyrotechnicsTableScreenHandler extends AbstractContainerMenu {
             @Override public boolean mayPlace(@NonNull ItemStack stack) {
                 return slots.getFirst().getItem().getItem() instanceof DyeItem && stack.getItem() instanceof DyeItem;}});
         // shape
-        this.addSlot(new Slot(this.input, 10, 80, 54)
+        this.addSlot(new Slot(this.input, 10, 33, 54)
         {   @Override public boolean isActive() {
                 return slots.getFirst().getItem().getItem() instanceof DyeItem || this.hasItem();}
             @Override public boolean mayPlace(@NonNull ItemStack stack) {
                 return isActive() && (stack.is(Items.FIRE_CHARGE)|| stack.is(Items.GOLD_NUGGET)|| stack.is(Items.CREEPER_BANNER_PATTERN)|| stack.is(Items.FEATHER));}});
         // glowstone
-        this.addSlot(new Slot(this.input, 11, 80-18, 73)
+        this.addSlot(new Slot(this.input, 11, 62, 54)
         {   @Override public boolean isActive() {
                 return slots.getFirst().getItem().getItem() instanceof DyeItem || this.hasItem();}
             @Override public boolean mayPlace(@NonNull ItemStack stack) {
                 return isActive() && (stack.is(Items.GLOWSTONE_DUST));}});
         // diamond
-        this.addSlot(new Slot(this.input, 12, 80, 73)
+        this.addSlot(new Slot(this.input, 12, 80, 54)
         {   @Override public boolean isActive() {
                 return slots.getFirst().getItem().getItem() instanceof DyeItem || this.hasItem();}
             @Override public boolean mayPlace(@NonNull ItemStack stack) {

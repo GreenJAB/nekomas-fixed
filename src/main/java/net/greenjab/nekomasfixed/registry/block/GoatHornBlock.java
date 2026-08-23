@@ -101,7 +101,7 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
                 level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), state.getValue(TORCH).toItem().getDefaultInstance()));
                 level.setBlockAndUpdate(pos, state.setValue(TORCH, GoatHornTorchType.NONE));
                 level.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
-                stack.hurtWithoutBreaking(1, player);
+                stack.hurtAndBreak(1, player, hand);
                 return InteractionResult.SUCCESS;
             }
         } else {

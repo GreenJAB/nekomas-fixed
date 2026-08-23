@@ -175,6 +175,10 @@ public class Drenched extends AbstractSkeleton {
         return SoundEvents.SKELETON_DEATH;
     }
 
+    public boolean checkSpawnObstruction(final LevelReader level) {
+        return level.isUnobstructed(this);
+    }
+
     public boolean canDrenchedAttackTarget(@Nullable LivingEntity target) {
         return target != null && (!this.level().isBrightOutside() || target.isInWater());
     }

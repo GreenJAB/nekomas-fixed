@@ -17,6 +17,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -30,6 +31,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -147,5 +149,17 @@ public class PlayerMixin {
             return q + 1;
         }
         return q;
+    }
+
+    @ModifyVariable(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;removeEntitiesOnShoulder()V"), ordinal = 0, argsOnly = true)
+    private float turtleHelmetMaceBlock(float damage, @Local(argsOnly = true) DamageSource source) {
+        Player PE = (Player)(Object)this;
+        if (PE.getItemBySlot(EquipmentSlot.HEAD).is(Items.TURTLE_HELMET)) {
+            if (source.typeHolder().is(DamageTypes.MACE_SMASH)) {
+                PE.getItemBySlot(EquipmentSlot.HEAD).hurtAndBreak((int) damage, PE, EquipmentSlot.CHEST);
+                return 0.00123f;
+            }
+        }
+        return damage;
     }
 }

@@ -185,15 +185,15 @@ public class TargetDummy extends Avatar implements Shearable {
 				this.breakAndDropItem(level, this.damageSources().generic());
 				this.spawnBreakParticles();
 				this.kill(level);
-				itemStack.hurtWithoutBreaking(1, player);
+				itemStack.hurtAndBreak(1, player, hand);
 			}
 			return InteractionResult.SUCCESS;
 		} else if (itemStack.is(Items.NAME_TAG)) {
 			if (itemStack.hasNonDefault(DataComponents.CUSTOM_NAME)) {
 				Component name = itemStack.get(DataComponents.CUSTOM_NAME);
 				if (name!=null) {
-					String s = name.tryCollapseToString();
-					if (s != null && !s.isEmpty()) setTargetDummyProfile(ResolvableProfile.createUnresolved(name.tryCollapseToString()));
+					String s = name.getString();
+					if (!s.isEmpty()) setTargetDummyProfile(ResolvableProfile.createUnresolved(s));
 					setZombie(false);
 					return InteractionResult.SUCCESS;
 				}
@@ -308,7 +308,7 @@ public class TargetDummy extends Avatar implements Shearable {
 					this.playBreakSound();
 				} else {
 					this.breakAndDropItem(level, source);
-					if (source.getEntity() instanceof Player player) source.getWeaponItem().hurtWithoutBreaking(1, player);
+					if (source.getEntity() instanceof Player player) source.getWeaponItem().hurtAndBreak(1, player, InteractionHand.MAIN_HAND);
 				}
 				this.spawnBreakParticles();
 				this.kill(level);
