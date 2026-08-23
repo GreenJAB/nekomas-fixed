@@ -5,11 +5,20 @@ import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.block.RopeBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
+
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.WorldGenRegion;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -39,14 +48,17 @@ public class BaobabTreeDecorator extends TreeDecorator {
                 if (random.nextFloat()<0.1f) {
                     BlockPos fruitPos = pos.down();
                     if (generator.getWorld().testBlockState(fruitPos, state -> state.isIn(BlockTags.REPLACEABLE)) && !generator.getLogPositions().contains(fruitPos)) {
-                        for (int rope = 3 + random.nextInt(5); rope >= 0; rope--) {
-                            BlockPos finalFruitPos = fruitPos;
-                            if (generator.getWorld().testBlockState(fruitPos.down(), state -> state.isIn(BlockTags.REPLACEABLE) && !generator.getLogPositions().contains(finalFruitPos))) {
-                                generator.replace(fruitPos, BlockRegistry.ROPE.getDefaultState().with(RopeBlock.ATTACHED, true));
-                                fruitPos = fruitPos.down();
-                            }
-                        }
-                        generator.replace(fruitPos, BlockRegistry.BAOBAB_FRUIT.getDefaultState().with(AGE, 1));
+						boolean playerGrown = !(generator.level() instanceof WorldGenRegion);
+                        if (!playerGrown) {
+							for (int rope = 3 + random.nextInt(5); rope >= 0; rope--) {
+								BlockPos finalFruitPos = fruitPos;
+								if (generator.getWorld().testBlockState(fruitPos.down(), state -> state.isIn(BlockTags.REPLACEABLE) && !generator.getLogPositions().contains(finalFruitPos))) {
+									generator.replace(fruitPos, BlockRegistry.ROPE.getDefaultState().with(RopeBlock.ATTACHED, true));
+									fruitPos = fruitPos.down();
+								}
+							}
+							generator.replace(fruitPos, BlockRegistry.BAOBAB_FRUIT.getDefaultState().with(AGE, 1));
+						} else generator.replace(fruitPos, BlockRegistry.BAOBAB_FRUIT.defaultBlockState().setValue(AGE, 0));
                     }
                 }
             }

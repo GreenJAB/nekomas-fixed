@@ -25,6 +25,10 @@ public class DyedBrushItem extends Item {
         super(settings);
         this.color = color;
     }
+    
+    public AllDyes getColor(){
+        return color;
+    }
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -145,9 +149,9 @@ public class DyedBrushItem extends Item {
                     world.setBlockState(pos, newBed.with(BedBlock.PART, bedPart));
                 }
                 used = true;
-                this.afterUse(context);
             }
         }
+
         if (used) context.getPlayer().swingHand(context.getHand(), true);
         return used ? ActionResult.SUCCESS : ActionResult.FAIL;
     }
@@ -159,6 +163,7 @@ public class DyedBrushItem extends Item {
     private void afterUse( ItemUsageContext context){
         PlayerEntity player = context.getPlayer();
         if (player != null) {
+
             context.getStack().damage(1, player);
             context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.ENTITY_SLIME_SQUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }

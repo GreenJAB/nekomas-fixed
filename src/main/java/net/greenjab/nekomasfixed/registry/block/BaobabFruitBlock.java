@@ -48,8 +48,9 @@ public class BaobabFruitBlock extends Block implements Fertilizable {
     }
 
     @Override
+
     protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (world.random.nextInt(5) == 0) {
+        if (world.random.nextInt(5) == 2) {
             int rope = 0;
             for (; rope < 8; rope++) {
                 if (!world.getBlockState(pos.up(rope + 1)).isOf(BlockRegistry.ROPE)) break;
@@ -95,7 +96,7 @@ public class BaobabFruitBlock extends Block implements Fertilizable {
     }
 
     public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
-        return state.get(AGE) < 2;
+        return state.get(AGE) < 1;
     }
 
     @Override

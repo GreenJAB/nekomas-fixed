@@ -21,8 +21,36 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
+
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.waypoint.Waypoint;
+
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BedItem;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BoatItem;
+import net.minecraft.world.item.BundleItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.HangingSignItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.SmithingTemplateItem;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.component.*;
+import net.minecraft.world.item.equipment.ArmorMaterials;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.Equippable;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.waypoints.Waypoint;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -74,6 +102,7 @@ public class ItemRegistry {
                     Text.of(""),
                     Text.of(""),
                     List.of(NekomasFixed.id("container/slot/trident"),NekomasFixed.id("container/slot/shield")),
+
                     List.of(Identifier.ofVanilla("container/slot/ingot")),
                     settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
     );
@@ -82,6 +111,7 @@ public class ItemRegistry {
             .component(DataComponentTypes.TOOL, WildfireTridentItem.createToolComponent()).enchantable(1)
             .component(DataComponentTypes.WEAPON, new WeaponComponent(1)).fireproof());
     public static final Item WILDFIRE_SHIELD = register("wildfire_shield", WildfireShieldItem::new,
+
             new Item.Settings().rarity(Rarity.RARE).maxDamage(336).repairable(ItemTags.REPAIRS_NETHERITE_ARMOR).equippableUnswappable(EquipmentSlot.OFFHAND)
                     .component(DataComponentTypes.BLOCKS_ATTACKS, new BlocksAttacksComponent(0.25F, 1.0F,
                             List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),

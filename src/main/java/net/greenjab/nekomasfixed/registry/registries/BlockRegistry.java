@@ -110,7 +110,8 @@ public class BlockRegistry {
     public static final Block BAOBAB_FENCE_GATE = register(
             "baobab_fence_gate",
             settings -> new FenceGateBlock(BAOBAB_WOODTYPE, settings),
-            AbstractBlock.Settings.create().mapColor(BAOBAB_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).burnable()
+
+            AbstractBlock.Settings.create().mapColor(BAOBAB_PLANKS.getDefaultMapColor()).solid().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).burnable()
     );
     public static final Block BAOBAB_DOOR = register(
             "baobab_door",
@@ -120,7 +121,8 @@ public class BlockRegistry {
                     .instrument(NoteBlockInstrument.BASS)
                     .strength(3.0F)
                     .nonOpaque()
-                    .pistonBehavior(PistonBehavior.DESTROY).burnable()
+                    .pistonBehavior(PistonBehavior.DESTROY)
+					.sounds(BlockSoundGroup.WOOD).burnable()
     );
     public static final Block BAOBAB_TRAPDOOR = register(
             "baobab_trapdoor",
@@ -130,7 +132,8 @@ public class BlockRegistry {
                     .instrument(NoteBlockInstrument.BASS)
                     .strength(3.0F)
                     .nonOpaque()
-                    .allowsSpawning(Blocks::never).burnable()
+                    .allowsSpawning(Blocks::never)
+					.sounds(BlockSoundGroup.WOOD).burnable()
     );
     public static final Block BAOBAB_PRESSURE_PLATE = register(
             "baobab_pressure_plate",

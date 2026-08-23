@@ -37,6 +37,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     }
 
     @Override
+
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
         boolean water = false;
@@ -46,6 +47,18 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         int x,y,z;
         float X = random.nextFloat()-0.5f;
         float Z = random.nextFloat()-0.5f;
+
+        boolean playerGrown = !(level instanceof WorldGenRegion);
+
+        if (playerGrown) {
+            for (int dx = 0; dx < 2; dx++) {
+                for (int dz = 0; dz < 2; dz++) {
+                    BlockPos basePos = origin.offset(dx, 0, dz);
+                    trunkSetter.accept(basePos, Blocks.BARRIER.defaultBlockState());
+                    trunkSetter.accept(basePos, Blocks.AIR.defaultBlockState());
+                }
+            }
+        }
 
         //"roots"
         for (y = -4; y < 0; y++) {

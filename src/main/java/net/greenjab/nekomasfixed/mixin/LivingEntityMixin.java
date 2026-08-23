@@ -1,5 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.WildfireShieldItem;
@@ -60,6 +62,17 @@ public abstract class LivingEntityMixin {
 
         return amount;
     }
+	
+	@WrapOperation(method = "travelInWater", at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/LivingEntity;getFluidFallingAdjustedMovement(DZLnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"
+    ))
+    private Vec3 noFallInWaterWithTurtleBoots(LivingEntity instance, double baseGravity, boolean isFalling, Vec3 movement,
+                                              Operation<Vec3> original) {
+        if (instance.isUnderWater()&&instance.getItemBySlot(EquipmentSlot.FEET).is(ItemRegistry.TURTLE_BOOTS)) baseGravity = 0.0;
+        return original.call(instance, baseGravity, isFalling, movement);
+    }
+
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
     private void onShieldHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
         LivingEntity defender = (LivingEntity)(Object)this;

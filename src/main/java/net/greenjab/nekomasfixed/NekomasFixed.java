@@ -3,9 +3,13 @@ package net.greenjab.nekomasfixed;
 import net.fabricmc.api.ModInitializer;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
+import net.greenjab.nekomasfixed.registry.other.DyedBrushBehaviour;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.registry.worldgen.BiomeAdditions;
+
 import net.greenjab.nekomasfixed.util.CakeRegistry;
+
+import net.greenjab.nekomasfixed.util.ItemDyeMap;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.greenjab.nekomasfixed.registry.worldgen.ModWorldGeneration;
@@ -15,6 +19,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.level.block.DispenserBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +53,9 @@ public class NekomasFixed implements ModInitializer {
 
 		BiomeAdditions.addSpawns();
 		LootTableAdditions.registerLootTableAdds();
+
+		ItemDyeMap.BRUSH.values().forEach(brush->DispenserBlock.registerBehavior(brush, new DyedBrushBehaviour()));
+
 	}
 
 

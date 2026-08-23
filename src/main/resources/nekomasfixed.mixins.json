@@ -22,6 +22,7 @@
     "EntityDropMixin",
     "EntityMixin",
     "FarmlandBlockMixin",
+    "FireworkExplosionMixin",
     "FireworkStarRecipeMixin",
     "FoxEntityMixin",
     "GoatHornItemMixin",

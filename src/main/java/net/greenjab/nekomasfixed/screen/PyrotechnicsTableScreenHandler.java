@@ -103,19 +103,20 @@ public class PyrotechnicsTableScreenHandler extends ScreenHandler {
             @Override public boolean canInsert(ItemStack stack) {
                 return slots.get(0).getStack().getItem() instanceof DyeItem && stack.getItem() instanceof DyeItem;}});
         // shape
-        this.addSlot(new Slot(this.input, 10, 80, 54)
+
+        this.addSlot(new Slot(this.input, 10, 33, 54)
         {   @Override public boolean isEnabled() {
                 return slots.get(0).getStack().getItem() instanceof DyeItem || this.hasStack();}
             @Override public boolean canInsert(ItemStack stack) {
                 return isEnabled() && (stack.isOf(Items.FIRE_CHARGE)|| stack.isOf(Items.GOLD_NUGGET)|| stack.isOf(Items.CREEPER_BANNER_PATTERN)|| stack.isOf(Items.FEATHER));}});
         // glowstone
-        this.addSlot(new Slot(this.input, 11, 80-18, 73)
+        this.addSlot(new Slot(this.input, 11, 62, 54)
         {   @Override public boolean isEnabled() {
                 return slots.get(0).getStack().getItem() instanceof DyeItem || this.hasStack();}
             @Override public boolean canInsert(ItemStack stack) {
                 return isEnabled() && (stack.isOf(Items.GLOWSTONE_DUST));}});
         // diamond
-        this.addSlot(new Slot(this.input, 12, 80, 73)
+        this.addSlot(new Slot(this.input, 12, 80, 54)
         {   @Override public boolean isEnabled() {
                 return slots.get(0).getStack().getItem() instanceof DyeItem || this.hasStack();}
             @Override public boolean canInsert(ItemStack stack) {
