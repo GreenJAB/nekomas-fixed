@@ -70,7 +70,7 @@ public abstract class AbstractClockBlock extends BlockWithEntity {
 					if (clockBlockEntity.hasBell()) {
 						clockBlockEntity.setBell(false);
 						clockBlockEntity.setTimer(-60);
-						stack.damage(1, player);
+						stack.damage(1, player, hand);
 						ItemEntity itemEntity = new ItemEntity(world, pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5 , Items.BELL.getDefaultStack());
 						itemEntity.setToDefaultPickupDelay();
 						world.spawnEntity(itemEntity);

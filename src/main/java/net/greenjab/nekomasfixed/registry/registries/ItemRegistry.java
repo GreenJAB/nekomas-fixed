@@ -25,32 +25,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.waypoint.Waypoint;
 
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BedItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BoatItem;
-import net.minecraft.world.item.BundleItem;
-import net.minecraft.world.item.DoubleHighBlockItem;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SignItem;
-import net.minecraft.world.item.SmithingTemplateItem;
-import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.component.*;
-import net.minecraft.world.item.equipment.ArmorMaterials;
-import net.minecraft.world.item.equipment.ArmorType;
-import net.minecraft.world.item.equipment.Equippable;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.waypoints.Waypoint;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -104,7 +78,7 @@ public class ItemRegistry {
                     List.of(NekomasFixed.id("container/slot/trident"),NekomasFixed.id("container/slot/shield")),
 
                     List.of(Identifier.ofVanilla("container/slot/ingot")),
-                    settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof()
+                    settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof().component(DataComponentTypes.DAMAGE_RESISTANT, new DamageResistantComponent(DamageTypeTags.IS_EXPLOSION))
     );
     public static final Item WILDFIRE_TRIDENT = register("wildfire_trident", WildfireTridentItem::new, new Item.Settings()
             .rarity(Rarity.RARE).maxDamage(1000).attributeModifiers(WildfireTridentItem.createAttributeModifiers())
@@ -118,7 +92,7 @@ public class ItemRegistry {
                             new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD),
                             Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK)))
                     .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK).fireproof());
-    public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
+    public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = register("jewel_armor_trim_smithing_template", SmithingTemplateItem::of, new Item.Settings().rarity(Rarity.UNCOMMON).fireproof().component(DataComponentTypes.DAMAGE_RESISTANT, new DamageResistantComponent(DamageTypeTags.IS_EXPLOSION)));
 
 
 
@@ -126,7 +100,7 @@ public class ItemRegistry {
             new SmithingTemplateItem(Text.translatable(Util.createTranslationKey("item", NekomasFixed.id("helmets")))
                     .formatted(Formatting.BLUE), Text.translatable(Util.createTranslationKey("item", NekomasFixed.id("nether_heart")))
                     .formatted(Formatting.BLUE), Text.of(""), Text.of(""), List.of(NekomasFixed.id("container/slot/helmet")),
-                    List.of(NekomasFixed.id("container/slot/nether_heart")), settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof());
+                    List.of(NekomasFixed.id("container/slot/nether_heart")), settings),new Item.Settings().rarity(Rarity.UNCOMMON).fireproof().component(DataComponentTypes.DAMAGE_RESISTANT, new DamageResistantComponent(DamageTypeTags.IS_EXPLOSION)));
     public static final Item COPPER_CROWN = register("copper_crown", Item::new, new Item.Settings().armor(ArmorMaterials.COPPER, EquipmentType.HELMET)
             .component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentType.HELMET.getEquipmentSlot()).equipSound(SoundEvents.ITEM_ARMOR_EQUIP_COPPER)
                     .model(ModEquipmentAssetKeys.COPPER_CROWN).build()));

@@ -162,6 +162,10 @@ public class DrenchedEntity extends AbstractSkeletonEntity {
         return SoundEvents.ENTITY_SKELETON_DEATH;
     }
 
+    public boolean canSpawn(WorldView world) {
+        return world.doesNotIntersectEntities(this);
+    }
+
     public boolean canDrenchedAttackTarget(@Nullable LivingEntity target) {
         return target != null && (!this.getEntityWorld().isDay() || target.isTouchingWater());
     }

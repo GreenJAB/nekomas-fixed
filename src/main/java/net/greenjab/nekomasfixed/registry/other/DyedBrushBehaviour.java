@@ -4,136 +4,135 @@ import net.greenjab.nekomasfixed.registry.item.DyedBrushItem;
 import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.dispenser.BlockSource;
-import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.block.*;
+import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
+import net.minecraft.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.block.enums.BedPart;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPointer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.jspecify.annotations.NonNull;
 
-public class DyedBrushBehaviour extends OptionalDispenseItemBehavior {
+public class DyedBrushBehaviour extends FallibleItemDispenserBehavior {
 
 	@Override
-	protected @NonNull ItemStack execute(final @NonNull BlockSource source, final ItemStack dispensed) {
+	protected @NonNull ItemStack dispenseSilently(BlockPointer source, ItemStack dispensed) {
 		this.setSuccess(false);
 		if (dispensed.getItem() instanceof DyedBrushItem brushItem) {
 			AllDyes color = brushItem.getColor();
-			Direction facing = source.state().getValue(DispenserBlock.FACING);
-			BlockPos pos = source.pos().relative(facing);
-			Level level = source.level();
+			Direction facing = source.state().get(DispenserBlock.FACING);
+			BlockPos pos = source.pos().offset(facing);
+			World level = source.world();
 			BlockState state = level.getBlockState(pos);
 
 			boolean used = false;
 
-			if (state.is(ModTags.CAN_BE_DYED_WITH_BRUSH)) {
-				if (state.is(Blocks.TERRACOTTA) || state.is(BlockTags.TERRACOTTA) && !state.is(getTerracotta(color))) {
-					level.setBlockAndUpdate(pos, getTerracotta(color).defaultBlockState());
+			if (state.isIn(ModTags.CAN_BE_DYED_WITH_BRUSH)) {
+				if (state.isOf(Blocks.TERRACOTTA) || state.isIn(BlockTags.TERRACOTTA) && !state.isOf(getTerracotta(color))) {
+					level.setBlockState(pos, getTerracotta(color).getDefaultState());
 					used = true;
-				} else if (state.is(ModTags.DYED_BRICKS) || state.is(Blocks.BRICKS) && !state.is(getBricks(color))) {
-					level.setBlockAndUpdate(pos, getBricks(color).defaultBlockState());
+				} else if (state.isIn(ModTags.DYED_BRICKS) || state.isOf(Blocks.BRICKS) && !state.isOf(getBricks(color))) {
+					level.setBlockState(pos, getBricks(color).getDefaultState());
 					used = true;
-				} else if (state.is(ModTags.DYED_BRICK_SLABS) || state.is(Blocks.BRICK_SLAB) && !state.is(getBrickSlabs(color))) {
-					level.setBlockAndUpdate(pos, getBrickSlabs(color).defaultBlockState()
-							.setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
-							.setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
+				} else if (state.isIn(ModTags.DYED_BRICK_SLABS) || state.isOf(Blocks.BRICK_SLAB) && !state.isOf(getBrickSlabs(color))) {
+					level.setBlockState(pos, getBrickSlabs(color).getDefaultState()
+							.with(SlabBlock.WATERLOGGED, state.get(SlabBlock.WATERLOGGED))
+							.with(SlabBlock.TYPE, state.get(SlabBlock.TYPE)));
 					used = true;
-				} else if (state.is(ModTags.DYED_BRICK_STAIRS) || state.is(Blocks.BRICK_STAIRS) && !state.is(getBrickStairs(color))) {
-					level.setBlockAndUpdate(pos, getBrickStairs(color).defaultBlockState()
-							.setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
-							.setValue(StairBlock.FACING, state.getValue(StairBlock.FACING))
-							.setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
-							.setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
+				} else if (state.isIn(ModTags.DYED_BRICK_STAIRS) || state.isOf(Blocks.BRICK_STAIRS) && !state.isOf(getBrickStairs(color))) {
+					level.setBlockState(pos, getBrickStairs(color).getDefaultState()
+							.with(StairsBlock.WATERLOGGED, state.get(StairsBlock.WATERLOGGED))
+							.with(StairsBlock.FACING, state.get(StairsBlock.FACING))
+							.with(StairsBlock.HALF, state.get(StairsBlock.HALF))
+							.with(StairsBlock.SHAPE, state.get(StairsBlock.SHAPE)));
 					used = true;
-				} else if (state.is(ModTags.DYED_BRICK_WALLS) || state.is(Blocks.BRICK_WALL) && !state.is(getBrickWalls(color))) {
-					level.setBlockAndUpdate(pos, getBrickWalls(color).defaultBlockState()
-							.setValue(WallBlock.WATERLOGGED, state.getValue(WallBlock.WATERLOGGED))
-							.setValue(WallBlock.NORTH, state.getValue(WallBlock.NORTH))
-							.setValue(WallBlock.EAST, state.getValue(WallBlock.EAST))
-							.setValue(WallBlock.SOUTH, state.getValue(WallBlock.SOUTH))
-							.setValue(WallBlock.WEST, state.getValue(WallBlock.WEST))
-							.setValue(WallBlock.UP, state.getValue(WallBlock.UP)));
+				} else if (state.isIn(ModTags.DYED_BRICK_WALLS) || state.isOf(Blocks.BRICK_WALL) && !state.isOf(getBrickWalls(color))) {
+					level.setBlockState(pos, getBrickWalls(color).getDefaultState()
+							.with(WallBlock.WATERLOGGED, state.get(WallBlock.WATERLOGGED))
+							.with(WallBlock.NORTH_WALL_SHAPE, state.get(WallBlock.NORTH_WALL_SHAPE))
+							.with(WallBlock.EAST_WALL_SHAPE, state.get(WallBlock.EAST_WALL_SHAPE))
+							.with(WallBlock.SOUTH_WALL_SHAPE, state.get(WallBlock.SOUTH_WALL_SHAPE))
+							.with(WallBlock.WEST_WALL_SHAPE, state.get(WallBlock.WEST_WALL_SHAPE))
+							.with(WallBlock.UP, state.get(WallBlock.UP)));
 					used = true;
-				} else if (state.is(ModTags.STAINED_GLASSES) || state.is(Blocks.GLASS) && !state.is(getStainedGlass(color))) {
-					level.setBlockAndUpdate(pos, getStainedGlass(color).defaultBlockState());
+				} else if (state.isIn(ModTags.STAINED_GLASSES) || state.isOf(Blocks.GLASS) && !state.isOf(getStainedGlass(color))) {
+					level.setBlockState(pos, getStainedGlass(color).getDefaultState());
 					used = true;
-				} else if (state.is(ModTags.STAINED_GLASS_PANES) || state.is(Blocks.GLASS_PANE) && !state.is(getStainedGlassPane(color))) {
-					level.setBlockAndUpdate(pos, getStainedGlassPane(color).defaultBlockState()
-							.setValue(StainedGlassPaneBlock.WATERLOGGED, state.getValue(StainedGlassPaneBlock.WATERLOGGED))
-							.setValue(StainedGlassPaneBlock.EAST, state.getValue(StainedGlassPaneBlock.EAST))
-							.setValue(StainedGlassPaneBlock.WEST, state.getValue(StainedGlassPaneBlock.WEST))
-							.setValue(StainedGlassPaneBlock.SOUTH, state.getValue(StainedGlassPaneBlock.SOUTH))
-							.setValue(StainedGlassPaneBlock.NORTH, state.getValue(StainedGlassPaneBlock.NORTH)));
+				} else if (state.isIn(ModTags.STAINED_GLASS_PANES) || state.isOf(Blocks.GLASS_PANE) && !state.isOf(getStainedGlassPane(color))) {
+					level.setBlockState(pos, getStainedGlassPane(color).getDefaultState()
+							.with(StainedGlassPaneBlock.WATERLOGGED, state.get(StainedGlassPaneBlock.WATERLOGGED))
+							.with(StainedGlassPaneBlock.EAST, state.get(StainedGlassPaneBlock.EAST))
+							.with(StainedGlassPaneBlock.WEST, state.get(StainedGlassPaneBlock.WEST))
+							.with(StainedGlassPaneBlock.SOUTH, state.get(StainedGlassPaneBlock.SOUTH))
+							.with(StainedGlassPaneBlock.NORTH, state.get(StainedGlassPaneBlock.NORTH)));
 					used = true;
-				} else if (state.is(ModTags.GLAZED_TERRACOTTAS) && !state.is(getGlazedTerracotta(color))) {
-					level.setBlockAndUpdate(pos, getGlazedTerracotta(color).defaultBlockState()
-							.setValue(GlazedTerracottaBlock.FACING, state.getValue(GlazedTerracottaBlock.FACING)));
+				} else if (state.isIn(ModTags.GLAZED_TERRACOTTAS) && !state.isOf(getGlazedTerracotta(color))) {
+					level.setBlockState(pos, getGlazedTerracotta(color).getDefaultState()
+							.with(GlazedTerracottaBlock.FACING, state.get(GlazedTerracottaBlock.FACING)));
 					used = true;
-				} else if (state.is(ModTags.SPOTTED_WOOLS) && !state.is(getSpottedWool(color))) {
-					level.setBlockAndUpdate(pos, getSpottedWool(color).defaultBlockState());
+				} else if (state.isIn(ModTags.SPOTTED_WOOLS) && !state.isOf(getSpottedWool(color))) {
+					level.setBlockState(pos, getSpottedWool(color).getDefaultState());
 					used = true;
-				} else if (state.is(BlockTags.WOOL) && !state.is(ModTags.SPOTTED_WOOLS) &&!state.is(getWool(color))) {
-					level.setBlockAndUpdate(pos, getWool(color).defaultBlockState());
+				} else if (state.isIn(BlockTags.WOOL) && !state.isIn(ModTags.SPOTTED_WOOLS) &&!state.isOf(getWool(color))) {
+					level.setBlockState(pos, getWool(color).getDefaultState());
 					used = true;
-				} else if (state.is(BlockTags.CANDLES) || state.is(Blocks.CANDLE) && !state.is(getCandle(color))) {
-					level.setBlockAndUpdate(pos, getCandle(color).defaultBlockState()
-							.setValue(CandleBlock.CANDLES, state.getValue(CandleBlock.CANDLES))
-							.setValue(CandleBlock.LIT, state.getValue(CandleBlock.LIT)));
+				} else if (state.isIn(BlockTags.CANDLES) || state.isOf(Blocks.CANDLE) && !state.isOf(getCandle(color))) {
+					level.setBlockState(pos, getCandle(color).getDefaultState()
+							.with(CandleBlock.CANDLES, state.get(CandleBlock.CANDLES))
+							.with(CandleBlock.LIT, state.get(CandleBlock.LIT)));
 					used = true;
-				} else if (state.is(ModTags.SPOTTED_CARPETS) && !state.is(getSpottedCarpet(color))) {
-					level.setBlockAndUpdate(pos, getSpottedCarpet(color).defaultBlockState());
+				} else if (state.isIn(ModTags.SPOTTED_CARPETS) && !state.isOf(getSpottedCarpet(color))) {
+					level.setBlockState(pos, getSpottedCarpet(color).getDefaultState());
 					used = true;
-				} else if (state.is(BlockTags.WOOL_CARPETS) && !state.is(ModTags.SPOTTED_CARPETS) && !state.is(getCarpet(color))) {
-					level.setBlockAndUpdate(pos, getCarpet(color).defaultBlockState());
+				} else if (state.isIn(BlockTags.WOOL_CARPETS) && !state.isIn(ModTags.SPOTTED_CARPETS) && !state.isOf(getCarpet(color))) {
+					level.setBlockState(pos, getCarpet(color).getDefaultState());
 					used = true;
-				} else if (state.is(ModTags.CONCRETES) && !state.is(getConcretes(color))) {
-					level.setBlockAndUpdate(pos, getConcretes(color).defaultBlockState());
+				} else if (state.isIn(ModTags.CONCRETES) && !state.isOf(getConcretes(color))) {
+					level.setBlockState(pos, getConcretes(color).getDefaultState());
 					used = true;
-				} else if (state.is(ModTags.CONCRETE_POWDERS) && !state.is(getConcretePowders(color))) {
-					level.setBlockAndUpdate(pos, getConcretePowders(color).defaultBlockState());
+				} else if (state.isIn(ModTags.CONCRETE_POWDERS) && !state.isOf(getConcretePowders(color))) {
+					level.setBlockState(pos, getConcretePowders(color).getDefaultState());
 					used = true;
-				} else if (state.is(ModTags.FROGLIGHTS) && !state.is(getFroglight(color))) {
-					level.setBlockAndUpdate(pos, getFroglight(color).defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
+				} else if (state.isIn(ModTags.FROGLIGHTS) && !state.isOf(getFroglight(color))) {
+					level.setBlockState(pos, getFroglight(color).getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)));
 					used = true;
-				} else if (state.is(Blocks.SHULKER_BOX) || state.is(BlockTags.SHULKER_BOXES) && !state.is(getShulkerBox(color))) {
+				} else if (state.isOf(Blocks.SHULKER_BOX) || state.isIn(BlockTags.SHULKER_BOXES) && !state.isOf(getShulkerBox(color))) {
 					if (level.getBlockEntity(pos) instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
-						level.setBlockAndUpdate(pos, getShulkerBox(color).defaultBlockState().setValue(ShulkerBoxBlock.FACING, state.getValue(ShulkerBoxBlock.FACING)));
+						level.setBlockState(pos, getShulkerBox(color).getDefaultState().with(ShulkerBoxBlock.FACING, state.get(ShulkerBoxBlock.FACING)));
 						if (level.getBlockEntity(pos) instanceof ShulkerBoxBlockEntity newshulkerBoxBlockEntity) {
-							for (int i = 0; i < shulkerBoxBlockEntity.getContainerSize(); i++)
-								newshulkerBoxBlockEntity.setItem(i, shulkerBoxBlockEntity.getItem(i));
-							newshulkerBoxBlockEntity.name = shulkerBoxBlockEntity.getCustomName();
+							for (int i = 0; i < shulkerBoxBlockEntity.size(); i++)
+								newshulkerBoxBlockEntity.setStack(i, shulkerBoxBlockEntity.getStack(i));
+							newshulkerBoxBlockEntity.customName = shulkerBoxBlockEntity.getCustomName();
 						}
 					}
 					used = true;
-				} else if (state.is(BlockTags.BEDS) && !state.is(getBed(color))) {
+				} else if (state.isIn(BlockTags.BEDS) && !state.isOf(getBed(color))) {
 					Block bed = getBed(color);
-					BedPart bedPart = state.getValue(BedBlock.PART);
-					Direction bedDir = state.getValue(BedBlock.FACING);
-					BlockPos otherPos = pos.relative(getDirectionTowardsOtherPart(bedPart, bedDir));
-					BlockState newBed = bed.defaultBlockState().setValue(BedBlock.FACING, bedDir);
-					if (level.getBlockState(otherPos).is(BlockTags.BEDS)) {
+					BedPart bedPart = state.get(BedBlock.PART);
+					Direction bedDir = state.get(BedBlock.FACING);
+					BlockPos otherPos = pos.offset(getDirectionTowardsOtherPart(bedPart, bedDir));
+					BlockState newBed = bed.getDefaultState().with(BedBlock.FACING, bedDir);
+					if (level.getBlockState(otherPos).isIn(BlockTags.BEDS)) {
 						BlockPos head = bedPart == BedPart.HEAD ? pos : otherPos;
 						BlockPos foot = bedPart == BedPart.HEAD ? otherPos : pos;
-						level.setBlockAndUpdate(head, Blocks.AIR.defaultBlockState());
-						level.setBlockAndUpdate(foot, Blocks.AIR.defaultBlockState());
-						level.setBlockAndUpdate(head, newBed.setValue(BedBlock.PART, BedPart.HEAD));
-						level.setBlockAndUpdate(foot, newBed.setValue(BedBlock.PART, BedPart.FOOT));
-					} else level.setBlockAndUpdate(pos, newBed.setValue(BedBlock.PART, bedPart));
+						level.setBlockState(head, Blocks.AIR.getDefaultState());
+						level.setBlockState(foot, Blocks.AIR.getDefaultState());
+						level.setBlockState(head, newBed.with(BedBlock.PART, BedPart.HEAD));
+						level.setBlockState(foot, newBed.with(BedBlock.PART, BedPart.FOOT));
+					} else level.setBlockState(pos, newBed.with(BedBlock.PART, bedPart));
 					used = true;
 				}
 			}
 			if (used){
 				this.setSuccess(true);
-				level.playSound(null, pos, SoundEvents.SLIME_SQUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
-				if (dispensed.nextDamageWillBreak()) return ItemStack.EMPTY;
-				else dispensed.setDamageValue(dispensed.getDamageValue()+1);
+				level.playSound(null, pos, SoundEvents.ENTITY_SLIME_SQUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				if (dispensed.willBreakNextUse()) return ItemStack.EMPTY;
+				else dispensed.setDamage(dispensed.getDamage()+1);
 			}
 		}
 		return dispensed;

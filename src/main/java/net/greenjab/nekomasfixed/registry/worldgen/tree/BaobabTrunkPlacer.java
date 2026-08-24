@@ -48,14 +48,14 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         float X = random.nextFloat()-0.5f;
         float Z = random.nextFloat()-0.5f;
 
-        boolean playerGrown = !(level instanceof WorldGenRegion);
+        boolean playerGrown = !(world instanceof ChunkRegion);
 
         if (playerGrown) {
             for (int dx = 0; dx < 2; dx++) {
                 for (int dz = 0; dz < 2; dz++) {
-                    BlockPos basePos = origin.offset(dx, 0, dz);
-                    trunkSetter.accept(basePos, Blocks.BARRIER.defaultBlockState());
-                    trunkSetter.accept(basePos, Blocks.AIR.defaultBlockState());
+                    BlockPos basePos = startPos.add(dx, 0, dz);
+                    replacer.accept(basePos, Blocks.BARRIER.getDefaultState());
+                    replacer.accept(basePos, Blocks.AIR.getDefaultState());
                 }
             }
         }

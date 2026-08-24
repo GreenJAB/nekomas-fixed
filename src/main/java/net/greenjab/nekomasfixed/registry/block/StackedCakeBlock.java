@@ -190,7 +190,7 @@ public class StackedCakeBlock extends AbstractCandleBlock implements BlockEntity
                             stackedCakeBlockEntity.CANDLE_STATE = candleState.with(CandleBlock.LIT, true);
                             stackedCakeBlockEntity.markDirty();
                             world.setBlockState(pos, world.getBlockState(pos).with(LIT, true));
-                            stack.damage(1, player);
+                            stack.damage(1, player, hand);
                             world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.4F + 0.8F);
                             return ActionResult.SUCCESS;
                         }

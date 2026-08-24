@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,6 +30,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -150,5 +152,17 @@ public class PlayerEntityMixin {
             return q + 1;
         }
         return q;
+    }
+
+    @ModifyVariable(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;dropShoulderEntities()V"), ordinal = 0, argsOnly = true)
+    private float turtleHelmetMaceBlock(float damage, @Local(argsOnly = true) DamageSource source) {
+        PlayerEntity PE = (PlayerEntity)(Object)this;
+        if (PE.getEquippedStack(EquipmentSlot.HEAD).isOf(Items.TURTLE_HELMET)) {
+            if (source.getTypeRegistryEntry()==DamageTypes.MACE_SMASH) {
+                PE.getEquippedStack(EquipmentSlot.HEAD).damage((int) damage, PE, EquipmentSlot.CHEST);
+                return 0.00123f;
+            }
+        }
+        return damage;
     }
 }

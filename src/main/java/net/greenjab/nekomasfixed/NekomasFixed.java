@@ -13,13 +13,13 @@ import net.greenjab.nekomasfixed.util.ItemDyeMap;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.greenjab.nekomasfixed.registry.worldgen.ModWorldGeneration;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.level.block.DispenserBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +54,7 @@ public class NekomasFixed implements ModInitializer {
 		BiomeAdditions.addSpawns();
 		LootTableAdditions.registerLootTableAdds();
 
-		ItemDyeMap.BRUSH.values().forEach(brush->DispenserBlock.registerBehavior(brush, new DyedBrushBehaviour()));
+		ItemDyeMap.BRUSH.values().forEach(brush-> DispenserBlock.registerBehavior(brush, new DyedBrushBehaviour()));
 
 	}
 

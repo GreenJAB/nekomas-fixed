@@ -49,12 +49,12 @@ public class DrenchedEntityModel extends SkeletonEntityModel<DrenchedEntityRende
 
         float f = drenchedEntityRenderState.leaningPitch;
         if (f > 0.0F) {
-            this.rightArm.pitch = MathHelper.lerpAngleRadians(f, this.rightArm.pitch, (float) (-Math.PI * 4.0 / 5.0- 90*Math.PI/180.0))
+            this.rightArm.pitch = MathHelper.lerpAngleRadians(f, this.rightArm.pitch, (float) (-Math.PI * 4.0 / 5.0))
                     + f * 0.35F * MathHelper.sin(0.1F * drenchedEntityRenderState.age);
-            this.leftArm.pitch = MathHelper.lerpAngleRadians(f, this.leftArm.pitch, (float) (-Math.PI * 4.0 / 5.0- 90*Math.PI/180.0))
+            this.leftArm.pitch = MathHelper.lerpAngleRadians(f, this.leftArm.pitch, (float) (-Math.PI * 4.0 / 5.0))
                     - f * 0.35F * MathHelper.sin(0.1F * drenchedEntityRenderState.age);
-            this.rightArm.roll = MathHelper.lerpAngleRadians(f, this.rightArm.roll, -0.15F - (float)(Math.PI));
-            this.leftArm.roll = MathHelper.lerpAngleRadians(f, this.leftArm.roll, 0.15F - (float)(Math.PI));
+            this.rightArm.roll = MathHelper.lerpAngleRadians(f, this.rightArm.roll, -0.15F );
+            this.leftArm.roll = MathHelper.lerpAngleRadians(f, this.leftArm.roll, 0.15F);
             this.leftLeg.pitch = this.leftLeg.pitch - f * 0.55F * MathHelper.sin(0.1F * drenchedEntityRenderState.age);
             this.rightLeg.pitch = this.rightLeg.pitch + f * 0.55F * MathHelper.sin(0.1F * drenchedEntityRenderState.age);
             this.head.pitch = 0;

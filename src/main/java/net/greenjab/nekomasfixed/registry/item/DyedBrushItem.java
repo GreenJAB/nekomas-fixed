@@ -164,7 +164,7 @@ public class DyedBrushItem extends Item {
         PlayerEntity player = context.getPlayer();
         if (player != null) {
 
-            context.getStack().damage(1, player);
+            context.getStack().damage(1, player, context.getHand());
             context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.ENTITY_SLIME_SQUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
     }

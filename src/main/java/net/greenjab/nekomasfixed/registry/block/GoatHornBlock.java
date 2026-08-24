@@ -89,7 +89,7 @@ public class GoatHornBlock extends HorizontalFacingBlock implements Waterloggabl
                 world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), state.get(TORCH).toItem().getDefaultStack()));
                 world.setBlockState(pos, state.with(TORCH, GoatHornTorchType.NONE));
                 world.playSound(null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                stack.damage(1, player);
+                stack.damage(1, player, hand);
                 return ActionResult.SUCCESS;
             }
         } else {

@@ -65,12 +65,11 @@ public abstract class LivingEntityMixin {
 	
 	@WrapOperation(method = "travelInWater", at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/LivingEntity;getFluidFallingAdjustedMovement(DZLnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"
+            target = "Lnet/minecraft/entity/LivingEntity;applyFluidMovingSpeed(DZLnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/Vec3d;"
     ))
-    private Vec3 noFallInWaterWithTurtleBoots(LivingEntity instance, double baseGravity, boolean isFalling, Vec3 movement,
-                                              Operation<Vec3> original) {
-        if (instance.isUnderWater()&&instance.getItemBySlot(EquipmentSlot.FEET).is(ItemRegistry.TURTLE_BOOTS)) baseGravity = 0.0;
-        return original.call(instance, baseGravity, isFalling, movement);
+    private Vec3d noFallInWaterWithTurtleBoots(LivingEntity instance, double gravity, boolean falling, Vec3d motion, Operation<Vec3d> original) {
+        if (instance.isSubmergedInWater()&&instance.getEquippedStack(EquipmentSlot.FEET).isOf(ItemRegistry.TURTLE_BOOTS)) gravity = 0.0;
+        return original.call(instance, gravity, falling, motion);
     }
 
     @Inject(method = "takeShieldHit", at = @At("HEAD"))

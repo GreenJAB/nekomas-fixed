@@ -175,14 +175,14 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 				this.breakAndDropItem(world, this.getDamageSources().generic());
 				this.spawnBreakParticles();
 				this.kill(world);
-				itemStack.damage(1, player);
+				itemStack.damage(1, player, hand);
 			}
 			return ActionResult.SUCCESS;
 		} else if (itemStack.isOf(Items.NAME_TAG)) {
 			if (itemStack.hasChangedComponent(DataComponentTypes.CUSTOM_NAME)) {
 				Text name = itemStack.get(DataComponentTypes.CUSTOM_NAME);
 				if (name!=null) {
-					setTargetDummyProfile(ProfileComponent.ofDynamic(name.getLiteralString()));
+					setTargetDummyProfile(ProfileComponent.ofDynamic(name.getString()));
 					setZombie(false);
 					return ActionResult.SUCCESS;
 				}
@@ -297,7 +297,7 @@ public class TargetDummyEntity extends PlayerLikeEntity implements Shearable {
 					this.playBreakSound();
 				} else {
 					this.breakAndDropItem(world, source);
-					if (source.getAttacker() instanceof PlayerEntity player) source.getWeaponStack().damage(1, player);
+					if (source.getAttacker() instanceof PlayerEntity player) source.getWeaponStack().damage(1, player, Hand.MAIN_HAND);
 				}
 				this.spawnBreakParticles();
 				this.kill(world);

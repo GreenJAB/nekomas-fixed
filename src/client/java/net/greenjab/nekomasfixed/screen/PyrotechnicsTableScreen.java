@@ -128,37 +128,37 @@ public class PyrotechnicsTableScreen extends HandledScreen<PyrotechnicsTableScre
         if (handler.slots.get(14).isEnabled()) context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, CHEST_SLOTS_TEXTURE, 90, 54, 0, 0, x+151, y+72, 18, 18);
 
 
-        int sx = leftPos + 7-14;
-        int sy = topPos + 53+19;
+        int sx = x + 7-14;
+        int sy = y + 53+19;
 
         for (int index = 0; index < totalPatterns; ++index) {
             int bx = sx + index * 14;
             int by = sy;
-            if (index==0) {bx = leftPos +7;by=topPos +53;}
+            if (index==0) {bx = x +7;by=y +53;}
             if (index>4) bx+=6;
             boolean bl = mouseX >= bx && mouseY >= by && mouseX < bx + 14 && mouseY < by + 18;
             Identifier identifier2;
-            if (index == this.menu.getSelectedPattern()) identifier2 = BUTTON_SELECTED_TEXTURE;
+            if (index == this.getScreenHandler().getSelectedPattern()) identifier2 = BUTTON_SELECTED_TEXTURE;
             else if (bl) {
                 identifier2 = BUTTON_HIGHLIGHTED_TEXTURE;
-                context.drawTooltip(Text.translatable("container.nekomasfixed.pyrotechnics_table."+ANIMATIONS.get(index).getLeft()), mouseX, mouseY);
+                context.drawTooltip(Text.translatable("container.nekomasfixed.pyrotechnics."+ANIMATIONS.get(index).getLeft()), mouseX, mouseY);
                 context.setCursor(StandardCursors.POINTING_HAND);
             } else identifier2 = BUTTON_TEXTURE;
 
-            context.blitSprite(RenderPipelines.GUI_TEXTURED, identifier2, bx, by, 14, 18);
-            context.item(ANIMATIONS.get(index).getRight().getDefaultInstance(), bx-1, by +1);
+            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, identifier2, bx, by, 14, 18);
+            context.drawItem(ANIMATIONS.get(index).getRight().getDefaultStack(), bx-1, by +1);
         }
     }
 
 
     @Override
-    public boolean mouseClicked(@NonNull MouseButtonEvent click, boolean doubled) {
-        int sx = leftPos + 7-14;
-        int sy = topPos + 53+19;
+    public boolean mouseClicked(Click click, boolean doubled) {
+        int sx = x + 7-14;
+        int sy = y + 53+19;
         for (int index = 0; index < totalPatterns; ++index) {
             double dx = click.x() - (double) (sx + index * 14);
             double dy = click.y() - (double) (sy);
-            if (index==0) { dx = click.x() - (leftPos +7);dy = click.y() - (topPos +53);}
+            if (index==0) { dx = click.x() - (x +7);dy = click.y() - (y +53);}
             if (index>4) dx-=6;
             if (dx >= 0.0 && dy >= 0.0 && dx < 14.0 && dy < 18.0) {
                 this.client.interactionManager.clickButton(this.handler.syncId, index);

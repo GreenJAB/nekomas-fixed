@@ -140,7 +140,7 @@ public class BigBoatEntity extends AbstractChestBoatEntity {
 				setBanner(ItemStack.EMPTY);
 				if (player.getEntityWorld() instanceof ServerWorld serverWorld) {
 					this.dropStack(serverWorld, banner, 1.5F);
-					itemStack.damage(1, player);
+					itemStack.damage(1, player, hand);
 				}
 			}
 			return ActionResult.SUCCESS;
