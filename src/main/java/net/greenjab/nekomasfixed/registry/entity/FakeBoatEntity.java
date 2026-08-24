@@ -40,7 +40,7 @@ public class FakeBoatEntity extends Entity {
 	@Nullable
 	@Override
 	public ItemStack getPickBlockStack() {
-		return this.owner.getPickBlockStack();
+		return this.owner==null?ItemStack.EMPTY:this.owner.getPickBlockStack();
 	}
 
 	@Override
