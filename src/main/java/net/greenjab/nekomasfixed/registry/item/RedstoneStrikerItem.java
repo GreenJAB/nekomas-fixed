@@ -13,7 +13,10 @@ import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComparatorBlock;
 import net.minecraft.world.level.block.ObserverBlock;
+import net.minecraft.world.level.block.RepeaterBlock;
+import net.minecraft.world.level.block.entity.ComparatorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
@@ -39,6 +42,14 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
         if (state.is(Blocks.OBSERVER) && level instanceof ServerLevel serverLevel)
             if (state.getBlock() instanceof ObserverBlock observerBlock) observerBlock.startSignal(serverLevel, level, pos);
         state.handleNeighborChanged(level, pos, Blocks.AIR, null, false);
+        if (state.is(Blocks.REPEATER))
+            level.setBlock(pos, state.setValue(RepeaterBlock.POWERED, true), 3);
+        if (state.is(Blocks.COMPARATOR)) {
+            level.setBlock(pos, state.setValue(ComparatorBlock.POWERED, true), 3);
+            if (level.getBlockEntity(pos) instanceof ComparatorBlockEntity comparator) {
+                comparator.setOutputSignal(15);
+            }
+        }
         level.updateNeighborsAt(pos, state.getBlock());
         return InteractionResult.SUCCESS;
     }
