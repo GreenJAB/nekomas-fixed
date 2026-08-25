@@ -1,6 +1,8 @@
 package net.greenjab.nekomasfixed.mixin.boat;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registry.entity.BigBoat;
 import net.minecraft.util.Mth;
@@ -13,7 +15,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractBoat.class)
@@ -25,26 +26,26 @@ public abstract class AbstractBoatMixin {
 
     @Shadow protected abstract int getMaxPassengers();
 
-    @Redirect(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setYRot(F)V"))
-    private void adjustTurningForBigBoat(AbstractBoat boat, float v){
+    @WrapOperation(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setYRot(F)V"))
+    private void adjustTurningForBigBoat(AbstractBoat boat, float v, Operation<Void> original){
         float f = 1.0f;
         if (boat instanceof BigBoat bigBoat) f= bigBoat.getRotationSpeed();
-        boat.setYRot(boat.getYRot() + deltaRotation*f);
+        original.call(boat, boat.getYRot() + deltaRotation*f);
     }
 
-    @Redirect(method = "positionRider", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setYRot(F)V"))
-    private void adjustTurningForBigBoat2(Entity instance, float yRot){
+    @WrapOperation(method = "positionRider", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setYRot(F)V"))
+    private void adjustTurningForBigBoat2(Entity boat, float yRot, Operation<Void> original){
         float f = 1.0f;
         AbstractBoat ABE = (AbstractBoat)(Object)this;
         if (ABE instanceof BigBoat bigBoat) f= bigBoat.getRotationSpeed();
-        instance.setYRot(instance.getYRot() + deltaRotation*f);
+        original.call(boat, boat.getYRot() + deltaRotation*f);
     }
-    @Redirect(method = "positionRider", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setYHeadRot(F)V"))
-    private void adjustTurningForBigBoat3(Entity instance, float yHeadRot){
+    @WrapOperation(method = "positionRider", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setYHeadRot(F)V"))
+    private void adjustTurningForBigBoat3(Entity boat, float yHeadRot, Operation<Void> original){
         float f = 1.0f;
         AbstractBoat ABE = (AbstractBoat)(Object)this;
         if (ABE instanceof BigBoat bigBoat) f= bigBoat.getRotationSpeed();
-        instance.setYHeadRot(instance.getYHeadRot() + deltaRotation*f);
+        original.call(boat, boat.getYHeadRot() + deltaRotation*f);
     }
     @ModifyExpressionValue(method = "positionRider", at = @At(value = "INVOKE", target = "Ljava/util/List;size()I"))
     private int animalsFaceSideways(int original){
@@ -66,21 +67,21 @@ public abstract class AbstractBoatMixin {
         }
     }
 
-    @Redirect(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
-    private void adjustAccelerationForBigBoat(AbstractBoat instance, Vec3 vec3d, @Local float acceleration){
+    @WrapOperation(method = "controlBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
+    private void adjustAccelerationForBigBoat(AbstractBoat instance, Vec3 vec3, Operation<Void> original, @Local float acceleration){
         AbstractBoat ABE = (AbstractBoat)(Object)this;
         if (ABE instanceof BigBoat bigBoat) acceleration *= bigBoat.getSpeed();
-        ABE.setDeltaMovement(
+        original.call(instance,
                 ABE.getDeltaMovement().add(Mth.sin(-ABE.getYRot() * (float) (Math.PI / 180.0)) * acceleration, 0.0, Mth.cos(ABE.getYRot() * (float) (Math.PI / 180.0)) * acceleration)
         );
     }
 
-    @Redirect(method = "floatBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setDeltaMovement(DDD)V", ordinal = 0))
-    private void adjustSpeedForBigBoat2(AbstractBoat instance, double x, double y, double z, @Local float invFriction){
+    @WrapOperation(method = "floatBoat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;setDeltaMovement(DDD)V", ordinal = 0))
+    private void adjustSpeedForBigBoat2(AbstractBoat instance, double x, double y, double z, Operation<Void> original, @Local float invFriction){
         AbstractBoat ABE = (AbstractBoat)(Object)this;
         if (ABE instanceof BigBoat bigBoat) invFriction =1-(1- invFriction)/(bigBoat.getSpeed()*3.0f);
         Vec3 vec3d = ABE.getDeltaMovement();
-        ABE.setDeltaMovement(vec3d.x * invFriction, y, vec3d.z * invFriction);
+        original.call(instance,vec3d.x * invFriction, y, vec3d.z * invFriction);
     }
 
     @ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;isClientSide()Z", ordinal = 1))
