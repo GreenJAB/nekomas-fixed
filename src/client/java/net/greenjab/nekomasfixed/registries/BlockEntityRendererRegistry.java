@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registries;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.*;
+import net.minecraft.client.renderer.blockentity.BeaconRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 
 public class BlockEntityRendererRegistry {
@@ -10,6 +11,7 @@ public class BlockEntityRendererRegistry {
         System.out.println("register BlockEntityRenderer");
         BlockEntityRenderers.register(BlockEntityTypeRegistry.CLAM_BLOCK_ENTITY, ClamBlockEntityRenderer::new);
         BlockEntityRenderers.register(BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, ClockBlockEntityRenderer::new);
+        BlockEntityRenderers.register(BlockEntityTypeRegistry.CORRUPTED_BEACON_BLOCK_ENTITY, context -> new BeaconRenderer<>()); // Reuses the existing BeaconRenderer for the beam
         BlockEntityRenderers.register(BlockEntityTypeRegistry.ENDERMAN_HEAD_BLOCK_ENTITY, EndermanHeadBlockEntityRenderer::new);
         BlockEntityRenderers.register(BlockEntityTypeRegistry.HOLLOW_LOG_BLOCK_ENTITY, HollowLogBlockEntityRenderer::new);
         BlockEntityRenderers.register(BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,SoupCauldronBlockEntityRenderer::new);

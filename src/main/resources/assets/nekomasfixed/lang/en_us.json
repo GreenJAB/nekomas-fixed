@@ -33,6 +33,8 @@
   "block.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
   "item.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
 
+  "block.nekomasfixed.corrupted_beacon": "Corrupted Beacon",
+  "item.nekomasfixed.corrupted_beacon": "Corrupted Beacon",
   "block.nekomasfixed.enderman_head": "Enderman Head",
   "item.nekomasfixed.redstone_striker": "Redstone Striker",
   "block.nekomasfixed.glow_torch": "Glow Torch",

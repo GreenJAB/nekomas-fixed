@@ -66,6 +66,7 @@ public class ItemRegistry {
     public static final Item GEYSER = register(BlockRegistry.GEYSER);
     public static final Item KILN = register(BlockRegistry.KILN);
     public static final Item PYROTECHNICS_TABLE = register(BlockRegistry.PYROTECHNICS_TABLE);
+    public static final Item CORRUPTED_BEACON = register(BlockRegistry.CORRUPTED_BEACON);
     public static final Item ENDERMAN_HEAD = register(BlockRegistry.ENDERMAN_HEAD,(block, settings) ->
             new StandingAndWallBlockItem(block, BlockRegistry.WALL_ENDERMAN_HEAD, Direction.DOWN,
                     Waypoint.addHideAttribute(settings)), new Item.Properties().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD));
