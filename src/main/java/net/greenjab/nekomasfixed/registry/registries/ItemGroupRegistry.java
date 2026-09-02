@@ -27,6 +27,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.GEYSER);
                         entries.accept(ItemRegistry.KILN);
                         entries.accept(ItemRegistry.PYROTECHNICS_TABLE);
+                        entries.accept(ItemRegistry.CORRUPTED_BEACON);
                         entries.accept(ItemRegistry.ENDERMAN_HEAD);
                         entries.accept(ItemRegistry.REDSTONE_STRIKER);
                         entries.accept(ItemRegistry.GLOW_TORCH);
