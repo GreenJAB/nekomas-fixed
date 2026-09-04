@@ -6,6 +6,7 @@ import net.greenjab.nekomasfixed.registries.*;
 import net.greenjab.nekomasfixed.registry.block.cauldron.SoupCauldronBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.SoupCauldronBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.render.block.item.TerracottaDecoratedPotSpecialRenderer;
 import net.greenjab.nekomasfixed.screen.FletchingScreen;
 import net.greenjab.nekomasfixed.screen.KilnScreen;
 import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
@@ -18,8 +19,11 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
+import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.DecoratedPotBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
@@ -33,6 +37,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 		ModEntityRendererRegistry.registerEntityRenderer();
 		ModEntityLayerRegistry.registerEntityModelLayer();
 		TextureRegistry.registerTextureRegistry();
+		SheetRegistry.registerSheets();
 
 		ClientSyncHandler.init();
 
@@ -41,6 +46,8 @@ public class NekomasFixedClient implements ClientModInitializer {
 		MenuScreens.register(ScreenHandlerRegistry.PYROTECHNICS, PyrotechnicsTableScreen::new);
 
 		BlockColorRegistry.register(List.of(soup()), BlockRegistry.SOUP_CAULDRON);
+		SpecialModelRenderers.ID_MAPPER.put(Identifier.fromNamespaceAndPath("nekomasfixed", "terracotta_decorated_pot"),
+				TerracottaDecoratedPotSpecialRenderer.Unbaked.MAP_CODEC);
 
 
 	}

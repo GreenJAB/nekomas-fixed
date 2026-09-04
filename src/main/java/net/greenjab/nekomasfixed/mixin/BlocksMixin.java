@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.block.FletchingTableBlock;
 import net.greenjab.nekomasfixed.registry.block.MelonBlock;
+import net.greenjab.nekomasfixed.registry.block.TerracottaDecoratedPotBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.references.BlockItemId;
@@ -31,6 +32,13 @@ public class BlocksMixin {
     @At(value = "FIELD",target = "Lnet/minecraft/world/level/block/Blocks;FLETCHING_TABLE:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.PUTSTATIC)))
     private static Block newFletchingTable(BlockItemId id, BlockBehaviour.Properties properties) {
         return register(id.block(), FletchingTableBlock::new, properties);
+    }
+
+    @Redirect(method = "<clinit>", at =
+    @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Blocks;register(Lnet/minecraft/references/BlockItemId;Ljava/util/function/Function;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;"), slice = @Slice(from =
+    @At(value = "FIELD", target = "Lnet/minecraft/references/BlockItemIds;DECORATED_POT:Lnet/minecraft/references/BlockItemId;", opcode = Opcodes.GETSTATIC), to = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;DECORATED_POT:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.PUTSTATIC)))
+    private static Block newDecoratedPot(BlockItemId id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {
+        return Blocks.register(id.block(), TerracottaDecoratedPotBlock::new, properties);
     }
 
     @Unique

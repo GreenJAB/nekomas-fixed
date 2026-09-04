@@ -2,7 +2,10 @@ package net.greenjab.nekomasfixed.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.render.block.entity.state.ClamBlockEntityRenderState;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.resources.model.sprite.SpriteId;
+import net.minecraft.resources.Identifier;
 
 import static net.minecraft.client.renderer.Sheets.CHEST_MAPPER;
 

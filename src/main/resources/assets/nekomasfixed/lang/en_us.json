@@ -30,6 +30,13 @@
   "gui.recipebook.toggleRecipes.kilnable": "Showing Kilnable",
   "container.nekomasfixed.fletching": "Fletching",
 
+  "terracotta_decorated_pot.made_of": "Made of: ",
+  "terracotta_decorated_pot.front": "Front: ",
+  "terracotta_decorated_pot.back": "Back: ",
+  "terracotta_decorated_pot.left": "Left: ",
+  "terracotta_decorated_pot.right": "Right: ",
+  "block.nekomasfixed.terracotta_decorated_pot": "Decorated Pot",
+
   "container.nekomasfixed.pyrotechnics": "Pyrotechnics",
   "container.nekomasfixed.pyrotechnics.small_ball": "Small Ball",
   "container.nekomasfixed.pyrotechnics.large_ball": "Large Ball",

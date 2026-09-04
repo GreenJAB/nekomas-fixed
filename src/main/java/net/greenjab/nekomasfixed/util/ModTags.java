@@ -27,6 +27,7 @@ public class ModTags {
     public static final TagKey<Block> FROGLIGHTS = TagKey.create(Registries.BLOCK, NekomasFixed.id("froglights"));
 
     public static final TagKey<Item> BAOBAB_LOGS = TagKey.create(Registries.ITEM, NekomasFixed.id("baobab_logs"));
+    public static final TagKey<Item> CAN_BE_ENGRAVED = TagKey.create(Registries.ITEM, NekomasFixed.id("can_be_engraved"));
     public static final TagKey<Item> CLAMTAG = TagKey.create(Registries.ITEM, NekomasFixed.id("clams"));
     public static final TagKey<Item> SPEARS = TagKey.create(Registries.ITEM, NekomasFixed.id("spears"));
     public static final TagKey<Item> SICKLES = TagKey.create(Registries.ITEM, NekomasFixed.id("sickles"));

@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.entity.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 
@@ -30,6 +31,10 @@ public class BlockEntityTypeRegistry {
 
     public static final BlockEntityType<GoatHornBlockEntity> GOAT_HORN_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("goat_horn"),
             FabricBlockEntityTypeBuilder.create(GoatHornBlockEntity::new, BlockRegistry.GOAT_HORN).build());
+
+    public static final BlockEntityType<TerracottaDecoratedPotBlockEntity> TERRACOTTA_DECORATED_POT_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("terracotta_decorated_pot"),
+            FabricBlockEntityTypeBuilder.create(TerracottaDecoratedPotBlockEntity::new, BlockRegistry.TERRACOTTA_DECORATED_POT, Blocks.DECORATED_POT).build());
+
 
     public static final BlockEntityType<SoupCauldronBlockEntity> SOUP_CAULDRON_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("soup_cauldron"),
             FabricBlockEntityTypeBuilder.create(SoupCauldronBlockEntity::new, BlockRegistry.SOUP_CAULDRON).build());

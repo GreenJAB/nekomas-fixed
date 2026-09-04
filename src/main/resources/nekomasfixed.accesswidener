@@ -2,6 +2,7 @@ accessWidener v2 official
 accessible method net/minecraft/core/component/DataComponents register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/core/component/DataComponentType;
 accessible field net/minecraft/world/level/storage/loot/BuiltInLootTables LOCATIONS Ljava/util/Set;
 accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
+accessible field net/minecraft/client/model/geom/LayerDefinitions INNER_ARMOR_DEFORMATION Lnet/minecraft/client/model/geom/builders/CubeDeformation;
 accessible field net/minecraft/world/entity/LivingEntity attackStrengthTicker I
 accessible method net/minecraft/world/entity/LivingEntity detectEquipmentUpdates ()V
 accessible class net/minecraft/world/level/levelgen/structure/structures/NetherFortressPieces$NetherBridgePiece
@@ -13,17 +14,23 @@ accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEnt
 accessible field net/minecraft/world/level/block/entity/BrewingStandBlockEntity items Lnet/minecraft/core/NonNullList;
 accessible method net/minecraft/world/level/block/Blocks shulkerBoxProperties (Lnet/minecraft/world/level/material/MapColor;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+accessible field net/minecraft/client/resources/model/sprite/AtlasManager atlasByTexture Ljava/util/Map;
+accessible field net/minecraft/client/resources/model/sprite/AtlasManager atlasById Ljava/util/Map;
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible method net/minecraft/client/animation/KeyframeAnimation bake (Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/animation/AnimationDefinition;)Lnet/minecraft/client/animation/KeyframeAnimation;
 accessible method net/minecraft/world/level/block/Block registerDefaultState (Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible class net/minecraft/client/resources/model/sprite/AtlasManager$AtlasEntry
 accessible field net/minecraft/core/component/DataComponentType$Builder codec Lcom/mojang/serialization/Codec;
 accessible method net/minecraft/world/level/block/ObserverBlock startSignal (Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;)V
+accessible field net/minecraft/data/recipes/RecipeProvider output Lnet/minecraft/data/recipes/RecipeOutput;
 accessible method net/minecraft/world/entity/animal/bee/Bee setHasNectar (Z)V
+accessible method net/minecraft/client/renderer/blockentity/DecoratedPotRenderer createModelTransformation (Lnet/minecraft/core/Direction;)Lcom/mojang/math/Transformation;
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimToTreasureGoal
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimWithPlayerGoal
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$PlayWithItemsGoal
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
+accessible field net/minecraft/client/model/geom/ModelLayers ALL_MODELS Ljava/util/Set;
 accessible field net/minecraft/world/level/block/entity/BaseContainerBlockEntity name Lnet/minecraft/network/chat/Component;
 accessible method net/minecraft/world/entity/monster/skeleton/AbstractSkeleton getStepSound ()Lnet/minecraft/sounds/SoundEvent;
 accessible method net/minecraft/world/entity/Mob isSunBurnTick ()Z
@@ -33,3 +40,15 @@ accessible field net/minecraft/world/level/block/BaseFireBlock fireDamage F
 accessible method net/minecraft/world/level/block/FireBlock setFlammable (Lnet/minecraft/world/level/block/Block;II)V
 accessible method net/minecraft/world/level/block/FireBlock getStateForPlacement (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
 accessible class net/minecraft/client/renderer/feature/NameTagFeatureRenderer$GlyphRenderer
+accessible method net/minecraft/client/data/AtlasProvider noPrefixMapper (Ljava/lang/String;)Ljava/util/List;
+accessible method net/minecraft/client/data/AtlasProvider armorTrims ()Ljava/util/List;
+accessible method net/minecraft/client/data/AtlasProvider bannerPatterns ()Ljava/util/List;
+accessible method net/minecraft/client/data/AtlasProvider blocksList ()Ljava/util/List;
+accessible field net/minecraft/client/data/AtlasProvider TRIM_PALETTE_KEY Lnet/minecraft/resources/Identifier;
+accessible field net/minecraft/client/data/AtlasProvider TRIM_PALETTE_VALUES Ljava/util/Map;
+accessible method net/minecraft/client/data/AtlasProvider itemsList ()Ljava/util/List;
+accessible method net/minecraft/client/data/AtlasProvider simpleMapper (Lnet/minecraft/client/renderer/SpriteMapper;)Ljava/util/List;
+accessible method net/minecraft/client/data/AtlasProvider guiSprites ()Ljava/util/List;
+accessible method net/minecraft/client/data/AtlasProvider noPrefixMapper (Ljava/lang/String;)Ljava/util/List;
+accessible method net/minecraft/client/data/AtlasProvider shieldPatterns ()Ljava/util/List;
+accessible method net/minecraft/client/data/AtlasProvider storeAtlas (Lnet/minecraft/data/CachedOutput;Lnet/minecraft/resources/Identifier;Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;

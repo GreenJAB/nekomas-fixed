@@ -1,14 +1,13 @@
 package net.greenjab.nekomasfixed.registries;
 
-import net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.render.block.entity.TerracottaDecoratedPotBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClockBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanEyesBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanHeadBlockModel;
 import net.greenjab.nekomasfixed.render.entity.model.*;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -52,6 +51,9 @@ public class ModEntityLayerRegistry {
     public static final ModelLayerLocation TARGET_DUMMY = register("target_dummy", "main");
     public static final ModelLayerLocation TARGET_DUMMY_BASE = register("target_dummy_base", "main");
     public static final ArmorModelSet<ModelLayerLocation> TARGET_DUMMY_EQUIPMENT = registerEquipment(NekomasFixed.id("target_dummy"));
+    public static final ModelLayerLocation TERRACOTTA_DECORATED_POT_BASE = register("terracotta_decorated_pot_base", "main");
+    public static final ModelLayerLocation TERRACOTTA_DECORATED_POT_SIDE = register("terracotta_decorated_pot_side", "main");
+
 
     public static final ModelLayerLocation WILD_FIRE = register("wild_fire", "main");
     public static final ModelLayerLocation TERMITE = register("termite", "main");
@@ -126,5 +128,9 @@ public class ModEntityLayerRegistry {
 
         ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILD_FIRE, WildfireEntityModel::getTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.WILDFIRE_TRIDENT, TridentModel::createLayer);
+
+        ModelLayerRegistry.registerModelLayer(ModEntityLayerRegistry.TERRACOTTA_DECORATED_POT_BASE, TerracottaDecoratedPotBlockEntityRenderer::createBaseLayer);
+        ModelLayerRegistry.registerModelLayer(TerracottaDecoratedPotBlockEntityRenderer.CUSTOM_POT_SIDES, TerracottaDecoratedPotBlockEntityRenderer::createSidesLayer);
+
     }
 }

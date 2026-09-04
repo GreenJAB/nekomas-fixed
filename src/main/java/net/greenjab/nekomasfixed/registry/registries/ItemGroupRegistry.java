@@ -140,6 +140,8 @@ public class ItemGroupRegistry {
 
                         entries.accept(ItemRegistry.SULFUR_LANTERN);
                         entries.accept(ItemRegistry.GOLD_CHAIN);
+                        entries.accept(ItemRegistry.QUIVER);
+                        entries.accept(ItemRegistry.TERRACOTTA_DECORATED_POT);
 
 
                     }).build();

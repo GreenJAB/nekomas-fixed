@@ -1,6 +1,8 @@
 package net.greenjab.nekomasfixed.render.block.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.impl.client.rendering.ArmorRendererRegistryImpl;
 import net.greenjab.nekomasfixed.registry.block.entity.StackedCakeBlockEntity;
 import net.greenjab.nekomasfixed.render.block.entity.state.StackedCakeBlockEntityRenderState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -8,9 +10,16 @@ import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ArmorModelSet;
+import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.properties.select.TrimMaterialProperty;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.component.predicates.TrimPredicate;
+import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
+import net.minecraft.world.item.equipment.trim.TrimPattern;
+import net.minecraft.world.item.equipment.trim.TrimPatterns;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -38,6 +47,8 @@ public class StackedCakeBlockEntityRenderer implements BlockEntityRenderer<Stack
     public @NonNull StackedCakeBlockEntityRenderState createRenderState() {
         return new StackedCakeBlockEntityRenderState();
     }
+
+
 
     @Override
     public boolean shouldRenderOffScreen() {

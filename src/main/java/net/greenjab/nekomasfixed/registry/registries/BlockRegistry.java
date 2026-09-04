@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.*;
 import net.greenjab.nekomasfixed.registry.block.cauldron.*;
+import net.greenjab.nekomasfixed.registry.block.entity.TerracottaDecoratedPotBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.greenjab.nekomasfixed.registry.worldgen.ModConfiguredFeatures;
@@ -11,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+
 import net.minecraft.references.BlockIds;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -34,6 +36,7 @@ import static net.minecraft.world.level.block.Blocks.buttonProperties;
 import static net.minecraft.world.level.block.Blocks.leavesProperties;
 
 public class BlockRegistry {
+
 
     public static final Block CLAM = register("clam", settings -> new ClamBlock(ClamType.REGULAR, settings),
             BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
@@ -451,6 +454,7 @@ public class BlockRegistry {
     public static final Block SULFUR_FIRE = register("sulfur_fire", SulfurFireBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).replaceable().noCollision().instabreak().lightLevel((statex) -> 10).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY));
     public static final Block SULFUR_LANTERN = register("sulfur_lantern", LanternBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN).lightLevel((statex) -> 10).noOcclusion().pushReaction(PushReaction.DESTROY));
     public static final Block GOLD_CHAIN = register("gold_chain", ChainBlock::new, BlockBehaviour.Properties.of().forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion());
+    public static final Block TERRACOTTA_DECORATED_POT = register("terracotta_decorated_pot", TerracottaDecoratedPotBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED).strength(0.0F, 0.0F).pushReaction(PushReaction.DESTROY).noOcclusion());
 
 
     private static Block register(String id, BlockBehaviour.Properties settings) {

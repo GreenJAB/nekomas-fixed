@@ -15,5 +15,6 @@ public class BlockEntityRendererRegistry {
         BlockEntityRenderers.register(BlockEntityTypeRegistry.SOUP_CAULDRON_BLOCK_ENTITY,SoupCauldronBlockEntityRenderer::new);
         BlockEntityRenderers.register(BlockEntityTypeRegistry.STACKED_CAKE_BLOCK_ENTITY,StackedCakeBlockEntityRenderer::new);
         BlockEntityRenderers.register(BlockEntityTypeRegistry.GOAT_HORN_BLOCK_ENTITY,GoatHornBlockEntityRenderer::new);
+        BlockEntityRenderers.register(BlockEntityTypeRegistry.TERRACOTTA_DECORATED_POT_BLOCK_ENTITY, TerracottaDecoratedPotBlockEntityRenderer::new);
     }
 }

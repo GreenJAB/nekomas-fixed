@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "nekomasfixed:item/terracotta_decorated_pot",
+    "model": {
+      "type": "nekomasfixed:terracotta_decorated_pot"
+    }
+  }
+}

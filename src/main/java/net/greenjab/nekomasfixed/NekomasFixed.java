@@ -22,6 +22,7 @@ public class NekomasFixed implements ModInitializer {
 	public static final String NAMESPACE = "nekomasfixed";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAMESPACE);
 
+
 	@Override
 	public void onInitialize() {
 		BlockRegistry.registerBlocks();
@@ -43,6 +44,8 @@ public class NekomasFixed implements ModInitializer {
 		SyncHandler.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
+
+
 
 		BiomeAdditions.addSpawns();
 		LootTableAdditions.registerLootTableAdds();

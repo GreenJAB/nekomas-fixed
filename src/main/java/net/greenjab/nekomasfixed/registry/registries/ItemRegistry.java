@@ -480,6 +480,7 @@ public class ItemRegistry {
     public static final Item AQUA_SPOTTED_CARPET = register(BlockRegistry.AQUA_SPOTTED_CARPET);
     public static final Item INDIGO_SPOTTED_CARPET = register(BlockRegistry.INDIGO_SPOTTED_CARPET);
     public static final Item MAROON_SPOTTED_CARPET = register(BlockRegistry.MAROON_SPOTTED_CARPET);
+    public static final Item TERRACOTTA_DECORATED_POT = register(BlockRegistry.TERRACOTTA_DECORATED_POT);
 
 //sulfur related
     public static final Item SULFUR_LANTERN =register(BlockRegistry.SULFUR_LANTERN);
@@ -487,6 +488,8 @@ public class ItemRegistry {
     public static final Item TIPPED_ARROW_CUSTOM = register("tipped_arrow_custom", CustomArrowItem::new, (new Item.Properties()).stacksTo(64).component(ComponentRegistry.TIPPED_POTION_CONTENTS, TippedArrowCustomComponent.EMPTY));
 
     public static final Item QUIVER =register("quiver", QuiverItem::new, (new Item.Properties()).stacksTo(1).component(ComponentRegistry.QUIVER_CONTENTS, QuiverContents.EMPTY));
+    public static final Item GOAT_HORN_HELMET = register("goat_horn_helmet", new Item.Properties().humanoidArmor(OtherRegistry.GOAT_HORN, ArmorType.HELMET));
+
 
 
 
