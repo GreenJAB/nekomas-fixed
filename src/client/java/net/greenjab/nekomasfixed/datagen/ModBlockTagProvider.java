@@ -2,6 +2,8 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.HolderLookup;
@@ -9,6 +11,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
@@ -71,6 +74,18 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.BRICK_SLAB.properties().blockId())
                 .add(Blocks.BRICK_STAIRS.properties().blockId())
                 .add(Blocks.BRICK_WALL.properties().blockId());
+        tag(ConventionalBlockTags.GLASS_BLOCKS)
+                .add(BlockRegistry.AMBER_STAINED_GLASS.properties().blockId())
+                .add(BlockRegistry.INDIGO_STAINED_GLASS.properties().blockId())
+                .add(BlockRegistry.AQUA_STAINED_GLASS.properties().blockId())
+                .add(BlockRegistry.MAROON_STAINED_GLASS.properties().blockId());
+        tag(ConventionalBlockTags.GLASS_PANES)
+                .add(BlockRegistry.AMBER_STAINED_GLASS_PANE.properties().blockId())
+                .add(BlockRegistry.INDIGO_STAINED_GLASS_PANE.properties().blockId())
+                .add(BlockRegistry.AQUA_STAINED_GLASS_PANE.properties().blockId())
+                .add(BlockRegistry.MAROON_STAINED_GLASS_PANE.properties().blockId());
+
+
     }
 }
 

@@ -30,3 +30,5 @@ accessible field net/minecraft/core/cauldron/CauldronInteractions ID_MAPPER Lnet
 accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
 accessible method net/minecraft/world/level/block/FireBlock setFlammable (Lnet/minecraft/world/level/block/Block;II)V
 accessible class net/minecraft/client/renderer/feature/NameTagFeatureRenderer$GlyphRenderer
+accessible method net/minecraft/world/entity/animal/feline/Ocelot isTrusting ()Z
+accessible method net/minecraft/world/entity/animal/feline/Ocelot setTrusting (Z)V

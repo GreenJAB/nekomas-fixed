@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.other.DyedBrushBehaviour;
@@ -12,6 +13,10 @@ import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.animal.feline.Ocelot;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -52,6 +57,19 @@ public class NekomasFixed implements ModInitializer {
 
 		ItemDyeMap.BRUSH.values().forEach(brush->DispenserBlock.registerBehavior(brush, new DyedBrushBehaviour()));
 
+		ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
+			if (entity instanceof Monster monster && !(entity instanceof Creeper)) {
+				monster.goalSelector.addGoal(1, new AvoidEntityGoal<>(
+						monster,
+						Ocelot.class,
+						target -> target instanceof Ocelot ocelot && ocelot.isTrusting(),
+						8.0F,
+						1.0D,
+						1.3D,
+						livingEntity -> true
+				));
+			}
+		});
 	}
 
 
