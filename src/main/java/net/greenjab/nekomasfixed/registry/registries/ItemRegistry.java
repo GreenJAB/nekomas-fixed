@@ -54,6 +54,10 @@ public class ItemRegistry {
             "redstone_striker",
             RedstoneStrikerItem::new,
             new Item.Properties().stacksTo(1).durability(64));
+    public static final Item TARGET_DUMMY = register(
+            "target_dummy",
+            TargetDummyItem::new,
+            new Item.Properties().stacksTo(1));
     public static final FoodProperties BAOBAB_FRUIT_FOOD = new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build();
     public static final Item BAOBAB_FRUIT = register(
             "baobab_fruit",

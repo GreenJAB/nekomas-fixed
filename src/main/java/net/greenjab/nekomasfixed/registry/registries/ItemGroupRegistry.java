@@ -52,6 +52,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.PEARL);
                         entries.accept(ItemRegistry.PEARL_BLOCK);
                         entries.accept(ItemRegistry.REDSTONE_STRIKER);
+                        entries.accept(ItemRegistry.TARGET_DUMMY);
                         entries.accept(ItemRegistry.GEYSER);
                         entries.accept(ItemRegistry.GLISTERING_MELON);
                         entries.accept(ItemRegistry.SWEETBERRY_CAKE);

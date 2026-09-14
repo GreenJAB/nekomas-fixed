@@ -4,6 +4,8 @@
   "ItemStackMixin", "NoteBlockMixin",
   "PistonBaseBlockMixin", "RedStoneWireBlockMixin", "ServerLevelMixin",
   "SignalGetterMixin",
+  "target_dummy.CarvedPumpkinBlockMixin", "target_dummy.WeightedPressurePlateBlockMixin",
+  "target_dummy.EnchantmentMixin",
   "accessor.BlockBehaviourAccessor", "accessor.FlowerPotBlockAccessor", "accessor.ObserverBlockAccessor"
 ], "injectors": {
   "defaultRequire": 1

@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -19,11 +20,16 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(BlockEntityWithoutLevelRenderer.class)
 public class BlockEntityWithoutLevelRendererMixin {
 
+    @Unique
     private static final ShulkerBoxBlockEntity AMBER = shulker(DyeColor.YELLOW, BlockRegistry.AMBER_SHULKER_BOX);
+    @Unique
     private static final ShulkerBoxBlockEntity AQUA = shulker(DyeColor.LIGHT_BLUE, BlockRegistry.AQUA_SHULKER_BOX);
+    @Unique
     private static final ShulkerBoxBlockEntity INDIGO = shulker(DyeColor.MAGENTA, BlockRegistry.INDIGO_SHULKER_BOX);
+    @Unique
     private static final ShulkerBoxBlockEntity MAROON = shulker(DyeColor.RED, BlockRegistry.MAROON_SHULKER_BOX);
 
+    @Unique
     private static ShulkerBoxBlockEntity shulker(DyeColor color, Block block) {
         return new ShulkerBoxBlockEntity(color, BlockPos.ZERO, block.defaultBlockState());
     }

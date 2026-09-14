@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.DiodeBlock;
 import net.minecraft.world.level.block.ObserverBlock;
 import net.minecraft.world.level.block.entity.ComparatorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NonNull InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();

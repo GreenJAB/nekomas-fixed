@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -20,11 +21,16 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(BlockEntityWithoutLevelRenderer.class)
 public class BedItemBlockEntityMixin {
 
+    @Unique
     private static final BedBlockEntity AMBER = bed(BlockRegistry.AMBER_BED);
+    @Unique
     private static final BedBlockEntity AQUA = bed(BlockRegistry.AQUA_BED);
+    @Unique
     private static final BedBlockEntity INDIGO = bed(BlockRegistry.INDIGO_BED);
+    @Unique
     private static final BedBlockEntity MAROON = bed(BlockRegistry.MAROON_BED);
 
+    @Unique
     private static BedBlockEntity bed(Block block) {
         return new BedBlockEntity(BlockPos.ZERO, block.defaultBlockState());
     }

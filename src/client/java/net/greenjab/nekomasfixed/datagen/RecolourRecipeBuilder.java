@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,23 +46,23 @@ public class RecolourRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public RecolourRecipeBuilder unlockedBy(String name, Criterion<?> criterion) {
+    public @NonNull RecolourRecipeBuilder unlockedBy(@NonNull String name, @NonNull Criterion<?> criterion) {
         this.criteria.put(name, criterion);
         return this;
     }
 
     @Override
-    public RecolourRecipeBuilder group(String group) {
+    public @NonNull RecolourRecipeBuilder group(String group) {
         return this;
     }
 
     @Override
-    public Item getResult() {
+    public @NonNull Item getResult() {
         return this.result.getItem();
     }
 
     @Override
-    public void save(RecipeOutput output, ResourceLocation id) {
+    public void save(RecipeOutput output, @NonNull ResourceLocation id) {
         Advancement.Builder advancement = output.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                 .rewards(AdvancementRewards.Builder.recipe(id))

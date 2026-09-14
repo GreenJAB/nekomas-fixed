@@ -1,8 +1,10 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.BaobabBoat;
 import net.greenjab.nekomasfixed.registry.entity.BaobabChestBoat;
+import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -25,6 +27,12 @@ public class EntityTypeRegistry {
                     .sized(1.375F, 0.5625F).clientTrackingRange(10)
     );
 
+    public static final EntityType<TargetDummy> TARGET_DUMMY = register(
+            "target_dummy",
+            EntityType.Builder.of(TargetDummy::new, MobCategory.MISC)
+                    .sized(0.5F, 1.975F).eyeHeight(1.7775F).clientTrackingRange(10)
+    );
+
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE,
                 ResourceKey.create(Registries.ENTITY_TYPE, NekomasFixed.id(id)),
@@ -32,6 +40,7 @@ public class EntityTypeRegistry {
     }
 
     public static void registerEntityType() {
+        FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummy.createTargetDummyAttributes().build());
         NekomasFixed.LOGGER.info("Registering entity types");
     }
 }

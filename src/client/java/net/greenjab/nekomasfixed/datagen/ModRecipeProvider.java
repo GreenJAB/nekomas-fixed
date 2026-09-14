@@ -272,6 +272,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             recolour(output, "dye_" + c + "_spotted_carpet", "spotted_carpet",
                     ModTags.SPOTTED_CARPET_ITEM, dyeItem, BlockDyeMap.SPOTTED_CARPET.get(dye).asItem(),
                     RecipeCategory.DECORATIONS, CraftingBookCategory.BUILDING, "has_needed_dye", has(dyeItem));
+
+            // Blame Akshaj
+            carpetCraft(output, c + "_spotted_carpet",
+                    BlockDyeMap.SPOTTED_WOOL.get(dye).asItem(),
+                    BlockDyeMap.SPOTTED_CARPET.get(dye).asItem());
         }
         generateAncientWoolCarpet(output);
         generateAncientGlass(output);

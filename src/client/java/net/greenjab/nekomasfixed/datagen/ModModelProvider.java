@@ -6,10 +6,10 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.data.models.model.TexturedModel;
-import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
@@ -74,24 +74,54 @@ public class ModModelProvider extends FabricModelProvider {
         };
     }
 
+    private static Block[][] brickFamilies() {
+        return new Block[][]{
+                {BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_SLAB, BlockRegistry.WHITE_BRICK_STAIRS, BlockRegistry.WHITE_BRICK_WALL},
+                {BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_SLAB, BlockRegistry.ORANGE_BRICK_STAIRS, BlockRegistry.ORANGE_BRICK_WALL},
+                {BlockRegistry.MAGENTA_BRICKS, BlockRegistry.MAGENTA_BRICK_SLAB, BlockRegistry.MAGENTA_BRICK_STAIRS, BlockRegistry.MAGENTA_BRICK_WALL},
+                {BlockRegistry.LIGHT_BLUE_BRICKS, BlockRegistry.LIGHT_BLUE_BRICK_SLAB, BlockRegistry.LIGHT_BLUE_BRICK_STAIRS, BlockRegistry.LIGHT_BLUE_BRICK_WALL},
+                {BlockRegistry.YELLOW_BRICKS, BlockRegistry.YELLOW_BRICK_SLAB, BlockRegistry.YELLOW_BRICK_STAIRS, BlockRegistry.YELLOW_BRICK_WALL},
+                {BlockRegistry.LIME_BRICKS, BlockRegistry.LIME_BRICK_SLAB, BlockRegistry.LIME_BRICK_STAIRS, BlockRegistry.LIME_BRICK_WALL},
+                {BlockRegistry.PINK_BRICKS, BlockRegistry.PINK_BRICK_SLAB, BlockRegistry.PINK_BRICK_STAIRS, BlockRegistry.PINK_BRICK_WALL},
+                {BlockRegistry.GRAY_BRICKS, BlockRegistry.GRAY_BRICK_SLAB, BlockRegistry.GRAY_BRICK_STAIRS, BlockRegistry.GRAY_BRICK_WALL},
+                {BlockRegistry.LIGHT_GRAY_BRICKS, BlockRegistry.LIGHT_GRAY_BRICK_SLAB, BlockRegistry.LIGHT_GRAY_BRICK_STAIRS, BlockRegistry.LIGHT_GRAY_BRICK_WALL},
+                {BlockRegistry.CYAN_BRICKS, BlockRegistry.CYAN_BRICK_SLAB, BlockRegistry.CYAN_BRICK_STAIRS, BlockRegistry.CYAN_BRICK_WALL},
+                {BlockRegistry.PURPLE_BRICKS, BlockRegistry.PURPLE_BRICK_SLAB, BlockRegistry.PURPLE_BRICK_STAIRS, BlockRegistry.PURPLE_BRICK_WALL},
+                {BlockRegistry.BLUE_BRICKS, BlockRegistry.BLUE_BRICK_SLAB, BlockRegistry.BLUE_BRICK_STAIRS, BlockRegistry.BLUE_BRICK_WALL},
+                {BlockRegistry.BROWN_BRICKS, BlockRegistry.BROWN_BRICK_SLAB, BlockRegistry.BROWN_BRICK_STAIRS, BlockRegistry.BROWN_BRICK_WALL},
+                {BlockRegistry.GREEN_BRICKS, BlockRegistry.GREEN_BRICK_SLAB, BlockRegistry.GREEN_BRICK_STAIRS, BlockRegistry.GREEN_BRICK_WALL},
+                {BlockRegistry.RED_BRICKS, BlockRegistry.RED_BRICK_SLAB, BlockRegistry.RED_BRICK_STAIRS, BlockRegistry.RED_BRICK_WALL},
+                {BlockRegistry.BLACK_BRICKS, BlockRegistry.BLACK_BRICK_SLAB, BlockRegistry.BLACK_BRICK_STAIRS, BlockRegistry.BLACK_BRICK_WALL},
+                {BlockRegistry.AMBER_BRICKS, BlockRegistry.AMBER_BRICK_SLAB, BlockRegistry.AMBER_BRICK_STAIRS, BlockRegistry.AMBER_BRICK_WALL},
+                {BlockRegistry.AQUA_BRICKS, BlockRegistry.AQUA_BRICK_SLAB, BlockRegistry.AQUA_BRICK_STAIRS, BlockRegistry.AQUA_BRICK_WALL},
+                {BlockRegistry.INDIGO_BRICKS, BlockRegistry.INDIGO_BRICK_SLAB, BlockRegistry.INDIGO_BRICK_STAIRS, BlockRegistry.INDIGO_BRICK_WALL},
+                {BlockRegistry.MAROON_BRICKS, BlockRegistry.MAROON_BRICK_SLAB, BlockRegistry.MAROON_BRICK_STAIRS, BlockRegistry.MAROON_BRICK_WALL},
+        };
+    }
+
+    private static ResourceLocation blockModelLoc(Block block) {
+        return ModelLocationUtils.getModelLocation(block);
+    }
+
+    // cube_all for the wool + a carpet model that reuses the wool texture (carpets
+    // have no texture of their own, so the default CARPET mapping is overridden).
+    private static void woolAndCarpet(BlockModelGenerators generator, Block wool, Block carpet) {
+        generator.createTrivialCube(wool);
+        generator.createTrivialBlock(carpet,
+                TexturedModel.CARPET.updateTexture(mapping ->
+                        mapping.put(TextureSlot.WOOL, TextureMapping.wool(wool).get(TextureSlot.WOOL))));
+    }
+
     @Override
     public void generateBlockStateModels(BlockModelGenerators generator) {
         Block[] wools = spottedWoolBlocks();
         Block[] carpets = spottedCarpetBlocks();
         for (int i = 0; i < wools.length; i++) {
-            Block wool = wools[i];
-            // cube_all with "all" -> block/{id}_spotted_wool
-            generator.createTrivialCube(wool);
-            // carpet parent reuses the SAME wool texture for the "wool" slot
-            // (only the *_spotted_wool.png textures exist), so the default
-            // CARPET mapping (which points at block/{id}_spotted_carpet) is overridden.
-            generator.createTrivialBlock(carpets[i],
-                    TexturedModel.CARPET.updateTexture(mapping ->
-                            mapping.put(TextureSlot.WOOL, TextureMapping.wool(wool).get(TextureSlot.WOOL))));
+            woolAndCarpet(generator, wools[i], carpets[i]);
         }
 
-        // Ancient-dye plain wool + carpet. Carpet reuses the wool texture (there
-        // is no separate {colour}_carpet.png), mirroring the spotted set's approach.
+        // Ancient-dye plain wool + carpet (no separate {colour}_carpet.png, so the
+        // carpet reuses the wool texture like the spotted set).
         Block[] plainWools = {
                 BlockRegistry.AMBER_WOOL, BlockRegistry.AQUA_WOOL,
                 BlockRegistry.INDIGO_WOOL, BlockRegistry.MAROON_WOOL
@@ -101,11 +131,7 @@ public class ModModelProvider extends FabricModelProvider {
                 BlockRegistry.INDIGO_CARPET, BlockRegistry.MAROON_CARPET
         };
         for (int i = 0; i < plainWools.length; i++) {
-            Block wool = plainWools[i];
-            generator.createTrivialCube(wool);
-            generator.createTrivialBlock(plainCarpets[i],
-                    TexturedModel.CARPET.updateTexture(mapping ->
-                            mapping.put(TextureSlot.WOOL, TextureMapping.wool(wool).get(TextureSlot.WOOL))));
+            woolAndCarpet(generator, plainWools[i], plainCarpets[i]);
         }
 
         // Ancient-colour stained glass blocks: plain cube using the shared
@@ -150,35 +176,6 @@ public class ModModelProvider extends FabricModelProvider {
                 .pressurePlate(BlockRegistry.BAOBAB_PRESSURE_PLATE);
         generator.delegateItemModel(BlockRegistry.BAOBAB_PLANKS,
                 ModelLocationUtils.getModelLocation(BlockRegistry.BAOBAB_PLANKS));
-    }
-
-    private static Block[][] brickFamilies() {
-        return new Block[][]{
-                {BlockRegistry.WHITE_BRICKS, BlockRegistry.WHITE_BRICK_SLAB, BlockRegistry.WHITE_BRICK_STAIRS, BlockRegistry.WHITE_BRICK_WALL},
-                {BlockRegistry.ORANGE_BRICKS, BlockRegistry.ORANGE_BRICK_SLAB, BlockRegistry.ORANGE_BRICK_STAIRS, BlockRegistry.ORANGE_BRICK_WALL},
-                {BlockRegistry.MAGENTA_BRICKS, BlockRegistry.MAGENTA_BRICK_SLAB, BlockRegistry.MAGENTA_BRICK_STAIRS, BlockRegistry.MAGENTA_BRICK_WALL},
-                {BlockRegistry.LIGHT_BLUE_BRICKS, BlockRegistry.LIGHT_BLUE_BRICK_SLAB, BlockRegistry.LIGHT_BLUE_BRICK_STAIRS, BlockRegistry.LIGHT_BLUE_BRICK_WALL},
-                {BlockRegistry.YELLOW_BRICKS, BlockRegistry.YELLOW_BRICK_SLAB, BlockRegistry.YELLOW_BRICK_STAIRS, BlockRegistry.YELLOW_BRICK_WALL},
-                {BlockRegistry.LIME_BRICKS, BlockRegistry.LIME_BRICK_SLAB, BlockRegistry.LIME_BRICK_STAIRS, BlockRegistry.LIME_BRICK_WALL},
-                {BlockRegistry.PINK_BRICKS, BlockRegistry.PINK_BRICK_SLAB, BlockRegistry.PINK_BRICK_STAIRS, BlockRegistry.PINK_BRICK_WALL},
-                {BlockRegistry.GRAY_BRICKS, BlockRegistry.GRAY_BRICK_SLAB, BlockRegistry.GRAY_BRICK_STAIRS, BlockRegistry.GRAY_BRICK_WALL},
-                {BlockRegistry.LIGHT_GRAY_BRICKS, BlockRegistry.LIGHT_GRAY_BRICK_SLAB, BlockRegistry.LIGHT_GRAY_BRICK_STAIRS, BlockRegistry.LIGHT_GRAY_BRICK_WALL},
-                {BlockRegistry.CYAN_BRICKS, BlockRegistry.CYAN_BRICK_SLAB, BlockRegistry.CYAN_BRICK_STAIRS, BlockRegistry.CYAN_BRICK_WALL},
-                {BlockRegistry.PURPLE_BRICKS, BlockRegistry.PURPLE_BRICK_SLAB, BlockRegistry.PURPLE_BRICK_STAIRS, BlockRegistry.PURPLE_BRICK_WALL},
-                {BlockRegistry.BLUE_BRICKS, BlockRegistry.BLUE_BRICK_SLAB, BlockRegistry.BLUE_BRICK_STAIRS, BlockRegistry.BLUE_BRICK_WALL},
-                {BlockRegistry.BROWN_BRICKS, BlockRegistry.BROWN_BRICK_SLAB, BlockRegistry.BROWN_BRICK_STAIRS, BlockRegistry.BROWN_BRICK_WALL},
-                {BlockRegistry.GREEN_BRICKS, BlockRegistry.GREEN_BRICK_SLAB, BlockRegistry.GREEN_BRICK_STAIRS, BlockRegistry.GREEN_BRICK_WALL},
-                {BlockRegistry.RED_BRICKS, BlockRegistry.RED_BRICK_SLAB, BlockRegistry.RED_BRICK_STAIRS, BlockRegistry.RED_BRICK_WALL},
-                {BlockRegistry.BLACK_BRICKS, BlockRegistry.BLACK_BRICK_SLAB, BlockRegistry.BLACK_BRICK_STAIRS, BlockRegistry.BLACK_BRICK_WALL},
-                {BlockRegistry.AMBER_BRICKS, BlockRegistry.AMBER_BRICK_SLAB, BlockRegistry.AMBER_BRICK_STAIRS, BlockRegistry.AMBER_BRICK_WALL},
-                {BlockRegistry.AQUA_BRICKS, BlockRegistry.AQUA_BRICK_SLAB, BlockRegistry.AQUA_BRICK_STAIRS, BlockRegistry.AQUA_BRICK_WALL},
-                {BlockRegistry.INDIGO_BRICKS, BlockRegistry.INDIGO_BRICK_SLAB, BlockRegistry.INDIGO_BRICK_STAIRS, BlockRegistry.INDIGO_BRICK_WALL},
-                {BlockRegistry.MAROON_BRICKS, BlockRegistry.MAROON_BRICK_SLAB, BlockRegistry.MAROON_BRICK_STAIRS, BlockRegistry.MAROON_BRICK_WALL},
-        };
-    }
-
-    private static ResourceLocation blockModelLoc(Block block) {
-        return ModelLocationUtils.getModelLocation(block);
     }
 
     @Override
