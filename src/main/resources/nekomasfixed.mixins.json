@@ -3,6 +3,8 @@
   "BlockBehaviourMixin", "BlockEntityTypeAccessor", "BlocksMixin",
   "ItemStackMixin", "NoteBlockMixin",
   "PistonBaseBlockMixin", "RedStoneWireBlockMixin", "ServerLevelMixin",
+  "PlayerMixin",
+  "FarmBlockMixin",
   "SignalGetterMixin",
   "target_dummy.CarvedPumpkinBlockMixin", "target_dummy.WeightedPressurePlateBlockMixin",
   "target_dummy.EnchantmentMixin",
