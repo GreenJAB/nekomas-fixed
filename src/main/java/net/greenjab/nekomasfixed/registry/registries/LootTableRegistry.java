@@ -9,6 +9,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 public class LootTableRegistry {
     public static final ResourceKey<LootTable> SUPER_CHARGED_CREEPER_ENDERMAN_LOOT_TABLE = registerLoot_Table("gameplay/super_charged_creeper_enderman");
     public static final ResourceKey<LootTable> CLAM_LOOT_TABLE = registerLoot_Table("gameplay/clam");
+    public static final ResourceKey<LootTable> GHOST_PEPPER_LOOT_TABLE = registerLoot_Table("gameplay/ghost_pepper");
 
     private static ResourceKey<LootTable> registerLoot_Table(String id) {
         return ResourceKey.create(Registries.LOOT_TABLE, NekomasFixed.id(id));

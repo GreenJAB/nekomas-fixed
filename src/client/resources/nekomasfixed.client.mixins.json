@@ -24,7 +24,8 @@
     "SheepWoolLayerMixin",
     "ShulkerBoxRendererMixin",
     "ShulkerBoxRenderStateMixin",
-    "SpecialModelRenderersMixin"
+    "SpecialModelRenderersMixin",
+    "AvatarRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

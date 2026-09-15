@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.WildfireShieldItem;
+import net.greenjab.nekomasfixed.registry.registries.EffectRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -125,6 +126,17 @@ public abstract class LivingEntityMixin {
             return damage;
         } else {
             return 0.0F;
+        }
+    }
+    @Inject(method = "actuallyHurt", at = @At("HEAD"))
+    private void applySpicyFireAspect(ServerLevel level, DamageSource source, float dmg, CallbackInfo ci) {
+        LivingEntity target = (LivingEntity) (Object) this;
+        if (source.getEntity() instanceof LivingEntity attacker) {
+            if (attacker.hasEffect(EffectRegistry.SPICY)) {
+                var effectInstance = attacker.getEffect(EffectRegistry.SPICY);
+                int amplifier = effectInstance != null ? effectInstance.getAmplifier() : 0;
+                target.igniteForSeconds(4 * (amplifier + 1));
+            }
         }
     }
 }

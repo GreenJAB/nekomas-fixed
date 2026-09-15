@@ -435,7 +435,12 @@
   "block.nekomasfixed.indigo_spotted_carpet": "Indigo Spotted Carpet",
   "block.nekomasfixed.maroon_spotted_carpet": "Maroon Spotted Carpet",
 
+  "item.nekomasfixed.ghost_pepper": "Ghost Pepper",
+  "block.nekomasfixed.ghost_pepper_shrub": "Ghost Pepper Shrub",
+  "effect.nekomasfixed.spicy": "Spicy",
 
+  "item.nekomasfixed.allium_flower_crown": "Allium Flower Crown",
+  "item.nekomasfixed.oxeye_daisy_flower_crown": "Oxeye Daisy Crown",
 
   "enchantment.nekomasfixed.dismount": "Dismount",
   "enchantment.nekomasfixed.leeching": "Leeching",

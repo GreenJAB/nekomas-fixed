@@ -417,6 +417,7 @@ public class BlockRegistry {
     public static final Block INDIGO_SPOTTED_CARPET = register("indigo_spotted_carpet", CarpetBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sound(SoundType.WOOL).ignitedByLava());
     public static final Block MAROON_SPOTTED_CARPET = register("maroon_spotted_carpet", CarpetBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sound(SoundType.WOOL).ignitedByLava());
 
+    public static final Block GHOST_PEPPER_SHRUB = register("ghost_pepper_shrub", GhostPepperShrubBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollision().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY));
 
     private static Block register(String id, BlockBehaviour.Properties settings) {
         return register(id, Block::new, settings);

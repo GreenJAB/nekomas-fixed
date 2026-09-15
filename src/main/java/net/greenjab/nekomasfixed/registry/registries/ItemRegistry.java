@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomVariants;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.*;
@@ -37,6 +38,7 @@ import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.component.*;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
@@ -471,6 +473,23 @@ public class ItemRegistry {
     public static final Item INDIGO_SPOTTED_CARPET = register(BlockRegistry.INDIGO_SPOTTED_CARPET);
     public static final Item MAROON_SPOTTED_CARPET = register(BlockRegistry.MAROON_SPOTTED_CARPET);
 
+    public static final Item GHOST_PEPPER = register("ghost_pepper", Item::new, new Item.Properties().food((new FoodProperties.Builder()).nutrition(2).saturationModifier(0.1F).build()).component(DataComponents.CONSUMABLE,Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(EffectRegistry.SPICY, 200, 0), 1.0f)).build()));
+    public static final Holder<Potion> SPICY = register("spicy", new Potion("spicy", new MobEffectInstance(EffectRegistry.SPICY, 200)));
+    public static final Item GHOST_PEPPER_SHRUB = register(BlockRegistry.GHOST_PEPPER_SHRUB);
+
+    public static final Item ALLIUM_FLOWER_CROWN = register("allium_flower_crown",
+            properties -> new FlowerCrownItem(properties, FlowerCrownVariants.ALLIUM),
+            new Item.Properties().stacksTo(1)
+                    .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot())
+                            .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
+                            .build()));
+
+    public static final Item OXEYE_DAISY_FLOWER_CROWN = register("oxeye_daisy_flower_crown",
+            properties -> new FlowerCrownItem(properties, FlowerCrownVariants.OXEYE_DAISY),
+            new Item.Properties().stacksTo(1)
+                    .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot())
+                            .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
+                            .build()));
 
 
     public static Item register(String id, Item.Properties settings) {

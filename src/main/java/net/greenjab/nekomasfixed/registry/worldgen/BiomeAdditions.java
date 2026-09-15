@@ -7,12 +7,17 @@ import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider;
 import net.greenjab.nekomasfixed.registry.entity.WildFire.WildfireEntity;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.util.ModTags;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.filefix.fixes.ResourcePackLocationFileFix;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class BiomeAdditions {
@@ -41,5 +46,8 @@ public class BiomeAdditions {
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW), MobCategory.CREATURE,
                 EntityTypeRegistry.MOOBLOOM, 30, 1, 2);
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SOUL_SAND_VALLEY), GenerationStep.Decoration.VEGETAL_DECORATION,
+                ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath("nekomasfixed", "ghost_pepper_shrub_placed")));
     }
 }

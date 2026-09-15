@@ -76,6 +76,7 @@ public class ModModelLayerRegistry {
 
     public static ModelLayerLocation BAOBAB_BOAT = register("boat/baobab");
     public static ModelLayerLocation BAOBAB_CHEST_BOAT = register("chest_boat/baobab");
+    public static final ModelLayerLocation FLOWER_CROWN = register("flower_crown", "main");
 
     private static ModelLayerLocation register(final String model) {
         return register(model, "main");
@@ -167,5 +168,6 @@ public class ModModelLayerRegistry {
 
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.WILD_FIRE, WildfireModel::getTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.WILDFIRE_TRIDENT, TridentModel::createLayer);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.FLOWER_CROWN, FlowerCrownModel::getTexturedModelData);
     }
 }

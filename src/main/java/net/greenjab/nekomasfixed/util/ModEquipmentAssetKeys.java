@@ -21,4 +21,10 @@ public class ModEquipmentAssetKeys {
     public static final ResourceKey<EquipmentAsset> DIAMOND_CROWN =
             ResourceKey.create(EquipmentAssets.ROOT_ID, NekomasFixed.id("diamond_crown"));
 
+    public static final ResourceKey<EquipmentAsset> ALLIUM_FLOWER_CROWN =
+            ResourceKey.create(EquipmentAssets.ROOT_ID, NekomasFixed.id("allium_flower_crown"));
+
+    public static final ResourceKey<EquipmentAsset> OXEYE_DAISY_FLOWER_CROWN =
+            ResourceKey.create(EquipmentAssets.ROOT_ID, NekomasFixed.id("oxeye_daisy_flower_crown"));
+
 }

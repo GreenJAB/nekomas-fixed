@@ -140,7 +140,11 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.HUGE_BAMBOO_BOAT);
                         entries.accept(ItemRegistry.HUGE_BAOBAB_BOAT);
 
+                        entries.accept(ItemRegistry.GHOST_PEPPER);
+                        entries.accept(ItemRegistry.GHOST_PEPPER_SHRUB);
 
+                        entries.accept(ItemRegistry.ALLIUM_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.OXEYE_DAISY_FLOWER_CROWN);
                     }).build();
 
     public static final CreativeModeTab NEKOMASFIXEDCOLOURS = FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.nekomasfixedcolours"))
