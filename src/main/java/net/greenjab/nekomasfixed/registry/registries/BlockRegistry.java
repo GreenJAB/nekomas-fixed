@@ -493,8 +493,6 @@ public class BlockRegistry {
         return register(id.block(), factory, properties);
     }
 
-
-
     private static Block register(String id, BlockBehaviour.Properties settings) {
         return register(id, Block::new, settings);
     }

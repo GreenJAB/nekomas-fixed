@@ -46,7 +46,7 @@ public abstract class AbstractArrowMixin {
                 assert component != null;
                 for(PotionContents contents : component.potionContents()){
                     for(MobEffectInstance effect : contents.getAllEffects()){
-                        arrowEntity.addEffect(effect);
+                        mob.addEffect(effect);
                     }
                 }
             }

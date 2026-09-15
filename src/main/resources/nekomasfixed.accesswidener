@@ -16,11 +16,13 @@ accessible method net/minecraft/world/level/block/Blocks shulkerBoxProperties (L
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/client/resources/model/sprite/AtlasManager atlasByTexture Ljava/util/Map;
 accessible method net/minecraft/world/entity/projectile/arrow/Arrow setPotionContents (Lnet/minecraft/world/item/alchemy/PotionContents;)V
+accessible field net/minecraft/world/entity/Mob dropChances Lnet/minecraft/world/entity/DropChances;
 accessible method net/minecraft/world/entity/projectile/arrow/Arrow getPotionContents ()Lnet/minecraft/world/item/alchemy/PotionContents;
 accessible method net/minecraft/world/entity/projectile/arrow/Arrow getPotionDurationScale ()F
 accessible field net/minecraft/client/resources/model/sprite/AtlasManager atlasById Ljava/util/Map;
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/item/CreativeModeTabs INVENTORY_BACKGROUND Lnet/minecraft/resources/Identifier;
+accessible field net/minecraft/world/entity/Entity random Lnet/minecraft/util/RandomSource;
 accessible method net/minecraft/world/item/CreativeModeTabs copperBlockFamilies (Ljava/util/function/Consumer;)V
 accessible method net/minecraft/world/item/CreativeModeTabs registerColoredItems (Lnet/minecraft/world/item/CreativeModeTab$Output;Ljava/util/List;Lnet/minecraft/world/level/block/ColorCollection;)V
 accessible method net/minecraft/client/animation/KeyframeAnimation bake (Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/animation/AnimationDefinition;)Lnet/minecraft/client/animation/KeyframeAnimation;

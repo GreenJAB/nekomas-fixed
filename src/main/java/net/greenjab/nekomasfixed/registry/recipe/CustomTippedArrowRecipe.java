@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -80,12 +81,18 @@ public class CustomTippedArrowRecipe extends NormalCraftingRecipe {
         return foundArrow && foundPotion;
     }
 
+
     @Override
     public @NonNull ItemStack assemble(CraftingInput input) {
         List<PotionContents> combinedEffects = new ArrayList<>();
+        int count = 0;
+
 
         for (ItemStack stack : input.items()) {
             if (stack.isEmpty()) continue;
+            if(arrow.test(stack)){
+                count = stack.getCount();
+            }
             if (potion.test(stack)) {
                 PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
                 if (contents != null) {
@@ -95,7 +102,9 @@ public class CustomTippedArrowRecipe extends NormalCraftingRecipe {
         }
 
         ItemStack output = result.create();
+        output.setCount(count);
         if (!combinedEffects.isEmpty()) {
+
             TippedArrowCustomComponent component = new TippedArrowCustomComponent(combinedEffects);
             output.set(ComponentRegistry.TIPPED_POTION_CONTENTS, component);
         }
