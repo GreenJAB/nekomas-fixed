@@ -55,6 +55,7 @@ public class BlockRegistry {
     public static final Block KILN = register("kiln", KilnBlock::new,BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM)
             .sound(SoundType.GILDED_BLACKSTONE).requiresCorrectToolForDrops().strength(3.5f));
     public static final Block PYROTECHNICS_TABLE = register("pyrotechnics_table", PyrotechnicsTableBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block CORRUPTED_BEACON = register("corrupted_beacon", CorruptedBeaconBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(5F).requiresCorrectToolForDrops().lightLevel(_ -> 15).instrument(NoteBlockInstrument.HAT).noOcclusion().isRedstoneConductor(Blocks::never));
     public static final Block ENDERMAN_HEAD = register("enderman_head", FloorEndermanHeadHead::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(1F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY).instrument(NoteBlockInstrument.CUSTOM_HEAD));
     public static final Block WALL_ENDERMAN_HEAD = register("wall_enderman_head", WallEndermanHeadHead::new, copyLootTable(ENDERMAN_HEAD, true).mapColor(MapColor.COLOR_BLACK).strength(1F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY));
     public static final Block GLOW_TORCH = register(
