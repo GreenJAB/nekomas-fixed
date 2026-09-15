@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -109,5 +110,14 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(BlockRegistry.HOLLOW_CRIMSON_STEM);
         this.dropSelf(BlockRegistry.HOLLOW_WARPED_STEM);
         this.dropSelf(BlockRegistry.HOLLOW_BAOBAB_LOG);
+
+        // Simple self-drop + silk-touch tables migrated from the hand-written resources.
+        this.dropSelf(BlockRegistry.GLOW_TORCH);
+        // glow_wall_torch has no item of its own — mine it and it must drop the standing glow_torch item.
+        this.add(BlockRegistry.GLOW_WALL_TORCH, createSingleItemTable(ItemRegistry.GLOW_TORCH));
+        this.dropSelf(BlockRegistry.PEARL_BLOCK);
+        this.dropSelf(BlockRegistry.ROPE);
+        // Geyser is mined silk-touch-only (faithful to main).
+        this.add(BlockRegistry.GEYSER, createSilkTouchOnlyTable(BlockRegistry.GEYSER));
     }
 }

@@ -13,5 +13,8 @@ public class NekomasFixedDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModLootTableProvider::new);
         pack.addProvider(ModRecipeProvider::new);
+        pack.addProvider(ModAdvancementProvider::new);
+        pack.addProvider(ModEnchantmentTagProvider::new);
+        pack.addProvider(ModEnchantmentProvider::new);
     }
 }

@@ -5,6 +5,7 @@
   "PistonBaseBlockMixin", "RedStoneWireBlockMixin", "ServerLevelMixin",
   "PlayerMixin",
   "FarmBlockMixin",
+  "LivingEntityMixin",
   "SignalGetterMixin",
   "target_dummy.CarvedPumpkinBlockMixin", "target_dummy.WeightedPressurePlateBlockMixin",
   "target_dummy.EnchantmentMixin",
