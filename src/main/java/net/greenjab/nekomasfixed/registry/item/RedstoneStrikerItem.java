@@ -28,6 +28,7 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
         super(settings);
     }
 
+
     @Override
     public @NonNull InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();

@@ -34,6 +34,7 @@ public final class MixinMixin implements IMixinConfigPlugin {
 
     }
 
+
     @Override
     public String getRefMapperConfig() {
         return null;

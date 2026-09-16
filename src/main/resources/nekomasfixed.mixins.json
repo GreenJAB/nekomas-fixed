@@ -80,6 +80,7 @@
     "wildfire.SmallFireballMixin",
     "wildfire.SnowballMixin"
   ],
+
   "injectors": {
     "defaultRequire": 1
   },

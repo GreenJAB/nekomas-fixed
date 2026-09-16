@@ -24,6 +24,7 @@ accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/wo
 accessible field net/minecraft/world/item/CreativeModeTabs INVENTORY_BACKGROUND Lnet/minecraft/resources/Identifier;
 accessible field net/minecraft/world/level/block/RedStoneWireBlock evaluator Lnet/minecraft/world/level/redstone/RedstoneWireEvaluator;
 accessible field net/minecraft/world/entity/Entity random Lnet/minecraft/util/RandomSource;
+
 accessible method net/minecraft/world/level/block/RedStoneWireBlock useExperimentalEvaluator (Lnet/minecraft/world/level/Level;)Z
 accessible method net/minecraft/world/item/CreativeModeTabs copperBlockFamilies (Ljava/util/function/Consumer;)V
 accessible method net/minecraft/world/item/CreativeModeTabs registerColoredItems (Lnet/minecraft/world/item/CreativeModeTab$Output;Ljava/util/List;Lnet/minecraft/world/level/block/ColorCollection;)V

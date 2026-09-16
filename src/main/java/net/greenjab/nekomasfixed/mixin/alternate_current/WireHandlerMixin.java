@@ -30,6 +30,7 @@ public class WireHandlerMixin  {
     }
 
 
+
     @Inject(method = "getExternalPower", at = @At("HEAD"), cancellable = true)
     private void getExternalPower(WireNode wire, CallbackInfoReturnable<Integer> cir) {
         NodeAccessor ac = (NodeAccessor)wire;

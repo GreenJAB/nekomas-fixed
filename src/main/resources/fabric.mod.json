@@ -34,6 +34,7 @@
 		}
 	],
 
+
 	"depends": {
 		"java": ">=25",
 		"minecraft": ">=${minecraft}",
