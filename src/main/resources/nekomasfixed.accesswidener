@@ -32,3 +32,5 @@ accessible method net/minecraft/world/level/block/FireBlock setFlammable (Lnet/m
 accessible class net/minecraft/client/renderer/feature/NameTagFeatureRenderer$GlyphRenderer
 accessible method net/minecraft/world/entity/animal/feline/Ocelot isTrusting ()Z
 accessible method net/minecraft/world/entity/animal/feline/Ocelot setTrusting (Z)V
+accessible field net/minecraft/world/level/block/RedStoneWireBlock evaluator Lnet/minecraft/world/level/redstone/RedstoneWireEvaluator;
+accessible method net/minecraft/world/level/block/RedStoneWireBlock useExperimentalEvaluator (Lnet/minecraft/world/level/Level;)Z

@@ -1,6 +1,8 @@
 package net.greenjab.nekomasfixed;
 
+import com.terraformersmc.util.mod.fabric.FabricMod;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
@@ -29,6 +31,7 @@ public class NekomasFixed implements ModInitializer {
 	public static final String MOD_NAME = "Nekomas' Fixed Minecraft";
 	public static final String NAMESPACE = "nekomasfixed";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAMESPACE);
+		public static boolean IS_ALTERNATE_CURRENT_MOD_LOADED = FabricLoader.getInstance().isModLoaded("alternate-current");
 
 	@Override
 	public void onInitialize() {
@@ -87,4 +90,5 @@ public class NekomasFixed implements ModInitializer {
 		}
 		return level;
 	}
+		public static boolean isAlternate(){return  IS_ALTERNATE_CURRENT_MOD_LOADED;}
 }
