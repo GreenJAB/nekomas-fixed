@@ -22,7 +22,10 @@ accessible method net/minecraft/world/entity/projectile/arrow/Arrow getPotionDur
 accessible field net/minecraft/client/resources/model/sprite/AtlasManager atlasById Ljava/util/Map;
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/item/CreativeModeTabs INVENTORY_BACKGROUND Lnet/minecraft/resources/Identifier;
+accessible field net/minecraft/world/level/block/RedStoneWireBlock evaluator Lnet/minecraft/world/level/redstone/RedstoneWireEvaluator;
 accessible field net/minecraft/world/entity/Entity random Lnet/minecraft/util/RandomSource;
+accessible field alternate/current/wire/Node pos Lnet/minecraft/core/BlockPos;
+accessible method net/minecraft/world/level/block/RedStoneWireBlock useExperimentalEvaluator (Lnet/minecraft/world/level/Level;)Z
 accessible method net/minecraft/world/item/CreativeModeTabs copperBlockFamilies (Ljava/util/function/Consumer;)V
 accessible method net/minecraft/world/item/CreativeModeTabs registerColoredItems (Lnet/minecraft/world/item/CreativeModeTab$Output;Ljava/util/List;Lnet/minecraft/world/level/block/ColorCollection;)V
 accessible method net/minecraft/client/animation/KeyframeAnimation bake (Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/animation/AnimationDefinition;)Lnet/minecraft/client/animation/KeyframeAnimation;
