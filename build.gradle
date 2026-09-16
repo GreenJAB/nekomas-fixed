@@ -59,7 +59,6 @@ dependencies {
 	vineflowerDecompilerClasspath(libs.vineflower)
 	api "me.shedaniel.cloth:cloth-config-fabric:26.2.155"
 	api "com.terraformersmc:modmenu:20.0.1"
-	compileOnly "maven.modrinth:alternate-current:mc26.2-1.9.0"
 }
 
 tasks.processResources {

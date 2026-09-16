@@ -55,6 +55,7 @@ public class NekomasFixed implements ModInitializer {
 	}
 
 
+
 	public static Identifier id(String path) {
 		return Identifier.fromNamespaceAndPath(NAMESPACE, path);
 	}

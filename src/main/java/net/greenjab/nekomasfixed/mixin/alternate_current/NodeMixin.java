@@ -13,6 +13,7 @@ public class NodeMixin implements NodeAccessor {
     @Shadow
     BlockPos pos;
 
+
     @Override
     public BlockPos getPos() {
         return pos;

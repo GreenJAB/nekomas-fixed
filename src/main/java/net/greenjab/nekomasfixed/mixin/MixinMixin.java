@@ -42,6 +42,7 @@ public final class MixinMixin implements IMixinConfigPlugin {
     @Override
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
 
+
     }
 
     @Override

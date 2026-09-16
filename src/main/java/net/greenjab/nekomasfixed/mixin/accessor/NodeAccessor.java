@@ -10,3 +10,4 @@ public interface NodeAccessor {
     @Accessor("pos")
     BlockPos getPos();
 }
+
