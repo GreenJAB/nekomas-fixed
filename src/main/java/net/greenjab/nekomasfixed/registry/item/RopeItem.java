@@ -26,6 +26,8 @@ public class RopeItem extends BlockItem {
         return blockState.is(BlockRegistry.ROPE) || blockState.is(BlockTags.LEAVES) || blockState.isFaceSturdy(level, pos, Direction.DOWN);
     }
 
+    //testing clean prs
+
     @Nullable
     @Override
     public BlockPlaceContext updatePlacementContext(BlockPlaceContext context) {
