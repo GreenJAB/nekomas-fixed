@@ -2,6 +2,7 @@
   "required": true, "package": "net.greenjab.nekomasfixed.mixin", "compatibilityLevel": "JAVA_21", "mixins": [
   "BlockBehaviourMixin", "BlockEntityTypeAccessor", "BlocksMixin",
   "ItemStackMixin", "NoteBlockMixin",
+  "LightningRodBlockMixin",
   "PistonBaseBlockMixin", "RedStoneWireBlockMixin", "ServerLevelMixin",
   "PlayerMixin",
   "FarmBlockMixin",

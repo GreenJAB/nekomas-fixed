@@ -40,6 +40,7 @@ public class NekomasFixed implements ModInitializer {
         LOGGER.info("[{}] loaded (1.21.1 port, scaffold)", MOD_NAME);
         ComponentRegistry.registerComponents();
         ArmorMaterialRegistry.registerArmorMaterials();
+        EffectRegistry.registerEffects();
         ModTreeDecorators.register();
         ModTrunkPlacers.register();
         BlockRegistry.registerBlocks();

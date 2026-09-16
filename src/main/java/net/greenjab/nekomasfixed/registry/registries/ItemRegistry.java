@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,6 +11,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
@@ -91,6 +94,7 @@ public class ItemRegistry {
     public static final Item TURTLE_BOOTS = register("turtle_boots",
             settings -> new ArmorItem(ArmorMaterialRegistry.TURTLE_SCUTE, ArmorItem.Type.BOOTS, settings),
             new Item.Properties().stacksTo(1).durability(325));
+    public static final Holder<Potion> LIGHTNING = register("lightning", new Potion("lightning", new MobEffectInstance(EffectRegistry.LIGHTNING, 1)));
     public static final Item SWEETBERRY_CAKE = register(BlockRegistry.SWEETBERRY_CAKE, new Item.Properties().stacksTo(1));
     public static final Item PAN_CAKE = register(BlockRegistry.PAN_CAKE, new Item.Properties().stacksTo(1));
     public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE, new Item.Properties().stacksTo(1));
@@ -342,6 +346,10 @@ public class ItemRegistry {
         return Registry.register(BuiltInRegistries.ITEM,
                 ResourceKey.create(Registries.ITEM, NekomasFixed.id(id)),
                 new Item(settings));
+    }
+
+    private static Holder<Potion> register(String id, Potion potion) {
+        return Registry.registerForHolder(BuiltInRegistries.POTION, NekomasFixed.id(id), potion);
     }
 
     private static Item register(String id, Function<Item.Properties, Item> factory, Item.Properties settings) {
