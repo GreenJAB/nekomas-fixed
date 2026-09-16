@@ -26,7 +26,7 @@ public class RopeItem extends BlockItem {
         return blockState.is(BlockRegistry.ROPE) || blockState.is(BlockTags.LEAVES) || blockState.isFaceSturdy(level, pos, Direction.DOWN);
     }
 
-    //testing clean prs
+    //testing clean prs trhis is
 
     @Nullable
     @Override
