@@ -1,6 +1,7 @@
 {
   "required": true,
   "package": "net.greenjab.nekomasfixed.mixin",
+  "plugin": "net.greenjab.nekomasfixed.mixin.MixinMixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractArrowMixin",
@@ -52,11 +53,14 @@
     "ZombieMixin",
     "accessor.FlowerPotBlockAccessor",
     "accessor.SnifferAccessor",
+    "accessor.NodeAccessor",
     "boat.AbstractBoatMixin",
     "boat.BodyRotationControlMixin",
     "boat.HopperBlockEntityMixin",
     "boat.MobMixin",
     "boat.PatrolSpawnerMixin",
+    "alternate_current.NodeMixin",
+    "alternate_current.WireHandlerMixin",
     "boat.PillagerMixin",
     "boat.RaiderMixin",
     "target_dummy.CarvedPumpkinBlockMixin",
