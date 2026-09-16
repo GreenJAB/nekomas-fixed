@@ -199,5 +199,8 @@
   "block.nekomasfixed.aqua_glazed_terracotta": "Aqua Glazed Terracotta",
   "block.nekomasfixed.indigo_glazed_terracotta": "Indigo Glazed Terracotta",
   "block.nekomasfixed.maroon_glazed_terracotta": "Maroon Glazed Terracotta",
+  "item.nekomasfixed.turtle_chestplate": "Turtle Shell",
+  "item.nekomasfixed.turtle_leggings": "Turtle Knee Pads",
+  "item.nekomasfixed.turtle_boots": "Turtle Flippers",
   "enchantment.nekomasfixed.leeching": "Leeching"
 }

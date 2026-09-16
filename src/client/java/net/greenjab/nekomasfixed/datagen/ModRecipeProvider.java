@@ -239,6 +239,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateBaobabRecipes(output);
         generateHollowLogRecipes(output);
         generateCakesAndDyes(output);
+        generateTurtleRecipes(output);
 
         for (AllDyes dye : AllDyes.values()) {
             Item dyeItem = dyeItem(dye);
@@ -290,6 +291,22 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 recolour(output, "dye_" + BuiltInRegistries.BLOCK.getKey(block).getPath(), "froglight",
                         ModTags.FROGLIGHTS_ITEM, dyeItem(dye), block.asItem(),
                         RecipeCategory.DECORATIONS, CraftingBookCategory.MISC, "has_item", has(ModTags.FROGLIGHTS_ITEM)));
+    }
+
+    private void generateTurtleRecipes(RecipeOutput output) {
+        Item scute = Items.TURTLE_SCUTE;
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.TURTLE_CHESTPLATE)
+                .pattern("# #").pattern("###").pattern("###").define('#', scute)
+                .unlockedBy("has_turtle_scute", has(scute))
+                .save(output, NekomasFixed.id("turtle_chestplate"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.TURTLE_LEGGINGS)
+                .pattern("###").pattern("# #").pattern("# #").define('#', scute)
+                .unlockedBy("has_turtle_scute", has(scute))
+                .save(output, NekomasFixed.id("turtle_leggings"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.TURTLE_BOOTS)
+                .pattern("# #").pattern("# #").define('#', scute)
+                .unlockedBy("has_turtle_scute", has(scute))
+                .save(output, NekomasFixed.id("turtle_boots"));
     }
 
     private void generateAncientWoolCarpet(RecipeOutput output) {

@@ -101,5 +101,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.COOKIE_CAKE))
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.CHOCOLATE_CAKE))
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.BEETROOT_CAKE));
+        // Turtle armour: vanilla armour-slot tags so the pieces equip in the right slots.
+        getOrCreateTagBuilder(ItemTags.CHEST_ARMOR).add(BuiltInRegistries.ITEM.getKey(ItemRegistry.TURTLE_CHESTPLATE));
+        getOrCreateTagBuilder(ItemTags.LEG_ARMOR).add(BuiltInRegistries.ITEM.getKey(ItemRegistry.TURTLE_LEGGINGS));
+        getOrCreateTagBuilder(ItemTags.FOOT_ARMOR).add(BuiltInRegistries.ITEM.getKey(ItemRegistry.TURTLE_BOOTS));
     }
 }

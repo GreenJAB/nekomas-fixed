@@ -82,6 +82,15 @@ public class ItemRegistry {
     public static final Item PEARL_BLOCK = register(BlockRegistry.PEARL_BLOCK);
     public static final Item GEYSER = register(BlockRegistry.GEYSER);
     public static final Item GLISTERING_MELON = register(BlockRegistry.GLISTERING_MELON);
+    public static final Item TURTLE_CHESTPLATE = register("turtle_chestplate",
+            settings -> new ArmorItem(ArmorMaterialRegistry.TURTLE_SCUTE, ArmorItem.Type.CHESTPLATE, settings),
+            new Item.Properties().stacksTo(1).durability(400));
+    public static final Item TURTLE_LEGGINGS = register("turtle_leggings",
+            settings -> new ArmorItem(ArmorMaterialRegistry.TURTLE_SCUTE, ArmorItem.Type.LEGGINGS, settings),
+            new Item.Properties().stacksTo(1).durability(375));
+    public static final Item TURTLE_BOOTS = register("turtle_boots",
+            settings -> new ArmorItem(ArmorMaterialRegistry.TURTLE_SCUTE, ArmorItem.Type.BOOTS, settings),
+            new Item.Properties().stacksTo(1).durability(325));
     public static final Item SWEETBERRY_CAKE = register(BlockRegistry.SWEETBERRY_CAKE, new Item.Properties().stacksTo(1));
     public static final Item PAN_CAKE = register(BlockRegistry.PAN_CAKE, new Item.Properties().stacksTo(1));
     public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE, new Item.Properties().stacksTo(1));

@@ -7,9 +7,10 @@
   "FarmBlockMixin",
   "LivingEntityMixin",
   "SignalGetterMixin",
+  "SmithingMenuMixin",
   "target_dummy.CarvedPumpkinBlockMixin", "target_dummy.WeightedPressurePlateBlockMixin",
   "target_dummy.EnchantmentMixin",
-  "accessor.BlockBehaviourAccessor", "accessor.FlowerPotBlockAccessor", "accessor.ObserverBlockAccessor"
+  "accessor.BlockBehaviourAccessor", "accessor.FlowerPotBlockAccessor", "accessor.ObserverBlockAccessor", "accessor.ItemCombinerMenuAccessor"
 ], "injectors": {
   "defaultRequire": 1
 }
