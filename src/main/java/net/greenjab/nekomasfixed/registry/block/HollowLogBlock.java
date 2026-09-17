@@ -2,12 +2,18 @@ package net.greenjab.nekomasfixed.registry.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver;
 import net.greenjab.nekomasfixed.mixin.accessor.FlowerPotBlockAccessor;
 import net.greenjab.nekomasfixed.registry.block.entity.HollowLogBlockEntity;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -49,11 +55,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, SimpleWaterloggedBlock{
     public static final IntegerProperty LIGHT_LEVEL = IntegerProperty.create("light_level", 0, 15);
+    private static HashMap<Block, Block> STRIPPED_MAPPINGS = new HashMap<>();
     private static final Map<Direction.Axis, VoxelShape> SHAPES_BY_AXIS = Shapes.rotateAllAxis(
             Shapes.or(
                     Block.column(16.0, 0.0, 2.0),
@@ -62,6 +70,7 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
                     Block.box(14.0, 0.0, 0.0, 16.0, 16.0, 16.0)
             )
     );
+
     private static final Map<Direction.Axis, VoxelShape> SHAPES_BY_AXIS_FILLED = Shapes.rotateAllAxis(
             Shapes.or(
                     Block.column(16.0, 0.0, 2.0),
@@ -78,6 +87,18 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
     public HollowLogBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(SOLID_INSIDE, false).setValue(AXIS, Direction.Axis.Y));
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_OAK_LOG, BlockRegistry.HOLLOW_STRIPPED_OAK_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_SPRUCE_LOG, BlockRegistry.HOLLOW_STRIPPED_SPRUCE_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_BIRCH_LOG, BlockRegistry.HOLLOW_STRIPPED_BIRCH_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_JUNGLE_LOG, BlockRegistry.HOLLOW_STRIPPED_JUNGLE_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_ACACIA_LOG, BlockRegistry.HOLLOW_STRIPPED_ACACIA_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_DARK_OAK_LOG, BlockRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_MANGROVE_LOG, BlockRegistry.HOLLOW_STRIPPED_MANGROVE_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_CHERRY_LOG, BlockRegistry.HOLLOW_STRIPPED_CHERRY_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_PALE_OAK_LOG, BlockRegistry.HOLLOW_STRIPPED_PALE_OAK_LOG);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_CRIMSON_STEM, BlockRegistry.HOLLOW_STRIPPED_CRIMSON_STEM);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_WARPED_STEM, BlockRegistry.HOLLOW_STRIPPED_WARPED_STEM);
+        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_BAOBAB_LOG, BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG);
     }
 
     public static final MapCodec<HollowLogBlock> CODEC = RecordCodecBuilder.mapCodec(
@@ -122,6 +143,8 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
         };
     }
 
+
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NonNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
@@ -165,9 +188,28 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
     }
 
     protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+        if(level.isClientSide()){
+            if(stack.is(ItemTags.AXES) && !state.is(ModTags.STRIPPED_HOLLOW_LOGS)) {
+                level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+            }
+        }
         if (level instanceof ServerLevel serverLevel) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof HollowLogBlockEntity logBE) {
+
+                if(stack.is(ItemTags.AXES) && !state.is(ModTags.STRIPPED_HOLLOW_LOGS)){
+                    level.setBlockAndUpdate(pos,
+                            STRIPPED_MAPPINGS.get(state.getBlock()).defaultBlockState()
+                                    .setValue(LIGHT_LEVEL, state.getValue(LIGHT_LEVEL))
+                                    .setValue(AXIS, state.getValue(AXIS))
+                                    .setValue(SOLID_INSIDE, state.getValue(SOLID_INSIDE))
+                                    .setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
+
+                    if(player.gameMode().isSurvival()){
+                        player.getMainHandItem().hurtAndBreak(1, player, player.getUsedItemHand());
+                    }
+                }
+
                 if (stack.getItem() instanceof BlockItem blockItem) {
                     if (blockItem.getBlock().defaultBlockState().is(BlockTags.FLOWERS) && logBE.getStoredBlock().is(BlockTags.FLOWER_POTS)) {
                         Block plant = blockItem.getBlock();

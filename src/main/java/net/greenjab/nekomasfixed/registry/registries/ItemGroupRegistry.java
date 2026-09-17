@@ -113,6 +113,20 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.HOLLOW_WARPED_STEM);
                         entries.accept(ItemRegistry.HOLLOW_BAOBAB_LOG);
 
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_OAK_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_SPRUCE_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_BIRCH_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_JUNGLE_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_ACACIA_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_MANGROVE_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_CHERRY_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_PALE_OAK_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_BAMBOO_BLOCK);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_CRIMSON_STEM);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_WARPED_STEM);
+                        entries.accept(ItemRegistry.HOLLOW_STRIPPED_BAOBAB_LOG);
+
                         entries.accept(ItemRegistry.BOAT_UPGRADE_TEMPLATE);
                         entries.accept(ItemRegistry.BIG_OAK_BOAT);
                         entries.accept(ItemRegistry.BIG_SPRUCE_BOAT);

@@ -24,6 +24,8 @@ public class ModTags {
     public static final TagKey<Block> SPOTTED_WOOLS = TagKey.create(Registries.BLOCK, NekomasFixed.id("spotted_wools"));
     public static final TagKey<Block> SPOTTED_CARPETS = TagKey.create(Registries.BLOCK, NekomasFixed.id("spotted_carpets"));
     public static final TagKey<Block> FROGLIGHTS = TagKey.create(Registries.BLOCK, NekomasFixed.id("froglights"));
+    public static final TagKey<Block> HOLLOW_LOGS = TagKey.create(Registries.BLOCK, NekomasFixed.id("hollow_logs"));
+    public static final TagKey<Block> STRIPPED_HOLLOW_LOGS = TagKey.create(Registries.BLOCK, NekomasFixed.id("stripped_hollow_logs"));
 
     public static final TagKey<Item> BAOBAB_LOGS = TagKey.create(Registries.ITEM, NekomasFixed.id("baobab_logs"));
     public static final TagKey<Item> CLAMTAG = TagKey.create(Registries.ITEM, NekomasFixed.id("clams"));

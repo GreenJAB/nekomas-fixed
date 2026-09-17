@@ -2,10 +2,13 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
@@ -21,25 +24,25 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
     protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
         //TODO datagen tags
 
-        BlockDyeMap.BRICKS.values().forEach(b->tag(ModTags.DYED_BRICKS).add(b.properties().blockId()));
-        BlockDyeMap.BRICK_SLAB.values().forEach(b->tag(ModTags.DYED_BRICK_SLABS).add(b.properties().blockId()));
-        BlockDyeMap.BRICK_STAIRS.values().forEach(b->tag(ModTags.DYED_BRICK_STAIRS).add(b.properties().blockId()));
-        BlockDyeMap.BRICK_WALL.values().forEach(b->tag(ModTags.DYED_BRICK_WALLS).add(b.properties().blockId()));
+        BlockDyeMap.BRICKS.values().forEach(b->tag(ModTags.DYED_BRICKS).add(getKey(b)));
+        BlockDyeMap.BRICK_SLAB.values().forEach(b->tag(ModTags.DYED_BRICK_SLABS).add(getKey(b)));
+        BlockDyeMap.BRICK_STAIRS.values().forEach(b->tag(ModTags.DYED_BRICK_STAIRS).add(getKey(b)));
+        BlockDyeMap.BRICK_WALL.values().forEach(b->tag(ModTags.DYED_BRICK_WALLS).add(getKey(b)));
 
-        BlockDyeMap.STAINED_GLASS.values().forEach(b->tag(ModTags.STAINED_GLASSES).add(b.properties().blockId()));
-        BlockDyeMap.STAINED_GLASS_PANE.values().forEach(b->tag(ModTags.STAINED_GLASS_PANES).add(b.properties().blockId()));
+        BlockDyeMap.STAINED_GLASS.values().forEach(b->tag(ModTags.STAINED_GLASSES).add(getKey(b)));
+        BlockDyeMap.STAINED_GLASS_PANE.values().forEach(b->tag(ModTags.STAINED_GLASS_PANES).add(getKey(b)));
 
-        BlockDyeMap.GLAZED_TERRACOTTA.values().forEach(b->tag(ModTags.GLAZED_TERRACOTTAS).add(b.properties().blockId()));
+        BlockDyeMap.GLAZED_TERRACOTTA.values().forEach(b->tag(ModTags.GLAZED_TERRACOTTAS).add(getKey(b)));
 
-        BlockDyeMap.CONCRETE.values().forEach(b->tag(ModTags.CONCRETES).add(b.properties().blockId()));
-        BlockDyeMap.CONCRETE_POWDER.values().forEach(b->tag(ModTags.CONCRETE_POWDERS).add(b.properties().blockId()));
+        BlockDyeMap.CONCRETE.values().forEach(b->tag(ModTags.CONCRETES).add(getKey(b)));
+        BlockDyeMap.CONCRETE_POWDER.values().forEach(b->tag(ModTags.CONCRETE_POWDERS).add(getKey(b)));
 
-        BlockDyeMap.SPOTTED_WOOL.values().forEach(b->tag(ModTags.SPOTTED_WOOLS).add(b.properties().blockId()));
-        BlockDyeMap.SPOTTED_CARPET.values().forEach(b->tag(ModTags.SPOTTED_CARPETS).add(b.properties().blockId()));
+        BlockDyeMap.SPOTTED_WOOL.values().forEach(b->tag(ModTags.SPOTTED_WOOLS).add(getKey(b)));
+        BlockDyeMap.SPOTTED_CARPET.values().forEach(b->tag(ModTags.SPOTTED_CARPETS).add(getKey(b)));
 
-        BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
+        BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(getKey(b)));
 
-        BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
+        BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(getKey(b)));
 
         tag(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .addTag(ModTags.DYED_BRICKS)
@@ -58,12 +61,43 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .addTag(ModTags.FROGLIGHTS)
                 .addOptionalTag(BlockTags.SHULKER_BOXES)
                 .addOptionalTag(BlockTags.BEDS)
-                .add(Blocks.GLASS.properties().blockId())
-                .add(Blocks.GLASS_PANE.properties().blockId())
-                .add(Blocks.BRICKS.properties().blockId())
-                .add(Blocks.BRICK_SLAB.properties().blockId())
-                .add(Blocks.BRICK_STAIRS.properties().blockId())
-                .add(Blocks.BRICK_WALL.properties().blockId());
+                .add(getKey(Blocks.GLASS))
+                .add(getKey(Blocks.GLASS_PANE))
+                .add(getKey(Blocks.BRICKS))
+                .add(getKey(Blocks.BRICK_SLAB))
+                .add(getKey(Blocks.BRICK_STAIRS))
+                .add(getKey(Blocks.BRICK_WALL));
+
+
+        tag(ModTags.HOLLOW_LOGS)
+                .add(getKey(BlockRegistry.HOLLOW_BAMBOO_BLOCK))
+                .add(getKey(BlockRegistry.HOLLOW_ACACIA_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_BIRCH_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_CHERRY_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_WARPED_STEM))
+                .add(getKey(BlockRegistry.HOLLOW_CRIMSON_STEM))
+                .add(getKey(BlockRegistry.HOLLOW_DARK_OAK_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_JUNGLE_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_MANGROVE_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_PALE_OAK_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_SPRUCE_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_OAK_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_BAOBAB_LOG));
+
+        tag(ModTags.STRIPPED_HOLLOW_LOGS)
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_BAMBOO_BLOCK))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_ACACIA_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_BIRCH_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_CHERRY_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_WARPED_STEM))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_CRIMSON_STEM))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_JUNGLE_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_MANGROVE_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_PALE_OAK_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_SPRUCE_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_OAK_LOG))
+                .add(getKey(BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG));
 
 
         /*valueLookupBuilder(ModTags.DYED_BRICKS)
@@ -130,6 +164,10 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.BRICK_STAIRS)
                 .add(Blocks.BRICK_WALL)
                 .add(Blocks.SHULKER_BOX);*/
+    }
+
+    private static ResourceKey<Block> getKey(Block block){
+        return block.properties().blockId();
     }
 
 }
