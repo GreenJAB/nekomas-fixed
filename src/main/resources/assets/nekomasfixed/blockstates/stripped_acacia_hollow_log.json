@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "nekomasfixed:block/stripped_acacia_hollow_log", "x": 90, "y": 90
+    }, "axis=y": {
+      "model": "nekomasfixed:block/stripped_acacia_hollow_log"
+    }, "axis=z": {
+      "model": "nekomasfixed:block/stripped_acacia_hollow_log", "x": 90
+    }
+  }
+}

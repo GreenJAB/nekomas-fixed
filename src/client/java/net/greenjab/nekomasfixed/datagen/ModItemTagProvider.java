@@ -41,6 +41,18 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         for (Block b : hollowLogs) {
             getOrCreateTagBuilder(ModTags.HOLLOW_LOGS_ITEM).add(BuiltInRegistries.ITEM.getKey(b.asItem()));
         }
+        // Stripped hollow-log family (item-tag mirror of the block tag).
+        Block[] strippedHollowLogs = {
+                BlockRegistry.HOLLOW_STRIPPED_OAK_LOG, BlockRegistry.HOLLOW_STRIPPED_SPRUCE_LOG,
+                BlockRegistry.HOLLOW_STRIPPED_BIRCH_LOG, BlockRegistry.HOLLOW_STRIPPED_JUNGLE_LOG,
+                BlockRegistry.HOLLOW_STRIPPED_ACACIA_LOG, BlockRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG,
+                BlockRegistry.HOLLOW_STRIPPED_MANGROVE_LOG, BlockRegistry.HOLLOW_STRIPPED_CHERRY_LOG,
+                BlockRegistry.HOLLOW_STRIPPED_BAMBOO_BLOCK, BlockRegistry.HOLLOW_STRIPPED_CRIMSON_STEM,
+                BlockRegistry.HOLLOW_STRIPPED_WARPED_STEM, BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG
+        };
+        for (Block b : strippedHollowLogs) {
+            getOrCreateTagBuilder(ModTags.STRIPPED_HOLLOW_LOGS_ITEM).add(BuiltInRegistries.ITEM.getKey(b.asItem()));
+        }
         getOrCreateTagBuilder(ModTags.BAOBAB_LOGS_ITEM)
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.BAOBAB_LOG))
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.BAOBAB_WOOD))

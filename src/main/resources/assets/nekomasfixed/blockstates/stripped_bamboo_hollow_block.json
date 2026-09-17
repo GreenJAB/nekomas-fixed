@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "nekomasfixed:block/stripped_bamboo_hollow_block", "x": 90, "y": 90
+    }, "axis=y": {
+      "model": "nekomasfixed:block/stripped_bamboo_hollow_block"
+    }, "axis=z": {
+      "model": "nekomasfixed:block/stripped_bamboo_hollow_block", "x": 90
+    }
+  }
+}

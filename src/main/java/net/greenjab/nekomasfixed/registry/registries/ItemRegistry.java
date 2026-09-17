@@ -125,6 +125,18 @@ public class ItemRegistry {
     public static final Item HOLLOW_CRIMSON_STEM = register(BlockRegistry.HOLLOW_CRIMSON_STEM);
     public static final Item HOLLOW_WARPED_STEM = register(BlockRegistry.HOLLOW_WARPED_STEM);
     public static final Item HOLLOW_BAOBAB_LOG = register(BlockRegistry.HOLLOW_BAOBAB_LOG);
+    public static final Item HOLLOW_STRIPPED_OAK_LOG = register(BlockRegistry.HOLLOW_STRIPPED_OAK_LOG);
+    public static final Item HOLLOW_STRIPPED_SPRUCE_LOG = register(BlockRegistry.HOLLOW_STRIPPED_SPRUCE_LOG);
+    public static final Item HOLLOW_STRIPPED_BIRCH_LOG = register(BlockRegistry.HOLLOW_STRIPPED_BIRCH_LOG);
+    public static final Item HOLLOW_STRIPPED_JUNGLE_LOG = register(BlockRegistry.HOLLOW_STRIPPED_JUNGLE_LOG);
+    public static final Item HOLLOW_STRIPPED_ACACIA_LOG = register(BlockRegistry.HOLLOW_STRIPPED_ACACIA_LOG);
+    public static final Item HOLLOW_STRIPPED_DARK_OAK_LOG = register(BlockRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG);
+    public static final Item HOLLOW_STRIPPED_MANGROVE_LOG = register(BlockRegistry.HOLLOW_STRIPPED_MANGROVE_LOG);
+    public static final Item HOLLOW_STRIPPED_CHERRY_LOG = register(BlockRegistry.HOLLOW_STRIPPED_CHERRY_LOG);
+    public static final Item HOLLOW_STRIPPED_BAMBOO_BLOCK = register(BlockRegistry.HOLLOW_STRIPPED_BAMBOO_BLOCK);
+    public static final Item HOLLOW_STRIPPED_CRIMSON_STEM = register(BlockRegistry.HOLLOW_STRIPPED_CRIMSON_STEM);
+    public static final Item HOLLOW_STRIPPED_WARPED_STEM = register(BlockRegistry.HOLLOW_STRIPPED_WARPED_STEM);
+    public static final Item HOLLOW_STRIPPED_BAOBAB_LOG = register(BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG);
 
     public static final Item CLEAR_FROGLIGHT = register(BlockRegistry.CLEAR_FROGLIGHT);
     public static final Item CLOUDY_FROGLIGHT = register(BlockRegistry.CLOUDY_FROGLIGHT);

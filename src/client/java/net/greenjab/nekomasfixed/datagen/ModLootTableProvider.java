@@ -110,6 +110,20 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(BlockRegistry.HOLLOW_CRIMSON_STEM);
         this.dropSelf(BlockRegistry.HOLLOW_WARPED_STEM);
         this.dropSelf(BlockRegistry.HOLLOW_BAOBAB_LOG);
+        // Stripped variants self-drop too (port needs datagen loot so mining them
+        // returns the item; upstream 26.x relied on vanilla spill, no loot table).
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_OAK_LOG);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_SPRUCE_LOG);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_BIRCH_LOG);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_JUNGLE_LOG);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_ACACIA_LOG);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_MANGROVE_LOG);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_CHERRY_LOG);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_BAMBOO_BLOCK);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_CRIMSON_STEM);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_WARPED_STEM);
+        this.dropSelf(BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG);
 
         // Simple self-drop + silk-touch tables migrated from the hand-written resources.
         this.dropSelf(BlockRegistry.GLOW_TORCH);

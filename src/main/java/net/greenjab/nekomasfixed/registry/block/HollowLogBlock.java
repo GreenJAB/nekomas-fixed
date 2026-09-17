@@ -4,10 +4,14 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.greenjab.nekomasfixed.mixin.accessor.FlowerPotBlockAccessor;
 import net.greenjab.nekomasfixed.registry.block.entity.HollowLogBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.enums.HollowLogType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -192,6 +196,28 @@ public class HollowLogBlock extends BaseEntityBlock implements SimpleWaterlogged
     @Override
     protected @NonNull ItemInteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos,
                                                        @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
+        // Axe-stripping: hollow -> stripped hollow. Both share the hollow-log block
+        // entity type, so vanilla keeps the block entity (and stored contents)
+        // across the swap; re-sync because clients recreate their copy empty on a
+        // block-type change.
+        Block stripped = HollowLogType.getStrippedBlock(state.getBlock());
+        if (stripped != null && stack.is(ItemTags.AXES)) {
+            level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F,
+                    level.getRandom().nextFloat() * 0.4F + 0.8F);
+            if (level instanceof ServerLevel) {
+                level.setBlockAndUpdate(pos,
+                        stripped.defaultBlockState()
+                                .setValue(LIGHT_LEVEL, state.getValue(LIGHT_LEVEL))
+                                .setValue(AXIS, state.getValue(AXIS))
+                                .setValue(SOLID_INSIDE, state.getValue(SOLID_INSIDE))
+                                .setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
+                stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+                if (level.getBlockEntity(pos) instanceof HollowLogBlockEntity kept) {
+                    kept.setChanged();
+                }
+            }
+            return ItemInteractionResult.SUCCESS;
+        }
         if (level instanceof ServerLevel serverLevel) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof HollowLogBlockEntity logBE) {
@@ -251,6 +277,13 @@ public class HollowLogBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     @Override
     protected void onRemove(BlockState state, @NonNull Level level, @NonNull BlockPos pos, BlockState newState, boolean movedByPiston) {
+        // Axe-stripping swaps to another hollow log; vanilla keeps the block entity
+        // (and stored contents) there, so don't drain here or the item is duplicated
+        // (dropped AND still stored). Only drain when the hollow log is actually
+        // replaced by a non-hollow block.
+        if (newState.getBlock() instanceof HollowLogBlock) {
+            return;
+        }
         if (!state.is(newState.getBlock())) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof HollowLogBlockEntity logBE) {

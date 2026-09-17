@@ -19,6 +19,9 @@ public class ModTags {
     // Hollow-log family: all hollow log/stem/block variants (one per wood type).
     public static final TagKey<Block> HOLLOW_LOGS = blockTag("hollow_logs");
     public static final TagKey<Item> HOLLOW_LOGS_ITEM = itemTag("hollow_logs");
+    // Stripped hollow logs (axe-stripped variants of the above).
+    public static final TagKey<Block> STRIPPED_HOLLOW_LOGS = blockTag("stripped_hollow_logs");
+    public static final TagKey<Item> STRIPPED_HOLLOW_LOGS_ITEM = itemTag("stripped_hollow_logs");
 
     // Colour-suite tags (block + item, mirroring the committed JSON pairs).
     public static final TagKey<Block> BRICKS = blockTag("bricks");

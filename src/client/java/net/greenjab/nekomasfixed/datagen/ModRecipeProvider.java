@@ -161,6 +161,34 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         }
     }
 
+    private void generateStrippedHollowLogRecipes(RecipeOutput output) {
+        // Stripped hollow logs craft back into that wood's planks, mirroring the
+        // unstripped ones (upstream #74 added no recipes; these are port-added).
+        record Pair(Item hollow, Item planks) {
+        }
+        Pair[] pairs = {
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_OAK_LOG, Items.OAK_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_SPRUCE_LOG, Items.SPRUCE_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_BIRCH_LOG, Items.BIRCH_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_JUNGLE_LOG, Items.JUNGLE_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_ACACIA_LOG, Items.ACACIA_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG, Items.DARK_OAK_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_MANGROVE_LOG, Items.MANGROVE_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_CHERRY_LOG, Items.CHERRY_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_BAMBOO_BLOCK, Items.BAMBOO_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_CRIMSON_STEM, Items.CRIMSON_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_WARPED_STEM, Items.WARPED_PLANKS),
+                new Pair(ItemRegistry.HOLLOW_STRIPPED_BAOBAB_LOG, ItemRegistry.BAOBAB_PLANKS)
+        };
+        for (Pair p : pairs) {
+            String wood = BuiltInRegistries.ITEM.getKey(p.planks()).getPath().replace("_planks", "");
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, p.planks())
+                    .requires(p.hollow()).group("planks")
+                    .unlockedBy("has_hollow_log", has(p.hollow()))
+                    .save(output, NekomasFixed.id(wood + "_planks_from_stripped_hollow_log"));
+        }
+    }
+
     private void generateCakesAndDyes(RecipeOutput output) {
         // Cakes: all share the ADA/BEB/CCC shaped pattern; only the flavour item (D) differs.
         // RecipeCategory.FOOD puts the advancement under food/ and, via
@@ -238,6 +266,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     public void buildRecipes(RecipeOutput output) {
         generateBaobabRecipes(output);
         generateHollowLogRecipes(output);
+        generateStrippedHollowLogRecipes(output);
         generateCakesAndDyes(output);
         generateTurtleRecipes(output);
         generateSlingshotRecipe(output);

@@ -533,6 +533,30 @@ public class BlockRegistry {
             hollowLogProperties(Blocks.WARPED_HYPHAE));
     public static final Block HOLLOW_BAOBAB_LOG = register("hollow_baobab_log", HollowLogBlock::new,
             hollowLogProperties(BAOBAB_LOG));
+    public static final Block HOLLOW_STRIPPED_OAK_LOG = register("stripped_oak_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_OAK_LOG));
+    public static final Block HOLLOW_STRIPPED_SPRUCE_LOG = register("stripped_spruce_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_SPRUCE_LOG));
+    public static final Block HOLLOW_STRIPPED_BIRCH_LOG = register("stripped_birch_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_BIRCH_LOG));
+    public static final Block HOLLOW_STRIPPED_JUNGLE_LOG = register("stripped_jungle_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_JUNGLE_LOG));
+    public static final Block HOLLOW_STRIPPED_ACACIA_LOG = register("stripped_acacia_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_ACACIA_LOG));
+    public static final Block HOLLOW_STRIPPED_DARK_OAK_LOG = register("stripped_dark_oak_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_DARK_OAK_LOG));
+    public static final Block HOLLOW_STRIPPED_MANGROVE_LOG = register("stripped_mangrove_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_MANGROVE_LOG));
+    public static final Block HOLLOW_STRIPPED_CHERRY_LOG = register("stripped_cherry_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_CHERRY_LOG));
+    public static final Block HOLLOW_STRIPPED_BAMBOO_BLOCK = register("stripped_bamboo_hollow_block", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_BAMBOO_BLOCK));
+    public static final Block HOLLOW_STRIPPED_CRIMSON_STEM = register("stripped_crimson_hollow_stem", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_CRIMSON_STEM));
+    public static final Block HOLLOW_STRIPPED_WARPED_STEM = register("stripped_warped_hollow_stem", HollowLogBlock::new,
+            hollowLogProperties(Blocks.STRIPPED_WARPED_STEM));
+    public static final Block HOLLOW_STRIPPED_BAOBAB_LOG = register("stripped_baobab_hollow_log", HollowLogBlock::new,
+            hollowLogProperties(STRIPPED_BAOBAB_LOG));
 
     // Build properties copied from the base log, with the emitted light driven by the
     // hollow log's LIGHT_LEVEL state property. Non-occluding (1.21.1 culls

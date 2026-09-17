@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "nekomasfixed:stripped_acacia_hollow_log"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:acacia_planks"
+  }
+}

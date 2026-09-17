@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "nekomasfixed:block/stripped_warped_hollow_stem", "x": 90, "y": 90
+    }, "axis=y": {
+      "model": "nekomasfixed:block/stripped_warped_hollow_stem"
+    }, "axis=z": {
+      "model": "nekomasfixed:block/stripped_warped_hollow_stem", "x": 90
+    }
+  }
+}
