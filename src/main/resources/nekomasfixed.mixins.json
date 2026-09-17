@@ -3,6 +3,7 @@
   "BlockBehaviourMixin", "BlockEntityTypeAccessor", "BlocksMixin",
   "ItemStackMixin", "NoteBlockMixin", "AbstractArrowMixin",
   "LightningRodBlockMixin",
+  "ArmorStandMixin",
   "PistonBaseBlockMixin", "RedStoneWireBlockMixin", "ServerLevelMixin",
   "PlayerMixin",
   "FarmBlockMixin",
