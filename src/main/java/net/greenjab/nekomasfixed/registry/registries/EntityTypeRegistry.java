@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.BaobabBoat;
 import net.greenjab.nekomasfixed.registry.entity.BaobabChestBoat;
+import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectile;
 import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -31,6 +32,12 @@ public class EntityTypeRegistry {
             "target_dummy",
             EntityType.Builder.of(TargetDummy::new, MobCategory.MISC)
                     .sized(0.5F, 1.975F).eyeHeight(1.7775F).clientTrackingRange(10)
+    );
+
+    public static final EntityType<SlingshotProjectile> SLINGSHOT_PROJECTILE = register(
+            "slingshot_projectile",
+            EntityType.Builder.<SlingshotProjectile>of(SlingshotProjectile::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
     );
 
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {

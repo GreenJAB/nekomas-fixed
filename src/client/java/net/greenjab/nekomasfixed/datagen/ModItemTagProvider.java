@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import java.util.concurrent.CompletableFuture;
@@ -105,5 +106,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.CHEST_ARMOR).add(BuiltInRegistries.ITEM.getKey(ItemRegistry.TURTLE_CHESTPLATE));
         getOrCreateTagBuilder(ItemTags.LEG_ARMOR).add(BuiltInRegistries.ITEM.getKey(ItemRegistry.TURTLE_LEGGINGS));
         getOrCreateTagBuilder(ItemTags.FOOT_ARMOR).add(BuiltInRegistries.ITEM.getKey(ItemRegistry.TURTLE_BOOTS));
+        // Slingshot: supported projectile set (1.21.1 has no copper/resin nuggets).
+        getOrCreateTagBuilder(ModTags.SLINGSHOT_PROJECTILES)
+                .add(BuiltInRegistries.ITEM.getKey(Items.GOLD_NUGGET))
+                .add(BuiltInRegistries.ITEM.getKey(Items.IRON_NUGGET))
+                .add(BuiltInRegistries.ITEM.getKey(Items.AMETHYST_SHARD));
+        getOrCreateTagBuilder(ModTags.SLINGSHOT_ENCHANTABLE)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.SLINGSHOT));
     }
 }

@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.Block;
 public class ModTags {
     public static final TagKey<Item> STACKED_CAKES = TagKey.create(Registries.ITEM, NekomasFixed.id("stacked_cakes"));
     public static final TagKey<Item> CLAMS = itemTag("clams");
+    public static final TagKey<Item> SLINGSHOT_PROJECTILES = itemTag("slingshot_projectiles");
+    public static final TagKey<Item> SLINGSHOT_ENCHANTABLE = itemTag("enchantable/slingshot");
 
     // Wood-family tag: the four baobab log/wood variants that yield planks.
     public static final TagKey<Block> BAOBAB_LOGS = blockTag("baobab_logs");

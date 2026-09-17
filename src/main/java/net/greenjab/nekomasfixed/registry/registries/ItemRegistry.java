@@ -95,6 +95,7 @@ public class ItemRegistry {
             settings -> new ArmorItem(ArmorMaterialRegistry.TURTLE_SCUTE, ArmorItem.Type.BOOTS, settings),
             new Item.Properties().stacksTo(1).durability(325));
     public static final Holder<Potion> LIGHTNING = register("lightning", new Potion("lightning", new MobEffectInstance(EffectRegistry.LIGHTNING, 1)));
+    public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Properties().stacksTo(1).durability(384));
     public static final Item SWEETBERRY_CAKE = register(BlockRegistry.SWEETBERRY_CAKE, new Item.Properties().stacksTo(1));
     public static final Item PAN_CAKE = register(BlockRegistry.PAN_CAKE, new Item.Properties().stacksTo(1));
     public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE, new Item.Properties().stacksTo(1));

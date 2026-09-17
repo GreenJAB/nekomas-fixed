@@ -240,6 +240,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateHollowLogRecipes(output);
         generateCakesAndDyes(output);
         generateTurtleRecipes(output);
+        generateSlingshotRecipe(output);
 
         for (AllDyes dye : AllDyes.values()) {
             Item dyeItem = dyeItem(dye);
@@ -307,6 +308,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("# #").pattern("# #").define('#', scute)
                 .unlockedBy("has_turtle_scute", has(scute))
                 .save(output, NekomasFixed.id("turtle_boots"));
+    }
+
+    private void generateSlingshotRecipe(RecipeOutput output) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.SLINGSHOT)
+                .pattern(" X")
+                .pattern("#$")
+                .define('X', Items.STRING)
+                .define('#', Items.STICK)
+                .define('$', Items.LEATHER)
+                .unlockedBy("has_leather", has(Items.LEATHER))
+                .save(output, NekomasFixed.id("slingshot"));
     }
 
     private void generateAncientWoolCarpet(RecipeOutput output) {

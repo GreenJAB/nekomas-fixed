@@ -13,6 +13,7 @@ import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 public class ModEntityRendererRegistry {
 
@@ -46,5 +47,6 @@ public class ModEntityRendererRegistry {
                 new BaobabBoatRenderer(context, BAOBAB_CHEST_BOAT_LAYER, true,
                         NekomasFixed.id("textures/entity/chest_boat/baobab.png")));
         EntityRendererRegistry.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, ThrownItemRenderer::new);
     }
 }
