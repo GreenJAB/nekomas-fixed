@@ -133,6 +133,29 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .save(output, hollow.getFirst() + "_from_hollow_log");
                 }
 
+                List<Pair<Item,Item>> sHollows = List.of(
+                        Pair.of(Items.OAK_PLANKS, ItemRegistry.HOLLOW_STRIPPED_OAK_LOG),
+                        Pair.of(Items.SPRUCE_PLANKS, ItemRegistry.HOLLOW_STRIPPED_SPRUCE_LOG),
+                        Pair.of(Items.BIRCH_PLANKS, ItemRegistry.HOLLOW_STRIPPED_BIRCH_LOG),
+                        Pair.of(Items.JUNGLE_PLANKS, ItemRegistry.HOLLOW_STRIPPED_JUNGLE_LOG),
+                        Pair.of(Items.ACACIA_PLANKS, ItemRegistry.HOLLOW_STRIPPED_ACACIA_LOG),
+                        Pair.of(Items.DARK_OAK_PLANKS, ItemRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG),
+                        Pair.of(Items.MANGROVE_PLANKS, ItemRegistry.HOLLOW_STRIPPED_MANGROVE_LOG),
+                        Pair.of(Items.CHERRY_PLANKS, ItemRegistry.HOLLOW_STRIPPED_CHERRY_LOG),
+                        Pair.of(Items.PALE_OAK_PLANKS, ItemRegistry.HOLLOW_STRIPPED_PALE_OAK_LOG),
+                        Pair.of(Items.BAMBOO_PLANKS, ItemRegistry.HOLLOW_STRIPPED_BAMBOO_BLOCK),
+                        Pair.of(Items.CRIMSON_PLANKS, ItemRegistry.HOLLOW_STRIPPED_CRIMSON_STEM),
+                        Pair.of(Items.WARPED_PLANKS, ItemRegistry.HOLLOW_STRIPPED_WARPED_STEM),
+                        Pair.of(ItemRegistry.BAOBAB_PLANKS, ItemRegistry.HOLLOW_STRIPPED_BAOBAB_LOG));
+                for (Pair<Item,Item> hollow : sHollows){
+                    shapeless(RecipeCategory.BUILDING_BLOCKS, hollow.getFirst(), 1)
+                            .requires(hollow.getSecond())
+                            .unlockedBy(getHasName(hollow.getSecond()), has(hollow.getSecond()))
+                            .save(output, hollow.getFirst() + "_from_stripped_hollow_log");
+
+
+                }
+
 
                 shaped(RecipeCategory.TOOLS, ItemRegistry.REDSTONE_STRIKER, 1)
                         .pattern("RG")

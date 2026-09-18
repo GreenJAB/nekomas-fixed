@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "nekomasfixed:stripped_pale_oak_hollow_log"
+  ],
+  "result": {
+    "id": "minecraft:pale_oak_planks"
+  }
+}

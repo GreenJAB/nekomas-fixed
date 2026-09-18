@@ -10,6 +10,7 @@ import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -19,10 +20,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -43,6 +41,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -61,7 +60,8 @@ import java.util.Map;
 
 public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, SimpleWaterloggedBlock{
     public static final IntegerProperty LIGHT_LEVEL = IntegerProperty.create("light_level", 0, 15);
-    private static HashMap<Block, Block> STRIPPED_MAPPINGS = new HashMap<>();
+
+
     private static final Map<Direction.Axis, VoxelShape> SHAPES_BY_AXIS = Shapes.rotateAllAxis(
             Shapes.or(
                     Block.column(16.0, 0.0, 2.0),
@@ -80,6 +80,7 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
                     Block.column(12.0, 2.0, 14.0)
             )
     );
+
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
     public static final BooleanProperty SOLID_INSIDE = BooleanProperty.create("filled");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -87,18 +88,7 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
     public HollowLogBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(SOLID_INSIDE, false).setValue(AXIS, Direction.Axis.Y));
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_OAK_LOG, BlockRegistry.HOLLOW_STRIPPED_OAK_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_SPRUCE_LOG, BlockRegistry.HOLLOW_STRIPPED_SPRUCE_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_BIRCH_LOG, BlockRegistry.HOLLOW_STRIPPED_BIRCH_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_JUNGLE_LOG, BlockRegistry.HOLLOW_STRIPPED_JUNGLE_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_ACACIA_LOG, BlockRegistry.HOLLOW_STRIPPED_ACACIA_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_DARK_OAK_LOG, BlockRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_MANGROVE_LOG, BlockRegistry.HOLLOW_STRIPPED_MANGROVE_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_CHERRY_LOG, BlockRegistry.HOLLOW_STRIPPED_CHERRY_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_PALE_OAK_LOG, BlockRegistry.HOLLOW_STRIPPED_PALE_OAK_LOG);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_CRIMSON_STEM, BlockRegistry.HOLLOW_STRIPPED_CRIMSON_STEM);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_WARPED_STEM, BlockRegistry.HOLLOW_STRIPPED_WARPED_STEM);
-        STRIPPED_MAPPINGS.put(BlockRegistry.HOLLOW_BAOBAB_LOG, BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG);
+
     }
 
     public static final MapCodec<HollowLogBlock> CODEC = RecordCodecBuilder.mapCodec(
@@ -143,8 +133,6 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
         };
     }
 
-
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NonNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
@@ -187,27 +175,72 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
        return new HollowLogBlockEntity(pos, state);
     }
 
-    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-        if(level.isClientSide()){
-            if(stack.is(ItemTags.AXES) && !state.is(ModTags.STRIPPED_HOLLOW_LOGS)) {
-                level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-            }
+    //i tried using maps, but its not working
+    // no matter what i do.. this will be changed, this is a temp method
+    private @NonNull BlockState getStrippedState(BlockState oldState) {
+        if (oldState.is(BlockRegistry.HOLLOW_OAK_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_OAK_LOG.defaultBlockState();
         }
+        if (oldState.is(BlockRegistry.HOLLOW_SPRUCE_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_SPRUCE_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_BIRCH_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_BIRCH_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_JUNGLE_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_JUNGLE_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_ACACIA_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_ACACIA_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_DARK_OAK_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_DARK_OAK_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_MANGROVE_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_MANGROVE_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_CHERRY_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_CHERRY_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_PALE_OAK_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_PALE_OAK_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_CRIMSON_STEM)) {
+            return BlockRegistry.HOLLOW_STRIPPED_CRIMSON_STEM.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_WARPED_STEM)) {
+            return BlockRegistry.HOLLOW_STRIPPED_WARPED_STEM.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_BAOBAB_LOG)) {
+            return BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG.defaultBlockState();
+        }
+        if (oldState.is(BlockRegistry.HOLLOW_BAMBOO_BLOCK)) {
+            return BlockRegistry.HOLLOW_STRIPPED_BAMBOO_BLOCK.defaultBlockState();
+        }
+
+        return oldState;
+    }
+
+    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
         if (level instanceof ServerLevel serverLevel) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof HollowLogBlockEntity logBE) {
 
-                if(stack.is(ItemTags.AXES) && !state.is(ModTags.STRIPPED_HOLLOW_LOGS)){
+                if(stack.is(ItemTags.AXES) && state.is(ModTags.HOLLOW_LOGS) && !state.is(ModTags.STRIPPED_HOLLOW_LOGS)){
                     level.setBlockAndUpdate(pos,
-                            STRIPPED_MAPPINGS.get(state.getBlock()).defaultBlockState()
+                            getStrippedState(state)
                                     .setValue(LIGHT_LEVEL, state.getValue(LIGHT_LEVEL))
                                     .setValue(AXIS, state.getValue(AXIS))
                                     .setValue(SOLID_INSIDE, state.getValue(SOLID_INSIDE))
                                     .setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
 
+                    level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, level.getBlockState(pos)));
+                    level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+
                     if(player.gameMode().isSurvival()){
                         player.getMainHandItem().hurtAndBreak(1, player, player.getUsedItemHand());
                     }
+                    return InteractionResult.SUCCESS;
                 }
 
                 if (stack.getItem() instanceof BlockItem blockItem) {
