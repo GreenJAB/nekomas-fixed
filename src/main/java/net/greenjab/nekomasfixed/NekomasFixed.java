@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed;
 
-import com.terraformersmc.util.mod.fabric.FabricMod;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;

@@ -1,3 +1,5 @@
+package net.greenjab.nekomasfixed.registry.item;
+
 import java.util.HashMap;
 import java.util.Map;
 
