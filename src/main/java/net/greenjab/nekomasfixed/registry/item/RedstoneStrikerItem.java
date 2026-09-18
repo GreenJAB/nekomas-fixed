@@ -19,7 +19,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ObserverBlock;
-import net.minecraft.world.level.block.RedStoneWireBlock;
+import net.minecraft.world.level.block.RedstoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
@@ -46,7 +46,7 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
                 IServerLevel iServerLevel = (IServerLevel)serverLevel;
                 WireHandler handler = iServerLevel.alternate_current$getWireHandler();
                 if(state.is(Blocks.REDSTONE_WIRE)){
-                    BlockState nxt = level.getBlockState(pos).setValue(RedStoneWireBlock.POWER, 15);
+                    BlockState nxt = level.getBlockState(pos).setValue(RedstoneWireBlock.POWER, 15);
 
                     handler.onWireRemoved(pos, state);
                     handler.onWireAdded(pos, nxt);
