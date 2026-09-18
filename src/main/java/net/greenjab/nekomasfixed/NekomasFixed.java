@@ -30,7 +30,7 @@ public class NekomasFixed implements ModInitializer {
 	public static final String MOD_NAME = "Nekomas' Fixed Minecraft";
 	public static final String NAMESPACE = "nekomasfixed";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAMESPACE);
-		public static boolean IS_ALTERNATE_CURRENT_MOD_LOADED = FabricLoader.getInstance().isModLoaded("alternate-current");
+	public static final boolean IS_ALTERNATE_CURRENT_MOD_LOADED = FabricLoader.getInstance().isModLoaded("alternate-current");
 
 	@Override
 	public void onInitialize() {
@@ -89,5 +89,7 @@ public class NekomasFixed implements ModInitializer {
 		}
 		return level;
 	}
-		public static boolean isAlternate(){return  IS_ALTERNATE_CURRENT_MOD_LOADED;}
+	public static boolean isAlternate() {
+    return IS_ALTERNATE_CURRENT_MOD_LOADED;
+  }
 }

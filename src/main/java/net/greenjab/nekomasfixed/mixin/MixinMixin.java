@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.mixin;
 
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.loader.api.FabricLoader;
-import net.greenjab.nekomasfixed.NekomasFixed;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -15,13 +14,16 @@ import java.util.function.Supplier;
 public final class MixinMixin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> TRUE = () -> true;
 
-    //plz do not touch this class unless u ask cyber or green jab or akshaj
-    //strikey can port this class to 1.21.1
+    // plz do not touch this class unless u ask cyber or green jab or akshaj
+    // strikey can port this class to 1.21.1
+
+    private static final Supplier<Boolean> HAS_ALTERNATE_CURRENT = 
+            () -> FabricLoader.getInstance().isModLoaded("alternate-current");
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "net.greenjab.nekomasfixed.mixin.alternate_current.WireHandlerAccessor", NekomasFixed::isAlternate,
-            "net.greenjab.nekomasfixed.mixin.alternate_current.NodeMixin", NekomasFixed::isAlternate,
-            "net.greenjab.nekomasfixed.mixin.accessor.NodeAccessor", NekomasFixed::isAlternate
+            "net.greenjab.nekomasfixed.mixin.alternate_current.WireHandlerAccessor", HAS_ALTERNATE_CURRENT,
+            "net.greenjab.nekomasfixed.mixin.alternate_current.NodeMixin", HAS_ALTERNATE_CURRENT,
+            "net.greenjab.nekomasfixed.mixin.accessor.NodeAccessor", HAS_ALTERNATE_CURRENT
     );
 
     @Override
@@ -34,7 +36,6 @@ public final class MixinMixin implements IMixinConfigPlugin {
 
     }
 
-
     @Override
     public String getRefMapperConfig() {
         return null;
@@ -42,7 +43,6 @@ public final class MixinMixin implements IMixinConfigPlugin {
 
     @Override
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
-
 
     }
 
