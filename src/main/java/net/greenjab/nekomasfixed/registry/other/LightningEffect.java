@@ -7,6 +7,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 
 // Instant effect: strikes the target with a lightning bolt when in view of the sky.
 public class LightningEffect extends InstantenousMobEffect {
@@ -15,13 +16,13 @@ public class LightningEffect extends InstantenousMobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(@NonNull LivingEntity entity, int amplifier) {
         strike(entity.level(), entity);
         return true;
     }
 
     @Override
-    public void applyInstantenousEffect(Entity source, Entity attacker, LivingEntity target, int amplifier, double proximity) {
+    public void applyInstantenousEffect(Entity source, Entity attacker, @NonNull LivingEntity target, int amplifier, double proximity) {
         strike(target.level(), target);
     }
 

@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.registry.entity.goal;
 
 import net.greenjab.nekomasfixed.mixin.accessor.BeeAccessor;
-import net.greenjab.nekomasfixed.registry.entity.Moobloom.Moobloom;
+import net.greenjab.nekomasfixed.registry.entity.moobloom.Moobloom;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Bee;
 

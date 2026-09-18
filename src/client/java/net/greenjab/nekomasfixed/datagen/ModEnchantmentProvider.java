@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.EnchantmentRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -13,6 +14,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -25,24 +27,37 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider {
     }
 
     @Override
-    public String getName() {
+    public @NonNull String getName() {
         return "nekomasfixed-enchantments";
     }
 
     @Override
     protected void configure(HolderLookup.Provider registriesFuture, Entries entries) {
         HolderLookup.Provider lookups = entries.getLookups();
-        HolderSet<Item> supportedItems = lookups.lookupOrThrow(Registries.ITEM)
+        HolderSet<Item> swordItems = lookups.lookupOrThrow(Registries.ITEM)
                 .getOrThrow(TagKey.create(Registries.ITEM, ResourceLocation.withDefaultNamespace("enchantable/sword")));
-        HolderSet<Enchantment> exclusiveSet = lookups.lookupOrThrow(Registries.ENCHANTMENT)
+        HolderSet<Enchantment> bowExclusive = lookups.lookupOrThrow(Registries.ENCHANTMENT)
                 .getOrThrow(TagKey.create(Registries.ENCHANTMENT, ResourceLocation.withDefaultNamespace("exclusive_set/bow")));
         Enchantment leeching = new Enchantment(
                 Component.translatable("enchantment.nekomasfixed.leeching"),
-                Enchantment.definition(supportedItems, HolderSet.empty(), 5, 3,
+                Enchantment.definition(swordItems, HolderSet.empty(), 5, 3,
                         Enchantment.dynamicCost(5, 8), Enchantment.dynamicCost(20, 10), 6,
                         EquipmentSlotGroup.MAINHAND),
-                exclusiveSet,
+                bowExclusive,
                 DataComponentMap.EMPTY);
         entries.add(EnchantmentRegistry.LEECHING, leeching);
+
+        HolderSet<Item> slingshotItems = lookups.lookupOrThrow(Registries.ITEM)
+                .getOrThrow(TagKey.create(Registries.ITEM, NekomasFixed.id("enchantable/slingshot")));
+        HolderSet<Enchantment> crossbowExclusive = lookups.lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(TagKey.create(Registries.ENCHANTMENT, ResourceLocation.withDefaultNamespace("exclusive_set/crossbow")));
+        Enchantment shatter = new Enchantment(
+                Component.translatable("enchantment.nekomasfixed.shatter"),
+                Enchantment.definition(slingshotItems, HolderSet.empty(), 5, 1,
+                        Enchantment.dynamicCost(20, 0), Enchantment.dynamicCost(50, 0), 8,
+                        EquipmentSlotGroup.MAINHAND),
+                crossbowExclusive,
+                DataComponentMap.EMPTY);
+        entries.add(EnchantmentRegistry.SHATTER, shatter);
     }
 }

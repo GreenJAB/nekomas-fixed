@@ -13,6 +13,6 @@ public class BeeMixin {
     @Inject(method = "registerGoals", at = @At("HEAD"))
     private void initGoals(CallbackInfo ci) {
         Bee beeEntity = (Bee) (Object) this;
-        ((MobAccessor) (Object) this).getGoalSelector().addGoal(4, new PollinatingMoobloomGoal(beeEntity));
+        ((MobAccessor) this).getGoalSelector().addGoal(4, new PollinatingMoobloomGoal(beeEntity));
     }
 }

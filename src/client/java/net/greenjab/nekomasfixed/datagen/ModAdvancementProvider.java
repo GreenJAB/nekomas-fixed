@@ -35,6 +35,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
     }
 
     // Have all 20 froglights (3 vanilla + 17 mod) at once.
+    // parent(ResourceLocation) is @Deprecated(forRemoval=true), but the Fabric datagen HolderLookup has
+    // no minecraft:advancement registry, so the only non-deprecated parent(AdvancementHolder) can't be
+    // resolved here — hence the explicit suppression. parent(ResourceLocation) is the clean option.
+    @SuppressWarnings("removal")
     private void allFroglights(Consumer<AdvancementHolder> consumer) {
         ItemLike[] frogs = BlockDyeMap.FROGLIGHT.values().stream().map(Block::asItem).toArray(ItemLike[]::new);
         Advancement.Builder.advancement()
@@ -49,6 +53,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                 .save(consumer, NekomasFixed.id("husbandry/all_froglights").toString());
     }
 
+    @SuppressWarnings("removal")
     private void ancientDyes(Consumer<AdvancementHolder> consumer) {
         Advancement.Builder.advancement()
                 .parent(ResourceLocation.withDefaultNamespace("husbandry/plant_any_sniffer_seed"))

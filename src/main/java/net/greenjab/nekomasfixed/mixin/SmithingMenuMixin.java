@@ -17,7 +17,7 @@ public class SmithingMenuMixin {
 
     @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
     private void blockTurtlePieces(CallbackInfo ci) {
-        ItemCombinerMenuAccessor access = (ItemCombinerMenuAccessor) (Object) this;
+        ItemCombinerMenuAccessor access = (ItemCombinerMenuAccessor) this;
         ItemStack gear = access.getInputSlots().getItem(1);
         if (gear.is(ItemRegistry.TURTLE_CHESTPLATE)
                 || gear.is(ItemRegistry.TURTLE_LEGGINGS)

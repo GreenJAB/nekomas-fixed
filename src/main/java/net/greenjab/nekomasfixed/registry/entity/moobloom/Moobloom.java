@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.registry.entity.Moobloom;
+package net.greenjab.nekomasfixed.registry.entity.moobloom;
 
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.util.ModTags;
@@ -30,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A flower cow. Each spawn picks a flower/colour variant (synced as a string),
@@ -172,7 +173,7 @@ public class Moobloom extends Cow {
                 result = flowerVariant2.path;
             }
         }
-        child.setSheared(true);
+        Objects.requireNonNull(child).setSheared(true);
         child.entityData.set(VARIANT, result);
         return child;
     }

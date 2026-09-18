@@ -276,7 +276,7 @@ public class HollowLogBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     @Override
-    protected void onRemove(BlockState state, @NonNull Level level, @NonNull BlockPos pos, BlockState newState, boolean movedByPiston) {
+    protected void onRemove(@NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, BlockState newState, boolean movedByPiston) {
         // Axe-stripping swaps to another hollow log; vanilla keeps the block entity
         // (and stored contents) there, so don't drain here or the item is duplicated
         // (dropped AND still stored). Only drain when the hollow log is actually

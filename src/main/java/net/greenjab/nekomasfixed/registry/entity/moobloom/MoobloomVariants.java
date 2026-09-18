@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.registry.entity.Moobloom;
+package net.greenjab.nekomasfixed.registry.entity.moobloom;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;

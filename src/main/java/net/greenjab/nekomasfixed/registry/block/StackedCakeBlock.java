@@ -80,7 +80,8 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
 
     @Override
     protected boolean canSurvive(@NonNull BlockState state, LevelReader level, BlockPos pos) {
-        return level.getBlockState(pos.below()).isSolid();
+        BlockState below = level.getBlockState(pos.below());
+        return below.isFaceSturdy(level, pos.below(), Direction.UP);
     }
 
     @Override

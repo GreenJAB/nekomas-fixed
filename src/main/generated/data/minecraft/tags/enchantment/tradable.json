@@ -3,6 +3,10 @@
     {
       "id": "nekomasfixed:leeching",
       "required": false
+    },
+    {
+      "id": "nekomasfixed:shatter",
+      "required": false
     }
   ]
 }

@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
-import net.greenjab.nekomasfixed.registry.entity.Moobloom.Moobloom;
+import net.greenjab.nekomasfixed.registry.entity.moobloom.Moobloom;
 import net.greenjab.nekomasfixed.render.entity.model.BabyMoobloomModel;
 import net.greenjab.nekomasfixed.render.entity.model.MoobloomModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -38,7 +38,7 @@ public class MoobloomRenderer extends MobRenderer<Moobloom, MoobloomModel> {
     // mesh be ageable-scaled onto the differently-laid-out _baby texture.
     @Override
     public void render(@NonNull Moobloom entity, float entityYaw, float partialTicks,
-                       PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+                       @NonNull PoseStack poseStack, @NonNull MultiBufferSource buffer, int packedLight) {
         this.model = entity.isBaby() ? this.babyModel : this.adultModel;
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }

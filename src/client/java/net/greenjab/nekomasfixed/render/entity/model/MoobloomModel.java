@@ -2,7 +2,7 @@ package net.greenjab.nekomasfixed.render.entity.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registry.entity.Moobloom.Moobloom;
+import net.greenjab.nekomasfixed.registry.entity.moobloom.Moobloom;
 import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

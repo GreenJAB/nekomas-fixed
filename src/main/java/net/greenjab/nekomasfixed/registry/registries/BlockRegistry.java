@@ -734,9 +734,10 @@ public class BlockRegistry {
                 brickProperties(base.defaultMapColor()));
     }
 
-    // Reproduces main's ofLegacyCopy(X_BRICKS).forceSolidOn() for WallBlock.
+    // Reproduces main's ofLegacyCopy(X_BRICKS).forceSolidOn() for WallBlock; ofFullCopy
+    // is the non-deprecated successor (also copies jump/redstone/occlusion/drops fields).
     private static BlockBehaviour.Properties brickWallProperties(Block base) {
-        return BlockBehaviour.Properties.ofLegacyCopy(base).forceSolidOn();
+        return BlockBehaviour.Properties.ofFullCopy(base).forceSolidOn();
     }
 
     // Baked terracotta: basedrum, 0.7/4.2 strength (as main; requires a pickaxe, no sound

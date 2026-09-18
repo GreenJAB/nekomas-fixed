@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -32,6 +33,7 @@ public class ArmorStandMixin {
 
     // Swaps one slot's worn piece with the player's. A slot only swaps when either side
     // holds a matching armor piece, so empty slots don't block the rest of the set.
+    @Unique
     private void swapArmorSlot(Player player, EquipmentSlot slot, TagKey<Item> tag) {
         ItemStack standStack = ((ArmorStand) (Object) this).getItemBySlot(slot);
         ItemStack playerStack = player.getItemBySlot(slot);

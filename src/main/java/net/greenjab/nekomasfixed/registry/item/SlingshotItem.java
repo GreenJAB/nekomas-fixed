@@ -35,10 +35,15 @@ public class SlingshotItem extends ProjectileWeaponItem {
     }
 
     @Override
+    public int getEnchantmentValue() {
+        // 1.21.1's ProjectileWeaponItem hardcodes enchantability 1; main's slingshot
+        // has none (table stays dark. Force 0 to match.)
+        return 0;
+    }
+
+    @Override
     public void releaseUsing(@NonNull ItemStack stack, @NonNull Level level, @NonNull LivingEntity user, int remainingUseTicks) {
-        if (!(user instanceof Player playerEntity)) {
-            return;
-        } else {
+        if (user instanceof Player playerEntity) {
             ItemStack itemStack = playerEntity.getProjectile(stack);
             if (itemStack.isEmpty()) return;
             // Resin clump is 1.21.4+; dropped in this port. Arrows fire as nuggets.
@@ -63,7 +68,7 @@ public class SlingshotItem extends ProjectileWeaponItem {
     }
 
     @Override
-    protected void shootProjectile(@NonNull LivingEntity shooter, Projectile projectile, int index, float speed, float divergence, float yaw, @NonNull LivingEntity target) {
+    protected void shootProjectile(@NonNull LivingEntity shooter, Projectile projectile, int index, float speed, float divergence, float yaw, LivingEntity target) {
         projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot() + yaw, 0.0F, speed, divergence);
     }
 

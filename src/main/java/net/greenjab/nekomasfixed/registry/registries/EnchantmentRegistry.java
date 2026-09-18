@@ -7,6 +7,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 public class EnchantmentRegistry {
     public static final ResourceKey<Enchantment> LEECHING = of("leeching");
+    public static final ResourceKey<Enchantment> SHATTER = of("shatter");
 
     public static void registerEnchantments() {
         NekomasFixed.LOGGER.info("Registering enchantments");

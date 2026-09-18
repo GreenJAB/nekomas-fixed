@@ -18,13 +18,15 @@ public class ModEnchantmentTagProvider extends FabricTagProvider.EnchantmentTagP
 
     @Override
     protected void addTags(HolderLookup.Provider registriesFuture) {
-        // Leeching is a treasure enchant: random-loot + villager trades only,
-        // never offered by the enchanting table (so no in_enchanting_table entry).
+        // Leeching + Shatter are treasure enchants: random-loot + villager trades only,
+        // never offered by the enchanting table (so no in_enchanting_table entry, matching main's treasure:true).
         getOrCreateTagBuilder(TagKey.create(Registries.ENCHANTMENT,
                 ResourceLocation.withDefaultNamespace("on_random_loot")))
-                .addOptional(EnchantmentRegistry.LEECHING);
+                .addOptional(EnchantmentRegistry.LEECHING)
+                .addOptional(EnchantmentRegistry.SHATTER);
         getOrCreateTagBuilder(TagKey.create(Registries.ENCHANTMENT,
                 ResourceLocation.withDefaultNamespace("tradable")))
-                .addOptional(EnchantmentRegistry.LEECHING);
+                .addOptional(EnchantmentRegistry.LEECHING)
+                .addOptional(EnchantmentRegistry.SHATTER);
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BabyMoobloomModel extends MoobloomModel {
@@ -54,7 +55,7 @@ public class BabyMoobloomModel extends MoobloomModel {
     // QuadrupedModel's own young-scaling (which LivingEntityRenderer requests) can't
     // double-shrink it.
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+    public void renderToBuffer(@NonNull PoseStack poseStack, @NonNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
         for (ModelPart part : this.headParts()) {
             part.render(poseStack, buffer, packedLight, packedOverlay, color);
         }

@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.greenjab.nekomasfixed.registry.entity.Moobloom.Moobloom;
+import net.greenjab.nekomasfixed.registry.entity.moobloom.Moobloom;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.animal.Animal;

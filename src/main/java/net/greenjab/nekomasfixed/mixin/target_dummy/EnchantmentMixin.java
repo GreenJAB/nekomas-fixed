@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.mixin.target_dummy;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.enchantment.ConditionalEffect;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -26,12 +27,14 @@ public class EnchantmentMixin {
             if (filterData.getParamOrNull(LootContextParams.THIS_ENTITY) instanceof TargetDummy targetDummy) {
                 if (targetDummy.isZombie()) {
                     if (conditionalEffect.requirements().isPresent()) {
-                        if (filterData.hasParam(LootContextParams.ENCHANTMENT_LEVEL) && filterData.hasParam(LootContextParams.DAMAGE_SOURCE)) {
+                        Integer enchantLevel = filterData.getParamOrNull(LootContextParams.ENCHANTMENT_LEVEL);
+                        DamageSource damageSource = filterData.getParamOrNull(LootContextParams.DAMAGE_SOURCE);
+                        if (enchantLevel != null && damageSource != null) {
                             return conditionalEffect.requirements().get().test(damageContext(
                                     filterData.getLevel(),
-                                    filterData.getParamOrNull(LootContextParams.ENCHANTMENT_LEVEL),
+                                    enchantLevel,
                                     new Zombie(filterData.getLevel()),
-                                    filterData.getParamOrNull(LootContextParams.DAMAGE_SOURCE)));
+                                    damageSource));
                         }
                     }
                 }
