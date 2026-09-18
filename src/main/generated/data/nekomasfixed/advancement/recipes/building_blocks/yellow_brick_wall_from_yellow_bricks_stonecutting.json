@@ -3,7 +3,9 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:yellow_brick_wall_from_yellow_bricks_stonecutting"
+        "recipes": [
+          "nekomasfixed:yellow_brick_wall_from_yellow_bricks_stonecutting"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     },

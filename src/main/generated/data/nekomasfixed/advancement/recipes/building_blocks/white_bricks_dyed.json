@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:white_bricks_dyed"
+        "recipes": [
+          "nekomasfixed:white_bricks_dyed"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     },

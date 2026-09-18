@@ -103,9 +103,9 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
 	}
 
 	protected void setupRotations(TargetDummyRenderState TargetDummyRenderState, PoseStack matrixStack, float f, float g) {
-		matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - f));
+		matrixStack.rotate(Axis.YP.rotationDegrees(180.0F - f));
 		if (TargetDummyRenderState.timeSinceLastHit < 5.0F)
-			matrixStack.mulPose(Axis.YP.rotationDegrees(Mth.sin(TargetDummyRenderState.timeSinceLastHit / 1.5F * (float) Math.PI) * 3.0F));
+			matrixStack.rotate(Axis.YP.rotationDegrees(Mth.sin(TargetDummyRenderState.timeSinceLastHit / 1.5F * (float) Math.PI) * 3.0F));
 	}
 
 	protected boolean shouldShowName(TargetDummy TargetDummy, double d) {

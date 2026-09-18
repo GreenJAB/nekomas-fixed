@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:maroon_bundle"
+        "recipes": [
+          "nekomasfixed:maroon_bundle"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

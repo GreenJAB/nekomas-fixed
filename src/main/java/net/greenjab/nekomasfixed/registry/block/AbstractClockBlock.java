@@ -40,9 +40,6 @@ import org.jspecify.annotations.Nullable;
 public abstract class AbstractClockBlock extends BaseEntityBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
-	@Override
-	public abstract @NonNull MapCodec<? extends AbstractClockBlock> codec();
-
 	public AbstractClockBlock(Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false));

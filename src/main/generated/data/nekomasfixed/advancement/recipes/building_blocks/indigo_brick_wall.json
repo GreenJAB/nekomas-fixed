@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:indigo_brick_wall"
+        "recipes": [
+          "nekomasfixed:indigo_brick_wall"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

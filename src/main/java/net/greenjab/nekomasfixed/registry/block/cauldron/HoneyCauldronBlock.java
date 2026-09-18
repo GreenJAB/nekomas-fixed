@@ -28,8 +28,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jspecify.annotations.NonNull;
 
 public class HoneyCauldronBlock extends AbstractCauldronBlock {
-    public static final MapCodec<HoneyCauldronBlock> CODEC = simpleCodec(HoneyCauldronBlock::new);
-
     public static final IntegerProperty HONEY_LEVEL = IntegerProperty.create("honey_level", 1, 4);
     public static final int MAX_LEVEL = 4;
 
@@ -41,11 +39,6 @@ public class HoneyCauldronBlock extends AbstractCauldronBlock {
 
     protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
         return Items.CAULDRON.getDefaultInstance();
-    }
-
-    @Override
-    protected @NonNull MapCodec<? extends AbstractCauldronBlock> codec() {
-        return CODEC;
     }
 
     @Override

@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:aqua_bundle"
+        "recipes": [
+          "nekomasfixed:aqua_bundle"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

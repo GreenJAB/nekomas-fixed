@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:smooth_red_sandstone_from_kilning"
+        "recipes": [
+          "nekomasfixed:smooth_red_sandstone_from_kilning"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

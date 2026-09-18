@@ -18,11 +18,11 @@ public class EnchantmentMixin {
     @ModifyExpressionValue(method="applyEffects(Ljava/util/List;Lnet/minecraft/world/level/storage/loot/LootContext;Lnet/minecraft/world/item/enchantment/Enchantment$GenericAction;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/ConditionalEffect;matches(Lnet/minecraft/world/level/storage/loot/LootContext;)Z"))
     private static <T> boolean targetDummySmite(boolean original, @Local ConditionalEffect<T> conditionalEffect, @Local(argsOnly = true) LootContext filterData) {
         if (filterData.hasParameter(LootContextParams.THIS_ENTITY)) {
-            if (filterData.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof TargetDummy targetDummy) {
+            if (filterData.getOptional(LootContextParams.THIS_ENTITY) instanceof TargetDummy targetDummy) {
                 if (targetDummy.isZombie()) {
                     if (conditionalEffect.requirements().isPresent()) {
                         if (filterData.hasParameter(LootContextParams.ENCHANTMENT_LEVEL) && filterData.hasParameter(LootContextParams.DAMAGE_SOURCE)) {
-                            return conditionalEffect.requirements().get().test(damageContext(filterData.getLevel(), filterData.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), new Zombie(filterData.getLevel()), filterData.getOptionalParameter(LootContextParams.DAMAGE_SOURCE)));
+                            return conditionalEffect.requirements().get().value().test(damageContext(filterData.getLevel(), filterData.getOptional(LootContextParams.ENCHANTMENT_LEVEL), new Zombie(filterData.getLevel()), filterData.getOptional(LootContextParams.DAMAGE_SOURCE)));
                         }
                     }
                 }

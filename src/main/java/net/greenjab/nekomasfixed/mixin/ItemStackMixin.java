@@ -19,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -73,7 +74,7 @@ public class ItemStackMixin {
 			} else {
 				stack.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent((int) ((level.getOverworldClockTime() + 6000) % 24000)));
 			}
-			player.swing(hand);
+			player.swing(hand, SwingAnimation.DEFAULT, true);
 		}
 	}
 

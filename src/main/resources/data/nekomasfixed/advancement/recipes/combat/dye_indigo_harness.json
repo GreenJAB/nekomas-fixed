@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dye_indigo_harness"
+        "recipes": [
+          "nekomasfixed:dye_indigo_harness"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dye_maroon_bed"
+        "recipes": [
+          "nekomasfixed:dye_maroon_bed"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -41,7 +41,7 @@ public class BlockItemMixin {
     }
 
     @Inject(method="updateBlockStateFromTag", at = @At( value = "HEAD"))
-    private void placeOpenClam(BlockPos pos, Level level, ItemStack itemStack, BlockState placedState, CallbackInfoReturnable<BlockState> cir) {
+    private static void placeOpenClam(BlockPos pos, Level level, ItemStack itemStack, BlockState placedState, CallbackInfoReturnable<BlockState> cir) {
         if (itemStack.is(ModTags.CLAMTAG)) {
             Integer i = itemStack.getOrDefault(ComponentRegistry.CLAM_STATE, 0);
             if (i > 0) {

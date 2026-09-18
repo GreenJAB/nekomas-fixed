@@ -23,7 +23,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:magenta_brick_wall_dyed"
+        "recipes": [
+          "nekomasfixed:magenta_brick_wall_dyed"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

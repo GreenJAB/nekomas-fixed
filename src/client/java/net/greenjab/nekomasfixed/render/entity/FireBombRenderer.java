@@ -35,7 +35,7 @@ public class FireBombRenderer extends EntityRenderer<FireBomb, EntityRenderState
 	@Override
 	public void submit(@NonNull EntityRenderState renderState, PoseStack matrices, SubmitNodeCollector queue, CameraRenderState cameraState) {
 		matrices.pushPose();
-		matrices.mulPose(cameraState.orientation);
+		matrices.rotate(cameraState.orientation);
 		queue.submitCustomGeometry(matrices, LAYER, (matricesEntry, vertexConsumer) -> {
 			produceVertex(vertexConsumer, matricesEntry, renderState.lightCoords, 0.0F, 0, 0, 1);
 			produceVertex(vertexConsumer, matricesEntry, renderState.lightCoords, 1.0F, 0, 1, 1);

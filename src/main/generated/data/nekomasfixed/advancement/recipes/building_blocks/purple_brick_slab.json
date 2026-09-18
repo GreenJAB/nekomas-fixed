@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:purple_brick_slab"
+        "recipes": [
+          "nekomasfixed:purple_brick_slab"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

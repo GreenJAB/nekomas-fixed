@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:cracked_stone_bricks_from_kilning"
+        "recipes": [
+          "nekomasfixed:cracked_stone_bricks_from_kilning"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

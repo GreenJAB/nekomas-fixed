@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:aqua_bed"
+        "recipes": [
+          "nekomasfixed:aqua_bed"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

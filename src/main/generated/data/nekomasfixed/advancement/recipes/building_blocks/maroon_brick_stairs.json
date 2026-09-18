@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:maroon_brick_stairs"
+        "recipes": [
+          "nekomasfixed:maroon_brick_stairs"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

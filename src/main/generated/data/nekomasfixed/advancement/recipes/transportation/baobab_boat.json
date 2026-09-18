@@ -3,7 +3,9 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:baobab_boat"
+        "recipes": [
+          "nekomasfixed:baobab_boat"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     },

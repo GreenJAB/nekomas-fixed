@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dye_aqua_carpet"
+        "recipes": [
+          "nekomasfixed:dye_aqua_carpet"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

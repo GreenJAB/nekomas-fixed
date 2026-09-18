@@ -29,11 +29,6 @@ public class CorruptedBeaconBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(CorruptedBeaconBlock::new);
-    }
-
-    @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new CorruptedBeaconBlockEntity(pos, state);
     }

@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:zombie_nautilus_block"
+        "recipes": [
+          "nekomasfixed:zombie_nautilus_block"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

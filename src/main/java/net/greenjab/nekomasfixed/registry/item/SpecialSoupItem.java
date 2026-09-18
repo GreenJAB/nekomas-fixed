@@ -44,7 +44,7 @@ public class SpecialSoupItem extends Item {
     public @NonNull ItemStack finishUsingItem(@NonNull ItemStack stack, Level level, @NonNull LivingEntity user) {
         if (!level.isClientSide() && user instanceof Player player) {
             ItemContainerContents c = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.fromItems(List.of()));
-            List<ItemStack> ingredients = c.allItemsCopyStream().toList();
+            List<ItemStack> ingredients = c.nonEmptyItemCopyStream().toList();
             for (ItemStack ingredient : ingredients) {
                 PotionContents potions = ingredient.get(DataComponents.POTION_CONTENTS);
                 if (potions != null) potions.getAllEffects().forEach(effect -> player.addEffect(new MobEffectInstance(effect.withScaledDuration(0.5f))));

@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.registries.ModModelLayerRegistry;
 import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
@@ -25,11 +26,23 @@ public class WildfireTridentModelRenderer implements NoDataSpecialModelRenderer 
 	}
 
 	@Override
-	public void submit(@NonNull PoseStack matrices, SubmitNodeCollector queue, int light, int overlay, boolean glint, int i) {
-		queue.order(0).submitModel(this.model, Unit.INSTANCE, matrices, ThrownWildfireTridentRenderer.TEXTURE, light, overlay, i, null);
-		if (glint) {
-			queue.order(1).submitModel(this.model, Unit.INSTANCE, matrices, RenderTypes.entityGlint(), light, overlay, i, null);
-		}
+	public void submit(@NonNull PoseStack matrices, SubmitNodeCollector queue, int light, int overlay, boolean glint, int outlineColor) {
+		RenderType baseRenderType = glint
+				? RenderTypes.entitySolidGlint(ThrownWildfireTridentRenderer.TEXTURE)
+				: RenderTypes.entityCutout(ThrownWildfireTridentRenderer.TEXTURE);
+
+		// 9 Params.
+		queue.submitModel(
+				this.model,
+				Unit.INSTANCE,
+				matrices,
+				baseRenderType,
+				light,
+				overlay,
+				-1,
+				null,
+				outlineColor
+		);
 	}
 
 	@Override

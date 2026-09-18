@@ -1,4 +1,5 @@
 package net.greenjab.nekomasfixed.registry.block;
+
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
@@ -48,6 +49,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -75,12 +77,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<ClamBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-				ClamType.CODEC.fieldOf("clam_type").forGetter(ClamBlock::getClamType),
-				propertiesCodec()
-			).apply(instance, ClamBlock::new)
-	);
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -89,11 +85,6 @@ public class ClamBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 	public static final Identifier CONTENTS_DYNAMIC_DROP_ID = NekomasFixed.id("clam_contents");
 	private final ClamType clamType;
-
-	@Override
-	public @NonNull MapCodec<? extends ClamBlock> codec() {
-		return CODEC;
-	}
 
 	public ClamBlock(ClamType clamType, Properties settings) {
 		super(settings);

@@ -51,16 +51,24 @@ public class BigBoatRenderer<T extends BigBoat, S extends BigBoatRenderState, M 
 	) {
 		matrixStack.pushPose();
 		matrixStack.translate(0.0F, 0.375F, 0.0F);
-		matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - bigBoatEntityRenderState.yaw));
+		matrixStack.rotate(Axis.YP.rotationDegrees(180.0F - bigBoatEntityRenderState.yaw));
 		float f = bigBoatEntityRenderState.damageWobbleTicks;
-		if (f > 0.0F) matrixStack.mulPose(Axis.XP.rotationDegrees(Mth.sin(f) * f *
+		if (f > 0.0F) matrixStack.rotate(Axis.XP.rotationDegrees(Mth.sin(f) * f *
 				bigBoatEntityRenderState.damageWobbleStrength / 10.0F * bigBoatEntityRenderState.damageWobbleSide));
 		if (!bigBoatEntityRenderState.submergedInWater && !Mth.equal(bigBoatEntityRenderState.bubbleWobble, 0.0F))
-			matrixStack.mulPose(new Quaternionf().setAngleAxis(bigBoatEntityRenderState.bubbleWobble * (float) (Math.PI / 180.0), 1.0F, 0.0F, 1.0F));
+			matrixStack.rotate(new Quaternionf().setAngleAxis(bigBoatEntityRenderState.bubbleWobble * (float) (Math.PI / 180.0), 1.0F, 0.0F, 1.0F));
 		matrixStack.scale(-1.0F, -1.0F, 1.0F);
-		orderedRenderCommandQueue.submitModel(this.getModel(), bigBoatEntityRenderState, matrixStack,
-				this.getRenderLayer(), bigBoatEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY,
-				bigBoatEntityRenderState.outlineColor, null);
+		orderedRenderCommandQueue.submitModel(
+				this.getModel(),
+				bigBoatEntityRenderState,
+				matrixStack,
+				this.getRenderLayer(),
+				bigBoatEntityRenderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
+				-1,
+				null,
+				bigBoatEntityRenderState.outlineColor
+		);
 		matrixStack.scale(-1.0F, -1.0F, 1.0F);
 		renderBanners(bigBoatEntityRenderState, matrixStack, orderedRenderCommandQueue);
 		matrixStack.popPose();

@@ -11,6 +11,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
@@ -48,7 +49,7 @@ public class DyedBrushItem extends Item {
         BlockState state = level.getBlockState(pos);
         boolean used = false;
         Player player = context.getPlayer();
-        if (player != null) player.swing(context.getHand());
+        if (player != null) player.swing(context.getHand(), SwingAnimation.DEFAULT, true);
         if (!level.isClientSide() && state.is(ModTags.CAN_BE_DYED_WITH_BRUSH)) {
             if (state.is(Blocks.TERRACOTTA) || state.is(BlockTags.TERRACOTTA) && !state.is(getTerracotta(color))) {
                 level.setBlockAndUpdate(pos, getTerracotta(color).defaultBlockState());

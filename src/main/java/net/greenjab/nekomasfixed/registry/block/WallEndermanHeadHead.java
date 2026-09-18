@@ -25,19 +25,9 @@ import org.jspecify.annotations.NonNull;
 import java.util.Map;
 
 public class WallEndermanHeadHead extends AbstractEndermanHeadBlock {
-	public static final MapCodec<WallEndermanHeadHead> CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-					propertiesCodec()
-			).apply(instance, WallEndermanHeadHead::new)
-	);
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 	private static final Map<Direction, VoxelShape> SHAPES_BY_DIRECTION = Shapes.rotateHorizontal(Block.boxZ(8.0, 8.0, 16.0));
 	private static final Map<Direction, VoxelShape> SHAPES_POWERED_BY_DIRECTION = Shapes.rotateHorizontal(Block.boxZ(8.0, 13.0,8.0, 16.0));
-
-	@Override
-	public @NonNull MapCodec<? extends WallEndermanHeadHead> codec() {
-		return CODEC;
-	}
 
 	public WallEndermanHeadHead(Properties settings) {
 		super(settings);

@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -51,7 +52,7 @@ public class PlayerMixin {
             food.shrink(1);
             ItemStack rotten = new ItemStack(Items.ROTTEN_FLESH, 1);
             if (!PE.getInventory().add(rotten.copy())) {
-                PE.drop(rotten, false);
+                PE.drop(rotten, false, Prediction.PREDICTED);
             }
         }
     }

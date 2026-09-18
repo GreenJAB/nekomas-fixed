@@ -80,16 +80,6 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(SOLID_INSIDE, false).setValue(AXIS, Direction.Axis.Y));
     }
 
-    public static final MapCodec<HollowLogBlock> CODEC = RecordCodecBuilder.mapCodec(
-            instance -> instance.group(
-                    propertiesCodec()
-            ).apply(instance, HollowLogBlock::new)
-    );
-    @Override
-    protected @NonNull MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
-    }
-
     @Override
     protected @NonNull BlockState updateShape(
             BlockState state,

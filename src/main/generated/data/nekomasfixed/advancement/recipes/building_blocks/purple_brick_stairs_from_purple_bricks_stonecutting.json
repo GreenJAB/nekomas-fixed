@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:purple_brick_stairs_from_purple_bricks_stonecutting"
+        "recipes": [
+          "nekomasfixed:purple_brick_stairs_from_purple_bricks_stonecutting"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

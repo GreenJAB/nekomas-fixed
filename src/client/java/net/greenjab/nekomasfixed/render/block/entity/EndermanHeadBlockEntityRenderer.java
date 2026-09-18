@@ -67,18 +67,18 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
 	}
 
 	public void submit(
-            EndermanHeadBlockEntityRenderState endermanHeadBlockEntityRenderState,
-            PoseStack matrixStack,
-            @NonNull SubmitNodeCollector orderedRenderCommandQueue,
-            @NonNull CameraRenderState cameraRenderState) {
+			EndermanHeadBlockEntityRenderState endermanHeadBlockEntityRenderState,
+			PoseStack matrixStack,
+			@NonNull SubmitNodeCollector orderedRenderCommandQueue,
+			@NonNull CameraRenderState cameraRenderState) {
 		matrixStack.pushPose();
 		Direction dir = endermanHeadBlockEntityRenderState.facing;
 		if (dir == null) matrixStack.translate(0.5F, 0.0F, 0.5F);
 		else matrixStack.translate(0.5F - dir.getStepX() * 0.2499F, 0.25F, 0.5F - dir.getStepZ() * 0.2499F);
 
 		matrixStack.scale(-1.0F, -1.0F, 1.0F);
-		matrixStack.mulPose(Axis.YP.rotationDegrees(endermanHeadBlockEntityRenderState.yaw));
-		matrixStack.translate(-0.5F, -0.5f, -0.5F);
+		matrixStack.rotateDegrees(Axis.YP, endermanHeadBlockEntityRenderState.yaw);
+		matrixStack.translate(-0.5F, -0.5F, -0.5F);
 		if (endermanHeadBlockEntityRenderState.powered) {
 			if (endermanHeadBlockEntityRenderState.wall) matrixStack.translate(this.random.nextGaussian() * 0.02, this.random.nextGaussian() * 0.02, 0.0F);
 			else matrixStack.translate(this.random.nextGaussian() * 0.02, 0.0F, this.random.nextGaussian() * 0.02);
@@ -86,10 +86,45 @@ public class EndermanHeadBlockEntityRenderer<T extends BlockEntity> implements B
 
 		RenderType renderLayer = RenderTypes.entityCutout(TEXTURE);
 		RenderType renderLayerEyes = RenderTypes.eyes(TEXTURE_EYES);
-		orderedRenderCommandQueue.submitModel(this.endermanHeadModel, endermanHeadBlockEntityRenderState, matrixStack,
-				renderLayer, endermanHeadBlockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0, endermanHeadBlockEntityRenderState.breakProgress);
-		orderedRenderCommandQueue.submitModel(this.endermanEyesModel, endermanHeadBlockEntityRenderState, matrixStack,
-				renderLayerEyes, endermanHeadBlockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, 0, endermanHeadBlockEntityRenderState.breakProgress);
+
+		// submitModel(model, state, poseStack, renderType, lightCoords, overlayCoords, tintedColor, uvMapping, outlineColor)
+		orderedRenderCommandQueue.submitModel(
+				this.endermanHeadModel,
+				endermanHeadBlockEntityRenderState,
+				matrixStack,
+				renderLayer,
+				endermanHeadBlockEntityRenderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
+				-1,
+				null,
+				0
+		);
+
+		orderedRenderCommandQueue.submitModel(
+				this.endermanEyesModel,
+				endermanHeadBlockEntityRenderState,
+				matrixStack,
+				renderLayerEyes,
+				15728880,
+				OverlayTexture.NO_OVERLAY,
+				-1,
+				null,
+				0
+		);
+
+		if (endermanHeadBlockEntityRenderState.breakProgress != null) {
+			orderedRenderCommandQueue.submitCrumblingOverlay(
+					this.endermanHeadModel,
+					endermanHeadBlockEntityRenderState,
+					matrixStack,
+					renderLayer,
+					endermanHeadBlockEntityRenderState.lightCoords,
+					OverlayTexture.NO_OVERLAY,
+					-1,
+					endermanHeadBlockEntityRenderState.breakProgress
+			);
+		}
+
 		matrixStack.popPose();
 	}
 }

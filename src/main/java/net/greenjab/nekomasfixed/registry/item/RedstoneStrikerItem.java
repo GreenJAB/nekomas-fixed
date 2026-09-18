@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FlintAndSteelItem;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -36,7 +37,7 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
         BlockState state = context.getLevel().getBlockState(pos);
         level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
         if (player != null) {
-            player.swing(player.getUsedItemHand(), true);
+            player.swing(player.getUsedItemHand(), SwingAnimation.DEFAULT, true);
             context.getItemInHand().hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
             STRUCK_WIRES.put(Gpos, level.getGameTime() + (player.isShiftKeyDown() ? 1 : 16));
             if(NekomasFixed.isAlternate() && level instanceof ServerLevel serverLevel){
