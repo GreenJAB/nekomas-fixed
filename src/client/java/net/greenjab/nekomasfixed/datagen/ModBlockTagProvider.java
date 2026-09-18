@@ -44,6 +44,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(getKey(b)));
 
+
         tag(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .addTag(ModTags.DYED_BRICKS)
                 .addTag(ModTags.DYED_BRICK_SLABS)
@@ -98,6 +99,10 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(getKey(BlockRegistry.HOLLOW_STRIPPED_SPRUCE_LOG))
                 .add(getKey(BlockRegistry.HOLLOW_STRIPPED_OAK_LOG))
                 .add(getKey(BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG));
+
+        tag(BlockTags.LOGS)
+                .addTag(ModTags.HOLLOW_LOGS)
+                .addTag(ModTags.STRIPPED_HOLLOW_LOGS);
 
 
         /*valueLookupBuilder(ModTags.DYED_BRICKS)

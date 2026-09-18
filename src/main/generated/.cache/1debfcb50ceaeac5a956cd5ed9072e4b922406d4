@@ -1,4 +1,5 @@
 // 26.2	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
+7e0e1b8cfb5281973bc6831fca8388329f7e0aa8 data/minecraft/tags/block/logs.json
 cc2df6c1fa06a20834ea62c9ae26adc62c893540 data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
 5d327ebedc30c5df3d1585f6e8d78052745d48d9 data/nekomasfixed/tags/block/concrete_powders.json
 2506dff323c1a71bab7c0ec4cbf10a9cab6f346b data/nekomasfixed/tags/block/concretes.json
