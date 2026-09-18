@@ -30,14 +30,8 @@ import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
 public class WallGlowTorchBlock extends GlowTorchBlock {
-	public static final MapCodec<WallGlowTorchBlock> CODEC = simpleCodec(WallGlowTorchBlock::new);
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty WATERLOGGED = GlowTorchBlock.WATERLOGGED;
-
-	@Override
-	public @NonNull MapCodec<WallGlowTorchBlock> codec() {
-		return CODEC;
-	}
 
 	public WallGlowTorchBlock(BlockBehaviour.Properties settings) {
 		super(settings);

@@ -1,5 +1,7 @@
 package net.greenjab.nekomasfixed.render.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.greenjab.nekomasfixed.NekomasFixed;
@@ -10,13 +12,12 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.ThrownTridentRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
@@ -29,29 +30,56 @@ public class ThrownWildfireTridentRenderer extends EntityRenderer<WildfireTriden
 		this.model = new TridentModel(context.bakeLayer(ModModelLayerRegistry.WILDFIRE_TRIDENT));
 	}
 
+	@Override
 	public void submit(
-            ThrownTridentRenderState tridentEntityRenderState,
-            PoseStack poseStack,
-            @NonNull SubmitNodeCollector submitNodeCollector,
-            @NonNull CameraRenderState camera
+			ThrownTridentRenderState tridentEntityRenderState,
+			PoseStack poseStack,
+			@NonNull SubmitNodeCollector submitNodeCollector,
+			@NonNull CameraRenderState camera
 	) {
 		poseStack.pushPose();
-		poseStack.mulPose(Axis.YP.rotationDegrees(tridentEntityRenderState.yRot - 90.0F));
-		poseStack.mulPose(Axis.ZP.rotationDegrees(tridentEntityRenderState.xRot + 90.0F));
-		submitNodeCollector.order(0)
-				.submitModel(this.model, Unit.INSTANCE, poseStack, TEXTURE, tridentEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, tridentEntityRenderState.outlineColor, null);
+		poseStack.rotateDegrees(Axis.YP, tridentEntityRenderState.yRot - 90.0F);
+		poseStack.rotateDegrees(Axis.ZP, tridentEntityRenderState.xRot + 90.0F);
+
+		RenderType baseRenderType = RenderTypes.entityCutout(TEXTURE);
+
+		// 9 params: model, state, poseStack, renderType, lightCoords, overlayCoords, tintedColor, uvMapping, outlineColor
+		submitNodeCollector.submitModel(
+				this.model,
+				Unit.INSTANCE,
+				poseStack,
+				baseRenderType,
+				tridentEntityRenderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
+				-1,
+				null,
+				tridentEntityRenderState.outlineColor
+		);
+
 		if (tridentEntityRenderState.isFoil) {
-			submitNodeCollector.order(1)
-					.submitModel(this.model, Unit.INSTANCE, poseStack, RenderTypes.entityGlint(), tridentEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, tridentEntityRenderState.outlineColor, null);
+			submitNodeCollector.submitModel(
+					this.model,
+					Unit.INSTANCE,
+					poseStack,
+					RenderTypes.entitySolidGlint(TEXTURE),
+					tridentEntityRenderState.lightCoords,
+					OverlayTexture.NO_OVERLAY,
+					-1,
+					null,
+					tridentEntityRenderState.outlineColor
+			);
 		}
+
 		poseStack.popPose();
 		super.submit(tridentEntityRenderState, poseStack, submitNodeCollector, camera);
 	}
 
+	@Override
 	public @NonNull ThrownTridentRenderState createRenderState() {
 		return new ThrownTridentRenderState();
 	}
 
+	@Override
 	public void extractRenderState(@NonNull WildfireTrident entity, @NonNull ThrownTridentRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
 		state.yRot = entity.getYRot(partialTicks);

@@ -21,6 +21,7 @@ public enum HollowLogType {
     MANGROVE(Blocks.CHERRY_LOG, BlockRegistry.HOLLOW_MANGROVE_LOG),
     CHERRY(Blocks.CHERRY_LOG, BlockRegistry.HOLLOW_CHERRY_LOG),
     PALE_OAK(Blocks.PALE_OAK_LOG, BlockRegistry.HOLLOW_PALE_OAK_LOG),
+    POPLAR(Blocks.POPLAR_LOG, BlockRegistry.HOLLOW_POPLAR_LOG),
     BAMBOO(Blocks.PALE_OAK_LOG, BlockRegistry.HOLLOW_BAMBOO_BLOCK),
     CRIMSON(Blocks.CRIMSON_HYPHAE, BlockRegistry.HOLLOW_CRIMSON_STEM),
     WARPED(Blocks.WARPED_HYPHAE, BlockRegistry.HOLLOW_WARPED_STEM),

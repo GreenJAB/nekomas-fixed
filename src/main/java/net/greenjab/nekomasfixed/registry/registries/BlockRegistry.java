@@ -1,12 +1,11 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.*;
 import net.greenjab.nekomasfixed.registry.block.cauldron.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
-import net.greenjab.nekomasfixed.registry.worldgen.ModConfiguredFeatures;
+import net.greenjab.nekomasfixed.registry.worldgen.ModFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ColorParticleOption;
@@ -15,10 +14,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.TreeGrower;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
@@ -26,10 +27,14 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import java.util.Optional;
 import java.util.function.Function;
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.world.item.*;
+import java.util.Map;
 
 import static net.minecraft.world.level.block.Blocks.buttonProperties;
 import static net.minecraft.world.level.block.Blocks.leavesProperties;
@@ -37,27 +42,27 @@ import static net.minecraft.world.level.block.Blocks.leavesProperties;
 public class BlockRegistry {
 
     public static final Block CLAM = register("clam", settings -> new ClamBlock(ClamType.REGULAR, settings),
-            BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
+            BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.POPPED));
     public static final Block CLAM_BLUE = register("clam_blue", settings -> new ClamBlock(ClamType.BLUE, settings),
-            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.POPPED));
     public static final Block CLAM_PINK = register("clam_pink", settings -> new ClamBlock(ClamType.PINK, settings),
-            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.POPPED));
     public static final Block CLAM_PURPLE = register("clam_purple", settings -> new ClamBlock(ClamType.PURPLE, settings),
-            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.POPPED));
     public static final Block PEARL_BLOCK = register("pearl_block", BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASEDRUM)
             .sound(SoundType.CALCITE).requiresCorrectToolForDrops().strength(0.75F));
 
-    public static final Block NAUTILUS_BLOCK = register("nautilus_block", settings -> new NautilusBlock(NautilusBlockType.REGULAR, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.CORAL_BLOCK).pushReaction(PushReaction.DESTROY));
-    public static final Block ZOMBIE_NAUTILUS_BLOCK = register("zombie_nautilus_block", settings -> new NautilusBlock(NautilusBlockType.ZOMBIE, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.CORAL_BLOCK).pushReaction(PushReaction.DESTROY));
-    public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block",settings -> new NautilusBlock(NautilusBlockType.CORAL, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.CORAL_BLOCK).pushReaction(PushReaction.DESTROY));
-    public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
+    public static final Block NAUTILUS_BLOCK = register("nautilus_block", settings -> new NautilusBlock(NautilusBlockType.REGULAR, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.CORAL_BLOCK).pushReaction(PushReaction.POPPED));
+    public static final Block ZOMBIE_NAUTILUS_BLOCK = register("zombie_nautilus_block", settings -> new NautilusBlock(NautilusBlockType.ZOMBIE, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.CORAL_BLOCK).pushReaction(PushReaction.POPPED));
+    public static final Block CORAL_NAUTILUS_BLOCK = register("coral_nautilus_block",settings -> new NautilusBlock(NautilusBlockType.CORAL, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(1F).sound(SoundType.CORAL_BLOCK).pushReaction(PushReaction.POPPED));
+    public static final Block GLISTERING_MELON = register("glistering_melon", settings -> new MelonBlock(true, settings), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(1F).sound(SoundType.WOOD).pushReaction(PushReaction.POPPED));
     public static final Block GEYSER = register("geyser", GeyserBlock::new , BlockBehaviour.Properties.of().randomTicks().strength(0.5f, 0.5f).lightLevel(_ -> 15));
     public static final Block KILN = register("kiln", KilnBlock::new,BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM)
             .sound(SoundType.GILDED_BLACKSTONE).requiresCorrectToolForDrops().strength(3.5f));
     public static final Block PYROTECHNICS_TABLE = register("pyrotechnics_table", PyrotechnicsTableBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block ENDERMAN_HEAD = register("enderman_head", FloorEndermanHeadHead::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(1F).sound(SoundType.METAL).pushReaction(PushReaction.POPPED).instrument(NoteBlockInstrument.CUSTOM_HEAD));
+    public static final Block WALL_ENDERMAN_HEAD = register("wall_enderman_head", WallEndermanHeadHead::new, copyLootTable(ENDERMAN_HEAD, true).mapColor(MapColor.COLOR_BLACK).strength(1F).sound(SoundType.METAL).pushReaction(PushReaction.POPPED));
     public static final Block CORRUPTED_BEACON = register("corrupted_beacon", CorruptedBeaconBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(5F).requiresCorrectToolForDrops().lightLevel(_ -> 15).instrument(NoteBlockInstrument.HAT).noOcclusion().isRedstoneConductor(Blocks::never));
-    public static final Block ENDERMAN_HEAD = register("enderman_head", FloorEndermanHeadHead::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(1F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY).instrument(NoteBlockInstrument.CUSTOM_HEAD));
-    public static final Block WALL_ENDERMAN_HEAD = register("wall_enderman_head", WallEndermanHeadHead::new, copyLootTable(ENDERMAN_HEAD, true).mapColor(MapColor.COLOR_BLACK).strength(1F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY));
     public static final Block GLOW_TORCH = register(
             "glow_torch",
             GlowTorchBlock::new,
@@ -66,7 +71,7 @@ public class BlockRegistry {
                     .instabreak()
                     .lightLevel(state -> state.getValue(BlockStateProperties.WATERLOGGED) ? 13 : 0)
                     .sound(SoundType.WOOD)
-                    .pushReaction(PushReaction.DESTROY)
+                    .pushReaction(PushReaction.POPPED)
     );
     public static final Block GLOW_WALL_TORCH = register(
             "glow_wall_torch",
@@ -76,7 +81,7 @@ public class BlockRegistry {
                     .instabreak()
                     .lightLevel(state -> state.getValue(BlockStateProperties.WATERLOGGED) ? 13 : 0)
                     .sound(SoundType.WOOD)
-                    .pushReaction(PushReaction.DESTROY)
+                    .pushReaction(PushReaction.POPPED)
     );
 
     public static final Block SWEETBERRY_CAKE = register("sweetberry_cake", StackedCakeBlock::new, BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.WOOL).lightLevel(state -> state.getValue(StackedCakeBlock.LIT)?3:0));
@@ -125,7 +130,7 @@ public class BlockRegistry {
                     .instrument(NoteBlockInstrument.BASS)
                     .strength(3.0F)
                     .noOcclusion()
-                    .pushReaction(PushReaction.DESTROY)
+                    .pushReaction(PushReaction.POPPED)
                     .sound(SoundType.WOOD).ignitedByLava()
     );
     public static final Block BAOBAB_TRAPDOOR = register(
@@ -148,15 +153,13 @@ public class BlockRegistry {
                     .instrument(NoteBlockInstrument.BASS)
                     .noCollision()
                     .strength(0.5F)
-                    .pushReaction(PushReaction.DESTROY).ignitedByLava()
+                    .pushReaction(PushReaction.POPPED).ignitedByLava()
     );
-    public static final Block BAOBAB_BUTTON = register(
-            "baobab_button",settings -> new ButtonBlock(BAOBAB_BLOCKSETTYPE, 30, settings), buttonProperties().ignitedByLava()
-    );
-    public static final Block BAOBAB_LEAVES = register("baobab_leaves", settings -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, -9399763), settings), leavesProperties(SoundType.GRASS));
-    public static final Block BAOBAB_SAPLING = register("baobab_sapling",(settings) -> new SaplingBlock(new TreeGrower("nekomasfixed:baobab",  Optional.of(ModConfiguredFeatures.BAOBAB_KEY),Optional.empty(), Optional.empty()),  settings), BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING));
-    public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, BlockBehaviour.Properties.of().randomTicks().strength(0.2f).isViewBlocking(BlockRegistry::never).ignitedByLava().instabreak());
-    public static final Block ROPE = register("rope", RopeBlock::new, BlockBehaviour.Properties.of().strength(0.2f).isRedstoneConductor(BlockRegistry::never).ignitedByLava().noCollision());
+    public static final Block BAOBAB_BUTTON = register("baobab_button",settings -> new ButtonBlock(BAOBAB_BLOCKSETTYPE, 30, settings), buttonProperties().ignitedByLava());
+    public static final Block BAOBAB_LEAVES = register("baobab_leaves", settings -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, -9399763), AmbientLeavesBlockSoundPlayer.noAmbientSound(), settings), leavesProperties(SoundType.GRASS));
+    public static final Block BAOBAB_SAPLING = register("baobab_sapling", (settings) -> new SaplingBlock(new TreeGrower("nekomasfixed:baobab", WeightedList.of(ModFeatures.BAOBAB_KEY), WeightedList.of(), WeightedList.of(), null), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING));
+    public static final Block BAOBAB_FRUIT = register("baobab_fruit", BaobabFruitBlock::new, BlockBehaviour.Properties.of().randomTicks().strength(0.2f).isViewBlocking((state, getter, pos, dir) -> false).ignitedByLava().instabreak());
+    public static final Block ROPE = register("rope", RopeBlock::new, BlockBehaviour.Properties.of().strength(0.2f).isRedstoneConductor(Blocks::never).ignitedByLava().noCollision());
     public static final Block BAOBAB_SHELF = register(
             "baobab_shelf",
             ShelfBlock::new,
@@ -198,15 +201,16 @@ public class BlockRegistry {
     public static final Block HOLLOW_MANGROVE_LOG = register("hollow_mangrove_log", HollowLogBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_LOG).lightLevel(state -> state.getValue(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_CHERRY_LOG = register("hollow_cherry_log", HollowLogBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.CHERRY_LOG).lightLevel(state -> state.getValue(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_PALE_OAK_LOG = register("hollow_pale_oak_log", HollowLogBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.PALE_OAK_LOG).lightLevel(state -> state.getValue(HollowLogBlock.LIGHT_LEVEL)));
+    public static final Block HOLLOW_POPLAR_LOG = register("hollow_poplar_log", HollowLogBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.POPLAR_LOG).lightLevel(state -> state.getValue(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_BAMBOO_BLOCK = register("hollow_bamboo_block", HollowLogBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_BLOCK).lightLevel(state -> state.getValue(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_CRIMSON_STEM = register("hollow_crimson_stem", HollowLogBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_HYPHAE).lightLevel(state -> state.getValue(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_WARPED_STEM = register("hollow_warped_stem", HollowLogBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.WARPED_HYPHAE).lightLevel(state -> state.getValue(HollowLogBlock.LIGHT_LEVEL)));
     public static final Block HOLLOW_BAOBAB_LOG = register("hollow_baobab_log", HollowLogBlock::new , BlockBehaviour.Properties.ofFullCopy(BAOBAB_LOG).lightLevel(state -> state.getValue(HollowLogBlock.LIGHT_LEVEL)));
 
 
-    public static final Block GOAT_HORN = register("horn", GoatHornBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).lightLevel(state -> state.getValue(GoatHornBlock.TORCH).getLight()).strength(0.2F).sound(SoundType.TUFF).pushReaction(PushReaction.DESTROY));
-    public static final Block CLOCK = registerVanilla("clock", FloorClockBlock::new, BlockBehaviour.Properties.of().noCollision().mapColor(MapColor.COLOR_YELLOW).strength(0.2F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY));
-    public static final Block WALL_CLOCK = registerVanilla("wall_clock", WallClockBlock::new, copyLootTable(CLOCK, true).noCollision().mapColor(MapColor.COLOR_YELLOW).strength(0.2F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY));
+    public static final Block GOAT_HORN = register("horn", GoatHornBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).lightLevel(state -> state.getValue(GoatHornBlock.TORCH).getLight()).strength(0.2F).sound(SoundType.TUFF).pushReaction(PushReaction.POPPED));
+    public static final Block CLOCK = registerVanilla("clock", FloorClockBlock::new, BlockBehaviour.Properties.of().noCollision().mapColor(MapColor.COLOR_YELLOW).strength(0.2F).sound(SoundType.METAL).pushReaction(PushReaction.POPPED));
+    public static final Block WALL_CLOCK = registerVanilla("wall_clock", WallClockBlock::new, copyLootTable(CLOCK, true).noCollision().mapColor(MapColor.COLOR_YELLOW).strength(0.2F).sound(SoundType.METAL).pushReaction(PushReaction.POPPED));
     public static Block HONEY_CAULDRON = null;
     public static Block MAGMA_CAULDRON = null;
     public static Block SLIME_CAULDRON = null;
@@ -331,7 +335,7 @@ public class BlockRegistry {
     public static final Block AQUA_BRICK_STAIRS = registerOldStairsBlock("aqua_brick_stairs", AQUA_BRICKS);
     public static final Block INDIGO_BRICK_STAIRS = registerOldStairsBlock("indigo_brick_stairs", INDIGO_BRICKS);
     public static final Block MAROON_BRICK_STAIRS = registerOldStairsBlock("maroon_brick_stairs", MAROON_BRICKS);
-    
+
     public static final Block WHITE_BRICK_WALL = register("white_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofLegacyCopy(WHITE_BRICKS).forceSolidOn());
     public static final Block LIGHT_GRAY_BRICK_WALL = register("light_gray_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofLegacyCopy(LIGHT_GRAY_BRICKS).forceSolidOn());
     public static final Block GRAY_BRICK_WALL = register("gray_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofLegacyCopy(GRAY_BRICKS).forceSolidOn());
@@ -436,7 +440,7 @@ public class BlockRegistry {
     }
 
     public static BlockBehaviour.Properties createCandleSettings(MapColor mapColor) {
-        return BlockBehaviour.Properties.of().mapColor(mapColor).noOcclusion().strength(0.1F).sound(SoundType.CANDLE).lightLevel(CandleBlock.LIGHT_EMISSION).pushReaction(PushReaction.DESTROY);
+        return BlockBehaviour.Properties.of().mapColor(mapColor).noOcclusion().strength(0.1F).sound(SoundType.CANDLE).lightLevel(CandleBlock.LIGHT_EMISSION).pushReaction(PushReaction.POPPED);
     }
     private static BlockBehaviour.Properties copyLootTable(Block block, boolean copyTranslationKey) {
         BlockBehaviour.Properties settings = BlockBehaviour.Properties.of().overrideLootTable(block.getLootTable());
@@ -448,7 +452,7 @@ public class BlockRegistry {
     }
 
     private static Block registerStainedGlassBlock(String id, DyeColor color) {
-        return register(id, (settings) -> new StainedGlassBlock(color, settings), BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.HAT).strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never));
+        return register(id, (settings) -> new StainedGlassBlock(color, settings), BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.HAT).strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking((state, getter, pos, dir) -> false));
     }
 
     private static Block registerStainedGlassPaneBlock(String id, DyeColor color) {
@@ -459,9 +463,6 @@ public class BlockRegistry {
     }
     private static Block registerOldStairsBlock(String id, Block base) {
         return register(id, settings -> new StairBlock(base.defaultBlockState(), settings), BlockBehaviour.Properties.ofLegacyCopy(base));
-    }
-    public static boolean never(BlockState state, BlockGetter world, BlockPos pos) {
-        return false;
     }
 
     private static Block registerBedBlock(String id, DyeColor color) {
@@ -476,10 +477,10 @@ public class BlockRegistry {
                         .bounceRestitution(0.75F)
                         .noOcclusion()
                         .ignitedByLava()
-                        .pushReaction(PushReaction.DESTROY)
+                        .pushReaction(PushReaction.POPPED)
         );
     }
-	
+
     public static void registerBlocks() {
         System.out.println("register Blocks");
         HONEY_CAULDRON = register("honey_cauldron", HoneyCauldronBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
@@ -498,8 +499,5 @@ public class BlockRegistry {
         fireBlock.setFlammable(BAOBAB_WOOD, 5, 5);
         fireBlock.setFlammable(STRIPPED_BAOBAB_LOG, 5, 5);
         fireBlock.setFlammable(STRIPPED_BAOBAB_LOG, 5, 5);
-
-        StrippableBlockRegistry.register(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-        StrippableBlockRegistry.register(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
     }
 }

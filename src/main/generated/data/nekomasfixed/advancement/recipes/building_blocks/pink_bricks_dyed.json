@@ -23,7 +23,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:pink_bricks_dyed"
+        "recipes": [
+          "nekomasfixed:pink_bricks_dyed"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

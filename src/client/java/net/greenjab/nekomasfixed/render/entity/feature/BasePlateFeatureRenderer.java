@@ -33,6 +33,6 @@ public class BasePlateFeatureRenderer extends RenderLayer<TargetDummyRenderState
 		int j = LivingEntityRenderer.getOverlayCoords(targetDummyRenderState, 0.0F);
 		RenderType renderLayer = RenderTypes.entitySolid(TEXTURE);
 		orderedRenderCommandQueue.submitModel(this.model, targetDummyRenderState, matrixStack, renderLayer, i, j,
-				targetDummyRenderState.outlineColor, null);
+				-1, null, targetDummyRenderState.outlineColor);
 	}
 }

@@ -23,7 +23,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:indigo_brick_slab_dyed"
+        "recipes": [
+          "nekomasfixed:indigo_brick_slab_dyed"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

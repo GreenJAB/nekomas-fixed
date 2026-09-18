@@ -55,21 +55,21 @@ public class SpearRenderer extends EntityRenderer<SpearEntity, SpearRenderState>
 			Direction dir = spearRenderState.direction;
 			if (dir.getAxis().isHorizontal()) {
 				matrixStack.translate(new Vec3(0, -0.13, 0));
-				matrixStack.mulPose(Axis.ZP.rotationDegrees(90));
-				matrixStack.mulPose(Axis.XP.rotationDegrees(-dir.toYRot()+90));
+				matrixStack.rotate(Axis.ZP.rotationDegrees(90));
+				matrixStack.rotate(Axis.XP.rotationDegrees(-dir.toYRot()+90));
 			} else if (dir == Direction.DOWN) {
-				matrixStack.mulPose(Axis.ZP.rotationDegrees(180));
+				matrixStack.rotate(Axis.ZP.rotationDegrees(180));
 			}
 
 			matrixStack.translate(new Vec3(0, -1.1+Math.min(-Math.abs((spearRenderState.ageInTicks-10)/5)+2,1), 0));
-			matrixStack.mulPose(Axis.YP.rotationDegrees(45));
-			matrixStack.mulPose(Axis.ZP.rotationDegrees(-45));
+			matrixStack.rotate(Axis.YP.rotationDegrees(45));
+			matrixStack.rotate(Axis.ZP.rotationDegrees(-45));
 			matrixStack.scale(1, 1, 0.01f);
 			itemStackRenderState.submit(matrixStack, orderedRenderCommandQueue, spearRenderState.light, OverlayTexture.NO_OVERLAY, 0);
 			matrixStack.scale(1, 1, 100f);
-			matrixStack.mulPose(Axis.ZP.rotationDegrees(45));
-			matrixStack.mulPose(Axis.YP.rotationDegrees(90));
-			matrixStack.mulPose(Axis.ZP.rotationDegrees(-45));
+			matrixStack.rotate(Axis.ZP.rotationDegrees(45));
+			matrixStack.rotate(Axis.YP.rotationDegrees(90));
+			matrixStack.rotate(Axis.ZP.rotationDegrees(-45));
 			matrixStack.scale(1, 1, 0.01f);
 			itemStackRenderState.submit(matrixStack, orderedRenderCommandQueue, spearRenderState.light, OverlayTexture.NO_OVERLAY, 0);
 			matrixStack.scale(1, 1, 100f);

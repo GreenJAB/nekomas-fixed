@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:purple_brick_wall"
+        "recipes": [
+          "nekomasfixed:purple_brick_wall"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:amber_bed"
+        "recipes": [
+          "nekomasfixed:amber_bed"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -23,7 +23,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:gray_brick_wall_dyed"
+        "recipes": [
+          "nekomasfixed:gray_brick_wall_dyed"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:indigo_shulker_box"
+        "recipes": [
+          "nekomasfixed:indigo_shulker_box"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

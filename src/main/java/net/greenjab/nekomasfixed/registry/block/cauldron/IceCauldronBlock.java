@@ -27,14 +27,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
 
 public class IceCauldronBlock extends AbstractCauldronBlock {
-    public static final MapCodec<IceCauldronBlock> CODEC = simpleCodec(IceCauldronBlock::new);
     private static final VoxelShape ICE_SHAPE = Block.column(12.0, 4.0, 15.0);
     private static final VoxelShape INSIDE_COLLISION_SHAPE = Shapes.or(AbstractCauldronBlock.SHAPE, ICE_SHAPE);
-
-    @Override
-    public @NonNull MapCodec<IceCauldronBlock> codec() {
-        return CODEC;
-    }
 
     public IceCauldronBlock(BlockBehaviour.Properties settings) {
         super(settings, createBehaviorMap());

@@ -15,6 +15,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -26,7 +27,6 @@ import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import org.jspecify.annotations.Nullable;
 
 public class BaobabFruitBlock extends Block implements BonemealableBlock {
-    public static final MapCodec<BaobabFruitBlock> CODEC = simpleCodec(BaobabFruitBlock::new);
     private static final VoxelShape SHAPE_AGE_0 = Block.box(7, 6, 7, 9, 9, 9);
     private static final VoxelShape SHAPE_AGE_1 = Block.box(5, 0, 5, 11, 9, 11);
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 1);
@@ -99,17 +99,18 @@ public class BaobabFruitBlock extends Block implements BonemealableBlock {
         return !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
-    public boolean isValidBonemealTarget(@NonNull LevelReader level, @NonNull BlockPos pos, BlockState state) {
+    @Override
+    public boolean isValidBonemealTarget(@NonNull LevelReader level, @NonNull BlockPos pos, BlockState state, BonemealSource source) {
         return state.getValue(AGE) < 1;
     }
 
     @Override
-    public boolean isBonemealSuccess(@NonNull Level level, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state) {
+    public boolean isBonemealSuccess(@NonNull Level level, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(@NonNull ServerLevel level, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state) {
+    public void performBonemeal(@NonNull ServerLevel level, @NonNull RandomSource random, @NonNull BlockPos pos, @NonNull BlockState state, BonemealSource source) {
         if(this.defaultBlockState().getValue(AGE) < 1){
             level.setBlock(pos, state.setValue(AGE, 1), 2);
         }

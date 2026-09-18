@@ -3,7 +3,9 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:slingshot"
+        "recipes": [
+          "nekomasfixed:slingshot"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     },

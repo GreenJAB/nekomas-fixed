@@ -5,8 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractBedBlock;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -20,35 +21,41 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(BedBlock.class)
+@Mixin(AbstractBedBlock.class)
 public class BedBlockMixin implements MessyBedAccessor {
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void setDefaultState(DyeColor color, BlockBehaviour.Properties properties, CallbackInfo ci) {
-        BedBlock self = (BedBlock)(Object)this;
+    private void setDefaultState(BlockBehaviour.Properties properties, CallbackInfo ci) {
+        if (!((Object) this instanceof BedBlock)) return;
+
+        AbstractBedBlock self = (AbstractBedBlock)(Object)this;
         if (self.defaultBlockState().hasProperty(MessyBedAccessor.MESSY))
             self.registerDefaultState(self.defaultBlockState().setValue(MessyBedAccessor.MESSY, false));
     }
 
     @Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
     protected void appendProperties(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
+        if (!((Object) this instanceof BedBlock)) return;
         builder.add(MessyBedAccessor.MESSY);
     }
 
-    @Inject(method =  "useWithoutItem", at = @At("HEAD"), cancellable = true)
-        protected void onUse(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
-        if(!level.isClientSide()){
-            BlockPos otherPos = state.getValue(BedBlock.PART) == BedPart.FOOT ? pos.relative(state.getValue(BedBlock.FACING)) :pos.relative(state.getValue(BedBlock.FACING).getOpposite()) ;
-            if(player.isShiftKeyDown() && player.getMainHandItem().isEmpty() && state.getValue(MessyBedAccessor.MESSY)){
+    @Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
+    protected void onUse(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
+        if (!((Object) this instanceof BedBlock)) return;
+
+        if (!level.isClientSide()) {
+            BlockPos otherPos = state.getValue(AbstractBedBlock.PART) == BedPart.FOOT ? pos.relative(state.getValue(AbstractBedBlock.FACING)) : pos.relative(state.getValue(AbstractBedBlock.FACING).getOpposite());
+
+            if (player.isShiftKeyDown() && player.getMainHandItem().isEmpty() && state.getValue(MessyBedAccessor.MESSY)) {
                 BlockState otherState = level.getBlockState(otherPos);
                 level.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.MESSY, false));
                 level.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.MESSY, false));
-                player.swing(InteractionHand.MAIN_HAND, true);
+                player.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
             }
 
-            if(level.isDarkOutside() && !state.getValue(MessyBedAccessor.MESSY) && !state.getValue(BedBlock.OCCUPIED)){
+            if (level.isDarkOutside() && !state.getValue(MessyBedAccessor.MESSY) && !state.getValue(AbstractBedBlock.OCCUPIED)) {
                 BlockState otherState = level.getBlockState(otherPos);
                 level.setBlockAndUpdate(pos, state.setValue(MessyBedAccessor.MESSY, true));
                 level.setBlockAndUpdate(otherPos, otherState.setValue(MessyBedAccessor.MESSY, true));

@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:magenta_brick_slab"
+        "recipes": [
+          "nekomasfixed:magenta_brick_slab"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -27,9 +27,6 @@ import org.jspecify.annotations.Nullable;
 public abstract class AbstractEndermanHeadBlock extends BaseEntityBlock {
 	public static final IntegerProperty POWER = BlockStateProperties.POWER;
 
-	@Override
-	public abstract @NonNull MapCodec<? extends AbstractEndermanHeadBlock> codec();
-
 	public AbstractEndermanHeadBlock(Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(POWER, 0));

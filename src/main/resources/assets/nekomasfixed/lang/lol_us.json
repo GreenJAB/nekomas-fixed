@@ -71,7 +71,7 @@
   "item.nekomasfixed.smithing_template.ingredients_shield_trident": "HOT SHIELDS & Dingleuhhhhhh",
   "item.nekomasfixed.wildfire_trident": "Hot Fork",
   "item.nekomasfixed.wildfire_shield": "THIS SHIELD IS VERY HOT!",
-  "item.nekomasfixed.jewel_armor_trim_smithing_template.new": "Template of John Smith"
+  "item.nekomasfixed.jewel_armor_trim_smithing_template.new": "Template of John Smith",
 "item.nekomasfixed.jewel_armor_trim_smithing_template": "Big Stone in you",
   "trim_pattern.nekomasfixed:jewel": "you are king of this world huh? ",
 
@@ -90,7 +90,7 @@
   "item.nekomasfixed.golden_sickle": "Combo x... Ohhh, its broke:(",
   "item.nekomasfixed.copper_sickle": "COMBO X2, COMBO X3, and i missed again, i suck:( ",
   "item.nekomasfixed.diamond_sickle": "Combo X2, COMBO X3, COMBO X4, COMBO X5, wait, NOOOO I WAS PREPARING FOR A CRITICAL ONE!",
-  "item.nekomasfixed.netherite_sickle": "COMBO X2, COMBO X3, COMBO X4, COMBO X5 AND CRITICAL HIT, I FINALLY GOT THAT HIT,
+  "item.nekomasfixed.netherite_sickle": "COMBO X2, COMBO X3, COMBO X4, COMBO X5 AND CRITICAL HIT, I FINALLY GOT THAT HIT",
   "component.nekomasfixed.combo": "MOJANG SPECIFICATIONS: %s",
   "component.nekomasfixed.duel_wield": "Can YOU SPECIFICATE THOSE VILLAGERS?",
 
@@ -145,6 +145,7 @@
   "block.nekomasfixed.hollow_mangrove_log": "Hollow Knight: Frogs Paradise",
   "block.nekomasfixed.hollow_cherry_log": "Hollow Knight: Japanese",
   "block.nekomasfixed.hollow_pale_oak_log": "Hollow Knight: Creepy",
+  "block.nekomasfixed.hollow_poplar_log": "Hollow Knight: Poplar droppler",
   "block.nekomasfixed.hollow_bamboo_block": "Hollow Knight: Bangboo",
   "block.nekomasfixed.hollow_crimson_stem": "Hollow Knight: Red Nether Mushyroom",
   "block.nekomasfixed.hollow_warped_stem": "Hollow Knight: Same thing, but Blue",

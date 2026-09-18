@@ -1,0 +1,39 @@
+[
+  {
+    "block_state_provider": {
+      "type": "minecraft:rule_based",
+      "rules": [
+        {
+          "if_true": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "nekomasfixed:baobab_wood"
+          },
+          "then": {
+            "type": "minecraft:copy_properties",
+            "source": {
+              "id": "nekomasfixed:stripped_baobab_wood",
+              "properties": {
+                "axis": "y"
+              }
+            }
+          }
+        },
+        {
+          "if_true": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "nekomasfixed:baobab_log"
+          },
+          "then": {
+            "type": "minecraft:copy_properties",
+            "source": {
+              "id": "nekomasfixed:stripped_baobab_log",
+              "properties": {
+                "axis": "y"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+]

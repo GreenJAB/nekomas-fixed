@@ -47,7 +47,6 @@ import java.util.Map;
 public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock {
     public static final IntegerProperty SLICES = IntegerProperty.create("slices", 1, 21);
     public static final BooleanProperty CANDLE = BooleanProperty.create("candle");
-    public static final MapCodec<StackedCakeBlock> CODEC = simpleCodec(StackedCakeBlock::new);
     private static final Map<Integer, VoxelShape[]> SHAPES_BY_BITES_AND_LAYER = new HashMap<>();
     private static final Map<Integer, VoxelShape> CANDLE_SHAPES = new HashMap<>();
 
@@ -76,9 +75,6 @@ public class StackedCakeBlock extends AbstractCandleBlock implements EntityBlock
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SLICES, CANDLE, LIT);
     }
-
-    @Override
-    public @NonNull MapCodec<StackedCakeBlock> codec(){return CODEC;}
 
     static {
         for (int height = 0; height < 3; height++) {

@@ -33,7 +33,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:redstone_striker"
+        "recipes": [
+          "nekomasfixed:redstone_striker"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

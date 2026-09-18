@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dark_oak_planks_from_hollow_log"
+        "recipes": [
+          "nekomasfixed:dark_oak_planks_from_hollow_log"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

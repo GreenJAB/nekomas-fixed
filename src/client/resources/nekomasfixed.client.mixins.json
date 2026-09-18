@@ -15,7 +15,7 @@
     "MinecartModelMixin",
     "MinecraftMixin",
     "MultiPlayerGameModeMixin",
-    "NameTagFeatureRendererMixin",
+    "TextFeatureRendererMixin",
     "NameTagFeatureRendererStorageMixin",
     "ParticleEngineMixin",
     "ParticleResourcesMixin",

@@ -18,21 +18,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
 
 public class FloorEndermanHeadHead extends AbstractEndermanHeadBlock {
-	public static final MapCodec<FloorEndermanHeadHead> CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-					propertiesCodec()
-			).apply(instance, FloorEndermanHeadHead::new)
-	);
 	public static final int MAX_ROTATION_INDEX = RotationSegment.getMaxSegmentIndex();
 	private static final int MAX_ROTATIONS = MAX_ROTATION_INDEX + 1;
 	public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
 	private static final VoxelShape SHAPE = Block.column(8.0, 0.0, 8.0);
 	private static final VoxelShape SHAPE_POWERED = Block.column(8.0, 0.0, 13.0);
-
-	@Override
-	public @NonNull MapCodec<? extends FloorEndermanHeadHead> codec() {
-		return CODEC;
-	}
 
 	public FloorEndermanHeadHead(Properties settings) {
 		super(settings);

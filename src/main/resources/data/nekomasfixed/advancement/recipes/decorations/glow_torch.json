@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:glow_torch"
+        "recipes": [
+          "nekomasfixed:glow_torch"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

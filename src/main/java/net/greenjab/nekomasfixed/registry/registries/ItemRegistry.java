@@ -22,7 +22,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BedItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.BundleItem;
@@ -32,7 +31,6 @@ import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
@@ -43,6 +41,7 @@ import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.waypoints.Waypoint;
 import java.util.List;
 import java.util.Optional;
@@ -176,7 +175,7 @@ public class ItemRegistry {
     public static final Item ROPE = register(BlockRegistry.ROPE, RopeItem::new);
     public static final Item BAOBAB_SHELF = register(BlockRegistry.BAOBAB_SHELF);
     public static final Item BAOBAB_SIGN = register(BlockRegistry.BAOBAB_SIGN, (block, settings) ->
-            new SignItem(block, BlockRegistry.BAOBAB_WALL_SIGN, settings), new Item.Properties().stacksTo(16));
+            new StandingAndWallBlockItem(block, BlockRegistry.BAOBAB_WALL_SIGN, Direction.DOWN, settings), new Item.Properties().stacksTo(16));
     public static final Item BAOBAB_HANGING_SIGN = register(BlockRegistry.BAOBAB_HANGING_SIGN,(block, settings) ->
             new HangingSignItem(block, BlockRegistry.BAOBAB_WALL_HANGING_SIGN, settings), new Item.Properties().stacksTo(16));
     public static final Item BAOBAB_BOAT = register("baobab_boat", settings ->
@@ -196,6 +195,7 @@ public class ItemRegistry {
     public static final Item HOLLOW_MANGROVE_LOG = register(BlockRegistry.HOLLOW_MANGROVE_LOG);
     public static final Item HOLLOW_CHERRY_LOG = register(BlockRegistry.HOLLOW_CHERRY_LOG);
     public static final Item HOLLOW_PALE_OAK_LOG = register(BlockRegistry.HOLLOW_PALE_OAK_LOG);
+    public static final Item HOLLOW_POPLAR_LOG = register(BlockRegistry.HOLLOW_POPLAR_LOG);
     public static final Item HOLLOW_BAMBOO_BLOCK = register(BlockRegistry.HOLLOW_BAMBOO_BLOCK);
     public static final Item HOLLOW_WARPED_STEM = register(BlockRegistry.HOLLOW_WARPED_STEM);
     public static final Item HOLLOW_CRIMSON_STEM = register(BlockRegistry.HOLLOW_CRIMSON_STEM);
@@ -279,10 +279,10 @@ public class ItemRegistry {
     public static final Item INDIGO_SHULKER_BOX = register(BlockRegistry.INDIGO_SHULKER_BOX, new Item.Properties().stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
     public static final Item MAROON_SHULKER_BOX = register(BlockRegistry.MAROON_SHULKER_BOX, new Item.Properties().stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
 
-    public static final Item AMBER_BED = register(BlockRegistry.AMBER_BED, BedItem::new, (new Item.Properties()).stacksTo(1));
-    public static final Item AQUA_BED = register(BlockRegistry.AQUA_BED, BedItem::new, (new Item.Properties()).stacksTo(1));
-    public static final Item INDIGO_BED = register(BlockRegistry.INDIGO_BED, BedItem::new, (new Item.Properties()).stacksTo(1));
-    public static final Item MAROON_BED = register(BlockRegistry.MAROON_BED, BedItem::new, (new Item.Properties()).stacksTo(1));
+    public static final Item AMBER_BED = register(BlockRegistry.AMBER_BED, BlockItem::new, (new Item.Properties()).stacksTo(1));
+    public static final Item AQUA_BED = register(BlockRegistry.AQUA_BED, BlockItem::new, (new Item.Properties()).stacksTo(1));
+    public static final Item INDIGO_BED = register(BlockRegistry.INDIGO_BED, BlockItem::new, (new Item.Properties()).stacksTo(1));
+    public static final Item MAROON_BED = register(BlockRegistry.MAROON_BED, BlockItem::new, (new Item.Properties()).stacksTo(1));
 
     public static final Item AMBER_CANDLE = register(BlockRegistry.AMBER_CANDLE);
     public static final Item AQUA_CANDLE = register(BlockRegistry.AQUA_CANDLE);

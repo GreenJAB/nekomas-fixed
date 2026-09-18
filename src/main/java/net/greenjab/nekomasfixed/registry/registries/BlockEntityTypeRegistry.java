@@ -46,6 +46,7 @@ public class BlockEntityTypeRegistry {
                     BlockRegistry.HOLLOW_MANGROVE_LOG,
                     BlockRegistry.HOLLOW_CHERRY_LOG,
                     BlockRegistry.HOLLOW_PALE_OAK_LOG,
+                    BlockRegistry.HOLLOW_POPLAR_LOG,
                     BlockRegistry.HOLLOW_BAMBOO_BLOCK,
                     BlockRegistry.HOLLOW_CRIMSON_STEM,
                     BlockRegistry.HOLLOW_WARPED_STEM,

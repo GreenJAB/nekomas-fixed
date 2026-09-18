@@ -23,7 +23,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:aqua_dyed_brush"
+        "recipes": [
+          "nekomasfixed:aqua_dyed_brush"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

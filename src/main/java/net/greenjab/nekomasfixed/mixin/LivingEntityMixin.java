@@ -74,7 +74,7 @@ public abstract class LivingEntityMixin {
     }
 
     @Inject(method = "blockUsingItem", at = @At("HEAD"))
-    private void onShieldHit(ServerLevel level, LivingEntity attacker, DamageSource source, float damage, CallbackInfo ci) {
+    private void onShieldHit(ServerLevel level, LivingEntity attacker, DamageSource source, float damage, boolean fullyBlocked, CallbackInfo ci) {
         LivingEntity defender = (LivingEntity)(Object)this;
         ItemStack activeItem = defender.getUseItem();
 

@@ -109,6 +109,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.HOLLOW_MANGROVE_LOG);
                         entries.accept(ItemRegistry.HOLLOW_CHERRY_LOG);
                         entries.accept(ItemRegistry.HOLLOW_PALE_OAK_LOG);
+                        entries.accept(ItemRegistry.HOLLOW_POPLAR_LOG);
                         entries.accept(ItemRegistry.HOLLOW_BAMBOO_BLOCK);
                         entries.accept(ItemRegistry.HOLLOW_CRIMSON_STEM);
                         entries.accept(ItemRegistry.HOLLOW_WARPED_STEM);

@@ -1,0 +1,6 @@
+{
+  "type": "nekomasfixed:geyser_feature",
+  "to_place": {
+    "id": "nekomasfixed:geyser"
+  }
+}
