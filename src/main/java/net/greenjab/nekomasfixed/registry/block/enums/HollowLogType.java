@@ -26,17 +26,16 @@ public enum HollowLogType {
     BAOBAB(BlockRegistry.BAOBAB_LOG, BlockRegistry.HOLLOW_BAOBAB_LOG);
 
     private static final Map<Block, Block> BASE_TO_HOLLOW = new HashMap<>();
+    // Stripping a hollow log with an axe yields its stripped variant. Both
+    // share the same HollowLogBlockEntity type, so vanilla keeps the block
+    // entity (and its stored contents) across the swap.
+    private static final Map<Block, Block> HOLLOW_TO_STRIPPED = new HashMap<>();
 
     static {
         for (HollowLogType type : values()) {
             BASE_TO_HOLLOW.put(type.baseLog, type.hollowLog);
         }
     }
-
-    // Stripping a hollow log with an axe yields its stripped variant. Both
-    // share the same HollowLogBlockEntity type, so vanilla keeps the block
-    // entity (and its stored contents) across the swap.
-    private static final Map<Block, Block> HOLLOW_TO_STRIPPED = new HashMap<>();
 
     static {
         HOLLOW_TO_STRIPPED.put(BlockRegistry.HOLLOW_OAK_LOG, BlockRegistry.HOLLOW_STRIPPED_OAK_LOG);
@@ -53,16 +52,16 @@ public enum HollowLogType {
         HOLLOW_TO_STRIPPED.put(BlockRegistry.HOLLOW_BAOBAB_LOG, BlockRegistry.HOLLOW_STRIPPED_BAOBAB_LOG);
     }
 
-    public static Block getStrippedBlock(Block hollowLog) {
-        return HOLLOW_TO_STRIPPED.get(hollowLog);
-    }
-
     private final Block baseLog;
     private final Block hollowLog;
 
     HollowLogType(Block baseLog, Block hollowLog) {
         this.baseLog = baseLog;
         this.hollowLog = hollowLog;
+    }
+
+    public static Block getStrippedBlock(Block hollowLog) {
+        return HOLLOW_TO_STRIPPED.get(hollowLog);
     }
 
     public static Block getHollowBlock(Block baseLog) {

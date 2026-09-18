@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.BaobabBoat;
 import net.greenjab.nekomasfixed.registry.entity.BaobabChestBoat;
+import net.greenjab.nekomasfixed.registry.entity.Moobloom.Moobloom;
 import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectile;
 import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
 import net.minecraft.core.Registry;
@@ -40,6 +41,13 @@ public class EntityTypeRegistry {
                     .sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
     );
 
+    // Moobloom: a flower cow. CREATURE + cow dimensions (main's 26.x AMBIENT/1x1 was loose).
+    public static final EntityType<Moobloom> MOOBLOOM = register(
+            "moobloom",
+            EntityType.Builder.<Moobloom>of(Moobloom::new, MobCategory.CREATURE)
+                    .sized(0.9F, 1.4F).eyeHeight(1.3F).passengerAttachments(1.36875F).clientTrackingRange(10)
+    );
+
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE,
                 ResourceKey.create(Registries.ENTITY_TYPE, NekomasFixed.id(id)),
@@ -48,6 +56,7 @@ public class EntityTypeRegistry {
 
     public static void registerEntityType() {
         FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummy.createTargetDummyAttributes().build());
+        FabricDefaultAttributeRegistry.register(MOOBLOOM, Moobloom.createAttributes());
         NekomasFixed.LOGGER.info("Registering entity types");
     }
 }

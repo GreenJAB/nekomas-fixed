@@ -6,11 +6,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 public class EnchantmentRegistry {
+    public static final ResourceKey<Enchantment> LEECHING = of("leeching");
+
     public static void registerEnchantments() {
         NekomasFixed.LOGGER.info("Registering enchantments");
     }
-
-    public static final ResourceKey<Enchantment> LEECHING = of("leeching");
 
     private static ResourceKey<Enchantment> of(String id) {
         return ResourceKey.create(Registries.ENCHANTMENT, NekomasFixed.id(id));

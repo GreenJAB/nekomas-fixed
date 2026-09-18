@@ -1,8 +1,5 @@
 package net.greenjab.nekomasfixed.registry.item;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectile;
 import net.greenjab.nekomasfixed.util.ModTags;
@@ -15,18 +12,26 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ProjectileWeaponItem;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.NonNull;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 public class SlingshotItem extends ProjectileWeaponItem {
+
+    public static final Predicate<ItemStack> SLINGSHOT_PROJECTILES = stack -> stack.is(ModTags.SLINGSHOT_PROJECTILES);
 
     public SlingshotItem(Item.Properties settings) {
         super(settings);
+    }
+
+    public static float getPullProgress(int useTicks) {
+        float f = useTicks / 20.0F;
+        f = (f * f + f * 2.0F) / 1.5F;
+        if (f > 1.0F) f = 1.0F;
+        return f;
     }
 
     @Override
@@ -62,13 +67,6 @@ public class SlingshotItem extends ProjectileWeaponItem {
         projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot() + yaw, 0.0F, speed, divergence);
     }
 
-    public static float getPullProgress(int useTicks) {
-        float f = useTicks / 20.0F;
-        f = (f * f + f * 2.0F) / 1.5F;
-        if (f > 1.0F) f = 1.0F;
-        return f;
-    }
-
     @Override
     public int getUseDuration(@NonNull ItemStack stack, @NonNull LivingEntity user) {
         return 72000;
@@ -87,8 +85,6 @@ public class SlingshotItem extends ProjectileWeaponItem {
         user.startUsingItem(hand);
         return InteractionResultHolder.consume(itemStack);
     }
-
-    public static final Predicate<ItemStack> SLINGSHOT_PROJECTILES = stack -> stack.is(ModTags.SLINGSHOT_PROJECTILES);
 
     @Override
     public @NonNull Predicate<ItemStack> getAllSupportedProjectiles() {

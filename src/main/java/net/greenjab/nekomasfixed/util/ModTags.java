@@ -22,6 +22,8 @@ public class ModTags {
     // Stripped hollow logs (axe-stripped variants of the above).
     public static final TagKey<Block> STRIPPED_HOLLOW_LOGS = blockTag("stripped_hollow_logs");
     public static final TagKey<Item> STRIPPED_HOLLOW_LOGS_ITEM = itemTag("stripped_hollow_logs");
+    // Moobloom food: the flowers a moobloom eats / is tempted by.
+    public static final TagKey<Item> MOOBLOOM_FLOWERS = itemTag("moobloom_flowers");
 
     // Colour-suite tags (block + item, mirroring the committed JSON pairs).
     public static final TagKey<Block> BRICKS = blockTag("bricks");

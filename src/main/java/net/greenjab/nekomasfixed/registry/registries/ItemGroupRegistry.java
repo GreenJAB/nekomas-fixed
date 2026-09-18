@@ -53,6 +53,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.PEARL_BLOCK);
                         entries.accept(ItemRegistry.REDSTONE_STRIKER);
                         entries.accept(ItemRegistry.TARGET_DUMMY);
+                        entries.accept(ItemRegistry.MOOBLOOM_SPAWN_EGG);
                         entries.accept(ItemRegistry.TURTLE_CHESTPLATE);
                         entries.accept(ItemRegistry.TURTLE_LEGGINGS);
                         entries.accept(ItemRegistry.TURTLE_BOOTS);

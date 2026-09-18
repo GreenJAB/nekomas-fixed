@@ -11,7 +11,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +19,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
+
+    @Unique
+    private static void spawnCloud(Arrow arrowEntity, Level level, double x, double y, double z) {
+        ItemStack arrow = arrowEntity.getPickupItemStackOrigin();
+        PotionContents contents = arrow.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+        if (contents != PotionContents.EMPTY) {
+            AreaEffectCloud cloud = new AreaEffectCloud(level, x, y, z);
+            cloud.setRadius(2.0F);
+            cloud.setRadiusOnUse(0.0F);
+            cloud.setDuration(100);
+            cloud.setWaitTime(5);
+            cloud.setPotionContents(contents);
+            cloud.setRadiusPerTick(-cloud.getRadius() / (float) cloud.getDuration());
+            level.addFreshEntity(cloud);
+            arrowEntity.addTag("areaEffect");
+        }
+    }
 
     // Tipped arrow leaving a lingering cloud on an entity hit.
     @Inject(method = "doPostHurtEffects", at = @At("HEAD"))
@@ -46,22 +62,5 @@ public abstract class AbstractArrowMixin {
             return Items.ARROW.getDefaultInstance();
         }
         return original;
-    }
-
-    @Unique
-    private static void spawnCloud(Arrow arrowEntity, Level level, double x, double y, double z) {
-        ItemStack arrow = arrowEntity.getPickupItemStackOrigin();
-        PotionContents contents = arrow.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-        if (contents != PotionContents.EMPTY) {
-            AreaEffectCloud cloud = new AreaEffectCloud(level, x, y, z);
-            cloud.setRadius(2.0F);
-            cloud.setRadiusOnUse(0.0F);
-            cloud.setDuration(100);
-            cloud.setWaitTime(5);
-            cloud.setPotionContents(contents);
-            cloud.setRadiusPerTick(-cloud.getRadius() / (float) cloud.getDuration());
-            level.addFreshEntity(cloud);
-            arrowEntity.addTag("areaEffect");
-        }
     }
 }

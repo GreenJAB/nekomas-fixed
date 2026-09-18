@@ -125,5 +125,21 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(BuiltInRegistries.ITEM.getKey(Items.AMETHYST_SHARD));
         getOrCreateTagBuilder(ModTags.SLINGSHOT_ENCHANTABLE)
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.SLINGSHOT));
+        // Moobloom food: every vanilla flower (open_eyeblossom is 26.x-only and skipped).
+        getOrCreateTagBuilder(ModTags.MOOBLOOM_FLOWERS)
+                .add(BuiltInRegistries.ITEM.getKey(Items.DANDELION))
+                .add(BuiltInRegistries.ITEM.getKey(Items.POPPY))
+                .add(BuiltInRegistries.ITEM.getKey(Items.BLUE_ORCHID))
+                .add(BuiltInRegistries.ITEM.getKey(Items.ALLIUM))
+                .add(BuiltInRegistries.ITEM.getKey(Items.AZURE_BLUET))
+                .add(BuiltInRegistries.ITEM.getKey(Items.RED_TULIP))
+                .add(BuiltInRegistries.ITEM.getKey(Items.ORANGE_TULIP))
+                .add(BuiltInRegistries.ITEM.getKey(Items.WHITE_TULIP))
+                .add(BuiltInRegistries.ITEM.getKey(Items.PINK_TULIP))
+                .add(BuiltInRegistries.ITEM.getKey(Items.OXEYE_DAISY))
+                .add(BuiltInRegistries.ITEM.getKey(Items.CORNFLOWER))
+                .add(BuiltInRegistries.ITEM.getKey(Items.LILY_OF_THE_VALLEY))
+                .add(BuiltInRegistries.ITEM.getKey(Items.WITHER_ROSE))
+                .add(BuiltInRegistries.ITEM.getKey(Items.TORCHFLOWER));
     }
 }

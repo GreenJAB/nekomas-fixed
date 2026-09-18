@@ -10,10 +10,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 
@@ -61,6 +63,7 @@ public class ItemRegistry {
             "target_dummy",
             TargetDummyItem::new,
             new Item.Properties().stacksTo(1));
+    public static final Item MOOBLOOM_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.MOOBLOOM, 0xF8D038, 0x709028);
     public static final FoodProperties BAOBAB_FRUIT_FOOD = new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build();
     public static final Item BAOBAB_FRUIT = register(
             "baobab_fruit",
@@ -379,6 +382,15 @@ public class ItemRegistry {
 
     private static Item registerDye(String id) {
         return Registry.register(BuiltInRegistries.ITEM, NekomasFixed.id(id), new ModDyeItems(new Item.Properties()));
+    }
+
+    // 1.21.1 spawn eggs are SpawnEggItem(type, base, highlight, props) — no 26.x
+    // Item.Properties.spawnEgg() builder. Tints come from the two colours.
+    private static Item registerSpawnEgg(EntityType<? extends Mob> type, int backgroundColor, int highlightColor) {
+        ResourceLocation eggId = BuiltInRegistries.ENTITY_TYPE.getKey(type).withSuffix("_spawn_egg");
+        return Registry.register(BuiltInRegistries.ITEM,
+                ResourceKey.create(Registries.ITEM, eggId),
+                new SpawnEggItem(type, backgroundColor, highlightColor, new Item.Properties()));
     }
 
     // Bed: vanilla BedItem, stack to 1 (can't stack beds).

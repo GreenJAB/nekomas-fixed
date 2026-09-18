@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
 import net.greenjab.nekomasfixed.registry.registries.*;
+import net.greenjab.nekomasfixed.registry.worldgen.BiomeAdditions;
 import net.greenjab.nekomasfixed.registry.worldgen.ModWorldGeneration;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
@@ -46,6 +47,7 @@ public class NekomasFixed implements ModInitializer {
         BlockRegistry.registerBlocks();
         ItemRegistry.registerItems();
         EntityTypeRegistry.registerEntityType();
+        BiomeAdditions.addSpawns();
         BlockEntityTypeRegistry.registerBlockEntityTypes();
         RecipeRegistry.registerRecipes();
         EnchantmentRegistry.registerEnchantments();
