@@ -45,9 +45,9 @@ public abstract class AbstractArrowMixin {
                 TippedArrowCustomComponent component = arrow.get(ComponentRegistry.TIPPED_POTION_CONTENTS);
                 assert component != null;
                 for(PotionContents contents : component.potionContents()){
-                    for(MobEffectInstance effect : contents.getAllEffects()){
-                        mob.addEffect(effect);
-                    }
+                    AreaEffectCloud areaEffectCloudEntity = makeAreaEffectCloudEntity(mob.level(), mob.getX(), mob.getY(), mob.getZ(), contents);
+                    mob.level().addFreshEntity(areaEffectCloudEntity);
+                    arrowEntity.addTag("areaEffect");
                 }
             }
 
@@ -59,6 +59,15 @@ public abstract class AbstractArrowMixin {
         if (((AbstractArrow)(Object) this) instanceof Arrow arrowEntity && !arrowEntity.entityTags().contains("areaEffect")) {
             ItemStack arrow = arrowEntity.getPickupItemStackOrigin();
             PotionContents contents = arrow.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+            if(arrow.has(ComponentRegistry.TIPPED_POTION_CONTENTS)){
+                TippedArrowCustomComponent component = arrow.get(ComponentRegistry.TIPPED_POTION_CONTENTS);
+                assert component != null;
+                for(PotionContents content : component.potionContents()){
+                    AreaEffectCloud areaEffectCloudEntity = makeAreaEffectCloudEntity(arrowEntity.level(), arrowEntity.getX(), arrowEntity.getY(), arrowEntity.getZ(), content);
+                    arrowEntity.level().addFreshEntity(areaEffectCloudEntity);
+                    arrowEntity.addTag("areaEffect");
+                }
+            }
             if (contents != null && contents != PotionContents.EMPTY) {
                 AreaEffectCloud areaEffectCloudEntity = makeAreaEffectCloudEntity(arrowEntity.level(), arrowEntity.getX(), arrowEntity.getY(), arrowEntity.getZ(), contents);
                 arrowEntity.level().addFreshEntity(areaEffectCloudEntity);

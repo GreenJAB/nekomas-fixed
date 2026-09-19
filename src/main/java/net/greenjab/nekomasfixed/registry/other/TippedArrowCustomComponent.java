@@ -50,7 +50,9 @@ public record TippedArrowCustomComponent(List<PotionContents> potionContents) im
         String str = potion.getName("").getContents().toString();
         int start = str.indexOf('\'');
         int end = str.lastIndexOf('\'');
-        return str.substring(start+1, end).replace('_', ' ');
+        String newStr = str.substring(start+1, end).replace('_', ' ');
+        newStr = newStr.replaceFirst(String.valueOf(newStr.charAt(0)), String.valueOf((char) (newStr.charAt(0)-32)));
+        return newStr;
     }
 
 

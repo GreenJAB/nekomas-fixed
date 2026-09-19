@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.sheep.Sheep;
+import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -36,7 +37,6 @@ public class MobMixin {
             if(sheep.getColor().getName().equals("indigo")){
                 stack = ItemRegistry.INDIGO_WOOL.getDefaultInstance();
             }
-
             for (EquipmentSlot slot : EquipmentSlot.VALUES) {
                 float dropChance = mob.dropChances.byEquipment(slot);
                 if (dropChance != 0.0F) {

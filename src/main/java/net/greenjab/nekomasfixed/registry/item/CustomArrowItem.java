@@ -26,17 +26,12 @@ public class CustomArrowItem extends ArrowItem implements ProjectileItem{
         super(properties);
     }
 
-
     @Override
     public Projectile asProjectile(final Level level, final Position position, final ItemStack itemStack, final Direction direction) {
         CustomArrow arrow = new CustomArrow(level, position.x(), position.y(), position.z(), itemStack.copyWithCount(1), null);
-        System.out.println("PRINTINGIN \n");
-
         arrow.pickup = AbstractArrow.Pickup.ALLOWED;
         return arrow;
     }
-
-
 
     @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
@@ -46,9 +41,4 @@ public class CustomArrowItem extends ArrowItem implements ProjectileItem{
             component.addToTooltip(context, builder, tooltipFlag, itemStack);
         }
     }
-
-
-
-
-
 }

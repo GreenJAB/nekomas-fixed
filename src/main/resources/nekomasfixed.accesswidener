@@ -15,6 +15,7 @@ accessible field net/minecraft/world/level/block/entity/BrewingStandBlockEntity 
 accessible method net/minecraft/world/level/block/Blocks shulkerBoxProperties (Lnet/minecraft/world/level/material/MapColor;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/client/resources/model/sprite/AtlasManager atlasByTexture Ljava/util/Map;
+accessible method net/minecraft/world/inventory/AbstractContainerMenu clearContainer (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/Container;)V
 accessible method net/minecraft/world/entity/projectile/arrow/Arrow setPotionContents (Lnet/minecraft/world/item/alchemy/PotionContents;)V
 accessible field net/minecraft/world/entity/Mob dropChances Lnet/minecraft/world/entity/DropChances;
 accessible method net/minecraft/world/entity/projectile/arrow/Arrow getPotionContents ()Lnet/minecraft/world/item/alchemy/PotionContents;

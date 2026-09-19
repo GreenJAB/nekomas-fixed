@@ -26,6 +26,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -73,7 +74,13 @@ public class PlayerMixin {
 
                 Optional<ItemStack> firstArrow = contents.itemCopyStream().findFirst();
                 if (firstArrow.isPresent() && supportedAll.test(firstArrow.get())) {
-
+                    if(firstArrow.get().is(ItemRegistry.TIPPED_ARROW_CUSTOM)){
+                        firstArrow.get().set(
+                                ComponentRegistry.TIPPED_POTION_CONTENTS,
+                                firstArrow.get().get(ComponentRegistry.TIPPED_POTION_CONTENTS)
+                        );
+                        cir.setReturnValue(firstArrow.get());
+                    }
                     cir.setReturnValue(firstArrow.get());
                     return;
                 }
