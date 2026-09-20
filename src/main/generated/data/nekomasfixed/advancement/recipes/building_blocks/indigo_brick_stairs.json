@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:indigo_brick_stairs"
-        ]
+        "recipes": "nekomasfixed:indigo_brick_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

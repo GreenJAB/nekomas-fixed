@@ -3,9 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:yellow_brick_slab"
-        ]
+        "recipes": "nekomasfixed:yellow_brick_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

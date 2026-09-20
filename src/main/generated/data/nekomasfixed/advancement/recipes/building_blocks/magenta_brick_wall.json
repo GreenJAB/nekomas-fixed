@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:magenta_brick_wall"
-        ]
+        "recipes": "nekomasfixed:magenta_brick_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

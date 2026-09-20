@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:red_brick_wall_from_red_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:red_brick_wall_from_red_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

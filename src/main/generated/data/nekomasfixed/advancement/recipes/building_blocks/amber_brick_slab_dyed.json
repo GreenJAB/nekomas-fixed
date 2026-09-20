@@ -23,9 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:amber_brick_slab_dyed"
-        ]
+        "recipes": "nekomasfixed:amber_brick_slab_dyed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

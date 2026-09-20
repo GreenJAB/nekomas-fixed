@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:amber_brick_wall_from_amber_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:amber_brick_wall_from_amber_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

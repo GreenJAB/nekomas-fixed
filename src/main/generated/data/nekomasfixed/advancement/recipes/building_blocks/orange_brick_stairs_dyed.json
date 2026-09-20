@@ -23,9 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:orange_brick_stairs_dyed"
-        ]
+        "recipes": "nekomasfixed:orange_brick_stairs_dyed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

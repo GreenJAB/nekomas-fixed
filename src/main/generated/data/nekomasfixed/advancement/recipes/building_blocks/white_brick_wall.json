@@ -3,9 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:white_brick_wall"
-        ]
+        "recipes": "nekomasfixed:white_brick_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:aqua_brick_wall_from_aqua_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:aqua_brick_wall_from_aqua_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:maroon_brick_slab_from_maroon_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:maroon_brick_slab_from_maroon_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

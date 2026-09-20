@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:aqua_brick_stairs"
-        ]
+        "recipes": "nekomasfixed:aqua_brick_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

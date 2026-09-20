@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:light_blue_brick_slab_from_light_blue_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:light_blue_brick_slab_from_light_blue_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

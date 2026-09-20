@@ -11,12 +11,12 @@ public class LootTableRegistry {
     public static final ResourceKey<LootTable> CLAM_LOOT_TABLE = registerLoot_Table("gameplay/clam");
 
     private static ResourceKey<LootTable> registerLoot_Table(String id) {
-        return registerLootTable(ResourceKey.create(Registries.LOOT_TABLE, NekomasFixed.id(id)));
+        return ResourceKey.create(Registries.LOOT_TABLE, NekomasFixed.id(id));
     }
-    private static ResourceKey<LootTable> registerLootTable(ResourceKey<LootTable> key) {
-        if (BuiltInLootTables.LOCATIONS.add(key))return key;
-        else throw new IllegalArgumentException(key.identifier() + " is already a registered built-in loot table");
-    }
+//    private static ResourceKey<LootTable> registerLootTable(ResourceKey<LootTable> key) {
+//        if (BuiltInLootTables.LOCATIONS.add(key))return key;
+//        else throw new IllegalArgumentException(key.identifier() + " is already a registered built-in loot table");
+//    }
 
     public static void registerLootTables() {
         System.out.println("register LootTables");

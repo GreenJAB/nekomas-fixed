@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:baobab_planks"
-        ]
+        "recipes": "nekomasfixed:baobab_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
