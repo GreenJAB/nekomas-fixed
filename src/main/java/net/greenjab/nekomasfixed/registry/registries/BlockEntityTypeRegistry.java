@@ -4,6 +4,7 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.EndermanHeadBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.HollowLogBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.ClockBlockEntity;
 import net.greenjab.nekomasfixed.registry.block.entity.StackedCakeBlockEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -58,6 +59,14 @@ public class BlockEntityTypeRegistry {
                             Set.of(BlockRegistry.SWEETBERRY_CAKE, BlockRegistry.PAN_CAKE, BlockRegistry.GLOWBERRY_CAKE,
                                     BlockRegistry.APPLE_CAKE, BlockRegistry.VANILLA_CAKE, BlockRegistry.COOKIE_CAKE,
                                     BlockRegistry.CHOCOLATE_CAKE, BlockRegistry.BEETROOT_CAKE),
+                            null));
+
+    @SuppressWarnings("DataFlowIssue")
+    public static final BlockEntityType<ClockBlockEntity> CLOCK_BLOCK_ENTITY =
+            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("clock"),
+                    new BlockEntityType<>(
+                            ClockBlockEntity::new,
+                            Set.of(BlockRegistry.CLOCK, BlockRegistry.WALL_CLOCK),
                             null));
 
     public static void registerBlockEntityTypes() {

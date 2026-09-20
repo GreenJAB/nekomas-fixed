@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.block.entity.ClamBlockEntityRenderer;
+import net.greenjab.nekomasfixed.render.block.entity.ClockBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.EndermanHeadBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.HollowLogBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.StackedCakeBlockEntityRenderer;
@@ -31,5 +32,7 @@ public class ModBlockEntityRendererRegistry {
                 BlockEntityTypeRegistry.ENDERMAN_HEAD_BLOCK_ENTITY, EndermanHeadBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(
                 BlockEntityTypeRegistry.STACKED_CAKE_BLOCK_ENTITY, StackedCakeBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(
+                BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, ClockBlockEntityRenderer::new);
     }
 }

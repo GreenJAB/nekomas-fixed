@@ -220,6 +220,7 @@
   "enchantment.nekomasfixed.leeching": "Leeching",
   "enchantment.nekomasfixed.shatter": "Shatter",
   "effect.nekomasfixed.lightning": "Lightning",
+  "component.nekomasfixed.storedtime": "Stored Time: %s",
   "item.minecraft.potion.effect.lightning": "Potion of Lightning",
   "item.minecraft.splash_potion.effect.lightning": "Splash Potion of Lightning",
   "item.minecraft.lingering_potion.effect.lightning": "Lingering Potion of Lightning",

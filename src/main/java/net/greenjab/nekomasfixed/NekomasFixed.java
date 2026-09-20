@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
+import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.registry.worldgen.BiomeAdditions;
 import net.greenjab.nekomasfixed.registry.worldgen.ModWorldGeneration;
@@ -39,6 +40,7 @@ public class NekomasFixed implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("[{}] loaded (1.21.1 port, scaffold)", MOD_NAME);
+        SyncHandler.init();
         ComponentRegistry.registerComponents();
         ArmorMaterialRegistry.registerArmorMaterials();
         EffectRegistry.registerEffects();

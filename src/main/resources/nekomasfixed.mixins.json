@@ -1,6 +1,6 @@
 {
   "required": true, "package": "net.greenjab.nekomasfixed.mixin", "compatibilityLevel": "JAVA_21",
-  "mixins": ["AbstractArrowMixin", "AnimalMixin", "ArmorStandMixin", "BeeMixin", "BlockBehaviourMixin", "BlockEntityTypeAccessor", "BlocksMixin", "FarmBlockMixin", "ItemStackMixin", "LightningRodBlockMixin", "LivingEntityMixin", "NoteBlockMixin", "PistonBaseBlockMixin", "PlayerMixin", "RedStoneWireBlockMixin", "ServerLevelMixin", "SignalGetterMixin", "SmithingMenuMixin", "accessor.BeeAccessor", "accessor.BlockBehaviourAccessor", "accessor.FlowerPotBlockAccessor", "accessor.ItemCombinerMenuAccessor", "accessor.MobAccessor", "accessor.ObserverBlockAccessor", "target_dummy.CarvedPumpkinBlockMixin", "target_dummy.EnchantmentMixin", "target_dummy.WeightedPressurePlateBlockMixin"],
+  "mixins": ["AbstractArrowMixin", "AnimalMixin", "ArmorStandMixin", "BeeMixin", "BlockBehaviourMixin", "BlockEntityTypeAccessor", "BlocksMixin", "FarmBlockMixin", "ItemStackMixin", "ItemsMixin", "LightningRodBlockMixin", "LivingEntityMixin", "NoteBlockMixin", "PistonBaseBlockMixin", "PlayerMixin", "RedStoneWireBlockMixin", "ServerLevelMixin", "SignalGetterMixin", "SmithingMenuMixin", "accessor.BeeAccessor", "accessor.BlockBehaviourAccessor", "accessor.FlowerPotBlockAccessor", "accessor.ItemCombinerMenuAccessor", "accessor.MobAccessor", "accessor.ObserverBlockAccessor", "target_dummy.CarvedPumpkinBlockMixin", "target_dummy.EnchantmentMixin", "target_dummy.WeightedPressurePlateBlockMixin"],
   "injectors": {
     "defaultRequire": 1
   }

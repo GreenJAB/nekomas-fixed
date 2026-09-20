@@ -14,6 +14,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        ClientSyncHandler.init();
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.BAOBAB_SAPLING, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.BAOBAB_FRUIT, RenderType.cutout());
         // Ancient stained glass + panes render translucent, like vanilla stained glass (else they

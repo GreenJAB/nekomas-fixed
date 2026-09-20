@@ -11,6 +11,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
@@ -558,6 +559,22 @@ public class BlockRegistry {
     public static final Block HOLLOW_STRIPPED_BAOBAB_LOG = register("stripped_baobab_hollow_log", HollowLogBlock::new,
             hollowLogProperties(STRIPPED_BAOBAB_LOG));
 
+    // The clock replaces vanilla minecraft:clock - registered under the vanilla namespace so the
+    // same id also places from the (ItemsMixin-replaced) clock item. Wall clock drops via the floor
+    // clock's loot table (dropsLike) so breaking it yields the minecraft:clock block item.
+    public static final Block CLOCK = registerVanilla("clock", FloorClockBlock::new,
+            BlockBehaviour.Properties.of()
+                    .noCollission()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .strength(0.2F).sound(SoundType.METAL)
+                    .pushReaction(PushReaction.DESTROY));
+    public static final Block WALL_CLOCK = registerVanilla("wall_clock", WallClockBlock::new,
+            BlockBehaviour.Properties.of()
+                    .noCollission()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .strength(0.2F).sound(SoundType.METAL)
+                    .pushReaction(PushReaction.DESTROY));
+
     // Build properties copied from the base log, with the emitted light driven by the
     // hollow log's LIGHT_LEVEL state property. Non-occluding (1.21.1 culls
     // neighbor faces by opaque-cube flag, unlike 26.x shape-based culling) so a
@@ -787,6 +804,13 @@ public class BlockRegistry {
     private static Block register(String id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
         return Registry.register(BuiltInRegistries.BLOCK,
                 ResourceKey.create(Registries.BLOCK, NekomasFixed.id(id)),
+                factory.apply(settings));
+    }
+
+    // Registers a block that overrides/extends a vanilla id (minecraft:), e.g. the clock.
+    private static Block registerVanilla(String id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
+        return Registry.register(BuiltInRegistries.BLOCK,
+                ResourceKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace(id)),
                 factory.apply(settings));
     }
 
