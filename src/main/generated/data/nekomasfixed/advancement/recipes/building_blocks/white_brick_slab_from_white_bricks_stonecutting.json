@@ -3,9 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:white_brick_slab_from_white_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:white_brick_slab_from_white_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

@@ -23,9 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:maroon_brick_slab_dyed"
-        ]
+        "recipes": "nekomasfixed:maroon_brick_slab_dyed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

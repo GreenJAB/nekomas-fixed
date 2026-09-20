@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:baobab_fence_gate"
-        ]
+        "recipes": "nekomasfixed:baobab_fence_gate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

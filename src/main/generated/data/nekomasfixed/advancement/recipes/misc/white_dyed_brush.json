@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:white_dyed_brush"
-        ]
+        "recipes": "nekomasfixed:white_dyed_brush"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

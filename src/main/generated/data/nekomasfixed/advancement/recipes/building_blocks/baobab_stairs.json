@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:baobab_stairs"
-        ]
+        "recipes": "nekomasfixed:baobab_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

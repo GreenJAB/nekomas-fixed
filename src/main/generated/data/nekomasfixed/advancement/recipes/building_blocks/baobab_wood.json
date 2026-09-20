@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:baobab_wood"
-        ]
+        "recipes": "nekomasfixed:baobab_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

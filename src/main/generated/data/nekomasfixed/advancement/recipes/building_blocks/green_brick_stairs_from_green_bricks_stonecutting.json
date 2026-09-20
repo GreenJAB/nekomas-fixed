@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:green_brick_stairs_from_green_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:green_brick_stairs_from_green_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

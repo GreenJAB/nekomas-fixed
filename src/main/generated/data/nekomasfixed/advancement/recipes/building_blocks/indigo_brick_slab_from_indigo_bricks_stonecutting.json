@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:indigo_brick_slab_from_indigo_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:indigo_brick_slab_from_indigo_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

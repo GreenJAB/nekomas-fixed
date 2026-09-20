@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:orange_brick_stairs_from_orange_bricks_stonecutting"
-        ]
+        "recipes": "nekomasfixed:orange_brick_stairs_from_orange_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:baobab_hanging_sign"
-        ]
+        "recipes": "nekomasfixed:baobab_hanging_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

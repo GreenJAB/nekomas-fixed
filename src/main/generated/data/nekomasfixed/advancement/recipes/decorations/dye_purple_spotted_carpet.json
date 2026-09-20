@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:dye_purple_spotted_carpet"
-        ]
+        "recipes": "nekomasfixed:dye_purple_spotted_carpet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

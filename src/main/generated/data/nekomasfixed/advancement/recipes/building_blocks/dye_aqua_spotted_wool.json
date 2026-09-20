@@ -13,9 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": [
-          "nekomasfixed:dye_aqua_spotted_wool"
-        ]
+        "recipes": "nekomasfixed:dye_aqua_spotted_wool"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,4 +1,6 @@
-// 26.2	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
+// 26.3	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
+6249b5cebe0ac025db8b9803a5fc4466f1b3b49c data/c/tags/block/glass_blocks.json
+0479cf107119cd9c0d05dcb11a5ec1f08b9e28d0 data/c/tags/block/glass_panes.json
 dc66709a9f7c6746fd97a3e465fc4656eb876b05 data/minecraft/tags/block/slabs.json
 32fc3aeb40dde7152028df199a283b2b19dbc85b data/minecraft/tags/block/stairs.json
 ab585463eabec5a572000f58a11101ea2ec0c31f data/minecraft/tags/block/walls.json

@@ -10,6 +10,7 @@ import net.greenjab.nekomasfixed.util.ItemDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -39,7 +40,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             BootstrapContext<Recipe<?>> recipes,
             BootstrapContext<Advancement> advancements
     ) {
-        RecipeOutput recipeOutput = (RecipeOutput) recipes;
 
         return new RecipeProvider(recipes, advancements) {
             @Override
@@ -103,16 +103,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .save(output);
 
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICKS, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICKS.get(colour).asItem(), "dyed_bricks_dyed", 8)
-                            .save(output, recipeKey(BlockDyeMap.BRICKS.get(colour).asItem() + "_dyed"));
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(BlockDyeMap.BRICKS.get(colour).asItem()).getPath() + "_dyed"));
 
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_SLAB, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_SLAB.get(colour).asItem(), "dyed_brick_slab_dyed", 8)
-                            .save(output, recipeKey(BlockDyeMap.BRICK_SLAB.get(colour).asItem() + "_dyed"));
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(BlockDyeMap.BRICK_SLAB.get(colour).asItem()).getPath() + "_dyed"));
 
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_STAIRS, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), "dyed_brick_stairs_dyed", 8)
-                            .save(output, recipeKey(BlockDyeMap.BRICK_STAIRS.get(colour).asItem() + "_dyed"));
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(BlockDyeMap.BRICK_STAIRS.get(colour).asItem()).getPath() + "_dyed"));
 
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_WALL, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_WALL.get(colour).asItem(), "dyed_brick_wall_dyed", 8)
-                            .save(output, recipeKey(BlockDyeMap.BRICK_WALL.get(colour).asItem() + "_dyed"));
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(BlockDyeMap.BRICK_WALL.get(colour).asItem()).getPath() + "_dyed"));
+                    ;
 
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem(), 2);
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
@@ -161,7 +162,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     shapeless(RecipeCategory.BUILDING_BLOCKS, hollow.getFirst(), 1)
                             .requires(hollow.getSecond())
                             .unlockedBy(getHasName(hollow.getSecond()), has(hollow.getSecond()))
-                            .save(output, recipeKey(hollow.getFirst() + "_from_hollow_log"));
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(hollow.getFirst()).getPath() + "_from_hollow_log"));
                 }
 
                 shaped(RecipeCategory.TOOLS, ItemRegistry.REDSTONE_STRIKER, 1)
