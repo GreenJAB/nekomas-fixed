@@ -1,0 +1,82 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nekomasfixed:ghost_pepper",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 3.0
+              },
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "nekomasfixed:ghost_pepper",
+                  "properties": {
+                    "age": "3"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 2.0
+              },
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "nekomasfixed:ghost_pepper",
+                  "properties": {
+                    "age": "2"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:uniform_bonus_count",
+              "parameters": {
+                "bonusMultiplier": 1
+              }
+            },
+            {
+              "function": "minecraft:explosion_decay"
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:any_of",
+          "terms": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "nekomasfixed:ghost_pepper",
+              "properties": {
+                "age": "2"
+              }
+            },
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "nekomasfixed:ghost_pepper",
+              "properties": {
+                "age": "3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

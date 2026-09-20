@@ -19,10 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -35,7 +32,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GhostPepperShrubBlock extends VegetationBlock implements BonemealableBlock {
-    public static final MapCodec<GhostPepperShrubBlock> CODEC = simpleCodec(GhostPepperShrubBlock::new);
     public static final int MAX_AGE = 3;
     public static final IntegerProperty AGE;
     private static final VoxelShape SHAPE_SAPLING;
@@ -56,11 +52,6 @@ public class GhostPepperShrubBlock extends VegetationBlock implements Bonemealab
     protected boolean canSurvive(final BlockState state, final LevelReader level, final BlockPos pos) {
         BlockPos below = pos.below();
         return this.mayPlaceOn(level.getBlockState(below), level, below);
-    }
-
-    @Override
-    protected MapCodec<GhostPepperShrubBlock> codec() {
-        return CODEC;
     }
 
     protected ItemStack getCloneItemStack(final LevelReader level, final BlockPos pos, final BlockState state, final boolean includeData) {
@@ -100,7 +91,17 @@ public class GhostPepperShrubBlock extends VegetationBlock implements Bonemealab
         if ((Integer)state.getValue(AGE) > 1) {
             if (level instanceof ServerLevel) {
                 ServerLevel serverLevel = (ServerLevel)level;
-                Block.dropFromBlockInteractLootTable(serverLevel, LootTableRegistry.GHOST_PEPPER_LOOT_TABLE, state, level.getBlockEntity(pos), (ItemInstance)null, player, (serverlvl, itemStack) -> Block.popResource(serverlvl, pos, itemStack));
+                // 8 Arguments(serverLevel, lootTable, pos, state, blockEntity(pos), itemInstance, player, biConsumer)
+                Block.dropFromBlockInteractLootTable(
+                        serverLevel,
+                        LootTableRegistry.GHOST_PEPPER_LOOT_TABLE,
+                        pos,
+                        state,
+                        level.getBlockEntity(pos),
+                        (ItemInstance) null,
+                        player,
+                        (lvl, stack) -> Block.popResource(lvl, pos, stack)
+                );
                 serverLevel.playSound((Entity)null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + serverLevel.getRandom().nextFloat() * 0.4F);
                 BlockState newState = (BlockState)state.setValue(AGE, 1);
                 serverLevel.setBlock(pos, newState, 2);
@@ -117,17 +118,17 @@ public class GhostPepperShrubBlock extends VegetationBlock implements Bonemealab
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return (Integer)state.getValue(AGE) < 4;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         int newAge = Math.min(4, (Integer)state.getValue(AGE) + 1);
         level.setBlock(pos, (BlockState)state.setValue(AGE, newAge), 2);
     }

@@ -23,19 +23,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BoatItem;
-import net.minecraft.world.item.BundleItem;
-import net.minecraft.world.item.DoubleHighBlockItem;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SmithingTemplateItem;
-import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
@@ -44,6 +32,7 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import net.minecraft.world.waypoints.Waypoint;
 import java.util.List;
 import java.util.Optional;
@@ -203,11 +192,27 @@ public class ItemRegistry {
     public static final Item HOLLOW_CRIMSON_STEM = register(BlockRegistry.HOLLOW_CRIMSON_STEM);
     public static final Item HOLLOW_BAOBAB_LOG = register(BlockRegistry.HOLLOW_BAOBAB_LOG);
 
+    public static final Item STRIPPED_HOLLOW_OAK_LOG = register(BlockRegistry.STRIPPED_HOLLOW_OAK_LOG);
+    public static final Item STRIPPED_HOLLOW_SPRUCE_LOG = register(BlockRegistry.STRIPPED_HOLLOW_SPRUCE_LOG);
+    public static final Item STRIPPED_HOLLOW_BIRCH_LOG = register(BlockRegistry.STRIPPED_HOLLOW_BIRCH_LOG);
+    public static final Item STRIPPED_HOLLOW_JUNGLE_LOG = register(BlockRegistry.STRIPPED_HOLLOW_JUNGLE_LOG);
+    public static final Item STRIPPED_HOLLOW_ACACIA_LOG = register(BlockRegistry.STRIPPED_HOLLOW_ACACIA_LOG);
+    public static final Item STRIPPED_HOLLOW_DARK_OAK_LOG = register(BlockRegistry.STRIPPED_HOLLOW_DARK_OAK_LOG);
+    public static final Item STRIPPED_HOLLOW_MANGROVE_LOG = register(BlockRegistry.STRIPPED_HOLLOW_MANGROVE_LOG);
+    public static final Item STRIPPED_HOLLOW_CHERRY_LOG = register(BlockRegistry.STRIPPED_HOLLOW_CHERRY_LOG);
+    public static final Item STRIPPED_HOLLOW_PALE_OAK_LOG = register(BlockRegistry.STRIPPED_HOLLOW_PALE_OAK_LOG);
+    public static final Item STRIPPED_HOLLOW_POPLAR_LOG = register(BlockRegistry.STRIPPED_HOLLOW_POPLAR_LOG);
+    public static final Item STRIPPED_HOLLOW_BAMBOO_BLOCK = register(BlockRegistry.STRIPPED_HOLLOW_BAMBOO_BLOCK);
+    public static final Item STRIPPED_HOLLOW_WARPED_STEM = register(BlockRegistry.STRIPPED_HOLLOW_WARPED_STEM);
+    public static final Item STRIPPED_HOLLOW_CRIMSON_STEM = register(BlockRegistry.STRIPPED_HOLLOW_CRIMSON_STEM);
+    public static final Item STRIPPED_HOLLOW_BAOBAB_LOG = register(BlockRegistry.STRIPPED_HOLLOW_BAOBAB_LOG);
+
     public static final Item BOAT_UPGRADE_TEMPLATE = register("boat_upgrade_template", settings ->
             new SmithingTemplateItem(Component.translatable(Util.makeDescriptionId("item", NekomasFixed.id("boat")))
                     .withStyle(ChatFormatting.BLUE), Component.translatable(Util.makeDescriptionId("item", NekomasFixed.id("planks")))
                     .withStyle(ChatFormatting.BLUE), Component.nullToEmpty(""), Component.nullToEmpty(""), List.of(NekomasFixed.id("container/slot/boat")),
                     List.of(NekomasFixed.id("container/slot/planks")), settings),new Item.Properties().rarity(Rarity.UNCOMMON));
+
     public static final Item BIG_OAK_BOAT = register("big_oak_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_OAK_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item BIG_SPRUCE_BOAT = register("big_spruce_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_SPRUCE_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item BIG_BIRCH_BOAT = register("big_birch_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_BIRCH_BOAT, settings), new Item.Properties().stacksTo(1));
@@ -216,9 +221,11 @@ public class ItemRegistry {
     public static final Item BIG_DARK_OAK_BOAT = register("big_dark_oak_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_DARK_OAK_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item BIG_MANGROVE_BOAT = register("big_mangrove_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_MANGROVE_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item BIG_CHERRY_BOAT = register("big_cherry_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_CHERRY_BOAT, settings), new Item.Properties().stacksTo(1));
+    public static final Item BIG_POPLAR_BOAT = register("big_poplar_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_POPLAR_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item BIG_PALE_OAK_BOAT = register("big_pale_oak_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_PALE_OAK_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item BIG_BAMBOO_BOAT = register("big_bamboo_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_BAMBOO_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item BIG_BAOBAB_BOAT = register("big_baobab_boat", settings -> new BoatItem(EntityTypeRegistry.BIG_BAOBAB_BOAT, settings), new Item.Properties().stacksTo(1));
+
     public static final Item HUGE_OAK_BOAT = register("huge_oak_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_OAK_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item HUGE_SPRUCE_BOAT = register("huge_spruce_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_SPRUCE_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item HUGE_BIRCH_BOAT = register("huge_birch_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BIRCH_BOAT, settings), new Item.Properties().stacksTo(1));
@@ -228,6 +235,7 @@ public class ItemRegistry {
     public static final Item HUGE_MANGROVE_BOAT = register("huge_mangrove_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_MANGROVE_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item HUGE_CHERRY_BOAT = register("huge_cherry_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_CHERRY_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item HUGE_PALE_OAK_BOAT = register("huge_pale_oak_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_PALE_OAK_BOAT, settings), new Item.Properties().stacksTo(1));
+    public static final Item HUGE_POPLAR_BOAT = register("huge_poplar_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_POPLAR_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item HUGE_BAMBOO_BOAT = register("huge_bamboo_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BAMBOO_BOAT, settings), new Item.Properties().stacksTo(1));
     public static final Item HUGE_BAOBAB_BOAT = register("huge_baobab_boat", settings -> new BoatItem(EntityTypeRegistry.HUGE_BAOBAB_BOAT, settings), new Item.Properties().stacksTo(1));
 
@@ -491,6 +499,103 @@ public class ItemRegistry {
                             .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
                             .build()));
 
+    public static final Item AMBER_CUSHION = register(
+            "amber_cushion",
+            CushionItem::new,
+            new Item.Properties()
+                    .stacksTo(16)
+                    .component(DataComponents.CUSHION_COLOR, DyeColor.YELLOW)
+                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)
+    );
+
+    public static final Item AQUA_CUSHION = register(
+            "aqua_cushion",
+            CushionItem::new,
+            new Item.Properties()
+                    .stacksTo(16)
+                    .component(DataComponents.CUSHION_COLOR, DyeColor.LIGHT_BLUE)
+                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)
+    );
+
+    public static final Item INDIGO_CUSHION = register(
+            "indigo_cushion",
+            CushionItem::new,
+            new Item.Properties()
+                    .stacksTo(16)
+                    .component(DataComponents.CUSHION_COLOR, DyeColor.MAGENTA)
+                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)
+    );
+
+    public static final Item MAROON_CUSHION = register(
+            "maroon_cushion",
+            CushionItem::new,
+            new Item.Properties()
+                    .stacksTo(16)
+                    .component(DataComponents.CUSHION_COLOR, DyeColor.RED)
+                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)
+    );
+
+    public static final Item AMBER_WOOL_SLAB = register(BlockRegistry.AMBER_WOOL_SLAB);
+    public static final Item AQUA_WOOL_SLAB = register(BlockRegistry.AQUA_WOOL_SLAB);
+    public static final Item INDIGO_WOOL_SLAB = register(BlockRegistry.INDIGO_WOOL_SLAB);
+    public static final Item MAROON_WOOL_SLAB = register(BlockRegistry.MAROON_WOOL_SLAB);
+
+    public static final Item AMBER_WOOL_STAIRS = register(BlockRegistry.AMBER_WOOL_STAIRS);
+    public static final Item AQUA_WOOL_STAIRS = register(BlockRegistry.AQUA_WOOL_STAIRS);
+    public static final Item INDIGO_WOOL_STAIRS = register(BlockRegistry.INDIGO_WOOL_STAIRS);
+    public static final Item MAROON_WOOL_STAIRS = register(BlockRegistry.MAROON_WOOL_STAIRS);
+
+    public static final Item WHITE_SPOTTED_WOOL_SLAB = register(BlockRegistry.WHITE_SPOTTED_WOOL_SLAB);
+    public static final Item LIGHT_GRAY_SPOTTED_WOOL_SLAB = register(BlockRegistry.LIGHT_GRAY_SPOTTED_WOOL_SLAB);
+    public static final Item GRAY_SPOTTED_WOOL_SLAB = register(BlockRegistry.GRAY_SPOTTED_WOOL_SLAB);
+    public static final Item BLACK_SPOTTED_WOOL_SLAB = register(BlockRegistry.BLACK_SPOTTED_WOOL_SLAB);
+    public static final Item BROWN_SPOTTED_WOOL_SLAB = register(BlockRegistry.BROWN_SPOTTED_WOOL_SLAB);
+    public static final Item RED_SPOTTED_WOOL_SLAB = register(BlockRegistry.RED_SPOTTED_WOOL_SLAB);
+    public static final Item ORANGE_SPOTTED_WOOL_SLAB = register(BlockRegistry.ORANGE_SPOTTED_WOOL_SLAB);
+    public static final Item YELLOW_SPOTTED_WOOL_SLAB = register(BlockRegistry.YELLOW_SPOTTED_WOOL_SLAB);
+    public static final Item LIME_SPOTTED_WOOL_SLAB = register(BlockRegistry.LIME_SPOTTED_WOOL_SLAB);
+    public static final Item GREEN_SPOTTED_WOOL_SLAB = register(BlockRegistry.GREEN_SPOTTED_WOOL_SLAB);
+    public static final Item CYAN_SPOTTED_WOOL_SLAB = register(BlockRegistry.CYAN_SPOTTED_WOOL_SLAB);
+    public static final Item LIGHT_BLUE_SPOTTED_WOOL_SLAB = register(BlockRegistry.LIGHT_BLUE_SPOTTED_WOOL_SLAB);
+    public static final Item BLUE_SPOTTED_WOOL_SLAB = register(BlockRegistry.BLUE_SPOTTED_WOOL_SLAB);
+    public static final Item PURPLE_SPOTTED_WOOL_SLAB = register(BlockRegistry.PURPLE_SPOTTED_WOOL_SLAB);
+    public static final Item MAGENTA_SPOTTED_WOOL_SLAB = register(BlockRegistry.MAGENTA_SPOTTED_WOOL_SLAB);
+    public static final Item PINK_SPOTTED_WOOL_SLAB = register(BlockRegistry.PINK_SPOTTED_WOOL_SLAB);
+    public static final Item AMBER_SPOTTED_WOOL_SLAB = register(BlockRegistry.AMBER_SPOTTED_WOOL_SLAB);
+    public static final Item AQUA_SPOTTED_WOOL_SLAB = register(BlockRegistry.AQUA_SPOTTED_WOOL_SLAB);
+    public static final Item INDIGO_SPOTTED_WOOL_SLAB = register(BlockRegistry.INDIGO_SPOTTED_WOOL_SLAB);
+    public static final Item MAROON_SPOTTED_WOOL_SLAB = register(BlockRegistry.MAROON_SPOTTED_WOOL_SLAB);
+
+    public static final Item WHITE_SPOTTED_WOOL_STAIRS = register(BlockRegistry.WHITE_SPOTTED_WOOL_STAIRS);
+    public static final Item LIGHT_GRAY_SPOTTED_WOOL_STAIRS = register(BlockRegistry.LIGHT_GRAY_SPOTTED_WOOL_STAIRS);
+    public static final Item GRAY_SPOTTED_WOOL_STAIRS = register(BlockRegistry.GRAY_SPOTTED_WOOL_STAIRS);
+    public static final Item BLACK_SPOTTED_WOOL_STAIRS = register(BlockRegistry.BLACK_SPOTTED_WOOL_STAIRS);
+    public static final Item BROWN_SPOTTED_WOOL_STAIRS = register(BlockRegistry.BROWN_SPOTTED_WOOL_STAIRS);
+    public static final Item RED_SPOTTED_WOOL_STAIRS = register(BlockRegistry.RED_SPOTTED_WOOL_STAIRS);
+    public static final Item ORANGE_SPOTTED_WOOL_STAIRS = register(BlockRegistry.ORANGE_SPOTTED_WOOL_STAIRS);
+    public static final Item YELLOW_SPOTTED_WOOL_STAIRS = register(BlockRegistry.YELLOW_SPOTTED_WOOL_STAIRS);
+    public static final Item LIME_SPOTTED_WOOL_STAIRS = register(BlockRegistry.LIME_SPOTTED_WOOL_STAIRS);
+    public static final Item GREEN_SPOTTED_WOOL_STAIRS = register(BlockRegistry.GREEN_SPOTTED_WOOL_STAIRS);
+    public static final Item CYAN_SPOTTED_WOOL_STAIRS = register(BlockRegistry.CYAN_SPOTTED_WOOL_STAIRS);
+    public static final Item LIGHT_BLUE_SPOTTED_WOOL_STAIRS = register(BlockRegistry.LIGHT_BLUE_SPOTTED_WOOL_STAIRS);
+    public static final Item BLUE_SPOTTED_WOOL_STAIRS = register(BlockRegistry.BLUE_SPOTTED_WOOL_STAIRS);
+    public static final Item PURPLE_SPOTTED_WOOL_STAIRS = register(BlockRegistry.PURPLE_SPOTTED_WOOL_STAIRS);
+    public static final Item MAGENTA_SPOTTED_WOOL_STAIRS = register(BlockRegistry.MAGENTA_SPOTTED_WOOL_STAIRS);
+    public static final Item PINK_SPOTTED_WOOL_STAIRS = register(BlockRegistry.PINK_SPOTTED_WOOL_STAIRS);
+    public static final Item AMBER_SPOTTED_WOOL_STAIRS = register(BlockRegistry.AMBER_SPOTTED_WOOL_STAIRS);
+    public static final Item AQUA_SPOTTED_WOOL_STAIRS = register(BlockRegistry.AQUA_SPOTTED_WOOL_STAIRS);
+    public static final Item INDIGO_SPOTTED_WOOL_STAIRS = register(BlockRegistry.INDIGO_SPOTTED_WOOL_STAIRS);
+    public static final Item MAROON_SPOTTED_WOOL_STAIRS = register(BlockRegistry.MAROON_SPOTTED_WOOL_STAIRS);
+
+    public static final Item AMBER_CONCRETE_STAIRS = register(BlockRegistry.AMBER_CONCRETE_STAIRS);
+    public static final Item AQUA_CONCRETE_STAIRS = register(BlockRegistry.AQUA_CONCRETE_STAIRS);
+    public static final Item INDIGO_CONCRETE_STAIRS = register(BlockRegistry.INDIGO_CONCRETE_STAIRS);
+    public static final Item MAROON_CONCRETE_STAIRS = register(BlockRegistry.MAROON_CONCRETE_STAIRS);
+
+    public static final Item AMBER_CONCRETE_SLAB = register(BlockRegistry.AMBER_CONCRETE_SLAB);
+    public static final Item AQUA_CONCRETE_SLAB = register(BlockRegistry.AQUA_CONCRETE_SLAB);
+    public static final Item INDIGO_CONCRETE_SLAB = register(BlockRegistry.INDIGO_CONCRETE_SLAB);
+    public static final Item MAROON_CONCRETE_SLAB = register(BlockRegistry.MAROON_CONCRETE_SLAB);
 
     public static Item register(String id, Item.Properties settings) {
         return register(keyOf(id), Item::new, settings);

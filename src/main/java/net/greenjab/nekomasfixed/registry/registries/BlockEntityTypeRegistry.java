@@ -50,7 +50,22 @@ public class BlockEntityTypeRegistry {
                     BlockRegistry.HOLLOW_BAMBOO_BLOCK,
                     BlockRegistry.HOLLOW_CRIMSON_STEM,
                     BlockRegistry.HOLLOW_WARPED_STEM,
-                    BlockRegistry.HOLLOW_BAOBAB_LOG
+                    BlockRegistry.HOLLOW_BAOBAB_LOG,
+
+                    BlockRegistry.STRIPPED_HOLLOW_OAK_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_SPRUCE_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_BIRCH_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_JUNGLE_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_ACACIA_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_DARK_OAK_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_MANGROVE_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_CHERRY_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_PALE_OAK_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_POPLAR_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_BAMBOO_BLOCK,
+                    BlockRegistry.STRIPPED_HOLLOW_CRIMSON_STEM,
+                    BlockRegistry.STRIPPED_HOLLOW_WARPED_STEM,
+                    BlockRegistry.STRIPPED_HOLLOW_BAOBAB_LOG
             ).build());
 
     public static final BlockEntityType<StackedCakeBlockEntity> STACKED_CAKE_BLOCK_ENTITY = Registry.register(

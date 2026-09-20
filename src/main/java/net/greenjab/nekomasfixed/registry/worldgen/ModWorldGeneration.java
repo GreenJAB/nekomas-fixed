@@ -23,6 +23,8 @@ public class ModWorldGeneration {
                 GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModFeatures.MOUND_KEY);
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.CRIMSON_FOREST, Biomes.NETHER_WASTES),
                 GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModFeatures.GEYSER_KEY);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SOUL_SAND_VALLEY),
+                GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.GHOST_PEPPER_SHRUB_KEY);
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN), GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.CLAM_KEY);
     }

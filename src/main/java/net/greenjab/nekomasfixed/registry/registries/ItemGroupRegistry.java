@@ -114,6 +114,20 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.HOLLOW_CRIMSON_STEM);
                         entries.accept(ItemRegistry.HOLLOW_WARPED_STEM);
                         entries.accept(ItemRegistry.HOLLOW_BAOBAB_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_OAK_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_SPRUCE_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_BIRCH_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_JUNGLE_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_ACACIA_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_DARK_OAK_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_MANGROVE_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_CHERRY_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_PALE_OAK_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_POPLAR_LOG);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_BAMBOO_BLOCK);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_CRIMSON_STEM);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_WARPED_STEM);
+                        entries.accept(ItemRegistry.STRIPPED_HOLLOW_BAOBAB_LOG);
 
                         entries.accept(ItemRegistry.BOAT_UPGRADE_TEMPLATE);
                         entries.accept(ItemRegistry.BIG_OAK_BOAT);
@@ -125,6 +139,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.BIG_MANGROVE_BOAT);
                         entries.accept(ItemRegistry.BIG_CHERRY_BOAT);
                         entries.accept(ItemRegistry.BIG_PALE_OAK_BOAT);
+                        entries.accept(ItemRegistry.BIG_POPLAR_BOAT);
                         entries.accept(ItemRegistry.BIG_BAMBOO_BOAT);
                         entries.accept(ItemRegistry.BIG_BAOBAB_BOAT);
 
@@ -137,6 +152,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.HUGE_MANGROVE_BOAT);
                         entries.accept(ItemRegistry.HUGE_CHERRY_BOAT);
                         entries.accept(ItemRegistry.HUGE_PALE_OAK_BOAT);
+                        entries.accept(ItemRegistry.HUGE_POPLAR_BOAT);
                         entries.accept(ItemRegistry.HUGE_BAMBOO_BOAT);
                         entries.accept(ItemRegistry.HUGE_BAOBAB_BOAT);
 
@@ -385,6 +401,73 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.AQUA_SPOTTED_CARPET);
                         entries.accept(ItemRegistry.INDIGO_SPOTTED_CARPET);
                         entries.accept(ItemRegistry.MAROON_SPOTTED_CARPET);
+
+                        entries.accept(ItemRegistry.AMBER_WOOL_SLAB);
+                        entries.accept(ItemRegistry.AQUA_WOOL_SLAB);
+                        entries.accept(ItemRegistry.INDIGO_WOOL_SLAB);
+                        entries.accept(ItemRegistry.MAROON_WOOL_SLAB);
+
+                        entries.accept(ItemRegistry.AMBER_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.AQUA_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.INDIGO_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.MAROON_WOOL_STAIRS);
+
+                        entries.accept(ItemRegistry.WHITE_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.LIGHT_GRAY_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.GRAY_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.BLACK_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.BROWN_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.RED_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.ORANGE_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.YELLOW_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.LIME_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.GREEN_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.CYAN_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.LIGHT_BLUE_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.BLUE_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.PURPLE_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.MAGENTA_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.PINK_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.AMBER_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.AQUA_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.INDIGO_SPOTTED_WOOL_SLAB);
+                        entries.accept(ItemRegistry.MAROON_SPOTTED_WOOL_SLAB);
+
+                        entries.accept(ItemRegistry.WHITE_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.LIGHT_GRAY_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.GRAY_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.BLACK_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.BROWN_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.RED_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.ORANGE_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.YELLOW_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.LIME_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.GREEN_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.CYAN_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.LIGHT_BLUE_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.BLUE_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.PURPLE_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.MAGENTA_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.PINK_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.AMBER_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.AQUA_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.INDIGO_SPOTTED_WOOL_STAIRS);
+                        entries.accept(ItemRegistry.MAROON_SPOTTED_WOOL_STAIRS);
+
+                        entries.accept(ItemRegistry.AMBER_CONCRETE_STAIRS);
+                        entries.accept(ItemRegistry.AQUA_CONCRETE_STAIRS);
+                        entries.accept(ItemRegistry.INDIGO_CONCRETE_STAIRS);
+                        entries.accept(ItemRegistry.MAROON_CONCRETE_STAIRS);
+
+                        entries.accept(ItemRegistry.AMBER_CONCRETE_SLAB);
+                        entries.accept(ItemRegistry.AQUA_CONCRETE_SLAB);
+                        entries.accept(ItemRegistry.INDIGO_CONCRETE_SLAB);
+                        entries.accept(ItemRegistry.MAROON_CONCRETE_SLAB);
+
+                        entries.accept(ItemRegistry.AMBER_CUSHION);
+                        entries.accept(ItemRegistry.AQUA_CUSHION);
+                        entries.accept(ItemRegistry.INDIGO_CUSHION);
+                        entries.accept(ItemRegistry.MAROON_CUSHION);
                     }).build();
 
     public static void registerItemGroup() {

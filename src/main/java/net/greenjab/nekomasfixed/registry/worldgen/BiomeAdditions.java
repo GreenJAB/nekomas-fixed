@@ -46,8 +46,5 @@ public class BiomeAdditions {
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW), MobCategory.CREATURE,
                 EntityTypeRegistry.MOOBLOOM, 30, 1, 2);
-
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SOUL_SAND_VALLEY), GenerationStep.Decoration.VEGETAL_DECORATION,
-                ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath("nekomasfixed", "ghost_pepper_shrub_placed")));
     }
 }

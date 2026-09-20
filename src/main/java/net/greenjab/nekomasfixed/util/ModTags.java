@@ -4,6 +4,7 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
@@ -35,4 +36,9 @@ public class ModTags {
     public static final TagKey<Item> FOOD_ITEMS = TagKey.create(Registries.ITEM, NekomasFixed.id("food_items"));
     public static final TagKey<Item> MOOBLOOM_FLOWERS = TagKey.create(Registries.ITEM, NekomasFixed.id("moobloom_flowers"));
     public static final TagKey<Item> SLINGSHOT_PROJECTILES = TagKey.create(Registries.ITEM, NekomasFixed.id("slingshot_projectiles"));
+
+    public static final TagKey<VillagerTrade> PYROTECHNIST_LEVEL_1 = TagKey.create(Registries.VILLAGER_TRADE, NekomasFixed.id("pyrotechnist/level_1"));
+    public static final TagKey<VillagerTrade> PYROTECHNIST_LEVEL_2 = TagKey.create(Registries.VILLAGER_TRADE, NekomasFixed.id("pyrotechnist/level_2"));
+    public static final TagKey<VillagerTrade> PYROTECHNIST_LEVEL_3 = TagKey.create(Registries.VILLAGER_TRADE, NekomasFixed.id("pyrotechnist/level_3"));
+    public static final TagKey<VillagerTrade> PYROTECHNIST_LEVEL_4 = TagKey.create(Registries.VILLAGER_TRADE, NekomasFixed.id("pyrotechnist/level_4"));
 }

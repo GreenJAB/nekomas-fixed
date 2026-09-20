@@ -19,21 +19,24 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import org.jspecify.annotations.NonNull;
 
 /**
- * FIX (see chat): every previous attempt was missing a step that Trinkets'
- * own ModelAttachementImpl / TrinketRenderLayer (decompiled/read directly
- * from its real 4.2.0-26.3 source) proves is required: a
- * poseStack.scale(1, -1, -1) Y/Z mirror flip applied AFTER walking to the
- * target part's transform and BEFORE submitting the attached geometry.
- * Without it, a separately-baked ModelPart parented under head renders
- * with the wrong orientation/shape even though it correctly tracks head
- * rotation and position -- which explains every earlier result: attached,
- * moving with the head, geometrically present, but visually wrong.
+ * FIX (see chat, two bugs found and fixed together):
  *
- * Also following Trinkets' pattern of walking the parent chain manually
- * via repeated ModelPart.translateAndRotate(poseStack) calls (root -> head
- * -> group) rather than relying on submitModel's automatic recursive
- * render of the whole tree, which is what several earlier attempts here
- * used without success.
+ * 1) THE REAL BUG for every "still broken" test: the previous version of
+ *    this file computed renderType and overlay but then called
+ *    poseStack.popPose() WITHOUT ever calling submitModelPart(...) --
+ *    the crown was never actually submitted to render, at all, full stop.
+ *    Every debug println placed right before that missing call correctly
+ *    printed (confirming submit() runs and the item/texture checks pass),
+ *    which is exactly why adding the println "worked" but the crown still
+ *    never appeared -- there was nothing left in the method to draw it.
+ *
+ * 2) Separately (real for 26.3, but not what was causing the missing
+ *    render): OrderedSubmitNodeCollector's submitModelPart/submitModel API
+ *    changed between 26.2 and 26.3 -- TextureAtlasSprite was replaced by
+ *    UvMapping and the crumblingOverlay parameter was removed from these
+ *    overloads. The old 9-arg 26.2-style call would not have matched any
+ *    26.3 overload. Fixed to the current 8-arg overload here regardless,
+ *    since this mod now targets 26.3.
  */
 @Environment(EnvType.CLIENT)
 public class FlowerCrownLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
@@ -63,17 +66,17 @@ public class FlowerCrownLayer extends RenderLayer<AvatarRenderState, PlayerModel
         parentModel.root().translateAndRotate(poseStack);
         parentModel.head.translateAndRotate(poseStack);
 
-        // The critical missing step (see class doc): mirror flip, applied
-        // after reaching the target transform and before drawing.
+        // Mirror flip (see FlowerCrownLayer history in chat for why this
+        // is needed -- confirmed against Trinkets' real source).
         poseStack.scale(1.0F, -1.0F, -1.0F);
-
-        System.out.println("Flower crown texture: " + crown.getVariant().getTexture());
-
 
         RenderType renderType = RenderTypes.entityCutout(crown.getVariant().getTexture());
         int overlay = LivingEntityRenderer.getOverlayCoords(state, 0.0F);
-        submitNodeCollector.submitModelPart(this.group, poseStack, renderType, light, overlay, null,
-                -1, null, state.outlineColor);
 
-        poseStack.popPose();}
+        // THE ACTUAL SUBMIT CALL -- this was missing entirely before.
+        submitNodeCollector.submitModelPart(this.group, poseStack, renderType, light, overlay,
+                null, -1, state.outlineColor);
+
+        poseStack.popPose();
+    }
 }

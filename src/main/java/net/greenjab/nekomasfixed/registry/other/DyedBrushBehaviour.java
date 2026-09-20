@@ -161,4 +161,12 @@ public class DyedBrushBehaviour extends OptionalDispenseItemBehavior {
 	private static Block getFroglight(AllDyes color) {return BlockDyeMap.FROGLIGHT.get(color); }
 	private static Block getShulkerBox(AllDyes color) {return BlockDyeMap.SHULKER_BOX.get(color); }
 	private static Block getBed(AllDyes color) {return BlockDyeMap.BED.get(color); }
+	private static Block getSpottedWoolStairs(AllDyes color) {return BlockDyeMap.SPOTTED_WOOL_STAIRS.get(color); }
+	private static Block getSpottedWoolSlabs(AllDyes color) {return BlockDyeMap.SPOTTED_WOOL_SLABS.get(color); }
+	private static Block getWoolStairs(AllDyes color) {return BlockDyeMap.WOOL_SLABS.get(color); }
+	private static Block getWoolSlabs(AllDyes color) {return BlockDyeMap.WOOL_STAIRS.get(color); }
+	private static Block getConcreteStairs(AllDyes color) {return BlockDyeMap.CONCRETE_SLABS.get(color); }
+	private static Block getConcreteSlabs(AllDyes color) {return BlockDyeMap.CONCRETE_STAIRS.get(color); }
+	private static Block getCushions(AllDyes color) {return BlockDyeMap.CUSHIONS.get(color); }
+
 }

@@ -24,6 +24,14 @@ public class BlockDyeMap {
     public static final EnumMap<AllDyes, Block> FROGLIGHT = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Block> SHULKER_BOX = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Block> BED = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> SPOTTED_WOOL_SLABS = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> SPOTTED_WOOL_STAIRS = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> WOOL_SLABS = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> WOOL_STAIRS = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> CONCRETE_SLABS = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> CONCRETE_STAIRS = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> CUSHIONS = new EnumMap<>(AllDyes.class);
+
     static {
         WOOL.put(AllDyes.WHITE, Blocks.WOOL.white());
         WOOL.put(AllDyes.ORANGE, Blocks.WOOL.orange());
