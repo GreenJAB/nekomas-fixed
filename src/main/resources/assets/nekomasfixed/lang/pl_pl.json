@@ -1,0 +1,33 @@
+{
+  "subtitles.nekomasfixed.item.phantom_membrane.use": "Błona fantoma rozciąga się",
+  "subtitles.nekomasfixed.entity.clear_item_frame.add_item": "Wypełnienie przezroczystej ramki na przedmiot",
+  "subtitles.nekomasfixed.entity.clear_item_frame.break": "Przezroczysta ramka na przedmiot niszczy się",
+  "subtitles.nekomasfixed.entity.clear_item_frame.place": "Umieszczenie przezroczystej ramki na przedmiot",
+  "subtitles.nekomasfixed.entity.clear_item_frame.remove_item": "Opróżnienie przezroczystej ramki na przedmiot",
+  "subtitles.nekomasfixed.entity.clear_item_frame.rotate_item": "Przezroczysta ramka na przedmiot klika",
+
+  "block.nekomasfixed.glow_ink_torch": "Lśniąca pochodnia",
+  "item.nekomasfixed.clear_item_frame": "Przezroczysta ramka na przedmiot",
+
+  "item.nekomasfixed.smithing_template.glowing": "+Blask",
+  "item.nekomasfixed.smithing_template.hidden": "+Ukrycie",
+  "item.nekomasfixed.smithing_template.echoing_effect": "+Efekt Echa:",
+  "echoing_effect.nekomasfixed.glowing": "Migotanie",
+  "echoing_effect.nekomasfixed.hidden": "Zanikanie",
+  "echoing_effect.nekomasfixed.material": "Pigment (%s)",
+
+  "advancements.nekomasfixed.husbandry.make_sheep_glow_at_night.title": "Po co komu dzwoneczki?",
+  "advancements.nekomasfixed.husbandry.make_sheep_glow_at_night.description": "Użyj torbielu ze świecącym atramentem na owcy podczas nocy",
+
+  "advancements.nekomasfixed.adventure.make_decorated_pot_glow.title": "Świecidełko",
+  "advancements.nekomasfixed.adventure.make_decorated_pot_glow.description": "Zaświeć całe dekorowane naczynie",
+
+  "advancements.nekomasfixed.adventure.make_trim_glow.title": "Fluoresencyjny pigment",
+  "advancements.nekomasfixed.adventure.make_trim_glow.description": "Połącz dwa torbiele ze świecącym atramentem wraz z dekorowaną zbroją",
+
+  "advancements.nekomasfixed.adventure.make_echoing_trim.title": "Żywe runy",
+  "advancements.nekomasfixed.adventure.make_echoing_trim.description": "Połącz odłamek echa ze zdobioną zbroją i łuską fantoma lub torbielem ze świecącym atramentem przy stole kowalskim",
+
+  "advancements.nekomasfixed.adventure.make_wall_decoration_dissappear.title": "Wandalizm",
+  "advancements.nekomasfixed.adventure.make_wall_decoration_dissappear.description": "Spraw aby tabliczka lub sztandar widzący na ścianie zniknął"
+}

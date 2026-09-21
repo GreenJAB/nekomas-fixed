@@ -224,5 +224,39 @@
   "item.minecraft.potion.effect.lightning": "Potion of Lightning",
   "item.minecraft.splash_potion.effect.lightning": "Splash Potion of Lightning",
   "item.minecraft.lingering_potion.effect.lightning": "Lingering Potion of Lightning",
-  "item.minecraft.tipped_arrow.effect.lightning": "Arrow of Lightning"
+  "item.minecraft.tipped_arrow.effect.lightning": "Arrow of Lightning",
+  "subtitles.nekomasfixed.item.phantom_membrane.use": "Phantom Membrane stretches",
+  "subtitles.nekomasfixed.entity.clear_item_frame.add_item": "Clear Item Frame fills",
+  "subtitles.nekomasfixed.entity.clear_item_frame.break": "Clear Item Frame breaks",
+  "subtitles.nekomasfixed.entity.clear_item_frame.place": "Clear Item Frame placed",
+  "subtitles.nekomasfixed.entity.clear_item_frame.remove_item": "Clear Item Frame empties",
+  "subtitles.nekomasfixed.entity.clear_item_frame.rotate_item": "Clear Item Frame clicks",
+
+  "block.nekomasfixed.glow_ink_torch": "Glow Torch",
+  "item.nekomasfixed.clear_item_frame": "Clear Item Frame",
+
+  "item.nekomasfixed.smithing_template.glowing": "+Glowing",
+  "item.nekomasfixed.smithing_template.hidden": "+Invisible",
+  "item.nekomasfixed.smithing_template.echoing_effect": "+Echoing Effect:",
+  "echoing_effect.nekomasfixed.glowing": "Twinkle",
+  "echoing_effect.nekomasfixed.hidden": "Fade",
+  "echoing_effect.nekomasfixed.material": "Pigment (%s)",
+
+  "block.minecraft.banner.nekomasfixed.hide_background": "+Clear Background",
+  "block.minecraft.banner.nekomasfixed.glowing": "+Glowing Patterns",
+
+  "advancements.nekomasfixed.husbandry.make_sheep_glow_at_night.title": "Made counting sheep easier!",
+  "advancements.nekomasfixed.husbandry.make_sheep_glow_at_night.description": "Use Glow Ink Sac on a Sheep at night",
+
+  "advancements.nekomasfixed.adventure.make_decorated_pot_glow.title": "Jack-o'-pot",
+  "advancements.nekomasfixed.adventure.make_decorated_pot_glow.description": "Make a whole Decorated Pot glow",
+
+  "advancements.nekomasfixed.adventure.make_trim_glow.title": "Fluorescent pigment",
+  "advancements.nekomasfixed.adventure.make_trim_glow.description": "Combine 2 Glow Ink Sacs with trimmed armor at a Smithing Table",
+
+  "advancements.nekomasfixed.adventure.make_echoing_trim.title": "Living markings",
+  "advancements.nekomasfixed.adventure.make_echoing_trim.description": "Combine an Echo Shard with trimmed armor and either Phantom Membrane, Glow Ink Sac, or any trim material at a Smithing Table",
+
+  "advancements.nekomasfixed.adventure.make_wall_decoration_dissappear.title": "Graffiti",
+  "advancements.nekomasfixed.adventure.make_wall_decoration_dissappear.description": "Make a Sign or a Banner dissappear on a wall"
 }

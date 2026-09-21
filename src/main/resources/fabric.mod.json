@@ -9,10 +9,15 @@
     "net.greenjab.nekomasfixed.NekomasFixed"
   ], "fabric-datagen": [
     "net.greenjab.nekomasfixed.NekomasFixedDataGenerator"
+  ], "jei_mod_plugin": [
+    "net.greenjab.nekomasfixed.integration.jei.Plugin"
   ]
 }, "mixins": [
   "nekomasfixed.mixins.json", "nekomasfixed.client.mixins.json"
 ], "depends": {
   "java": ">=21", "minecraft": ">=${minecraft}", "fabric-api": ">=${fabric_api}"
-}
+}, "suggests": {
+  "glow_ink_plus": "*",
+  "jei": ">=19.50.0.414"
+}, "accessWidener": "nekomasfixed.accesswidener"
 }

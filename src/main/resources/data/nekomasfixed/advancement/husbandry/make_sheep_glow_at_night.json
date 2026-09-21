@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:husbandry/make_a_sign_glow",
+  "criteria": {
+    "make_sheep_glow_at_night": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:glow_ink_sac"
+          ]
+        },
+        "entity": [
+          {
+            "condition": "minecraft:time_check",
+            "clock": "overworld",
+            "period": 24000,
+            "value": {
+              "min": 13670,
+              "max": 22330
+            }
+          },
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "entity_type": "minecraft:sheep"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.nekomasfixed.husbandry.make_sheep_glow_at_night.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "white_wool"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.nekomasfixed.husbandry.make_sheep_glow_at_night.title"
+    }
+  },
+  "requirements": [
+    [
+      "make_sheep_glow_at_night"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,54 @@
+{
+  "item.phantom_membrane.use": {
+    "subtitle": "subtitles.nekomasfixed.item.phantom_membrane.use",
+    "sounds": [
+      "nekomasfixed:item/phantom_membrane/use1",
+      "nekomasfixed:item/phantom_membrane/use2",
+      "nekomasfixed:item/phantom_membrane/use3"
+    ]
+  },
+  "entity.clear_item_frame.add_item": {
+    "sounds": [
+      "entity/itemframe/add_item1",
+      "entity/itemframe/add_item2",
+      "entity/itemframe/add_item3",
+      "entity/itemframe/add_item4"
+    ],
+    "subtitle": "subtitles.nekomasfixed.entity.clear_item_frame.add_item"
+  },
+  "entity.clear_item_frame.break": {
+    "sounds": [
+      "entity/itemframe/break1",
+      "entity/itemframe/break2",
+      "entity/itemframe/break3"
+    ],
+    "subtitle": "subtitles.nekomasfixed.entity.clear_item_frame.break"
+  },
+  "entity.clear_item_frame.place": {
+    "sounds": [
+      "entity/itemframe/place1",
+      "entity/itemframe/place2",
+      "entity/itemframe/place3",
+      "entity/itemframe/place4"
+    ],
+    "subtitle": "subtitles.nekomasfixed.entity.clear_item_frame.place"
+  },
+  "entity.clear_item_frame.remove_item": {
+    "sounds": [
+      "entity/itemframe/remove_item1",
+      "entity/itemframe/remove_item2",
+      "entity/itemframe/remove_item3",
+      "entity/itemframe/remove_item4"
+    ],
+    "subtitle": "subtitles.nekomasfixed.entity.clear_item_frame.remove_item"
+  },
+  "entity.clear_item_frame.rotate_item": {
+    "sounds": [
+      "entity/itemframe/rotate_item1",
+      "entity/itemframe/rotate_item2",
+      "entity/itemframe/rotate_item3",
+      "entity/itemframe/rotate_item4"
+    ],
+    "subtitle": "subtitles.nekomasfixed.entity.clear_item_frame.rotate_item"
+  }
+}

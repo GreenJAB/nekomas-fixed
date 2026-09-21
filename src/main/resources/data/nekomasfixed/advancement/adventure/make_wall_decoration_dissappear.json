@@ -1,0 +1,73 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "disappear_wall_banner": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "#nekomasfixed:wall_banners"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "minecraft:phantom_membrane"
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    },
+    "disappear_wall_sign": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "#wall_signs"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "minecraft:phantom_membrane"
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.nekomasfixed.adventure.make_wall_decoration_dissappear.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "phantom_membrane"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.nekomasfixed.adventure.make_wall_decoration_dissappear.title"
+    }
+  },
+  "requirements": [
+    [
+      "disappear_wall_sign",
+      "disappear_wall_banner"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

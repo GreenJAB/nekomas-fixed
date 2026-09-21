@@ -82,6 +82,10 @@ public class ItemRegistry {
             "baobab_chest_boat",
             settings -> new BaobabBoatItem(true, settings),
             new Item.Properties().stacksTo(1));
+    public static final Item CLEAR_ITEM_FRAME = register(
+            "clear_item_frame",
+            settings -> new ClearItemFrameItem(EntityTypeRegistry.CLEAR_ITEM_FRAME, settings),
+            new Item.Properties());
     public static final Item PEARL = register(
             "pearl",
             new Item.Properties());

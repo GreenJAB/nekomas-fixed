@@ -23,6 +23,7 @@ public class ItemGroupRegistry {
                     .icon(() -> new ItemStack(ItemRegistry.GLOW_TORCH))
                     .displayItems((parameters, entries) -> {
                         entries.accept(ItemRegistry.GLOW_TORCH);
+                        entries.accept(ItemRegistry.CLEAR_ITEM_FRAME);
                         entries.accept(ItemRegistry.BAOBAB_LOG);
                         entries.accept(ItemRegistry.BAOBAB_WOOD);
                         entries.accept(ItemRegistry.STRIPPED_BAOBAB_LOG);

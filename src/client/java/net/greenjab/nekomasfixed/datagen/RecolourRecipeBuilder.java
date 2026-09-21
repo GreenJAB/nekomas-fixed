@@ -1,6 +1,6 @@
 package net.greenjab.nekomasfixed.datagen;
 
-import net.greenjab.nekomasfixed.recipe.RecolourRecipe;
+import net.greenjab.nekomasfixed.registry.recipe.RecolourRecipe;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;

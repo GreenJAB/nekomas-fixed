@@ -4,7 +4,7 @@ yamlang = "1.4.1"
 minecraft = "1.21.1"
 vineflower = "1.11.1"
 fabric-loader = "0.16.14"
-fabric-api = "0.110.0+1.21.1"
+fabric-api = "0.116.5+1.21.1"
 
 [plugins]
 fabric-loom = { id = "fabric-loom", version.ref = "loom" }

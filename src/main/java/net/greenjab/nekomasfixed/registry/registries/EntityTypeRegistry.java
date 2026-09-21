@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.BaobabBoat;
 import net.greenjab.nekomasfixed.registry.entity.BaobabChestBoat;
+import net.greenjab.nekomasfixed.registry.entity.ClearItemFrameEntity;
 import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectile;
 import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
 import net.greenjab.nekomasfixed.registry.entity.moobloom.Moobloom;
@@ -27,6 +28,13 @@ public class EntityTypeRegistry {
             EntityType.Builder.<BaobabChestBoat>of(
                             BaobabChestBoat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F).clientTrackingRange(10)
+    );
+
+    public static final EntityType<ClearItemFrameEntity> CLEAR_ITEM_FRAME = register(
+            "clear_item_frame",
+            EntityType.Builder.<ClearItemFrameEntity>of(
+                            ClearItemFrameEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
     );
 
     public static final EntityType<TargetDummy> TARGET_DUMMY = register(

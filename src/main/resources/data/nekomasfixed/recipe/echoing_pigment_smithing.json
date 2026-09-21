@@ -1,0 +1,12 @@
+{
+  "type": "nekomasfixed:smithing_echoing_pigment",
+  "template": {
+    "item": "minecraft:echo_shard"
+  },
+  "base": {
+    "tag": "minecraft:trimmable_armor"
+  },
+  "addition": {
+    "tag": "minecraft:trim_materials"
+  }
+}

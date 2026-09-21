@@ -2,17 +2,25 @@ package net.greenjab.nekomasfixed.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
+import net.greenjab.nekomasfixed.util.BannerEffects;
+import net.greenjab.nekomasfixed.util.CanvasRenderer;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 // renderByItem maps the item's DyeColor to a vanilla prebuilt entity, so the shulker
 // icon showed vanilla. Swap in an entity carrying our block so ShulkerBoxRendererMixin
@@ -51,5 +59,18 @@ public class BlockEntityWithoutLevelRendererMixin {
             if (b == BlockRegistry.MAROON_SHULKER_BOX) return MAROON;
         }
         return blockEntity;
+    }
+
+    @Redirect(
+            method = "renderByItem",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/blockentity/BannerRenderer;renderPatterns(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/resources/model/Material;ZLnet/minecraft/world/item/DyeColor;Lnet/minecraft/world/level/block/entity/BannerPatternLayers;Z)V")
+    )
+    private void renderCanvas(PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, ModelPart canvas, Material baseSprite, boolean isBanner, DyeColor color, BannerPatternLayers patterns, boolean glint, ItemStack stack) {
+        // Render banner on shield
+        BannerEffects effects = stack.getOrDefault(ComponentRegistry.BANNER_EFFECTS, BannerEffects.EMPTY);
+        if (effects.isBackgroundHidden()) {
+            baseSprite = ModelBakery.NO_PATTERN_SHIELD;
+        }
+        CanvasRenderer.renderCanvas(matrices, vertexConsumers, light, overlay, canvas, canvas, baseSprite, isBanner, color, patterns, glint, effects, false);
     }
 }

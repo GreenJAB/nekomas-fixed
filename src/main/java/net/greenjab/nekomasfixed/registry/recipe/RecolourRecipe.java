@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.recipe;
+package net.greenjab.nekomasfixed.registry.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
