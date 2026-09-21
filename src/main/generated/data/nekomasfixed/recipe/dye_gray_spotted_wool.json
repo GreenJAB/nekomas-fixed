@@ -1,13 +1,71 @@
 {
-  "type": "nekomasfixed:recolour",
+  "type": "minecraft:crafting_shapeless",
   "category": "building",
   "group": "spotted_wool",
-  "input": {
-    "tag": "nekomasfixed:spotted_wool"
-  },
-  "material": {
-    "item": "minecraft:gray_dye"
-  },
+  "ingredients": [
+    [
+      {
+        "item": "nekomasfixed:white_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:orange_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:magenta_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:light_blue_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:yellow_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:lime_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:pink_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:light_gray_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:cyan_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:purple_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:blue_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:brown_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:green_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:red_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:black_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:amber_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:aqua_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:indigo_spotted_wool"
+      },
+      {
+        "item": "nekomasfixed:maroon_spotted_wool"
+      }
+    ],
+    {
+      "item": "minecraft:gray_dye"
+    }
+  ],
   "result": {
     "count": 1,
     "id": "nekomasfixed:gray_spotted_wool"

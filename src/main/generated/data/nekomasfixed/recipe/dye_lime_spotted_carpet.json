@@ -1,13 +1,71 @@
 {
-  "type": "nekomasfixed:recolour",
-  "category": "building",
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "group": "spotted_carpet",
-  "input": {
-    "tag": "nekomasfixed:spotted_carpet"
-  },
-  "material": {
-    "item": "minecraft:lime_dye"
-  },
+  "ingredients": [
+    [
+      {
+        "item": "nekomasfixed:white_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:orange_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:magenta_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:light_blue_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:yellow_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:pink_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:gray_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:light_gray_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:cyan_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:purple_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:blue_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:brown_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:green_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:red_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:black_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:amber_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:aqua_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:indigo_spotted_carpet"
+      },
+      {
+        "item": "nekomasfixed:maroon_spotted_carpet"
+      }
+    ],
+    {
+      "item": "minecraft:lime_dye"
+    }
+  ],
   "result": {
     "count": 1,
     "id": "nekomasfixed:lime_spotted_carpet"

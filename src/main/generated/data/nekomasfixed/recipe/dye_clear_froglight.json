@@ -1,13 +1,71 @@
 {
-  "type": "nekomasfixed:recolour",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "group": "froglight",
-  "input": {
-    "tag": "nekomasfixed:froglights"
-  },
-  "material": {
-    "item": "minecraft:white_dye"
-  },
+  "ingredients": [
+    [
+      {
+        "item": "nekomasfixed:mandarin_froglight"
+      },
+      {
+        "item": "nekomasfixed:thulian_froglight"
+      },
+      {
+        "item": "nekomasfixed:cerulean_froglight"
+      },
+      {
+        "item": "nekomasfixed:lemon_froglight"
+      },
+      {
+        "item": "nekomasfixed:kiwi_froglight"
+      },
+      {
+        "item": "nekomasfixed:sakura_froglight"
+      },
+      {
+        "item": "nekomasfixed:cascading_froglight"
+      },
+      {
+        "item": "nekomasfixed:cloudy_froglight"
+      },
+      {
+        "item": "nekomasfixed:teal_froglight"
+      },
+      {
+        "item": "minecraft:pearlescent_froglight"
+      },
+      {
+        "item": "nekomasfixed:navy_froglight"
+      },
+      {
+        "item": "nekomasfixed:chamoisee_froglight"
+      },
+      {
+        "item": "minecraft:verdant_froglight"
+      },
+      {
+        "item": "nekomasfixed:vermilion_froglight"
+      },
+      {
+        "item": "nekomasfixed:cloudburst_froglight"
+      },
+      {
+        "item": "minecraft:ochre_froglight"
+      },
+      {
+        "item": "nekomasfixed:seafoam_froglight"
+      },
+      {
+        "item": "nekomasfixed:lavender_froglight"
+      },
+      {
+        "item": "nekomasfixed:sanguine_froglight"
+      }
+    ],
+    {
+      "item": "minecraft:white_dye"
+    }
+  ],
   "result": {
     "count": 1,
     "id": "nekomasfixed:clear_froglight"

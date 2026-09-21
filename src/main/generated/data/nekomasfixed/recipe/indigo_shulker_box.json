@@ -1,13 +1,71 @@
 {
-  "type": "nekomasfixed:recolour",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "group": "shulker_box_dye",
-  "input": {
-    "tag": "minecraft:shulker_boxes"
-  },
-  "material": {
-    "item": "nekomasfixed:indigo_dye"
-  },
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:white_shulker_box"
+      },
+      {
+        "item": "minecraft:orange_shulker_box"
+      },
+      {
+        "item": "minecraft:magenta_shulker_box"
+      },
+      {
+        "item": "minecraft:light_blue_shulker_box"
+      },
+      {
+        "item": "minecraft:yellow_shulker_box"
+      },
+      {
+        "item": "minecraft:lime_shulker_box"
+      },
+      {
+        "item": "minecraft:pink_shulker_box"
+      },
+      {
+        "item": "minecraft:gray_shulker_box"
+      },
+      {
+        "item": "minecraft:light_gray_shulker_box"
+      },
+      {
+        "item": "minecraft:cyan_shulker_box"
+      },
+      {
+        "item": "minecraft:purple_shulker_box"
+      },
+      {
+        "item": "minecraft:blue_shulker_box"
+      },
+      {
+        "item": "minecraft:brown_shulker_box"
+      },
+      {
+        "item": "minecraft:green_shulker_box"
+      },
+      {
+        "item": "minecraft:red_shulker_box"
+      },
+      {
+        "item": "minecraft:black_shulker_box"
+      },
+      {
+        "item": "nekomasfixed:amber_shulker_box"
+      },
+      {
+        "item": "nekomasfixed:aqua_shulker_box"
+      },
+      {
+        "item": "nekomasfixed:maroon_shulker_box"
+      }
+    ],
+    {
+      "item": "nekomasfixed:indigo_dye"
+    }
+  ],
   "result": {
     "count": 1,
     "id": "nekomasfixed:indigo_shulker_box"

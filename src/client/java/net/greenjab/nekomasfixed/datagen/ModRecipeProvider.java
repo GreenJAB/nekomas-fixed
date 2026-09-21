@@ -14,20 +14,23 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
  * Generates the colour-suite recipes + their unlock advancements.
  * Bricks use vanilla shaped/stonecutting builders (main's brick recipes are a
- * plain-to-coloured craft, not a recolour). Spotted wool/carpet + froglights
- * use the mod's custom `nekomasfixed:recolour` type (RecolourRecipeBuilder).
+ * plain-to-coloured craft, not a recolour). Dyeing recipes (spotted wool/carpet,
+ * froglight, ancient wool/carpet/bed/shulker) are vanilla crafting_shapeless; the
+ * same-colour craft is excluded by filtering the input (like vanilla).
  */
 public class ModRecipeProvider extends FabricRecipeProvider {
     public ModRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -298,11 +301,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     wall, 8, "has_walls", Items.BRICK_WALL, "has_needed_dye", dyeItem);
 
             recolour(output, "dye_" + c + "_spotted_wool", "spotted_wool",
-                    ModTags.SPOTTED_WOOL_ITEM, dyeItem, BlockDyeMap.SPOTTED_WOOL.get(dye).asItem(),
-                    RecipeCategory.BUILDING_BLOCKS, CraftingBookCategory.BUILDING, "has_needed_dye", has(dyeItem));
+                    allBut(blockItems(BlockDyeMap.SPOTTED_WOOL.values()), BlockDyeMap.SPOTTED_WOOL.get(dye).asItem()),
+                    dyeItem, BlockDyeMap.SPOTTED_WOOL.get(dye).asItem(),
+                    RecipeCategory.BUILDING_BLOCKS, "has_needed_dye", has(dyeItem));
             recolour(output, "dye_" + c + "_spotted_carpet", "spotted_carpet",
-                    ModTags.SPOTTED_CARPET_ITEM, dyeItem, BlockDyeMap.SPOTTED_CARPET.get(dye).asItem(),
-                    RecipeCategory.DECORATIONS, CraftingBookCategory.BUILDING, "has_needed_dye", has(dyeItem));
+                    allBut(blockItems(BlockDyeMap.SPOTTED_CARPET.values()), BlockDyeMap.SPOTTED_CARPET.get(dye).asItem()),
+                    dyeItem, BlockDyeMap.SPOTTED_CARPET.get(dye).asItem(),
+                    RecipeCategory.DECORATIONS, "has_needed_dye", has(dyeItem));
 
             // Blame Akshaj
             carpetCraft(output, c + "_spotted_carpet",
@@ -319,8 +324,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         BlockDyeMap.FROGLIGHT.forEach((dye, block) ->
                 recolour(output, "dye_" + BuiltInRegistries.BLOCK.getKey(block).getPath(), "froglight",
-                        ModTags.FROGLIGHTS_ITEM, dyeItem(dye), block.asItem(),
-                        RecipeCategory.DECORATIONS, CraftingBookCategory.MISC, "has_item", has(ModTags.FROGLIGHTS_ITEM)));
+                        allBut(blockItems(BlockDyeMap.FROGLIGHT.values()), block.asItem()),
+                        dyeItem(dye), block.asItem(),
+                        RecipeCategory.DECORATIONS, "has_item", has(ModTags.FROGLIGHTS_ITEM)));
     }
 
     private void generateTurtleRecipes(RecipeOutput output) {
@@ -351,25 +357,33 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void generateAncientWoolCarpet(RecipeOutput output) {
-        // Ancient-dye plain wool/carpet. Recolour from the vanilla wool / wool_carpets
-        // item tags + the ancient dye; carpet also has a base 2-wools craft (like vanilla).
-        recolour(output, "dye_amber_wool", "wool", ItemTags.WOOL, ItemRegistry.AMBER_DYE, ItemRegistry.AMBER_WOOL,
-                RecipeCategory.BUILDING_BLOCKS, CraftingBookCategory.BUILDING, "has_needed_dye", has(ItemRegistry.AMBER_DYE));
-        recolour(output, "dye_aqua_wool", "wool", ItemTags.WOOL, ItemRegistry.AQUA_DYE, ItemRegistry.AQUA_WOOL,
-                RecipeCategory.BUILDING_BLOCKS, CraftingBookCategory.BUILDING, "has_needed_dye", has(ItemRegistry.AQUA_DYE));
-        recolour(output, "dye_indigo_wool", "wool", ItemTags.WOOL, ItemRegistry.INDIGO_DYE, ItemRegistry.INDIGO_WOOL,
-                RecipeCategory.BUILDING_BLOCKS, CraftingBookCategory.BUILDING, "has_needed_dye", has(ItemRegistry.INDIGO_DYE));
-        recolour(output, "dye_maroon_wool", "wool", ItemTags.WOOL, ItemRegistry.MAROON_DYE, ItemRegistry.MAROON_WOOL,
-                RecipeCategory.BUILDING_BLOCKS, CraftingBookCategory.BUILDING, "has_needed_dye", has(ItemRegistry.MAROON_DYE));
+        // Ancient-dye plain wool/carpet from the other wools / carpets + the ancient dye
+        // (filtered out the target colour, like vanilla); carpet also has a base 2-wools craft.
+        recolour(output, "dye_amber_wool", "wool", allBut(dyeableItems(VANILLA_WOOLS, BlockDyeMap.WOOL.values()), ItemRegistry.AMBER_WOOL),
+                ItemRegistry.AMBER_DYE, ItemRegistry.AMBER_WOOL,
+                RecipeCategory.BUILDING_BLOCKS, "has_needed_dye", has(ItemRegistry.AMBER_DYE));
+        recolour(output, "dye_aqua_wool", "wool", allBut(dyeableItems(VANILLA_WOOLS, BlockDyeMap.WOOL.values()), ItemRegistry.AQUA_WOOL),
+                ItemRegistry.AQUA_DYE, ItemRegistry.AQUA_WOOL,
+                RecipeCategory.BUILDING_BLOCKS, "has_needed_dye", has(ItemRegistry.AQUA_DYE));
+        recolour(output, "dye_indigo_wool", "wool", allBut(dyeableItems(VANILLA_WOOLS, BlockDyeMap.WOOL.values()), ItemRegistry.INDIGO_WOOL),
+                ItemRegistry.INDIGO_DYE, ItemRegistry.INDIGO_WOOL,
+                RecipeCategory.BUILDING_BLOCKS, "has_needed_dye", has(ItemRegistry.INDIGO_DYE));
+        recolour(output, "dye_maroon_wool", "wool", allBut(dyeableItems(VANILLA_WOOLS, BlockDyeMap.WOOL.values()), ItemRegistry.MAROON_WOOL),
+                ItemRegistry.MAROON_DYE, ItemRegistry.MAROON_WOOL,
+                RecipeCategory.BUILDING_BLOCKS, "has_needed_dye", has(ItemRegistry.MAROON_DYE));
 
-        recolour(output, "dye_amber_carpet", "wool_carpets", ItemTags.WOOL_CARPETS, ItemRegistry.AMBER_DYE, ItemRegistry.AMBER_CARPET,
-                RecipeCategory.DECORATIONS, CraftingBookCategory.BUILDING, "has_needed_dye", has(ItemRegistry.AMBER_DYE));
-        recolour(output, "dye_aqua_carpet", "wool_carpets", ItemTags.WOOL_CARPETS, ItemRegistry.AQUA_DYE, ItemRegistry.AQUA_CARPET,
-                RecipeCategory.DECORATIONS, CraftingBookCategory.BUILDING, "has_needed_dye", has(ItemRegistry.AQUA_DYE));
-        recolour(output, "dye_indigo_carpet", "wool_carpets", ItemTags.WOOL_CARPETS, ItemRegistry.INDIGO_DYE, ItemRegistry.INDIGO_CARPET,
-                RecipeCategory.DECORATIONS, CraftingBookCategory.BUILDING, "has_needed_dye", has(ItemRegistry.INDIGO_DYE));
-        recolour(output, "dye_maroon_carpet", "wool_carpets", ItemTags.WOOL_CARPETS, ItemRegistry.MAROON_DYE, ItemRegistry.MAROON_CARPET,
-                RecipeCategory.DECORATIONS, CraftingBookCategory.BUILDING, "has_needed_dye", has(ItemRegistry.MAROON_DYE));
+        recolour(output, "dye_amber_carpet", "wool_carpets", allBut(dyeableItems(VANILLA_CARPETS, BlockDyeMap.CARPET.values()), ItemRegistry.AMBER_CARPET),
+                ItemRegistry.AMBER_DYE, ItemRegistry.AMBER_CARPET,
+                RecipeCategory.DECORATIONS, "has_needed_dye", has(ItemRegistry.AMBER_DYE));
+        recolour(output, "dye_aqua_carpet", "wool_carpets", allBut(dyeableItems(VANILLA_CARPETS, BlockDyeMap.CARPET.values()), ItemRegistry.AQUA_CARPET),
+                ItemRegistry.AQUA_DYE, ItemRegistry.AQUA_CARPET,
+                RecipeCategory.DECORATIONS, "has_needed_dye", has(ItemRegistry.AQUA_DYE));
+        recolour(output, "dye_indigo_carpet", "wool_carpets", allBut(dyeableItems(VANILLA_CARPETS, BlockDyeMap.CARPET.values()), ItemRegistry.INDIGO_CARPET),
+                ItemRegistry.INDIGO_DYE, ItemRegistry.INDIGO_CARPET,
+                RecipeCategory.DECORATIONS, "has_needed_dye", has(ItemRegistry.INDIGO_DYE));
+        recolour(output, "dye_maroon_carpet", "wool_carpets", allBut(dyeableItems(VANILLA_CARPETS, BlockDyeMap.CARPET.values()), ItemRegistry.MAROON_CARPET),
+                ItemRegistry.MAROON_DYE, ItemRegistry.MAROON_CARPET,
+                RecipeCategory.DECORATIONS, "has_needed_dye", has(ItemRegistry.MAROON_DYE));
 
         carpetCraft(output, "amber_carpet", ItemRegistry.AMBER_WOOL, ItemRegistry.AMBER_CARPET);
         carpetCraft(output, "aqua_carpet", ItemRegistry.AQUA_WOOL, ItemRegistry.AQUA_CARPET);
@@ -442,17 +456,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     .define('D', s.wool()).define('#', ItemTags.PLANKS)
                     .group("bed").unlockedBy("has_wool", has(s.wool()))
                     .save(output, NekomasFixed.id(name));
-            recolour(output, "dye_" + name, "bed_dye", ItemTags.BEDS, s.dye(), s.bed(),
-                    RecipeCategory.DECORATIONS, CraftingBookCategory.MISC, "has_dye", has(s.dye()));
+            recolour(output, "dye_" + name, "bed_dye", allBut(dyeableItems(VANILLA_BEDS, BlockDyeMap.BED.values()), s.bed()), s.dye(), s.bed(),
+                    RecipeCategory.DECORATIONS, "has_dye", has(s.dye()));
         }
     }
 
 
-    // Ancient-colour shulker boxes: recolour any shulker box (#minecraft:shulker_boxes)
-    // with the ancient dye. Main used crafting_transmute; 1.21.1 uses the mod's recolour recipe.
-    // (1.21.1 has ItemTags.SHULKER_BOXES absent, so reference the vanilla tag by name.)
+    // Ancient-colour shulker boxes: dye any other shulker box with the ancient dye
+    // (filtered out the target colour, like vanilla). Main used crafting_transmute.
     private void generateAncientShulkerBox(RecipeOutput output) {
-        TagKey<Item> shulkerTag = TagKey.create(Registries.ITEM, ResourceLocation.withDefaultNamespace("shulker_boxes"));
         record ShulkerSet(Item box, Item dye) {
         }
         ShulkerSet[] sets = {
@@ -463,8 +475,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         };
         for (ShulkerSet s : sets) {
             String name = BuiltInRegistries.ITEM.getKey(s.box()).getPath(); // e.g. amber_shulker_box
-            recolour(output, name, "shulker_box_dye", shulkerTag, s.dye(), s.box(),
-                    RecipeCategory.DECORATIONS, CraftingBookCategory.MISC, "has_item", has(s.dye()));
+            recolour(output, name, "shulker_box_dye", allBut(dyeableItems(VANILLA_SHULKERS, BlockDyeMap.SHULKER_BOX.values()), s.box()),
+                    s.dye(), s.box(),
+                    RecipeCategory.DECORATIONS, "has_item", has(s.dye()));
         }
     }
 
@@ -581,12 +594,56 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void recolour(RecipeOutput output, String rid, String group,
-                          net.minecraft.tags.TagKey<net.minecraft.world.item.Item> inputTag, Item material,
-                          Item result, RecipeCategory category, CraftingBookCategory bookCategory,
+                          Ingredient input, Item material,
+                          Item result, RecipeCategory category,
                           String criterionName, Criterion<?> criterion) {
-        RecolourRecipeBuilder.recolour(category, bookCategory,
-                        Ingredient.of(inputTag), Ingredient.of(material), new ItemStack(result), group)
+        ShapelessRecipeBuilder.shapeless(category, result)
+                .requires(input)
+                .requires(material)
+                .group(group)
                 .unlockedBy(criterionName, criterion)
                 .save(output, NekomasFixed.id(rid));
+    }
+
+    private static final Item[] VANILLA_WOOLS = {
+            Items.WHITE_WOOL, Items.ORANGE_WOOL, Items.MAGENTA_WOOL, Items.LIGHT_BLUE_WOOL,
+            Items.YELLOW_WOOL, Items.LIME_WOOL, Items.PINK_WOOL, Items.GRAY_WOOL,
+            Items.LIGHT_GRAY_WOOL, Items.CYAN_WOOL, Items.PURPLE_WOOL, Items.BLUE_WOOL,
+            Items.BROWN_WOOL, Items.GREEN_WOOL, Items.RED_WOOL, Items.BLACK_WOOL,
+    };
+    private static final Item[] VANILLA_CARPETS = {
+            Items.WHITE_CARPET, Items.ORANGE_CARPET, Items.MAGENTA_CARPET, Items.LIGHT_BLUE_CARPET,
+            Items.YELLOW_CARPET, Items.LIME_CARPET, Items.PINK_CARPET, Items.GRAY_CARPET,
+            Items.LIGHT_GRAY_CARPET, Items.CYAN_CARPET, Items.PURPLE_CARPET, Items.BLUE_CARPET,
+            Items.BROWN_CARPET, Items.GREEN_CARPET, Items.RED_CARPET, Items.BLACK_CARPET,
+    };
+    private static final Item[] VANILLA_BEDS = {
+            Items.WHITE_BED, Items.ORANGE_BED, Items.MAGENTA_BED, Items.LIGHT_BLUE_BED,
+            Items.YELLOW_BED, Items.LIME_BED, Items.PINK_BED, Items.GRAY_BED,
+            Items.LIGHT_GRAY_BED, Items.CYAN_BED, Items.PURPLE_BED, Items.BLUE_BED,
+            Items.BROWN_BED, Items.GREEN_BED, Items.RED_BED, Items.BLACK_BED,
+    };
+    private static final Item[] VANILLA_SHULKERS = {
+            Items.WHITE_SHULKER_BOX, Items.ORANGE_SHULKER_BOX, Items.MAGENTA_SHULKER_BOX, Items.LIGHT_BLUE_SHULKER_BOX,
+            Items.YELLOW_SHULKER_BOX, Items.LIME_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.GRAY_SHULKER_BOX,
+            Items.LIGHT_GRAY_SHULKER_BOX, Items.CYAN_SHULKER_BOX, Items.PURPLE_SHULKER_BOX, Items.BLUE_SHULKER_BOX,
+            Items.BROWN_SHULKER_BOX, Items.GREEN_SHULKER_BOX, Items.RED_SHULKER_BOX, Items.BLACK_SHULKER_BOX,
+    };
+
+    // Blocks -> their items (e.g. the mod's ancient colours from a BlockDyeMap family).
+    private static List<Item> blockItems(Collection<Block> blocks) {
+        return blocks.stream().map(Block::asItem).toList();
+    }
+
+    // Full dyeable list for an ancient recolour: the vanilla 16 + the mod's ancient items.
+    private static List<Item> dyeableItems(Item[] vanilla, Collection<Block> modBlocks) {
+        List<Item> all = new ArrayList<>(List.of(vanilla));
+        all.addAll(blockItems(modBlocks));
+        return all;
+    }
+
+    // All dyeable items except the target, so a same-colour craft is excluded (like vanilla).
+    private static Ingredient allBut(Collection<Item> dyeable, Item target) {
+        return Ingredient.of(dyeable.stream().filter(item -> item != target).map(ItemStack::new));
     }
 }

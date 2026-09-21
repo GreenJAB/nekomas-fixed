@@ -9,7 +9,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class RecipeRegistry {
 
-    public static final RecipeSerializer<RecolourRecipe> RECOLOUR = register("recolour", new RecolourRecipe.Serializer());
     public static final SmithingEchoingFadeRecipe.Serializer SMITHING_ECHOING_FADE_RECIPE = register("smithing_echoing_fade", new SmithingEchoingFadeRecipe.Serializer());
     public static final SmithingEchoingPigmentRecipe.Serializer SMITHING_ECHOING_PIGMENT_RECIPE = register("smithing_echoing_pigment", new SmithingEchoingPigmentRecipe.Serializer());
     public static final SmithingEchoingTwinkleRecipe.Serializer SMITHING_ECHOING_TWINKLE_RECIPE = register("smithing_echoing_twinkle", new SmithingEchoingTwinkleRecipe.Serializer());
