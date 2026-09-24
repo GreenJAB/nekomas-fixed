@@ -20,7 +20,7 @@
   "stump_decorators": [],
   "trunk_provider": {
     "id": "nekomasfixed:hollow_spruce_log",
-    "properties": {
+    "state": {
       "axis": "y"
     }
   }

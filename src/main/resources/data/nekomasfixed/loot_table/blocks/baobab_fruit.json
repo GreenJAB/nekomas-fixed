@@ -1,8 +1,8 @@
 {
   "type": "minecraft:block",
-  "functions": [
+  "modifier": [
     {
-      "function": "minecraft:explosion_decay"
+      "type": "minecraft:explosion_decay"
     }
   ],
   "pools": [
@@ -14,15 +14,13 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "nekomasfixed:baobab_fruit",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "1"
-                  }
+              "condition": {
+                "blocks": "nekomasfixed:baobab_fruit",
+                "type": "minecraft:match_block",
+                "state": {
+                  "age": "1"
                 }
-              ],
+              },
               "name": "nekomasfixed:baobab_fruit"
             },
             {
@@ -36,23 +34,21 @@
     },
     {
       "bonus_rolls": 0,
-      "conditions": [
-        {
-          "block": "nekomasfixed:baobab_fruit",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "1"
-          }
+      "condition": {
+        "blocks": "nekomasfixed:baobab_fruit",
+        "type": "minecraft:match_block",
+        "state": {
+          "age": "1"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "enchantment": "minecraft:fortune",
               "formula": "minecraft:binomial_with_bonus_count",
-              "function": "minecraft:apply_bonus",
+              "type": "minecraft:apply_bonus",
               "parameters": {
                 "extra": 2,
                 "probability": 0.5714286
