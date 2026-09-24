@@ -138,14 +138,15 @@ public class DyedBrushItem extends Item {
                 if (level.getBlockState(otherPos).is(BlockTags.BEDS)) {
                     BlockPos head = bedPart == BedPart.HEAD ? pos : otherPos;
                     BlockPos foot = bedPart == BedPart.HEAD ? otherPos : pos;
-                    level.setBlockAndUpdate(head, Blocks.AIR.defaultBlockState());
-                    level.setBlockAndUpdate(foot, Blocks.AIR.defaultBlockState());
+                    level.setBlock(head, Blocks.AIR.defaultBlockState(),Block.UPDATE_ALL);
+                    level.setBlock(foot, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
                     level.setBlockAndUpdate(head, newBed.setValue(BedBlock.PART, BedPart.HEAD));
                     level.setBlockAndUpdate(foot, newBed.setValue(BedBlock.PART, BedPart.FOOT));
                 } else level.setBlockAndUpdate(pos, newBed.setValue(BedBlock.PART, bedPart));
                 used = true;
             }
         }
+
         if (used) {
             this.afterUse(context);
             return  InteractionResult.SUCCESS;
