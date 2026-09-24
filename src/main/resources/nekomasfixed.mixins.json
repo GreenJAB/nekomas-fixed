@@ -50,6 +50,7 @@
     "SmithingMenuMixin",
     "SnifferEntityMixin",
     "SpearLungeMixin",
+    "TrimPatternMixin",
     "ZombieMixin",
     "accessor.FlowerPotBlockAccessor",
     "accessor.SnifferAccessor",
