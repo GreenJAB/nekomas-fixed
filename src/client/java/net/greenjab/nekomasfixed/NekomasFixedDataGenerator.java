@@ -32,23 +32,4 @@ public class NekomasFixedDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModAdvancementProvider::new);
 	}
 
-	@Override
-	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-
-	}
-
-
-	//registryBuilder.add(Registries.LOOT_TABLE, bootstrap -> {
-	//			bootstrap.register(
-	//					ResourceKey.create(Registries.LOOT_TABLE,
-	//							Identifier.fromNamespaceAndPath("nekomasfixed", "gameplay/clam")),
-	//					LootTable.lootTable().build()
-	//			);
-	//			bootstrap.register(
-	//					ResourceKey.create(Registries.LOOT_TABLE,
-	//							Identifier.fromNamespaceAndPath("nekomasfixed", "gameplay/super_charged_creeper_enderman")),
-	//					LootTable.lootTable().build()
-	//
-	//			);
-	//		});
 }
