@@ -16,9 +16,9 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:ominous_bottle",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:set_ominous_bottle_amplifier",
+              "type": "minecraft:set_ominous_bottle_amplifier",
               "amplifier": {
                 "type": "minecraft:uniform",
                 "min": 0,
@@ -48,7 +48,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
               "count": {
@@ -56,7 +56,7 @@
                 "max": 5,
                 "min": 3
               },
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count"
             }
           ],
           "name": "minecraft:wheat",
@@ -64,7 +64,7 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
               "count": {
@@ -72,7 +72,7 @@
                 "max": 5,
                 "min": 2
               },
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count"
             }
           ],
           "name": "minecraft:potato",
@@ -80,7 +80,7 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
               "count": {
@@ -88,7 +88,7 @@
                 "max": 5,
                 "min": 3
               },
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count"
             }
           ],
           "name": "minecraft:carrot",
@@ -106,7 +106,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
               "count": {
@@ -114,7 +114,7 @@
                 "max": 3,
                 "min": 2
               },
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count"
             }
           ],
           "name": "minecraft:dark_oak_log"
@@ -136,7 +136,7 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
               "count": {
@@ -144,7 +144,7 @@
                 "max": 6,
                 "min": 1
               },
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count"
             }
           ],
           "name": "minecraft:string",
@@ -152,7 +152,7 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
               "count": {
@@ -160,7 +160,7 @@
                 "max": 7,
                 "min": 2
               },
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count"
             }
           ],
           "name": "minecraft:arrow",
@@ -168,7 +168,7 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
               "count": {
@@ -176,7 +176,7 @@
                 "max": 3,
                 "min": 1
               },
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count"
             }
           ],
           "name": "minecraft:tripwire_hook",
@@ -184,7 +184,7 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
               "count": {
@@ -192,7 +192,7 @@
                 "max": 3,
                 "min": 1
               },
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count"
             }
           ],
           "name": "minecraft:iron_ingot",
@@ -200,9 +200,9 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:enchant_randomly",
+              "type": "minecraft:enchant_randomly",
               "options": "#minecraft:on_random_loot"
             }
           ],
@@ -223,9 +223,9 @@
           "name": "minecraft:goat_horn"
         }
       ],
-      "functions": [
+      "modifier": [
         {
-          "function": "minecraft:set_instrument",
+          "type": "minecraft:set_instrument",
           "options": "#minecraft:regular_goat_horns"
         }
       ],
