@@ -43,6 +43,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
     @Final
     @Shadow
     private final TextureAtlas armorTrimAtlas;
+
     public HumanoidArmorLayerMixin(RenderLayerParent<T, M> context, TextureAtlas armorTrimsAtlas) {
         super(context);
         this.armorTrimAtlas = armorTrimsAtlas;
@@ -51,8 +52,8 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
     @Redirect(
             method = "renderArmorPiece",
             at = @At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderTrim(Lnet/minecraft/core/Holder;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/armortrim/ArmorTrim;Lnet/minecraft/client/model/HumanoidModel;Z)V"
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderTrim(Lnet/minecraft/core/Holder;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/armortrim/ArmorTrim;Lnet/minecraft/client/model/HumanoidModel;Z)V"
             )
     )
     private void injected(HumanoidArmorLayer<?, ?, ?> instance, Holder<ArmorMaterial> armorMaterial, PoseStack matrices, MultiBufferSource vertexConsumers, int light, ArmorTrim trim, A model, boolean leggings, @Local ItemStack stack, @Local boolean bl) {

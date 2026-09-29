@@ -1,9 +1,9 @@
 package net.greenjab.nekomasfixed.integration.jei;
 
-import net.greenjab.nekomasfixed.NekomasFixed;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.recipe.SmithingEchoingFadeRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.SmithingEchoingPigmentRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.SmithingEchoingTwinkleRecipe;

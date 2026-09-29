@@ -2,11 +2,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.entity.BaobabBoat;
-import net.greenjab.nekomasfixed.registry.entity.BaobabChestBoat;
-import net.greenjab.nekomasfixed.registry.entity.ClearItemFrameEntity;
-import net.greenjab.nekomasfixed.registry.entity.SlingshotProjectile;
-import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
+import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.moobloom.Moobloom;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

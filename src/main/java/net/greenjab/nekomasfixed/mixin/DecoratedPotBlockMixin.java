@@ -1,8 +1,8 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.mojang.datafixers.util.Pair;
-import net.greenjab.nekomasfixed.target_access_class.DecoratedPotAccess;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
+import net.greenjab.nekomasfixed.target_access_class.DecoratedPotAccess;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;

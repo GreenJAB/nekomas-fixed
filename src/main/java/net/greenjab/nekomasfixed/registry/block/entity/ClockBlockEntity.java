@@ -25,12 +25,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nullable;
 
 public class ClockBlockEntity extends BlockEntity {
+    public static final int timerDuration = 60;
     private int storedTime = -1;
-    public static int timerDuration = 60;
     private int timer = -timerDuration;
     private boolean bell = false;
     private boolean showsTime = false;
@@ -41,66 +42,6 @@ public class ClockBlockEntity extends BlockEntity {
 
     public ClockBlockEntity(BlockPos pos, BlockState state) {
         this(BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, pos, state);
-    }
-
-    @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        if (tag.contains("storedTime")) setStoredTime(tag.getInt("storedTime"));
-        if (tag.contains("timer")) setTimer(tag.getInt("timer"));
-        if (tag.contains("bell")) setBell(tag.getBoolean("bell"));
-        if (tag.contains("showsTime")) setShowsTime(tag.getBoolean("showsTime"));
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt("storedTime", getStoredTime());
-        tag.putInt("timer", getTimer());
-        tag.putBoolean("bell", hasBell());
-        tag.putBoolean("showsTime", getShowsTime());
-    }
-
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    protected void applyImplicitComponents(BlockEntity.DataComponentInput components) {
-        super.applyImplicitComponents(components);
-        this.storedTime = components.getOrDefault(ComponentRegistry.STORED_TIME, new StoredTimeComponent(-1)).time();
-    }
-
-    @Override
-    protected void collectImplicitComponents(DataComponentMap.Builder builder) {
-        super.collectImplicitComponents(builder);
-        if (this.storedTime > 0) builder.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent(this.storedTime));
-    }
-
-    public void setStoredTime(int time) {
-        storedTime = time;
-    }
-    public int getStoredTime() {
-        return storedTime;
-    }
-    public void setTimer(int time) {
-        timer = time;
-    }
-    public int getTimer() {
-        return timer;
-    }
-    public void setBell(boolean hasbell) {
-        bell = hasbell;
-    }
-    public boolean hasBell() {
-        return bell;
-    }
-    public void setShowsTime(boolean showTime) {
-        showsTime = showTime;
-    }
-    public boolean getShowsTime() {
-        return showsTime;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, ClockBlockEntity blockEntity) {
@@ -149,5 +90,72 @@ public class ClockBlockEntity extends BlockEntity {
         if (blockEntity.timer > -timerDuration) {
             blockEntity.timer--;
         }
+    }
+
+    @Override
+    protected void loadAdditional(@NonNull CompoundTag tag, HolderLookup.@NonNull Provider registries) {
+        super.loadAdditional(tag, registries);
+        if (tag.contains("storedTime")) setStoredTime(tag.getInt("storedTime"));
+        if (tag.contains("timer")) setTimer(tag.getInt("timer"));
+        if (tag.contains("bell")) setBell(tag.getBoolean("bell"));
+        if (tag.contains("showsTime")) setShowsTime(tag.getBoolean("showsTime"));
+    }
+
+    @Override
+    protected void saveAdditional(@NonNull CompoundTag tag, HolderLookup.@NonNull Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putInt("storedTime", getStoredTime());
+        tag.putInt("timer", getTimer());
+        tag.putBoolean("bell", hasBell());
+        tag.putBoolean("showsTime", getShowsTime());
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    protected void applyImplicitComponents(BlockEntity.@NonNull DataComponentInput components) {
+        super.applyImplicitComponents(components);
+        this.storedTime = components.getOrDefault(ComponentRegistry.STORED_TIME, new StoredTimeComponent(-1)).time();
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.@NonNull Builder builder) {
+        super.collectImplicitComponents(builder);
+        if (this.storedTime > 0) builder.set(ComponentRegistry.STORED_TIME, new StoredTimeComponent(this.storedTime));
+    }
+
+    public int getStoredTime() {
+        return storedTime;
+    }
+
+    public void setStoredTime(int time) {
+        storedTime = time;
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int time) {
+        timer = time;
+    }
+
+    public void setBell(boolean hasbell) {
+        bell = hasbell;
+    }
+
+    public boolean hasBell() {
+        return bell;
+    }
+
+    public boolean getShowsTime() {
+        return showsTime;
+    }
+
+    public void setShowsTime(boolean showTime) {
+        showsTime = showTime;
     }
 }

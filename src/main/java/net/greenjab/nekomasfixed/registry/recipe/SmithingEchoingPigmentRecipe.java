@@ -66,6 +66,11 @@ public class SmithingEchoingPigmentRecipe extends SmithingEchoingRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<SmithingEchoingPigmentRecipe> {
+        public static final StreamCodec<RegistryFriendlyByteBuf, SmithingEchoingPigmentRecipe> PACKET_CODEC =
+                StreamCodec.of(
+                        SmithingEchoingPigmentRecipe.Serializer::write,
+                        SmithingEchoingPigmentRecipe.Serializer::read
+                );
         private static final MapCodec<SmithingEchoingPigmentRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) ->
                 instance.group(
                         Ingredient.CODEC
@@ -79,21 +84,7 @@ public class SmithingEchoingPigmentRecipe extends SmithingEchoingRecipe {
                                 .forGetter(SmithingEchoingRecipe::getAddition)
                 ).apply(instance, SmithingEchoingPigmentRecipe::new));
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, SmithingEchoingPigmentRecipe> PACKET_CODEC =
-                StreamCodec.of(
-                        SmithingEchoingPigmentRecipe.Serializer::write,
-                        SmithingEchoingPigmentRecipe.Serializer::read
-                );
-
         public Serializer() {
-        }
-
-        public @NotNull MapCodec<SmithingEchoingPigmentRecipe> codec() {
-            return CODEC;
-        }
-
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, SmithingEchoingPigmentRecipe> streamCodec() {
-            return PACKET_CODEC;
         }
 
         private static SmithingEchoingPigmentRecipe read(RegistryFriendlyByteBuf buf) {
@@ -107,6 +98,14 @@ public class SmithingEchoingPigmentRecipe extends SmithingEchoingRecipe {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.getTemplate());
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.getBase());
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.getAddition());
+        }
+
+        public @NotNull MapCodec<SmithingEchoingPigmentRecipe> codec() {
+            return CODEC;
+        }
+
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, SmithingEchoingPigmentRecipe> streamCodec() {
+            return PACKET_CODEC;
         }
     }
 }

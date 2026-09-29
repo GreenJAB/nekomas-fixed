@@ -1,11 +1,6 @@
 package net.greenjab.nekomasfixed.registry.recipe;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.util.EchoingLayer;
 import net.minecraft.core.Holder;
@@ -24,10 +19,21 @@ import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
 public abstract class SmithingEchoingRecipe implements SmithingRecipe {
     private final Ingredient template;
     private final Ingredient base;
     private final Ingredient addition;
+
+    public SmithingEchoingRecipe(Ingredient template, Ingredient base, Ingredient addition) {
+        this.template = template;
+        this.base = base;
+        this.addition = addition;
+    }
 
     public List<EchoingLayer> copyEchoingLayers(ItemStack item) {
         List<EchoingLayer> echoingLayers = item.get(ComponentRegistry.ECHOING_LAYERS);
@@ -46,12 +52,6 @@ public abstract class SmithingEchoingRecipe implements SmithingRecipe {
         ItemStack newStack = item.copyWithCount(1);
         newStack.set(ComponentRegistry.ECHOING_LAYERS, layers);
         return newStack;
-    }
-
-    public SmithingEchoingRecipe(Ingredient template, Ingredient base, Ingredient addition) {
-        this.template = template;
-        this.base = base;
-        this.addition = addition;
     }
 
     public Ingredient getTemplate() {

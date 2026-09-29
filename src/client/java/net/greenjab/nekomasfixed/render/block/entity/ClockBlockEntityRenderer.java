@@ -18,15 +18,34 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public class ClockBlockEntityRenderer implements BlockEntityRenderer<ClockBlockEntity> {
 
     public ClockBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
     }
 
+    private static @Nullable String getText(int dayTime, int timer) {
+        String text = null;
+        if (dayTime != -1) {
+            int hour = dayTime / 1000;
+            int min = ((dayTime % 1000) * 60) / 1000;
+            text = (hour < 10 ? "0" : "") + hour + ":" + (min < 10 ? "0" : "") + min;
+        } else {
+            int time = timer + 20;
+            if (time > 20) {
+                int min = time / 1200;
+                int sec = (time - min * 1200) / 20;
+                text = (min != 0 ? min + " Minute" + (min != 1 ? "s" : "") + ", " : "") + sec + " Second" + (sec != 1 ? "s" : "");
+            }
+        }
+        return text;
+    }
+
     @Override
-    public void render(ClockBlockEntity blockEntity, float partialTick, PoseStack poseStack,
-                       MultiBufferSource buffer, int packedLight, int packedOverlay) {
+    public void render(ClockBlockEntity blockEntity, float partialTick, @NonNull PoseStack poseStack,
+                       @NonNull MultiBufferSource buffer, int packedLight, int packedOverlay) {
         BlockState blockState = blockEntity.getBlockState();
         boolean wall = blockState.getBlock() instanceof WallClockBlock;
         float yaw;
@@ -44,19 +63,7 @@ public class ClockBlockEntityRenderer implements BlockEntityRenderer<ClockBlockE
 
         // Floating label above the clock while it shows the time or is counting down.
         // Drawn before the centering translate so the anchor sits at block coordinates.
-        String text = null;
-        if (dayTime != -1) {
-            int hour = dayTime / 1000;
-            int min = ((dayTime % 1000) * 60) / 1000;
-            text = (hour < 10 ? "0" : "") + hour + ":" + (min < 10 ? "0" : "") + min;
-        } else {
-            int time = timer + 20;
-            if (time > 20) {
-                int min = time / 1200;
-                int sec = (time - min * 1200) / 20;
-                text = (min != 0 ? min + " Minute" + (min != 1 ? "s" : "") + ", " : "") + sec + " Second" + (sec != 1 ? "s" : "");
-            }
-        }
+        String text = getText(dayTime, timer);
         if (text != null) {
             Vec3 pos = wall
                     ? new Vec3(-0.4 * Math.sin(yaw * Math.PI / 180.0F) + 0.5, 1.0, 0.4 * Math.cos(yaw * Math.PI / 180.0F) + 0.5)

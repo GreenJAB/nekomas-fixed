@@ -6,8 +6,10 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import org.jspecify.annotations.NonNull;
 
-public record UpdateClockPayload(int x, int y, int z, int timer, boolean hasBell, boolean showsTime) implements CustomPacketPayload {
+public record UpdateClockPayload(int x, int y, int z, int timer, boolean hasBell,
+                                 boolean showsTime) implements CustomPacketPayload {
 
     public static final Type<UpdateClockPayload> PACKET_ID = new Type<>(NekomasFixed.id("update_clock"));
 
@@ -20,12 +22,12 @@ public record UpdateClockPayload(int x, int y, int z, int timer, boolean hasBell
             ByteBufCodecs.BOOL, UpdateClockPayload::showsTime,
             UpdateClockPayload::new);
 
-    @Override
-    public Type<? extends CustomPacketPayload> type() {
-        return PACKET_ID;
-    }
-
     public static void register() {
         PayloadTypeRegistry.playS2C().register(PACKET_ID, PACKET_CODEC);
+    }
+
+    @Override
+    public @NonNull Type<? extends CustomPacketPayload> type() {
+        return PACKET_ID;
     }
 }

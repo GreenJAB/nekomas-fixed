@@ -2,9 +2,10 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import com.mojang.serialization.Codec;
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.other.ComboComponent;
+import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.greenjab.nekomasfixed.util.BannerEffects;
 import net.greenjab.nekomasfixed.util.EchoingLayer;
-import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -43,10 +44,11 @@ public class ComponentRegistry {
                     .cacheEncoding());
     public static final List<Boolean> DEFAULT_SHERD_GLOW_OVERRIDES = List.of(false, false, false, false);
 
-    private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
-        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, NekomasFixed.id(id), builderOperator.apply(DataComponentType.builder()).build());
-    }
-
+    public static final DataComponentType<ComboComponent> COMBO_MULTIPLIER = register(
+            "combo_multiplier", builder -> builder
+                    .persistent(ComboComponent.CODEC)
+                    .networkSynchronized(ComboComponent.PACKET_CODEC)
+                    .cacheEncoding());
     // Registered under minecraft: (not the mod namespace) so the clock loot table's copy_components
     // include can reference it as "minecraft:stored_time", exactly as main does.
     public static final DataComponentType<StoredTimeComponent> STORED_TIME = Registry.register(
@@ -55,6 +57,10 @@ public class ComponentRegistry {
                     .persistent(StoredTimeComponent.CODEC)
                     .networkSynchronized(StoredTimeComponent.PACKET_CODEC)
                     .build());
+
+    private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
+        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, NekomasFixed.id(id), builderOperator.apply(DataComponentType.builder()).build());
+    }
 
     public static void registerComponents() {
         NekomasFixed.LOGGER.info("Registering components");

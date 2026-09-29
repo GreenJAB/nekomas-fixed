@@ -1,10 +1,10 @@
 package net.greenjab.nekomasfixed.integration.jei;
 
-import net.greenjab.nekomasfixed.registry.recipe.SmithingEchoingRecipe;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.extensions.vanilla.smithing.ISmithingCategoryExtension;
+import net.greenjab.nekomasfixed.registry.recipe.SmithingEchoingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -23,12 +23,10 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class SmithingEchoingExtension<R extends SmithingEchoingRecipe> implements ISmithingCategoryExtension<R> {
-    private static final HolderLookup.Provider WRAPPER_LOOKUP;
-    private static final Random RANDOM = new Random();
-
-
     public static final List<Holder<TrimMaterial>> MATERIALS;
     public static final List<Holder<TrimPattern>> PATTERNS;
+    private static final HolderLookup.Provider WRAPPER_LOOKUP;
+    private static final Random RANDOM = new Random();
 
     static {
         Minecraft client = Minecraft.getInstance();

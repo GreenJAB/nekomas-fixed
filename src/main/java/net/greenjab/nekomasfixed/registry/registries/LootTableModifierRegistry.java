@@ -20,13 +20,14 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- *  For making modifications to vanilla loot tables
- *  (in order not prevent conflicts with overriding same loot table with other mods)
+ * For making modifications to vanilla loot tables
+ * (in order not prevent conflicts with overriding same loot table with other mods)
  */
 public class LootTableModifierRegistry {
     private static final Set<ResourceKey<LootTable>> BANNERS_LOOT_TABLE_IDS = BuiltInRegistries.BLOCK.stream()
@@ -60,8 +61,7 @@ public class LootTableModifierRegistry {
                                     )
                             ).build();
                     tableBuilder.apply(function);
-                }
-                else if (BANNERS_LOOT_TABLE_IDS.contains(registryKey)) {
+                } else if (BANNERS_LOOT_TABLE_IDS.contains(registryKey)) {
                     //System.out.println("Changed loot table: " + registryKey.location());
                     LootItemFunction function = CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
                             .include(ComponentRegistry.BANNER_EFFECTS)

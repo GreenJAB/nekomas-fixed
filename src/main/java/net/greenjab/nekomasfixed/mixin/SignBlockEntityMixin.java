@@ -18,35 +18,36 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SignBlockEntity.class)
 public abstract class SignBlockEntityMixin extends BlockEntity implements SignAccess {
 
-	@Shadow protected abstract void markUpdated();
+    @Unique
+    private boolean nekomasfixed$hideBackground = false;
 
-	@Unique
-	private boolean nekomasfixed$hideBackground = false;
+    public SignBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+    }
 
-	public SignBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
-	}
+    @Shadow
+    protected abstract void markUpdated();
 
-	@Inject(at = @At("HEAD"), method = "saveAdditional")
-	private void saveAdditional(CompoundTag tag, HolderLookup.Provider registries, CallbackInfo ci) {
-		if (this.nekomasfixed$hideBackground) {
-			tag.putBoolean("nekomasfixed.hide_background", true);
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "saveAdditional")
+    private void saveAdditional(CompoundTag tag, HolderLookup.Provider registries, CallbackInfo ci) {
+        if (this.nekomasfixed$hideBackground) {
+            tag.putBoolean("nekomasfixed.hide_background", true);
+        }
+    }
 
-	@Inject(at = @At("HEAD"), method = "loadAdditional")
-	private void loadAdditional(CompoundTag tag, HolderLookup.Provider registries, CallbackInfo ci) {
-		nekomasfixed$hideBackground = tag.contains("nekomasfixed.hide_background") && tag.getBoolean("nekomasfixed.hide_background");
-	}
+    @Inject(at = @At("HEAD"), method = "loadAdditional")
+    private void loadAdditional(CompoundTag tag, HolderLookup.Provider registries, CallbackInfo ci) {
+        nekomasfixed$hideBackground = tag.contains("nekomasfixed.hide_background") && tag.getBoolean("nekomasfixed.hide_background");
+    }
 
-	@Override
-	public boolean nekomasfixed$isBackgroundHidden() {
-		return nekomasfixed$hideBackground;
-	}
+    @Override
+    public boolean nekomasfixed$isBackgroundHidden() {
+        return nekomasfixed$hideBackground;
+    }
 
-	@Override
-	public void nekomasfixed$setHideBackground(boolean hideBackground) {
-		nekomasfixed$hideBackground = hideBackground;
-		markUpdated();
-	}
+    @Override
+    public void nekomasfixed$setHideBackground(boolean hideBackground) {
+        nekomasfixed$hideBackground = hideBackground;
+        markUpdated();
+    }
 }

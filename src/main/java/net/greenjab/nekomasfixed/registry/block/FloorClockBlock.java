@@ -24,20 +24,20 @@ public class FloorClockBlock extends AbstractClockBlock {
                     propertiesCodec()
             ).apply(instance, FloorClockBlock::new));
     public static final int MAX_ROTATION_INDEX = RotationSegment.getMaxSegmentIndex();
-    private static final int MAX_ROTATIONS = MAX_ROTATION_INDEX + 1;
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
+    private static final int MAX_ROTATIONS = MAX_ROTATION_INDEX + 1;
     // Faithful to main's Block.column(8,0,8): an 8-wide column, centred, occupying the bottom
     // half of the block (y 0-8).
     private static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 8.0, 12.0);
 
-    @Override
-    public @NonNull MapCodec<? extends FloorClockBlock> codec() {
-        return CODEC;
-    }
-
     public FloorClockBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.defaultBlockState().setValue(ROTATION, 0));
+    }
+
+    @Override
+    public @NonNull MapCodec<? extends FloorClockBlock> codec() {
+        return CODEC;
     }
 
     @Override

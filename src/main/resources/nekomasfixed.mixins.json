@@ -37,6 +37,7 @@
     "accessor.BlockBehaviourAccessor",
     "accessor.FlowerPotBlockAccessor",
     "accessor.ItemCombinerMenuAccessor",
+    "accessor.LivingEntityAccessor",
     "accessor.MobAccessor",
     "accessor.ObserverBlockAccessor",
     "integration.GlowInkPlus",

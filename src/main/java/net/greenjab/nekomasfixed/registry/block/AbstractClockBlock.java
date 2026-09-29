@@ -97,7 +97,7 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
-@Override
+    @Override
     public BlockEntity newBlockEntity(@NonNull BlockPos pos, @NonNull BlockState state) {
         return new ClockBlockEntity(pos, state);
     }

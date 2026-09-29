@@ -2,6 +2,8 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
+import net.greenjab.nekomasfixed.util.ModItemSettings;
+import net.greenjab.nekomasfixed.util.SickleTiers;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -103,6 +105,21 @@ public class ItemRegistry {
             new Item.Properties().stacksTo(1).durability(325));
     public static final Holder<Potion> LIGHTNING = register("lightning", new Potion("lightning", new MobEffectInstance(EffectRegistry.LIGHTNING, 1)));
     public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Properties().stacksTo(1).durability(384));
+    public static final Item WOODEN_SICKLE = register("wooden_sickle",
+            settings -> new SickleItem(SickleTiers.WOODEN, settings), ModItemSettings.sickle(SickleTiers.WOODEN));
+    public static final Item STONE_SICKLE = register("stone_sickle",
+            settings -> new SickleItem(SickleTiers.STONE, settings), ModItemSettings.sickle(SickleTiers.STONE));
+    public static final Item COPPER_SICKLE = register("copper_sickle",
+            settings -> new SickleItem(SickleTiers.COPPER, settings), ModItemSettings.sickle(SickleTiers.COPPER));
+    public static final Item IRON_SICKLE = register("iron_sickle",
+            settings -> new SickleItem(SickleTiers.IRON, settings), ModItemSettings.sickle(SickleTiers.IRON));
+    public static final Item GOLDEN_SICKLE = register("golden_sickle",
+            settings -> new SickleItem(SickleTiers.GOLDEN, settings), ModItemSettings.sickle(SickleTiers.GOLDEN));
+    public static final Item DIAMOND_SICKLE = register("diamond_sickle",
+            settings -> new SickleItem(SickleTiers.DIAMOND, settings), ModItemSettings.sickle(SickleTiers.DIAMOND));
+    public static final Item NETHERITE_SICKLE = register("netherite_sickle",
+            settings -> new SickleItem(SickleTiers.NETHERITE, settings),
+            ModItemSettings.sickle(SickleTiers.NETHERITE).fireResistant());
     public static final Item SWEETBERRY_CAKE = register(BlockRegistry.SWEETBERRY_CAKE, new Item.Properties().stacksTo(1));
     public static final Item PAN_CAKE = register(BlockRegistry.PAN_CAKE, new Item.Properties().stacksTo(1));
     public static final Item GLOWBERRY_CAKE = register(BlockRegistry.GLOWBERRY_CAKE, new Item.Properties().stacksTo(1));

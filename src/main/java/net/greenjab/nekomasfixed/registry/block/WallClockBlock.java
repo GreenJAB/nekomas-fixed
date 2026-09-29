@@ -11,11 +11,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -41,14 +37,20 @@ public class WallClockBlock extends AbstractClockBlock {
             Direction.SOUTH, Block.box(1.0, 1.0, 0.0, 15.0, 15.0, 1.0),
             Direction.WEST, Block.box(15.0, 1.0, 1.0, 16.0, 15.0, 15.0));
 
-    @Override
-    public @NonNull MapCodec<? extends WallClockBlock> codec() {
-        return CODEC;
-    }
-
     public WallClockBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
+    }
+
+    public static boolean canPlaceAt(LevelReader level, BlockPos pos, Direction facing) {
+        BlockPos blockPos = pos.relative(facing.getOpposite());
+        BlockState blockState = level.getBlockState(blockPos);
+        return blockState.isFaceSturdy(level, blockPos, facing);
+    }
+
+    @Override
+    public @NonNull MapCodec<? extends WallClockBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -85,7 +87,7 @@ public class WallClockBlock extends AbstractClockBlock {
         return SHAPES_BY_DIRECTION.get(state.getValue(FACING));
     }
 
-@Override
+    @Override
     protected boolean canSurvive(@NonNull BlockState state, @NonNull LevelReader level, BlockPos pos) {
         return canPlaceAt(level, pos, state.getValue(FACING));
     }
@@ -93,12 +95,6 @@ public class WallClockBlock extends AbstractClockBlock {
     @Override
     protected @NonNull BlockState updateShape(@NonNull BlockState state, @NonNull Direction direction, @NonNull BlockState neighborState, @NonNull LevelAccessor level, @NonNull BlockPos pos, @NonNull BlockPos neighborPos) {
         return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : state;
-    }
-
-    public static boolean canPlaceAt(LevelReader level, BlockPos pos, Direction facing) {
-        BlockPos blockPos = pos.relative(facing.getOpposite());
-        BlockState blockState = level.getBlockState(blockPos);
-        return blockState.isFaceSturdy(level, blockPos, facing);
     }
 
     @Override

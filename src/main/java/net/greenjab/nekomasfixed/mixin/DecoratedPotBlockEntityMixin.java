@@ -1,7 +1,12 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import net.greenjab.nekomasfixed.target_access_class.DecoratedPotAccess;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
+import net.greenjab.nekomasfixed.target_access_class.DecoratedPotAccess;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,11 +17,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 
 @Mixin(DecoratedPotBlockEntity.class)
 public class DecoratedPotBlockEntityMixin implements DecoratedPotAccess {
@@ -42,9 +42,9 @@ public class DecoratedPotBlockEntityMixin implements DecoratedPotAccess {
     private void writeNbt(CompoundTag nbt, HolderLookup.Provider registryLookup, CallbackInfo ci) {
         if (
                 nekomasfixed$getSherdGlow(0) ||
-                nekomasfixed$getSherdGlow(1) ||
-                nekomasfixed$getSherdGlow(2) ||
-                nekomasfixed$getSherdGlow(3)
+                        nekomasfixed$getSherdGlow(1) ||
+                        nekomasfixed$getSherdGlow(2) ||
+                        nekomasfixed$getSherdGlow(3)
         ) {
             nbt.putByteArray(SHERD_GLOW_OVERRIDES_KEY, nekomasfixed$sherdGlowOverrides.stream().map(b -> b ? (byte) 1 : (byte) 0).toList());
         }

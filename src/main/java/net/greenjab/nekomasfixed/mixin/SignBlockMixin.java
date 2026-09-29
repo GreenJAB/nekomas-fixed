@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
-import net.greenjab.nekomasfixed.target_access_class.SignAccess;
 import net.greenjab.nekomasfixed.registry.registries.SoundEventRegistry;
+import net.greenjab.nekomasfixed.target_access_class.SignAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -25,7 +25,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SignBlock.class)
 public abstract class SignBlockMixin {
-    @Shadow protected abstract boolean otherPlayerIsEditingSign(Player player, SignBlockEntity blockEntity);
+    @Shadow
+    protected abstract boolean otherPlayerIsEditingSign(Player player, SignBlockEntity blockEntity);
 
     @Inject(method = "useItemOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;"), cancellable = true)
     private void onUse(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<ItemInteractionResult> cir) {
@@ -34,11 +35,11 @@ public abstract class SignBlockMixin {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (
                     blockEntity instanceof SignBlockEntity signBlockEntity &&
-                    signBlockEntity instanceof SignAccess nekomasfixedSign &&
-                    !world.isClientSide &&
-                    !nekomasfixedSign.nekomasfixed$isBackgroundHidden() &&
-                    !this.otherPlayerIsEditingSign(player, signBlockEntity) &&
-                    player.mayBuild()
+                            signBlockEntity instanceof SignAccess nekomasfixedSign &&
+                            !world.isClientSide &&
+                            !nekomasfixedSign.nekomasfixed$isBackgroundHidden() &&
+                            !this.otherPlayerIsEditingSign(player, signBlockEntity) &&
+                            player.mayBuild()
             ) {
                 nekomasfixedSign.nekomasfixed$setHideBackground(true);
                 world.playSound(null, signBlockEntity.getBlockPos(), SoundEventRegistry.PHANTOM_MEMBRANE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);

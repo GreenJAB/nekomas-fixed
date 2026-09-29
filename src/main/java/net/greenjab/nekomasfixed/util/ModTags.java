@@ -12,6 +12,9 @@ public class ModTags {
     public static final TagKey<Item> SLINGSHOT_PROJECTILES = itemTag("slingshot_projectiles");
     public static final TagKey<Item> SLINGSHOT_ENCHANTABLE = itemTag("enchantable/slingshot");
 
+    // The 7 sickle tiers (wooden..netherite), used for the dual-wield offhand attack.
+    public static final TagKey<Item> SICKLES = itemTag("sickles");
+
     // Wood-family tag: the four baobab log/wood variants that yield planks.
     public static final TagKey<Block> BAOBAB_LOGS = blockTag("baobab_logs");
     public static final TagKey<Item> BAOBAB_LOGS_ITEM = itemTag("baobab_logs");

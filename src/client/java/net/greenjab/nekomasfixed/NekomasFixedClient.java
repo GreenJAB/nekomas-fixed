@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.mixin.client.ItemPropertiesAccessor;
 import net.greenjab.nekomasfixed.registries.ModBlockEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;

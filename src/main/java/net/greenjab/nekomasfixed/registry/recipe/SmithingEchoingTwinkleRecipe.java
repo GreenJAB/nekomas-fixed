@@ -2,8 +2,6 @@ package net.greenjab.nekomasfixed.registry.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Optional;
-
 import net.greenjab.nekomasfixed.util.EchoingKeyframe;
 import net.greenjab.nekomasfixed.util.EchoingLayer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -11,6 +9,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 import static net.greenjab.nekomasfixed.registry.registries.RecipeRegistry.SMITHING_ECHOING_TWINKLE_RECIPE;
 
@@ -28,12 +28,18 @@ public class SmithingEchoingTwinkleRecipe extends SmithingToggleEchoingFlagRecip
                 Optional.empty()
         );
     }
+
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
         return SMITHING_ECHOING_TWINKLE_RECIPE;
     }
 
     public static class Serializer implements RecipeSerializer<SmithingEchoingTwinkleRecipe> {
+        public static final StreamCodec<RegistryFriendlyByteBuf, SmithingEchoingTwinkleRecipe> PACKET_CODEC =
+                StreamCodec.of(
+                        SmithingEchoingTwinkleRecipe.Serializer::write,
+                        SmithingEchoingTwinkleRecipe.Serializer::read
+                );
         private static final MapCodec<SmithingEchoingTwinkleRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) ->
                 instance.group(
                         Ingredient.CODEC
@@ -47,21 +53,7 @@ public class SmithingEchoingTwinkleRecipe extends SmithingToggleEchoingFlagRecip
                                 .forGetter(SmithingEchoingRecipe::getAddition)
                 ).apply(instance, SmithingEchoingTwinkleRecipe::new));
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, SmithingEchoingTwinkleRecipe> PACKET_CODEC =
-                StreamCodec.of(
-                        SmithingEchoingTwinkleRecipe.Serializer::write,
-                        SmithingEchoingTwinkleRecipe.Serializer::read
-                );
-
         public Serializer() {
-        }
-
-        public @NotNull MapCodec<SmithingEchoingTwinkleRecipe> codec() {
-            return CODEC;
-        }
-
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, SmithingEchoingTwinkleRecipe> streamCodec() {
-            return PACKET_CODEC;
         }
 
         private static SmithingEchoingTwinkleRecipe read(RegistryFriendlyByteBuf buf) {
@@ -75,6 +67,14 @@ public class SmithingEchoingTwinkleRecipe extends SmithingToggleEchoingFlagRecip
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.getTemplate());
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.getBase());
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.getAddition());
+        }
+
+        public @NotNull MapCodec<SmithingEchoingTwinkleRecipe> codec() {
+            return CODEC;
+        }
+
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, SmithingEchoingTwinkleRecipe> streamCodec() {
+            return PACKET_CODEC;
         }
     }
 }

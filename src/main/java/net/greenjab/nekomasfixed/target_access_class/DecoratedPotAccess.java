@@ -6,6 +6,8 @@ public interface DecoratedPotAccess {
     int LEFT = 1;
     int RIGHT = 2;
     int FRONT = 3;
+
     boolean nekomasfixed$getSherdGlow(int index);
+
     void nekomasfixed$setSherdGlow(int index, boolean glowing);
 }

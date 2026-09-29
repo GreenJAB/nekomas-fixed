@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
@@ -69,6 +70,18 @@ public class ItemStackMixin {
         }
     }
 
+    // Sickle tooltip: combo bonus ladder + dual-wield hint (custom components are not
+    // auto-added in 1.21.1). Injected at the first component addToTooltip invoke so it
+    // shows before the attack-damage (addAttributeTooltips) lines, like main.
+    @Inject(method = "getTooltipLines",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;addToTooltip(Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/world/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/world/item/TooltipFlag;)V", ordinal = 0))
+    private void addComboTooltip(Item.TooltipContext context, Player player, TooltipFlag flag, CallbackInfoReturnable<List<Component>> cir, @Local Consumer<Component> consumer) {
+        ComboComponent combo = ((ItemStack) (Object) this).get(ComponentRegistry.COMBO_MULTIPLIER);
+        if (combo != null) {
+            combo.addToTooltip(context, consumer, flag);
+        }
+    }
+
     // Right-clicking a clock (while not placing it) captures/clears the current daytime as stored_time.
     @Inject(method = "use", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/item/Item;use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;"))
@@ -104,6 +117,6 @@ public class ItemStackMixin {
             )
     )
     private void appendEchoingEffectsTooltip(Item.TooltipContext tooltipContext, Player player, TooltipFlag tooltipFlag, CallbackInfoReturnable<List<Component>> cir, @Local Consumer<Component> consumer) {
-        EchoingLayer.appendTooltip((ItemStack)(Object)this, tooltipContext, consumer, tooltipFlag);
+        EchoingLayer.appendTooltip((ItemStack) (Object) this, tooltipContext, consumer, tooltipFlag);
     }
 }

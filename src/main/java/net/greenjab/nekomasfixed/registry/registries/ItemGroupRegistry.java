@@ -59,6 +59,13 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.TURTLE_LEGGINGS);
                         entries.accept(ItemRegistry.TURTLE_BOOTS);
                         entries.accept(ItemRegistry.SLINGSHOT);
+                        entries.accept(ItemRegistry.WOODEN_SICKLE);
+                        entries.accept(ItemRegistry.STONE_SICKLE);
+                        entries.accept(ItemRegistry.COPPER_SICKLE);
+                        entries.accept(ItemRegistry.IRON_SICKLE);
+                        entries.accept(ItemRegistry.GOLDEN_SICKLE);
+                        entries.accept(ItemRegistry.DIAMOND_SICKLE);
+                        entries.accept(ItemRegistry.NETHERITE_SICKLE);
                         entries.accept(ItemRegistry.GEYSER);
                         entries.accept(ItemRegistry.GLISTERING_MELON);
                         entries.accept(ItemRegistry.SWEETBERRY_CAKE);

@@ -10,9 +10,7 @@ import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -33,6 +31,31 @@ import java.util.concurrent.CompletableFuture;
  * same-colour craft is excluded by filtering the input (like vanilla).
  */
 public class ModRecipeProvider extends FabricRecipeProvider {
+    private static final Item[] VANILLA_WOOLS = {
+            Items.WHITE_WOOL, Items.ORANGE_WOOL, Items.MAGENTA_WOOL, Items.LIGHT_BLUE_WOOL,
+            Items.YELLOW_WOOL, Items.LIME_WOOL, Items.PINK_WOOL, Items.GRAY_WOOL,
+            Items.LIGHT_GRAY_WOOL, Items.CYAN_WOOL, Items.PURPLE_WOOL, Items.BLUE_WOOL,
+            Items.BROWN_WOOL, Items.GREEN_WOOL, Items.RED_WOOL, Items.BLACK_WOOL,
+    };
+    private static final Item[] VANILLA_CARPETS = {
+            Items.WHITE_CARPET, Items.ORANGE_CARPET, Items.MAGENTA_CARPET, Items.LIGHT_BLUE_CARPET,
+            Items.YELLOW_CARPET, Items.LIME_CARPET, Items.PINK_CARPET, Items.GRAY_CARPET,
+            Items.LIGHT_GRAY_CARPET, Items.CYAN_CARPET, Items.PURPLE_CARPET, Items.BLUE_CARPET,
+            Items.BROWN_CARPET, Items.GREEN_CARPET, Items.RED_CARPET, Items.BLACK_CARPET,
+    };
+    private static final Item[] VANILLA_BEDS = {
+            Items.WHITE_BED, Items.ORANGE_BED, Items.MAGENTA_BED, Items.LIGHT_BLUE_BED,
+            Items.YELLOW_BED, Items.LIME_BED, Items.PINK_BED, Items.GRAY_BED,
+            Items.LIGHT_GRAY_BED, Items.CYAN_BED, Items.PURPLE_BED, Items.BLUE_BED,
+            Items.BROWN_BED, Items.GREEN_BED, Items.RED_BED, Items.BLACK_BED,
+    };
+    private static final Item[] VANILLA_SHULKERS = {
+            Items.WHITE_SHULKER_BOX, Items.ORANGE_SHULKER_BOX, Items.MAGENTA_SHULKER_BOX, Items.LIGHT_BLUE_SHULKER_BOX,
+            Items.YELLOW_SHULKER_BOX, Items.LIME_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.GRAY_SHULKER_BOX,
+            Items.LIGHT_GRAY_SHULKER_BOX, Items.CYAN_SHULKER_BOX, Items.PURPLE_SHULKER_BOX, Items.BLUE_SHULKER_BOX,
+            Items.BROWN_SHULKER_BOX, Items.GREEN_SHULKER_BOX, Items.RED_SHULKER_BOX, Items.BLACK_SHULKER_BOX,
+    };
+
     public ModRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
@@ -60,6 +83,23 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             case INDIGO -> ItemRegistry.INDIGO_DYE;
             case MAROON -> ItemRegistry.MAROON_DYE;
         };
+    }
+
+    // Blocks -> their items (e.g. the mod's ancient colours from a BlockDyeMap family).
+    private static List<Item> blockItems(Collection<Block> blocks) {
+        return blocks.stream().map(Block::asItem).toList();
+    }
+
+    // Full dyeable list for an ancient recolour: the vanilla 16 + the mod's ancient items.
+    private static List<Item> dyeableItems(Item[] vanilla, Collection<Block> modBlocks) {
+        List<Item> all = new ArrayList<>(List.of(vanilla));
+        all.addAll(blockItems(modBlocks));
+        return all;
+    }
+
+    // All dyeable items except the target, so a same-colour craft is excluded (like vanilla).
+    private static Ingredient allBut(Collection<Item> dyeable, Item target) {
+        return Ingredient.of(dyeable.stream().filter(item -> item != target).map(ItemStack::new));
     }
 
     private void generateBaobabRecipes(RecipeOutput output) {
@@ -273,6 +313,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateCakesAndDyes(output);
         generateTurtleRecipes(output);
         generateSlingshotRecipe(output);
+        generateSickleRecipes(output);
 
         for (AllDyes dye : AllDyes.values()) {
             Item dyeItem = dyeItem(dye);
@@ -354,6 +395,39 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .define('$', Items.LEATHER)
                 .unlockedBy("has_leather", has(Items.LEATHER))
                 .save(output, NekomasFixed.id("slingshot"));
+    }
+
+    private void generateSickleRecipes(RecipeOutput output) {
+        // 1.21.1 has no #minecraft:*_tool_materials item tags, so each tier uses its
+        // matching material directly (wooden uses any planks, copper its ingot).
+        sickleCraft(output, "wooden_sickle", ItemRegistry.WOODEN_SICKLE,
+                Ingredient.of(ItemTags.PLANKS), "has_planks", has(ItemTags.PLANKS));
+        sickleCraft(output, "stone_sickle", ItemRegistry.STONE_SICKLE,
+                Ingredient.of(Items.COBBLESTONE), "has_cobblestone", has(Items.COBBLESTONE));
+        sickleCraft(output, "copper_sickle", ItemRegistry.COPPER_SICKLE,
+                Ingredient.of(Items.COPPER_INGOT), "has_copper_ingot", has(Items.COPPER_INGOT));
+        sickleCraft(output, "iron_sickle", ItemRegistry.IRON_SICKLE,
+                Ingredient.of(Items.IRON_INGOT), "has_iron_ingot", has(Items.IRON_INGOT));
+        sickleCraft(output, "golden_sickle", ItemRegistry.GOLDEN_SICKLE,
+                Ingredient.of(Items.GOLD_INGOT), "has_gold_ingot", has(Items.GOLD_INGOT));
+        sickleCraft(output, "diamond_sickle", ItemRegistry.DIAMOND_SICKLE,
+                Ingredient.of(Items.DIAMOND), "has_diamond", has(Items.DIAMOND));
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                        Ingredient.of(ItemRegistry.DIAMOND_SICKLE),
+                        Ingredient.of(Items.NETHERITE_INGOT),
+                        RecipeCategory.COMBAT, ItemRegistry.NETHERITE_SICKLE)
+                .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
+                .save(output, NekomasFixed.id("netherite_sickle"));
+    }
+
+    private void sickleCraft(RecipeOutput output, String id, Item result, Ingredient head,
+                             String unlockName, Criterion<?> unlock) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, result)
+                .pattern(" XX").pattern("X X").pattern("#  ")
+                .define('X', head).define('#', Items.STICK)
+                .unlockedBy(unlockName, unlock)
+                .save(output, NekomasFixed.id(id));
     }
 
     private void generateAncientWoolCarpet(RecipeOutput output) {
@@ -460,7 +534,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     RecipeCategory.DECORATIONS, "has_dye", has(s.dye()));
         }
     }
-
 
     // Ancient-colour shulker boxes: dye any other shulker box with the ancient dye
     // (filtered out the target colour, like vanilla). Main used crafting_transmute.
@@ -603,47 +676,5 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .group(group)
                 .unlockedBy(criterionName, criterion)
                 .save(output, NekomasFixed.id(rid));
-    }
-
-    private static final Item[] VANILLA_WOOLS = {
-            Items.WHITE_WOOL, Items.ORANGE_WOOL, Items.MAGENTA_WOOL, Items.LIGHT_BLUE_WOOL,
-            Items.YELLOW_WOOL, Items.LIME_WOOL, Items.PINK_WOOL, Items.GRAY_WOOL,
-            Items.LIGHT_GRAY_WOOL, Items.CYAN_WOOL, Items.PURPLE_WOOL, Items.BLUE_WOOL,
-            Items.BROWN_WOOL, Items.GREEN_WOOL, Items.RED_WOOL, Items.BLACK_WOOL,
-    };
-    private static final Item[] VANILLA_CARPETS = {
-            Items.WHITE_CARPET, Items.ORANGE_CARPET, Items.MAGENTA_CARPET, Items.LIGHT_BLUE_CARPET,
-            Items.YELLOW_CARPET, Items.LIME_CARPET, Items.PINK_CARPET, Items.GRAY_CARPET,
-            Items.LIGHT_GRAY_CARPET, Items.CYAN_CARPET, Items.PURPLE_CARPET, Items.BLUE_CARPET,
-            Items.BROWN_CARPET, Items.GREEN_CARPET, Items.RED_CARPET, Items.BLACK_CARPET,
-    };
-    private static final Item[] VANILLA_BEDS = {
-            Items.WHITE_BED, Items.ORANGE_BED, Items.MAGENTA_BED, Items.LIGHT_BLUE_BED,
-            Items.YELLOW_BED, Items.LIME_BED, Items.PINK_BED, Items.GRAY_BED,
-            Items.LIGHT_GRAY_BED, Items.CYAN_BED, Items.PURPLE_BED, Items.BLUE_BED,
-            Items.BROWN_BED, Items.GREEN_BED, Items.RED_BED, Items.BLACK_BED,
-    };
-    private static final Item[] VANILLA_SHULKERS = {
-            Items.WHITE_SHULKER_BOX, Items.ORANGE_SHULKER_BOX, Items.MAGENTA_SHULKER_BOX, Items.LIGHT_BLUE_SHULKER_BOX,
-            Items.YELLOW_SHULKER_BOX, Items.LIME_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.GRAY_SHULKER_BOX,
-            Items.LIGHT_GRAY_SHULKER_BOX, Items.CYAN_SHULKER_BOX, Items.PURPLE_SHULKER_BOX, Items.BLUE_SHULKER_BOX,
-            Items.BROWN_SHULKER_BOX, Items.GREEN_SHULKER_BOX, Items.RED_SHULKER_BOX, Items.BLACK_SHULKER_BOX,
-    };
-
-    // Blocks -> their items (e.g. the mod's ancient colours from a BlockDyeMap family).
-    private static List<Item> blockItems(Collection<Block> blocks) {
-        return blocks.stream().map(Block::asItem).toList();
-    }
-
-    // Full dyeable list for an ancient recolour: the vanilla 16 + the mod's ancient items.
-    private static List<Item> dyeableItems(Item[] vanilla, Collection<Block> modBlocks) {
-        List<Item> all = new ArrayList<>(List.of(vanilla));
-        all.addAll(blockItems(modBlocks));
-        return all;
-    }
-
-    // All dyeable items except the target, so a same-colour craft is excluded (like vanilla).
-    private static Ingredient allBut(Collection<Item> dyeable, Item target) {
-        return Ingredient.of(dyeable.stream().filter(item -> item != target).map(ItemStack::new));
     }
 }

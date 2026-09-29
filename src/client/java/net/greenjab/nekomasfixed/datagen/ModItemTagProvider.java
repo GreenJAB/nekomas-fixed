@@ -78,7 +78,17 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         BlockDyeMap.SHULKER_BOX.values().forEach(block -> getOrCreateTagBuilder(shulkerTag).add(BuiltInRegistries.ITEM.getKey(block.asItem())));
         // The redstone striker can take Unbreaking via the vanilla durability-enchantable tag.
         getOrCreateTagBuilder(net.minecraft.tags.ItemTags.DURABILITY_ENCHANTABLE)
-                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.REDSTONE_STRIKER));
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.REDSTONE_STRIKER))
+                .addTag(ModTags.SICKLES);
+        // The 7 sickle tiers; also grants Unbreaking/Mending (faithful to main's enchantable/durability override).
+        getOrCreateTagBuilder(ModTags.SICKLES)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.WOODEN_SICKLE))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.STONE_SICKLE))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.COPPER_SICKLE))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.IRON_SICKLE))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.GOLDEN_SICKLE))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.DIAMOND_SICKLE))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.NETHERITE_SICKLE));
         // Wool + carpets: vanilla #minecraft:wool / #minecraft:wool_carpets item tag overrides
         // (replace: false). The block tag holds the spotted-wool reference; the item tag lists
         // just the four ancient wools (mirrors the committed hand-written item overrides).

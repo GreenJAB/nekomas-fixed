@@ -1,7 +1,6 @@
 package net.greenjab.nekomasfixed.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import java.util.stream.IntStream;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -10,6 +9,8 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
+
+import java.util.stream.IntStream;
 
 public class CanvasRenderer {
     public static void renderCanvas(
@@ -35,7 +36,7 @@ public class CanvasRenderer {
         }
         canvas.render(matrices, baseSprite.buffer(vertexConsumers, RenderType::entitySolid, glint), light, overlay, dye.getTextureDiffuseColor());
 
-        for(int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
+        for (int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
             BannerPatternLayers.Layer layer = patterns.layers().get(i);
 
             int color = layer.color().getTextureDiffuseColor();

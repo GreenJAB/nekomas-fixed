@@ -38,7 +38,14 @@ public class BannerRendererMixin {
     @Shadow
     private ModelPart bar;
 
-    @Shadow @Final private ModelPart flag;
+    @Shadow
+    @Final
+    private ModelPart flag;
+
+    @Inject(method = "createBodyLayer", at = @At("TAIL"))
+    private static void injected(CallbackInfoReturnable<LayerDefinition> cir, @Local PartDefinition modelPartData) {
+        modelPartData.addOrReplaceChild("patterns", CubeListBuilder.create().texOffs(0, 0).addBox(-10.0F, 0.0F, -2.0F, 20.0F, 40.0F, 1.0F), PartPose.ZERO);
+    }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void BannerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx, CallbackInfo ci) {
@@ -46,13 +53,8 @@ public class BannerRendererMixin {
         this.patterns = modelPart.getChild("patterns");
     }
 
-    @Inject(method = "createBodyLayer", at = @At("TAIL"))
-    private static void injected(CallbackInfoReturnable<LayerDefinition> cir, @Local PartDefinition modelPartData) {
-        modelPartData.addOrReplaceChild("patterns", CubeListBuilder.create().texOffs(0, 0).addBox(-10.0F, 0.0F, -2.0F, 20.0F, 40.0F, 1.0F), PartPose.ZERO);
-    }
-
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/ModelPart;render(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;II)V"), method = "render(Lnet/minecraft/world/level/block/entity/BannerBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V")
-	private void render(BannerBlockEntity bannerBlockEntity, float f, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, int j, CallbackInfo info) {
+    private void render(BannerBlockEntity bannerBlockEntity, float f, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, int j, CallbackInfo info) {
         this.bar.visible = true;
         this.flag.visible = true;
         if (((BannerAccess) bannerBlockEntity).nekomasfixed$getBannerEffects().isBackgroundHidden()) {
@@ -60,7 +62,7 @@ public class BannerRendererMixin {
             this.bar.visible = false;
             this.flag.visible = false;
         }
-	}
+    }
 
     @Inject(
             method = "render(Lnet/minecraft/world/level/block/entity/BannerBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",

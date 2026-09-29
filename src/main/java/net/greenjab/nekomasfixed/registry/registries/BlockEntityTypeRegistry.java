@@ -1,11 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
-import net.greenjab.nekomasfixed.registry.block.entity.EndermanHeadBlockEntity;
-import net.greenjab.nekomasfixed.registry.block.entity.HollowLogBlockEntity;
-import net.greenjab.nekomasfixed.registry.block.entity.ClockBlockEntity;
-import net.greenjab.nekomasfixed.registry.block.entity.StackedCakeBlockEntity;
+import net.greenjab.nekomasfixed.registry.block.entity.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;

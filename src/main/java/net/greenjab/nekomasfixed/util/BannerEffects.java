@@ -2,8 +2,6 @@ package net.greenjab.nekomasfixed.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.BitSet;
-import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -13,6 +11,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.BitSet;
+import java.util.function.Consumer;
 
 public class BannerEffects implements TooltipProvider {
     public static final Codec<BannerEffects> CODEC = RecordCodecBuilder.create(builder -> builder.group(
@@ -24,16 +25,9 @@ public class BannerEffects implements TooltipProvider {
             ByteBufCodecs.BYTE, BannerEffects::getFlags,
             BannerEffects::new
     );
-
-    public static BannerEffects empty() {
-        return new BannerEffects((byte)0);
-    }
-
     public static final BannerEffects EMPTY = empty();
-
     private static final int GLOWING = 0;
     private static final int HIDE_BACKGROUND = 1;
-
     private final BitSet flags;
 
     public BannerEffects(boolean glowing, boolean hideBackground) {
@@ -43,19 +37,23 @@ public class BannerEffects implements TooltipProvider {
     }
 
     public BannerEffects(byte flags) {
-        this.flags = BitSet.valueOf(new byte[] {flags});
+        this.flags = BitSet.valueOf(new byte[]{flags});
+    }
+
+    public static BannerEffects empty() {
+        return new BannerEffects((byte) 0);
     }
 
     public boolean isGlowing() {
         return flags.get(GLOWING);
     }
 
-    public boolean isBackgroundHidden() {
-        return flags.get(HIDE_BACKGROUND);
-    }
-
     public void setGlowing(boolean value) {
         flags.set(GLOWING, value);
+    }
+
+    public boolean isBackgroundHidden() {
+        return flags.get(HIDE_BACKGROUND);
     }
 
     public void setHideBackground(boolean value) {
@@ -64,7 +62,7 @@ public class BannerEffects implements TooltipProvider {
 
     public byte getFlags() {
         byte[] bytes = flags.toByteArray();
-        return bytes.length > 0 ? bytes[0] : (byte)0;
+        return bytes.length > 0 ? bytes[0] : (byte) 0;
     }
 
     @Override

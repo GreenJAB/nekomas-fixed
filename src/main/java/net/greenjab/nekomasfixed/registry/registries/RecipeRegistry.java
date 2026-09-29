@@ -1,7 +1,10 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.recipe.*;
+import net.greenjab.nekomasfixed.registry.recipe.SmithingEchoingFadeRecipe;
+import net.greenjab.nekomasfixed.registry.recipe.SmithingEchoingPigmentRecipe;
+import net.greenjab.nekomasfixed.registry.recipe.SmithingEchoingTwinkleRecipe;
+import net.greenjab.nekomasfixed.registry.recipe.SmithingGlowingRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.Recipe;

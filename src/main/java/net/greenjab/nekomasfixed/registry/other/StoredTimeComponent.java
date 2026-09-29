@@ -2,7 +2,6 @@ package net.greenjab.nekomasfixed.registry.other;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
-import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -10,6 +9,9 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
+import org.jspecify.annotations.NonNull;
+
+import java.util.function.Consumer;
 
 public record StoredTimeComponent(int time) implements TooltipProvider {
 
@@ -19,7 +21,7 @@ public record StoredTimeComponent(int time) implements TooltipProvider {
             ByteBufCodecs.VAR_INT.map(StoredTimeComponent::new, StoredTimeComponent::time);
 
     @Override
-    public void addToTooltip(Item.TooltipContext context, Consumer<Component> textConsumer, TooltipFlag flag) {
+    public void addToTooltip(Item.@NonNull TooltipContext context, Consumer<Component> textConsumer, @NonNull TooltipFlag flag) {
         int hour = time / 1000;
         int min = ((time % 1000) * 60) / 1000;
         String string = (hour < 10 ? "0" : "") + hour + ":" + (min < 10 ? "0" : "") + min;

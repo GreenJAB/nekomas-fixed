@@ -4,11 +4,7 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegi
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
-import net.greenjab.nekomasfixed.render.block.entity.ClamBlockEntityRenderer;
-import net.greenjab.nekomasfixed.render.block.entity.ClockBlockEntityRenderer;
-import net.greenjab.nekomasfixed.render.block.entity.EndermanHeadBlockEntityRenderer;
-import net.greenjab.nekomasfixed.render.block.entity.HollowLogBlockEntityRenderer;
-import net.greenjab.nekomasfixed.render.block.entity.StackedCakeBlockEntityRenderer;
+import net.greenjab.nekomasfixed.render.block.entity.*;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanHeadBlockModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;

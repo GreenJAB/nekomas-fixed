@@ -1,9 +1,9 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.greenjab.nekomasfixed.registry.registries.GlowingDecoratedPotPatternRegistry;
 import net.greenjab.nekomasfixed.target_access_class.DecoratedPotAccess;
 import net.greenjab.nekomasfixed.util.GlobalVariables;
-import net.greenjab.nekomasfixed.registry.registries.GlowingDecoratedPotPatternRegistry;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -54,9 +54,20 @@ public abstract class DecoratedPotRendererMixin {
         return null;
     }
 
+    @Unique
+    @Nullable
+    private static Material nekomasfixed$getTextureIdFromSherd(Optional<Item> item, boolean glowing) {
+        if (item.isPresent() && glowing) {
+            Material spriteIdentifier = Sheets.getDecoratedPotMaterial(GlowingDecoratedPotPatternRegistry.fromSherd(item.get()));
+            if (spriteIdentifier != null) {
+                return spriteIdentifier;
+            }
+        }
+        return getSideMaterial(item);
+    }
+
     @Shadow
     protected abstract void renderSide(ModelPart part, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, @Nullable Material textureId);
-
 
     @Inject(
             method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
@@ -87,17 +98,5 @@ public abstract class DecoratedPotRendererMixin {
         ));
         matrixStack.popPose();
         ci.cancel();
-    }
-
-    @Unique
-    @Nullable
-    private static Material nekomasfixed$getTextureIdFromSherd(Optional<Item> item, boolean glowing) {
-        if (item.isPresent() && glowing) {
-            Material spriteIdentifier = Sheets.getDecoratedPotMaterial(GlowingDecoratedPotPatternRegistry.fromSherd(item.get()));
-            if (spriteIdentifier != null) {
-                return spriteIdentifier;
-            }
-        }
-        return getSideMaterial(item);
     }
 }

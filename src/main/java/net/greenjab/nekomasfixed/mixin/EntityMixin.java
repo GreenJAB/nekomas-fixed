@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -30,6 +31,7 @@ public abstract class EntityMixin {
         return itemStack;
     }
 
+    @Unique
     private Item getSpottedWoolItem(Item original) {
         if (original == Items.WHITE_WOOL) return BlockRegistry.WHITE_SPOTTED_WOOL.asItem();
         if (original == Items.ORANGE_WOOL) return BlockRegistry.ORANGE_SPOTTED_WOOL.asItem();
