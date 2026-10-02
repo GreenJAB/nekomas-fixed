@@ -4,9 +4,7 @@
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
         "location": "nekomasfixed:village/plains/pyrotechnist_house_plains",
-        "processors": {
-          "processors": "minecraft:mossify_10_percent"
-        },
+        "processors": "minecraft:mossify_10_percent",
         "projection": "rigid"
       },
       "weight": 2
