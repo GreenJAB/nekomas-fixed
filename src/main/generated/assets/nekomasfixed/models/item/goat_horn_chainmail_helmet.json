@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "nekomasfixed:item/goat_horn_chainmail_helmet"
-  }
-}

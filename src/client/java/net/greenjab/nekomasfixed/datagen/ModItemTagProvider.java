@@ -35,19 +35,14 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
               .add(ItemRegistry.DANDELION_FLOWER_CROWN.builtInRegistryHolder().key())
               .add(ItemRegistry.OPEN_EYEBLOSSOM_FLOWER_CROWN.builtInRegistryHolder().key())
               .add(ItemRegistry.CLOSED_EYEBLOSSOM_FLOWER_CROWN.builtInRegistryHolder().key());
-      tag(ModTags.GOAT_HORN_HELMETS)
-              .add(ItemRegistry.GOAT_HORN_IRON_HELMET.builtInRegistryHolder().key())
-              .add(ItemRegistry.GOAT_HORN_GOLDEN_HELMET.builtInRegistryHolder().key())
-              .add(ItemRegistry.GOAT_HORN_COPPER_HELMET.builtInRegistryHolder().key())
-              .add(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET.builtInRegistryHolder().key())
-              .add(ItemRegistry.GOAT_HORN_DIAMOND_HELMET.builtInRegistryHolder().key())
-              .add(ItemRegistry.GOAT_HORN_NETHERITE_HELMET.builtInRegistryHolder().key())
-              .add(ItemRegistry.GOAT_HORN_TURTLE_HELMET.builtInRegistryHolder().key());
-
-      tag(ItemTags.CUSHIONS)
-              .add(ItemRegistry.AMBER_CUSHION.builtInRegistryHolder().key())
-              .add(ItemRegistry.AQUA_CUSHION.builtInRegistryHolder().key())
-              .add(ItemRegistry.INDIGO_CUSHION.builtInRegistryHolder().key())
-              .add(ItemRegistry.MAROON_CUSHION.builtInRegistryHolder().key());
+        /*   Work In Progress.
+   *  tag(ModTags.GOAT_HORN_HELMETS)
+              * .add(ItemRegistry.GOAT_HORN_IRON_HELMET.builtInRegistryHolder().key())
+              * .add(ItemRegistry.GOAT_HORN_GOLDEN_HELMET.builtInRegistryHolder().key())
+              * .add(ItemRegistry.GOAT_HORN_COPPER_HELMET.builtInRegistryHolder().key())
+              * .add(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET.builtInRegistryHolder().key())
+              * .add(ItemRegistry.GOAT_HORN_DIAMOND_HELMET.builtInRegistryHolder().key())
+              * .add(ItemRegistry.GOAT_HORN_NETHERITE_HELMET.builtInRegistryHolder().key())
+              * .add(ItemRegistry.GOAT_HORN_TURTLE_HELMET.builtInRegistryHolder().key()); */
     }
 }

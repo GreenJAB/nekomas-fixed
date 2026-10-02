@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:block_interact",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "nekomasfixed:ghost_pepper_shrub",
+            "state": {
+              "age": "4"
+            }
+          },
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": 1
+          },
+          "name": "nekomasfixed:ghost_pepper"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 2,
+              "min": 1
+            }
+          },
+          "name": "nekomasfixed:ghost_pepper"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "nekomasfixed:harvest/ghost_pepper_shrub"
+}

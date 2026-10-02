@@ -208,13 +208,14 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemRegistry.DANDELION_FLOWER_CROWN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.OPEN_EYEBLOSSOM_FLOWER_CROWN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.CLOSED_EYEBLOSSOM_FLOWER_CROWN, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_IRON_HELMET, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_GOLDEN_HELMET, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_COPPER_HELMET, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_DIAMOND_HELMET, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_NETHERITE_HELMET, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_TURTLE_HELMET, ModelTemplates.FLAT_ITEM);
+        /* Work In Progress.
+        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_IRON_HELMET, ModelTemplates.FLAT_ITEM);
+        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_GOLDEN_HELMET, ModelTemplates.FLAT_ITEM);
+        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_COPPER_HELMET, ModelTemplates.FLAT_ITEM);
+        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET, ModelTemplates.FLAT_ITEM);
+        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_DIAMOND_HELMET, ModelTemplates.FLAT_ITEM);
+        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_NETHERITE_HELMET, ModelTemplates.FLAT_ITEM);
+        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_TURTLE_HELMET, ModelTemplates.FLAT_ITEM); */
 
     }
 
