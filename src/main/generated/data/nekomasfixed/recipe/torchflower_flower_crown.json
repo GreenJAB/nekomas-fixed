@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "flower_crown",
+  "key": {
+    "#": "minecraft:torchflower"
+  },
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "id": "nekomasfixed:torchflower_flower_crown"
+  }
+}

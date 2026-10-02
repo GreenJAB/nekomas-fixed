@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "spotted_wool_stairs_dye",
+  "ingredients": [
+    "minecraft:gray_wool",
+    [
+      "nekomasfixed:white_spotted_wool_stairs",
+      "nekomasfixed:orange_spotted_wool_stairs",
+      "nekomasfixed:magenta_spotted_wool_stairs",
+      "nekomasfixed:light_blue_spotted_wool_stairs",
+      "nekomasfixed:yellow_spotted_wool_stairs",
+      "nekomasfixed:lime_spotted_wool_stairs",
+      "nekomasfixed:pink_spotted_wool_stairs",
+      "nekomasfixed:light_gray_spotted_wool_stairs",
+      "nekomasfixed:cyan_spotted_wool_stairs",
+      "nekomasfixed:purple_spotted_wool_stairs",
+      "nekomasfixed:blue_spotted_wool_stairs",
+      "nekomasfixed:brown_spotted_wool_stairs",
+      "nekomasfixed:green_spotted_wool_stairs",
+      "nekomasfixed:red_spotted_wool_stairs",
+      "nekomasfixed:black_spotted_wool_stairs",
+      "nekomasfixed:amber_spotted_wool_stairs",
+      "nekomasfixed:aqua_spotted_wool_stairs",
+      "nekomasfixed:indigo_spotted_wool_stairs",
+      "nekomasfixed:maroon_spotted_wool_stairs"
+    ]
+  ],
+  "result": {
+    "id": "nekomasfixed:gray_spotted_wool_stairs"
+  }
+}

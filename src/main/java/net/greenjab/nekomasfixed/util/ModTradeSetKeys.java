@@ -12,6 +12,7 @@ public class ModTradeSetKeys {
     public static final ResourceKey<TradeSet> PYROTECHNIST_LEVEL_2 = create("pyrotechnist/level_2");
     public static final ResourceKey<TradeSet> PYROTECHNIST_LEVEL_3 = create("pyrotechnist/level_3");
     public static final ResourceKey<TradeSet> PYROTECHNIST_LEVEL_4 = create("pyrotechnist/level_4");
+    public static final ResourceKey<TradeSet> PYROTECHNIST_LEVEL_5 = create("pyrotechnist/level_5");
 
     private static ResourceKey<TradeSet> create(final String id) {
         return ResourceKey.create(Registries.TRADE_SET, Identifier.fromNamespaceAndPath(NekomasFixed.NAMESPACE, id));

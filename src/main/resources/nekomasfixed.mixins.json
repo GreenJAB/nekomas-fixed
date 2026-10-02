@@ -52,6 +52,7 @@
     "SpearLungeMixin",
     "TrimPatternMixin",
     "ZombieMixin",
+    "CushionMixin",
     "accessor.FlowerPotBlockAccessor",
     "accessor.SnifferAccessor",
     "boat.AbstractBoatMixin",

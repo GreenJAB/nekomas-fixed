@@ -18,12 +18,13 @@ public enum FlowerCrownVariants {
     PINK_TULIP(Items.PINK_TULIP, MobEffects.WEAKNESS),
     ALLIUM(Items.ALLIUM, MobEffects.FIRE_RESISTANCE),
     RED_TULIP(Items.RED_TULIP, MobEffects.WEAKNESS),
-    POPPY(Items.POPPY, MobEffects.STRENGTH),
+    POPPY(Items.POPPY, MobEffects.NIGHT_VISION),
     AZURE_BLUET(Items.AZURE_BLUET, MobEffects.BLINDNESS),
     WHITE_TULIP(Items.WHITE_TULIP, MobEffects.WEAKNESS),
     OXEYE_DAISY(Items.OXEYE_DAISY, MobEffects.REGENERATION),
     DANDELION(Items.DANDELION, MobEffects.SATURATION),
-    OPEN_EYEBLOSSOM(Items.OPEN_EYEBLOSSOM, MobEffects.SATURATION);
+    OPEN_EYEBLOSSOM(Items.OPEN_EYEBLOSSOM, MobEffects.BLINDNESS),
+    CLOSED_EYEBLOSSOM(Items.CLOSED_EYEBLOSSOM, MobEffects.NAUSEA);
 
     private final Item flower;
     public final SuspiciousStewEffects.Entry effect;

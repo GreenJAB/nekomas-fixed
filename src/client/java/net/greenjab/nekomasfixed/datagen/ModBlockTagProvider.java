@@ -47,6 +47,33 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         BlockDyeMap.SPOTTED_WOOL.values().forEach(b->tag(ModTags.SPOTTED_WOOLS).add(b.properties().blockId()));
         BlockDyeMap.SPOTTED_CARPET.values().forEach(b->tag(ModTags.SPOTTED_CARPETS).add(b.properties().blockId()));
 
+        BlockDyeMap.CONCRETE_SLABS.values().forEach(b -> {
+            tag(BlockTags.CONCRETE_SLABS).add(b.properties().blockId());
+            tag(BlockTags.SLABS).add(b.properties().blockId());
+        });
+        BlockDyeMap.CONCRETE_STAIRS.values().forEach(b -> {
+            tag(BlockTags.CONCRETE_STAIRS).add(b.properties().blockId());
+            tag(BlockTags.STAIRS).add(b.properties().blockId());
+        });
+
+        BlockDyeMap.WOOL_SLABS.values().forEach(b -> {
+            tag(BlockTags.WOOL_SLABS).add(b.properties().blockId());
+            tag(BlockTags.SLABS).add(b.properties().blockId());
+        });
+        BlockDyeMap.WOOL_STAIRS.values().forEach(b -> {
+            tag(BlockTags.WOOL_STAIRS).add(b.properties().blockId());
+            tag(BlockTags.STAIRS).add(b.properties().blockId());
+        });
+
+        BlockDyeMap.SPOTTED_WOOL_SLABS.values().forEach(b -> {
+            tag(ModTags.SPOTTED_WOOL_SLABS).add(b.properties().blockId());
+            tag(BlockTags.SLABS).add(b.properties().blockId());
+        });
+        BlockDyeMap.SPOTTED_WOOL_STAIRS.values().forEach(b -> {
+            tag(ModTags.SPOTTED_WOOL_STAIRS).add(b.properties().blockId());
+            tag(BlockTags.STAIRS).add(b.properties().blockId());
+        });
+
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
 
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
@@ -62,9 +89,15 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .addTag(ModTags.GLAZED_TERRACOTTAS)
                 .addOptionalTag(BlockTags.WOOL)
                 .addOptionalTag(BlockTags.WOOL_CARPETS)
+                .addTag(ModTags.SPOTTED_WOOL_SLABS)
+                .addTag(ModTags.SPOTTED_WOOL_STAIRS)
                 .addOptionalTag(BlockTags.CANDLES)
                 .addOptionalTag(BlockTags.CONCRETE)
                 .addOptionalTag(BlockTags.CONCRETE_POWDERS)
+                .addTag(BlockTags.CONCRETE_SLABS)
+                .addTag(BlockTags.CONCRETE_STAIRS)
+                .addTag(BlockTags.WOOL_SLABS)
+                .addTag(BlockTags.WOOL_STAIRS)
                 .addTag(ModTags.FROGLIGHTS)
                 .addOptionalTag(BlockTags.SHULKER_BOXES)
                 .addOptionalTag(BlockTags.BEDS)
@@ -84,8 +117,6 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockRegistry.INDIGO_STAINED_GLASS_PANE.properties().blockId())
                 .add(BlockRegistry.AQUA_STAINED_GLASS_PANE.properties().blockId())
                 .add(BlockRegistry.MAROON_STAINED_GLASS_PANE.properties().blockId());
-
-
     }
 }
 

@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item;
 
 public class FlowerCrownItem extends Item {
 
-    private final FlowerCrownVariants variant;
+    public final FlowerCrownVariants variant;
 
     public FlowerCrownItem(Properties properties, FlowerCrownVariants variant) {
         super(properties);

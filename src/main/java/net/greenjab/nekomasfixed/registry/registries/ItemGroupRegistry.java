@@ -159,8 +159,31 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.GHOST_PEPPER);
                         entries.accept(ItemRegistry.GHOST_PEPPER_SHRUB);
 
+                        entries.accept(ItemRegistry.TORCHFLOWER_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.BLUE_ORCHID_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.WITHER_ROSE_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.CORNFLOWER_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.LILY_OF_THE_VALLEY_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.ORANGE_TULIP_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.PINK_TULIP_FLOWER_CROWN);
                         entries.accept(ItemRegistry.ALLIUM_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.RED_TULIP_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.POPPY_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.AZURE_BLUET_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.WHITE_TULIP_FLOWER_CROWN);
                         entries.accept(ItemRegistry.OXEYE_DAISY_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.DANDELION_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.OPEN_EYEBLOSSOM_FLOWER_CROWN);
+                        entries.accept(ItemRegistry.CLOSED_EYEBLOSSOM_FLOWER_CROWN);
+
+                        entries.accept(ItemRegistry.GOAT_HORN_IRON_HELMET);
+                        entries.accept(ItemRegistry.GOAT_HORN_GOLDEN_HELMET);
+                        entries.accept(ItemRegistry.GOAT_HORN_COPPER_HELMET);
+                        entries.accept(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET);
+                        entries.accept(ItemRegistry.GOAT_HORN_DIAMOND_HELMET);
+                        entries.accept(ItemRegistry.GOAT_HORN_NETHERITE_HELMET);
+                        entries.accept(ItemRegistry.GOAT_HORN_TURTLE_HELMET);
+
                     }).build();
 
     public static final CreativeModeTab NEKOMASFIXEDCOLOURS = FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.nekomasfixedcolours"))

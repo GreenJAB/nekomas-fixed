@@ -25,7 +25,9 @@
     "ShulkerBoxRendererMixin",
     "ShulkerBoxRenderStateMixin",
     "SpecialModelRenderersMixin",
-    "AvatarRendererMixin"
+    "AvatarRendererMixin",
+    "CushionRendererMixin",
+	"ArmorStandRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

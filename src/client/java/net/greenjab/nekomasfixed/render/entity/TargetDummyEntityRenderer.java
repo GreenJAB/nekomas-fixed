@@ -9,6 +9,8 @@ import net.greenjab.nekomasfixed.render.entity.feature.BasePlateFeatureRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyArmorModel;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyModel;
 import net.greenjab.nekomasfixed.render.entity.state.TargetDummyRenderState;
+import net.greenjab.nekomasfixed.render.entity.feature.GoatHornHelmetLayer;
+import net.greenjab.nekomasfixed.render.entity.feature.FlowerCrownLayer;
 import net.minecraft.client.renderer.PlayerSkinRenderCache;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
@@ -54,6 +56,8 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
 		this.addLayer(new WingsLayer<>(this, context.getModelSet(), context.getEquipmentRenderer()));
 		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
 		this.addLayer(new BasePlateFeatureRenderer(this, context.getModelSet()));
+		this.addLayer(new GoatHornHelmetLayer<>(this, context.getModelSet()));
+		this.addLayer(new FlowerCrownLayer<>(this, context.getModelSet()));
 	}
 
 	public @NonNull Identifier getTextureLocation(TargetDummyRenderState TargetDummyRenderState) {

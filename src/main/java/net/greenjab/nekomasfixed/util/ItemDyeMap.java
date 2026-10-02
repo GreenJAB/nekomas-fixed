@@ -8,6 +8,7 @@ import java.util.EnumMap;
 public class ItemDyeMap {
     public static final EnumMap<AllDyes, Item> DYE = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Item> BRUSH = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Item> CUSHIONS = new EnumMap<>(AllDyes.class);
 
     static {
         DYE.put(AllDyes.WHITE, Items.WOOL.white());
@@ -51,6 +52,26 @@ public class ItemDyeMap {
         BRUSH.put(AllDyes.AQUA, ItemRegistry.AQUA_DYED_BRUSH);
         BRUSH.put(AllDyes.INDIGO, ItemRegistry.INDIGO_DYED_BRUSH);
         BRUSH.put(AllDyes.MAROON, ItemRegistry.MAROON_DYED_BRUSH);
-        
+
+        CUSHIONS.put(AllDyes.WHITE, Items.CUSHION.white());
+        CUSHIONS.put(AllDyes.ORANGE, Items.CUSHION.orange());
+        CUSHIONS.put(AllDyes.MAGENTA, Items.CUSHION.magenta());
+        CUSHIONS.put(AllDyes.LIGHT_BLUE, Items.CUSHION.lightBlue());
+        CUSHIONS.put(AllDyes.YELLOW, Items.CUSHION.yellow());
+        CUSHIONS.put(AllDyes.LIME, Items.CUSHION.lime());
+        CUSHIONS.put(AllDyes.PINK, Items.CUSHION.pink());
+        CUSHIONS.put(AllDyes.GRAY, Items.CUSHION.gray());
+        CUSHIONS.put(AllDyes.LIGHT_GRAY, Items.CUSHION.lightGray());
+        CUSHIONS.put(AllDyes.CYAN, Items.CUSHION.cyan());
+        CUSHIONS.put(AllDyes.PURPLE, Items.CUSHION.purple());
+        CUSHIONS.put(AllDyes.BLUE, Items.CUSHION.blue());
+        CUSHIONS.put(AllDyes.BROWN, Items.CUSHION.brown());
+        CUSHIONS.put(AllDyes.GREEN, Items.CUSHION.green());
+        CUSHIONS.put(AllDyes.RED, Items.CUSHION.red());
+        CUSHIONS.put(AllDyes.BLACK, Items.CUSHION.black());
+        CUSHIONS.put(AllDyes.AMBER, ItemRegistry.AMBER_CUSHION);
+        CUSHIONS.put(AllDyes.AQUA, ItemRegistry.AQUA_CUSHION);
+        CUSHIONS.put(AllDyes.INDIGO, ItemRegistry.INDIGO_CUSHION);
+        CUSHIONS.put(AllDyes.MAROON, ItemRegistry.MAROON_CUSHION);
     }
 }

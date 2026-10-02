@@ -22,6 +22,7 @@ public class ModVillagerTradesets {
         register(context, PYROTECHNIST_LEVEL_2, ModTags.PYROTECHNIST_LEVEL_2);
         register(context, PYROTECHNIST_LEVEL_3, ModTags.PYROTECHNIST_LEVEL_3);
         register(context, PYROTECHNIST_LEVEL_4, ModTags.PYROTECHNIST_LEVEL_4);
+        register(context, PYROTECHNIST_LEVEL_5, ModTags.PYROTECHNIST_LEVEL_5);
     }
 
     public static Holder.Reference<TradeSet> register(final BootstrapContext<TradeSet> context,

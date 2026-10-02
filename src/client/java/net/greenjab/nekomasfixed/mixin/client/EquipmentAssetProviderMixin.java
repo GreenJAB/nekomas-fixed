@@ -21,8 +21,6 @@ public class EquipmentAssetProviderMixin {
         consumer.accept(ModEquipmentAssetKeys.IRON_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("iron_crown"), false).build());
         consumer.accept(ModEquipmentAssetKeys.GOLDEN_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("golden_crown"), false).build());
         consumer.accept(ModEquipmentAssetKeys.DIAMOND_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.withDefaultNamespace("diamond_crown"), false).build());
-        consumer.accept(ModEquipmentAssetKeys.ALLIUM_FLOWER_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.fromNamespaceAndPath("nekomasfixed", "allium"), false).build());
-        consumer.accept(ModEquipmentAssetKeys.OXEYE_DAISY_FLOWER_CROWN, EquipmentClientInfo.builder().addMainHumanoidLayer(Identifier.fromNamespaceAndPath("nekomasfixed", "oxeye_daisy"), false).build());
         ci.cancel();
     }
 }

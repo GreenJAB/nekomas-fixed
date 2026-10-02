@@ -1,9 +1,9 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.entity.Moobloom.MoobloomVariants;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
+import net.greenjab.nekomasfixed.registry.other.ModCushionComponents;
 import net.greenjab.nekomasfixed.util.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
@@ -27,11 +27,11 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import net.minecraft.world.waypoints.Waypoint;
 import java.util.List;
@@ -485,55 +485,27 @@ public class ItemRegistry {
     public static final Holder<Potion> SPICY = register("spicy", new Potion("spicy", new MobEffectInstance(EffectRegistry.SPICY, 200)));
     public static final Item GHOST_PEPPER_SHRUB = register(BlockRegistry.GHOST_PEPPER_SHRUB);
 
-    public static final Item ALLIUM_FLOWER_CROWN = register("allium_flower_crown",
-            properties -> new FlowerCrownItem(properties, FlowerCrownVariants.ALLIUM),
-            new Item.Properties().stacksTo(1)
-                    .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot())
-                            .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
-                            .build()));
+    public static final Item TORCHFLOWER_FLOWER_CROWN = registerFlowerCrown("torchflower_flower_crown", FlowerCrownVariants.TORCHFLOWER);
+    public static final Item BLUE_ORCHID_FLOWER_CROWN = registerFlowerCrown("blue_orchid_flower_crown", FlowerCrownVariants.BLUE_ORCHID);
+    public static final Item WITHER_ROSE_FLOWER_CROWN = registerFlowerCrown("wither_rose_flower_crown", FlowerCrownVariants.WITHER_ROSE);
+    public static final Item CORNFLOWER_FLOWER_CROWN = registerFlowerCrown("cornflower_flower_crown", FlowerCrownVariants.CORNFLOWER);
+    public static final Item LILY_OF_THE_VALLEY_FLOWER_CROWN = registerFlowerCrown("lily_of_the_valley_flower_crown", FlowerCrownVariants.LILY_OF_THE_VALLEY);
+    public static final Item ORANGE_TULIP_FLOWER_CROWN = registerFlowerCrown("orange_tulip_flower_crown", FlowerCrownVariants.ORANGE_TULIP);
+    public static final Item PINK_TULIP_FLOWER_CROWN = registerFlowerCrown("pink_tulip_flower_crown", FlowerCrownVariants.PINK_TULIP);
+    public static final Item ALLIUM_FLOWER_CROWN = registerFlowerCrown("allium_flower_crown", FlowerCrownVariants.ALLIUM);
+    public static final Item RED_TULIP_FLOWER_CROWN = registerFlowerCrown("red_tulip_flower_crown", FlowerCrownVariants.RED_TULIP);
+    public static final Item POPPY_FLOWER_CROWN = registerFlowerCrown("poppy_flower_crown", FlowerCrownVariants.POPPY);
+    public static final Item AZURE_BLUET_FLOWER_CROWN = registerFlowerCrown("azure_bluet_flower_crown", FlowerCrownVariants.AZURE_BLUET);
+    public static final Item WHITE_TULIP_FLOWER_CROWN = registerFlowerCrown("white_tulip_flower_crown", FlowerCrownVariants.WHITE_TULIP);
+    public static final Item OXEYE_DAISY_FLOWER_CROWN = registerFlowerCrown("oxeye_daisy_flower_crown", FlowerCrownVariants.OXEYE_DAISY);
+    public static final Item DANDELION_FLOWER_CROWN = registerFlowerCrown("dandelion_flower_crown", FlowerCrownVariants.DANDELION);
+    public static final Item OPEN_EYEBLOSSOM_FLOWER_CROWN = registerFlowerCrown("open_eyeblossom_flower_crown", FlowerCrownVariants.OPEN_EYEBLOSSOM);
+    public static final Item CLOSED_EYEBLOSSOM_FLOWER_CROWN = registerFlowerCrown("closed_eyeblossom_flower_crown", FlowerCrownVariants.CLOSED_EYEBLOSSOM);
 
-    public static final Item OXEYE_DAISY_FLOWER_CROWN = register("oxeye_daisy_flower_crown",
-            properties -> new FlowerCrownItem(properties, FlowerCrownVariants.OXEYE_DAISY),
-            new Item.Properties().stacksTo(1)
-                    .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot())
-                            .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
-                            .build()));
-
-    public static final Item AMBER_CUSHION = register(
-            "amber_cushion",
-            CushionItem::new,
-            new Item.Properties()
-                    .stacksTo(16)
-                    .component(DataComponents.CUSHION_COLOR, DyeColor.YELLOW)
-                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)
-    );
-
-    public static final Item AQUA_CUSHION = register(
-            "aqua_cushion",
-            CushionItem::new,
-            new Item.Properties()
-                    .stacksTo(16)
-                    .component(DataComponents.CUSHION_COLOR, DyeColor.LIGHT_BLUE)
-                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)
-    );
-
-    public static final Item INDIGO_CUSHION = register(
-            "indigo_cushion",
-            CushionItem::new,
-            new Item.Properties()
-                    .stacksTo(16)
-                    .component(DataComponents.CUSHION_COLOR, DyeColor.MAGENTA)
-                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)
-    );
-
-    public static final Item MAROON_CUSHION = register(
-            "maroon_cushion",
-            CushionItem::new,
-            new Item.Properties()
-                    .stacksTo(16)
-                    .component(DataComponents.CUSHION_COLOR, DyeColor.RED)
-                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)
-    );
+    public static final Item AMBER_CUSHION = registerCushion("amber_cushion",  "amber");
+    public static final Item AQUA_CUSHION = registerCushion("aqua_cushion",   "aqua");
+    public static final Item INDIGO_CUSHION = registerCushion("indigo_cushion","indigo");
+    public static final Item MAROON_CUSHION = registerCushion("maroon_cushion", "maroon");
 
     public static final Item AMBER_WOOL_SLAB = register(BlockRegistry.AMBER_WOOL_SLAB);
     public static final Item AQUA_WOOL_SLAB = register(BlockRegistry.AQUA_WOOL_SLAB);
@@ -597,6 +569,14 @@ public class ItemRegistry {
     public static final Item INDIGO_CONCRETE_SLAB = register(BlockRegistry.INDIGO_CONCRETE_SLAB);
     public static final Item MAROON_CONCRETE_SLAB = register(BlockRegistry.MAROON_CONCRETE_SLAB);
 
+    public static final Item GOAT_HORN_IRON_HELMET = registerGoatHornHelm("goat_horn_iron_helmet", GoatHornHelmetTiers.IRON);
+    public static final Item GOAT_HORN_GOLDEN_HELMET = registerGoatHornHelm("goat_horn_golden_helmet", GoatHornHelmetTiers.GOLDEN);
+    public static final Item GOAT_HORN_COPPER_HELMET = registerGoatHornHelm("goat_horn_copper_helmet", GoatHornHelmetTiers.COPPER);
+    public static final Item GOAT_HORN_CHAINMAIL_HELMET = registerGoatHornHelm("goat_horn_chainmail_helmet", GoatHornHelmetTiers.CHAINMAIL);
+    public static final Item GOAT_HORN_DIAMOND_HELMET = registerGoatHornHelm("goat_horn_diamond_helmet", GoatHornHelmetTiers.DIAMOND);
+    public static final Item GOAT_HORN_NETHERITE_HELMET = registerGoatHornHelm("goat_horn_netherite_helmet", GoatHornHelmetTiers.NETHERITE);
+    public static final Item GOAT_HORN_TURTLE_HELMET = registerGoatHornHelm("goat_horn_turtle_helmet", GoatHornHelmetTiers.TURTLE);
+
     public static Item register(String id, Item.Properties settings) {
         return register(keyOf(id), Item::new, settings);
     }
@@ -613,6 +593,18 @@ public class ItemRegistry {
             blockItem.registerBlocks(Item.BY_BLOCK, item);
         }
         return Registry.register(BuiltInRegistries.ITEM, key, item);
+    }
+
+    private static Item registerCushion(String id, String modColor) {
+        return register(keyOf(id), props -> new CushionItem(props.stacksTo(16).component(DataComponents.CUSHION_COLOR, DyeColor.WHITE).component(ModCushionComponents.MOD_CUSHION_COLOR, modColor).cookingFuel(ContextIntProviders.COOKING_TIME_WOOL_SLABS)), new Item.Properties());
+    }
+
+    private static Item registerFlowerCrown(String id, FlowerCrownVariants variant) {
+        return register(keyOf(id), props -> new FlowerCrownItem(props.stacksTo(1).component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot()).setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build()), variant), new Item.Properties());
+    }
+
+    private static Item registerGoatHornHelm(String id, GoatHornHelmetTiers tier) {
+        return register(keyOf(id), props -> new GoatHornHelmetItem(props.stacksTo(1).durability(ArmorType.HELMET.getDurability(tier.getMaterial().durability())).attributes(tier.getMaterial().createAttributes(ArmorType.HELMET)).enchantable(tier.getMaterial().enchantmentValue()).repairable(tier.getMaterial().repairIngredient()).component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot()).setEquipSound(tier.getMaterial().equipSound()).build()), tier), new Item.Properties());
     }
 
     public static Item register(Block block) {

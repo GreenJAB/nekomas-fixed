@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import net.greenjab.nekomasfixed.render.entity.feature.FlowerCrownLayer;
+import net.greenjab.nekomasfixed.render.entity.feature.GoatHornHelmetLayer;
 import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -23,5 +24,6 @@ public abstract class AvatarRendererMixin<AvatarlikeEntity extends Avatar>
     @Inject(method = "<init>", at = @At("TAIL"))
     private void addFlowerCrownLayer(EntityRendererProvider.Context context, boolean slimSteve, CallbackInfo ci) {
         this.addLayer(new FlowerCrownLayer(this, context.getModelSet()));
+        this.addLayer(new GoatHornHelmetLayer(this, context.getModelSet()));
     }
 }

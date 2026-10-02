@@ -79,6 +79,8 @@ public class ModModelLayerRegistry {
     public static ModelLayerLocation BAOBAB_BOAT = register("boat/baobab");
     public static ModelLayerLocation BAOBAB_CHEST_BOAT = register("chest_boat/baobab");
     public static final ModelLayerLocation FLOWER_CROWN = register("flower_crown", "main");
+    public static final ModelLayerLocation GOAT_HORN_HELMET = register("goat_horn_helmet", "main");
+	public static final ModelLayerLocation GOAT_HORN_HELMET_TRIM = register("goat_horn_helmet", "trim");
 
     private static ModelLayerLocation register(final String model) {
         return register(model, "main");
@@ -173,5 +175,7 @@ public class ModModelLayerRegistry {
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.WILD_FIRE, WildfireModel::getTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.WILDFIRE_TRIDENT, TridentModel::createLayer);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.FLOWER_CROWN, FlowerCrownModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.GOAT_HORN_HELMET, GoatHornHelmetModel::getTexturedModelData);
+		ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.GOAT_HORN_HELMET_TRIM, GoatHornHelmetModel::getTexturedModelDataForTrim);
     }
 }

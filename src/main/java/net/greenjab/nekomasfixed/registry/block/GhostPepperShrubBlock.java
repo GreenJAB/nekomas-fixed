@@ -32,7 +32,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GhostPepperShrubBlock extends VegetationBlock implements BonemealableBlock {
-    public static final int MAX_AGE = 3;
     public static final IntegerProperty AGE;
     private static final VoxelShape SHAPE_SAPLING;
     private static final VoxelShape SHAPE_GROWING;
@@ -74,7 +73,7 @@ public class GhostPepperShrubBlock extends VegetationBlock implements Bonemealab
 
     protected void randomTick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
         int age = (Integer)state.getValue(AGE);
-        if (age < 5 && random.nextInt(5) == 0 && level.getRawBrightness(pos.above(), 0) >= 9) {
+        if (age < 4 && random.nextInt(5) == 0)  {
             BlockState newState = (BlockState)state.setValue(AGE, age + 1);
             level.setBlock(pos, newState, 2);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(newState));

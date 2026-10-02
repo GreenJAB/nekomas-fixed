@@ -16,9 +16,8 @@ public class ModRegistryDataGenerator extends FabricDynamicRegistryProvider {
     @Override
     protected void configure(HolderLookup.@NonNull Provider registries, @NonNull Entries entries) {
         entries.addAll(registries.lookupOrThrow(Registries.TRADE_SET));
+        entries.addAll(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
     }
-
-
 
     @Override
     public @NonNull String getName() {

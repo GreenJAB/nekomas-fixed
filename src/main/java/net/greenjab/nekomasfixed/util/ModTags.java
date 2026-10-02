@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.Block;
 public class ModTags {
     public static final TagKey<Biome> SPAWNS_RIME = TagKey.create(Registries.BIOME, NekomasFixed.id("spawns_rime"));
 
-
     public static final TagKey<Block> CAN_BE_DYED_WITH_BRUSH = TagKey.create(Registries.BLOCK, NekomasFixed.id("can_be_dyed_with_brush"));
     public static final TagKey<Block> DYED_BRICKS = TagKey.create(Registries.BLOCK, NekomasFixed.id("dyed_bricks"));
     public static final TagKey<Block> DYED_BRICK_SLABS = TagKey.create(Registries.BLOCK, NekomasFixed.id("dyed_brick_slabs"));
@@ -25,6 +24,8 @@ public class ModTags {
     public static final TagKey<Block> SPOTTED_WOOLS = TagKey.create(Registries.BLOCK, NekomasFixed.id("spotted_wools"));
     public static final TagKey<Block> SPOTTED_CARPETS = TagKey.create(Registries.BLOCK, NekomasFixed.id("spotted_carpets"));
     public static final TagKey<Block> FROGLIGHTS = TagKey.create(Registries.BLOCK, NekomasFixed.id("froglights"));
+    public static final TagKey<Block> SPOTTED_WOOL_SLABS = TagKey.create(Registries.BLOCK, NekomasFixed.id("spotted_wool_slabs"));
+    public static final TagKey<Block> SPOTTED_WOOL_STAIRS = TagKey.create(Registries.BLOCK, NekomasFixed.id("spotted_wool_stairs"));
     public static final TagKey<Block> SIEVABLE_BLOCKS = TagKey.create(Registries.BLOCK, NekomasFixed.id("sievable_blocks"));
     public static final TagKey<Block> SPEAR_SHATTER = TagKey.create(Registries.BLOCK, NekomasFixed.id("spear_shatter"));
 
@@ -41,4 +42,8 @@ public class ModTags {
     public static final TagKey<VillagerTrade> PYROTECHNIST_LEVEL_2 = TagKey.create(Registries.VILLAGER_TRADE, NekomasFixed.id("pyrotechnist/level_2"));
     public static final TagKey<VillagerTrade> PYROTECHNIST_LEVEL_3 = TagKey.create(Registries.VILLAGER_TRADE, NekomasFixed.id("pyrotechnist/level_3"));
     public static final TagKey<VillagerTrade> PYROTECHNIST_LEVEL_4 = TagKey.create(Registries.VILLAGER_TRADE, NekomasFixed.id("pyrotechnist/level_4"));
+    public static final TagKey<VillagerTrade> PYROTECHNIST_LEVEL_5 = TagKey.create(Registries.VILLAGER_TRADE, NekomasFixed.id("pyrotechnist/level_5"));
+
+    public static final TagKey<Item> FLOWER_CROWNS = TagKey.create(Registries.ITEM, NekomasFixed.id("flower_crowns"));
+    public static final TagKey<Item> GOAT_HORN_HELMETS = TagKey.create(Registries.ITEM, NekomasFixed.id("goat_horn_helmets"));
 }

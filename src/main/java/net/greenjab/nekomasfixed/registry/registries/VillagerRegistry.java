@@ -28,7 +28,8 @@ public class VillagerRegistry {
                     Int2ObjectMap.entry(1, ModTradeSetKeys.PYROTECHNIST_LEVEL_1),
                     Int2ObjectMap.entry(2, ModTradeSetKeys.PYROTECHNIST_LEVEL_2),
                     Int2ObjectMap.entry(3, ModTradeSetKeys.PYROTECHNIST_LEVEL_3),
-                    Int2ObjectMap.entry(4, ModTradeSetKeys.PYROTECHNIST_LEVEL_4))));
+                    Int2ObjectMap.entry(4, ModTradeSetKeys.PYROTECHNIST_LEVEL_4),
+                    Int2ObjectMap.entry(5, ModTradeSetKeys.PYROTECHNIST_LEVEL_5))));
 
     private static VillagerProfession registerVillagerProfession(String name, VillagerProfession profession) {
         return Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, Identifier.fromNamespaceAndPath(NekomasFixed.NAMESPACE, name), profession);
@@ -45,5 +46,6 @@ public class VillagerRegistry {
 
     public static void registerVillagers() {
         NekomasFixed.LOGGER.info("Registering Villagers and POIs for Nekoma's Fixed");
+        LootFunctionRegistry.registerLootFunctions();
     }
 }

@@ -433,6 +433,69 @@ public class BlockRegistry {
 
     public static final Block GHOST_PEPPER_SHRUB = register("ghost_pepper_shrub", GhostPepperShrubBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollision().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.POPPED));
 
+    public static final Block AMBER_WOOL_SLAB = register("amber_wool_slab", SlabBlock::new, BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sound(SoundType.WOOL).ignitedByLava().mapColor(DyeColor.YELLOW));
+    public static final Block AQUA_WOOL_SLAB = register("aqua_wool_slab", SlabBlock::new, BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sound(SoundType.WOOL).ignitedByLava().mapColor(DyeColor.LIGHT_BLUE));
+    public static final Block INDIGO_WOOL_SLAB = register("indigo_wool_slab", SlabBlock::new, BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sound(SoundType.WOOL).ignitedByLava().mapColor(DyeColor.MAGENTA));
+    public static final Block MAROON_WOOL_SLAB = register("maroon_wool_slab", SlabBlock::new, BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sound(SoundType.WOOL).ignitedByLava().mapColor(DyeColor.RED));
+
+    public static final Block AMBER_WOOL_STAIRS = registerOldStairsBlock("amber_wool_stairs", AMBER_WOOL);
+    public static final Block AQUA_WOOL_STAIRS = registerOldStairsBlock("aqua_wool_stairs", AQUA_WOOL);
+    public static final Block INDIGO_WOOL_STAIRS = registerOldStairsBlock("indigo_wool_stairs", INDIGO_WOOL);
+    public static final Block MAROON_WOOL_STAIRS = registerOldStairsBlock("maroon_wool_stairs", MAROON_WOOL);
+
+    public static final Block WHITE_SPOTTED_WOOL_SLAB = register("white_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(WHITE_SPOTTED_WOOL));
+    public static final Block LIGHT_GRAY_SPOTTED_WOOL_SLAB = register("light_gray_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(LIGHT_GRAY_SPOTTED_WOOL));
+    public static final Block GRAY_SPOTTED_WOOL_SLAB = register("gray_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(GRAY_SPOTTED_WOOL));
+    public static final Block BLACK_SPOTTED_WOOL_SLAB = register("black_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(BLACK_SPOTTED_WOOL));
+    public static final Block BROWN_SPOTTED_WOOL_SLAB = register("brown_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(BROWN_SPOTTED_WOOL));
+    public static final Block RED_SPOTTED_WOOL_SLAB = register("red_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(RED_SPOTTED_WOOL));
+    public static final Block ORANGE_SPOTTED_WOOL_SLAB = register("orange_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(ORANGE_SPOTTED_WOOL));
+    public static final Block YELLOW_SPOTTED_WOOL_SLAB = register("yellow_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(YELLOW_SPOTTED_WOOL));
+    public static final Block LIME_SPOTTED_WOOL_SLAB = register("lime_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(LIME_SPOTTED_WOOL));
+    public static final Block GREEN_SPOTTED_WOOL_SLAB = register("green_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(GREEN_SPOTTED_WOOL));
+    public static final Block CYAN_SPOTTED_WOOL_SLAB = register("cyan_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(CYAN_SPOTTED_WOOL));
+    public static final Block LIGHT_BLUE_SPOTTED_WOOL_SLAB = register("light_blue_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(LIGHT_BLUE_SPOTTED_WOOL));
+    public static final Block BLUE_SPOTTED_WOOL_SLAB = register("blue_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(BLUE_SPOTTED_WOOL));
+    public static final Block PURPLE_SPOTTED_WOOL_SLAB = register("purple_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(PURPLE_SPOTTED_WOOL));
+    public static final Block MAGENTA_SPOTTED_WOOL_SLAB = register("magenta_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(MAGENTA_SPOTTED_WOOL));
+    public static final Block PINK_SPOTTED_WOOL_SLAB = register("pink_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(PINK_SPOTTED_WOOL));
+    public static final Block AMBER_SPOTTED_WOOL_SLAB = register("amber_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(AMBER_SPOTTED_WOOL));
+    public static final Block AQUA_SPOTTED_WOOL_SLAB = register("aqua_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(AQUA_SPOTTED_WOOL));
+    public static final Block INDIGO_SPOTTED_WOOL_SLAB = register("indigo_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(INDIGO_SPOTTED_WOOL));
+    public static final Block MAROON_SPOTTED_WOOL_SLAB = register("maroon_spotted_wool_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(MAROON_SPOTTED_WOOL));
+
+    public static final Block WHITE_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("white_spotted_wool_stairs", WHITE_SPOTTED_WOOL);
+    public static final Block LIGHT_GRAY_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("light_gray_spotted_wool_stairs", LIGHT_GRAY_SPOTTED_WOOL);
+    public static final Block GRAY_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("gray_spotted_wool_stairs", GRAY_SPOTTED_WOOL);
+    public static final Block BLACK_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("black_spotted_wool_stairs", BLACK_SPOTTED_WOOL);
+    public static final Block BROWN_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("brown_spotted_wool_stairs", BROWN_SPOTTED_WOOL);
+    public static final Block RED_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("red_spotted_wool_stairs", RED_SPOTTED_WOOL);
+    public static final Block ORANGE_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("orange_spotted_wool_stairs", ORANGE_SPOTTED_WOOL);
+    public static final Block YELLOW_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("yellow_spotted_wool_stairs", YELLOW_SPOTTED_WOOL);
+    public static final Block LIME_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("lime_spotted_wool_stairs", LIME_SPOTTED_WOOL);
+    public static final Block GREEN_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("green_spotted_wool_stairs", GREEN_SPOTTED_WOOL);
+    public static final Block CYAN_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("cyan_spotted_wool_stairs", CYAN_SPOTTED_WOOL);
+    public static final Block LIGHT_BLUE_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("light_blue_spotted_wool_stairs", LIGHT_BLUE_SPOTTED_WOOL);
+    public static final Block BLUE_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("blue_spotted_wool_stairs", BLUE_SPOTTED_WOOL);
+    public static final Block PURPLE_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("purple_spotted_wool_stairs", PURPLE_SPOTTED_WOOL);
+    public static final Block MAGENTA_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("magenta_spotted_wool_stairs", MAGENTA_SPOTTED_WOOL);
+    public static final Block PINK_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("pink_spotted_wool_stairs", PINK_SPOTTED_WOOL);
+    public static final Block AMBER_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("amber_spotted_wool_stairs", AMBER_SPOTTED_WOOL);
+    public static final Block AQUA_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("aqua_spotted_wool_stairs", AQUA_SPOTTED_WOOL);
+    public static final Block INDIGO_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("indigo_spotted_wool_stairs", INDIGO_SPOTTED_WOOL);
+    public static final Block MAROON_SPOTTED_WOOL_STAIRS = registerOldStairsBlock("maroon_spotted_wool_stairs", MAROON_SPOTTED_WOOL);
+
+    public static final Block AMBER_CONCRETE_STAIRS = registerOldStairsBlock("amber_concrete_stairs", AMBER_CONCRETE);
+    public static final Block AQUA_CONCRETE_STAIRS = registerOldStairsBlock("aqua_concrete_stairs", AQUA_CONCRETE);
+    public static final Block INDIGO_CONCRETE_STAIRS = registerOldStairsBlock("indigo_concrete_stairs", INDIGO_CONCRETE);
+    public static final Block MAROON_CONCRETE_STAIRS = registerOldStairsBlock("maroon_concrete_stairs", MAROON_CONCRETE);
+
+    public static final Block AMBER_CONCRETE_SLAB = register("amber_concrete_slab", SlabBlock::new, BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.8F).mapColor(DyeColor.YELLOW));
+    public static final Block AQUA_CONCRETE_SLAB = register("aqua_concrete_slab", SlabBlock::new, BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.8F).mapColor(DyeColor.LIGHT_BLUE));
+    public static final Block INDIGO_CONCRETE_SLAB = register("indigo_concrete_slab", SlabBlock::new, BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.8F).ignitedByLava().mapColor(DyeColor.MAGENTA));
+    public static final Block MAROON_CONCRETE_SLAB = register("maroon_concrete_slab", SlabBlock::new, BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.8F).ignitedByLava().mapColor(DyeColor.RED));
+
+
     private static Block register(String id, BlockBehaviour.Properties settings) {
         return register(id, Block::new, settings);
     }

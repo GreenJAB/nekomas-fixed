@@ -11,13 +11,19 @@ import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.decoration.Cushion;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.NonNull;
+
+import java.util.List;
 
 public class DyedBrushBehaviour extends OptionalDispenseItemBehavior {
 
@@ -127,7 +133,42 @@ public class DyedBrushBehaviour extends OptionalDispenseItemBehavior {
 						level.setBlockAndUpdate(foot, newBed.setValue(BedBlock.PART, BedPart.FOOT));
 					} else level.setBlockAndUpdate(pos, newBed.setValue(BedBlock.PART, bedPart));
 					used = true;
-				}
+				} else if (state.is(BlockTags.WOOL_STAIRS) && !state.is(getWoolStairs(color))) {
+					level.setBlockAndUpdate(pos, getWoolStairs(color).defaultBlockState()
+							.setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
+							.setValue(StairBlock.FACING, state.getValue(StairBlock.FACING))
+							.setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
+							.setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
+					used = true;
+				} } else if (state.is(BlockTags.WOOL_SLABS) && !state.is(getWoolSlabs(color))) {
+				level.setBlockAndUpdate(pos, getWoolSlabs(color).defaultBlockState()
+						.setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
+						.setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
+				used = true;
+			} else if (state.is(BlockTags.CONCRETE_SLABS) && !state.is(getConcreteSlabs(color))) {
+				level.setBlockAndUpdate(pos, getConcreteSlabs(color).defaultBlockState()
+						.setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
+						.setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
+				used = true;
+			} else if (state.is(BlockTags.CONCRETE_STAIRS) && !state.is(getConcreteStairs(color))) {
+				level.setBlockAndUpdate(pos, getConcreteStairs(color).defaultBlockState()
+						.setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
+						.setValue(StairBlock.FACING, state.getValue(StairBlock.FACING))
+						.setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
+						.setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
+				used = true;
+			} else if (state.is(ModTags.SPOTTED_WOOL_SLABS) && !state.is(getSpottedWoolSlabs(color))) {
+				level.setBlockAndUpdate(pos, getSpottedWoolSlabs(color).defaultBlockState()
+						.setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
+						.setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
+				used = true;
+			} else if (state.is(ModTags.SPOTTED_WOOL_STAIRS) && !state.is(getSpottedWoolStairs(color))) {
+				level.setBlockAndUpdate(pos, getSpottedWoolStairs(color).defaultBlockState()
+						.setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
+						.setValue(StairBlock.FACING, state.getValue(StairBlock.FACING))
+						.setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
+						.setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
+				used = true;
 			}
 			if (used){
 				this.setSuccess(true);
@@ -167,6 +208,4 @@ public class DyedBrushBehaviour extends OptionalDispenseItemBehavior {
 	private static Block getWoolSlabs(AllDyes color) {return BlockDyeMap.WOOL_STAIRS.get(color); }
 	private static Block getConcreteStairs(AllDyes color) {return BlockDyeMap.CONCRETE_SLABS.get(color); }
 	private static Block getConcreteSlabs(AllDyes color) {return BlockDyeMap.CONCRETE_STAIRS.get(color); }
-	private static Block getCushions(AllDyes color) {return BlockDyeMap.CUSHIONS.get(color); }
-
 }
