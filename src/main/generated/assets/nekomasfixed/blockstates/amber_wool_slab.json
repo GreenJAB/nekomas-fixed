@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nekomasfixed:block/amber_wool_slab"
+    },
+    "type=double": {
+      "model": "nekomasfixed:block/amber_wool_slab_double"
+    },
+    "type=top": {
+      "model": "nekomasfixed:block/amber_wool_slab_top"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "nekomasfixed:random_firework"
+          },
+          "name": "minecraft:firework_rocket",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 6,
+        "min": 2
+      }
+    }
+  ],
+  "random_sequence": "nekomasfixed:chests/village/pyrotechnist_dispenser"
+}

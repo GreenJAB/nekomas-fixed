@@ -32,6 +32,7 @@ public class ModModelLayerRegistry {
     public static final ModelLayerLocation BIG_MANGROVE_BOAT = register("big_boat/mangrove");
     public static final ModelLayerLocation BIG_OAK_BOAT = register("big_boat/oak");
     public static final ModelLayerLocation BIG_PALE_OAK_BOAT = register("big_boat/pale_oak");
+    public static final ModelLayerLocation BIG_POPLAR_BOAT = register("big_boat/poplar");
     public static final ModelLayerLocation BIG_SPRUCE_BOAT = register("big_boat/spruce");
     public static final ModelLayerLocation BIG_BAOBAB_BOAT = register("big_boat/baobab");
 
@@ -44,6 +45,7 @@ public class ModModelLayerRegistry {
     public static final ModelLayerLocation HUGE_MANGROVE_BOAT = register("huge_boat/mangrove");
     public static final ModelLayerLocation HUGE_OAK_BOAT = register("huge_boat/oak");
     public static final ModelLayerLocation HUGE_PALE_OAK_BOAT = register("huge_boat/pale_oak");
+    public static final ModelLayerLocation HUGE_POPLAR_BOAT = register("huge_boat/poplar");
     public static final ModelLayerLocation HUGE_SPRUCE_BOAT = register("huge_boat/spruce");
     public static final ModelLayerLocation HUGE_BAOBAB_BOAT = register("huge_boat/baobab");
 
@@ -76,6 +78,9 @@ public class ModModelLayerRegistry {
 
     public static ModelLayerLocation BAOBAB_BOAT = register("boat/baobab");
     public static ModelLayerLocation BAOBAB_CHEST_BOAT = register("chest_boat/baobab");
+    public static final ModelLayerLocation FLOWER_CROWN = register("flower_crown", "main");
+    public static final ModelLayerLocation GOAT_HORN_HELMET = register("goat_horn_helmet", "main");
+	public static final ModelLayerLocation GOAT_HORN_HELMET_TRIM = register("goat_horn_helmet", "trim");
 
     private static ModelLayerLocation register(final String model) {
         return register(model, "main");
@@ -142,6 +147,7 @@ public class ModModelLayerRegistry {
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_MANGROVE_BOAT, BigBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_OAK_BOAT, BigBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_PALE_OAK_BOAT, BigBoatModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_POPLAR_BOAT, BigBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_SPRUCE_BOAT, BigBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_BAOBAB_BOAT, BigBoatModel::getChestTexturedModelData);
 
@@ -154,6 +160,7 @@ public class ModModelLayerRegistry {
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_MANGROVE_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_OAK_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_PALE_OAK_BOAT, HugeBoatModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_POPLAR_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_BAOBAB_BOAT, HugeBoatModel::getChestTexturedModelData);
 
@@ -167,5 +174,8 @@ public class ModModelLayerRegistry {
 
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.WILD_FIRE, WildfireModel::getTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.WILDFIRE_TRIDENT, TridentModel::createLayer);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.FLOWER_CROWN, FlowerCrownModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.GOAT_HORN_HELMET, GoatHornHelmetModel::getTexturedModelData);
+		ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.GOAT_HORN_HELMET_TRIM, GoatHornHelmetModel::getTexturedModelDataForTrim);
     }
 }

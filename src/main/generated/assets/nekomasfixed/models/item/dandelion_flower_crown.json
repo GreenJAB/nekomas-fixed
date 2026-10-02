@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nekomasfixed:item/dandelion_flower_crown"
+  }
+}

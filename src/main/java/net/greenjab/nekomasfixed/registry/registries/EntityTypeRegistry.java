@@ -36,6 +36,7 @@ public class EntityTypeRegistry {
     public static final EntityType<BigBoat> BIG_MANGROVE_BOAT = bigBoatFactory("big_mangrove_boat", () -> ItemRegistry.BIG_MANGROVE_BOAT);
     public static final EntityType<BigBoat> BIG_OAK_BOAT = bigBoatFactory("big_oak_boat", () -> ItemRegistry.BIG_OAK_BOAT);
     public static final EntityType<BigBoat> BIG_PALE_OAK_BOAT = bigBoatFactory("big_pale_oak_boat", () -> ItemRegistry.BIG_PALE_OAK_BOAT);
+    public static final EntityType<BigBoat> BIG_POPLAR_BOAT = bigBoatFactory("big_poplar_boat", () -> ItemRegistry.BIG_POPLAR_BOAT);
     public static final EntityType<BigBoat> BIG_SPRUCE_BOAT = bigBoatFactory("big_spruce_boat", () -> ItemRegistry.BIG_SPRUCE_BOAT);
     public static final EntityType<BigBoat> BIG_BAOBAB_BOAT = bigBoatFactory("big_baobab_boat", () -> ItemRegistry.BIG_BAOBAB_BOAT);
 
@@ -48,6 +49,7 @@ public class EntityTypeRegistry {
     public static final EntityType<HugeBoat> HUGE_MANGROVE_BOAT = hugeBoatFactory("huge_mangrove_boat", () -> ItemRegistry.HUGE_MANGROVE_BOAT);
     public static final EntityType<HugeBoat> HUGE_OAK_BOAT = hugeBoatFactory("huge_oak_boat", () -> ItemRegistry.HUGE_OAK_BOAT);
     public static final EntityType<HugeBoat> HUGE_PALE_OAK_BOAT = hugeBoatFactory("huge_pale_oak_boat", () -> ItemRegistry.HUGE_PALE_OAK_BOAT);
+    public static final EntityType<HugeBoat> HUGE_POPLAR_BOAT = hugeBoatFactory("huge_poplar_boat", () -> ItemRegistry.HUGE_POPLAR_BOAT);
     public static final EntityType<HugeBoat> HUGE_SPRUCE_BOAT = hugeBoatFactory("huge_spruce_boat", () -> ItemRegistry.HUGE_SPRUCE_BOAT);
     public static final EntityType<HugeBoat> HUGE_BAOBAB_BOAT = hugeBoatFactory("huge_baobab_boat", () -> ItemRegistry.HUGE_BAOBAB_BOAT);
 
@@ -58,9 +60,9 @@ public class EntityTypeRegistry {
             EntityType.Builder.of(getChestBoatFactory(() -> ItemRegistry.BAOBAB_CHEST_BOAT), MobCategory.MISC)
                     .noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));
 
-    public static List<EntityType<BigBoat>> bigBoats = List.of(BIG_ACACIA_BOAT, BIG_BAMBOO_BOAT, BIG_BIRCH_BOAT, BIG_CHERRY_BOAT, BIG_DARK_OAK_BOAT, BIG_JUNGLE_BOAT, BIG_MANGROVE_BOAT, BIG_OAK_BOAT, BIG_PALE_OAK_BOAT, BIG_SPRUCE_BOAT, BIG_BAOBAB_BOAT);
-    public static List<EntityType<HugeBoat>> hugeBoats = List.of(HUGE_ACACIA_BOAT, HUGE_BAMBOO_BOAT, HUGE_BIRCH_BOAT, HUGE_CHERRY_BOAT, HUGE_DARK_OAK_BOAT, HUGE_JUNGLE_BOAT, HUGE_MANGROVE_BOAT, HUGE_OAK_BOAT, HUGE_PALE_OAK_BOAT, HUGE_SPRUCE_BOAT, HUGE_BAOBAB_BOAT);
-    public static List<EntityType<? extends AbstractBoat>> boats = List.of(EntityTypes.ACACIA_BOAT, EntityTypes.BAMBOO_RAFT, EntityTypes.BIRCH_BOAT, EntityTypes.CHERRY_BOAT, EntityTypes.DARK_OAK_BOAT, EntityTypes.JUNGLE_BOAT, EntityTypes.MANGROVE_BOAT, EntityTypes.OAK_BOAT, EntityTypes.PALE_OAK_BOAT, EntityTypes.SPRUCE_BOAT, BAOBAB_BOAT);
+    public static List<EntityType<BigBoat>> bigBoats = List.of(BIG_ACACIA_BOAT, BIG_BAMBOO_BOAT, BIG_BIRCH_BOAT, BIG_CHERRY_BOAT, BIG_DARK_OAK_BOAT, BIG_JUNGLE_BOAT, BIG_MANGROVE_BOAT, BIG_OAK_BOAT, BIG_PALE_OAK_BOAT, BIG_POPLAR_BOAT, BIG_SPRUCE_BOAT, BIG_BAOBAB_BOAT);
+    public static List<EntityType<HugeBoat>> hugeBoats = List.of(HUGE_ACACIA_BOAT, HUGE_BAMBOO_BOAT, HUGE_BIRCH_BOAT, HUGE_CHERRY_BOAT, HUGE_DARK_OAK_BOAT, HUGE_JUNGLE_BOAT, HUGE_MANGROVE_BOAT, HUGE_OAK_BOAT, HUGE_PALE_OAK_BOAT, HUGE_POPLAR_BOAT, HUGE_SPRUCE_BOAT, HUGE_BAOBAB_BOAT);
+    public static List<EntityType<? extends AbstractBoat>> boats = List.of(EntityTypes.ACACIA_BOAT, EntityTypes.BAMBOO_RAFT, EntityTypes.BIRCH_BOAT, EntityTypes.CHERRY_BOAT, EntityTypes.DARK_OAK_BOAT, EntityTypes.JUNGLE_BOAT, EntityTypes.MANGROVE_BOAT, EntityTypes.OAK_BOAT, EntityTypes.PALE_OAK_BOAT, EntityTypes.POPLAR_BOAT, EntityTypes.SPRUCE_BOAT, BAOBAB_BOAT);
 
 
     public static final EntityType<TargetDummy> TARGET_DUMMY = register("target_dummy",

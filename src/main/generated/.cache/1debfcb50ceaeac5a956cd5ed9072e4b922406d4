@@ -1,10 +1,14 @@
 // 26.3	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
 6249b5cebe0ac025db8b9803a5fc4466f1b3b49c data/c/tags/block/glass_blocks.json
 0479cf107119cd9c0d05dcb11a5ec1f08b9e28d0 data/c/tags/block/glass_panes.json
-dc66709a9f7c6746fd97a3e465fc4656eb876b05 data/minecraft/tags/block/slabs.json
-32fc3aeb40dde7152028df199a283b2b19dbc85b data/minecraft/tags/block/stairs.json
+d71190eff2641e49c791c116afe77995f99da4cf data/minecraft/tags/block/concrete_slabs.json
+c1e7a9b308a34533cd16111377a801fb7d9b8ffd data/minecraft/tags/block/concrete_stairs.json
+123089241652da71475ef527b6d92da89165ae8f data/minecraft/tags/block/slabs.json
+827ae6478be8d3e2331525f9115d0e22f4d48f19 data/minecraft/tags/block/stairs.json
 ab585463eabec5a572000f58a11101ea2ec0c31f data/minecraft/tags/block/walls.json
-cc2df6c1fa06a20834ea62c9ae26adc62c893540 data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
+24782cdbe6843bde0f0cdf9092618034ab252d4e data/minecraft/tags/block/wool_slabs.json
+8b721ff4f2d29cc8ed061863cc900d88f3f292d4 data/minecraft/tags/block/wool_stairs.json
+42857e81b62b031198ff50d999f034ca78a54e3c data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
 5d327ebedc30c5df3d1585f6e8d78052745d48d9 data/nekomasfixed/tags/block/concrete_powders.json
 2506dff323c1a71bab7c0ec4cbf10a9cab6f346b data/nekomasfixed/tags/block/concretes.json
 dc66709a9f7c6746fd97a3e465fc4656eb876b05 data/nekomasfixed/tags/block/dyed_brick_slabs.json
@@ -14,6 +18,8 @@ ab585463eabec5a572000f58a11101ea2ec0c31f data/nekomasfixed/tags/block/dyed_brick
 2e260c94bdb59a39f0b6dcc0c9595a157aa46bee data/nekomasfixed/tags/block/froglights.json
 773c30f7142728ede9c78dcff866611d882b308a data/nekomasfixed/tags/block/glazed_terracottas.json
 f73e41c1264148ca3b490e5491dbcf14ee272ad1 data/nekomasfixed/tags/block/spotted_carpets.json
+319ba2977e6798e09bfd4b2a5edaf5d9b182dfbe data/nekomasfixed/tags/block/spotted_wool_slabs.json
+d4768119c0b0b4fc21f582fbfc4d21f9f169de9a data/nekomasfixed/tags/block/spotted_wool_stairs.json
 3d0f841cf8a65990db78c3fc0e28e31b8c670783 data/nekomasfixed/tags/block/spotted_wools.json
 d80bbc066a147edf4387ddc05419baa947b91490 data/nekomasfixed/tags/block/stained_glass_panes.json
 52666c5253ade4f7e7f0d82dd0f86eb82cb6083e data/nekomasfixed/tags/block/stained_glasses.json

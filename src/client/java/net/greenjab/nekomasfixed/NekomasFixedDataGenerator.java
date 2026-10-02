@@ -3,6 +3,10 @@ package net.greenjab.nekomasfixed;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.greenjab.nekomasfixed.datagen.*;
+import net.greenjab.nekomasfixed.datagen.villager.ModPOITags;
+import net.greenjab.nekomasfixed.datagen.villager.ModVillagerTradeTags;
+import net.greenjab.nekomasfixed.datagen.villager.ModVillagerTrades;
+import net.greenjab.nekomasfixed.datagen.villager.ModVillagerTradesets;
 import net.greenjab.nekomasfixed.registry.registries.ItemGroupRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.core.RegistrySetBuilder;
@@ -29,12 +33,15 @@ public class NekomasFixedDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModLootTableProvider::new);
 		pack.addProvider(ModRegistryDataGenerator::new);
+		pack.addProvider(ModVillagerTradeTags::new);
+		pack.addProvider(ModPOITags::new);
 		pack.addProvider(ModAdvancementProvider::new);
 	}
 
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-
+		registryBuilder.add(Registries.VILLAGER_TRADE, ModVillagerTrades::bootstrap);
+		registryBuilder.add(Registries.TRADE_SET, ModVillagerTradesets::bootstrap);
 	}
 
 

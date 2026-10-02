@@ -50,6 +50,7 @@ public class NekomasFixed implements ModInitializer {
 		LootTableRegistry.registerLootTables();
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
+		VillagerRegistry.registerVillagers();
 		SyncHandler.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();

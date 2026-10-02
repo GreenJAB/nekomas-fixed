@@ -40,6 +40,7 @@ public class DrenchedRenderer extends HumanoidMobRenderer<Drenched, DrenchedRend
         state.isAggressive = entity.isAggressive();
         state.isShaking = entity.isShaking();
         state.isHoldingBow = true;
+        state.isPassenger = entity.isPassenger();
     }
 
     @Override
@@ -55,6 +56,11 @@ public class DrenchedRenderer extends HumanoidMobRenderer<Drenched, DrenchedRend
 
     protected void setupRotations(@NonNull DrenchedRenderState drenchedRenderState, @NonNull PoseStack matrixStack, float f, float g) {
         super.setupRotations(drenchedRenderState, matrixStack, f, g);
+
+        if(drenchedRenderState.isPassenger) {
+            return;
+        }
+
         float h = drenchedRenderState.swimAmount;
         if (h > 0.0F) {
             float i = -10.0F - drenchedRenderState.xRot;

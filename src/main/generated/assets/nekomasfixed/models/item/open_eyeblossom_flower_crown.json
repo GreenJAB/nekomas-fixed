@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nekomasfixed:item/open_eyeblossom_flower_crown"
+  }
+}

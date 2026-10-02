@@ -20,6 +20,7 @@ public class ModEntityRendererRegistry {
         EntityRenderers.register(EntityTypeRegistry.BIG_MANGROVE_BOAT, context -> new BigBoatRenderer<>(context, ModModelLayerRegistry.BIG_MANGROVE_BOAT));
         EntityRenderers.register(EntityTypeRegistry.BIG_OAK_BOAT, context -> new BigBoatRenderer<>(context, ModModelLayerRegistry.BIG_OAK_BOAT));
         EntityRenderers.register(EntityTypeRegistry.BIG_PALE_OAK_BOAT, context -> new BigBoatRenderer<>(context, ModModelLayerRegistry.BIG_PALE_OAK_BOAT));
+        EntityRenderers.register(EntityTypeRegistry.BIG_POPLAR_BOAT, context -> new BigBoatRenderer<>(context, ModModelLayerRegistry.BIG_POPLAR_BOAT));
         EntityRenderers.register(EntityTypeRegistry.BIG_SPRUCE_BOAT, context -> new BigBoatRenderer<>(context, ModModelLayerRegistry.BIG_SPRUCE_BOAT));
         EntityRenderers.register(EntityTypeRegistry.BIG_BAOBAB_BOAT, context -> new BigBoatRenderer<>(context, ModModelLayerRegistry.BIG_BAOBAB_BOAT));
 
@@ -32,6 +33,7 @@ public class ModEntityRendererRegistry {
         EntityRenderers.register(EntityTypeRegistry.HUGE_MANGROVE_BOAT, context -> new HugeBoatRenderer(context, ModModelLayerRegistry.HUGE_MANGROVE_BOAT));
         EntityRenderers.register(EntityTypeRegistry.HUGE_OAK_BOAT, context -> new HugeBoatRenderer(context, ModModelLayerRegistry.HUGE_OAK_BOAT));
         EntityRenderers.register(EntityTypeRegistry.HUGE_PALE_OAK_BOAT, context -> new HugeBoatRenderer(context, ModModelLayerRegistry.HUGE_PALE_OAK_BOAT));
+        EntityRenderers.register(EntityTypeRegistry.HUGE_POPLAR_BOAT, context -> new HugeBoatRenderer(context, ModModelLayerRegistry.HUGE_POPLAR_BOAT));
         EntityRenderers.register(EntityTypeRegistry.HUGE_SPRUCE_BOAT, context -> new HugeBoatRenderer(context, ModModelLayerRegistry.HUGE_SPRUCE_BOAT));
         EntityRenderers.register(EntityTypeRegistry.HUGE_BAOBAB_BOAT, context -> new HugeBoatRenderer(context, ModModelLayerRegistry.HUGE_BAOBAB_BOAT));
 
