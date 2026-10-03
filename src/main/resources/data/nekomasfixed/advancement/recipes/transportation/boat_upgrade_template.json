@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:boat_upgrade_template"
+        "recipes": [
+          "nekomasfixed:boat_upgrade_template"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

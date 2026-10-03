@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -14,7 +15,8 @@ public class ModRegistryDataGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.@NonNull Provider registries, @NonNull Entries entries) {
-
+        entries.addAll(registries.lookupOrThrow(Registries.TRADE_SET));
+        entries.addAll(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
     }
 
     @Override

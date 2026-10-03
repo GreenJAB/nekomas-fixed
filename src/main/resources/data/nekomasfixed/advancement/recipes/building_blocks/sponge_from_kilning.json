@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:sponge_from_kilning"
+        "recipes": [
+          "nekomasfixed:sponge_from_kilning"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dye_teal_froglight"
+        "recipes": [
+          "nekomasfixed:dye_teal_froglight"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

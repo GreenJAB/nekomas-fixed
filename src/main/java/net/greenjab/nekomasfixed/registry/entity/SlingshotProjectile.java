@@ -113,7 +113,7 @@ public class SlingshotProjectile extends ThrowableItemProjectile {
     protected void onHit(@NonNull HitResult hitResult) {
         if (shatter && getOwner() instanceof LivingEntity entity) {
             shatter = false;
-            for (int i = 0;i<3;i++) {
+            for (int i = 0;i<5;i++) {
                 SlingshotProjectile newSlingshotProjectile = new SlingshotProjectile(this.level(), entity, getItem(), weapon, false);
                 if (hitResult instanceof BlockHitResult blockHitResult) {
                     newSlingshotProjectile.setPos(this.getX(), this.getY(), this.getZ());
@@ -121,14 +121,14 @@ public class SlingshotProjectile extends ThrowableItemProjectile {
                     Vec3 vec = blockHitResult.getDirection().getUnitVec3();
                     if (Math.signum(this.getDeltaMovement().get(axis))!=Math.signum(vec.get(axis))){
                         Vec3 vec2 = new Vec3(vec.x==0?1:-0.9,vec.y==0?1:-0.9,vec.z==0?1:-0.9);
-                        Vec3 vec3d = this.getDeltaMovement().multiply(vec2).scale(0.8).add(new Vec3(this.getRandom().triangle(0, 1), 0, this.getRandom().triangle(0, 1)));
+                        Vec3 vec3d = this.getDeltaMovement().multiply(vec2).scale(0.8).add(new Vec3(this.getRandom().triangle(0, 1), 0.25, this.getRandom().triangle(0, 1)));
                         newSlingshotProjectile.setDeltaMovement(vec3d);
                         newSlingshotProjectile.needsSync = true;
                     }
                 } else if (hitResult instanceof EntityHitResult entityHitResult) {
                     Entity e = entityHitResult.getEntity();
                     newSlingshotProjectile.setPos(e.getX(), this.getY(), e.getZ());
-                    Vec3 vec3d = this.getDeltaMovement().scale(0.8).add(new Vec3(this.getRandom().triangle(0, 1), 0, this.getRandom().triangle(0, 1)));
+                    Vec3 vec3d = this.getDeltaMovement().scale(0.8).add(new Vec3(this.getRandom().triangle(0, 1), 0.25, this.getRandom().triangle(0, 1)));
                     newSlingshotProjectile.setDeltaMovement(vec3d);
                     newSlingshotProjectile.needsSync = true;
                 }

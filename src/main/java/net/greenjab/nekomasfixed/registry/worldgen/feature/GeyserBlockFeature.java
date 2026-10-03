@@ -1,24 +1,28 @@
 package net.greenjab.nekomasfixed.registry.worldgen.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 
-public class GeyserBlockFeature extends Feature<SimpleBlockConfiguration> {
-    public GeyserBlockFeature(Codec<SimpleBlockConfiguration> configCodec) {
-        super(configCodec);
+public class GeyserBlockFeature implements Feature {
+
+    public static final MapCodec<GeyserBlockFeature> MAP_CODEC = MapCodec.unit(GeyserBlockFeature::new);
+
+    public GeyserBlockFeature() {
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<SimpleBlockConfiguration> context) {
+    public MapCodec<? extends Feature> codec() {
+        return MAP_CODEC;
+    }
 
-        WorldGenLevel world = context.level();
-        BlockPos start = context.origin();
+    @Override
+    public boolean place(WorldGenLevel world, ChunkGenerator chunkGenerator, RandomSource random, BlockPos start) {
         if (!world.isEmptyBlock(start) || world.isEmptyBlock(start.below())) return false;
         boolean adjacentToTerrain = false;
 

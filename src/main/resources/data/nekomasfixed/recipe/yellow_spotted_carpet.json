@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "nekomasfixed:spotted_carpet",
+  "key": {
+    "#": "nekomasfixed:yellow_spotted_wool"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "nekomasfixed:yellow_spotted_carpet",
+    "count": 3
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "wool_stairs",
+  "key": {
+    "#": "nekomasfixed:maroon_wool"
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nekomasfixed:maroon_wool_stairs"
+  }
+}

@@ -7,6 +7,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +20,7 @@ public class ArmorStandMixin {
     private void interactAt(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> cir) {
         if(player!=null && player.isShiftKeyDown()){
             ArmorStand armorStandEntity = (ArmorStand) (Object) this;
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             if(armorStandEntity.getItemBySlot(EquipmentSlot.HEAD).is(ItemTags.HEAD_ARMOR) || player.getItemBySlot(EquipmentSlot.HEAD).is(ItemTags.HEAD_ARMOR)){
                 ItemStack tempItem = armorStandEntity.getItemBySlot(EquipmentSlot.HEAD);
                 armorStandEntity.setItemSlot(EquipmentSlot.HEAD, player.getItemBySlot(EquipmentSlot.HEAD));

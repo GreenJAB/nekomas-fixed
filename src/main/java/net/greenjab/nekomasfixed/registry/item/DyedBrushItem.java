@@ -9,8 +9,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.decoration.Cushion;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
@@ -27,7 +30,10 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.NonNull;
+
+import java.util.List;
 
 public class DyedBrushItem extends Item {
     AllDyes color;
@@ -35,6 +41,10 @@ public class DyedBrushItem extends Item {
     public DyedBrushItem(AllDyes color, Properties settings) {
         super(settings);
         this.color = color;
+    }
+    
+    public AllDyes getColor(){
+        return color;
     }
 
     @Override
@@ -44,22 +54,19 @@ public class DyedBrushItem extends Item {
         BlockState state = level.getBlockState(pos);
         boolean used = false;
         Player player = context.getPlayer();
-        if (player != null) player.swing(context.getHand());
+        if (player != null) player.swing(context.getHand(), SwingAnimation.DEFAULT, true);
         if (!level.isClientSide() && state.is(ModTags.CAN_BE_DYED_WITH_BRUSH)) {
             if (state.is(Blocks.TERRACOTTA) || state.is(BlockTags.TERRACOTTA) && !state.is(getTerracotta(color))) {
                 level.setBlockAndUpdate(pos, getTerracotta(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.DYED_BRICKS) || state.is(Blocks.BRICKS) && !state.is(getBricks(color))) {
                 level.setBlockAndUpdate(pos, getBricks(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.DYED_BRICK_SLABS) || state.is(Blocks.BRICK_SLAB) && !state.is(getBrickSlabs(color))) {
                 level.setBlockAndUpdate(pos, getBrickSlabs(color).defaultBlockState()
                         .setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
                         .setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.DYED_BRICK_STAIRS) || state.is(Blocks.BRICK_STAIRS) && !state.is(getBrickStairs(color))) {
                 level.setBlockAndUpdate(pos, getBrickStairs(color).defaultBlockState()
                         .setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
@@ -67,7 +74,6 @@ public class DyedBrushItem extends Item {
                         .setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
                         .setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.DYED_BRICK_WALLS) || state.is(Blocks.BRICK_WALL) && !state.is(getBrickWalls(color))) {
                 level.setBlockAndUpdate(pos, getBrickWalls(color).defaultBlockState()
                         .setValue(WallBlock.WATERLOGGED, state.getValue(WallBlock.WATERLOGGED))
@@ -77,11 +83,9 @@ public class DyedBrushItem extends Item {
                         .setValue(WallBlock.WEST, state.getValue(WallBlock.WEST))
                         .setValue(WallBlock.UP, state.getValue(WallBlock.UP)));
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.STAINED_GLASSES) || state.is(Blocks.GLASS) && !state.is(getStainedGlass(color))) {
                 level.setBlockAndUpdate(pos, getStainedGlass(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.STAINED_GLASS_PANES) || state.is(Blocks.GLASS_PANE) && !state.is(getStainedGlassPane(color))) {
                 level.setBlockAndUpdate(pos, getStainedGlassPane(color).defaultBlockState()
                         .setValue(StainedGlassPaneBlock.WATERLOGGED, state.getValue(StainedGlassPaneBlock.WATERLOGGED))
@@ -90,46 +94,36 @@ public class DyedBrushItem extends Item {
                         .setValue(StainedGlassPaneBlock.SOUTH, state.getValue(StainedGlassPaneBlock.SOUTH))
                         .setValue(StainedGlassPaneBlock.NORTH, state.getValue(StainedGlassPaneBlock.NORTH)));
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.GLAZED_TERRACOTTAS) && !state.is(getGlazedTerracotta(color))) {
                 level.setBlockAndUpdate(pos, getGlazedTerracotta(color).defaultBlockState()
                         .setValue(GlazedTerracottaBlock.FACING, state.getValue(GlazedTerracottaBlock.FACING)));
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.SPOTTED_WOOLS) && !state.is(getSpottedWool(color))) {
                 level.setBlockAndUpdate(pos, getSpottedWool(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
-            } else if (state.is(BlockTags.WOOL) && !state.is(ModTags.SPOTTED_WOOLS) &&!state.is(getWool(color))) {
+            } else if (state.is(BlockTags.WOOL) && !state.is(ModTags.SPOTTED_WOOLS) && !state.is(getWool(color))) {
                 level.setBlockAndUpdate(pos, getWool(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
             } else if (state.is(BlockTags.CANDLES) || state.is(Blocks.CANDLE) && !state.is(getCandle(color))) {
                 level.setBlockAndUpdate(pos, getCandle(color).defaultBlockState()
                         .setValue(CandleBlock.CANDLES, state.getValue(CandleBlock.CANDLES))
                         .setValue(CandleBlock.LIT, state.getValue(CandleBlock.LIT)));
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.SPOTTED_CARPETS) && !state.is(getSpottedCarpet(color))) {
                 level.setBlockAndUpdate(pos, getSpottedCarpet(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
             } else if (state.is(BlockTags.WOOL_CARPETS) && !state.is(ModTags.SPOTTED_CARPETS) && !state.is(getCarpet(color))) {
                 level.setBlockAndUpdate(pos, getCarpet(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.CONCRETES) && !state.is(getConcretes(color))) {
                 level.setBlockAndUpdate(pos, getConcretes(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.CONCRETE_POWDERS) && !state.is(getConcretePowders(color))) {
                 level.setBlockAndUpdate(pos, getConcretePowders(color).defaultBlockState());
                 used = true;
-                this.afterUse(context);
             } else if (state.is(ModTags.FROGLIGHTS) && !state.is(getFroglight(color))) {
                 level.setBlockAndUpdate(pos, getFroglight(color).defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
                 used = true;
-                this.afterUse(context);
             } else if (state.is(Blocks.SHULKER_BOX) || state.is(BlockTags.SHULKER_BOXES) && !state.is(getShulkerBox(color))) {
                 if (level.getBlockEntity(pos) instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
                     level.setBlockAndUpdate(pos, getShulkerBox(color).defaultBlockState().setValue(ShulkerBoxBlock.FACING, state.getValue(ShulkerBoxBlock.FACING)));
@@ -140,7 +134,6 @@ public class DyedBrushItem extends Item {
                     }
                 }
                 used = true;
-                this.afterUse(context);
             } else if (state.is(BlockTags.BEDS) && !state.is(getBed(color))) {
                 Block bed = getBed(color);
                 BedPart bedPart = state.getValue(BedBlock.PART);
@@ -156,10 +149,49 @@ public class DyedBrushItem extends Item {
                     level.setBlockAndUpdate(foot, newBed.setValue(BedBlock.PART, BedPart.FOOT));
                 } else level.setBlockAndUpdate(pos, newBed.setValue(BedBlock.PART, bedPart));
                 used = true;
-                this.afterUse(context);
+            } else if (state.is(BlockTags.WOOL_STAIRS) && !state.is(getWoolStairs(color))) {
+                level.setBlockAndUpdate(pos, getWoolStairs(color).defaultBlockState()
+                        .setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
+                        .setValue(StairBlock.FACING, state.getValue(StairBlock.FACING))
+                        .setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
+                        .setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
+                used = true;
+            } else if (state.is(BlockTags.WOOL_SLABS) && !state.is(getWoolSlabs(color))) {
+                level.setBlockAndUpdate(pos, getWoolSlabs(color).defaultBlockState()
+                        .setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
+                        .setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
+                used = true;
+            } else if (state.is(BlockTags.CONCRETE_SLABS) && !state.is(getConcreteSlabs(color))) {
+                level.setBlockAndUpdate(pos, getConcreteSlabs(color).defaultBlockState()
+                        .setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
+                        .setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
+                used = true;
+            } else if (state.is(BlockTags.CONCRETE_STAIRS) && !state.is(getConcreteStairs(color))) {
+                level.setBlockAndUpdate(pos, getConcreteStairs(color).defaultBlockState()
+                        .setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
+                        .setValue(StairBlock.FACING, state.getValue(StairBlock.FACING))
+                        .setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
+                        .setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
+                used = true;
+            } else if (state.is(ModTags.SPOTTED_WOOL_SLABS) && !state.is(getSpottedWoolSlabs(color))) {
+                level.setBlockAndUpdate(pos, getSpottedWoolSlabs(color).defaultBlockState()
+                        .setValue(SlabBlock.WATERLOGGED, state.getValue(SlabBlock.WATERLOGGED))
+                        .setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE)));
+                used = true;
+            } else if (state.is(ModTags.SPOTTED_WOOL_STAIRS) && !state.is(getSpottedWoolStairs(color))) {
+                level.setBlockAndUpdate(pos, getSpottedWoolStairs(color).defaultBlockState()
+                        .setValue(StairBlock.WATERLOGGED, state.getValue(StairBlock.WATERLOGGED))
+                        .setValue(StairBlock.FACING, state.getValue(StairBlock.FACING))
+                        .setValue(StairBlock.HALF, state.getValue(StairBlock.HALF))
+                        .setValue(StairBlock.SHAPE, state.getValue(StairBlock.SHAPE)));
+                used = true;
             }
         }
-        return used ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+        if (used) {
+            this.afterUse(context);
+            return  InteractionResult.SUCCESS;
+        }
+        return InteractionResult.FAIL;
     }
 
     private static Direction getDirectionTowardsOtherPart(BedPart part, Direction direction) {
@@ -169,7 +201,7 @@ public class DyedBrushItem extends Item {
     private void afterUse( UseOnContext context){
         Player player = context.getPlayer();
         if (player != null) {
-            context.getItemInHand().hurtWithoutBreaking(1, player);
+            context.getItemInHand().hurtAndBreak(1, player, context.getHand());
             context.getLevel().playSound(null, context.getClickedPos(), SoundEvents.SLIME_SQUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
     }
@@ -192,4 +224,10 @@ public class DyedBrushItem extends Item {
     private static Block getFroglight(AllDyes color) {return BlockDyeMap.FROGLIGHT.get(color); }
     private static Block getShulkerBox(AllDyes color) {return BlockDyeMap.SHULKER_BOX.get(color); }
     private static Block getBed(AllDyes color) {return BlockDyeMap.BED.get(color); }
+    private static Block getSpottedWoolStairs(AllDyes color) {return BlockDyeMap.SPOTTED_WOOL_STAIRS.get(color); }
+    private static Block getSpottedWoolSlabs(AllDyes color) {return BlockDyeMap.SPOTTED_WOOL_SLABS.get(color); }
+    private static Block getWoolStairs(AllDyes color) {return BlockDyeMap.WOOL_STAIRS.get(color); }
+    private static Block getWoolSlabs(AllDyes color) {return BlockDyeMap.WOOL_SLABS.get(color); }
+    private static Block getConcreteStairs(AllDyes color) {return BlockDyeMap.CONCRETE_STAIRS.get(color); }
+    private static Block getConcreteSlabs(AllDyes color) {return BlockDyeMap.CONCRETE_SLABS.get(color); }
 }

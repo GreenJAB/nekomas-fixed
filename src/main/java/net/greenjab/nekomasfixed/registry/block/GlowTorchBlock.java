@@ -24,13 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
 public class GlowTorchBlock extends BaseTorchBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<GlowTorchBlock> CODEC = simpleCodec(GlowTorchBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
-	@Override
-	public @NonNull MapCodec<? extends GlowTorchBlock> codec() {
-		return CODEC;
-	}
 
 	public GlowTorchBlock(BlockBehaviour.Properties settings) {
 		super(settings);

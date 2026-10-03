@@ -21,7 +21,9 @@ accessible method net/minecraft/world/entity/animal/bee/Bee setHasNectar (Z)V
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimToTreasureGoal
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimWithPlayerGoal
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$PlayWithItemsGoal
+accessible method net/minecraft/world/item/equipment/trim/TrimPatterns registryKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+accessible method net/minecraft/data/loot/packs/VanillaBlockLoot createMobSkullDrop (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
 accessible field net/minecraft/world/level/block/entity/BaseContainerBlockEntity name Lnet/minecraft/network/chat/Component;
 accessible method net/minecraft/world/entity/monster/skeleton/AbstractSkeleton getStepSound ()Lnet/minecraft/sounds/SoundEvent;
@@ -29,4 +31,9 @@ accessible method net/minecraft/world/entity/Mob isSunBurnTick ()Z
 accessible field net/minecraft/core/cauldron/CauldronInteractions ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
 accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
 accessible method net/minecraft/world/level/block/FireBlock setFlammable (Lnet/minecraft/world/level/block/Block;II)V
-accessible class net/minecraft/client/renderer/feature/NameTagFeatureRenderer$GlyphRenderer
+accessible method net/minecraft/world/entity/animal/feline/Ocelot isTrusting ()Z
+accessible method net/minecraft/world/entity/animal/feline/Ocelot setTrusting (Z)V
+accessible field net/minecraft/world/level/block/RedstoneWireBlock evaluator Lnet/minecraft/world/level/redstone/RedstoneWireEvaluator;
+accessible method net/minecraft/world/level/block/RedstoneWireBlock useExperimentalEvaluator (Lnet/minecraft/world/level/Level;)Z
+accessible field net/minecraft/world/entity/Entity invulnerableTime I
+accessible method net/minecraft/world/entity/decoration/Cushion getCushionItemStackWithData ()Lnet/minecraft/world/item/ItemStack;

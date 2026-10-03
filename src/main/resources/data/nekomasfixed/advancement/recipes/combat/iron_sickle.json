@@ -4,7 +4,9 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "nekomasfixed:iron_sickle"
+        "recipes": [
+          "nekomasfixed:iron_sickle"
+        ]
       }
     },
     "has_ingredients": {

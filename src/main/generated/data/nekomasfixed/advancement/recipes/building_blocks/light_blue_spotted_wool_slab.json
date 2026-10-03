@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_light_blue_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:light_blue_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "nekomasfixed:light_blue_spotted_wool_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_light_blue_spotted_wool"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:light_blue_spotted_wool_slab"
+    ]
+  }
+}

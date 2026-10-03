@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "nekomasfixed:block/baobab_log"
+    "end": "nekomasfixed:block/baobab_log",
+    "side": "nekomasfixed:block/baobab_log"
   }
 }

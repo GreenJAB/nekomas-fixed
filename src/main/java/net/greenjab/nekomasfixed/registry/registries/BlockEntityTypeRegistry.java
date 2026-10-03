@@ -19,6 +19,9 @@ public class BlockEntityTypeRegistry {
     public static final BlockEntityType<ClockBlockEntity> CLOCK_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("clock"),
             FabricBlockEntityTypeBuilder.create(ClockBlockEntity::new, BlockRegistry.CLOCK, BlockRegistry.WALL_CLOCK).build());
 
+    public static final BlockEntityType<CorruptedBeaconBlockEntity> CORRUPTED_BEACON_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("corrupted_beacon"),
+            FabricBlockEntityTypeBuilder.create(CorruptedBeaconBlockEntity::new, BlockRegistry.CORRUPTED_BEACON).build());
+
     public static final BlockEntityType<EndermanHeadBlockEntity> ENDERMAN_HEAD_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("enderman_head"),
             FabricBlockEntityTypeBuilder.create(EndermanHeadBlockEntity::new, BlockRegistry.ENDERMAN_HEAD, BlockRegistry.WALL_ENDERMAN_HEAD).build());
 
@@ -43,10 +46,26 @@ public class BlockEntityTypeRegistry {
                     BlockRegistry.HOLLOW_MANGROVE_LOG,
                     BlockRegistry.HOLLOW_CHERRY_LOG,
                     BlockRegistry.HOLLOW_PALE_OAK_LOG,
+                    BlockRegistry.HOLLOW_POPLAR_LOG,
                     BlockRegistry.HOLLOW_BAMBOO_BLOCK,
                     BlockRegistry.HOLLOW_CRIMSON_STEM,
                     BlockRegistry.HOLLOW_WARPED_STEM,
-                    BlockRegistry.HOLLOW_BAOBAB_LOG
+                    BlockRegistry.HOLLOW_BAOBAB_LOG,
+
+                    BlockRegistry.STRIPPED_HOLLOW_OAK_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_SPRUCE_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_BIRCH_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_JUNGLE_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_ACACIA_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_DARK_OAK_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_MANGROVE_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_CHERRY_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_PALE_OAK_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_POPLAR_LOG,
+                    BlockRegistry.STRIPPED_HOLLOW_BAMBOO_BLOCK,
+                    BlockRegistry.STRIPPED_HOLLOW_CRIMSON_STEM,
+                    BlockRegistry.STRIPPED_HOLLOW_WARPED_STEM,
+                    BlockRegistry.STRIPPED_HOLLOW_BAOBAB_LOG
             ).build());
 
     public static final BlockEntityType<StackedCakeBlockEntity> STACKED_CAKE_BLOCK_ENTITY = Registry.register(

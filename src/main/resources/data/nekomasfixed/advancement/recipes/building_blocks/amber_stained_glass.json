@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:amber_stained_glass"
+        "recipes": [
+          "nekomasfixed:amber_stained_glass"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

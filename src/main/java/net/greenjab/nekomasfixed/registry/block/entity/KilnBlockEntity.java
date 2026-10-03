@@ -5,11 +5,11 @@ import net.greenjab.nekomasfixed.registry.registries.RecipeRegistry;
 import net.greenjab.nekomasfixed.screen.KilnMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.world.level.block.entity.FuelValues;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
@@ -26,8 +26,8 @@ public class KilnBlockEntity extends AbstractFurnaceBlockEntity {
     }
 
     @Override
-    protected int getBurnDuration(@NonNull FuelValues fuelRegistry, @NonNull ItemStack stack) {
-        return super.getBurnDuration(fuelRegistry, stack) / 2;
+    protected int getBurnDuration(@NonNull final ServerLevel level, @NonNull final ItemStack fuelItem) {
+        return super.getBurnDuration(level, fuelItem) / 2;
     }
 
     @Override

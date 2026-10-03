@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:pan_cake"
+        "recipes": [
+          "nekomasfixed:pan_cake"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

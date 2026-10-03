@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:chocolate_cake"
+        "recipes": [
+          "nekomasfixed:chocolate_cake"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

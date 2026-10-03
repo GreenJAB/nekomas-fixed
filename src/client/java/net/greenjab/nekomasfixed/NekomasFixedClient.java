@@ -25,7 +25,7 @@ public class NekomasFixedClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		BlockEntityRendererRegistry.registerBlockEntityRenderer();
 		ModEntityRendererRegistry.registerEntityRenderer();
-		ModEntityLayerRegistry.registerEntityModelLayer();
+		ModModelLayerRegistry.registerEntityModelLayer();
 		TextureRegistry.registerTextureRegistry();
 
 		ClientSyncHandler.init();

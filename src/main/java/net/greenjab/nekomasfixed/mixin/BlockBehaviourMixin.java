@@ -57,7 +57,7 @@ public class BlockBehaviourMixin {
                 if (level.getBlockState(placePos).is(BlockTags.REPLACEABLE) && state.isFaceSturdy(level, pos, hitResult.getDirection())) {
                     level.setBlockAndUpdate(placePos, newState);
                     level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    player.getMainHandItem().consume(1, player);
+                    itemStack.consume(1, player);
                     cir.setReturnValue(InteractionResult.SUCCESS);
                 }
             }

@@ -1,0 +1,15 @@
+{
+  "given_item_modifier": {
+    "type": "nekomasfixed:random_dye"
+  },
+  "gives": {
+    "count": 4,
+    "id": "nekomasfixed:amber_dye"
+  },
+  "max_uses": 12,
+  "reputation_discount": 0.05,
+  "wants": {
+    "id": "minecraft:emerald"
+  },
+  "xp": 10
+}

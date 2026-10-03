@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:amber_carpet"
+        "recipes": [
+          "nekomasfixed:amber_carpet"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

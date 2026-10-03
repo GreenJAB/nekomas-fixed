@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:maroon_terracotta"
+        "recipes": [
+          "nekomasfixed:maroon_terracotta"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

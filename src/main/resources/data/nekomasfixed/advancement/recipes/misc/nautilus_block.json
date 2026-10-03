@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:nautilus_block"
+        "recipes": [
+          "nekomasfixed:nautilus_block"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:maroon_stained_glass_pane"
+        "recipes": [
+          "nekomasfixed:maroon_stained_glass_pane"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

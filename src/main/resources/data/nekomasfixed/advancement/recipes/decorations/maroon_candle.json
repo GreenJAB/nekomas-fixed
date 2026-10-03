@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:maroon_candle"
+        "recipes": [
+          "nekomasfixed:maroon_candle"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

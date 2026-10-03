@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:indigo_candle"
+        "recipes": [
+          "nekomasfixed:indigo_candle"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

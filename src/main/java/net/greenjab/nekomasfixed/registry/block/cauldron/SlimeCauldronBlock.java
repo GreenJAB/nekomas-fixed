@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jspecify.annotations.NonNull;
 
 public class SlimeCauldronBlock extends AbstractCauldronBlock {
-    public static final MapCodec<SlimeCauldronBlock> CODEC = simpleCodec(SlimeCauldronBlock::new);
 
     public static final IntegerProperty SLIME_LEVEL = IntegerProperty.create("slime_level", 1, 4);
     public static final int MAX_LEVEL = 4;
@@ -37,11 +36,6 @@ public class SlimeCauldronBlock extends AbstractCauldronBlock {
 
     protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
         return Items.CAULDRON.getDefaultInstance();
-    }
-
-    @Override
-    protected @NonNull MapCodec<? extends AbstractCauldronBlock> codec() {
-        return CODEC;
     }
 
     @Override

@@ -42,20 +42,11 @@ import org.jspecify.annotations.NonNull;
 import java.util.List;
 
 public class NautilusBlock extends BaseEntityBlock {
-	public static final MapCodec<NautilusBlock> CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-					NautilusBlockType.CODEC.fieldOf("nautilus_block_type").forGetter(NautilusBlock::getNautilusBlockType),
-					propertiesCodec()
-			).apply(instance, NautilusBlock::new)
-	);
+
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 	private final NautilusBlockType nautilusBlockType;
 
-	@Override
-	public @NonNull MapCodec<NautilusBlock> codec() {
-		return CODEC;
-	}
 
 	public NautilusBlock(NautilusBlockType nautilusBlockType, Properties settings) {
 		super(settings);
@@ -71,11 +62,6 @@ public class NautilusBlock extends BaseEntityBlock {
 	@Override
 	protected int getAnalogOutputSignal(BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
 		return state.getValue(OCCUPIED)?15:0;
-	}
-
-	@Override
-	public void playerDestroy(@NonNull Level level, @NonNull Player player, @NonNull BlockPos pos, @NonNull BlockState state, @Nullable BlockEntity blockEntity, @NonNull ItemStack tool) {
-		super.playerDestroy(level, player, pos, state, blockEntity, tool);
 	}
 
 	@Override

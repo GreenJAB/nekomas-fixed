@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:indigo_carpet"
+        "recipes": [
+          "nekomasfixed:indigo_carpet"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

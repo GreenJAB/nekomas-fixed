@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:big_oak_boat"
+        "recipes": [
+  "nekomasfixed:big_oak_boat_smithing"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nekomasfixed:big_oak_boat"
+  "nekomasfixed:big_oak_boat_smithing"
     ]
   }
 }

@@ -20,5 +20,4 @@ public class ModEquipmentAssetKeys {
 
     public static final ResourceKey<EquipmentAsset> DIAMOND_CROWN =
             ResourceKey.create(EquipmentAssets.ROOT_ID, NekomasFixed.id("diamond_crown"));
-
 }

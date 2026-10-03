@@ -1,0 +1,9 @@
+{
+  "block.minecraft.clock": "Uhr",
+  "item.minecraft.tipped_arrow.effect.lightning": "Blitz auf einem Pfeil",
+  "item.minecraft.lingering_potion.effect.lightning": "Blitz in einer Verweilflasche",
+  "item.minecraft.potion.effect.lightning": "Blitz in einer Flasche",
+  "item.minecraft.splash_potion.effect.lightning": "Blitz in einer Wurfflasche",
+
+  "item.minecraft.turtle_helmet": "Schildkröten-Kopfschmuck"
+}

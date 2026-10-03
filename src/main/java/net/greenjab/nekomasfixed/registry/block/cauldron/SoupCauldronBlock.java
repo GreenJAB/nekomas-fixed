@@ -55,8 +55,6 @@ import java.util.Optional;
 import java.util.Random;
 
 public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
-    public static final MapCodec<SoupCauldronBlock> CODEC = simpleCodec(SoupCauldronBlock::new);
-
     private static final VoxelShape RAYCAST_SHAPE = Block.column(12.0, 4.0, 16.0);
     protected static final VoxelShape OUTLINE_SHAPE = Util.make(
              () -> Shapes.join(
@@ -127,11 +125,6 @@ public class SoupCauldronBlock extends BaseEntityBlock implements EntityBlock {
     @Override
     protected boolean hasAnalogOutputSignal(@NonNull BlockState state) {
         return true;
-    }
-
-    @Override
-    protected @NonNull MapCodec<? extends SoupCauldronBlock> codec() {
-        return CODEC;
     }
 
     @Override

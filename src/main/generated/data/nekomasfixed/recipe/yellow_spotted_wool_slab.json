@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "spotted_wool_slab",
+  "key": {
+    "#": "nekomasfixed:yellow_spotted_wool"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "nekomasfixed:yellow_spotted_wool_slab"
+  }
+}

@@ -15,7 +15,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:amber_terracotta"
+        "recipes": [
+          "nekomasfixed:amber_terracotta"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

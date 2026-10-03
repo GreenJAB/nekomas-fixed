@@ -57,7 +57,6 @@ import java.util.Map;
 import static net.minecraft.core.Direction.*;
 
 public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<GoatHornBlock> CODEC = simpleCodec(GoatHornBlock::new);
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<GoatHornTorchType> TORCH = EnumProperty.create("torch", GoatHornTorchType.class);
     public static final EnumProperty<GoatHornType> HORN = EnumProperty.create("horn", GoatHornType.class);
@@ -101,7 +100,7 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
                 level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), state.getValue(TORCH).toItem().getDefaultInstance()));
                 level.setBlockAndUpdate(pos, state.setValue(TORCH, GoatHornTorchType.NONE));
                 level.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
-                stack.hurtWithoutBreaking(1, player);
+                stack.hurtAndBreak(1, player, hand);
                 return InteractionResult.SUCCESS;
             }
         } else {
@@ -239,11 +238,6 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
                 level.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
             }
         }
-    }
-
-    @Override
-    protected @NonNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
     }
 
 

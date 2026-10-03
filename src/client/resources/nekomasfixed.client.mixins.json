@@ -15,7 +15,7 @@
     "MinecartModelMixin",
     "MinecraftMixin",
     "MultiPlayerGameModeMixin",
-    "NameTagFeatureRendererMixin",
+    "TextFeatureRendererMixin",
     "NameTagFeatureRendererStorageMixin",
     "ParticleEngineMixin",
     "ParticleResourcesMixin",
@@ -24,12 +24,16 @@
     "SheepWoolLayerMixin",
     "ShulkerBoxRendererMixin",
     "ShulkerBoxRenderStateMixin",
-    "SpecialModelRenderersMixin"
+    "SpecialModelRenderersMixin",
+    "AvatarRendererMixin",
+    "CushionRendererMixin",
+	"ArmorStandRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
-    "IllagerModelMixin"
+    "IllagerModelMixin",
+    "LivingEntityRendererMixin"
   ]
 }

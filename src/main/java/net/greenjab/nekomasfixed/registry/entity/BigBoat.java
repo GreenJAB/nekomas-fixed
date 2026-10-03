@@ -142,7 +142,7 @@ public class BigBoat extends AbstractChestBoat {
 				setBanner(ItemStack.EMPTY);
 				if (player.level() instanceof ServerLevel level) {
 					this.spawnAtLocation(level, banner, 1.5F);
-					itemStack.hurtWithoutBreaking(1, player);
+					itemStack.hurtAndBreak(1, player, hand);
 				}
 			}
 			return InteractionResult.SUCCESS;

@@ -60,8 +60,8 @@ public class SoupCauldronBlockEntityRenderer implements BlockEntityRenderer<Soup
                 float stir = state.stirProgress*state.stirProgress;
                 matrices.translate(0.5F, 1F + bob - stir*0.2f, 0.5F);
                 Direction direction2 = Direction.from2DDataValue((i + Direction.NORTH.get2DDataValue()) % 4);
-                matrices.mulPose(Axis.YN.rotationDegrees(720*stir - direction2.toYRot()));
-                matrices.mulPose(Axis.XN.rotationDegrees(-70.0F));
+                matrices.rotate(Axis.YN.rotationDegrees(720*stir - direction2.toYRot()));
+                matrices.rotate(Axis.XN.rotationDegrees(-70.0F));
                 matrices.translate(-0.23*(1-stir), -0.1, 0.0F);
                 matrices.scale(0.275F, 0.375F, 0.275F);
                 matrices.scale(1-stir, 1-stir, 1-stir);
