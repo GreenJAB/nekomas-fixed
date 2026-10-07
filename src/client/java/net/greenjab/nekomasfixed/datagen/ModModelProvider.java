@@ -4,21 +4,40 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.minecraft.client.color.item.Dye;
 import net.minecraft.client.data.*;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.SelectItemModel;
+import net.minecraft.client.renderer.item.properties.select.TrimMaterialProperty;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.entity.animal.goat.GoatAi;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
+import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricPackOutput output) {
         super(output);
     }
+
+
 
     @Override
     public void generateBlockStateModels(@NonNull BlockModelGenerators blockStateModelGenerator) {
@@ -168,6 +187,14 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(@NonNull ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of());
+        itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_IRON_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of(TrimMaterials.Palette.IRON, TrimMaterials.Palette.IRON_DARKER));
+        itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_GOLDEN_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of(TrimMaterials.Palette.GOLD, TrimMaterials.Palette.GOLD_DARKER));
+        itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_DIAMOND_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of(TrimMaterials.Palette.DIAMOND, TrimMaterials.Palette.DIAMOND_DARKER));
+        itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_NETHERITE_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of(TrimMaterials.Palette.NETHERITE, TrimMaterials.Palette.NETHERITE_DARKER));
+        itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_TURTLE_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of());
+        itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_COPPER_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of(TrimMaterials.Palette.COPPER, TrimMaterials.Palette.COPPER_DARKER));
+
         itemModelGenerator.generateFlatItem(ItemRegistry.WHITE_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.ORANGE_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.MAGENTA_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
@@ -208,14 +235,6 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemRegistry.DANDELION_FLOWER_CROWN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.OPEN_EYEBLOSSOM_FLOWER_CROWN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.CLOSED_EYEBLOSSOM_FLOWER_CROWN, ModelTemplates.FLAT_ITEM);
-        /* Work In Progress.
-        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_IRON_HELMET, ModelTemplates.FLAT_ITEM);
-        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_GOLDEN_HELMET, ModelTemplates.FLAT_ITEM);
-        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_COPPER_HELMET, ModelTemplates.FLAT_ITEM);
-        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET, ModelTemplates.FLAT_ITEM);
-        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_DIAMOND_HELMET, ModelTemplates.FLAT_ITEM);
-        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_NETHERITE_HELMET, ModelTemplates.FLAT_ITEM);
-        * itemModelGenerator.generateFlatItem(ItemRegistry.GOAT_HORN_TURTLE_HELMET, ModelTemplates.FLAT_ITEM); */
 
     }
 

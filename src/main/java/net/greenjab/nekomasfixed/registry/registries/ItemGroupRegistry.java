@@ -175,15 +175,13 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.OPEN_EYEBLOSSOM_FLOWER_CROWN);
                         entries.accept(ItemRegistry.CLOSED_EYEBLOSSOM_FLOWER_CROWN);
 
-                        /*
-                        * Work in Progress Right Now.
-                        * entries.accept(ItemRegistry.GOAT_HORN_IRON_HELMET);
-                        * entries.accept(ItemRegistry.GOAT_HORN_GOLDEN_HELMET);
-                        * entries.accept(ItemRegistry.GOAT_HORN_COPPER_HELMET);
-                        * entries.accept(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET);
-                        * entries.accept(ItemRegistry.GOAT_HORN_DIAMOND_HELMET);
-                        * entries.accept(ItemRegistry.GOAT_HORN_NETHERITE_HELMET);
-                        * entries.accept(ItemRegistry.GOAT_HORN_TURTLE_HELMET); */
+                         entries.accept(ItemRegistry.GOAT_HORN_IRON_HELMET);
+                         entries.accept(ItemRegistry.GOAT_HORN_GOLDEN_HELMET);
+                         entries.accept(ItemRegistry.GOAT_HORN_COPPER_HELMET);
+                         entries.accept(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET);
+                         entries.accept(ItemRegistry.GOAT_HORN_DIAMOND_HELMET);
+                         entries.accept(ItemRegistry.GOAT_HORN_NETHERITE_HELMET);
+                         entries.accept(ItemRegistry.GOAT_HORN_TURTLE_HELMET);
 
                     }).build();
 

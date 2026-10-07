@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.greenjab.nekomasfixed.util.SpottedSheepAccess;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,6 +13,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.sheep.Sheep;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,6 +29,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Entity.class)
 public abstract class EntityMixin {
 
+    private float goatHornCooldown = 80f;
+
     @ModifyVariable(method = "spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/entity/item/ItemEntity;",
             at = @At("HEAD"),argsOnly = true)
     private ItemStack replaceSpottedSheepDrops(ItemStack itemStack) {
@@ -36,6 +41,11 @@ public abstract class EntityMixin {
             }
         }
         return itemStack;
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tick(CallbackInfo info){
+        goatHornCooldown-= goatHornCooldown <= 0 ? 0 : 1;
     }
 
     @Unique
@@ -78,6 +88,7 @@ public abstract class EntityMixin {
         }
     }
 
+
     @Unique
     private static int getCopperArmor(LivingEntity entity) {
         int i =0;
@@ -86,5 +97,19 @@ public abstract class EntityMixin {
         if (entity.getItemBySlot(EquipmentSlot.CHEST).is(Items.COPPER_CHESTPLATE)) i++;
         if (entity.getItemBySlot(EquipmentSlot.HEAD).is(Items.COPPER_HELMET)) i++;
         return i;
+    }
+
+    @Inject(method = "playerTouch", at = @At("HEAD"), cancellable = true)
+    private void throwEntityWhenWearingGoatHornHelmet(Player player, CallbackInfo ci) {
+        if(player.getItemBySlot(EquipmentSlot.HEAD).is(ModTags.GOAT_HORN_HELMETS)){
+            Entity entity = (Entity)(Object)this;
+
+            if(entity instanceof LivingEntity && player.getXRot() > 40 && goatHornCooldown <= 0){
+                entity.push(player.getLookAngle().scale(3d).add(0, 1.5, 0));
+                player.getItemBySlot(EquipmentSlot.HEAD).hurtAndBreak(1, player, player.getUsedItemHand());
+                goatHornCooldown = 80f;
+            }
+
+        }
     }
 }

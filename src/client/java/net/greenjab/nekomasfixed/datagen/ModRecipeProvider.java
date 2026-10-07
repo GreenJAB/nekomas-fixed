@@ -16,6 +16,8 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -94,6 +96,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 stairBuilder(ItemRegistry.BAOBAB_STAIRS, Ingredient.of(ItemRegistry.BAOBAB_PLANKS))
                         .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
                         .save(output);
+
+                createGoatHornRecipe(Items.CHAINMAIL_HELMET, ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET).save(output);
+                createGoatHornRecipe(Items.IRON_HELMET, ItemRegistry.GOAT_HORN_IRON_HELMET).save(output);
+                createGoatHornRecipe(Items.GOLDEN_HELMET, ItemRegistry.GOAT_HORN_GOLDEN_HELMET).save(output);
+                createGoatHornRecipe(Items.DIAMOND_HELMET, ItemRegistry.GOAT_HORN_DIAMOND_HELMET).save(output);
+                createGoatHornRecipe(Items.NETHERITE_HELMET, ItemRegistry.GOAT_HORN_NETHERITE_HELMET).save(output);
+                createGoatHornRecipe(Items.TURTLE_HELMET, ItemRegistry.GOAT_HORN_TURTLE_HELMET).save(output);
+                createGoatHornRecipe(Items.COPPER_HELMET, ItemRegistry.GOAT_HORN_COPPER_HELMET).save(output);
 
                 for (AllDyes colour : AllDyes.values()) {
                     createRingRecipe(RecipeCategory.MISC, ItemDyeMap.DYE.get(colour), Items.BRUSH, ItemDyeMap.BRUSH.get(colour), "dyed_brush", 1)
@@ -292,6 +302,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(outside), has(outside))
                         .unlockedBy(getHasName(inside), has(inside));
             }
+
+            private ShapedRecipeBuilder createGoatHornRecipe(Item helmet, Item output){
+                return shaped(RecipeCategory.COMBAT, output, 1)
+                        .pattern("#D#")
+                        .define('#', Items.GOAT_HORN)
+                        .define('D', helmet)
+                        .group("goat_horn")
+                        .unlockedBy(getHasName(Items.GOAT_HORN), has(Items.GOAT_HORN))
+                        .unlockedBy(getHasName(helmet), has(helmet));
+            }
         };
     }
 
@@ -301,6 +321,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Identifier.fromNamespaceAndPath("nekomasfixed", path)
         );
     }
+
+
 
     @Override
     public @NonNull String getName() {
