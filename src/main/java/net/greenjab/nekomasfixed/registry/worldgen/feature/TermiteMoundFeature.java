@@ -52,7 +52,7 @@ public class TermiteMoundFeature implements Feature {
                                     blockEntity.addTermite(TermitehiveBlockEntity.TermiteData.create(random.nextInt(100)));
                                 }});
                         } else if(isSupported){
-                            world.setBlock(pos, context.config().toPlace().getState(world, random, pos), 3);
+                            world.setBlock(pos, BlockRegistry.TERMITE_BLOCK.defaultBlockState(), 3);
                         }
                     }
                 }
