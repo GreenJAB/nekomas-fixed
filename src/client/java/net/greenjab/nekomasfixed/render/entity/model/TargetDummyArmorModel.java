@@ -8,6 +8,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
 import org.jspecify.annotations.NonNull;
 
@@ -24,6 +25,10 @@ public class TargetDummyArmorModel extends HumanoidModel<TargetDummyRenderState>
 
 	private static MeshDefinition getTexturedModelData(CubeDeformation dilation) {
         return HumanoidModel.createMesh(dilation, 0.0F);
+	}
+
+	public static MeshDefinition getTexturedModelData(CubeDeformation dilation, boolean slim) {
+		return PlayerModel.createMesh(dilation, slim);
 	}
 
 	public void setupAnim(@NonNull TargetDummyRenderState targetDummyRenderState) {

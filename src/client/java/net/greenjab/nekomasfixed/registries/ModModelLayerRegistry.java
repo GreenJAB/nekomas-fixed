@@ -50,6 +50,7 @@ public class ModModelLayerRegistry {
     public static final ModelLayerLocation HUGE_BAOBAB_BOAT = register("huge_boat/baobab");
 
     public static final ModelLayerLocation TARGET_DUMMY = register("target_dummy");
+    public static final ModelLayerLocation TARGET_DUMMY_SLIM = register("target_dummy_slim");
     public static final ModelLayerLocation TARGET_DUMMY_BASE = register("target_dummy_base");
     public static final ArmorModelSet<ModelLayerLocation> TARGET_DUMMY_EQUIPMENT = registerArmorSet("target_dummy");
 
@@ -164,7 +165,8 @@ public class ModModelLayerRegistry {
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_BAOBAB_BOAT, HugeBoatModel::getChestTexturedModelData);
 
-        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY, TargetDummyModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY, () -> TargetDummyModel.getTexturedModelData(false));
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY_SLIM, () -> TargetDummyModel.getTexturedModelData(true));
         ArmorModelSet<LayerDefinition> equipmentModelData6 = TargetDummyModel.getEquipmentModelData(new CubeDeformation(0.5F), new CubeDeformation(1.0F));
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.head(), equipmentModelData6::head);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.chest(), equipmentModelData6::chest);
