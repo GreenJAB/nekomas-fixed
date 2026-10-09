@@ -1,8 +1,10 @@
 package net.greenjab.nekomasfixed.util;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ModData {
-    public static HashMap<UUID,Integer> combos = new HashMap<>();
+    public static Map<UUID,Integer> combos = new ConcurrentHashMap<>();
 }
