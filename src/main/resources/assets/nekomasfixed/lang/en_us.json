@@ -46,6 +46,14 @@
   "item.nekomasfixed.turtle_leggings": "Turtle Knee Pads",
   "item.nekomasfixed.turtle_boots": "Turtle Flippers",
 
+  "item.nekomasfixed.goat_horn_chainmail_helmet": "Goat Horn Chainmail Helmet",
+  "item.nekomasfixed.goat_horn_iron_helmet": "Goat Horn Iron Helmet",
+  "item.nekomasfixed.goat_horn_golden_helmet": "Goat Horn Golden Helmet",
+  "item.nekomasfixed.goat_horn_diamond_helmet": "Goat Horn Diamond Helmet",
+  "item.nekomasfixed.goat_horn_netherite_helmet": "Goat Horn Netherite Helmet",
+  "item.nekomasfixed.goat_horn_turtle_helmet": "Goat Horn Turtle Helmet",
+  "item.nekomasfixed.goat_horn_copper_helmet": "Goat Horn Copper Helmet",
+
   "entity.nekomasfixed.moobloom": "Moobloom",
   "item.nekomasfixed.moobloom_spawn_egg": "Moobloom Spawn Egg",
   "entity.nekomasfixed.drenched": "Drenched",

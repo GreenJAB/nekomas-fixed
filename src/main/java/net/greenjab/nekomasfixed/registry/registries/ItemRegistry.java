@@ -568,14 +568,14 @@ public class ItemRegistry {
     public static final Item INDIGO_CONCRETE_SLAB = register(BlockRegistry.INDIGO_CONCRETE_SLAB);
     public static final Item MAROON_CONCRETE_SLAB = register(BlockRegistry.MAROON_CONCRETE_SLAB);
 
-    /* Work In Progress.
-    * public static final Item GOAT_HORN_IRON_HELMET = registerGoatHornHelm("goat_horn_iron_helmet", GoatHornHelmetTiers.IRON);
-    * public static final Item GOAT_HORN_GOLDEN_HELMET = registerGoatHornHelm("goat_horn_golden_helmet", GoatHornHelmetTiers.GOLDEN);
-    * public static final Item GOAT_HORN_COPPER_HELMET = registerGoatHornHelm("goat_horn_copper_helmet", GoatHornHelmetTiers.COPPER);
-    * public static final Item GOAT_HORN_CHAINMAIL_HELMET = registerGoatHornHelm("goat_horn_chainmail_helmet", GoatHornHelmetTiers.CHAINMAIL);
-    * public static final Item GOAT_HORN_DIAMOND_HELMET = registerGoatHornHelm("goat_horn_diamond_helmet", GoatHornHelmetTiers.DIAMOND);
-    * public static final Item GOAT_HORN_NETHERITE_HELMET = registerGoatHornHelm("goat_horn_netherite_helmet", GoatHornHelmetTiers.NETHERITE);
-    * public static final Item GOAT_HORN_TURTLE_HELMET = registerGoatHornHelm("goat_horn_turtle_helmet", GoatHornHelmetTiers.TURTLE); */
+
+     public static final Item GOAT_HORN_IRON_HELMET = registerGoatHornHelm("goat_horn_iron_helmet", GoatHornHelmetTiers.IRON);
+     public static final Item GOAT_HORN_GOLDEN_HELMET = registerGoatHornHelm("goat_horn_golden_helmet", GoatHornHelmetTiers.GOLDEN);
+     public static final Item GOAT_HORN_COPPER_HELMET = registerGoatHornHelm("goat_horn_copper_helmet", GoatHornHelmetTiers.COPPER);
+     public static final Item GOAT_HORN_CHAINMAIL_HELMET = registerGoatHornHelm("goat_horn_chainmail_helmet", GoatHornHelmetTiers.CHAINMAIL);
+     public static final Item GOAT_HORN_DIAMOND_HELMET = registerGoatHornHelm("goat_horn_diamond_helmet", GoatHornHelmetTiers.DIAMOND);
+     public static final Item GOAT_HORN_NETHERITE_HELMET = registerGoatHornHelm("goat_horn_netherite_helmet", GoatHornHelmetTiers.NETHERITE);
+     public static final Item GOAT_HORN_TURTLE_HELMET = registerGoatHornHelm("goat_horn_turtle_helmet", GoatHornHelmetTiers.TURTLE);
 
     public static Item register(String id, Item.Properties settings) {
         return register(keyOf(id), Item::new, settings);
@@ -604,7 +604,13 @@ public class ItemRegistry {
     }
 
     private static Item registerGoatHornHelm(String id, GoatHornHelmetTiers tier) {
-        return register(keyOf(id), props -> new GoatHornHelmetItem(props.stacksTo(1).durability(ArmorType.HELMET.getDurability(tier.getMaterial().durability())).attributes(tier.getMaterial().createAttributes(ArmorType.HELMET)).enchantable(tier.getMaterial().enchantmentValue()).repairable(tier.getMaterial().repairIngredient()).component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot()).setEquipSound(tier.getMaterial().equipSound()).build()), tier), new Item.Properties());
+        return register(keyOf(id), props -> new GoatHornHelmetItem(props.stacksTo(1)
+                .durability(ArmorType.HELMET.getDurability(tier.getMaterial().durability()))
+                .attributes(tier.getMaterial().createAttributes(ArmorType.HELMET))
+                .enchantable(tier.getMaterial().enchantmentValue())
+                .repairable(tier.getMaterial().repairIngredient())
+                .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot())
+                        .setEquipSound(tier.getMaterial().equipSound()).build()), tier), new Item.Properties());
     }
 
     public static Item register(Block block) {

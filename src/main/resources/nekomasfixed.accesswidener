@@ -23,7 +23,9 @@ accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimWi
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$PlayWithItemsGoal
 accessible method net/minecraft/world/item/equipment/trim/TrimPatterns registryKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+accessible field net/minecraft/client/gui/screens/inventory/SmithingScreen armorStandPreview Lnet/minecraft/client/renderer/entity/state/ArmorStandRenderState;
 accessible method net/minecraft/data/loot/packs/VanillaBlockLoot createMobSkullDrop (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+accessible field net/minecraft/client/gui/screens/Screen minecraft Lnet/minecraft/client/Minecraft;
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
 accessible field net/minecraft/world/level/block/entity/BaseContainerBlockEntity name Lnet/minecraft/network/chat/Component;
 accessible method net/minecraft/world/entity/monster/skeleton/AbstractSkeleton getStepSound ()Lnet/minecraft/sounds/SoundEvent;
