@@ -27,6 +27,7 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.Rotations;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.world.entity.player.PlayerSkin;
 import net.minecraft.world.item.component.ResolvableProfile;
 import org.jspecify.annotations.NonNull;
@@ -41,9 +42,16 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
 	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/target_dummy/default.png");
 	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/target_dummy/zombie.png");
 
+	private final TargetDummyModel steveModel;
+	private final TargetDummyModel alexModel;
+
 	public TargetDummyEntityRenderer(EntityRendererProvider.Context context) {
 		super(context, new TargetDummyModel(context.bakeLayer(ModModelLayerRegistry.TARGET_DUMMY)), 0.0F);
 		this.skinCache = context.getPlayerSkinRenderCache();
+
+		this.steveModel = (TargetDummyModel) this.model;
+		this.alexModel = new TargetDummyModel(context.bakeLayer(ModModelLayerRegistry.TARGET_DUMMY_SLIM));
+
 		this.addLayer(
 				new HumanoidArmorLayer<>(
 						this,
@@ -73,6 +81,13 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
 		super.extractRenderState(targetDummy, targetDummyRenderState, f);
 		HumanoidMobRenderer.extractHumanoidRenderState(targetDummy, targetDummyRenderState, f, this.itemModelResolver);
 		targetDummyRenderState.skinTextures = getSkin(targetDummy);
+
+		if (targetDummyRenderState.skinTextures != null) {
+			targetDummyRenderState.isSlim = targetDummyRenderState.skinTextures.model() == PlayerModelType.SLIM;
+		} else {
+			targetDummyRenderState.isSlim = false;
+		}
+
 		targetDummyRenderState.isZombie = targetDummy.isZombie();
 		targetDummyRenderState.yaw = Mth.rotLerp(f, targetDummy.yRotO, targetDummy.getYRot());
 		targetDummyRenderState.bodyRotation = targetDummy.getBodyRotation();
@@ -103,6 +118,7 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
             @NonNull SubmitNodeCollector orderedRenderCommandQueue,
             @NonNull CameraRenderState cameraRenderState
 	) {
+		this.model = TargetDummyRenderState.isSlim ? alexModel : steveModel;
 		super.submit(TargetDummyRenderState, matrixStack, orderedRenderCommandQueue, cameraRenderState);
 	}
 

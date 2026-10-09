@@ -21,16 +21,22 @@ public class TargetDummyModel extends TargetDummyArmorModel {
 		super(modelPart);
 	}
 
-	public static LayerDefinition getTexturedModelData() {
+	public static LayerDefinition getTexturedModelData(boolean slim) {
 		MeshDefinition modelData = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
 		PartDefinition modelPartData = modelData.getRoot();
 
 		CubeDeformation dilation = CubeDeformation.NONE;
-		PartDefinition modelPartData0 = modelPartData.addOrReplaceChild(PartNames.LEFT_ARM, CubeListBuilder.create().texOffs(32, 48).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation), PartPose.offset(5.0F, 2.0F, 0.0F));
-		PartDefinition modelPartData1 = modelPartData.getChild(PartNames.RIGHT_ARM);
-		modelPartData0.addOrReplaceChild("left_sleeve", CubeListBuilder.create().texOffs(48, 48).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
-		modelPartData1.addOrReplaceChild("right_sleeve", CubeListBuilder.create().texOffs(40, 32).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
-
+		if (slim) {
+			PartDefinition leftArm = modelPartData.addOrReplaceChild(PartNames.LEFT_ARM, CubeListBuilder.create().texOffs(32, 48).addBox(-1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, dilation), PartPose.offset(5.0F, 2.5F, 0.0F));
+			PartDefinition rightArm = modelPartData.addOrReplaceChild(PartNames.RIGHT_ARM, CubeListBuilder.create().texOffs(40, 16).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, dilation), PartPose.offset(-5.0F, 2.5F, 0.0F));
+			leftArm.addOrReplaceChild("left_sleeve", CubeListBuilder.create().texOffs(48, 48).addBox(-1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
+			rightArm.addOrReplaceChild("right_sleeve", CubeListBuilder.create().texOffs(40, 32).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
+		} else {
+			PartDefinition modelPartData0 = modelPartData.addOrReplaceChild(PartNames.LEFT_ARM, CubeListBuilder.create().texOffs(32, 48).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation), PartPose.offset(5.0F, 2.0F, 0.0F));
+			PartDefinition modelPartData1 = modelPartData.getChild(PartNames.RIGHT_ARM);
+			modelPartData0.addOrReplaceChild("left_sleeve", CubeListBuilder.create().texOffs(48, 48).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
+			modelPartData1.addOrReplaceChild("right_sleeve", CubeListBuilder.create().texOffs(40, 32).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
+		}
 		PartDefinition modelPartData2 = modelPartData.addOrReplaceChild(PartNames.LEFT_LEG, CubeListBuilder.create().texOffs(16, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation), PartPose.offset(1.9F, 12.0F, 0.0F));
 		PartDefinition modelPartData3 = modelPartData.getChild(PartNames.RIGHT_LEG);
 		modelPartData2.addOrReplaceChild("left_pants", CubeListBuilder.create().texOffs(0, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
