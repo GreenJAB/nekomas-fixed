@@ -27,6 +27,9 @@ public class NekomasFixedClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.AQUA_STAINED_GLASS_PANE, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.INDIGO_STAINED_GLASS_PANE, RenderType.translucent());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.MAROON_STAINED_GLASS_PANE, RenderType.translucent());
+        // Corrupted beacon has a stained-glass shell in its model; without this it renders
+        // solid (opaque purple in hand) like the ancient glass did.
+        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.CORRUPTED_BEACON, RenderType.translucent());
         ModEntityRendererRegistry.registerEntityRenderer();
         ModBlockEntityRendererRegistry.registerBlockEntityRenderers();
 

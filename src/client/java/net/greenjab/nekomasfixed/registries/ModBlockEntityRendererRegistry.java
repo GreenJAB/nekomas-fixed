@@ -30,5 +30,7 @@ public class ModBlockEntityRendererRegistry {
                 BlockEntityTypeRegistry.STACKED_CAKE_BLOCK_ENTITY, StackedCakeBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(
                 BlockEntityTypeRegistry.CLOCK_BLOCK_ENTITY, ClockBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(
+                BlockEntityTypeRegistry.CORRUPTED_BEACON_BLOCK_ENTITY, CorruptedBeaconBlockEntityRenderer::new);
     }
 }

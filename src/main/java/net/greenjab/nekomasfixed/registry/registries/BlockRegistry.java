@@ -60,6 +60,18 @@ public class BlockRegistry {
                     .strength(0.5f, 0.5f)
                     .lightLevel(state -> 15)
     );
+    public static final Block CORRUPTED_BEACON = register(
+            "corrupted_beacon",
+            CorruptedBeaconBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .strength(5F)
+                    .requiresCorrectToolForDrops()
+                    .lightLevel(state -> 15)
+                    .instrument(NoteBlockInstrument.HAT)
+                    .noOcclusion()
+                    .isRedstoneConductor(Blocks::never)
+    );
     public static final Block ENDERMAN_HEAD = register(
             "enderman_head",
             FloorEndermanHeadHead::new,

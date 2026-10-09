@@ -141,6 +141,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(BlockRegistry.ROPE);
         // Geyser is mined silk-touch-only (faithful to main).
         this.add(BlockRegistry.GEYSER, createSilkTouchOnlyTable(BlockRegistry.GEYSER));
+        this.dropSelf(BlockRegistry.CORRUPTED_BEACON);
 
         // Migrated from the hand-written loot resources: clocks drop the clock item carrying
         // stored_time (copy_components from the BE); the wall clock drops the standing clock item.

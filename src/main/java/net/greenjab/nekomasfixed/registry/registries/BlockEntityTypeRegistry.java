@@ -65,6 +65,14 @@ public class BlockEntityTypeRegistry {
                             Set.of(BlockRegistry.CLOCK, BlockRegistry.WALL_CLOCK),
                             null));
 
+    @SuppressWarnings("DataFlowIssue")
+    public static final BlockEntityType<CorruptedBeaconBlockEntity> CORRUPTED_BEACON_BLOCK_ENTITY =
+            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("corrupted_beacon"),
+                    new BlockEntityType<>(
+                            CorruptedBeaconBlockEntity::new,
+                            Set.of(BlockRegistry.CORRUPTED_BEACON),
+                            null));
+
     public static void registerBlockEntityTypes() {
         NekomasFixed.LOGGER.info("Registering block entity types");
     }
