@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.*;
+import net.greenjab.nekomasfixed.registry.block.cauldron.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.worldgen.ModConfiguredFeatures;
 import net.minecraft.core.Registry;
@@ -71,6 +72,26 @@ public class BlockRegistry {
                     .instrument(NoteBlockInstrument.HAT)
                     .noOcclusion()
                     .isRedstoneConductor(Blocks::never)
+    );
+    public static final Block HONEY_CAULDRON = register(
+            "honey_cauldron",
+            HoneyCauldronBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON)
+    );
+    public static final Block MAGMA_CAULDRON = register(
+            "magma_cauldron",
+            MagmaCauldronBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON)
+    );
+    public static final Block SLIME_CAULDRON = register(
+            "slime_cauldron",
+            SlimeCauldronBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON)
+    );
+    public static final Block ICE_CAULDRON = register(
+            "ice_cauldron",
+            IceCauldronBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON)
     );
     public static final Block GHOST_PEPPER_SHRUB = register(
             "ghost_pepper_shrub",
