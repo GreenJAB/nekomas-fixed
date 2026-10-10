@@ -104,7 +104,16 @@ public class ItemRegistry {
     public static final Item TURTLE_BOOTS = register("turtle_boots",
             settings -> new ArmorItem(ArmorMaterialRegistry.TURTLE_SCUTE, ArmorItem.Type.BOOTS, settings),
             new Item.Properties().stacksTo(1).durability(325));
+    public static final Item GHOST_PEPPER = register(
+            "ghost_pepper",
+            settings -> new GhostPepperItem(BlockRegistry.GHOST_PEPPER_SHRUB, settings),
+            new Item.Properties().food(new FoodProperties.Builder()
+                    .nutrition(2)
+                    .saturationModifier(0.1F)
+                    .effect(new MobEffectInstance(EffectRegistry.SPICY, 200, 0), 1.0F)
+                    .build()));
     public static final Holder<Potion> LIGHTNING = register("lightning", new Potion("lightning", new MobEffectInstance(EffectRegistry.LIGHTNING, 1)));
+    public static final Holder<Potion> SPICY = register("spicy", new Potion("spicy", new MobEffectInstance(EffectRegistry.SPICY, 200)));
     public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Properties().stacksTo(1).durability(384));
     public static final Item WOODEN_SICKLE = register("wooden_sickle",
             settings -> new SickleItem(SickleTiers.WOODEN, settings), ModItemSettings.sickle(SickleTiers.WOODEN));

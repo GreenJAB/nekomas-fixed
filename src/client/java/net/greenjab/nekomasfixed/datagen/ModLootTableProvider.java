@@ -2,22 +2,33 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.greenjab.nekomasfixed.registry.block.GhostPepperShrubBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -142,6 +153,14 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         // Geyser is mined silk-touch-only (faithful to main).
         this.add(BlockRegistry.GEYSER, createSilkTouchOnlyTable(BlockRegistry.GEYSER));
         this.dropSelf(BlockRegistry.CORRUPTED_BEACON);
+        // Ghost pepper shrub: age-gated drops with Fortune (mirrors main's three state pools;
+        // ages 0-1 drop nothing).
+        Holder<Enchantment> fortune = this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE);
+        this.add(BlockRegistry.GHOST_PEPPER_SHRUB, LootTable.lootTable()
+                .withPool(ghostPepperPool(4, 2, 3, fortune))
+                .withPool(ghostPepperPool(3, 1, 2, fortune))
+                .withPool(ghostPepperPool(2, 0, 1, fortune))
+                .apply(ApplyExplosionDecay.explosionDecay()));
 
         // Migrated from the hand-written loot resources: clocks drop the clock item carrying
         // stored_time (copy_components from the BE); the wall clock drops the standing clock item.
@@ -157,6 +176,17 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         this.add(BlockRegistry.CLAM_BLUE, clamDrop(ItemRegistry.CLAM_BLUE));
         this.add(BlockRegistry.CLAM_PINK, clamDrop(ItemRegistry.CLAM_PINK));
         this.add(BlockRegistry.CLAM_PURPLE, clamDrop(ItemRegistry.CLAM_PURPLE));
+    }
+
+    // One age-gated pepper pool: uniform count [min, max] plus the Fortune uniform-bonus roll.
+    private LootPool.Builder ghostPepperPool(int age, int min, int max, Holder<Enchantment> fortune) {
+        return LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(BlockRegistry.GHOST_PEPPER_SHRUB)
+                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GhostPepperShrubBlock.AGE, age)))
+                .add(LootItem.lootTableItem(ItemRegistry.GHOST_PEPPER)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(fortune, 1)));
     }
 
     // minecraft:clock / wall_clock drop the clock item + its stored_time from the block entity.

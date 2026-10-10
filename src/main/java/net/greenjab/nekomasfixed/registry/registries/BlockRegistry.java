@@ -72,6 +72,16 @@ public class BlockRegistry {
                     .noOcclusion()
                     .isRedstoneConductor(Blocks::never)
     );
+    public static final Block GHOST_PEPPER_SHRUB = register(
+            "ghost_pepper_shrub",
+            GhostPepperShrubBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .randomTicks()
+                    .noCollission()
+                    .sound(SoundType.SWEET_BERRY_BUSH)
+                    .pushReaction(PushReaction.DESTROY)
+    );
     public static final Block ENDERMAN_HEAD = register(
             "enderman_head",
             FloorEndermanHeadHead::new,

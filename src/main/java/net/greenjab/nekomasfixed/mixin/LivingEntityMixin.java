@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.registries.EffectRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -29,6 +30,18 @@ public abstract class LivingEntityMixin {
         if (source.getEntity() instanceof Player player) {
             int level = NekomasFixed.enchantLevel(player.getMainHandItem(), "leeching");
             if (level != 0) player.heal((level * 0.0125f + 0.0125f) * amount);
+        }
+    }
+
+    // Ghost pepper's Spicy effect: attacks from a Spicy creature set the target
+    // alight, for longer at higher effect amplifiers (as on main).
+    @Inject(method = "actuallyHurt", at = @At("HEAD"))
+    private void applySpicyFireAspect(DamageSource source, float amount, CallbackInfo ci) {
+        if (source.getEntity() instanceof LivingEntity attacker) {
+            var effectInstance = attacker.getEffect(EffectRegistry.SPICY);
+            if (effectInstance != null) {
+                ((LivingEntity) (Object) this).igniteForSeconds(4 * (effectInstance.getAmplifier() + 1));
+            }
         }
     }
 

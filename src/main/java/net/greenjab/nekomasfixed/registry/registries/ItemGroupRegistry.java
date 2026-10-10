@@ -46,6 +46,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.BAOBAB_SEEDS);
                         entries.accept(ItemRegistry.BAOBAB_BOAT);
                         entries.accept(ItemRegistry.BAOBAB_CHEST_BOAT);
+                        entries.accept(ItemRegistry.GHOST_PEPPER);
                         entries.accept(ItemRegistry.CLAM);
                         entries.accept(ItemRegistry.CLAM_BLUE);
                         entries.accept(ItemRegistry.CLAM_PINK);

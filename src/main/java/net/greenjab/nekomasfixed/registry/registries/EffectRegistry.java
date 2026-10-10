@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.LightningEffect;
+import net.greenjab.nekomasfixed.registry.other.SpicyEffect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,6 +11,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 
 public class EffectRegistry {
     public static final Holder<MobEffect> LIGHTNING = register("lightning", new LightningEffect(MobEffectCategory.BENEFICIAL, 0x98D982));
+    public static final Holder<MobEffect> SPICY = register("spicy", new SpicyEffect(MobEffectCategory.BENEFICIAL, 0xCD1C18));
 
     public static void registerEffects() {
         NekomasFixed.LOGGER.info("Registering effects");

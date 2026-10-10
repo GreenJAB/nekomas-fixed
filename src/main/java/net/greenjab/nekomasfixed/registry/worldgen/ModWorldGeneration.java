@@ -38,5 +38,9 @@ public class ModWorldGeneration {
                 BiomeSelectors.includeByKey(Biomes.CRIMSON_FOREST, Biomes.NETHER_WASTES),
                 GenerationStep.Decoration.LOCAL_MODIFICATIONS,
                 ModPlacedFeatures.GEYSER_PLACED_KEY);
+        BiomeModifications.addFeature(
+                BiomeSelectors.includeByKey(Biomes.SOUL_SAND_VALLEY),
+                GenerationStep.Decoration.VEGETAL_DECORATION,
+                ModPlacedFeatures.GHOST_PEPPER_SHRUB_KEY);
     }
 }

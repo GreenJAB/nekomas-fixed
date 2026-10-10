@@ -17,6 +17,7 @@ public class NekomasFixedClient implements ClientModInitializer {
         ClientSyncHandler.init();
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.BAOBAB_SAPLING, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.BAOBAB_FRUIT, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.GHOST_PEPPER_SHRUB, RenderType.cutout());
         // Ancient stained glass + panes render translucent, like vanilla stained glass (else they
         // render solid because they're not in ItemBlockRenderTypes' per-block map).
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.AMBER_STAINED_GLASS, RenderType.translucent());
