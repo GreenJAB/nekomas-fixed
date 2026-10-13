@@ -550,6 +550,13 @@
   "item.nekomasfixed.open_eyeblossom_flower_crown": "Open Eyeblossom Flower Crown",
   "item.nekomasfixed.closed_eyeblossom_flower_crown": "Closed Eyeblossom Flower Crown",
 
+  "entity.nekomasfixed.fake_boat": "Fake Boat",
+  "entity.nekomasfixed.fire_bomb": "Fire Bomb",
+  "entity.nekomasfixed.slingshot_projectile": "Slingshot Projectile",
+  "entity.nekomasfixed.slowness_snowball": "Slowness Snowball",
+  "entity.nekomasfixed.spear": "Spear",
+  "entity.nekomasfixed.wildfire_trident": "Wildfire Trident",
+
   "enchantment.nekomasfixed.dismount": "Dismount",
   "enchantment.nekomasfixed.leeching": "Leeching",
   "enchantment.nekomasfixed.shatter": "Shatter",
