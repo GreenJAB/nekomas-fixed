@@ -1,0 +1,13 @@
+{
+  "type": "nekomasfixed:nautilus_variant",
+  "group": "nautilus_deco",
+  "input": {
+    "item": "nekomasfixed:zombie_nautilus_block"
+  },
+  "material": {
+    "tag": "nekomasfixed:corals"
+  },
+  "result": {
+    "id": "nekomasfixed:coral_nautilus_block"
+  }
+}

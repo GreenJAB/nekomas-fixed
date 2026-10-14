@@ -1,0 +1,13 @@
+{
+  "type": "nekomasfixed:nautilus_variant",
+  "group": "nautilus_deco",
+  "input": {
+    "item": "nekomasfixed:nautilus_block"
+  },
+  "material": {
+    "item": "minecraft:rotten_flesh"
+  },
+  "result": {
+    "id": "nekomasfixed:zombie_nautilus_block"
+  }
+}

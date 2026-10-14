@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "minecraft:custom_name",
+                "minecraft:lock",
+                "minecraft:container_loot",
+                "nekomasfixed:animal"
+              ],
+              "source": "block_entity"
+            },
+            {
+              "block": "nekomasfixed:coral_nautilus_block",
+              "function": "minecraft:copy_state",
+              "properties": [
+                "occupied"
+              ]
+            }
+          ],
+          "name": "nekomasfixed:coral_nautilus_block"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

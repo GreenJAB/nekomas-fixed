@@ -7,6 +7,7 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.block.*;
 import net.greenjab.nekomasfixed.registry.block.cauldron.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
+import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.greenjab.nekomasfixed.registry.worldgen.ModConfiguredFeatures;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -337,6 +338,33 @@ public class BlockRegistry {
                     .mapColor(MapColor.SNOW)
                     .strength(0.5F)
                     .sound(SoundType.STONE)
+    );
+    public static final Block NAUTILUS_BLOCK = register(
+            "nautilus_block",
+            settings -> new NautilusBlock(NautilusBlockType.REGULAR, settings),
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PINK)
+                    .strength(1F)
+                    .sound(SoundType.CORAL_BLOCK)
+                    .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Block ZOMBIE_NAUTILUS_BLOCK = register(
+            "zombie_nautilus_block",
+            settings -> new NautilusBlock(NautilusBlockType.ZOMBIE, settings),
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PINK)
+                    .strength(1F)
+                    .sound(SoundType.CORAL_BLOCK)
+                    .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Block CORAL_NAUTILUS_BLOCK = register(
+            "coral_nautilus_block",
+            settings -> new NautilusBlock(NautilusBlockType.CORAL, settings),
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PINK)
+                    .strength(1F)
+                    .sound(SoundType.CORAL_BLOCK)
+                    .pushReaction(PushReaction.DESTROY)
     );
     public static final Block CLEAR_FROGLIGHT = register("clear_froglight", RotatedPillarBlock::new, froglightProperties(MapColor.SNOW, 15));
     public static final Block CLOUDY_FROGLIGHT = register("cloudy_froglight", RotatedPillarBlock::new, froglightProperties(MapColor.COLOR_LIGHT_GRAY, 15));

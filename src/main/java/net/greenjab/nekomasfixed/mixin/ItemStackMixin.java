@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
@@ -79,6 +80,10 @@ public class ItemStackMixin {
         ComboComponent combo = ((ItemStack) (Object) this).get(ComponentRegistry.COMBO_MULTIPLIER);
         if (combo != null) {
             combo.addToTooltip(context, consumer, flag);
+        }
+        AnimalComponent animal = ((ItemStack) (Object) this).get(ComponentRegistry.ANIMAL);
+        if (animal != null && !animal.animal().isEmpty()) {
+            animal.addToTooltip(context, consumer, flag);
         }
     }
 

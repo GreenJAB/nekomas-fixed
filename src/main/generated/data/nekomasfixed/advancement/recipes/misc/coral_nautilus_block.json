@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_zombie_nautilus_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:zombie_nautilus_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_zombie_nautilus_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:coral_nautilus_block"
+    ]
+  }
+}

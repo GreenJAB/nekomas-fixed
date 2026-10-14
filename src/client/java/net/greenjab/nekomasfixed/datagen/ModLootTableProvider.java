@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -176,6 +177,12 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         this.add(BlockRegistry.CLAM_BLUE, clamDrop(ItemRegistry.CLAM_BLUE));
         this.add(BlockRegistry.CLAM_PINK, clamDrop(ItemRegistry.CLAM_PINK));
         this.add(BlockRegistry.CLAM_PURPLE, clamDrop(ItemRegistry.CLAM_PURPLE));
+        // Nautilus blocks drop themselves carrying the trapped animal (animal component)
+        // plus the occupied block state (main uses copy_components minecraft:animal, which
+        // in 1.21.1 resolves to the mod's own animal component with the same path).
+        this.add(BlockRegistry.NAUTILUS_BLOCK, nautilusDrop(BlockRegistry.NAUTILUS_BLOCK, ItemRegistry.NAUTILUS_BLOCK));
+        this.add(BlockRegistry.ZOMBIE_NAUTILUS_BLOCK, nautilusDrop(BlockRegistry.ZOMBIE_NAUTILUS_BLOCK, ItemRegistry.ZOMBIE_NAUTILUS_BLOCK));
+        this.add(BlockRegistry.CORAL_NAUTILUS_BLOCK, nautilusDrop(BlockRegistry.CORAL_NAUTILUS_BLOCK, ItemRegistry.CORAL_NAUTILUS_BLOCK));
     }
 
     // One age-gated pepper pool: uniform count [min, max] plus the Fortune uniform-bonus roll.
@@ -210,6 +217,21 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                                 .include(DataComponents.LOCK)
                                 .include(DataComponents.CONTAINER_LOOT)
                                 .include(ComponentRegistry.CLAM_STATE)));
+        return LootTable.lootTable().withPool(pool);
+    }
+
+    // Nautilus blocks drop themselves preserving the trapped animal + occupied state.
+    private LootTable.Builder nautilusDrop(Block block, Item item) {
+        LootPool.Builder pool = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(item)
+                        .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                .include(DataComponents.CUSTOM_NAME)
+                                .include(DataComponents.LOCK)
+                                .include(DataComponents.CONTAINER_LOOT)
+                                .include(ComponentRegistry.ANIMAL))
+                        .apply(CopyBlockState.copyState(block)
+                                .copy(net.greenjab.nekomasfixed.registry.block.NautilusBlock.OCCUPIED)));
         return LootTable.lootTable().withPool(pool);
     }
 }

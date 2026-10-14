@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import com.mojang.serialization.Codec;
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
 import net.greenjab.nekomasfixed.util.BannerEffects;
@@ -23,6 +24,12 @@ public class ComponentRegistry {
             "clam_state", builder -> builder
                     .persistent(ExtraCodecs.intRange(0, 3))
                     .networkSynchronized(ByteBufCodecs.INT));
+
+    public static final DataComponentType<AnimalComponent> ANIMAL = register(
+            "animal", builder -> builder
+                    .persistent(AnimalComponent.CODEC)
+                    .networkSynchronized(AnimalComponent.PACKET_CODEC)
+                    .cacheEncoding());
 
     public static final DataComponentType<List<Boolean>> SHERD_GLOW_OVERRIDES = register(
             "sherd_glow_overrides", builder -> builder

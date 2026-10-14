@@ -53,6 +53,9 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.CLAM_PURPLE);
                         entries.accept(ItemRegistry.PEARL);
                         entries.accept(ItemRegistry.PEARL_BLOCK);
+                        entries.accept(ItemRegistry.NAUTILUS_BLOCK);
+                        entries.accept(ItemRegistry.ZOMBIE_NAUTILUS_BLOCK);
+                        entries.accept(ItemRegistry.CORAL_NAUTILUS_BLOCK);
                         entries.accept(ItemRegistry.REDSTONE_STRIKER);
                         entries.accept(ItemRegistry.CORRUPTED_BEACON);
                         entries.accept(ItemRegistry.TARGET_DUMMY);

@@ -124,6 +124,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.COOKIE_CAKE))
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.CHOCOLATE_CAKE))
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.BEETROOT_CAKE));
+        // Nautilus deco material: vanilla corals (matches main's #nekomasfixed:corals tag).
+        getOrCreateTagBuilder(ModTags.CORALS)
+                .add(BuiltInRegistries.ITEM.getKey(Items.TUBE_CORAL))
+                .add(BuiltInRegistries.ITEM.getKey(Items.BRAIN_CORAL))
+                .add(BuiltInRegistries.ITEM.getKey(Items.BUBBLE_CORAL))
+                .add(BuiltInRegistries.ITEM.getKey(Items.FIRE_CORAL))
+                .add(BuiltInRegistries.ITEM.getKey(Items.HORN_CORAL));
         // Turtle armour: vanilla armour-slot tags so the pieces equip in the right slots.
         getOrCreateTagBuilder(ItemTags.CHEST_ARMOR).add(BuiltInRegistries.ITEM.getKey(ItemRegistry.TURTLE_CHESTPLATE));
         getOrCreateTagBuilder(ItemTags.LEG_ARMOR).add(BuiltInRegistries.ITEM.getKey(ItemRegistry.TURTLE_LEGGINGS));

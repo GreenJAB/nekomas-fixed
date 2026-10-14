@@ -1,0 +1,36 @@
+package net.greenjab.nekomasfixed.mixin;
+
+import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(BlockItem.class)
+public class BlockItemMixin {
+
+    @Inject(method = "onDestroyed", at = @At(value = "HEAD"), cancellable = true)
+    private void releaseAnimalOnNautilusDestroyed(ItemEntity itemEntity, CallbackInfo ci) {
+        AnimalComponent animalComponent = itemEntity.getItem().get(ComponentRegistry.ANIMAL);
+        if (animalComponent != null && !animalComponent.animal().isEmpty()) {
+            AnimalComponent.StoredEntityData animal = animalComponent.animal().getFirst();
+            Level level = itemEntity.level();
+            BlockPos pos = itemEntity.blockPosition();
+            Entity releasedEntity = animal.loadEntity(level);
+            if (releasedEntity != null) {
+                double e = pos.getX() + 0.5;
+                double g = pos.getY() + 0.5 - releasedEntity.getBbHeight() / 2.0F;
+                double h = pos.getZ() + 0.5;
+                releasedEntity.moveTo(e, g, h, releasedEntity.getYRot(), releasedEntity.getXRot());
+                level.addFreshEntity(releasedEntity);
+            }
+            ci.cancel();
+        }
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "nekomasfixed:block/coral_nautilus_empty",
+  "textures": {
+    "north": "nekomasfixed:block/coral_nautilus_front_full"
+  }
+}

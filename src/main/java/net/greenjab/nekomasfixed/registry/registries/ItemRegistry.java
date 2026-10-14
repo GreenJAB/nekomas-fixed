@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
+import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.greenjab.nekomasfixed.util.SickleTiers;
 import net.minecraft.core.Direction;
@@ -146,6 +147,13 @@ public class ItemRegistry {
             new Item.Properties().stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
     public static final Item CLAM_PURPLE = register(BlockRegistry.CLAM_PURPLE,
             new Item.Properties().stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
+
+    public static final Item NAUTILUS_BLOCK = register(BlockRegistry.NAUTILUS_BLOCK,
+            new Item.Properties().stacksTo(1).component(ComponentRegistry.ANIMAL, AnimalComponent.DEFAULT));
+    public static final Item ZOMBIE_NAUTILUS_BLOCK = register(BlockRegistry.ZOMBIE_NAUTILUS_BLOCK,
+            new Item.Properties().stacksTo(1).component(ComponentRegistry.ANIMAL, AnimalComponent.DEFAULT));
+    public static final Item CORAL_NAUTILUS_BLOCK = register(BlockRegistry.CORAL_NAUTILUS_BLOCK,
+            new Item.Properties().stacksTo(1).component(ComponentRegistry.ANIMAL, AnimalComponent.DEFAULT));
 
     public static final Item HOLLOW_OAK_LOG = register(BlockRegistry.HOLLOW_OAK_LOG);
     public static final Item HOLLOW_SPRUCE_LOG = register(BlockRegistry.HOLLOW_SPRUCE_LOG);

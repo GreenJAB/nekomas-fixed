@@ -73,6 +73,15 @@ public class BlockEntityTypeRegistry {
                             Set.of(BlockRegistry.CORRUPTED_BEACON),
                             null));
 
+    @SuppressWarnings("DataFlowIssue")
+    public static final BlockEntityType<NautilusBlockEntity> NAUTILUS_BLOCK_ENTITY =
+            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("nautilus"),
+                    new BlockEntityType<>(
+                            NautilusBlockEntity::new,
+                            Set.of(BlockRegistry.NAUTILUS_BLOCK, BlockRegistry.ZOMBIE_NAUTILUS_BLOCK,
+                                    BlockRegistry.CORAL_NAUTILUS_BLOCK),
+                            null));
+
     public static void registerBlockEntityTypes() {
         NekomasFixed.LOGGER.info("Registering block entity types");
     }

@@ -1,0 +1,6 @@
+{
+  "parent": "nekomasfixed:block/zombie_nautilus_empty",
+  "textures": {
+    "north": "nekomasfixed:block/zombie_nautilus_front_full"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "up": "nekomasfixed:block/coral_nautilus_top",
+    "north": "nekomasfixed:block/coral_nautilus_front",
+    "east": "nekomasfixed:block/coral_nautilus_east",
+    "south": "nekomasfixed:block/coral_nautilus_back",
+    "west": "nekomasfixed:block/coral_nautilus_west",
+    "down": "nekomasfixed:block/coral_nautilus_bottom",
+    "particle": "#west"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#north", "cullface": "north"},
+        "east": {"uv": [16, 16, 0, 0], "rotation": 180, "texture": "#east", "cullface": "east"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#south", "cullface": "south"},
+        "west": {"uv": [0, 16, 16, 0], "rotation": 180, "texture": "#west", "cullface": "west"},
+        "up": {"uv": [0, 16, 16, 0], "rotation": 180, "texture": "#up", "cullface": "up"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#down", "cullface": "down"}
+      }
+    }
+  ]
+}

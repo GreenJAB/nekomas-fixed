@@ -12,6 +12,7 @@
     "BeehiveBlockEntityMixin",
     "BlockBehaviourMixin",
     "BlockEntityTypeAccessor",
+    "BlockItemMixin",
     "BlocksMixin",
     "DecoratedPotBlockEntityMixin",
     "DecoratedPotBlockMixin",

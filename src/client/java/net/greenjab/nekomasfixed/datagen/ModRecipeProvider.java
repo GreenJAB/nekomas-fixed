@@ -300,6 +300,25 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
                 .save(output, NekomasFixed.id("redstone_striker"));
 
+    }
+
+    private void generateNautilusRecipes(RecipeOutput output) {
+        // Base nautilus block: 2x2 nautilus shells. Variant crafts use the custom
+        // nautilus_variant type (like 26.x crafting_transmute) so the trapped animal
+        // component carries over to the result.
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.NAUTILUS_BLOCK)
+                .pattern("##").pattern("##").define('#', Items.NAUTILUS_SHELL)
+                .unlockedBy("has_nautilus_shell", has(Items.NAUTILUS_SHELL))
+                .save(output, NekomasFixed.id("nautilus_block"));
+        nautilusVariant(output, "zombie_nautilus_block",
+                Ingredient.of(ItemRegistry.NAUTILUS_BLOCK), Ingredient.of(Items.ROTTEN_FLESH),
+                ItemRegistry.ZOMBIE_NAUTILUS_BLOCK,
+                "has_nautilus_block", has(ItemRegistry.NAUTILUS_BLOCK));
+        nautilusVariantTag(output, "coral_nautilus_block",
+                Ingredient.of(ItemRegistry.ZOMBIE_NAUTILUS_BLOCK), ModTags.CORALS,
+                ItemRegistry.CORAL_NAUTILUS_BLOCK,
+                "has_zombie_nautilus_block", has(ItemRegistry.ZOMBIE_NAUTILUS_BLOCK));
+
         // NOTE: the vanilla cake / flower-dye recipe overrides (result air) stay hand-written
         // in resources. Fabric's recipe builders reject an air result ("Item must not be
         // minecraft:air"), so datagen can't express those void-result overrides.
@@ -314,6 +333,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateTurtleRecipes(output);
         generateSlingshotRecipe(output);
         generateSickleRecipes(output);
+        generateNautilusRecipes(output);
 
         for (AllDyes dye : AllDyes.values()) {
             Item dyeItem = dyeItem(dye);
@@ -676,5 +696,38 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .group(group)
                 .unlockedBy(criterionName, criterion)
                 .save(output, NekomasFixed.id(rid));
+    }
+
+    private void recolourTag(RecipeOutput output, String rid, String group,
+                             Ingredient input, net.minecraft.tags.TagKey<Item> material,
+                             Item result, RecipeCategory category,
+                             String criterionName, Criterion<?> criterion) {
+        ShapelessRecipeBuilder.shapeless(category, result)
+                .requires(input)
+                .requires(material)
+                .group(group)
+                .unlockedBy(criterionName, criterion)
+                .save(output, NekomasFixed.id(rid));
+    }
+
+    private void nautilusVariant(RecipeOutput output, String rid,
+                                 Ingredient input, Ingredient material, Item result,
+                                 String criterionName, Criterion<?> criterion) {
+        // Advancement must live at recipes/misc/<rid> like vanilla builders emit, so pass
+        // the recipe id through a wrapper that appends the holder path.
+        output.accept(NekomasFixed.id(rid),
+                new net.greenjab.nekomasfixed.registry.recipe.NautilusVariantRecipe(
+                        "nautilus_deco", input, material, result.getDefaultInstance()),
+                output.advancement()
+                        .addCriterion(criterionName, criterion)
+                        .rewards(net.minecraft.advancements.AdvancementRewards.Builder.recipe(NekomasFixed.id(rid)))
+                        .requirements(net.minecraft.advancements.AdvancementRequirements.Strategy.OR)
+                        .build(NekomasFixed.id("recipes/misc/" + rid)));
+    }
+
+    private void nautilusVariantTag(RecipeOutput output, String rid,
+                                    Ingredient input, net.minecraft.tags.TagKey<Item> material, Item result,
+                                    String criterionName, Criterion<?> criterion) {
+        nautilusVariant(output, rid, input, Ingredient.of(material), result, criterionName, criterion);
     }
 }
