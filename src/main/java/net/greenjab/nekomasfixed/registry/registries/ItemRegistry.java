@@ -117,6 +117,8 @@ public class ItemRegistry {
     public static final Holder<Potion> LIGHTNING = register("lightning", new Potion("lightning", new MobEffectInstance(EffectRegistry.LIGHTNING, 1)));
     public static final Holder<Potion> SPICY = register("spicy", new Potion("spicy", new MobEffectInstance(EffectRegistry.SPICY, 200)));
     public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Properties().stacksTo(1).durability(384));
+    public static final Item ANCHOR = register("anchor",
+            AnchorItem::new, ModItemSettings.anchor(12.0F, -3.5F));
     public static final Item WOODEN_SICKLE = register("wooden_sickle",
             settings -> new SickleItem(SickleTiers.WOODEN, settings), ModItemSettings.sickle(SickleTiers.WOODEN));
     public static final Item STONE_SICKLE = register("stone_sickle",

@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.util;
 
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -29,6 +30,23 @@ public class ModItemSettings {
                         BASE_ATTACK_DAMAGE_ID, damage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.ATTACK_SPEED, new AttributeModifier(
                         BASE_ATTACK_SPEED_ID, speed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .build();
+    }
+
+    public static Item.Properties anchor(float damage, float speed) {
+        return new Item.Properties()
+                .durability(2500)
+                .attributes(createAnchorAttributes(damage, speed));
+    }
+
+    private static ItemAttributeModifiers createAnchorAttributes(float damage, float speed) {
+        return ItemAttributeModifiers.builder()
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(
+                        BASE_ATTACK_DAMAGE_ID, damage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED, new AttributeModifier(
+                        BASE_ATTACK_SPEED_ID, speed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(
+                        NekomasFixed.id("anchor_reach"), 1.5, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .build();
     }
 }

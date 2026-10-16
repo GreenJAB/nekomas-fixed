@@ -142,6 +142,17 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(BuiltInRegistries.ITEM.getKey(Items.AMETHYST_SHARD));
         getOrCreateTagBuilder(ModTags.SLINGSHOT_ENCHANTABLE)
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.SLINGSHOT));
+        // Anchor: vanilla weapon/durability enchantable tags (table gate).
+        getOrCreateTagBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.ANCHOR));
+        getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.ANCHOR));
+        getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.ANCHOR));
+        getOrCreateTagBuilder(ItemTags.VANISHING_ENCHANTABLE)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.ANCHOR));
+        getOrCreateTagBuilder(ItemTags.FIRE_ASPECT_ENCHANTABLE)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.ANCHOR));
         // Moobloom food: every vanilla flower (open_eyeblossom is 26.x-only and skipped).
         getOrCreateTagBuilder(ModTags.MOOBLOOM_FLOWERS)
                 .add(BuiltInRegistries.ITEM.getKey(Items.DANDELION))
