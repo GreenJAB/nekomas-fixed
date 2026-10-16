@@ -68,6 +68,7 @@ public class ItemRegistry {
             TargetDummyItem::new,
             new Item.Properties().stacksTo(1));
     public static final Item MOOBLOOM_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.MOOBLOOM, 0xF8D038, 0x709028);
+    public static final Item DERELICT_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DERELICT, 0x2A2E4E, 0x5DBB4B);
     public static final FoodProperties BAOBAB_FRUIT_FOOD = new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build();
     public static final Item BAOBAB_FRUIT = register(
             "baobab_fruit",

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.entity.BaobabBoatRenderer;
+import net.greenjab.nekomasfixed.render.entity.DerelictRenderer;
 import net.greenjab.nekomasfixed.render.entity.MoobloomRenderer;
 import net.greenjab.nekomasfixed.render.entity.TargetDummyRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.*;
@@ -33,6 +34,10 @@ public class ModEntityRendererRegistry {
             new ModelLayerLocation(NekomasFixed.id("moobloom"), "main");
     public static final ModelLayerLocation MOOBLOOM_BABY =
             new ModelLayerLocation(NekomasFixed.id("moobloom"), "baby");
+    public static final ModelLayerLocation DERELICT =
+            new ModelLayerLocation(NekomasFixed.id("derelict"), "main");
+    public static final ModelLayerLocation DERELICT_OUTER_LAYER =
+            new ModelLayerLocation(NekomasFixed.id("derelict"), "outer");
 
     public static void registerEntityRenderer() {
         EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT_LAYER, BoatModel::createBodyModel);
@@ -45,6 +50,8 @@ public class ModEntityRendererRegistry {
                 () -> TargetDummyArmorModel.createBodyModel(new CubeDeformation(1.0F)));
         EntityModelLayerRegistry.registerModelLayer(MOOBLOOM, MoobloomModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(MOOBLOOM_BABY, BabyMoobloomModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(DERELICT, DerelictModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(DERELICT_OUTER_LAYER, DerelictModel::createOuterLayer);
 
         EntityRendererRegistry.register(EntityTypeRegistry.BAOBAB_BOAT, context ->
                 new BaobabBoatRenderer(context, BAOBAB_BOAT_LAYER, false,
@@ -55,6 +62,7 @@ public class ModEntityRendererRegistry {
         EntityRendererRegistry.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.CLEAR_ITEM_FRAME, ItemFrameRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.MOOBLOOM, MoobloomRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.DERELICT, DerelictRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, ThrownItemRenderer::new);
     }
 }

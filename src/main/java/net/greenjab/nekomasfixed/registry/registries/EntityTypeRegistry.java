@@ -10,6 +10,11 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 public class EntityTypeRegistry {
 
@@ -52,6 +57,12 @@ public class EntityTypeRegistry {
                     .sized(0.9F, 1.4F).eyeHeight(1.3F).passengerAttachments(1.36875F).clientTrackingRange(10)
     );
 
+    public static final EntityType<Derelict> DERELICT = register(
+            "derelict",
+            EntityType.Builder.of(Derelict::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F).eyeHeight(1.74F).clientTrackingRange(8)
+    );
+
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE,
                 ResourceKey.create(Registries.ENTITY_TYPE, NekomasFixed.id(id)),
@@ -61,6 +72,9 @@ public class EntityTypeRegistry {
     public static void registerEntityType() {
         FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummy.createTargetDummyAttributes().build());
         FabricDefaultAttributeRegistry.register(MOOBLOOM, Moobloom.createAttributes());
+        FabricDefaultAttributeRegistry.register(DERELICT, Zombie.createAttributes());
+        SpawnPlacements.register(DERELICT, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Monster::checkMonsterSpawnRules);
         NekomasFixed.LOGGER.info("Registering entity types");
     }
 }
