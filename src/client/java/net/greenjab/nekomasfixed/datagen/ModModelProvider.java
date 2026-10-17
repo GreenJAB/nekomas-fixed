@@ -187,7 +187,6 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(@NonNull ItemModelGenerators itemModelGenerator) {
-        itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of());
         itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_IRON_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of(TrimMaterials.Palette.IRON, TrimMaterials.Palette.IRON_DARKER));
         itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_GOLDEN_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of(TrimMaterials.Palette.GOLD, TrimMaterials.Palette.GOLD_DARKER));
         itemModelGenerator.generateTrimmableItem(ItemRegistry.GOAT_HORN_DIAMOND_HELMET, ItemModelGenerators.TRIM_PREFIX_HELMET, false, Map.of(TrimMaterials.Palette.DIAMOND, TrimMaterials.Palette.DIAMOND_DARKER));

@@ -97,7 +97,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
                         .save(output);
 
-                createGoatHornRecipe(Items.CHAINMAIL_HELMET, ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET).save(output);
                 createGoatHornRecipe(Items.IRON_HELMET, ItemRegistry.GOAT_HORN_IRON_HELMET).save(output);
                 createGoatHornRecipe(Items.GOLDEN_HELMET, ItemRegistry.GOAT_HORN_GOLDEN_HELMET).save(output);
                 createGoatHornRecipe(Items.DIAMOND_HELMET, ItemRegistry.GOAT_HORN_DIAMOND_HELMET).save(output);

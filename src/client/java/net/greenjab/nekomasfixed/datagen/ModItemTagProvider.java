@@ -41,7 +41,6 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemRegistry.GOAT_HORN_IRON_HELMET.builtInRegistryHolder().key())
                 .add(ItemRegistry.GOAT_HORN_GOLDEN_HELMET.builtInRegistryHolder().key())
                 .add(ItemRegistry.GOAT_HORN_COPPER_HELMET.builtInRegistryHolder().key())
-                .add(ItemRegistry.GOAT_HORN_CHAINMAIL_HELMET.builtInRegistryHolder().key())
                 .add(ItemRegistry.GOAT_HORN_DIAMOND_HELMET.builtInRegistryHolder().key())
                 .add(ItemRegistry.GOAT_HORN_NETHERITE_HELMET.builtInRegistryHolder().key())
                 .add(ItemRegistry.GOAT_HORN_TURTLE_HELMET.builtInRegistryHolder().key());
