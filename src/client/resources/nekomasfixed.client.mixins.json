@@ -32,6 +32,7 @@
   "mixins": [
     "AtlasManagerMixin",
     "BannerRendererMixin",
-    "IllagerModelMixin"
+    "IllagerModelMixin",
+    "ItemTintSourcesMixin"
   ]
 }

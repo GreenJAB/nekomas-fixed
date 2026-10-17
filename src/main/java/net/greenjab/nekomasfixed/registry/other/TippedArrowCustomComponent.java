@@ -16,6 +16,8 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.component.TooltipProvider;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -44,6 +46,16 @@ public record TippedArrowCustomComponent(List<PotionContents> potionContents) im
         for (PotionContents potion : potionContents){
             consumer.accept(Component.literal(getName(potion)).withColor(potion.getColor()));
         }
+    }
+
+    public int[] getColorsForPotions(){
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for(PotionContents contents : this.potionContents){
+            list.add(contents.getColor());
+        }
+
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 
     private String getName(PotionContents potion){

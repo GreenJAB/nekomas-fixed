@@ -1,13 +1,10 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.block.TerracottaDecoratedPotBlock;
 import net.greenjab.nekomasfixed.render.block.item.TerracottaDecoratedPotSpecialRenderer;
 import net.greenjab.nekomasfixed.render.entity.WildfireShieldModelRenderer;
 import net.greenjab.nekomasfixed.render.entity.WildfireTridentModelRenderer;
-import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
-import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

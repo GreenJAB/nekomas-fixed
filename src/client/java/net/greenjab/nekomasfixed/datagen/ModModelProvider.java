@@ -2,17 +2,24 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.other.predicates.QuiverPredicate;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.registry.registries.DataComponentPredicateRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.render.block.item.TerracottaDecoratedPotSpecialRenderer;
-import net.minecraft.client.data.*;
 
+import net.greenjab.nekomasfixed.render.special.TippedArrowTint;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.blockentity.BannerRenderer;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.properties.conditional.ComponentMatches;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.core.component.predicates.DataComponentPredicate;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
@@ -154,11 +161,50 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemRegistry.MAROON_DYED_BRUSH, ModelTemplates.FLAT_ITEM);
 
 
+       registerTippedArrowCustom(itemModelGenerator);
 
-        itemModelGenerator.generateFlatItem(ItemRegistry.QUIVER, ModelTemplates.FLAT_ITEM);
+        registerQuiver(itemModelGenerator);
 
 
     }
+
+    private void registerTippedArrowCustom(ItemModelGenerators gen) {
+        Item item = ItemRegistry.TIPPED_ARROW_CUSTOM;
+
+        Identifier model = gen.generateLayeredItem(
+                item,
+                new Material(NekomasFixed.id("item/custom_tipped_arrow_base")),
+                new Material(NekomasFixed.id("item/custom_tipped_arrow_head")));
+
+        gen.itemModelOutput.accept(item, ItemModelUtils.tintedModel(
+                model,
+                ItemModelUtils.constantTint(-1),
+                new TippedArrowTint()));
+    }
+
+    private void registerQuiver(ItemModelGenerators generators){
+        DataComponentPredicate.Single<QuiverPredicate> single =
+                new DataComponentPredicate.Single<>(DataComponentPredicateRegistry.HAS_ARROWS, new QuiverPredicate());
+
+        ItemModel.Unbaked filledModel = ItemModelUtils.plainModel(
+                generators.createFlatItemModel(ItemRegistry.QUIVER, ModelTemplates.FLAT_ITEM)
+        );
+
+        ItemModel.Unbaked emptyModel = ItemModelUtils.plainModel(
+                generators.createFlatItemModel(ItemRegistry.QUIVER, "_empty", ModelTemplates.FLAT_ITEM)
+        );
+
+        generators.generateBooleanDispatch(
+                ItemRegistry.QUIVER,
+                new ComponentMatches(single),
+                filledModel,
+                emptyModel
+        );
+
+
+    }
+
+
 
 
     public void registerSlab(BlockModelGenerators blockStateModelGenerator, Block block, Block slab) {

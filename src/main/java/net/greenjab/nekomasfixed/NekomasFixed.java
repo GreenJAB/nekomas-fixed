@@ -9,6 +9,7 @@ import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.predicates.DataComponentPredicate;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -38,6 +39,7 @@ public class NekomasFixed implements ModInitializer {
 		EnchantmentRegistry.registerEnchantments();
 		EffectRegistry.registerEffects();
 		ComponentRegistry.registerComponents();
+		DataComponentPredicateRegistry.register();
 		LootTableRegistry.registerLootTables();
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
