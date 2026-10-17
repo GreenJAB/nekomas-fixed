@@ -63,6 +63,13 @@ public class EntityTypeRegistry {
                     .sized(0.6F, 1.95F).eyeHeight(1.74F).clientTrackingRange(8)
     );
 
+    // Skeleton dimensions (1.99 tall) with the vanilla skeleton eye height.
+    public static final EntityType<Drenched> DRENCHED = register(
+            "drenched",
+            EntityType.Builder.of(Drenched::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F).eyeHeight(1.74F).clientTrackingRange(8)
+    );
+
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE,
                 ResourceKey.create(Registries.ENTITY_TYPE, NekomasFixed.id(id)),
@@ -73,8 +80,11 @@ public class EntityTypeRegistry {
         FabricDefaultAttributeRegistry.register(TARGET_DUMMY, TargetDummy.createTargetDummyAttributes().build());
         FabricDefaultAttributeRegistry.register(MOOBLOOM, Moobloom.createAttributes());
         FabricDefaultAttributeRegistry.register(DERELICT, Zombie.createAttributes());
+        FabricDefaultAttributeRegistry.register(DRENCHED, Drenched.createDrenchedAttributes());
         SpawnPlacements.register(DERELICT, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Monster::checkMonsterSpawnRules);
+        SpawnPlacements.register(DRENCHED, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Drenched::canSpawn);
         NekomasFixed.LOGGER.info("Registering entity types");
     }
 }

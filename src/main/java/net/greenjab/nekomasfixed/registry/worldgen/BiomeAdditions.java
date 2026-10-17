@@ -13,5 +13,9 @@ public class BiomeAdditions {
                 MobCategory.CREATURE, EntityTypeRegistry.MOOBLOOM, 30, 1, 2);
         BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_JUNGLE), MobCategory.MONSTER,
                 EntityTypeRegistry.DERELICT, 100, 4, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OCEAN), MobCategory.MONSTER,
+                EntityTypeRegistry.DRENCHED, 5, 1, 2);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS), MobCategory.MONSTER,
+                EntityTypeRegistry.DRENCHED, 100, 1, 2);
     }
 }

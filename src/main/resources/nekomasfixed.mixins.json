@@ -35,6 +35,7 @@
     "SignalGetterMixin",
     "SignBlockEntityMixin",
     "SignBlockMixin",
+    "SkeletonMixin",
     "SmithingMenuMixin",
     "accessor.BeeAccessor",
     "accessor.BlockBehaviourAccessor",
