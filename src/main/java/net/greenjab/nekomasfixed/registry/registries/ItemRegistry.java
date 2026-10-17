@@ -125,7 +125,7 @@ public class ItemRegistry {
                     .setAsset(ModEquipmentAssetKeys.DIAMOND_CROWN).build()));
     public static final Item NETHERITE_CROWN = register("netherite_crown", Item::new, new Item.Properties().humanoidArmor(ArmorMaterials.NETHERITE, ArmorType.HELMET)
             .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot()).setEquipSound(SoundEvents.ARMOR_EQUIP_NETHERITE)
-                    .setAsset(ModEquipmentAssetKeys.NETHERITE_CROWN).build()));
+                    .setAsset(ModEquipmentAssetKeys.NETHERITE_CROWN).build()).fireResistant());
 
     public static final Item SLINGSHOT = register("slingshot", SlingshotItem::new, new Item.Properties().durability(384));
     public static final Item WOODEN_SICKLE = register("wooden_sickle", SickleItem::new, ModItemSettings.sickle(ToolMaterial.WOOD, SickleItem.SPEED));
@@ -604,13 +604,21 @@ public class ItemRegistry {
     }
 
     private static Item registerGoatHornHelm(String id, GoatHornHelmetTiers tier) {
-        return register(keyOf(id), props -> new GoatHornHelmetItem(props.stacksTo(1)
-                .durability(ArmorType.HELMET.getDurability(tier.getMaterial().durability()))
-                .attributes(tier.getMaterial().createAttributes(ArmorType.HELMET))
-                .enchantable(tier.getMaterial().enchantmentValue())
-                .repairable(tier.getMaterial().repairIngredient())
-                .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot())
-                        .setEquipSound(tier.getMaterial().equipSound()).build()), tier), new Item.Properties());
+        return register(keyOf(id), props -> {
+            props.stacksTo(1)
+                    .durability(ArmorType.HELMET.getDurability(tier.getMaterial().durability()))
+                    .attributes(tier.getMaterial().createAttributes(ArmorType.HELMET))
+                    .enchantable(tier.getMaterial().enchantmentValue())
+                    .repairable(tier.getMaterial().repairIngredient())
+                    .component(DataComponents.EQUIPPABLE, Equippable.builder(ArmorType.HELMET.getSlot())
+                            .setEquipSound(tier.getMaterial().equipSound()).build());
+
+            if (tier == GoatHornHelmetTiers.NETHERITE) {
+                props.fireResistant();
+            }
+
+            return new GoatHornHelmetItem(props, tier);
+        }, new Item.Properties());
     }
 
     public static Item register(Block block) {
