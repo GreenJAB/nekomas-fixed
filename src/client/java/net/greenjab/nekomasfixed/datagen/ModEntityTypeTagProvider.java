@@ -35,5 +35,9 @@ public class ModEntityTypeTagProvider extends FabricTagProvider.EntityTypeTagPro
                 .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.RIME));
         getOrCreateTagBuilder(EntityTypeTags.SKELETONS)
                 .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.DRENCHED));
+        getOrCreateTagBuilder(EntityTypeTags.ARTHROPOD)
+                .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.SUSPICIOUS_SPIDER));
+        getOrCreateTagBuilder(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS)
+                .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.SUSPICIOUS_SPIDER));
     }
 }

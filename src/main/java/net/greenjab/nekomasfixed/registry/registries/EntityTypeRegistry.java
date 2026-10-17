@@ -82,6 +82,12 @@ public class EntityTypeRegistry {
                     .sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
     );
 
+    public static final EntityType<SuspiciousSpider> SUSPICIOUS_SPIDER = register(
+            "suspicious_spider",
+            EntityType.Builder.of(SuspiciousSpider::new, MobCategory.MONSTER)
+                    .sized(1.0F, 1.0F)
+    );
+
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE,
                 ResourceKey.create(Registries.ENTITY_TYPE, NekomasFixed.id(id)),
@@ -94,12 +100,15 @@ public class EntityTypeRegistry {
         FabricDefaultAttributeRegistry.register(DERELICT, Zombie.createAttributes());
         FabricDefaultAttributeRegistry.register(DRENCHED, Drenched.createDrenchedAttributes());
         FabricDefaultAttributeRegistry.register(RIME, Zombie.createAttributes());
+        FabricDefaultAttributeRegistry.register(SUSPICIOUS_SPIDER, SuspiciousSpider.createSuspiciousSpiderAttributes());
         SpawnPlacements.register(DERELICT, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Monster::checkMonsterSpawnRules);
         SpawnPlacements.register(DRENCHED, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Drenched::canSpawn);
         SpawnPlacements.register(RIME, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Monster::checkMonsterSpawnRules);
+        SpawnPlacements.register(SUSPICIOUS_SPIDER, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SuspiciousSpider::canSpawn);
         NekomasFixed.LOGGER.info("Registering entity types");
     }
 }

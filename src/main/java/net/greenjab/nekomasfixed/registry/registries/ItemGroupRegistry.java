@@ -63,6 +63,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.DERELICT_SPAWN_EGG);
                         entries.accept(ItemRegistry.DRENCHED_SPAWN_EGG);
                         entries.accept(ItemRegistry.RIME_SPAWN_EGG);
+                        entries.accept(ItemRegistry.SUSPICIOUS_SPIDER_SPAWN_EGG);
                         entries.accept(ItemRegistry.ANCHOR);
                         entries.accept(ItemRegistry.TURTLE_CHESTPLATE);
                         entries.accept(ItemRegistry.TURTLE_LEGGINGS);

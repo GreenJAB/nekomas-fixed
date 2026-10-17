@@ -20,5 +20,7 @@ public class BiomeAdditions {
                 EntityTypeRegistry.DRENCHED, 100, 1, 2);
         BiomeModifications.addSpawn(BiomeSelectors.tag(ModTags.SPAWNS_RIME), MobCategory.MONSTER,
                 EntityTypeRegistry.RIME, 100, 4, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.DRIPSTONE_CAVES, Biomes.PLAINS), MobCategory.MONSTER,
+                EntityTypeRegistry.SUSPICIOUS_SPIDER, 30, 1, 2);
     }
 }

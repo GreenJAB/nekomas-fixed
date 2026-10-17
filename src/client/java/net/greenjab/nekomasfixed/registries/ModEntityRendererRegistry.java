@@ -8,6 +8,7 @@ import net.greenjab.nekomasfixed.render.entity.BaobabBoatRenderer;
 import net.greenjab.nekomasfixed.render.entity.DerelictRenderer;
 import net.greenjab.nekomasfixed.render.entity.DrenchedRenderer;
 import net.greenjab.nekomasfixed.render.entity.RimeRenderer;
+import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderRenderer;
 import net.greenjab.nekomasfixed.render.entity.MoobloomRenderer;
 import net.greenjab.nekomasfixed.render.entity.TargetDummyRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.*;
@@ -46,6 +47,8 @@ public class ModEntityRendererRegistry {
             new ModelLayerLocation(NekomasFixed.id("rime"), "main");
     public static final ModelLayerLocation RIME_OUTER_LAYER =
             new ModelLayerLocation(NekomasFixed.id("rime"), "outer");
+    public static final ModelLayerLocation SUSPICIOUS_SPIDER =
+            new ModelLayerLocation(NekomasFixed.id("suspicious_spider"), "main");
 
     public static void registerEntityRenderer() {
         EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT_LAYER, BoatModel::createBodyModel);
@@ -63,6 +66,7 @@ public class ModEntityRendererRegistry {
         EntityModelLayerRegistry.registerModelLayer(DRENCHED, DrenchedModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(RIME, RimeModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(RIME_OUTER_LAYER, RimeModel::createOuterLayer);
+        EntityModelLayerRegistry.registerModelLayer(SUSPICIOUS_SPIDER, SuspiciousSpiderModel::createBodyLayer);
 
         EntityRendererRegistry.register(EntityTypeRegistry.BAOBAB_BOAT, context ->
                 new BaobabBoatRenderer(context, BAOBAB_BOAT_LAYER, false,
@@ -76,6 +80,7 @@ public class ModEntityRendererRegistry {
         EntityRendererRegistry.register(EntityTypeRegistry.DERELICT, DerelictRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.DRENCHED, DrenchedRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.RIME, RimeRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.SUSPICIOUS_SPIDER, SuspiciousSpiderRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SLOWNESS_SNOWBALL, ThrownItemRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, ThrownItemRenderer::new);
     }

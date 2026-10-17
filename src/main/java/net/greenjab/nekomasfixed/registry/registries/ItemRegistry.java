@@ -71,6 +71,7 @@ public class ItemRegistry {
     public static final Item DERELICT_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DERELICT, 0x2A2E4E, 0x5DBB4B);
     public static final Item DRENCHED_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.DRENCHED, 0xB4AFAD, 0x2143A4);
     public static final Item RIME_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.RIME, 0x608775, 0x136161);
+    public static final Item SUSPICIOUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUSPICIOUS_SPIDER, 0x120E0A, 0xCC9978);
     public static final FoodProperties BAOBAB_FRUIT_FOOD = new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build();
     public static final Item BAOBAB_FRUIT = register(
             "baobab_fruit",
