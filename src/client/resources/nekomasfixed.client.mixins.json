@@ -35,6 +35,7 @@
   "mixins": [
     "CreateWorldScreenMixin",
     "IllagerModelMixin",
-    "LivingEntityRendererMixin"
+    "LivingEntityRendererMixin",
+    "PauseScreenMixin"
   ]
 }

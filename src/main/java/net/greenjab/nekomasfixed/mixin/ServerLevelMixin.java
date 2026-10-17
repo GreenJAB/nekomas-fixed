@@ -60,7 +60,7 @@ public abstract class ServerLevelMixin {
         ProfilerFiller profiler = Profiler.get();
         profiler.push("thunder");
         ServerPlayer player = this.getRandomPlayer();
-        if (level.getRandom().nextInt(100) == 0 && ModConfigValues.enableCopperBuff && bl && level.isThundering() && player != null) {
+        if (level.getRandom().nextInt(100) == 0 && ModConfigValues.enableCopperBuff.get() && bl && level.isThundering() && player != null) {
             int armor = getCopperArmor(player);
             if (armor > 0 && level.getRandom().nextInt(1400-200*armor) == 0) {
                 BlockPos blockPos = player.blockPosition();

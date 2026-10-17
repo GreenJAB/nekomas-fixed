@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.block.entity.TermitehiveBlockEntity;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -25,6 +26,7 @@ public class TermiteMoundFeature implements Feature {
 
     @Override
     public boolean place(WorldGenLevel world, ChunkGenerator chunkGenerator, RandomSource random, BlockPos start) {
+        if(!ModConfigValues.generateMound.get()) return false;
         int height = random.nextInt(2) + 6;
 
         int x, y, z;

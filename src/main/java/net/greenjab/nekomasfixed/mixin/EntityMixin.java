@@ -67,7 +67,7 @@ public abstract class EntityMixin {
 
     @Inject(method = "thunderHit", at = @At("HEAD"))
     private void tickThunder(ServerLevel level, LightningBolt lightningBolt, CallbackInfo ci) {
-        if (ModConfigValues.enableCopperBuff) {
+        if (ModConfigValues.enableCopperBuff.get()) {
             if ((Entity)(Object)this instanceof ServerPlayer player) {
                 int armor = getCopperArmor(player);
                 if (armor > 0) {

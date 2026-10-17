@@ -1,10 +1,13 @@
 package net.greenjab.nekomasfixed.registry.worldgen;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+
+import java.util.function.Predicate;
 
 public class ModFeatures {
     public static final ResourceKey<Feature> BAOBAB_KEY = registerKey("baobab");

@@ -70,7 +70,7 @@ public class PlayerMixin {
             }
         }
         if (PE.level().getBiome(PE.blockPosition()).is(BiomeTags.IS_NETHER)) {
-            if (!PE.isCreative()&&!PE.isSpectator() && ModConfigValues.netherFoodRotting){
+            if (!PE.isCreative()&&!PE.isSpectator() && ModConfigValues.netherFoodRotting.get()){
                 this.checkForEdibles(PE);
             }
         }

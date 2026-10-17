@@ -33,8 +33,7 @@
   "block.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
   "item.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
 
-  "config.worldgen.title": "World Gen Options",
-  "config.worldgen.narration": "Options to customize your world's generation",
+
 
   "block.nekomasfixed.corrupted_beacon": "Corrupted Beacon",
   "item.nekomasfixed.corrupted_beacon": "Corrupted Beacon",
@@ -555,7 +554,18 @@
   "advancements.husbandry.all_froglights.description": "Have all 20 froglights in your inventory",
   "advancements.husbandry.all_froglights.title": "Power Overloaded!",
 
-
   "option.namefield.optionA": "CyberMODDER",
-  "option.namefield.optionB": "Akshaj"
+  "option.namefield.optionB": "Akshaj",
+
+  "config.worldgen.title": "World Gen Options",
+  "config.worldgen.go_menu": "World Gen Options...",
+
+  "config.worldgen.title.terrain": "=== Terrain ===",
+
+  "config.worldgen.button.gen_geyser": "Generate Geysers",
+  "config.worldgen.desc.gen_geyser": "Generate Geysers in the Nether",
+
+  "config.worldgen.button.gen_mound": "Generate Mounds",
+  "config.worldgen.desc.gen_mound": "Generate Termite Mounds in the Savannas"
+
 }
