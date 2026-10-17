@@ -572,7 +572,6 @@ public class ItemRegistry {
      public static final Item GOAT_HORN_IRON_HELMET = registerGoatHornHelm("goat_horn_iron_helmet", GoatHornHelmetTiers.IRON);
      public static final Item GOAT_HORN_GOLDEN_HELMET = registerGoatHornHelm("goat_horn_golden_helmet", GoatHornHelmetTiers.GOLDEN);
      public static final Item GOAT_HORN_COPPER_HELMET = registerGoatHornHelm("goat_horn_copper_helmet", GoatHornHelmetTiers.COPPER);
-     public static final Item GOAT_HORN_CHAINMAIL_HELMET = registerGoatHornHelm("goat_horn_chainmail_helmet", GoatHornHelmetTiers.CHAINMAIL);
      public static final Item GOAT_HORN_DIAMOND_HELMET = registerGoatHornHelm("goat_horn_diamond_helmet", GoatHornHelmetTiers.DIAMOND);
      public static final Item GOAT_HORN_NETHERITE_HELMET = registerGoatHornHelm("goat_horn_netherite_helmet", GoatHornHelmetTiers.NETHERITE);
      public static final Item GOAT_HORN_TURTLE_HELMET = registerGoatHornHelm("goat_horn_turtle_helmet", GoatHornHelmetTiers.TURTLE);
