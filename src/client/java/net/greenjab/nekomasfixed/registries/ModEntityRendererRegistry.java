@@ -7,6 +7,7 @@ import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.entity.BaobabBoatRenderer;
 import net.greenjab.nekomasfixed.render.entity.DerelictRenderer;
 import net.greenjab.nekomasfixed.render.entity.DrenchedRenderer;
+import net.greenjab.nekomasfixed.render.entity.RimeRenderer;
 import net.greenjab.nekomasfixed.render.entity.MoobloomRenderer;
 import net.greenjab.nekomasfixed.render.entity.TargetDummyRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.*;
@@ -41,6 +42,10 @@ public class ModEntityRendererRegistry {
             new ModelLayerLocation(NekomasFixed.id("derelict"), "outer");
     public static final ModelLayerLocation DRENCHED =
             new ModelLayerLocation(NekomasFixed.id("drenched"), "main");
+    public static final ModelLayerLocation RIME =
+            new ModelLayerLocation(NekomasFixed.id("rime"), "main");
+    public static final ModelLayerLocation RIME_OUTER_LAYER =
+            new ModelLayerLocation(NekomasFixed.id("rime"), "outer");
 
     public static void registerEntityRenderer() {
         EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT_LAYER, BoatModel::createBodyModel);
@@ -56,6 +61,8 @@ public class ModEntityRendererRegistry {
         EntityModelLayerRegistry.registerModelLayer(DERELICT, DerelictModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(DERELICT_OUTER_LAYER, DerelictModel::createOuterLayer);
         EntityModelLayerRegistry.registerModelLayer(DRENCHED, DrenchedModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(RIME, RimeModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(RIME_OUTER_LAYER, RimeModel::createOuterLayer);
 
         EntityRendererRegistry.register(EntityTypeRegistry.BAOBAB_BOAT, context ->
                 new BaobabBoatRenderer(context, BAOBAB_BOAT_LAYER, false,
@@ -68,6 +75,8 @@ public class ModEntityRendererRegistry {
         EntityRendererRegistry.register(EntityTypeRegistry.MOOBLOOM, MoobloomRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.DERELICT, DerelictRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.DRENCHED, DrenchedRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.RIME, RimeRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.SLOWNESS_SNOWBALL, ThrownItemRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, ThrownItemRenderer::new);
     }
 }

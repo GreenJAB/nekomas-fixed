@@ -70,6 +70,18 @@ public class EntityTypeRegistry {
                     .sized(0.6F, 1.99F).eyeHeight(1.74F).clientTrackingRange(8)
     );
 
+    public static final EntityType<Rime> RIME = register(
+            "rime",
+            EntityType.Builder.of(Rime::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F).eyeHeight(1.74F).clientTrackingRange(8)
+    );
+
+    public static final EntityType<SlownessSnowball> SLOWNESS_SNOWBALL = register(
+            "slowness_snowball",
+            EntityType.Builder.<SlownessSnowball>of(SlownessSnowball::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
+    );
+
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE,
                 ResourceKey.create(Registries.ENTITY_TYPE, NekomasFixed.id(id)),
@@ -81,10 +93,13 @@ public class EntityTypeRegistry {
         FabricDefaultAttributeRegistry.register(MOOBLOOM, Moobloom.createAttributes());
         FabricDefaultAttributeRegistry.register(DERELICT, Zombie.createAttributes());
         FabricDefaultAttributeRegistry.register(DRENCHED, Drenched.createDrenchedAttributes());
+        FabricDefaultAttributeRegistry.register(RIME, Zombie.createAttributes());
         SpawnPlacements.register(DERELICT, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Monster::checkMonsterSpawnRules);
         SpawnPlacements.register(DRENCHED, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Drenched::canSpawn);
+        SpawnPlacements.register(RIME, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Monster::checkMonsterSpawnRules);
         NekomasFixed.LOGGER.info("Registering entity types");
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.biome.Biome;
 
 public class ModTags {
     public static final TagKey<Item> STACKED_CAKES = TagKey.create(Registries.ITEM, NekomasFixed.id("stacked_cakes"));
@@ -28,6 +29,9 @@ public class ModTags {
     public static final TagKey<Item> STRIPPED_HOLLOW_LOGS_ITEM = itemTag("stripped_hollow_logs");
     // Moobloom food: the flowers a moobloom eats / is tempted by.
     public static final TagKey<Item> MOOBLOOM_FLOWERS = itemTag("moobloom_flowers");
+
+    // Biomes where Rime spawns (data/nekomasfixed/tags/worldgen/biome/spawns_rime.json).
+    public static final TagKey<Biome> SPAWNS_RIME = TagKey.create(Registries.BIOME, NekomasFixed.id("spawns_rime"));
 
     // Colour-suite tags (block + item, mirroring the committed JSON pairs).
     public static final TagKey<Block> BRICKS = blockTag("bricks");

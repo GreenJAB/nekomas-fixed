@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.worldgen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biomes;
@@ -17,5 +18,7 @@ public class BiomeAdditions {
                 EntityTypeRegistry.DRENCHED, 5, 1, 2);
         BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS), MobCategory.MONSTER,
                 EntityTypeRegistry.DRENCHED, 100, 1, 2);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(ModTags.SPAWNS_RIME), MobCategory.MONSTER,
+                EntityTypeRegistry.RIME, 100, 4, 4);
     }
 }
