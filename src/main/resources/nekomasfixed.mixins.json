@@ -43,6 +43,7 @@
     "PlayerMixin",
     "PoiTypesMixin",
     "RecipeManagerMixin",
+    "RecipeMapMixin",
     "RecipeSerializersMixin",
     "RedstoneWireEvaluatorMixin",
     "ServerLevelMixin",

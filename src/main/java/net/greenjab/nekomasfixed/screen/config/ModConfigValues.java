@@ -4,7 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.Option;
+import net.greenjab.nekomasfixed.util.RecipeOption;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +30,16 @@ public class ModConfigValues {
     public static final Option<Boolean> netherFoodRotting = new Option<>("netherFoodRotting", true);
     public static final Option<Boolean> magmaBlockNeedsSilkTouch = new Option<>("magmaBlockNeedsSilkTouch", true);
 
+    public static final RecipeOption dyedBrush = new RecipeOption("dyed_brush", ItemRegistry.WHITE_DYED_BRUSH, true);
+
     public static boolean applyToNextWorld = false;
     private static Path currentWorldDir = null;
+
+    public static boolean isRecipeEnabled(Identifier recipeId) {
+        if (!recipeId.getNamespace().equals("nekomasfixed")) return true;
+        if(recipeId.getPath().contains("white_dyed_brush")) return dyedBrush.get();
+        return true;
+    }
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final String FILE_NAME = "nekomasfixed.json";

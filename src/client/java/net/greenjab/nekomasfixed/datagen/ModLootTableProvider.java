@@ -32,6 +32,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         BlockDyeMap.SPOTTED_CARPET.values().forEach(this::dropSelf);
         BlockDyeMap.SPOTTED_WOOL_SLABS.values().forEach(this::dropSelf);
         BlockDyeMap.SPOTTED_WOOL_STAIRS.values().forEach(this::dropSelf);
+
         dropSelf(BlockRegistry.AMBER_WOOL_SLAB);
         dropSelf(BlockRegistry.AQUA_WOOL_SLAB);
         dropSelf(BlockRegistry.INDIGO_WOOL_SLAB);

@@ -23,6 +23,10 @@ public class OtherConfigScreen {
                         ModConfigValues.enableCopperBuff.get()).setDefaultValue(true).setTooltip(TabLiterals.COPPER_ARMOR_CHANGES_DESC)
                 .setSaveConsumer(ModConfigValues.enableCopperBuff::set).build());
 
+        worldCategory.addEntry(entryBuilder.startBooleanToggle(TabLiterals.COPPER_ARMOR_CHANGES,
+                        ModConfigValues.dyedBrush.get()).setDefaultValue(true).setTooltip(TabLiterals.COPPER_ARMOR_CHANGES_DESC)
+                .setSaveConsumer(ModConfigValues.dyedBrush::set).build());
+
 
         return builder.build();
     }
