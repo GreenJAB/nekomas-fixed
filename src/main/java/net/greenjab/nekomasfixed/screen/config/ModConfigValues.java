@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.greenjab.nekomasfixed.util.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +15,15 @@ import java.nio.file.Path;
 public class ModConfigValues {
     private static final Logger LOGGER = LoggerFactory.getLogger("nekomasfixed");
 
-    public static final Option<Boolean> generateGeysers   = new Option<>("generateGeysers", true, true);
-    public static final Option<Boolean> generateMound     = new Option<>("generateMound", true, true);
+    public static final Option<Boolean> generateGeysers = new Option<>("generateGeysers", true, true);
+    public static final Option<Boolean> generateMound = new Option<>("generateMound", true, true);
 
-    public static final Option<Boolean> enableCopperBuff  = new Option<>("enableCopperBuff", true);
+    public static final Option<Boolean> spawnSusSpider = new Option<>("spawnSusSpider", true);
+    public static final Option<Boolean> enableMessyBeds = new Option<>("enableMessyBeds", true);
+
+    public static final Option<Boolean> enableCopperBuff = new Option<>("enableCopperBuff", true);
     public static final Option<Boolean> netherFoodRotting = new Option<>("netherFoodRotting", true);
+    public static final Option<Boolean> magmaBlockNeedsSilkTouch = new Option<>("magmaBlockNeedsSilkTouch", true);
 
     public static boolean applyToNextWorld = false;
     private static Path currentWorldDir = null;

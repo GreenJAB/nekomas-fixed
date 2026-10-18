@@ -36,6 +36,7 @@
     "CreateWorldScreenMixin",
     "IllagerModelMixin",
     "LivingEntityRendererMixin",
+    "LootItemConditionTypesMixin",
     "PauseScreenMixin"
   ]
 }

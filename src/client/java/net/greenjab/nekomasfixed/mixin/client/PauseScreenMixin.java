@@ -4,6 +4,7 @@ package net.greenjab.nekomasfixed.mixin.client;
 import net.greenjab.nekomasfixed.render.tab.ModWorldGenOptionTab;
 import net.greenjab.nekomasfixed.render.tab.screens.InGameEditScreen;
 import net.greenjab.nekomasfixed.render.tab.screens.NetherConfigScreen;
+import net.greenjab.nekomasfixed.screen.config.TabLiterals;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -25,7 +26,7 @@ public abstract class PauseScreenMixin extends Screen {
         if (this.minecraft == null || this.minecraft.getSingleplayerServer() == null) return;
 
         this.addRenderableWidget(
-                Button.builder(Component.literal("World Options"),
+                Button.builder(TabLiterals.IN_GAME,
                                 b -> this.minecraft.gui.setScreen(new InGameEditScreen(this)))
                         .bounds(10, 10, 100, 20)
                         .build());

@@ -4,6 +4,7 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
+import net.greenjab.nekomasfixed.screen.config.TabLiterals;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -14,17 +15,25 @@ public class NetherConfigScreen {
     public static Screen create(Screen parentScreen){
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parentScreen)
-                .setTitle(Component.literal("Nekomas Fixed Config"))
+                .setTitle(TabLiterals.NETHER_TITLE)
                 .setSavingRunnable(ModConfigValues::saveCurrentWorld)
                 ;
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-        ConfigCategory netherCategory = builder.getOrCreateCategory(Component.literal("Nether Features"));
-        netherCategory.addEntry(entryBuilder.startTextDescription(Component.literal("=== Nether Improvements ===").withColor(0xBA2720)).build());
-        netherCategory.addEntry(entryBuilder.startBooleanToggle(Component.literal("Do Food Rotting"),
-                        ModConfigValues.netherFoodRotting.get()).setDefaultValue(true).setTooltip(Component.literal(
-                        "All food items except for the golden ones rot in nether over time"))
+        ConfigCategory netherCategory = builder.getOrCreateCategory(TabLiterals.NETHER_TITLE);
+
+        netherCategory.addEntry(entryBuilder.startTextDescription(TabLiterals.NETHER).build());
+
+        netherCategory.addEntry(entryBuilder.startBooleanToggle(TabLiterals.DO_FOOD_ROTTING,
+                        ModConfigValues.netherFoodRotting.get()).setDefaultValue(true)
+                .setTooltip(TabLiterals.DO_FOOD_ROTTING_DESC)
                 .setSaveConsumer(ModConfigValues.netherFoodRotting::set)
+                .build());
+
+        netherCategory.addEntry(entryBuilder.startBooleanToggle(TabLiterals.MAGMA_BLOCK_CHANGES,
+                        ModConfigValues.magmaBlockNeedsSilkTouch.get()).setDefaultValue(true)
+                .setTooltip(TabLiterals.MAGMA_BLOCK_CHANGES_DESC)
+                .setSaveConsumer(ModConfigValues.magmaBlockNeedsSilkTouch::set)
                 .build());
 
         return builder.build();

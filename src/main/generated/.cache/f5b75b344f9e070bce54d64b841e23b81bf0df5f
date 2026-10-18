@@ -1,4 +1,5 @@
 // 26.3	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Block Loot Tables
+086d316cc2f4ca9f75e002dd20bd670c0cee1022 data/minecraft/loot_table/blocks/magma_block.json
 53de0465369999511af086d328b77ac8f02a1398 data/nekomasfixed/loot_table/blocks/amber_brick_slab.json
 960ad28b4c594376ab849a6cfabc409c2816f3d9 data/nekomasfixed/loot_table/blocks/amber_brick_stairs.json
 aeed1a5262e85545beb9f9487ef8c81ffa53b977 data/nekomasfixed/loot_table/blocks/amber_brick_wall.json

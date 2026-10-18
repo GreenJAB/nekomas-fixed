@@ -553,19 +553,49 @@
 
   "advancements.husbandry.all_froglights.description": "Have all 20 froglights in your inventory",
   "advancements.husbandry.all_froglights.title": "Power Overloaded!",
+  "failed.entity_spawn": "This entity is disabled in this world!",
 
-  "option.namefield.optionA": "CyberMODDER",
-  "option.namefield.optionB": "Akshaj",
+  "config.main_title.worldgen": "World Gen Options",
+  "config.main_title.nether": "Nether Options",
+  "config.main_title.other": "Other Options",
+  "config.main_title.entity": "Entity Options",
 
-  "config.worldgen.title": "World Gen Options",
-  "config.worldgen.go_menu": "World Gen Options...",
+  "config.in_game": "Mod Options",
 
-  "config.worldgen.title.terrain": "=== Terrain ===",
+  "config.go_to.worldgen": "World Gen Options...",
+  "config.go_to.nether": "Nether Options...",
+  "config.go_to.other": "Other Options...",
+  "config.go_to.entity": "Entity Options...",
+
+  "config.separator.terrain": "=== Terrain ===",
+  "config.separator.nether": "=== Nether Improvements ===",
+  "config.separator.misc_other": "=== Miscellaneous ===",
+  "config.separator.villagers": "=== Villagers ===",
+  "config.separator.spawn": "=== Spawns ===",
+  "config.separator.cannot_be_changed": " After World Creation, CANNOT BE CHANGED!",
+
+  "config.nekoma": "Nekoma's",
+  "config.fixed": "Fixed",
 
   "config.worldgen.button.gen_geyser": "Generate Geysers",
   "config.worldgen.desc.gen_geyser": "Generate Geysers in the Nether",
 
   "config.worldgen.button.gen_mound": "Generate Mounds",
-  "config.worldgen.desc.gen_mound": "Generate Termite Mounds in the Savannas"
+  "config.worldgen.desc.gen_mound": "Generate Termite Mounds in the Savannas",
+
+  "config.other.button.copper_armor_changes": "Enable Copper Buffs",
+  "config.other.desc.copper_armor_changes": "Lightning striking a player with full copper gear would give the player speed",
+
+  "config.entity.button.spawn_sus_spider": "Spawn Suspicious Spiders",
+  "config.entity.desc.spawn_sus_spider": "Spawn Spiders with Suspicious Stew effects",
+
+  "config.entity.button.enable_messy_beds": "Enable Messy Beds",
+  "config.entity.desc.enable_messy_beds": "Allows beds to be messy",
+
+  "config.nether.button.do_food_rotting": "Do Food Rotting",
+  "config.nether.desc.do_food_rotting": "All food items except for the golden ones rot in nether over time",
+
+  "config.nether.button.magma_block_changes": "Magma Block Changes",
+  "config.nether.desc.magma_block_changes": "Magma block requires silk touch to break"
 
 }

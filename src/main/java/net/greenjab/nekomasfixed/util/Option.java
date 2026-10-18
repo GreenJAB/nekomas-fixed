@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.screen.config;
+package net.greenjab.nekomasfixed.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
