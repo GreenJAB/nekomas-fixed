@@ -324,6 +324,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         // minecraft:air"), so datagen can't express those void-result overrides.
     }
 
+    private void generatePyrotechnicsRecipe(RecipeOutput output) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PYROTECHNICS_TABLE)
+                .pattern("DD").pattern("##").pattern("##")
+                .define('D', Items.GUNPOWDER).define('#', ItemTags.PLANKS)
+                .unlockedBy("has_gunpowder", has(Items.GUNPOWDER))
+                .save(output, NekomasFixed.id("pyrotechnics_table"));
+    }
+
     @Override
     public void buildRecipes(RecipeOutput output) {
         generateBaobabRecipes(output);
@@ -334,6 +342,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateSlingshotRecipe(output);
         generateSickleRecipes(output);
         generateNautilusRecipes(output);
+        generatePyrotechnicsRecipe(output);
 
         for (AllDyes dye : AllDyes.values()) {
             Item dyeItem = dyeItem(dye);

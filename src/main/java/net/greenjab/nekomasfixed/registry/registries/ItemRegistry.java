@@ -59,6 +59,7 @@ public class ItemRegistry {
     public static final Item BAOBAB_LEAVES = register(BlockRegistry.BAOBAB_LEAVES);
     public static final Item ROPE = register(BlockRegistry.ROPE, RopeItem::new, new Item.Properties());
     public static final Item CORRUPTED_BEACON = register(BlockRegistry.CORRUPTED_BEACON);
+    public static final Item PYROTECHNICS_TABLE = register(BlockRegistry.PYROTECHNICS_TABLE);
     public static final Item REDSTONE_STRIKER = register(
             "redstone_striker",
             RedstoneStrikerItem::new,

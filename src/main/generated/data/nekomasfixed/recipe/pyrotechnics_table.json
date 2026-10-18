@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "D": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "pattern": [
+    "DD",
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:pyrotechnics_table"
+  }
+}

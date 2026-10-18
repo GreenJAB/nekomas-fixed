@@ -74,6 +74,15 @@ public class BlockRegistry {
                     .noOcclusion()
                     .isRedstoneConductor(Blocks::never)
     );
+    public static final Block PYROTECHNICS_TABLE = register(
+            "pyrotechnics_table",
+            PyrotechnicsTableBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WOOD)
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(2.5F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava());
     public static final Block HONEY_CAULDRON = register(
             "honey_cauldron",
             HoneyCauldronBlock::new,

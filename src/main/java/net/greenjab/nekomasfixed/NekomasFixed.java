@@ -52,6 +52,7 @@ public class NekomasFixed implements ModInitializer {
         BlockRegistry.registerBlocks();
         CauldronBehaviour.register();
         ItemRegistry.registerItems();
+        ScreenHandlerRegistry.registerScreenHandlers();
         EntityTypeRegistry.registerEntityType();
         BiomeAdditions.addSpawns();
         BlockEntityTypeRegistry.registerBlockEntityTypes();

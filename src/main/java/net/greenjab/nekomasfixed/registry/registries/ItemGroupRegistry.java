@@ -57,6 +57,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.ZOMBIE_NAUTILUS_BLOCK);
                         entries.accept(ItemRegistry.CORAL_NAUTILUS_BLOCK);
                         entries.accept(ItemRegistry.REDSTONE_STRIKER);
+                        entries.accept(ItemRegistry.PYROTECHNICS_TABLE);
                         entries.accept(ItemRegistry.CORRUPTED_BEACON);
                         entries.accept(ItemRegistry.TARGET_DUMMY);
                         entries.accept(ItemRegistry.MOOBLOOM_SPAWN_EGG);

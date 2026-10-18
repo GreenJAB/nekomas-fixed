@@ -8,6 +8,9 @@ import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ClamStateProperty;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.greenjab.nekomasfixed.registry.registries.ScreenHandlerRegistry;
+import net.greenjab.nekomasfixed.screen.PyrotechnicsTableScreen;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
 
 public class NekomasFixedClient implements ClientModInitializer {
@@ -15,6 +18,7 @@ public class NekomasFixedClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ClientSyncHandler.init();
+        MenuScreens.register(ScreenHandlerRegistry.PYROTECHNICS, PyrotechnicsTableScreen::new);
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.BAOBAB_SAPLING, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.BAOBAB_FRUIT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.GHOST_PEPPER_SHRUB, RenderType.cutout());

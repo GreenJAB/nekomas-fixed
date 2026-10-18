@@ -154,6 +154,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         // Geyser is mined silk-touch-only (faithful to main).
         this.add(BlockRegistry.GEYSER, createSilkTouchOnlyTable(BlockRegistry.GEYSER));
         this.dropSelf(BlockRegistry.CORRUPTED_BEACON);
+        this.dropSelf(BlockRegistry.PYROTECHNICS_TABLE);
         // Ghost pepper shrub: age-gated drops with Fortune (mirrors main's three state pools;
         // ages 0-1 drop nothing).
         Holder<Enchantment> fortune = this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE);
