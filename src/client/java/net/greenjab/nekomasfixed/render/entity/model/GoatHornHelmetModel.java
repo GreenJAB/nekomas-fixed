@@ -1,5 +1,7 @@
 package net.greenjab.nekomasfixed.render.entity.model;
 
+import net.minecraft.client.gui.screens.inventory.SmithingScreen;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -7,7 +9,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.model.object.armorstand.ArmorStandModel;
 import net.minecraft.client.model.player.PlayerModel;
+import net.minecraft.world.inventory.SmithingMenu;
 
 public class GoatHornHelmetModel extends PlayerModel {
 
@@ -17,7 +21,7 @@ public class GoatHornHelmetModel extends PlayerModel {
 
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition mesh = PlayerModel.createMesh(CubeDeformation.NONE, false);
-        PartDefinition root = mesh.getRoot().clearRecursively();
+        PartDefinition root = mesh.getRoot();
         PartDefinition head = root.getChild("head");
 
         // Helmet cube(the helmet)
@@ -57,14 +61,15 @@ public class GoatHornHelmetModel extends PlayerModel {
 
         return LayerDefinition.create(mesh, 32, 32);
     }
-	
+
     public static LayerDefinition getTexturedModelDataForTrim() {
         MeshDefinition mesh = PlayerModel.createMesh(CubeDeformation.NONE, false);
         PartDefinition root = mesh.getRoot().clearRecursively();
         PartDefinition head = root.getChild("head");
 
         PartDefinition helmet = head.addOrReplaceChild("Helmet",
-                CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F)),
+                CubeListBuilder.create().texOffs(0, 0)
+                        .addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(1.0F)),
                 PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition rightHorn = helmet.addOrReplaceChild("RightHorn",

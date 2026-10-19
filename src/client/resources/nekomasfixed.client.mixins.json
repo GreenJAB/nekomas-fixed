@@ -38,5 +38,7 @@
     "LivingEntityRendererMixin",
     "LootItemConditionTypesMixin",
     "PauseScreenMixin"
+    "LivingEntityRendererMixin",
+    "SmithingScreenMixin"
   ]
 }

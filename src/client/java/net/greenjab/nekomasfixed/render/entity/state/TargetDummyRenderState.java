@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.PlayerSkin;
 @Environment(EnvType.CLIENT)
 public class TargetDummyRenderState extends HumanoidRenderState {
 	public PlayerSkin skinTextures = DefaultPlayerSkin.getDefaultSkin();
+	public boolean isSlim = false;
 	public boolean isZombie;
 	public float yaw;
 	public float timeSinceLastHit;

@@ -4,5 +4,9 @@
   "item.minecraft.lingering_potion.effect.lightning": "Lightning in a Lingering Bottle",
   "item.minecraft.potion.effect.lightning": "Lightning in a Bottle",
   "item.minecraft.splash_potion.effect.lightning": "Lightning in a Splash Bottle",
+  "item.minecraft.tipped_arrow.effect.spicy": "Arrow of Spiciness",
+  "item.minecraft.lingering_potion.effect.spicy": "Lingering Potion of Spiciness",
+  "item.minecraft.potion.effect.spicy": "Potion of Spiciness",
+  "item.minecraft.splash_potion.effect.spicy": "Splash Potion of Spiciness",
   "item.minecraft.turtle_helmet": "Turtle Headgear"
 }
