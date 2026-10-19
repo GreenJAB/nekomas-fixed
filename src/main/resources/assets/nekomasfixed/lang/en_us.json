@@ -553,6 +553,25 @@
   "advancements.husbandry.all_froglights.title": "Power Overloaded!",
 
 
+  "advancements.nekomasfixed.root.description": "Track your progress in the mod!",
+  "nekoma": "Nekoma's",
+  "fixed": "Fixed",
+
+  "advancements.nekomasfixed.turtle_master.title": "A True Turtle Master!",
+  "advancements.nekomasfixed.turtle_master.description": "Collect a full set of turtle armor",
+
+  "advancements.nekomasfixed.rainbow_spotted_wool.title": "Dotted Rainbow!",
+  "advancements.nekomasfixed.rainbow_spotted_wool.description": "Collect all 20 blocks of spotted wool",
+
+  "advancements.nekomasfixed.ship_of_thesus.title": "Ship of Thesus!",
+  "advancements.nekomasfixed.ship_of_thesus.description": "Craft a huge boat",
+
+  "advancements.nekomasfixed.i_am_the_ruler.title": "I am the Ruler!",
+  "advancements.nekomasfixed.i_am_the_ruler.description": "Trim a crown with jewel armor trim",
+
+  "advancements.nekomasfixed.i_am_on_fire_now.title": "Look who's on Fire Now!",
+  "advancements.nekomasfixed.i_am_on_fire_now.description": "Trim a full set of netherite armor with jewel armor trim",
+
   "option.namefield.optionA": "CyberMODDER",
   "option.namefield.optionB": "Akshaj"
 }
