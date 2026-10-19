@@ -36,7 +36,6 @@ public class NekomasFixed implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAMESPACE);
 	public static final boolean IS_ALTERNATE_CURRENT_MOD_LOADED = FabricLoader.getInstance().isModLoaded("alternate-current");
 
-
 	@Override
 	public void onInitialize() {
 		ServerLifecycleEvents.SERVER_STARTING.register(server ->
@@ -60,6 +59,7 @@ public class NekomasFixed implements ModInitializer {
 		EffectRegistry.registerEffects();
 		ComponentRegistry.registerComponents();
 		DataComponentPredicateRegistry.register();
+		GlintColorRegistry.registerGlintColors();
 		LootTableRegistry.registerLootTables();
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
@@ -67,8 +67,6 @@ public class NekomasFixed implements ModInitializer {
 		SyncHandler.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
-
-
 
 		BiomeAdditions.addSpawns();
 		LootTableAdditions.registerLootTableAdds();

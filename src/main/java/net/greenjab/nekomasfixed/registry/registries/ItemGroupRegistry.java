@@ -500,6 +500,27 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.AQUA_CUSHION);
                         entries.accept(ItemRegistry.INDIGO_CUSHION);
                         entries.accept(ItemRegistry.MAROON_CUSHION);
+
+                        entries.accept(ItemRegistry.WHITE_PRISM);
+                        entries.accept(ItemRegistry.LIGHT_GRAY_PRISM);
+                        entries.accept(ItemRegistry.GRAY_PRISM);
+                        entries.accept(ItemRegistry.BLACK_PRISM);
+                        entries.accept(ItemRegistry.BROWN_PRISM);
+                        entries.accept(ItemRegistry.RED_PRISM);
+                        entries.accept(ItemRegistry.ORANGE_PRISM);
+                        entries.accept(ItemRegistry.YELLOW_PRISM);
+                        entries.accept(ItemRegistry.LIME_PRISM);
+                        entries.accept(ItemRegistry.GREEN_PRISM);
+                        entries.accept(ItemRegistry.CYAN_PRISM);
+                        entries.accept(ItemRegistry.LIGHT_BLUE_PRISM);
+                        entries.accept(ItemRegistry.BLUE_PRISM);
+                        entries.accept(ItemRegistry.PURPLE_PRISM);
+                        entries.accept(ItemRegistry.MAGENTA_PRISM);
+                        entries.accept(ItemRegistry.PINK_PRISM);
+                        entries.accept(ItemRegistry.AMBER_PRISM);
+                        entries.accept(ItemRegistry.AQUA_PRISM);
+                        entries.accept(ItemRegistry.INDIGO_PRISM);
+                        entries.accept(ItemRegistry.MAROON_PRISM);
                     }).build();
 
     public static void registerItemGroup() {

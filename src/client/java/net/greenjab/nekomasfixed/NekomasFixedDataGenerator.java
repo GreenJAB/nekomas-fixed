@@ -7,6 +7,8 @@ import net.greenjab.nekomasfixed.datagen.villager.ModPOITags;
 import net.greenjab.nekomasfixed.datagen.villager.ModVillagerTradeTags;
 import net.greenjab.nekomasfixed.datagen.villager.ModVillagerTrades;
 import net.greenjab.nekomasfixed.datagen.villager.ModVillagerTradesets;
+import net.greenjab.nekomasfixed.registry.other.GlintColor;
+import net.greenjab.nekomasfixed.registry.registries.GlintColorRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemGroupRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.core.RegistrySetBuilder;
@@ -43,6 +45,7 @@ public class NekomasFixedDataGenerator implements DataGeneratorEntrypoint {
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		registryBuilder.add(Registries.VILLAGER_TRADE, ModVillagerTrades::bootstrap);
 		registryBuilder.add(Registries.TRADE_SET, ModVillagerTradesets::bootstrap);
+		registryBuilder.add(GlintColor.REGISTRY_KEY, GlintColorRegistry::bootstrap);
 	}
 
 

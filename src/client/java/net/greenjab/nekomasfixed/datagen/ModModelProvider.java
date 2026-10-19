@@ -54,6 +54,8 @@ public class ModModelProvider extends FabricModelProvider {
         super(output);
     }
 
+
+
     @Override
     public void generateBlockStateModels(@NonNull BlockModelGenerators blockStateModelGenerator) {
 
@@ -263,13 +265,28 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemRegistry.OPEN_EYEBLOSSOM_FLOWER_CROWN, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.CLOSED_EYEBLOSSOM_FLOWER_CROWN, ModelTemplates.FLAT_ITEM);
 
-
-
-       registerTippedArrowCustom(itemModelGenerator);
-
+        itemModelGenerator.generateFlatItem(ItemRegistry.WHITE_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.LIGHT_GRAY_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.GRAY_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.BLACK_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.BROWN_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.RED_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.ORANGE_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.YELLOW_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.LIME_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.GREEN_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.CYAN_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.LIGHT_BLUE_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.BLUE_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.PURPLE_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.MAGENTA_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.PINK_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.AMBER_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.AQUA_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.INDIGO_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.MAROON_PRISM, ModelTemplates.FLAT_ITEM);
+        registerTippedArrowCustom(itemModelGenerator);
         registerQuiver(itemModelGenerator);
-
-
     }
 
     private void registerTippedArrowCustom(ItemModelGenerators gen) {

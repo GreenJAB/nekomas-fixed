@@ -607,13 +607,33 @@ public class ItemRegistry {
     public static final Item INDIGO_CONCRETE_SLAB = register(BlockRegistry.INDIGO_CONCRETE_SLAB);
     public static final Item MAROON_CONCRETE_SLAB = register(BlockRegistry.MAROON_CONCRETE_SLAB);
 
-
      public static final Item GOAT_HORN_IRON_HELMET = registerGoatHornHelm("goat_horn_iron_helmet", GoatHornHelmetTiers.IRON);
      public static final Item GOAT_HORN_GOLDEN_HELMET = registerGoatHornHelm("goat_horn_golden_helmet", GoatHornHelmetTiers.GOLDEN);
      public static final Item GOAT_HORN_COPPER_HELMET = registerGoatHornHelm("goat_horn_copper_helmet", GoatHornHelmetTiers.COPPER);
      public static final Item GOAT_HORN_DIAMOND_HELMET = registerGoatHornHelm("goat_horn_diamond_helmet", GoatHornHelmetTiers.DIAMOND);
      public static final Item GOAT_HORN_NETHERITE_HELMET = registerGoatHornHelm("goat_horn_netherite_helmet", GoatHornHelmetTiers.NETHERITE);
      public static final Item GOAT_HORN_TURTLE_HELMET = registerGoatHornHelm("goat_horn_turtle_helmet", GoatHornHelmetTiers.TURTLE);
+
+    public static final Item WHITE_PRISM = registerPrism(AllDyes.WHITE);
+    public static final Item LIGHT_GRAY_PRISM = registerPrism(AllDyes.LIGHT_GRAY);
+    public static final Item GRAY_PRISM = registerPrism(AllDyes.GRAY);
+    public static final Item BLACK_PRISM = registerPrism(AllDyes.BLACK);
+    public static final Item BROWN_PRISM = registerPrism(AllDyes.BROWN);
+    public static final Item RED_PRISM = registerPrism(AllDyes.RED);
+    public static final Item ORANGE_PRISM = registerPrism(AllDyes.ORANGE);
+    public static final Item YELLOW_PRISM = registerPrism(AllDyes.YELLOW);
+    public static final Item LIME_PRISM = registerPrism(AllDyes.LIME);
+    public static final Item GREEN_PRISM = registerPrism(AllDyes.GREEN);
+    public static final Item CYAN_PRISM = registerPrism(AllDyes.CYAN);
+    public static final Item LIGHT_BLUE_PRISM = registerPrism(AllDyes.LIGHT_BLUE);
+    public static final Item BLUE_PRISM = registerPrism(AllDyes.BLUE);
+    public static final Item PURPLE_PRISM = registerPrism(AllDyes.PURPLE);
+    public static final Item MAGENTA_PRISM = registerPrism(AllDyes.MAGENTA);
+    public static final Item PINK_PRISM = registerPrism(AllDyes.PINK);
+    public static final Item AMBER_PRISM = registerPrism(AllDyes.AMBER);
+    public static final Item AQUA_PRISM = registerPrism(AllDyes.AQUA);
+    public static final Item INDIGO_PRISM = registerPrism(AllDyes.INDIGO);
+    public static final Item MAROON_PRISM = registerPrism(AllDyes.MAROON);
 
     public static Item register(String id, Item.Properties settings) {
         return register(keyOf(id), Item::new, settings);
@@ -631,6 +651,10 @@ public class ItemRegistry {
             blockItem.registerBlocks(Item.BY_BLOCK, item);
         }
         return Registry.register(BuiltInRegistries.ITEM, key, item);
+    }
+
+    private static Item registerPrism(AllDyes dye) {
+        return register(dye.getSerializedName() + "_prism", props -> new Item(props.delayedComponent(ComponentRegistry.PROVIDES_GLINT, context -> context.getOrThrow(GlintColorRegistry.GLINT_COLORS.get(dye)))), new Item.Properties());
     }
 
     private static Item registerCushion(String id, String modColor) {

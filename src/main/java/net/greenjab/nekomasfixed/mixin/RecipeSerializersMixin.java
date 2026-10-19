@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.recipe.CustomTippedArrowRecipe;
+import net.greenjab.nekomasfixed.registry.recipe.ArmorGlintRecipe;
 import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -18,6 +19,6 @@ public abstract class RecipeSerializersMixin {
     private static void addRecipe(Registry<RecipeSerializer<?>> registry, CallbackInfoReturnable<Object> cir) {
         Registry.register(registry, NekomasFixed.id("kilning"), KilnRecipe.SERIALIZER);
         Registry.register(registry, NekomasFixed.id("tipped_custom_arrow"), CustomTippedArrowRecipe.SERIALIZER);
-
+        Registry.register(registry, NekomasFixed.id("armor_glint"), ArmorGlintRecipe.SERIALIZER);
     }
 }
