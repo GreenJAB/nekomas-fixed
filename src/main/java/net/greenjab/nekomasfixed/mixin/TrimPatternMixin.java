@@ -1,5 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.registries.OtherRegistry;
+import net.greenjab.nekomasfixed.registry.registries.TrimRegistry;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
@@ -13,12 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TrimPatterns.class)
 public class TrimPatternMixin {
-    @Unique
-    @Final
-    private static final ResourceKey<TrimPattern> JEWEL = TrimPatterns.registryKey("jewel");
-
     @Inject(method = "bootstrap", at = @At("HEAD"), cancellable = true)
     private static void bootstrap(BootstrapContext<TrimPattern> context, CallbackInfo ci) {
-        TrimPatterns.register(context, JEWEL);
+        TrimPatterns.register(context, TrimRegistry.JEWEL);
     }
 }

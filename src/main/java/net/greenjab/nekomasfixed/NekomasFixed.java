@@ -45,6 +45,7 @@ public class NekomasFixed implements ModInitializer {
 		ModWorldGeneration.generateModWorldGen();
 		ParticleRegistry.registerParticles();
 		EnchantmentRegistry.registerEnchantments();
+		TrimRegistry.register();
 		EffectRegistry.registerEffects();
 		ComponentRegistry.registerComponents();
 		LootTableRegistry.registerLootTables();
