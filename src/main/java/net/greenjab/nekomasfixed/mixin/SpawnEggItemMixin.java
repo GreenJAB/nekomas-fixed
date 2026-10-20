@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
+import net.greenjab.nekomasfixed.util.options.EntitySpawnOption;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
@@ -25,7 +26,8 @@ public class SpawnEggItemMixin {
             EntityType<?> entity = SpawnEggItem.getType(spawnEgg.getDefaultInstance());
 
             assert entity != null;
-            if(entity.equals(EntityTypeRegistry.SUSPICIOUS_SPIDER) && !ModConfigValues.spawnSusSpider.get()){
+
+            if(EntitySpawnOption.isDisabled(entity)){
                 context.getPlayer().sendSystemMessage(Component.translatable(
                         "failed.entity_spawn"
                 ).withColor(TextColor.RED));

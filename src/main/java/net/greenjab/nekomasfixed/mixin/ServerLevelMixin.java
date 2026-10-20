@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider;
 import net.greenjab.nekomasfixed.registry.item.RedstoneStrikerItem;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
+import net.greenjab.nekomasfixed.util.options.EntitySpawnOption;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
@@ -81,12 +82,8 @@ public abstract class ServerLevelMixin {
     }
 
     @Inject(method = "addFreshEntity", at = @At("HEAD"), cancellable = true)
-    private void addFreshEntty(Entity entity, CallbackInfoReturnable<Boolean> cir){
-        if(entity instanceof SuspiciousSpider && !ModConfigValues.spawnSusSpider.get()){
-            ServerLevel level = (ServerLevel)(Object)this;
-            for (ServerPlayer p : level.players()) {
-                p.sendSystemMessage(Component.translatable("failed.entity_spawn").withColor(TextColor.RED));
-            }
+    private void nekomasfixed$blockDisabledSpawns(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+        if (EntitySpawnOption.isDisabled(entity.getType())) {
             cir.setReturnValue(false);
         }
     }

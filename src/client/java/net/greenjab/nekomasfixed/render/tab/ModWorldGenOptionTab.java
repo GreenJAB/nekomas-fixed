@@ -1,9 +1,6 @@
 package net.greenjab.nekomasfixed.render.tab;
 
-import net.greenjab.nekomasfixed.render.tab.screens.EntityConfigScreen;
-import net.greenjab.nekomasfixed.render.tab.screens.NetherConfigScreen;
-import net.greenjab.nekomasfixed.render.tab.screens.OtherConfigScreen;
-import net.greenjab.nekomasfixed.render.tab.screens.WorldGenConfigScreen;
+import net.greenjab.nekomasfixed.render.tab.screens.*;
 import net.greenjab.nekomasfixed.screen.config.TabLiterals;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -27,6 +24,16 @@ public class ModWorldGenOptionTab extends GridLayoutTab {
 
         helper.addChild(Button.builder(TabLiterals.GO_TO_ENTITY,
                         b -> Minecraft.getInstance().gui.setScreen(EntityConfigScreen.create(parent)))
+                .width(210).build()
+        );
+
+        helper.addChild(Button.builder(TabLiterals.GO_TO_ITEM,
+                        b -> Minecraft.getInstance().gui.setScreen(ItemConfigScreen.create(parent)))
+                .width(210).build()
+        );
+
+        helper.addChild(Button.builder(TabLiterals.GO_TO_BLOCKS,
+                        b -> Minecraft.getInstance().gui.setScreen(BlockConfigScreen.create(parent)))
                 .width(210).build()
         );
 

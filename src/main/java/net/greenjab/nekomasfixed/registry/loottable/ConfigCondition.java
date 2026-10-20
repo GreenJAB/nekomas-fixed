@@ -3,7 +3,7 @@ package net.greenjab.nekomasfixed.registry.loottable;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.greenjab.nekomasfixed.util.Option;
+import net.greenjab.nekomasfixed.util.options.Option;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jspecify.annotations.NonNull;

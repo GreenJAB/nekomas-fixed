@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,10 +13,12 @@ import java.util.stream.Stream;
 
 @Mixin(RecipeMap.class)
 public class RecipeMapMixin {
-    @Inject(method = "getRecipesFor", at = @At("RETURN"), cancellable = true)
-    private <I extends RecipeInput, T extends Recipe<I>> void nekomasfixed$filterRecipes(
-            RecipeType<T> type, I container, Level level, CallbackInfoReturnable<Stream<RecipeHolder<T>>> cir) {
-        cir.setReturnValue(cir.getReturnValue()
-                .filter(holder -> ModConfigValues.isRecipeEnabled(holder.id().identifier())));
+
+    @Inject(method = "byKey", at = @At("RETURN"), cancellable = true)
+    private void nekomasfixed$filterByKey(ResourceKey<Recipe<?>> recipeId, CallbackInfoReturnable<RecipeHolder<?>> cir) {
+        RecipeHolder<?> holder = cir.getReturnValue();
+        if (holder != null && !ModConfigValues.isRecipeEnabled(holder.id().identifier())) {
+            cir.setReturnValue(null);
+        }
     }
 }

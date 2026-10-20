@@ -16,6 +16,7 @@
     "BlockItemMixin",
     "BlockMixin",
     "BlocksMixin",
+    "CraftingMenuMixin",
     "CushionMixin",
     "DefaultDispenseItemBehaviorMixin",
     "DolphinMixin",
