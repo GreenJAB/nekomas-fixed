@@ -11,6 +11,7 @@ import me.shedaniel.clothconfig2.impl.builders.BooleanToggleBuilder;
 import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.greenjab.nekomasfixed.screen.config.TabLiterals;
+import net.minecraft.client.gui.screens.CreditsAndAttributionScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -38,13 +39,19 @@ public class BlockConfigScreen {
 
         category.addEntry(entryBuilder.startTextDescription(TabLiterals.INTERACTION).build());
 
-        SubCategoryBuilder depends = entryBuilder.startSubCategory(TabLiterals.CAKE).setExpanded(true);
+        category.addEntry(entryBuilder.startBooleanToggle(TabLiterals.ENDERMAN_HEAD_ACTIVATES,
+                        ModConfigValues.endermanHeadActivates.get()).setDefaultValue(true)
+                .setTooltip(TabLiterals.ENDERMAN_HEAD_ACTIVATES_DESC)
+                .setSaveConsumer(ModConfigValues.endermanHeadActivates::set)
+                .build());
+
+        SubCategoryBuilder cakeSubCategory = entryBuilder.startSubCategory(TabLiterals.CAKE).setExpanded(true);
         BooleanListEntry enableStackedCakes = entryBuilder.startBooleanToggle(TabLiterals.ENABLE_STACKED_CAKES,
                         ModConfigValues.enableStackedCakes.get()).setDefaultValue(true)
                 .setTooltip(TabLiterals.ENABLE_STACKED_CAKES_DESC)
                 .setSaveConsumer(ModConfigValues.enableStackedCakes::set)
                 .build();
-        depends.add(enableStackedCakes);
+        cakeSubCategory.add(enableStackedCakes);
 
 
         Collection<IntegerSliderEntry> toggles = new LinkedList<>();
@@ -54,8 +61,8 @@ public class BlockConfigScreen {
                         .setSaveConsumer(ModConfigValues.cakeSize::set)
                 .build());
 
-        depends.addAll(toggles);
-        category.addEntry(depends.build());
+        cakeSubCategory.addAll(toggles);
+        category.addEntry(cakeSubCategory.build());
 
         return builder.build();
     }

@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.block.entity;
 
 import net.greenjab.nekomasfixed.registry.block.AbstractEndermanHeadBlock;
 import net.greenjab.nekomasfixed.registry.registries.BlockEntityTypeRegistry;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
@@ -65,6 +66,7 @@ public class EndermanHeadBlockEntity extends BlockEntity {
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, EndermanHeadBlockEntity blockEntity) {
+		if(!ModConfigValues.endermanHeadActivates.get()) return;
 		int power = state.getValue(AbstractEndermanHeadBlock.POWER);
 		int newPower = 0;
 		if (level instanceof ServerLevel serverLevel && level.getGameTime() % 10L==0L) {

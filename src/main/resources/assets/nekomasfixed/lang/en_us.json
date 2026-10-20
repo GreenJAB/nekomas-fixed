@@ -591,7 +591,6 @@
   "config.worldgen.button.gen_geyser": "Generate Geysers",
   "config.worldgen.desc.gen_geyser": "Generate Geysers in the Nether",
 
-
   "config.worldgen.button.gen_mound": "Generate Mounds",
   "config.worldgen.desc.gen_mound": "Generate Termite Mounds in the Savannas",
 
@@ -632,5 +631,8 @@
   "config.nether.desc.magma_block_changes": "Magma block requires silk touch to break",
 
   "config.blocks.button.enable_stacked_cakes": "Enable Stacked Cakes",
-  "config.blocks.desc.enable_stacked_cakes": "Enables Stacking of Multiple Cakes"
+  "config.blocks.desc.enable_stacked_cakes": "Enables Stacking of Multiple Cakes",
+
+  "config.blocks.button.enderman_head_activates": "Enderman Head Activates",
+  "config.blocks.desc.enderman_head_activates": "Looking at an Enderman head powers it"
 }

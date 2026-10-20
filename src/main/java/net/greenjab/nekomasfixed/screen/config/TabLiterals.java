@@ -78,6 +78,9 @@ public class TabLiterals {
     public static final Component ENABLE_STACKED_CAKES = Literal.compBlockText("enable_stacked_cakes");
     public static final Component ENABLE_STACKED_CAKES_DESC = Literal.compBlockDesc("enable_stacked_cakes");
 
+    public static final Component ENDERMAN_HEAD_ACTIVATES = Literal.compBlockText("enderman_head_activates");
+    public static final Component ENDERMAN_HEAD_ACTIVATES_DESC = Literal.compBlockDesc("enderman_head_activates");
+
     public static final Component CAKE_SLIDER = Literal.compSlider("cake_layers");
     public static final Component CAKE_SLIDER_DESC = Literal.compSliderDesc("cake_layers");
 
