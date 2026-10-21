@@ -66,7 +66,10 @@ public class EndermanHeadBlockEntity extends BlockEntity {
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, EndermanHeadBlockEntity blockEntity) {
-		if(!ModConfigValues.endermanHeadActivates.get()) return;
+		if(!ModConfigValues.endermanHeadActivates.get() ) {
+			level.setBlock(pos, state.setValue(AbstractEndermanHeadBlock.POWER, 0), 3);
+			return;
+		}
 		int power = state.getValue(AbstractEndermanHeadBlock.POWER);
 		int newPower = 0;
 		if (level instanceof ServerLevel serverLevel && level.getGameTime() % 10L==0L) {
