@@ -22,6 +22,10 @@ accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimTo
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimWithPlayerGoal
 accessible field net/minecraft/client/gui/screens/worldselection/CreateWorldScreen tabManager Lnet/minecraft/client/gui/components/tabs/TabManager;
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$PlayWithItemsGoal
+accessible field net/minecraft/client/gui/screens/CreditsAndAttributionScreen layout Lnet/minecraft/client/gui/layouts/HeaderAndFooterLayout;
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+accessible method net/minecraft/client/gui/screens/CreditsAndAttributionScreen openCreditsScreen ()V
 accessible method net/minecraft/world/item/equipment/trim/TrimPatterns registryKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/data/loot/packs/VanillaBlockLoot createMobSkullDrop (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;

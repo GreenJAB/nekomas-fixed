@@ -57,6 +57,8 @@ public class Literal {
         return Component.translatable("config.slider.desc."+text);
     }
 
+
+
     public static Component compBlockDesc(String text){
         return compDesc(text, "blocks");
     }

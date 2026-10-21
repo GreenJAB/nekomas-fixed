@@ -1,4 +1,6 @@
 {
+  "credits.button.credits": "Mod Credits",
+
   "itemgroup.nekomasfixed": "Nekoma's Fixed Ideas",
   "itemgroup.nekomasfixedcolours": "Nekoma's Fixed Colours",
   "title.nekomasfixed.config": "Config",
@@ -561,6 +563,7 @@
   "config.main_title.entity": "Entity Options",
   "config.main_title.item": "Item Options",
   "config.main_title.blocks": "Blocks Related Options",
+  "config.main_title.credits": "Credits",
 
   "config.in_game": "Mod Options",
 
@@ -577,7 +580,12 @@
   "config.separator.villagers": "=== Villagers ===",
   "config.separator.spawn": "=== Spawns ===",
   "config.separator.recipe": "=== Recipes ===",
+  "config.separator.developers": "=== Developers(Modders) ===",
+  "config.separator.asset_providers": "=== Asset Providers ===",
   "config.separator.interaction": "=== Block Interactions ===",
+  "config.separator.advancments": "=== Advancement Suggestions By ===",
+  "config.separator.testers": "=== Mod Testers ===",
+  "config.separator.translators": "=== Mod Translators ===",
   "config.separator.cannot_be_changed": " After World Creation, CANNOT BE CHANGED!",
 
   "config.sub_category.cake": "Cakes",

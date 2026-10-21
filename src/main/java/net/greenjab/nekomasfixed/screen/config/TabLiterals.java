@@ -29,6 +29,7 @@ public class TabLiterals {
     public static final Component BLOCKS_TITLE = Literal.compMainTitle("blocks");
     public static final Component OTHER_TITLE = Literal.compMainTitle("other");
     public static final Component WORLD_MENU_TITLE = Literal.compMainTitle("worldgen");
+    public static final Component CREDITS = Literal.compMainTitle("credits");
 
     public static final Component CANNOT_BE_CHANGED = Component.empty()
             .append(warningIcon)
@@ -41,6 +42,11 @@ public class TabLiterals {
     public static final Component RECIPE = Literal.compSeps("recipe", TextColor.AQUA.getValue());
     public static final Component INTERACTION = Literal.compSeps("interaction", TextColor.GREEN.getValue());
     public static final Component MISC_BLUE = Literal.compSeps("misc_other", MapColor.COLOR_LIGHT_BLUE.col);
+    public static final Component DEVELOPERS = Literal.compSeps("developers", MapColor.COLOR_RED.col);
+    public static final Component ASSET_PROVIDERS = Literal.compSeps("asset_providers", MapColor.COLOR_LIGHT_GRAY.col);
+    public static final Component ADVANCEMENTS_CREDITS = Literal.compSeps("advancements", MapColor.COLOR_GREEN.col);
+    public static final Component TESTERS_CREDITS = Literal.compSeps("testers", MapColor.COLOR_PURPLE.col);
+    public static final Component TRANSLATORS_CREDITS = Literal.compSeps("translators", MapColor.COLOR_PURPLE.col);
 
     //BUTTON TEXTS
     public static final Component GO_TO_WORLDGEN = Literal.compGoToText("worldgen");
