@@ -19,6 +19,8 @@
       "id": "#minecraft:wool_carpets",
       "required": false
     },
+    "#nekomasfixed:spotted_wool_slabs",
+    "#nekomasfixed:spotted_wool_stairs",
     {
       "id": "#minecraft:candles",
       "required": false
@@ -31,6 +33,10 @@
       "id": "#minecraft:concrete_powders",
       "required": false
     },
+    "#minecraft:concrete_slabs",
+    "#minecraft:concrete_stairs",
+    "#minecraft:wool_slabs",
+    "#minecraft:wool_stairs",
     "#nekomasfixed:froglights",
     {
       "id": "#minecraft:shulker_boxes",

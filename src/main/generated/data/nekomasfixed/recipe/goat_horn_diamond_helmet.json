@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "goat_horn",
+  "key": {
+    "#": "minecraft:goat_horn",
+    "D": "minecraft:diamond_helmet"
+  },
+  "pattern": [
+    "#D#"
+  ],
+  "result": {
+    "id": "nekomasfixed:goat_horn_diamond_helmet"
+  }
+}

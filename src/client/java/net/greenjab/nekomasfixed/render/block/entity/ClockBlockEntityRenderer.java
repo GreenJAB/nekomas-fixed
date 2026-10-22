@@ -91,7 +91,7 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 		matrixStack.translate(0.5F, 0.5F, 0.5F);
 		ItemStackRenderState clockRenderState = clockBlockEntityRenderState.clockRenderState;
 		if (!clockBlockEntityRenderState.wall && clockBlockEntityRenderState.timer>-ClockBlockEntity.timerDuration&& clockBlockEntityRenderState.timer<0) {
-			matrixStack.mulPose(Axis.YP.rotationDegrees(10*(clockBlockEntityRenderState.timer%2==0?1:-1)));
+			matrixStack.rotate(Axis.YP.rotationDegrees(10*(clockBlockEntityRenderState.timer%2==0?1:-1)));
 		}
 		if (clockRenderState != null) {
 			this.renderClock(clockBlockEntityRenderState, clockRenderState, matrixStack, orderedRenderCommandQueue, clockBlockEntityRenderState.yaw, clockBlockEntityRenderState.wall);
@@ -110,9 +110,9 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 							 PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees, boolean wall) {
 		Vec3 vec3d = new Vec3(0,  wall?0:-0.15, wall?0.46875:-0.1);
 		matrices.pushPose();
-		matrices.mulPose(Axis.YP.rotationDegrees(-rotationDegrees));
+		matrices.rotate(Axis.YP.rotationDegrees(-rotationDegrees));
 		matrices.translate(vec3d);
-		if (!wall) matrices.mulPose(Axis.XP.rotationDegrees(30));
+		if (!wall) matrices.rotate(Axis.XP.rotationDegrees(30));
 		float scale = wall?1:0.8f;
 		matrices.scale(scale,scale,scale);
 		itemRenderState.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
@@ -123,9 +123,9 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 							 PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees) {
 		Vec3 vec3d = new Vec3(0, -0.35, 0.2);
 		matrices.pushPose();
-		matrices.mulPose(Axis.YP.rotationDegrees(-rotationDegrees));
+		matrices.rotate(Axis.YP.rotationDegrees(-rotationDegrees));
 		matrices.translate(vec3d);
-		matrices.mulPose(Axis.XP.rotationDegrees(-30));
+		matrices.rotate(Axis.XP.rotationDegrees(-30));
 		float scale = 1f;
 		matrices.scale(scale,1.6f*scale,scale);
 		itemRenderState.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
@@ -136,9 +136,9 @@ public class ClockBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
 							PoseStack matrices, SubmitNodeCollector queue, float rotationDegrees) {
 		Vec3 vec3d = new Vec3(0, 0.35, 0.1);
 		matrices.pushPose();
-		matrices.mulPose(Axis.YP.rotationDegrees(-rotationDegrees));
+		matrices.rotate(Axis.YP.rotationDegrees(-rotationDegrees));
 		matrices.translate(vec3d);
-		matrices.mulPose(Axis.ZP.rotationDegrees(180));
+		matrices.rotate(Axis.ZP.rotationDegrees(180));
 		float scale = 0.5f;
 		matrices.scale(scale,scale,scale);
 		itemRenderState.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);

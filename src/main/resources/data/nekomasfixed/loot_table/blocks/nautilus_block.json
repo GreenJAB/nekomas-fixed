@@ -9,10 +9,9 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [],
-              "functions": [
+              "modifier": [
                 {
-                  "function": "minecraft:copy_components",
+                  "type": "minecraft:copy_components",
                   "include": [
                     "minecraft:animal"
                   ],
@@ -20,7 +19,7 @@
                 },
                 {
                   "block": "nekomasfixed:nautilus_block",
-                  "function": "minecraft:copy_state",
+                  "type": "minecraft:copy_state",
                   "properties": [
                     "occupied"
                   ]

@@ -13,7 +13,7 @@ import org.jspecify.annotations.NonNull;
 
 
 public class KilnRecipe extends AbstractCookingRecipe {
-    public static final MapCodec<KilnRecipe> MAP_CODEC = cookingMapCodec(KilnRecipe::new, 100);
+    public static final MapCodec<KilnRecipe> MAP_CODEC = cookingMapCodec(KilnRecipe::new);
     public static final StreamCodec<RegistryFriendlyByteBuf, KilnRecipe> STREAM_CODEC = cookingStreamCodec(KilnRecipe::new);
     public static final RecipeSerializer<KilnRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 

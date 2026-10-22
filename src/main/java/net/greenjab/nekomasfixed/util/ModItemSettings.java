@@ -29,8 +29,8 @@ public class ModItemSettings {
         else if(material.equals(ToolMaterial.NETHERITE)){realDamage = 5f;}
         return new Item.Properties()
                 .durability(material.durability())
-                .enchantable(15)
-                .repairable(Items.IRON_INGOT)
+                .enchantable(material.enchantmentValue())
+                .repairable(material.repairItems())
                 .component(DataComponents.ATTRIBUTE_MODIFIERS, createAttributes(realDamage, speed))
                 .component(DataComponents.WEAPON, new Weapon(1))
                 .component(DataComponents.MINIMUM_ATTACK_CHARGE, 1.0F)

@@ -11,6 +11,8 @@ import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ItemDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
+import net.greenjab.nekomasfixed.util.*;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
@@ -20,13 +22,27 @@ import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import org.jspecify.annotations.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -36,11 +52,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         super(output, registriesFuture);
     }
 
-
     @Override
-    protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider wrapperLookup, @NonNull RecipeOutput recipeExporter) {
-        return new RecipeProvider(wrapperLookup, recipeExporter) {
+    protected RecipeProvider createRecipeProvider(
+            HolderLookup.Provider registries,
+            BootstrapContext<Recipe<?>> recipes,
+            BootstrapContext<Advancement> advancements
+    ) {
 
+        return new RecipeProvider(recipes, advancements) {
             @Override
             public void buildRecipes() {
 
@@ -51,7 +70,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
                 shapeless(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BAOBAB_PLANKS, 4)
                         .requires(ModTags.BAOBAB_LOGS)
-                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_LOG), has(ItemRegistry.BAOBAB_LOG)).save(output);
+                        .unlockedBy(getHasName(ItemRegistry.BAOBAB_LOG), has(ItemRegistry.BAOBAB_LOG))
+                        .save(output);
 
                 shaped(RecipeCategory.DECORATIONS, BlockRegistry.SULFUR_CAMPFIRE)
                         .define('L', ItemTags.LOGS)
@@ -144,37 +164,57 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(ItemRegistry.BAOBAB_PLANKS), has(ItemRegistry.BAOBAB_PLANKS))
                         .save(output);
 
+                createGoatHornRecipe(Items.IRON_HELMET, ItemRegistry.GOAT_HORN_IRON_HELMET).save(output);
+                createGoatHornRecipe(Items.GOLDEN_HELMET, ItemRegistry.GOAT_HORN_GOLDEN_HELMET).save(output);
+                createGoatHornRecipe(Items.DIAMOND_HELMET, ItemRegistry.GOAT_HORN_DIAMOND_HELMET).save(output);
+                createGoatHornRecipe(Items.NETHERITE_HELMET, ItemRegistry.GOAT_HORN_NETHERITE_HELMET).save(output);
+                createGoatHornRecipe(Items.TURTLE_HELMET, ItemRegistry.GOAT_HORN_TURTLE_HELMET).save(output);
+                createGoatHornRecipe(Items.COPPER_HELMET, ItemRegistry.GOAT_HORN_COPPER_HELMET).save(output);
 
-                for (AllDyes colour : AllDyes.values()){
+                for (AllDyes colour : AllDyes.values()) {
                     createRingRecipe(RecipeCategory.MISC, ItemDyeMap.DYE.get(colour), Items.BRUSH, ItemDyeMap.BRUSH.get(colour), "dyed_brush", 1)
                             .save(output);
+
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICKS, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICKS.get(colour).asItem(), "dyed_bricks_dyed", 8)
-                            .save(output, BlockDyeMap.BRICKS.get(colour).asItem() + "_dyed");
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(BlockDyeMap.BRICKS.get(colour).asItem()).getPath() + "_dyed"));
+
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_SLAB, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_SLAB.get(colour).asItem(), "dyed_brick_slab_dyed", 8)
-                            .save(output, BlockDyeMap.BRICK_SLAB.get(colour).asItem() + "_dyed");
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(BlockDyeMap.BRICK_SLAB.get(colour).asItem()).getPath() + "_dyed"));
+
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_STAIRS, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), "dyed_brick_stairs_dyed", 8)
-                            .save(output, BlockDyeMap.BRICK_STAIRS.get(colour).asItem() + "_dyed");
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(BlockDyeMap.BRICK_STAIRS.get(colour).asItem()).getPath() + "_dyed"));
+
                     createRingRecipe(RecipeCategory.BUILDING_BLOCKS, Items.BRICK_WALL, ItemDyeMap.DYE.get(colour), BlockDyeMap.BRICK_WALL.get(colour).asItem(), "dyed_brick_wall_dyed", 8)
-                            .save(output, BlockDyeMap.BRICK_WALL.get(colour).asItem() + "_dyed");
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(BlockDyeMap.BRICK_WALL.get(colour).asItem()).getPath() + "_dyed"));
+                    ;
+
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem(), 2);
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), BlockDyeMap.BRICKS.get(colour).asItem());
-                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_slab").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
-                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_stairs").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
-                    wallBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem())).group("dyed_brick_wall").unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), this.has(BlockDyeMap.BRICKS.get(colour).asItem())).save(this.output);
+
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_SLAB.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem()))
+                            .group("dyed_brick_slab")
+                            .unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), has(BlockDyeMap.BRICKS.get(colour).asItem()))
+                            .save(output);
+                    stairBuilder(BlockDyeMap.BRICK_STAIRS.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem()))
+                            .group("dyed_brick_stairs")
+                            .unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), has(BlockDyeMap.BRICKS.get(colour).asItem()))
+                            .save(output);
+                    wallBuilder(RecipeCategory.BUILDING_BLOCKS, BlockDyeMap.BRICK_WALL.get(colour).asItem(), Ingredient.of(BlockDyeMap.BRICKS.get(colour).asItem()))
+                            .group("dyed_brick_wall")
+                            .unlockedBy(getHasName(BlockDyeMap.BRICKS.get(colour).asItem()), has(BlockDyeMap.BRICKS.get(colour).asItem()))
+                            .save(output);
                 }
+
                 ArrayList<Item> spotted_wool = new ArrayList<>();
-                BlockDyeMap.SPOTTED_WOOL.values().forEach(e->spotted_wool.add(e.asItem()));
+                BlockDyeMap.SPOTTED_WOOL.values().forEach(e -> spotted_wool.add(e.asItem()));
                 this.colorItemWithDye(ItemDyeMap.DYE.values().stream().toList(), spotted_wool, "spotted_wool", RecipeCategory.BUILDING_BLOCKS);
 
                 ArrayList<Item> spotted_carpet = new ArrayList<>();
-                BlockDyeMap.SPOTTED_CARPET.values().forEach(e->spotted_carpet.add(e.asItem()));
+                BlockDyeMap.SPOTTED_CARPET.values().forEach(e -> spotted_carpet.add(e.asItem()));
                 this.colorItemWithDye(ItemDyeMap.DYE.values().stream().toList(), spotted_carpet, "spotted_carpet_dye", RecipeCategory.DECORATIONS);
 
-
-
-
-                List<Pair<Item,Item>> hollows = List.of(
+                List<Pair<Item, Item>> hollows = List.of(
                         Pair.of(Items.OAK_PLANKS, ItemRegistry.HOLLOW_OAK_LOG),
                         Pair.of(Items.SPRUCE_PLANKS, ItemRegistry.HOLLOW_SPRUCE_LOG),
                         Pair.of(Items.BIRCH_PLANKS, ItemRegistry.HOLLOW_BIRCH_LOG),
@@ -184,15 +224,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         Pair.of(Items.MANGROVE_PLANKS, ItemRegistry.HOLLOW_MANGROVE_LOG),
                         Pair.of(Items.CHERRY_PLANKS, ItemRegistry.HOLLOW_CHERRY_LOG),
                         Pair.of(Items.PALE_OAK_PLANKS, ItemRegistry.HOLLOW_PALE_OAK_LOG),
+                        Pair.of(Items.POPLAR_PLANKS, ItemRegistry.HOLLOW_POPLAR_LOG),
                         Pair.of(Items.BAMBOO_PLANKS, ItemRegistry.HOLLOW_BAMBOO_BLOCK),
                         Pair.of(Items.CRIMSON_PLANKS, ItemRegistry.HOLLOW_CRIMSON_STEM),
                         Pair.of(Items.WARPED_PLANKS, ItemRegistry.HOLLOW_WARPED_STEM),
-                        Pair.of(ItemRegistry.BAOBAB_PLANKS, ItemRegistry.HOLLOW_BAOBAB_LOG));
-                for (Pair<Item,Item> hollow : hollows){
+                        Pair.of(ItemRegistry.BAOBAB_PLANKS, ItemRegistry.HOLLOW_BAOBAB_LOG)
+                );
+
+                for (Pair<Item, Item> hollow : hollows) {
                     shapeless(RecipeCategory.BUILDING_BLOCKS, hollow.getFirst(), 1)
                             .requires(hollow.getSecond())
                             .unlockedBy(getHasName(hollow.getSecond()), has(hollow.getSecond()))
-                            .save(output, hollow.getFirst() + "_from_hollow_log");
+                            .save(output, recipeKey(BuiltInRegistries.ITEM.getKey(hollow.getFirst()).getPath() + "_from_hollow_log"));
                 }
 
 
@@ -206,6 +249,21 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
                         .unlockedBy(getHasName(Items.FLINT), has(Items.FLINT))
                         .save(output);
+                ArrayList<Item> spotted_wool_slabs = new ArrayList<>();
+                ArrayList<Item> spotted_wool_stairs = new ArrayList<>();
+
+                for (AllDyes colour : AllDyes.values()) {
+                    Item wool = BlockDyeMap.SPOTTED_WOOL.get(colour).asItem();
+                    Item slab = BlockDyeMap.SPOTTED_WOOL_SLABS.get(colour).asItem();
+                    Item stairs = BlockDyeMap.SPOTTED_WOOL_STAIRS.get(colour).asItem();
+
+                    spotted_wool_slabs.add(slab);
+                    spotted_wool_stairs.add(stairs);
+
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, slab, Ingredient.of(wool))
+                            .group("spotted_wool_slab")
+                            .unlockedBy(getHasName(wool), has(wool))
+                            .save(output);
 
                 shaped(RecipeCategory.DECORATIONS, ItemRegistry.SULFUR_TORCH, 4)
                         .pattern("S")
@@ -216,9 +274,100 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                         .save(output);
 
+                    stairBuilder(stairs, Ingredient.of(wool))
+                            .group("spotted_wool_stairs")
+                            .unlockedBy(getHasName(wool), has(wool))
+                            .save(output);
+                }
+                this.colorItemWithDye(ItemDyeMap.DYE.values().stream().toList(), spotted_wool_slabs, "spotted_wool_slab_dye", RecipeCategory.BUILDING_BLOCKS);
+                this.colorItemWithDye(ItemDyeMap.DYE.values().stream().toList(), spotted_wool_stairs, "spotted_wool_stairs_dye", RecipeCategory.BUILDING_BLOCKS);
+
+                AllDyes[] customDyes = new AllDyes[]{ AllDyes.AMBER, AllDyes.AQUA, AllDyes.INDIGO, AllDyes.MAROON };
+                for (AllDyes colour : customDyes) {
+                    Item wool = BlockDyeMap.WOOL.get(colour).asItem();
+                    Item woolSlab = BlockDyeMap.WOOL_SLABS.get(colour).asItem();
+                    Item woolStairs = BlockDyeMap.WOOL_STAIRS.get(colour).asItem();
+
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, woolSlab, Ingredient.of(wool))
+                            .group("wool_slab")
+                            .unlockedBy(getHasName(wool), has(wool))
+                            .save(output);
+
+                    stairBuilder(woolStairs, Ingredient.of(wool))
+                            .group("wool_stairs")
+                            .unlockedBy(getHasName(wool), has(wool))
+                            .save(output);
+
+                    Item concrete = BlockDyeMap.CONCRETE.get(colour).asItem();
+                    Item concreteSlab = BlockDyeMap.CONCRETE_SLABS.get(colour).asItem();
+                    Item concreteStairs = BlockDyeMap.CONCRETE_STAIRS.get(colour).asItem();
+
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, concreteSlab, Ingredient.of(concrete))
+                            .group("concrete_slab")
+                            .unlockedBy(getHasName(concrete), has(concrete))
+                            .save(output);
+
+                    stairBuilder(concreteStairs, Ingredient.of(concrete))
+                            .group("concrete_stairs")
+                            .unlockedBy(getHasName(concrete), has(concrete))
+                            .save(output);
+
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, concreteSlab, concrete, 2);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, concreteStairs, concrete);
+                }
+
+                AllDyes[] customDyes2 = new AllDyes[]{ AllDyes.AMBER, AllDyes.AQUA, AllDyes.INDIGO, AllDyes.MAROON };
+                ArrayList<Item> customCushionItems = new ArrayList<>();
+
+                for (AllDyes colour : customDyes2) {
+                    Item cushion = ItemDyeMap.CUSHIONS.get(colour);
+                    Item woolSlab = BlockDyeMap.WOOL_SLABS.get(colour).asItem();
+                    customCushionItems.add(cushion);
+
+                    shaped(RecipeCategory.DECORATIONS, cushion, 1)
+                            .pattern("###")
+                            .define('#', woolSlab)
+                            .group("cushion")
+                            .unlockedBy(getHasName(woolSlab), has(woolSlab))
+                            .save(output);
+                }
+
+                ArrayList<Item> allCushions = new ArrayList<>(ItemDyeMap.CUSHIONS.values());
+                this.colorItemWithDye(ItemDyeMap.DYE.values().stream().toList(), allCushions, "cushion_dye", RecipeCategory.DECORATIONS);
+
+                for (FlowerCrownVariants variant : FlowerCrownVariants.values()) {
+                    Item flower = variant.getFlower();
+                    Item crown = switch (variant) {
+                        case TORCHFLOWER -> ItemRegistry.TORCHFLOWER_FLOWER_CROWN;
+                        case BLUE_ORCHID -> ItemRegistry.BLUE_ORCHID_FLOWER_CROWN;
+                        case WITHER_ROSE -> ItemRegistry.WITHER_ROSE_FLOWER_CROWN;
+                        case CORNFLOWER -> ItemRegistry.CORNFLOWER_FLOWER_CROWN;
+                        case LILY_OF_THE_VALLEY -> ItemRegistry.LILY_OF_THE_VALLEY_FLOWER_CROWN;
+                        case ORANGE_TULIP -> ItemRegistry.ORANGE_TULIP_FLOWER_CROWN;
+                        case PINK_TULIP -> ItemRegistry.PINK_TULIP_FLOWER_CROWN;
+                        case ALLIUM -> ItemRegistry.ALLIUM_FLOWER_CROWN;
+                        case RED_TULIP -> ItemRegistry.RED_TULIP_FLOWER_CROWN;
+                        case POPPY -> ItemRegistry.POPPY_FLOWER_CROWN;
+                        case AZURE_BLUET -> ItemRegistry.AZURE_BLUET_FLOWER_CROWN;
+                        case WHITE_TULIP -> ItemRegistry.WHITE_TULIP_FLOWER_CROWN;
+                        case OXEYE_DAISY -> ItemRegistry.OXEYE_DAISY_FLOWER_CROWN;
+                        case DANDELION -> ItemRegistry.DANDELION_FLOWER_CROWN;
+                        case OPEN_EYEBLOSSOM -> ItemRegistry.OPEN_EYEBLOSSOM_FLOWER_CROWN;
+                        case CLOSED_EYEBLOSSOM -> ItemRegistry.CLOSED_EYEBLOSSOM_FLOWER_CROWN;
+                    };
+
+                    shaped(RecipeCategory.DECORATIONS, crown, 1)
+                            .pattern("###")
+                            .pattern("# #")
+                            .pattern("###")
+                            .define('#', flower)
+                            .group("flower_crown")
+                            .unlockedBy(getHasName(flower), has(flower))
+                            .save(output);
+                }
             }
 
-            private ShapedRecipeBuilder createRingRecipe(RecipeCategory category, Item outside,  Item inside, Item result, String group, int num) {
+            private ShapedRecipeBuilder createRingRecipe(RecipeCategory category, Item outside, Item inside, Item result, String group, int num) {
                 return shaped(category, result, num)
                         .pattern("###")
                         .pattern("#D#")
@@ -228,6 +377,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group(group)
                         .unlockedBy(getHasName(outside), has(outside))
                         .unlockedBy(getHasName(inside), has(inside));
+            }
+
+            private ShapedRecipeBuilder createGoatHornRecipe(Item helmet, Item output){
+                return shaped(RecipeCategory.COMBAT, output, 1)
+                        .pattern("#D#")
+                        .define('#', Items.GOAT_HORN)
+                        .define('D', helmet)
+                        .group("goat_horn")
+                        .unlockedBy(getHasName(Items.GOAT_HORN), has(Items.GOAT_HORN))
+                        .unlockedBy(getHasName(helmet), has(helmet));
             }
 
             private ShapedRecipeBuilder createBannerRecipe(Item bannerItem, Item woolItem){
@@ -243,6 +402,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             }
         };
     }
+
+    private ResourceKey<Recipe<?>> recipeKey(String path) {
+        return ResourceKey.create(
+                Registries.RECIPE,
+                Identifier.fromNamespaceAndPath("nekomasfixed", path)
+        );
+    }
+
+
 
     @Override
     public @NonNull String getName() {

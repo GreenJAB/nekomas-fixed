@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:poplar_planks",
+  "base": "minecraft:poplar_boat",
+  "result": {
+    "id": "nekomasfixed:big_poplar_boat"
+  },
+  "template": "nekomasfixed:boat_upgrade_template"
+}

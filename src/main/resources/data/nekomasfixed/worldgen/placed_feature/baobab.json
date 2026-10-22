@@ -8,7 +8,7 @@
         "distribution": [
           {
             "data": 0,
-            "weight": 10
+            "weight": 15
           },
           {
             "data": 1,
@@ -35,12 +35,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": {
-          "Name": "nekomasfixed:baobab_sapling",
-          "Properties": {
-            "stage": "0"
-          }
-        }
+        "state": "nekomasfixed:baobab_sapling"
       }
     }
   ]

@@ -15,7 +15,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:aqua_terracotta"
+        "recipes": [
+          "nekomasfixed:aqua_terracotta"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

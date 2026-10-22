@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.HashCommon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModModelLayerRegistry;
 import net.greenjab.nekomasfixed.registries.TextureRegistry;
 import net.greenjab.nekomasfixed.registry.block.ClamBlock;
 import net.greenjab.nekomasfixed.registry.block.entity.ClamBlockEntity;
@@ -44,7 +44,7 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 
 	public ClamBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
 		this.materials = context.sprites();
-		this.clamModel = new ClamBlockModel(context.bakeLayer(ModEntityLayerRegistry.CLAM));
+		this.clamModel = new ClamBlockModel(context.bakeLayer(ModModelLayerRegistry.CLAM));
 		this.itemModelManager = context.itemModelResolver();
 	}
 
@@ -76,7 +76,7 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 					   SubmitNodeCollector orderedRenderCommandQueue, @NonNull CameraRenderState cameraRenderState) {
 		matrixStack.pushPose();
 		matrixStack.translate(0.5F, 0.5F, 0.5F);
-		matrixStack.mulPose(Axis.YP.rotationDegrees(-clamBlockEntityRenderState.yaw));
+		matrixStack.rotateDegrees(Axis.YP, -clamBlockEntityRenderState.yaw);
 		matrixStack.translate(-0.5F, -0.5F, -0.5F);
 		float f = clamBlockEntityRenderState.lidAnimationProgress;
 		f = 1.0F - f;
@@ -84,15 +84,41 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 		SpriteId spriteIdentifier = TextureRegistry.getClamTextureId(clamBlockEntityRenderState.variant);
 		RenderType renderLayer = spriteIdentifier.renderType(RenderTypes::entityCutout);
 		TextureAtlasSprite sprite = this.materials.get(spriteIdentifier);
-		orderedRenderCommandQueue.submitModel(this.clamModel, f, matrixStack, renderLayer,
-				clamBlockEntityRenderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, sprite,
-				0, clamBlockEntityRenderState.breakProgress);
+
+		// 9 parameters: model, state (f), poseStack, renderType, lightCoords, overlayCoords, tintedColor, uvMapping, outlineColor
+		orderedRenderCommandQueue.submitModel(
+				this.clamModel,
+				f,
+				matrixStack,
+				renderLayer,
+				clamBlockEntityRenderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
+				-1,
+				sprite,
+				0
+		);
+
+		if (clamBlockEntityRenderState.breakProgress != null) {
+			orderedRenderCommandQueue.submitCrumblingOverlay(
+					this.clamModel,
+					f,
+					matrixStack,
+					renderLayer,
+					clamBlockEntityRenderState.lightCoords,
+					OverlayTexture.NO_OVERLAY,
+					-1,
+					clamBlockEntityRenderState.breakProgress
+			);
+		}
+
 		matrixStack.popPose();
 
-		if (clamBlockEntityRenderState.lidAnimationProgress>0) {
+		if (clamBlockEntityRenderState.lidAnimationProgress > 0) {
 			ItemStackRenderState itemRenderState = clamBlockEntityRenderState.itemRenderState;
-			if (itemRenderState != null) this.renderItem(clamBlockEntityRenderState, itemRenderState,
-					matrixStack, orderedRenderCommandQueue, -clamBlockEntityRenderState.yaw);
+			if (itemRenderState != null) {
+				this.renderItem(clamBlockEntityRenderState, itemRenderState,
+						matrixStack, orderedRenderCommandQueue, -clamBlockEntityRenderState.yaw);
+			}
 		}
 	}
 
@@ -101,9 +127,9 @@ public class ClamBlockEntityRenderer<T extends BlockEntity & LidBlockEntity> imp
 		Vec3 vec3d = new Vec3(0, -0.37, -0.11);
 		matrices.pushPose();
 		matrices.translate(0.5F, 0.5F, 0.5F);
-		matrices.mulPose(Axis.YP.rotationDegrees(rotationDegrees+180));
+		matrices.rotate(Axis.YP.rotationDegrees(rotationDegrees+180));
 		matrices.translate(vec3d);
-		matrices.mulPose(Axis.XP.rotationDegrees(90));
+		matrices.rotate(Axis.XP.rotationDegrees(90));
 		matrices.scale(0.5F, 0.5F, 0.5F);
 		itemRenderState.submit(matrices, queue, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 		matrices.popPose();

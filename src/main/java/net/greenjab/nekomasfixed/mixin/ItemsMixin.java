@@ -1,5 +1,7 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.references.BlockItemId;
@@ -13,7 +15,6 @@ import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 import java.util.function.BiFunction;
@@ -28,10 +29,10 @@ public class ItemsMixin {
 		throw new UnsupportedOperationException("Implemented via mixin");
 	}
 
-	@Redirect(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Items;registerItem(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/item/Item;"), slice = @Slice( from =
+	@WrapOperation(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Items;registerItem(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/item/Item;"), slice = @Slice( from =
 	@At(value = "FIELD", target = "Lnet/minecraft/references/ItemIds;CLOCK:Lnet/minecraft/resources/ResourceKey;", opcode = Opcodes.GETSTATIC), to =
 	@At(value = "FIELD",target = "Lnet/minecraft/world/item/Items;CLOCK:Lnet/minecraft/world/item/Item;", opcode = Opcodes.PUTSTATIC)))
-	private static Item wallFloorClock(ResourceKey<Item> id) {
+	private static Item wallFloorClock(ResourceKey<Item> id, Operation<Item> original) {
 		return registerBlock(BlockItemId.create("clock"), BlockRegistry.CLOCK, (block, settings) -> new StandingAndWallBlockItem(
 						block, BlockRegistry.WALL_CLOCK, Direction.DOWN, Waypoint.addHideAttribute(settings)),
 				new Item.Properties());

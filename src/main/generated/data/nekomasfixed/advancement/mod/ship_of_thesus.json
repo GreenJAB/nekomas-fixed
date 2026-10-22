@@ -1,0 +1,154 @@
+{
+  "parent": "nekomasfixed:mod/root",
+  "criteria": {
+    "obtained_huge_acacia_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_acacia_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_bamboo_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_bamboo_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_baobab_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_baobab_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_birch_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_birch_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_cherry_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_cherry_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_dark_oak_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_dark_oak_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_jungle_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_jungle_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_mangrove_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_mangrove_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_oak_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_oak_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_pale_oak_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_pale_oak_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_poplar_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_poplar_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_huge_spruce_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:huge_spruce_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.ship_of_thesus.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "nekomasfixed:huge_oak_boat"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.ship_of_thesus.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_huge_oak_boat",
+      "obtained_huge_spruce_boat",
+      "obtained_huge_birch_boat",
+      "obtained_huge_jungle_boat",
+      "obtained_huge_acacia_boat",
+      "obtained_huge_dark_oak_boat",
+      "obtained_huge_mangrove_boat",
+      "obtained_huge_cherry_boat",
+      "obtained_huge_poplar_boat",
+      "obtained_huge_pale_oak_boat",
+      "obtained_huge_bamboo_boat",
+      "obtained_huge_baobab_boat"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

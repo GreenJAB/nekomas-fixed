@@ -3,7 +3,9 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:turtle_leggings"
+        "recipes": [
+          "nekomasfixed:turtle_leggings"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     },

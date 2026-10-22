@@ -1,0 +1,92 @@
+{
+  "parent": "nekomasfixed:mod/i_am_the_ruler",
+  "criteria": {
+    "has_trimmed_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_boots",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_trimmed_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_chestplate",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_trimmed_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_helmet",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_trimmed_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_leggings",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.i_am_on_fire_now.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "nekomasfixed:jewel_armor_trim_smithing_template"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.i_am_on_fire_now.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_trimmed_helmet"
+    ],
+    [
+      "has_trimmed_chestplate"
+    ],
+    [
+      "has_trimmed_leggings"
+    ],
+    [
+      "has_trimmed_boots"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

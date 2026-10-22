@@ -48,8 +48,17 @@ accessible method net/minecraft/world/entity/animal/bee/Bee setHasNectar (Z)V
 accessible method net/minecraft/client/renderer/blockentity/DecoratedPotRenderer createModelTransformation (Lnet/minecraft/core/Direction;)Lcom/mojang/math/Transformation;
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimToTreasureGoal
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimWithPlayerGoal
+accessible field net/minecraft/client/gui/screens/worldselection/CreateWorldScreen tabManager Lnet/minecraft/client/gui/components/tabs/TabManager;
 accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$PlayWithItemsGoal
+accessible field net/minecraft/client/gui/screens/CreditsAndAttributionScreen layout Lnet/minecraft/client/gui/layouts/HeaderAndFooterLayout;
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+accessible method net/minecraft/client/gui/screens/CreditsAndAttributionScreen openCreditsScreen ()V
+accessible method net/minecraft/world/item/equipment/trim/TrimPatterns registryKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+accessible field net/minecraft/client/gui/screens/inventory/SmithingScreen armorStandPreview Lnet/minecraft/client/renderer/entity/state/ArmorStandRenderState;
+accessible method net/minecraft/data/loot/packs/VanillaBlockLoot createMobSkullDrop (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+accessible field net/minecraft/client/gui/screens/Screen minecraft Lnet/minecraft/client/Minecraft;
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
 accessible field net/minecraft/client/model/geom/ModelLayers ALL_MODELS Ljava/util/Set;
 accessible field net/minecraft/world/level/block/entity/BaseContainerBlockEntity name Lnet/minecraft/network/chat/Component;
@@ -57,6 +66,7 @@ accessible method net/minecraft/world/entity/monster/skeleton/AbstractSkeleton g
 accessible method net/minecraft/world/entity/Mob isSunBurnTick ()Z
 accessible method net/minecraft/world/level/block/Blocks wallVariant (Lnet/minecraft/world/level/block/Block;Z)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 accessible field net/minecraft/world/level/block/CampfireBlock spawnParticles Z
+accessible field net/minecraft/client/gui/screens/worldselection/CreateWorldScreen tabNavigationBar Lnet/minecraft/client/gui/components/tabs/MenuTabBar;
 accessible field net/minecraft/core/cauldron/CauldronInteractions ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
 accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
 accessible field net/minecraft/world/level/block/BaseFireBlock fireDamage F
@@ -80,3 +90,10 @@ accessible method net/minecraft/world/item/crafting/DecoratedPotRecipe back (Lne
 accessible method net/minecraft/world/item/crafting/DecoratedPotRecipe front (Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/world/item/ItemStack;
 accessible method net/minecraft/world/item/crafting/DecoratedPotRecipe right (Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/world/item/ItemStack;
 accessible field net/minecraft/world/item/crafting/DecoratedPotRecipe result Lnet/minecraft/world/item/ItemStackTemplate;
+
+accessible method net/minecraft/world/entity/animal/feline/Ocelot isTrusting ()Z
+accessible method net/minecraft/world/entity/animal/feline/Ocelot setTrusting (Z)V
+accessible field net/minecraft/world/level/block/RedstoneWireBlock evaluator Lnet/minecraft/world/level/redstone/RedstoneWireEvaluator;
+accessible method net/minecraft/world/level/block/RedstoneWireBlock useExperimentalEvaluator (Lnet/minecraft/world/level/Level;)Z
+accessible field net/minecraft/world/entity/Entity invulnerableTime I
+accessible method net/minecraft/world/entity/decoration/Cushion getCushionItemStackWithData ()Lnet/minecraft/world/item/ItemStack;

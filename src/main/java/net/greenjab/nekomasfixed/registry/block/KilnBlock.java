@@ -23,13 +23,6 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class KilnBlock extends AbstractFurnaceBlock {
-    public static final MapCodec<KilnBlock> CODEC = simpleCodec(KilnBlock::new);
-
-    @Override
-    public @NonNull MapCodec<KilnBlock> codec() {
-        return CODEC;
-    }
-
     public KilnBlock(BlockBehaviour.Properties settings) {
         super(settings);
     }

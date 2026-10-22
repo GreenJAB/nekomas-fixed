@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "nekomasfixed:amber_concrete",
+  "result": {
+    "id": "nekomasfixed:amber_concrete_stairs"
+  }
+}

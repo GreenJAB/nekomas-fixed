@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "wool_slab",
+  "key": {
+    "#": "nekomasfixed:amber_wool"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "nekomasfixed:amber_wool_slab"
+  }
+}

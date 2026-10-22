@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "nekomasfixed:block/magenta_spotted_wool",
+    "side": "nekomasfixed:block/magenta_spotted_wool",
+    "top": "nekomasfixed:block/magenta_spotted_wool"
+  }
+}

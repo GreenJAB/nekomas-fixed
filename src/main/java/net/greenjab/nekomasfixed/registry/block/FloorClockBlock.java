@@ -18,20 +18,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
 
 public class FloorClockBlock extends AbstractClockBlock {
-	public static final MapCodec<FloorClockBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-				propertiesCodec()
-			).apply(instance, FloorClockBlock::new)
-	);
+
 	public static final int MAX_ROTATION_INDEX = RotationSegment.getMaxSegmentIndex();
 	private static final int MAX_ROTATIONS = MAX_ROTATION_INDEX + 1;
 	public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
 	private static final VoxelShape SHAPE = Block.column(8.0, 0.0, 8.0);
-
-	@Override
-	public @NonNull MapCodec<? extends FloorClockBlock> codec() {
-		return CODEC;
-	}
 
 	public FloorClockBlock(Properties settings) {
 		super(settings);

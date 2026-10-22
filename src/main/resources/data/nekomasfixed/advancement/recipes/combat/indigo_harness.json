@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:indigo_harness"
+        "recipes": [
+          "nekomasfixed:indigo_harness"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

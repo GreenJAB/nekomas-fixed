@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "nekomasfixed:shatter"
+    "nekomasfixed:shatter",
+    "nekomasfixed:dismount"
   ]
 }

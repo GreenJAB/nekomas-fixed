@@ -23,7 +23,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dye_amber_wool"
+        "recipes": [
+          "nekomasfixed:dye_amber_wool"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

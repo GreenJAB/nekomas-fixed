@@ -3,7 +3,9 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:turtle_chestplate"
+        "recipes": [
+          "nekomasfixed:turtle_chestplate"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     },
