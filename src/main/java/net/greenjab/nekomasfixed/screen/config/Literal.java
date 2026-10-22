@@ -45,6 +45,28 @@ public class Literal {
         return compText(text, "other");
     }
 
+    public static Component compSubCat(String text){
+        return Component.translatable("config.sub_category."+text);
+    }
+
+    public static Component compSlider(String text){
+        return Component.translatable("config.slider."+text);
+    }
+
+    public static Component compSliderDesc(String text){
+        return Component.translatable("config.slider.desc."+text);
+    }
+
+
+
+    public static Component compBlockDesc(String text){
+        return compDesc(text, "blocks");
+    }
+
+    public static Component compBlockText(String text){
+        return compText(text, "blocks");
+    }
+
     public static Component compOtherDesc(String text){
         return compDesc(text, "other");
     }

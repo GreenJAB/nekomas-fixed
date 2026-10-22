@@ -35,6 +35,14 @@ public class InGameEditScreen extends Screen {
                         b -> this.minecraft.gui.setScreen(EntityConfigScreen.create(this)))
                 .width(200).build());
 
+        helper.addChild(Button.builder(TabLiterals.ITEM_TITLE,
+                        b -> this.minecraft.gui.setScreen(ItemConfigScreen.create(this)))
+                .width(200).build());
+
+        helper.addChild(Button.builder(TabLiterals.BLOCKS_TITLE,
+                        b -> this.minecraft.gui.setScreen(BlockConfigScreen.create(this)))
+                .width(200).build());
+
         helper.addChild(Button.builder(TabLiterals.OTHER_TITLE,
                         b -> this.minecraft.gui.setScreen(OtherConfigScreen.create(this)))
                 .width(200).build());

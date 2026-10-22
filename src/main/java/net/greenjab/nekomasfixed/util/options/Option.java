@@ -1,4 +1,4 @@
-package net.greenjab.nekomasfixed.util;
+package net.greenjab.nekomasfixed.util.options;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -10,7 +10,7 @@ public class Option<T> {
     public static final List<Option<?>> ALL = new ArrayList<>();
 
     public final String name;
-    public final T defaultValue;
+    protected final T defaultValue;
     private T value;
 
     public final boolean lockedInWorld;

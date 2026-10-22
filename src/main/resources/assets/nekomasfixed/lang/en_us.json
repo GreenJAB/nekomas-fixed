@@ -1,4 +1,6 @@
 {
+  "credits.button.credits": "Mod Credits",
+
   "itemgroup.nekomasfixed": "Nekoma's Fixed Ideas",
   "itemgroup.nekomasfixedcolours": "Nekoma's Fixed Colours",
   "title.nekomasfixed.config": "Config",
@@ -571,6 +573,9 @@
   "config.main_title.nether": "Nether Options",
   "config.main_title.other": "Other Options",
   "config.main_title.entity": "Entity Options",
+  "config.main_title.item": "Item Options",
+  "config.main_title.blocks": "Blocks Related Options",
+  "config.main_title.credits": "Credits",
 
   "config.in_game": "Mod Options",
 
@@ -578,13 +583,27 @@
   "config.go_to.nether": "Nether Options...",
   "config.go_to.other": "Other Options...",
   "config.go_to.entity": "Entity Options...",
+  "config.go_to.item": "Item Options...",
+  "config.go_to.blocks": "Blocks Related Options...",
 
   "config.separator.terrain": "=== Terrain ===",
   "config.separator.nether": "=== Nether Improvements ===",
   "config.separator.misc_other": "=== Miscellaneous ===",
   "config.separator.villagers": "=== Villagers ===",
   "config.separator.spawn": "=== Spawns ===",
+  "config.separator.recipe": "=== Recipes ===",
+  "config.separator.developers": "=== Developers(Modders) ===",
+  "config.separator.asset_providers": "=== Asset Providers ===",
+  "config.separator.interaction": "=== Block Interactions ===",
+  "config.separator.advancments": "=== Advancement Suggestions By ===",
+  "config.separator.testers": "=== Mod Testers ===",
+  "config.separator.translators": "=== Mod Translators ===",
   "config.separator.cannot_be_changed": " After World Creation, CANNOT BE CHANGED!",
+
+  "config.sub_category.cake": "Cakes",
+
+  "config.slider.cake_layers": "Cake Layers",
+  "config.slider.desc.cake_layers": "Sets the number of Cake Layers which can be Stacked On top of each other.",
 
   "config.nekoma": "Nekoma's",
   "config.fixed": "Fixed",
@@ -598,8 +617,29 @@
   "config.other.button.copper_armor_changes": "Enable Copper Buffs",
   "config.other.desc.copper_armor_changes": "Lightning striking a player with full copper gear would give the player speed",
 
+  "config.other.button.enable_dyed_brushes": "Keep Dyed Brushes",
+  "config.other.desc.enable_dyed_brushes": "Keeps the dyed brush recipe",
+
   "config.entity.button.spawn_sus_spider": "Spawn Suspicious Spiders",
   "config.entity.desc.spawn_sus_spider": "Spawn Spiders with Suspicious Stew effects",
+
+  "config.entity.button.spawn_mooblooms": "Spawn Mooblooms",
+  "config.entity.desc.spawn_mooblooms": "Spawn mooblooms",
+
+  "config.entity.button.spawn_termite": "Spawn Termites",
+  "config.entity.desc.spawn_termite": "Spawn termites in Termite Mounds",
+
+  "config.entity.button.spawn_drenched": "Spawn Drenched",
+  "config.entity.desc.spawn_drenched": "Spawn Drenched in Oceans",
+
+  "config.entity.button.spawn_rime": "Spawn Rime",
+  "config.entity.desc.spawn_rime": "Spawn rimes in the Cold biomes",
+
+  "config.entity.button.spawn_derelict": "Spawn Derelict",
+  "config.entity.desc.spawn_derelict": "Spawn Derelict in the Jungle biome",
+
+  "config.entity.button.spawn_wildfire": "Spawn Wildfire",
+  "config.entity.desc.spawn_wildfire": "Spawn wildfire in the Boss Room in Nether Fortresses",
 
   "config.entity.button.enable_messy_beds": "Enable Messy Beds",
   "config.entity.desc.enable_messy_beds": "Allows beds to be messy",
@@ -610,6 +650,12 @@
   "config.nether.button.magma_block_changes": "Magma Block Changes",
   "config.nether.desc.magma_block_changes": "Magma block requires silk touch to break",
 
+  "config.blocks.button.enable_stacked_cakes": "Enable Stacked Cakes",
+  "config.blocks.desc.enable_stacked_cakes": "Enables Stacking of Multiple Cakes",
+
+  "config.blocks.button.enderman_head_activates": "Enderman Head Activates",
+  "config.blocks.desc.enderman_head_activates": "Looking at an Enderman head powers it",
+  
   "advancements.nekomasfixed.root.description": "Track your progress in the mod!",
   "nekoma": "Nekoma's",
   "fixed": "Fixed",
