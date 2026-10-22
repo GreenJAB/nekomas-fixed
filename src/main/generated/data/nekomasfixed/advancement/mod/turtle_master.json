@@ -1,0 +1,41 @@
+{
+  "parent": "nekomasfixed:mod/root",
+  "criteria": {
+    "turtle_master": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:turtle_helmet"
+          },
+          {
+            "items": "nekomasfixed:turtle_chestplate"
+          },
+          {
+            "items": "nekomasfixed:turtle_boots"
+          },
+          {
+            "items": "nekomasfixed:turtle_leggings"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.turtle_master.description"
+    },
+    "icon": {
+      "id": "nekomasfixed:turtle_chestplate"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.turtle_master.title"
+    }
+  },
+  "requirements": [
+    [
+      "turtle_master"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

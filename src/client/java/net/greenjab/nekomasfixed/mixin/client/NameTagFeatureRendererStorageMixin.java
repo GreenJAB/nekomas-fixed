@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(SubmitNodeCollection.class)
 public class NameTagFeatureRendererStorageMixin {
-
     @ModifyArgs(
             method = "submitNameTag",
             at = @At(
@@ -20,8 +19,9 @@ public class NameTagFeatureRendererStorageMixin {
     )
     private void fixLight(Args args, @Local(ordinal = 1, argsOnly = true) int lightCoords) {
         if (ARGB.red(lightCoords) == 254 && ARGB.green(lightCoords) == 255 && ARGB.blue(lightCoords) == 255) {
-            args.set(4, lightCoords);
-            args.set(5, 16516350);
+            args.set(4, 16516350);
+            args.set(5, lightCoords);
+            args.set(6, 16516350);
         }
     }
 }

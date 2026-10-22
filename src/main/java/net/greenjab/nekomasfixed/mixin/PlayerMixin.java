@@ -74,7 +74,7 @@ public class PlayerMixin {
                 this.checkForEdibles(PE);
             }
         }
-        if (ModData.combos.containsKey(PE.getUUID())){
+        if (!PE.level().isClientSide() && ModData.combos.containsKey(PE.getUUID())){
             int comboTimer = ModData.combos.get(PE.getUUID())-1;
             if (comboTimer<=0) ModData.combos.remove(PE.getUUID());
             else ModData.combos.put(PE.getUUID(), comboTimer);
@@ -106,7 +106,8 @@ public class PlayerMixin {
             }
             return true;
         }
-        if (PE.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && PE.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) target.invulnerableTime = 10;
+        //this line was causing the sickle issue
+//        if (PE.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && PE.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) target.invulnerableTime = 10;
         applyFlowerCrownEffect(target);
         return original.call(target, source, damage);
     }
@@ -153,7 +154,7 @@ public class PlayerMixin {
 
             if (!player.level().isClientSide()) ModData.combos.put(player.getUUID(), Math.min((comboSec+1)*30, 10*30));
 
-            return original + baseDamage *comboSec*multiplier*0.01f;
+            return (float) (original + (double) baseDamage *(double) comboSec * (double) multiplier *0.01f);
         }
         return original;
     }

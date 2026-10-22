@@ -35,8 +35,6 @@
   "block.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
   "item.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
 
-
-
   "block.nekomasfixed.corrupted_beacon": "Corrupted Beacon",
   "item.nekomasfixed.corrupted_beacon": "Corrupted Beacon",
   "block.nekomasfixed.enderman_head": "Enderman Head",
@@ -49,6 +47,13 @@
   "item.nekomasfixed.turtle_chestplate": "Turtle Shell",
   "item.nekomasfixed.turtle_leggings": "Turtle Knee Pads",
   "item.nekomasfixed.turtle_boots": "Turtle Flippers",
+
+  "item.nekomasfixed.goat_horn_iron_helmet": "Goat Horn Iron Helmet",
+  "item.nekomasfixed.goat_horn_golden_helmet": "Goat Horn Golden Helmet",
+  "item.nekomasfixed.goat_horn_diamond_helmet": "Goat Horn Diamond Helmet",
+  "item.nekomasfixed.goat_horn_netherite_helmet": "Goat Horn Netherite Helmet",
+  "item.nekomasfixed.goat_horn_turtle_helmet": "Goat Horn Turtle Helmet",
+  "item.nekomasfixed.goat_horn_copper_helmet": "Goat Horn Copper Helmet",
 
   "entity.nekomasfixed.moobloom": "Moobloom",
   "item.nekomasfixed.moobloom_spawn_egg": "Moobloom Spawn Egg",
@@ -546,6 +551,13 @@
   "item.nekomasfixed.open_eyeblossom_flower_crown": "Open Eyeblossom Flower Crown",
   "item.nekomasfixed.closed_eyeblossom_flower_crown": "Closed Eyeblossom Flower Crown",
 
+  "entity.nekomasfixed.fake_boat": "Fake Boat",
+  "entity.nekomasfixed.fire_bomb": "Fire Bomb",
+  "entity.nekomasfixed.slingshot_projectile": "Slingshot Projectile",
+  "entity.nekomasfixed.slowness_snowball": "Slowness Snowball",
+  "entity.nekomasfixed.spear": "Spear",
+  "entity.nekomasfixed.wildfire_trident": "Wildfire Trident",
+
   "enchantment.nekomasfixed.dismount": "Dismount",
   "enchantment.nekomasfixed.leeching": "Leeching",
   "enchantment.nekomasfixed.shatter": "Shatter",
@@ -642,5 +654,24 @@
   "config.blocks.desc.enable_stacked_cakes": "Enables Stacking of Multiple Cakes",
 
   "config.blocks.button.enderman_head_activates": "Enderman Head Activates",
-  "config.blocks.desc.enderman_head_activates": "Looking at an Enderman head powers it"
+  "config.blocks.desc.enderman_head_activates": "Looking at an Enderman head powers it",
+  
+  "advancements.nekomasfixed.root.description": "Track your progress in the mod!",
+  "nekoma": "Nekoma's",
+  "fixed": "Fixed",
+
+  "advancements.nekomasfixed.turtle_master.title": "A True Turtle Master!",
+  "advancements.nekomasfixed.turtle_master.description": "Collect a full set of turtle armor",
+
+  "advancements.nekomasfixed.rainbow_spotted_wool.title": "Dotted Rainbow!",
+  "advancements.nekomasfixed.rainbow_spotted_wool.description": "Collect all 20 blocks of spotted wool",
+
+  "advancements.nekomasfixed.ship_of_thesus.title": "Ship of Thesus!",
+  "advancements.nekomasfixed.ship_of_thesus.description": "Craft a huge boat",
+
+  "advancements.nekomasfixed.i_am_the_ruler.title": "I am the Ruler!",
+  "advancements.nekomasfixed.i_am_the_ruler.description": "Trim a crown with jewel armor trim",
+
+  "advancements.nekomasfixed.i_am_on_fire_now.title": "Look who's on Fire Now!",
+  "advancements.nekomasfixed.i_am_on_fire_now.description": "Trim a full set of netherite armor with jewel armor trim"
 }
