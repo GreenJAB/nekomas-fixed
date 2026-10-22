@@ -46,6 +46,7 @@ import org.jspecify.annotations.NonNull;
 import java.util.List;
 
 public class Moobloom extends Cow {
+
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS;

@@ -67,7 +67,7 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
                     Block.column(16.0, 0.0, 2.0),
                     Block.column(16.0, 14.0, 16.0),
                     Block.box(0.0, 0.0, 0.0, 2.0, 16.0, 16.0),
-                    Block.box(14.0, 0.0, 0.0, 16.0, 16.0, 16.0),
+                    Block.box(14.0, 0.0, 0.0, 16.0, 15.0, 16.0),
                     Block.column(12.0, 2.0, 14.0)
             )
     );
@@ -168,12 +168,11 @@ public class HollowLogBlock extends BaseEntityBlock implements EntityBlock, Simp
                             return InteractionResult.SUCCESS;
                         }
                     }
-                    if (HollowLogBlockEntity.canStoreBlock(logBE, blockItem, state.getValue(AXIS)== Direction.Axis.Y)) {
+                    if (HollowLogBlockEntity.canStoreBlock(logBE, blockItem, state.getValue(AXIS)==Direction.Axis.Y)) {
                         logBE.setStoredBlock(stack.copyWithCount(1), blockItem.getBlock().defaultBlockState());
                         stack.consume(1, player);
                         level.sendBlockUpdated(pos, state, state, 3);
-                        if (state.getValue(AXIS)== Direction.Axis.Y)
-                            state = state.setValue(SOLID_INSIDE, true);
+                        state = state.setValue(SOLID_INSIDE, true);
                         if (!stack.getItemName().getString().toLowerCase().contains("glass"))
                             state = state.setValue(WATERLOGGED, false);
                         if (blockItem.getBlock().defaultBlockState().getLightEmission() > 0)

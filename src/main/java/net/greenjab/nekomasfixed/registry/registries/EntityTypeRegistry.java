@@ -102,7 +102,7 @@ public class EntityTypeRegistry {
             EntityType.Builder.of(Termite::new, MobCategory.MONSTER).sized(0.5f, 0.5f));
 
     public static final EntityType<Moobloom> MOOBLOOM = register("moobloom",
-            EntityType.Builder.of(Moobloom::new, MobCategory.AMBIENT).sized(1f, 1f));
+            EntityType.Builder.of(Moobloom::new, MobCategory.AMBIENT).sized(0.9F, 1.4F).eyeHeight(1.3F).passengerAttachments(1.36875F).clientTrackingRange(10));
 
     public static final EntityType<SuspiciousSpider> SUSPICIOUS_SPIDER = register("suspicious_spider",
             EntityType.Builder.of(SuspiciousSpider::new, MobCategory.MONSTER).sized(1f, 1f).notInPeaceful());
