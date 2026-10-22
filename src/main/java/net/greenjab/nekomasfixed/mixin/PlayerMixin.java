@@ -9,6 +9,9 @@ import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.greenjab.nekomasfixed.util.ModData;
 import net.greenjab.nekomasfixed.util.ModTags;
+import net.greenjab.nekomasfixed.registry.item.FlowerCrownItem;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
@@ -67,11 +70,11 @@ public class PlayerMixin {
             }
         }
         if (PE.level().getBiome(PE.blockPosition()).is(BiomeTags.IS_NETHER)) {
-            if (!PE.isCreative()&&!PE.isSpectator() && ModConfigValues.netherFoodRotting){
+            if (!PE.isCreative()&&!PE.isSpectator() && ModConfigValues.netherFoodRotting.get()){
                 this.checkForEdibles(PE);
             }
         }
-        if (ModData.combos.containsKey(PE.getUUID())){
+        if (!PE.level().isClientSide() && ModData.combos.containsKey(PE.getUUID())){
             int comboTimer = ModData.combos.get(PE.getUUID())-1;
             if (comboTimer<=0) ModData.combos.remove(PE.getUUID());
             else ModData.combos.put(PE.getUUID(), comboTimer);
@@ -103,10 +106,24 @@ public class PlayerMixin {
             }
             return true;
         }
-
-        if (PE.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && PE.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) target.invulnerableTime = 10;
-
+        //this line was causing the sickle issue
+//        if (PE.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && PE.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) target.invulnerableTime = 10;
+        applyFlowerCrownEffect(target);
         return original.call(target, source, damage);
+    }
+
+    @Unique
+    private static final Random FLOWER_CROWN_RANDOM = new Random();
+
+    @Unique
+    private void applyFlowerCrownEffect(Entity target) {
+        if (!(target instanceof LivingEntity livingTarget)) return;
+        ItemStack headItem = livingTarget.getItemBySlot(EquipmentSlot.HEAD);
+        if (!(headItem.getItem() instanceof FlowerCrownItem crown)) return;
+        if (FLOWER_CROWN_RANDOM.nextFloat() >= 0.5f) return;
+
+        Holder<MobEffect> effect = crown.getVariant().effect.effect();
+        livingTarget.addEffect(new MobEffectInstance(effect, 20 * 5, 0, false, true, true));
     }
 
     @WrapOperation(method = "interactOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/InteractionResult;"))
@@ -137,7 +154,7 @@ public class PlayerMixin {
 
             if (!player.level().isClientSide()) ModData.combos.put(player.getUUID(), Math.min((comboSec+1)*30, 10*30));
 
-            return original + baseDamage *comboSec*multiplier*0.01f;
+            return (float) (original + (double) baseDamage *(double) comboSec * (double) multiplier *0.01f);
         }
         return original;
     }

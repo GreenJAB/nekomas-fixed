@@ -3,6 +3,8 @@ package net.greenjab.nekomasfixed.registry.item;
 import java.util.HashMap;
 import java.util.Map;
 
+import alternate.current.interfaces.mixin.IServerLevel;
+import alternate.current.wire.WireHandler;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ObserverBlock;
+import net.minecraft.world.level.block.RedstoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
@@ -39,7 +42,6 @@ public class RedstoneStrikerItem extends FlintAndSteelItem {
             player.swing(player.getUsedItemHand(), SwingAnimation.DEFAULT, true);
             context.getItemInHand().hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
             STRUCK_WIRES.put(Gpos, level.getGameTime() + (player.isShiftKeyDown() ? 1 : 16));
-
         } else STRUCK_WIRES.put(Gpos, level.getGameTime() + 16);
         if (state.is(Blocks.OBSERVER) && level instanceof ServerLevel serverLevel)
             if (state.getBlock() instanceof ObserverBlock observerBlock) observerBlock.startSignal(serverLevel, level, pos);

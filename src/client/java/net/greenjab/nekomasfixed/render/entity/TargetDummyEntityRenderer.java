@@ -9,6 +9,8 @@ import net.greenjab.nekomasfixed.render.entity.feature.BasePlateFeatureRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyArmorModel;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyModel;
 import net.greenjab.nekomasfixed.render.entity.state.TargetDummyRenderState;
+import net.greenjab.nekomasfixed.render.entity.feature.GoatHornHelmetLayer;
+import net.greenjab.nekomasfixed.render.entity.feature.FlowerCrownLayer;
 import net.minecraft.client.renderer.PlayerSkinRenderCache;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
@@ -25,6 +27,7 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.Rotations;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.world.entity.player.PlayerSkin;
 import net.minecraft.world.item.component.ResolvableProfile;
 import org.jspecify.annotations.NonNull;
@@ -39,9 +42,16 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
 	private static final Identifier TEXTURE = NekomasFixed.id("textures/entity/target_dummy/default.png");
 	private static final Identifier ZOMBIE_TEXTURE = NekomasFixed.id("textures/entity/target_dummy/zombie.png");
 
+	private final TargetDummyModel steveModel;
+	private final TargetDummyModel alexModel;
+
 	public TargetDummyEntityRenderer(EntityRendererProvider.Context context) {
 		super(context, new TargetDummyModel(context.bakeLayer(ModModelLayerRegistry.TARGET_DUMMY)), 0.0F);
 		this.skinCache = context.getPlayerSkinRenderCache();
+
+		this.steveModel = (TargetDummyModel) this.model;
+		this.alexModel = new TargetDummyModel(context.bakeLayer(ModModelLayerRegistry.TARGET_DUMMY_SLIM));
+
 		this.addLayer(
 				new HumanoidArmorLayer<>(
 						this,
@@ -54,6 +64,8 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
 		this.addLayer(new WingsLayer<>(this, context.getModelSet(), context.getEquipmentRenderer()));
 		this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getPlayerSkinRenderCache()));
 		this.addLayer(new BasePlateFeatureRenderer(this, context.getModelSet()));
+		this.addLayer(new GoatHornHelmetLayer<>(this, context.getModelSet()));
+		this.addLayer(new FlowerCrownLayer<>(this, context.getModelSet()));
 	}
 
 	public @NonNull Identifier getTextureLocation(TargetDummyRenderState TargetDummyRenderState) {
@@ -69,6 +81,13 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
 		super.extractRenderState(targetDummy, targetDummyRenderState, f);
 		HumanoidMobRenderer.extractHumanoidRenderState(targetDummy, targetDummyRenderState, f, this.itemModelResolver);
 		targetDummyRenderState.skinTextures = getSkin(targetDummy);
+
+		if (targetDummyRenderState.skinTextures != null) {
+			targetDummyRenderState.isSlim = targetDummyRenderState.skinTextures.model() == PlayerModelType.SLIM;
+		} else {
+			targetDummyRenderState.isSlim = false;
+		}
+
 		targetDummyRenderState.isZombie = targetDummy.isZombie();
 		targetDummyRenderState.yaw = Mth.rotLerp(f, targetDummy.yRotO, targetDummy.getYRot());
 		targetDummyRenderState.bodyRotation = targetDummy.getBodyRotation();
@@ -99,6 +118,7 @@ public class TargetDummyEntityRenderer extends LivingEntityRenderer<TargetDummy,
             @NonNull SubmitNodeCollector orderedRenderCommandQueue,
             @NonNull CameraRenderState cameraRenderState
 	) {
+		this.model = TargetDummyRenderState.isSlim ? alexModel : steveModel;
 		super.submit(TargetDummyRenderState, matrixStack, orderedRenderCommandQueue, cameraRenderState);
 	}
 

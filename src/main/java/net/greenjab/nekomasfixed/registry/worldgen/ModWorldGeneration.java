@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.worldgen;
 
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.worldgen.feature.ClamFeature;
@@ -10,10 +11,14 @@ import net.greenjab.nekomasfixed.registry.worldgen.feature.TermiteMoundFeature;
 import net.greenjab.nekomasfixed.registry.worldgen.tree.BaobabTreeDecorator;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+
+import java.util.function.Predicate;
 
 public class ModWorldGeneration {
     public static void generateModWorldGen() {
@@ -23,6 +28,8 @@ public class ModWorldGeneration {
                 GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModFeatures.MOUND_KEY);
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.CRIMSON_FOREST, Biomes.NETHER_WASTES),
                 GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModFeatures.GEYSER_KEY);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SOUL_SAND_VALLEY),
+                GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.GHOST_PEPPER_SHRUB_KEY);
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN), GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.CLAM_KEY);
     }
@@ -34,4 +41,6 @@ public class ModWorldGeneration {
     private static <T, M extends MapCodec<T>> M registerFeature(String name, M codec) {
         return (M) Registry.register((Registry) BuiltInRegistries.FEATURE_TYPE, NekomasFixed.id(name), codec);
     }
+
+
 }

@@ -1,0 +1,280 @@
+{
+  "parent": "nekomasfixed:mod/root",
+  "criteria": {
+    "obtained_amber_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:amber_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_aqua_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:aqua_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_black_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:black_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_blue_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:blue_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_brown_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:brown_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_cyan_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:cyan_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_gray_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:gray_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_green_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:green_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_indigo_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:indigo_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_light_blue_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:light_blue_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_light_gray_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:light_gray_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_lime_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:lime_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_magenta_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:magenta_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_maroon_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:maroon_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_orange_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:orange_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_pink_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:pink_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_purple_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:purple_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_red_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:red_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_white_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:white_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_yellow_spotted_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:yellow_spotted_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.rainbow_spotted_wool.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "nekomasfixed:white_spotted_wool"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.rainbow_spotted_wool.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_white_spotted_wool"
+    ],
+    [
+      "obtained_light_gray_spotted_wool"
+    ],
+    [
+      "obtained_gray_spotted_wool"
+    ],
+    [
+      "obtained_black_spotted_wool"
+    ],
+    [
+      "obtained_brown_spotted_wool"
+    ],
+    [
+      "obtained_red_spotted_wool"
+    ],
+    [
+      "obtained_orange_spotted_wool"
+    ],
+    [
+      "obtained_yellow_spotted_wool"
+    ],
+    [
+      "obtained_lime_spotted_wool"
+    ],
+    [
+      "obtained_green_spotted_wool"
+    ],
+    [
+      "obtained_cyan_spotted_wool"
+    ],
+    [
+      "obtained_light_blue_spotted_wool"
+    ],
+    [
+      "obtained_blue_spotted_wool"
+    ],
+    [
+      "obtained_purple_spotted_wool"
+    ],
+    [
+      "obtained_magenta_spotted_wool"
+    ],
+    [
+      "obtained_pink_spotted_wool"
+    ],
+    [
+      "obtained_amber_spotted_wool"
+    ],
+    [
+      "obtained_aqua_spotted_wool"
+    ],
+    [
+      "obtained_indigo_spotted_wool"
+    ],
+    [
+      "obtained_maroon_spotted_wool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

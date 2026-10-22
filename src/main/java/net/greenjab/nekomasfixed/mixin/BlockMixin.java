@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -22,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BlockMixin {
     @Inject(method = "playerDestroy", at = @At("HEAD"))
     private void customAfterBreak(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack destroyedWith, CallbackInfo ci) {
-        if(state.is(Blocks.MAGMA_BLOCK) && player!=null){
+        if(state.is(Blocks.MAGMA_BLOCK) && player != null && ModConfigValues.magmaBlockNeedsSilkTouch.get()){
             ItemStack stack = player.getMainHandItem();
             Holder<Enchantment> silkTouchEntry =
                     level.registryAccess().getOrThrow(Holder.direct(Enchantments.SILK_TOUCH).value());

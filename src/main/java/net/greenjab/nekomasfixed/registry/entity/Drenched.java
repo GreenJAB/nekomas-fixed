@@ -14,13 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -34,6 +28,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.animal.nautilus.Nautilus;
 import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.monster.skeleton.Skeleton;
@@ -97,6 +92,23 @@ public class Drenched extends AbstractSkeleton {
         if (this.getItemBySlot(EquipmentSlot.OFFHAND).isEmpty() && level.getRandom().nextFloat() < 0.03F) {
             this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(getClam(level.getRandom().nextFloat())));
             this.setGuaranteedDrop(EquipmentSlot.OFFHAND);
+        }
+        if ((spawnReason == EntitySpawnReason.NATURAL || spawnReason == EntitySpawnReason.STRUCTURE)
+                && this.getMainHandItem().is(ItemRegistry.ANCHOR)
+                && level.getRandom().nextFloat() < 0.5f
+                && !this.isBaby()
+                && !level.getBiome(this.blockPosition()).is(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS)) {
+            Nautilus mount = EntityTypes.NAUTILUS.create(this.level(), EntitySpawnReason.JOCKEY);
+            if (mount != null) {
+                if (spawnReason == EntitySpawnReason.STRUCTURE) {
+                    mount.setPersistenceRequired();
+                }
+                mount.setAge(0); // So it always an adult.
+                mount.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                mount.finalizeSpawn(level, difficulty, spawnReason, null);
+                this.startRiding(mount, false, false);
+                level.addFreshEntity(mount);
+            }
         }
         return entityData;
     }
@@ -463,5 +475,14 @@ public class Drenched extends AbstractSkeleton {
 
             return null;
         }
+    }
+    @Override
+    protected Vec3 getPassengerAttachmentPoint(Entity entity, EntityDimensions dimensions, float scale) {
+        return super.getPassengerAttachmentPoint(entity, dimensions, scale);
+    }
+
+    @Override
+    public Vec3 getVehicleAttachmentPoint(Entity vehicle) {
+        return new Vec3(0.0, 0.55, 0.0);
     }
 }

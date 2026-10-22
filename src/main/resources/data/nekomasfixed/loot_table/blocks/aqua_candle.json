@@ -6,57 +6,51 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
               "add": false,
-              "conditions": [
-                {
-                  "block": "nekomasfixed:aqua_candle",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "candles": "2"
-                  }
+              "condition":{
+                "blocks": "nekomasfixed:aqua_candle",
+                "type": "minecraft:match_block",
+                "state": {
+                  "candles": "2"
                 }
-              ],
-              "count": 2.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 2,
+              "type": "minecraft:set_count"
             },
             {
               "add": false,
-              "conditions": [
-                {
-                  "block": "nekomasfixed:aqua_candle",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "candles": "3"
-                  }
+              "condition":{
+                "blocks": "nekomasfixed:aqua_candle",
+                "type": "minecraft:match_block",
+                "state": {
+                  "candles": "3"
                 }
-              ],
-              "count": 3.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 3,
+              "type": "minecraft:set_count"
             },
             {
               "add": false,
-              "conditions": [
-                {
-                  "block": "nekomasfixed:aqua_candle",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "candles": "4"
-                  }
+              "condition":{
+                "blocks": "nekomasfixed:aqua_candle",
+                "type": "minecraft:match_block",
+                "state": {
+                  "candles": "4"
                 }
-              ],
-              "count": 4.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 4,
+              "type": "minecraft:set_count"
             },
             {
-              "function": "minecraft:explosion_decay"
+              "type": "minecraft:explosion_decay"
             }
           ],
           "name": "nekomasfixed:aqua_candle"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "nekomasfixed:blocks/aqua_candle"

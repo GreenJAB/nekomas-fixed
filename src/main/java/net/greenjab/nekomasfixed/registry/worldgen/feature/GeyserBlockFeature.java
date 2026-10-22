@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registry.worldgen.feature;
 
 import com.mojang.serialization.MapCodec;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -24,6 +25,8 @@ public class GeyserBlockFeature implements Feature {
     @Override
     public boolean place(WorldGenLevel world, ChunkGenerator chunkGenerator, RandomSource random, BlockPos start) {
         if (!world.isEmptyBlock(start) || world.isEmptyBlock(start.below())) return false;
+        if(!ModConfigValues.generateGeysers.get()) return false;
+
         boolean adjacentToTerrain = false;
 
         for (Direction dir : Direction.Plane.HORIZONTAL) {

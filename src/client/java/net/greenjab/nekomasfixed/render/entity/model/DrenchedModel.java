@@ -46,6 +46,16 @@ public class DrenchedModel extends SkeletonModel<DrenchedRenderState> {
     public void setupAnim(@NonNull DrenchedRenderState drenchedRenderState) {
         super.setupAnim(drenchedRenderState);
 
+        if (drenchedRenderState.isPassenger) {
+            this.rightLeg.xRot = -1.4137167F;
+            this.rightLeg.yRot = ((float)Math.PI / 10F);
+            this.rightLeg.zRot = 0.07853982F;
+            this.leftLeg.xRot = -1.4137167F;
+            this.leftLeg.yRot = -((float)Math.PI / 10F);
+            this.leftLeg.zRot = -0.07853982F;
+            return;
+        }
+
         float swimAmount = drenchedRenderState.swimAmount;
         if (swimAmount > 0.0F) {
             this.rightArm.xRot = Mth.rotLerpRad(swimAmount, this.rightArm.xRot, (float) (-Math.PI * 4.0 / 5.0 - 90*Math.PI/180.0)) + swimAmount * 0.35F * Mth.sin((0.1F * drenchedRenderState.ageInTicks));

@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.entity;
 
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -16,10 +17,13 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -34,8 +38,18 @@ public class SuspiciousSpider extends Spider {
     }
 
     @Override
+    public @Nullable ItemEntity spawnAtLocation(ServerLevel level, ItemStack itemStack, Vec3 offset) {
+        return ModConfigValues.spawnSusSpider.get() ? super.spawnAtLocation(level, itemStack, offset) : null;
+    }
+
+    @Override
     public @Nullable SpawnGroupData finalizeSpawn(@NonNull ServerLevelAccessor level, @NonNull DifficultyInstance difficulty, @NonNull EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
         entityData = super.finalizeSpawn(level, difficulty, spawnReason, entityData);
+
+        if(!ModConfigValues.spawnSusSpider.get()){
+            return null;
+        }
+
         if (entityData instanceof Spider.SpiderEffectsGroupData spiderData) {
             spiderData.setRandomEffect(random);
             Holder<MobEffect> registryEntry = spiderData.effect;
@@ -62,9 +76,10 @@ public class SuspiciousSpider extends Spider {
         };
     }
 
+
     public static boolean canSpawn(
             EntityType<? extends Mob> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random
     ) {
-        return checkMonsterSpawnRules(type, level, spawnReason, pos, random) && (EntitySpawnReason.isSpawner(spawnReason) || !level.canSeeSky(pos));
+        return ModConfigValues.spawnSusSpider.get() && (checkMonsterSpawnRules(type, level, spawnReason, pos, random) && (EntitySpawnReason.isSpawner(spawnReason) || !level.canSeeSky(pos)));
     }
 }

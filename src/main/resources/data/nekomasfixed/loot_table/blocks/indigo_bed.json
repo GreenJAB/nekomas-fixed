@@ -2,6 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
+      "bonus_rolls": 0.0,
       "condition": {
         "type": "minecraft:survives_explosion"
       },
@@ -9,8 +10,8 @@
         {
           "type": "minecraft:item",
           "condition": {
-            "type": "minecraft:match_block",
             "blocks": "nekomasfixed:indigo_bed",
+            "type": "minecraft:match_block",
             "state": {
               "part": "head"
             }

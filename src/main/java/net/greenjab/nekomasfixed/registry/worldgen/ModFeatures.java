@@ -1,10 +1,13 @@
 package net.greenjab.nekomasfixed.registry.worldgen;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+
+import java.util.function.Predicate;
 
 public class ModFeatures {
     public static final ResourceKey<Feature> BAOBAB_KEY = registerKey("baobab");
@@ -12,6 +15,7 @@ public class ModFeatures {
     public static final ResourceKey<PlacedFeature> CLAM_KEY = registerPlacedKey("clam");
     public static final ResourceKey<PlacedFeature> MOUND_KEY = registerPlacedKey("mound");
     public static final ResourceKey<PlacedFeature> GEYSER_KEY = registerPlacedKey("geyser_feature");
+    public static final ResourceKey<PlacedFeature> GHOST_PEPPER_SHRUB_KEY = registerPlacedKey("ghost_pepper_shrub");
 
     public static ResourceKey<PlacedFeature> registerPlacedKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, NekomasFixed.id(name));

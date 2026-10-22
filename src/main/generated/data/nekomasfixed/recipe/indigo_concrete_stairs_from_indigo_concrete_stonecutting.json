@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "nekomasfixed:indigo_concrete",
+  "result": {
+    "id": "nekomasfixed:indigo_concrete_stairs"
+  }
+}

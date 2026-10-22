@@ -32,6 +32,7 @@ public class ModModelLayerRegistry {
     public static final ModelLayerLocation BIG_MANGROVE_BOAT = register("big_boat/mangrove");
     public static final ModelLayerLocation BIG_OAK_BOAT = register("big_boat/oak");
     public static final ModelLayerLocation BIG_PALE_OAK_BOAT = register("big_boat/pale_oak");
+    public static final ModelLayerLocation BIG_POPLAR_BOAT = register("big_boat/poplar");
     public static final ModelLayerLocation BIG_SPRUCE_BOAT = register("big_boat/spruce");
     public static final ModelLayerLocation BIG_BAOBAB_BOAT = register("big_boat/baobab");
 
@@ -44,10 +45,12 @@ public class ModModelLayerRegistry {
     public static final ModelLayerLocation HUGE_MANGROVE_BOAT = register("huge_boat/mangrove");
     public static final ModelLayerLocation HUGE_OAK_BOAT = register("huge_boat/oak");
     public static final ModelLayerLocation HUGE_PALE_OAK_BOAT = register("huge_boat/pale_oak");
+    public static final ModelLayerLocation HUGE_POPLAR_BOAT = register("huge_boat/poplar");
     public static final ModelLayerLocation HUGE_SPRUCE_BOAT = register("huge_boat/spruce");
     public static final ModelLayerLocation HUGE_BAOBAB_BOAT = register("huge_boat/baobab");
 
     public static final ModelLayerLocation TARGET_DUMMY = register("target_dummy");
+    public static final ModelLayerLocation TARGET_DUMMY_SLIM = register("target_dummy_slim");
     public static final ModelLayerLocation TARGET_DUMMY_BASE = register("target_dummy_base");
     public static final ArmorModelSet<ModelLayerLocation> TARGET_DUMMY_EQUIPMENT = registerArmorSet("target_dummy");
 
@@ -76,6 +79,9 @@ public class ModModelLayerRegistry {
 
     public static ModelLayerLocation BAOBAB_BOAT = register("boat/baobab");
     public static ModelLayerLocation BAOBAB_CHEST_BOAT = register("chest_boat/baobab");
+    public static final ModelLayerLocation FLOWER_CROWN = register("flower_crown", "main");
+    public static final ModelLayerLocation GOAT_HORN_HELMET = register("goat_horn_helmet", "main");
+	public static final ModelLayerLocation GOAT_HORN_HELMET_TRIM = register("goat_horn_helmet", "trim");
 
     private static ModelLayerLocation register(final String model) {
         return register(model, "main");
@@ -142,6 +148,7 @@ public class ModModelLayerRegistry {
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_MANGROVE_BOAT, BigBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_OAK_BOAT, BigBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_PALE_OAK_BOAT, BigBoatModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_POPLAR_BOAT, BigBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_SPRUCE_BOAT, BigBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.BIG_BAOBAB_BOAT, BigBoatModel::getChestTexturedModelData);
 
@@ -154,10 +161,12 @@ public class ModModelLayerRegistry {
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_MANGROVE_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_OAK_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_PALE_OAK_BOAT, HugeBoatModel::getChestTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_POPLAR_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_SPRUCE_BOAT, HugeBoatModel::getChestTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.HUGE_BAOBAB_BOAT, HugeBoatModel::getChestTexturedModelData);
 
-        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY, TargetDummyModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY, () -> TargetDummyModel.getTexturedModelData(false));
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY_SLIM, () -> TargetDummyModel.getTexturedModelData(true));
         ArmorModelSet<LayerDefinition> equipmentModelData6 = TargetDummyModel.getEquipmentModelData(new CubeDeformation(0.5F), new CubeDeformation(1.0F));
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.head(), equipmentModelData6::head);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TARGET_DUMMY_EQUIPMENT.chest(), equipmentModelData6::chest);
@@ -167,5 +176,8 @@ public class ModModelLayerRegistry {
 
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.WILD_FIRE, WildfireModel::getTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.WILDFIRE_TRIDENT, TridentModel::createLayer);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.FLOWER_CROWN, FlowerCrownModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.GOAT_HORN_HELMET, GoatHornHelmetModel::getTexturedModelData);
+		ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.GOAT_HORN_HELMET_TRIM, GoatHornHelmetModel::getTexturedModelDataForTrim);
     }
 }

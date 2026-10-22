@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.greenjab.nekomasfixed.network.SyncHandler;
@@ -8,6 +9,7 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
 import net.greenjab.nekomasfixed.registry.other.DyedBrushBehaviour;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.registry.worldgen.BiomeAdditions;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.greenjab.nekomasfixed.util.ItemDyeMap;
 import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
@@ -23,6 +25,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.greenjab.nekomasfixed.registry.worldgen.ModWorldGeneration;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.storage.LevelResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +37,12 @@ public class NekomasFixed implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ServerLifecycleEvents.SERVER_STARTING.register(server ->
+				ModConfigValues.onServerStarting(server.getWorldPath(LevelResource.ROOT)));
+
+		ServerLifecycleEvents.SERVER_STOPPED.register(server ->
+				ModConfigValues.onServerStopped());
+
 		BlockRegistry.registerBlocks();
 		BlockEntityTypeRegistry.registerBlockEntityType();
 		ItemRegistry.registerItems();
@@ -45,11 +54,13 @@ public class NekomasFixed implements ModInitializer {
 		ModWorldGeneration.generateModWorldGen();
 		ParticleRegistry.registerParticles();
 		EnchantmentRegistry.registerEnchantments();
+		TrimRegistry.register();
 		EffectRegistry.registerEffects();
 		ComponentRegistry.registerComponents();
 		LootTableRegistry.registerLootTables();
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
+		VillagerRegistry.registerVillagers();
 		SyncHandler.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();

@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.greenjab.nekomasfixed.util.MessyBedAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -43,7 +44,7 @@ public class BedBlockMixin implements MessyBedAccessor {
     protected void onUse(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
         if (!((Object) this instanceof BedBlock)) return;
 
-        if (!level.isClientSide()) {
+        if (!level.isClientSide() && ModConfigValues.enableMessyBeds.get()) {
             BlockPos otherPos = state.getValue(AbstractBedBlock.PART) == BedPart.FOOT ? pos.relative(state.getValue(AbstractBedBlock.FACING)) : pos.relative(state.getValue(AbstractBedBlock.FACING).getOpposite());
 
             if (player.isShiftKeyDown() && player.getMainHandItem().isEmpty() && state.getValue(MessyBedAccessor.MESSY)) {
