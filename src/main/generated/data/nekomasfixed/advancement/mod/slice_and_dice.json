@@ -1,0 +1,99 @@
+{
+  "parent": "nekomasfixed:mod/root",
+  "criteria": {
+    "obtained_copper_sickle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:copper_sickle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_diamond_sickle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:diamond_sickle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_golden_sickle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:golden_sickle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_iron_sickle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:iron_sickle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_netherite_sickle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:netherite_sickle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_stone_sickle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:stone_sickle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_wooden_sickle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:wooden_sickle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.slice_&_dice.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "nekomasfixed:iron_sickle"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.slice_&_dice.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_wooden_sickle",
+      "obtained_stone_sickle",
+      "obtained_copper_sickle",
+      "obtained_iron_sickle",
+      "obtained_golden_sickle",
+      "obtained_diamond_sickle",
+      "obtained_netherite_sickle"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

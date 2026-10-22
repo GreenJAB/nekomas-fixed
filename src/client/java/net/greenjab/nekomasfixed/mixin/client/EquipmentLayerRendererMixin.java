@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,8 +34,9 @@ public class EquipmentLayerRendererMixin {
         if (glint == null) {
             return original.call(texture);
         }
-        int color = glint.color().value().color();
-        RenderType tinted = TintedGlint.armorLayer(texture, color);
+        int color = glint.color().value().colorAt(Util.getMillis());
+        Identifier base = glint.color().value().texture().orElse(null);
+        RenderType tinted = TintedGlint.armorLayer(texture, color, base);
         return tinted != null ? tinted : original.call(texture);
     }
 
@@ -47,8 +49,10 @@ public class EquipmentLayerRendererMixin {
         if (glint == null) {
             return original.call();
         }
-        int color = glint.color().value().color();
-        RenderType tinted = TintedGlint.trim(color);
+        int color = glint.color().value().colorAt(Util.getMillis());
+
+        Identifier base = glint.color().value().texture().orElse(null);
+        RenderType tinted = TintedGlint.trim(color, base);
         return tinted != null ? tinted : original.call();
     }
 

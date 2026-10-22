@@ -143,6 +143,18 @@ public class ModItemLists {
             ItemRegistry.STRIPPED_HOLLOW_POPLAR_LOG, ItemRegistry.STRIPPED_HOLLOW_BAMBOO_BLOCK, ItemRegistry.STRIPPED_HOLLOW_WARPED_STEM,
             ItemRegistry.STRIPPED_HOLLOW_CRIMSON_STEM, ItemRegistry.STRIPPED_HOLLOW_BAOBAB_LOG);
 
+    public static final List<Item> ALL_HOLLOW_LOGS = List.of(
+            ItemRegistry.HOLLOW_OAK_LOG, ItemRegistry.HOLLOW_SPRUCE_LOG, ItemRegistry.HOLLOW_BIRCH_LOG,
+            ItemRegistry.HOLLOW_JUNGLE_LOG, ItemRegistry.HOLLOW_ACACIA_LOG, ItemRegistry.HOLLOW_DARK_OAK_LOG,
+            ItemRegistry.HOLLOW_MANGROVE_LOG, ItemRegistry.HOLLOW_CHERRY_LOG, ItemRegistry.HOLLOW_PALE_OAK_LOG,
+            ItemRegistry.HOLLOW_POPLAR_LOG, ItemRegistry.HOLLOW_BAMBOO_BLOCK, ItemRegistry.HOLLOW_WARPED_STEM,
+            ItemRegistry.HOLLOW_CRIMSON_STEM, ItemRegistry.HOLLOW_BAOBAB_LOG, ItemRegistry.STRIPPED_HOLLOW_OAK_LOG, ItemRegistry.STRIPPED_HOLLOW_SPRUCE_LOG, ItemRegistry.STRIPPED_HOLLOW_BIRCH_LOG,
+            ItemRegistry.STRIPPED_HOLLOW_JUNGLE_LOG, ItemRegistry.STRIPPED_HOLLOW_ACACIA_LOG, ItemRegistry.STRIPPED_HOLLOW_DARK_OAK_LOG,
+            ItemRegistry.STRIPPED_HOLLOW_MANGROVE_LOG, ItemRegistry.STRIPPED_HOLLOW_CHERRY_LOG, ItemRegistry.STRIPPED_HOLLOW_PALE_OAK_LOG,
+            ItemRegistry.STRIPPED_HOLLOW_POPLAR_LOG, ItemRegistry.STRIPPED_HOLLOW_BAMBOO_BLOCK, ItemRegistry.STRIPPED_HOLLOW_WARPED_STEM,
+            ItemRegistry.STRIPPED_HOLLOW_CRIMSON_STEM, ItemRegistry.STRIPPED_HOLLOW_BAOBAB_LOG
+    );
+
     public static final List<Item> BIG_BOATS = List.of(
             ItemRegistry.BIG_OAK_BOAT, ItemRegistry.BIG_SPRUCE_BOAT, ItemRegistry.BIG_BIRCH_BOAT, ItemRegistry.BIG_JUNGLE_BOAT,
             ItemRegistry.BIG_ACACIA_BOAT, ItemRegistry.BIG_DARK_OAK_BOAT, ItemRegistry.BIG_MANGROVE_BOAT, ItemRegistry.BIG_CHERRY_BOAT,
@@ -191,4 +203,29 @@ public class ModItemLists {
     public static final List<Item> SMITHING_TEMPLATES = List.of(
             ItemRegistry.NETHER_HEART, ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE,
             ItemRegistry.CROWN_SMITHING_TEMPLATE, ItemRegistry.BOAT_UPGRADE_TEMPLATE);
+
+    public static final List<Item> PRISMS = List.of(
+            ItemRegistry.WHITE_PRISM, ItemRegistry.LIGHT_GRAY_PRISM, ItemRegistry.GRAY_PRISM, ItemRegistry.BLACK_PRISM,
+            ItemRegistry.BROWN_PRISM, ItemRegistry.RED_PRISM, ItemRegistry.ORANGE_PRISM, ItemRegistry.YELLOW_PRISM,
+            ItemRegistry.LIME_PRISM, ItemRegistry.GREEN_PRISM, ItemRegistry.CYAN_PRISM, ItemRegistry.LIGHT_BLUE_PRISM,
+            ItemRegistry.BLUE_PRISM, ItemRegistry.PURPLE_PRISM, ItemRegistry.MAGENTA_PRISM, ItemRegistry.PINK_PRISM,
+            ItemRegistry.AMBER_PRISM, ItemRegistry.AQUA_PRISM, ItemRegistry.INDIGO_PRISM, ItemRegistry.MAROON_PRISM
+    );
+
+    public static final List<Item> TREASURE_PRISMS = List.of(
+            ItemRegistry.WATER_PRISM, ItemRegistry.FIRE_PRISM, ItemRegistry.ENDER_PRISM, ItemRegistry.RAINBOW_PRISM,
+            ItemRegistry.FROSTFIRE_PRISM, ItemRegistry.JUNGLE_PRISM, ItemRegistry.VOID_PRISM, ItemRegistry.SKY_PRISM,
+            ItemRegistry.ANCIENT_PRISM, ItemRegistry.SCULK_PRISM
+    );
+
+    public static List<Item> ALL_PRISMS = List.of(
+            ItemRegistry.WHITE_PRISM, ItemRegistry.LIGHT_GRAY_PRISM, ItemRegistry.GRAY_PRISM, ItemRegistry.BLACK_PRISM,
+            ItemRegistry.BROWN_PRISM, ItemRegistry.RED_PRISM, ItemRegistry.ORANGE_PRISM, ItemRegistry.YELLOW_PRISM,
+            ItemRegistry.LIME_PRISM, ItemRegistry.GREEN_PRISM, ItemRegistry.CYAN_PRISM, ItemRegistry.LIGHT_BLUE_PRISM,
+            ItemRegistry.BLUE_PRISM, ItemRegistry.PURPLE_PRISM, ItemRegistry.MAGENTA_PRISM, ItemRegistry.PINK_PRISM,
+            ItemRegistry.AMBER_PRISM, ItemRegistry.AQUA_PRISM, ItemRegistry.INDIGO_PRISM, ItemRegistry.MAROON_PRISM,
+            ItemRegistry.WATER_PRISM, ItemRegistry.FIRE_PRISM, ItemRegistry.ENDER_PRISM, ItemRegistry.RAINBOW_PRISM,
+            ItemRegistry.FROSTFIRE_PRISM, ItemRegistry.JUNGLE_PRISM, ItemRegistry.VOID_PRISM, ItemRegistry.SKY_PRISM,
+            ItemRegistry.ANCIENT_PRISM, ItemRegistry.SCULK_PRISM
+    );
 }

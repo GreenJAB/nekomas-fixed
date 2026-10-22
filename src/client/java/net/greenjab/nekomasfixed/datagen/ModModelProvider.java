@@ -285,6 +285,18 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemRegistry.AQUA_PRISM, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.INDIGO_PRISM, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemRegistry.MAROON_PRISM, ModelTemplates.FLAT_ITEM);
+
+        itemModelGenerator.generateFlatItem(ItemRegistry.WATER_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.FIRE_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.ENDER_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.RAINBOW_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.FROSTFIRE_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.JUNGLE_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.VOID_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.SKY_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.ANCIENT_PRISM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemRegistry.SCULK_PRISM, ModelTemplates.FLAT_ITEM);
+
         registerTippedArrowCustom(itemModelGenerator);
         registerQuiver(itemModelGenerator);
     }

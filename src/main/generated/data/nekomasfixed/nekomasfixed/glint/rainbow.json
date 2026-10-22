@@ -1,0 +1,29 @@
+{
+  "colors": [
+    "#b3312c",
+    "#eb8844",
+    "#e0af0b",
+    "#decf2a",
+    "#41cd34",
+    "#3b511a",
+    "#287697",
+    "#a6cec7",
+    "#6689d3",
+    "#253192",
+    "#453c8f",
+    "#7b2fbe",
+    "#c354cd",
+    "#d88198",
+    "#51301a",
+    "#a62d10",
+    "#f0f0f0",
+    "#ababab",
+    "#434343",
+    "#1e1b1b"
+  ],
+  "cycle_ticks": 200,
+  "description": {
+    "color": "#E03D37",
+    "translate": "glint.nekomasfixed.rainbow"
+  }
+}

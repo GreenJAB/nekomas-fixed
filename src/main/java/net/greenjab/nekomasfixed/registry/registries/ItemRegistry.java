@@ -635,6 +635,17 @@ public class ItemRegistry {
     public static final Item INDIGO_PRISM = registerPrism(AllDyes.INDIGO);
     public static final Item MAROON_PRISM = registerPrism(AllDyes.MAROON);
 
+    public static final Item WATER_PRISM = registerTreasurePrism(TreasureGlints.WATER);
+    public static final Item FIRE_PRISM = registerTreasurePrism(TreasureGlints.FIRE);
+    public static final Item ENDER_PRISM = registerTreasurePrism(TreasureGlints.ENDER);
+    public static final Item RAINBOW_PRISM = registerTreasurePrism(TreasureGlints.RAINBOW);
+    public static final Item FROSTFIRE_PRISM = registerTreasurePrism(TreasureGlints.FROSTFIRE);
+    public static final Item JUNGLE_PRISM = registerTreasurePrism(TreasureGlints.JUNGLE);
+    public static final Item VOID_PRISM = registerTreasurePrism(TreasureGlints.VOID);
+    public static final Item SKY_PRISM = registerTreasurePrism(TreasureGlints.SKY);
+    public static final Item ANCIENT_PRISM = registerTreasurePrism(TreasureGlints.ANCIENT);
+    public static final Item SCULK_PRISM = registerTreasurePrism(TreasureGlints.SCULK);
+
     public static Item register(String id, Item.Properties settings) {
         return register(keyOf(id), Item::new, settings);
     }
@@ -655,6 +666,10 @@ public class ItemRegistry {
 
     private static Item registerPrism(AllDyes dye) {
         return register(dye.getSerializedName() + "_prism", props -> new Item(props.delayedComponent(ComponentRegistry.PROVIDES_GLINT, context -> context.getOrThrow(GlintColorRegistry.GLINT_COLORS.get(dye)))), new Item.Properties());
+    }
+
+    private static Item registerTreasurePrism(TreasureGlints glint) {
+        return register(glint.getSerializedName() + "_prism", props -> new Item(props.delayedComponent(ComponentRegistry.PROVIDES_GLINT, context -> context.getOrThrow(GlintColorRegistry.TREASURE_GLINTS.get(glint)))), new Item.Properties().rarity(Rarity.EPIC));
     }
 
     private static Item registerCushion(String id, String modColor) {

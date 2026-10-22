@@ -521,6 +521,17 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.AQUA_PRISM);
                         entries.accept(ItemRegistry.INDIGO_PRISM);
                         entries.accept(ItemRegistry.MAROON_PRISM);
+
+                        entries.accept(ItemRegistry.WATER_PRISM);
+                        entries.accept(ItemRegistry.FIRE_PRISM);
+                        entries.accept(ItemRegistry.ENDER_PRISM);
+                        entries.accept(ItemRegistry.RAINBOW_PRISM);
+                        entries.accept(ItemRegistry.FROSTFIRE_PRISM);
+                        entries.accept(ItemRegistry.JUNGLE_PRISM);
+                        entries.accept(ItemRegistry.VOID_PRISM);
+                        entries.accept(ItemRegistry.SKY_PRISM);
+                        entries.accept(ItemRegistry.ANCIENT_PRISM);
+                        entries.accept(ItemRegistry.SCULK_PRISM);
                     }).build();
 
     public static void registerItemGroup() {

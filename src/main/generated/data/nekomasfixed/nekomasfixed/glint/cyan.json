@@ -1,6 +1,9 @@
 {
-  "color": "#287697",
+  "colors": [
+    "#287697"
+  ],
   "description": {
+    "color": "#38A6D4",
     "translate": "glint.nekomasfixed.cyan"
   }
 }

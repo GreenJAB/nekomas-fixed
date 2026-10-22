@@ -797,6 +797,29 @@
   "item.nekomasfixed.aqua_prism": "Aqua Prism",
   "item.nekomasfixed.indigo_prism": "Indigo Prism",
   "item.nekomasfixed.maroon_prism": "Maroon Prism",
+  "tooltip_component.nekomasfixed.glint": "Glint: ",
+
+  "glint.nekomasfixed.water": "Water",
+  "glint.nekomasfixed.fire": "Fire",
+  "glint.nekomasfixed.ender": "Ender",
+  "glint.nekomasfixed.rainbow": "Rainbow",
+  "glint.nekomasfixed.frostfire": "Frostfire",
+  "glint.nekomasfixed.jungle": "Jungle",
+  "glint.nekomasfixed.void": "Void",
+  "glint.nekomasfixed.sky": "Sky",
+  "glint.nekomasfixed.ancient": "Ancient",
+  "glint.nekomasfixed.sculk": "Sculk",
+
+  "item.nekomasfixed.water_prism": "Water Prism",
+  "item.nekomasfixed.fire_prism": "Fire Prism",
+  "item.nekomasfixed.ender_prism": "Ender Prism",
+  "item.nekomasfixed.rainbow_prism": "Rainbow Prism",
+  "item.nekomasfixed.frostfire_prism": "Frostfire Prism",
+  "item.nekomasfixed.jungle_prism": "Jungle Prism",
+  "item.nekomasfixed.void_prism": "Void Prism",
+  "item.nekomasfixed.sky_prism": "Sky Prism",
+  "item.nekomasfixed.ancient_prism": "Ancient Prism",
+  "item.nekomasfixed.sculk_prism": "Sculk Prism",
 
   "enchantment.nekomasfixed.dismount": "Dismount",
   "enchantment.nekomasfixed.leeching": "Leeching",
@@ -903,8 +926,8 @@
   "advancements.nekomasfixed.turtle_master.title": "A True Turtle Master!",
   "advancements.nekomasfixed.turtle_master.description": "Collect a full set of turtle armor",
 
-  "advancements.nekomasfixed.rainbow_spotted_wool.title": "Dotted Rainbow!",
-  "advancements.nekomasfixed.rainbow_spotted_wool.description": "Collect all 20 blocks of spotted wool",
+  "advancements.nekomasfixed.rainbow_spotted_wool.title": "Spot the Rainbow!",
+  "advancements.nekomasfixed.rainbow_spotted_wool.description": "Collect all 20 colors of spotted wool",
 
   "advancements.nekomasfixed.ship_of_thesus.title": "Ship of Thesus!",
   "advancements.nekomasfixed.ship_of_thesus.description": "Craft a huge boat",
@@ -913,5 +936,23 @@
   "advancements.nekomasfixed.i_am_the_ruler.description": "Trim a crown with jewel armor trim",
 
   "advancements.nekomasfixed.i_am_on_fire_now.title": "Look who's on Fire Now!",
-  "advancements.nekomasfixed.i_am_on_fire_now.description": "Trim a full set of netherite armor with jewel armor trim"
+  "advancements.nekomasfixed.i_am_on_fire_now.description": "Trim a full set of netherite armor with jewel armor trim",
+
+  "advancements.nekomasfixed.slice_&_dice.title": "Slice & Dice!",
+  "advancements.nekomasfixed.slice_&_dice.description": "Obtain a Sickle",
+
+  "advancements.nekomasfixed.spooky.title": "Spoooky!",
+  "advancements.nekomasfixed.spooky.description": "Obtain a Wither Rose Flower Crown",
+
+  "advancements.nekomasfixed.a_bow_but_worse.title": "A bow, but worse",
+  "advancements.nekomasfixed.a_bow_but_worse.description": "Obtain a Slingshot",
+
+  "advancements.nekomasfixed.hollow_knight.title": "Hollow Knight",
+  "advancements.nekomasfixed.hollow_knight.description": "Collect Every Hollow Log",
+
+  "advancements.nekomasfixed.flower_power.title": "Flower Power",
+  "advancements.nekomasfixed.flower_power.description": "Collect Every Flower Crown",
+
+  "advancements.nekomasfixed.prismaniac.title": "Prismaniac",
+  "advancements.nekomasfixed.prismaniac.description": "Collect every Prism Color"
 }
