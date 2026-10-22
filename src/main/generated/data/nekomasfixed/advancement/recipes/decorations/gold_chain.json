@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:gold_chain"
+        "recipes": "nekomasfixed:gold_chain"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

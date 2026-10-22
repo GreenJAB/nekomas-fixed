@@ -181,13 +181,11 @@ public class ItemGroupRegistry {
                          entries.accept(ItemRegistry.GOAT_HORN_DIAMOND_HELMET);
                          entries.accept(ItemRegistry.GOAT_HORN_NETHERITE_HELMET);
                          entries.accept(ItemRegistry.GOAT_HORN_TURTLE_HELMET);
-                        entries.accept(ItemRegistry.SULFUR_LANTERN);
-                        entries.accept(ItemRegistry.GOLD_CHAIN);
-                        entries.accept(ItemRegistry.SULFUR_CAMPFIRE);
-                        entries.accept(ItemRegistry.QUIVER);
-                        entries.accept(ItemRegistry.TERRACOTTA_DECORATED_POT);
-
-
+                         entries.accept(ItemRegistry.SULFUR_LANTERN);
+                         entries.accept(ItemRegistry.GOLD_CHAIN);
+                         entries.accept(ItemRegistry.SULFUR_CAMPFIRE);
+                         entries.accept(ItemRegistry.QUIVER);
+                         entries.accept(ItemRegistry.TERRACOTTA_DECORATED_POT);
                     }).build();
 
     public static final CreativeModeTab NEKOMASFIXEDCOLOURS = FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.nekomasfixedcolours"))
@@ -500,6 +498,38 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.AQUA_CUSHION);
                         entries.accept(ItemRegistry.INDIGO_CUSHION);
                         entries.accept(ItemRegistry.MAROON_CUSHION);
+
+                        entries.accept(ItemRegistry.WHITE_PRISM);
+                        entries.accept(ItemRegistry.LIGHT_GRAY_PRISM);
+                        entries.accept(ItemRegistry.GRAY_PRISM);
+                        entries.accept(ItemRegistry.BLACK_PRISM);
+                        entries.accept(ItemRegistry.BROWN_PRISM);
+                        entries.accept(ItemRegistry.RED_PRISM);
+                        entries.accept(ItemRegistry.ORANGE_PRISM);
+                        entries.accept(ItemRegistry.YELLOW_PRISM);
+                        entries.accept(ItemRegistry.LIME_PRISM);
+                        entries.accept(ItemRegistry.GREEN_PRISM);
+                        entries.accept(ItemRegistry.CYAN_PRISM);
+                        entries.accept(ItemRegistry.LIGHT_BLUE_PRISM);
+                        entries.accept(ItemRegistry.BLUE_PRISM);
+                        entries.accept(ItemRegistry.PURPLE_PRISM);
+                        entries.accept(ItemRegistry.MAGENTA_PRISM);
+                        entries.accept(ItemRegistry.PINK_PRISM);
+                        entries.accept(ItemRegistry.AMBER_PRISM);
+                        entries.accept(ItemRegistry.AQUA_PRISM);
+                        entries.accept(ItemRegistry.INDIGO_PRISM);
+                        entries.accept(ItemRegistry.MAROON_PRISM);
+
+                        entries.accept(ItemRegistry.WATER_PRISM);
+                        entries.accept(ItemRegistry.FIRE_PRISM);
+                        entries.accept(ItemRegistry.ENDER_PRISM);
+                        entries.accept(ItemRegistry.RAINBOW_PRISM);
+                        entries.accept(ItemRegistry.FROSTFIRE_PRISM);
+                        entries.accept(ItemRegistry.JUNGLE_PRISM);
+                        entries.accept(ItemRegistry.VOID_PRISM);
+                        entries.accept(ItemRegistry.SKY_PRISM);
+                        entries.accept(ItemRegistry.ANCIENT_PRISM);
+                        entries.accept(ItemRegistry.SCULK_PRISM);
                     }).build();
 
     public static void registerItemGroup() {

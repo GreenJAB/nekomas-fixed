@@ -252,6 +252,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 ArrayList<Item> spotted_wool_slabs = new ArrayList<>();
                 ArrayList<Item> spotted_wool_stairs = new ArrayList<>();
 
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.SULFUR_TORCH, 4)
+                        .pattern("S")
+                        .pattern("T")
+                        .define('S', Items.SULFUR)
+                        .define('T', Items.STICK)
+                        .unlockedBy(getHasName(Items.SULFUR), has(Items.SULFUR))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .save(output);
+
                 for (AllDyes colour : AllDyes.values()) {
                     Item wool = BlockDyeMap.SPOTTED_WOOL.get(colour).asItem();
                     Item slab = BlockDyeMap.SPOTTED_WOOL_SLABS.get(colour).asItem();
@@ -264,15 +273,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .group("spotted_wool_slab")
                             .unlockedBy(getHasName(wool), has(wool))
                             .save(output);
-
-                shaped(RecipeCategory.DECORATIONS, ItemRegistry.SULFUR_TORCH, 4)
-                        .pattern("S")
-                        .pattern("T")
-                        .define('S', Items.SULFUR)
-                        .define('T', Items.STICK)
-                        .unlockedBy(getHasName(Items.SULFUR), has(Items.SULFUR))
-                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
-                        .save(output);
 
                     stairBuilder(stairs, Ingredient.of(wool))
                             .group("spotted_wool_stairs")
@@ -363,6 +363,69 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .define('#', flower)
                             .group("flower_crown")
                             .unlockedBy(getHasName(flower), has(flower))
+                            .save(output);
+                }
+                shaped(RecipeCategory.MISC, ItemRegistry.SLINGSHOT, 1)
+                        .pattern(" X")
+                        .pattern("#$")
+                        .define('#', Items.STICK)
+                        .define('X', Items.STRING)
+                        .define('$', Items.LEATHER)
+                        .unlockedBy("has_string", has(Items.STRING))
+                        .save(output);
+
+                for (AllDyes colour : AllDyes.values()) {
+                    Item dye = switch (colour) {
+                        case WHITE -> Items.DYE.white();
+                        case ORANGE -> Items.DYE.orange();
+                        case MAGENTA -> Items.DYE.magenta();
+                        case LIGHT_BLUE -> Items.DYE.lightBlue();
+                        case YELLOW -> Items.DYE.yellow();
+                        case LIME -> Items.DYE.lime();
+                        case PINK -> Items.DYE.pink();
+                        case GRAY -> Items.DYE.gray();
+                        case LIGHT_GRAY -> Items.DYE.lightGray();
+                        case CYAN -> Items.DYE.cyan();
+                        case PURPLE -> Items.DYE.purple();
+                        case BLUE -> Items.DYE.blue();
+                        case BROWN -> Items.DYE.brown();
+                        case GREEN -> Items.DYE.green();
+                        case RED -> Items.DYE.red();
+                        case BLACK -> Items.DYE.black();
+                        case AMBER, AQUA, INDIGO, MAROON -> ItemDyeMap.DYE.get(colour);
+                    };
+                    Item prism = switch (colour) {
+                        case WHITE -> ItemRegistry.WHITE_PRISM;
+                        case ORANGE -> ItemRegistry.ORANGE_PRISM;
+                        case MAGENTA -> ItemRegistry.MAGENTA_PRISM;
+                        case LIGHT_BLUE -> ItemRegistry.LIGHT_BLUE_PRISM;
+                        case YELLOW -> ItemRegistry.YELLOW_PRISM;
+                        case LIME -> ItemRegistry.LIME_PRISM;
+                        case PINK -> ItemRegistry.PINK_PRISM;
+                        case GRAY -> ItemRegistry.GRAY_PRISM;
+                        case LIGHT_GRAY -> ItemRegistry.LIGHT_GRAY_PRISM;
+                        case CYAN -> ItemRegistry.CYAN_PRISM;
+                        case PURPLE -> ItemRegistry.PURPLE_PRISM;
+                        case BLUE -> ItemRegistry.BLUE_PRISM;
+                        case BROWN -> ItemRegistry.BROWN_PRISM;
+                        case GREEN -> ItemRegistry.GREEN_PRISM;
+                        case RED -> ItemRegistry.RED_PRISM;
+                        case BLACK -> ItemRegistry.BLACK_PRISM;
+                        case AMBER -> ItemRegistry.AMBER_PRISM;
+                        case AQUA -> ItemRegistry.AQUA_PRISM;
+                        case INDIGO -> ItemRegistry.INDIGO_PRISM;
+                        case MAROON -> ItemRegistry.MAROON_PRISM;
+                    };
+
+                    shaped(RecipeCategory.BUILDING_BLOCKS, prism, 1)
+                            .pattern("AAA")
+                            .pattern("ADA")
+                            .pattern("AAA")
+                            .define('A', Items.AMETHYST_SHARD)
+                            .define('D', dye)
+                            .group("prism")
+                            .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
+                            .unlockedBy(getHasName(dye), has(dye))
                             .save(output);
                 }
             }

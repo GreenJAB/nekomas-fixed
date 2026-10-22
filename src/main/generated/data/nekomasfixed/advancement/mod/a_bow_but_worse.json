@@ -1,0 +1,33 @@
+{
+  "parent": "nekomasfixed:mod/root",
+  "criteria": {
+    "obtained_slingshot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:slingshot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.a_bow_but_worse.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "nekomasfixed:slingshot"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.a_bow_but_worse.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_slingshot"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

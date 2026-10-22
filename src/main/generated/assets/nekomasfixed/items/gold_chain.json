@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "nekomasfixed:item/gold_chain"
+    "model": "nekomasfixed:block/gold_chain"
   }
 }

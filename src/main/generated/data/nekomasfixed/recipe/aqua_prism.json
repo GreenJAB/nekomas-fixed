@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "prism",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "D": "nekomasfixed:aqua_dye"
+  },
+  "pattern": [
+    "AAA",
+    "ADA",
+    "AAA"
+  ],
+  "result": {
+    "id": "nekomasfixed:aqua_prism"
+  }
+}

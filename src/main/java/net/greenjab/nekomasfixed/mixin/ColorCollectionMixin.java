@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.util.CustomDyePick;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.ColorCollection;
 import org.spongepowered.asm.mixin.Mixin;
@@ -47,17 +48,9 @@ public abstract class ColorCollectionMixin<T> {
             result = collection.red();
         } else if (dyeColor == DyeColor.BLACK) {
             result = collection.black();
-        }
-        else if (dyeColor.name().equals("amber")) {
-            result = collection.black();
-        } else if (dyeColor.name().equals("aqua")) {
-            result = collection.black();
-        } else if (dyeColor.name().equals("indigo")) {
-            result = collection.black();
-        } else if (dyeColor.name().equals("maroon")) {
-            result = collection.black();
         } else {
-            result = collection.black();
+            T custom = CustomDyePick.pick(collection, dyeColor);
+            result = custom != null ? custom : collection.black();
         }
 
         cir.setReturnValue(result);

@@ -1,0 +1,25 @@
+{
+  "values": [
+    "nekomasfixed:white_prism",
+    "nekomasfixed:light_gray_prism",
+    "nekomasfixed:gray_prism",
+    "nekomasfixed:black_prism",
+    "nekomasfixed:brown_prism",
+    "nekomasfixed:red_prism",
+    "nekomasfixed:orange_prism",
+    "nekomasfixed:yellow_prism",
+    "nekomasfixed:lime_prism",
+    "nekomasfixed:green_prism",
+    "nekomasfixed:cyan_prism",
+    "nekomasfixed:light_blue_prism",
+    "nekomasfixed:blue_prism",
+    "nekomasfixed:purple_prism",
+    "nekomasfixed:magenta_prism",
+    "nekomasfixed:pink_prism",
+    "nekomasfixed:amber_prism",
+    "nekomasfixed:aqua_prism",
+    "nekomasfixed:indigo_prism",
+    "nekomasfixed:maroon_prism",
+    "#nekomasfixed:treasure_prisms"
+  ]
+}

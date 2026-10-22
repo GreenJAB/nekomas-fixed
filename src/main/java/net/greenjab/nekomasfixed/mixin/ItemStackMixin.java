@@ -66,6 +66,7 @@ public class ItemStackMixin {
 		stack.addToTooltip(ComponentRegistry.COMBO_MULTIPLIER, context, display, builder, tooltipFlag);
 		stack.addToTooltip(ComponentRegistry.POT_FACE_BLOCK, context, display, builder, tooltipFlag);
 		stack.addToTooltip(ComponentRegistry.POT_ENGRAVED_DECORATIONS, context, display, builder, tooltipFlag);
+		stack.addToTooltip(ComponentRegistry.ARMOR_GLINT, context, display, builder, tooltipFlag);
 	}
 
 	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;"))

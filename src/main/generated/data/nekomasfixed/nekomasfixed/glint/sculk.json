@@ -1,0 +1,11 @@
+{
+  "colors": [
+    "#287697",
+    "#0a1c23"
+  ],
+  "description": {
+    "color": "#38A6D4",
+    "translate": "glint.nekomasfixed.sculk"
+  },
+  "texture": "nekomasfixed:textures/misc/sculk_glint.png"
+}

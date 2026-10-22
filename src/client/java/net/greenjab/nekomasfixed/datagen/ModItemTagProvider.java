@@ -77,6 +77,17 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemRegistry.GOAT_HORN_NETHERITE_HELMET.builtInRegistryHolder().key())
                 .add(ItemRegistry.GOAT_HORN_TURTLE_HELMET.builtInRegistryHolder().key());
 
+        tag(ModTags.TREASURE_PRISMS)
+                .add(ItemRegistry.WATER_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.FIRE_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.ENDER_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.RAINBOW_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.FROSTFIRE_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.JUNGLE_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.VOID_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.SKY_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.ANCIENT_PRISM.builtInRegistryHolder().key())
+                .add(ItemRegistry.SCULK_PRISM.builtInRegistryHolder().key());
         tag(ItemTags.ARROWS).add(getKey(ItemRegistry.TIPPED_ARROW_CUSTOM));
     }
 

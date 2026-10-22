@@ -181,11 +181,12 @@ public class TerracottaDecoratedPotBlockEntityRenderer implements BlockEntityRen
     public void submit(TerracottaDecoratePotRenderState state, final PoseStack poseStack, final SubmitNodeCollector submitNodeCollector,
                        final int lightCoords, final int overlayCoords, final int outlineColor) {
 
+        TextureAtlasSprite baseSprite = this.customPotSprites.get(SheetRegistry.TERRACOTTA_DECORATED_POT_BASE);
         RenderType renderTypeBase = SheetRegistry.TERRACOTTA_DECORATED_POT_BASE.renderType(RenderTypes::entitySolid);
 
-        submitNodeCollector.submitModelPart(this.neck, poseStack, renderTypeBase, lightCoords, overlayCoords, null, -1, outlineColor);
-        submitNodeCollector.submitModelPart(this.top, poseStack, renderTypeBase, lightCoords, overlayCoords, null, -1, outlineColor);
-        submitNodeCollector.submitModelPart(this.bottom, poseStack, renderTypeBase, lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.neck, poseStack, renderTypeBase, lightCoords, overlayCoords, baseSprite, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.top, poseStack, renderTypeBase, lightCoords, overlayCoords, baseSprite, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.bottom, poseStack, renderTypeBase, lightCoords, overlayCoords, baseSprite, -1, outlineColor);
 
         SpriteId potFace = new SpriteId(
                 TERRACOTTA_POT,
@@ -199,15 +200,15 @@ public class TerracottaDecoratedPotBlockEntityRenderer implements BlockEntityRen
         SpriteId rightSprite = getSpriteForSide(state, SpriteFacing.RIGHT);
 
         RenderType potFaceRenderType = potFace.renderType(RenderTypes::entityCutout);
-        submitNodeCollector.submitModelPart(this.leftPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, null, -1, outlineColor);
-        submitNodeCollector.submitModelPart(this.rightPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, null, -1, outlineColor);
-        submitNodeCollector.submitModelPart(this.backPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, null, -1, outlineColor);
-        submitNodeCollector.submitModelPart(this.frontPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.leftPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, this.customPotSprites.get(potFace), -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.rightPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, this.customPotSprites.get(potFace), -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.backPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, this.customPotSprites.get(potFace), -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.frontPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, this.customPotSprites.get(potFace), -1, outlineColor);
 
-        submitNodeCollector.submitModelPart(this.frontSide, poseStack, frontSprite.renderType(RenderTypes::entityTranslucent), lightCoords, overlayCoords, null, -1, outlineColor);
-        submitNodeCollector.submitModelPart(this.backSide,  poseStack, backSprite.renderType(RenderTypes::entityTranslucent),  lightCoords, overlayCoords, null, -1, outlineColor);
-        submitNodeCollector.submitModelPart(this.leftSide,  poseStack, leftSprite.renderType(RenderTypes::entityTranslucent),  lightCoords, overlayCoords, null, -1, outlineColor);
-        submitNodeCollector.submitModelPart(this.rightSide, poseStack, rightSprite.renderType(RenderTypes::entityTranslucent), lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.frontSide, poseStack, frontSprite.renderType(RenderTypes::entityTranslucent), lightCoords, overlayCoords, this.customPotSprites.get(frontSprite), -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.backSide,  poseStack, backSprite.renderType(RenderTypes::entityTranslucent),  lightCoords, overlayCoords, this.customPotSprites.get(backSprite), -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.leftSide,  poseStack, leftSprite.renderType(RenderTypes::entityTranslucent),  lightCoords, overlayCoords, this.customPotSprites.get(leftSprite), -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.rightSide, poseStack, rightSprite.renderType(RenderTypes::entityTranslucent), lightCoords, overlayCoords, this.customPotSprites.get(rightSprite), -1, outlineColor);
     }
 
     private SpriteId spriteForVanillaSherd(String sherdName) {

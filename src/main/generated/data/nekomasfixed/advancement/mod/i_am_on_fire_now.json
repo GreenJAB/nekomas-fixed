@@ -31,6 +31,21 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "has_trimmed_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:netherite_crown",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_trimmed_helmet": {
       "conditions": {
         "items": [
@@ -76,7 +91,8 @@
   },
   "requirements": [
     [
-      "has_trimmed_helmet"
+      "has_trimmed_helmet",
+      "has_trimmed_crown"
     ],
     [
       "has_trimmed_chestplate"

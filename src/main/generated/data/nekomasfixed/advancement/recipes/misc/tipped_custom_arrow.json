@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:tipped_custom_arrow"
+        "recipes": "nekomasfixed:tipped_custom_arrow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

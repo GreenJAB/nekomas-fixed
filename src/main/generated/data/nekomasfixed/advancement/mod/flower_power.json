@@ -1,0 +1,228 @@
+{
+  "parent": "nekomasfixed:mod/root",
+  "criteria": {
+    "obtained_allium_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:allium_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_azure_bluet_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:azure_bluet_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_blue_orchid_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:blue_orchid_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_closed_eyeblossom_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:closed_eyeblossom_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_cornflower_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:cornflower_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_dandelion_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:dandelion_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_lily_of_the_valley_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:lily_of_the_valley_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_open_eyeblossom_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:open_eyeblossom_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_orange_tulip_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:orange_tulip_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_oxeye_daisy_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:oxeye_daisy_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_pink_tulip_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:pink_tulip_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_poppy_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:poppy_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_red_tulip_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:red_tulip_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_torchflower_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:torchflower_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_white_tulip_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:white_tulip_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_wither_rose_flower_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:wither_rose_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.flower_power.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "nekomasfixed:allium_flower_crown"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.flower_power.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_torchflower_flower_crown"
+    ],
+    [
+      "obtained_blue_orchid_flower_crown"
+    ],
+    [
+      "obtained_wither_rose_flower_crown"
+    ],
+    [
+      "obtained_cornflower_flower_crown"
+    ],
+    [
+      "obtained_lily_of_the_valley_flower_crown"
+    ],
+    [
+      "obtained_orange_tulip_flower_crown"
+    ],
+    [
+      "obtained_pink_tulip_flower_crown"
+    ],
+    [
+      "obtained_allium_flower_crown"
+    ],
+    [
+      "obtained_red_tulip_flower_crown"
+    ],
+    [
+      "obtained_poppy_flower_crown"
+    ],
+    [
+      "obtained_azure_bluet_flower_crown"
+    ],
+    [
+      "obtained_white_tulip_flower_crown"
+    ],
+    [
+      "obtained_oxeye_daisy_flower_crown"
+    ],
+    [
+      "obtained_dandelion_flower_crown"
+    ],
+    [
+      "obtained_open_eyeblossom_flower_crown"
+    ],
+    [
+      "obtained_closed_eyeblossom_flower_crown"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

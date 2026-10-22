@@ -1,0 +1,21 @@
+{
+  "colors": [
+    "#253192",
+    "#6689d3",
+    "#287697",
+    "#a6cec7",
+    "#3b511a",
+    "#41cd34",
+    "#decf2a",
+    "#eb8844",
+    "#e0af0b",
+    "#b3312c",
+    "#d88198",
+    "#7b2fbe"
+  ],
+  "cycle_ticks": 140,
+  "description": {
+    "color": "#3547D2",
+    "translate": "glint.nekomasfixed.frostfire"
+  }
+}

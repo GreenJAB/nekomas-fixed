@@ -1,0 +1,33 @@
+{
+  "parent": "nekomasfixed:mod/root",
+  "criteria": {
+    "spooky": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:wither_rose_flower_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.spooky.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "nekomasfixed:wither_rose_flower_crown"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.spooky.title"
+    }
+  },
+  "requirements": [
+    [
+      "spooky"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

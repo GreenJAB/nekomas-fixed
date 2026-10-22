@@ -17,6 +17,7 @@ import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.advancements.triggers.RecipeCraftedTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -33,12 +34,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
-import net.minecraft.world.item.equipment.trim.TrimPatterns;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -156,15 +155,105 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_trimmed_helmet", checkTrimmed(Items.NETHERITE_HELMET, TrimRegistry.JEWEL))
+                .addCriterion("has_trimmed_crown", checkTrimmed(ItemRegistry.NETHERITE_CROWN, TrimRegistry.JEWEL))
                 .addCriterion("has_trimmed_chestplate", checkTrimmed(Items.NETHERITE_CHESTPLATE, TrimRegistry.JEWEL))
                 .addCriterion("has_trimmed_leggings", checkTrimmed(Items.NETHERITE_LEGGINGS, TrimRegistry.JEWEL))
                 .addCriterion("has_trimmed_boots", checkTrimmed(Items.NETHERITE_BOOTS, TrimRegistry.JEWEL))
-                .build(getID("i_am_on_fire_now"))
-                ;
+                .requirements(new AdvancementRequirements(List.of(
+                        List.of("has_trimmed_helmet", "has_trimmed_crown"),
+                        List.of("has_trimmed_chestplate"),
+                        List.of("has_trimmed_leggings"),
+                        List.of("has_trimmed_boots")
+                )))
+                .build(getID("i_am_on_fire_now"));
 
         consumer.accept(imOnFireNow);
 
+        Advancement.Builder sliceAndDice = Advancement.Builder.advancement()
+                .parent(root)
+                .display(
+                        ItemRegistry.IRON_SICKLE,
+                        AdvanceLiterals.title("slice_&_dice"),
+                        AdvanceLiterals.desc("slice_&_dice"),
+                        AdvancementType.GOAL,
+                        true,
+                        true,
+                        false
+                );
+                fillObtainCriterionList(sliceAndDice, ModItemLists.SICKLES);
+                sliceAndDice.requirements(AdvancementRequirements.Strategy.OR);
+                consumer.accept(sliceAndDice.build(getID("slice_and_dice")));
 
+        Advancement.Builder spooky = Advancement.Builder.advancement()
+                .parent(root)
+                .display(
+                        ItemRegistry.WITHER_ROSE_FLOWER_CROWN,
+                        AdvanceLiterals.title("spooky"),
+                        AdvanceLiterals.desc("spooky"),
+                        AdvancementType.GOAL,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("spooky", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.WITHER_ROSE_FLOWER_CROWN));
+        consumer.accept(spooky.build(getID("spooky")));
+
+        Advancement.Builder aBowButWorse = Advancement.Builder.advancement()
+                .parent(root)
+                .display(
+                        ItemRegistry.SLINGSHOT,
+                        AdvanceLiterals.title("a_bow_but_worse"),
+                        AdvanceLiterals.desc("a_bow_but_worse"),
+                        AdvancementType.GOAL,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("obtained_slingshot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SLINGSHOT));
+
+        consumer.accept(aBowButWorse.build(getID("a_bow_but_worse")));
+
+        Advancement.Builder hollowKnight = Advancement.Builder.advancement()
+                .parent(root)
+                .display(
+                        ItemRegistry.HOLLOW_BIRCH_LOG,
+                        AdvanceLiterals.title("hollow_knight"),
+                        AdvanceLiterals.desc("hollow_knight"),
+                        AdvancementType.CHALLENGE,
+                        true,
+                        true,
+                        false
+                );
+        fillObtainCriterionList(hollowKnight, ModItemLists.ALL_HOLLOW_LOGS);
+        consumer.accept(hollowKnight.build(getID("hollow_knight")));
+
+        Advancement.Builder flowerPower = Advancement.Builder.advancement()
+                .parent(root)
+                .display(
+                        ItemRegistry.ALLIUM_FLOWER_CROWN,
+                        AdvanceLiterals.title("flower_power"),
+                        AdvanceLiterals.desc("flower_power"),
+                        AdvancementType.CHALLENGE,
+                        true,
+                        true,
+                        false
+                );
+        fillObtainCriterionList(flowerPower, ModItemLists.FLOWER_CROWNS);
+        consumer.accept(flowerPower.build(getID("flower_power")));
+
+        Advancement.Builder prismaniac = Advancement.Builder.advancement()
+                .parent(root)
+                .display(
+                        ItemRegistry.RED_PRISM,
+                        AdvanceLiterals.title("prismaniac"),
+                        AdvanceLiterals.desc("prismaniac"),
+                        AdvancementType.CHALLENGE,
+                        true,
+                        true,
+                        false
+                );
+        fillObtainCriterionList(prismaniac, ModItemLists.ALL_PRISMS);
+        consumer.accept(prismaniac.build(getID("prismaniac")));
     }
 
     private enum ArmorType{

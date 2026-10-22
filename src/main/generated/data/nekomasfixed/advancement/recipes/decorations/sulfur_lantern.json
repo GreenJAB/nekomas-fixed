@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:sulfur_lantern"
+        "recipes": "nekomasfixed:sulfur_lantern"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

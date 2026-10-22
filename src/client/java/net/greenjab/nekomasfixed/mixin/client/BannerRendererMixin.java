@@ -48,7 +48,7 @@ public class BannerRendererMixin {
             diffuseColor = ModColors.INDIGO.getColor();
         }
         submitNodeCollector.submitModel(
-                model, state, poseStack, sprite.renderType(RenderTypes::bannerPattern), lightCoords, overlayCoords, diffuseColor, null, 0
+                model, state, poseStack, sprite.renderType(RenderTypes::bannerPattern), lightCoords, overlayCoords, diffuseColor, sprites.get(sprite), 0
         );
         ci.cancel();
     }

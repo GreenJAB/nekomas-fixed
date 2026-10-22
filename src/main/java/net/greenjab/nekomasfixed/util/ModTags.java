@@ -51,4 +51,7 @@ public class ModTags {
 
     public static final TagKey<Item> FLOWER_CROWNS = TagKey.create(Registries.ITEM, NekomasFixed.id("flower_crowns"));
     public static final TagKey<Item> GOAT_HORN_HELMETS = TagKey.create(Registries.ITEM, NekomasFixed.id("goat_horn_helmets"));
+    public static final TagKey<Item> GLINTABLE_ARMOR = TagKey.create(Registries.ITEM, NekomasFixed.id("glintable_armor"));
+    public static final TagKey<Item> PRISMS = TagKey.create(Registries.ITEM, NekomasFixed.id("prisms"));
+    public static final TagKey<Item> TREASURE_PRISMS = TagKey.create(Registries.ITEM, NekomasFixed.id("treasure_prisms"));
 }

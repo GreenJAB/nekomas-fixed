@@ -27,7 +27,11 @@
     "ShulkerBoxRendererMixin",
     "ShulkerBoxRenderStateMixin",
     "SpecialModelRenderersMixin",
-    "TextFeatureRendererMixin"
+    "TextFeatureRendererMixin",
+    "ItemStackRenderStateMixin",
+    "ItemModelResolverMixin",
+    "ItemFeatureRendererSumbitMixin",
+    "ItemFeatureRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
