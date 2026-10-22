@@ -16,6 +16,7 @@ public enum GoatHornTorchType implements StringRepresentable {
     GLOW_TORCH_OFF(null, 0),
     SOUL_TORCH(ParticleTypes.SOUL_FIRE_FLAME, 10),
     REDSTONE_TORCH(DustParticleOptions.REDSTONE, 15),
+    SULFUR_TORCH(ParticleTypes.NOXIOUS_GAS, 10),
     NONE(null, 0);
 
     private final int light;
@@ -45,6 +46,7 @@ public enum GoatHornTorchType implements StringRepresentable {
         if (item == Items.SOUL_TORCH) return SOUL_TORCH;
         if (item == Items.REDSTONE_TORCH) return REDSTONE_TORCH;
         if (item == ItemRegistry.GLOW_TORCH) return waterLogged ? GLOW_TORCH : GLOW_TORCH_OFF;
+        if (item == ItemRegistry.SULFUR_TORCH) return SULFUR_TORCH;
         return NONE;
     }
 
@@ -53,6 +55,7 @@ public enum GoatHornTorchType implements StringRepresentable {
         if (this==COPPER_TORCH) return Items.COPPER_TORCH;
         if (this==SOUL_TORCH) return Items.SOUL_TORCH;
         if (this==REDSTONE_TORCH) return Items.REDSTONE_TORCH;
+        if (this==SULFUR_TORCH) return ItemRegistry.SULFUR_TORCH;
         if (this==GLOW_TORCH || this==GLOW_TORCH_OFF) return ItemRegistry.GLOW_TORCH;
         return Items.AIR;
     }

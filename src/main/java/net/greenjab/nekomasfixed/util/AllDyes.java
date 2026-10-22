@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.util;
 
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.DyeColor;
 import org.jspecify.annotations.NonNull;
 
 public enum AllDyes implements StringRepresentable {
@@ -29,6 +30,12 @@ public enum AllDyes implements StringRepresentable {
     AllDyes(final String id) {
         this.id = id;
     }
+
+    public String getName() {
+        return this.id;
+    }
+
+
 
     @Override
     public @NonNull String getSerializedName() {

@@ -1,7 +1,10 @@
 package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.greenjab.nekomasfixed.registry.other.TippedArrowCustomComponent;
+import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
@@ -33,11 +36,38 @@ public abstract class AbstractArrowMixin {
         }
     }
 
+    @Inject(method = "doPostHurtEffects", at = @At("HEAD"))
+    public void doPostHurtEffects(LivingEntity mob, CallbackInfo ci){
+        final var abstractArrow = (AbstractArrow) (Object) this;
+        if (abstractArrow instanceof Arrow arrowEntity ){
+            ItemStack arrow = arrowEntity.getPickupItemStackOrigin();
+            if(arrow.has(ComponentRegistry.TIPPED_POTION_CONTENTS)){
+                TippedArrowCustomComponent component = arrow.get(ComponentRegistry.TIPPED_POTION_CONTENTS);
+                assert component != null;
+                for(PotionContents contents : component.potionContents()){
+                    AreaEffectCloud areaEffectCloudEntity = makeAreaEffectCloudEntity(mob.level(), mob.getX(), mob.getY(), mob.getZ(), contents);
+                    mob.level().addFreshEntity(areaEffectCloudEntity);
+                    arrowEntity.addTag("areaEffect");
+                }
+            }
+
+        }
+    }
+
     @Inject(method = "setInGround", at = @At("HEAD"))
     private void onHit(boolean inGround, CallbackInfo ci) {
         if (((AbstractArrow)(Object) this) instanceof Arrow arrowEntity && !arrowEntity.entityTags().contains("areaEffect")) {
             ItemStack arrow = arrowEntity.getPickupItemStackOrigin();
             PotionContents contents = arrow.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+            if(arrow.has(ComponentRegistry.TIPPED_POTION_CONTENTS)){
+                TippedArrowCustomComponent component = arrow.get(ComponentRegistry.TIPPED_POTION_CONTENTS);
+                assert component != null;
+                for(PotionContents content : component.potionContents()){
+                    AreaEffectCloud areaEffectCloudEntity = makeAreaEffectCloudEntity(arrowEntity.level(), arrowEntity.getX(), arrowEntity.getY(), arrowEntity.getZ(), content);
+                    arrowEntity.level().addFreshEntity(areaEffectCloudEntity);
+                    arrowEntity.addTag("areaEffect");
+                }
+            }
             if (contents != null && contents != PotionContents.EMPTY) {
                 AreaEffectCloud areaEffectCloudEntity = makeAreaEffectCloudEntity(arrowEntity.level(), arrowEntity.getX(), arrowEntity.getY(), arrowEntity.getZ(), contents);
                 arrowEntity.level().addFreshEntity(areaEffectCloudEntity);

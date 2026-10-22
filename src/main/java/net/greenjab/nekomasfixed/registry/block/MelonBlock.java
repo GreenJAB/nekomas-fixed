@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -105,7 +106,6 @@ public class MelonBlock extends Block {
 	private static int createFlag(int corner) {
 		return 1 << corner;
 	}
-
 
 	private static boolean isFull(BlockState state) {
 		return slices(state)==8;

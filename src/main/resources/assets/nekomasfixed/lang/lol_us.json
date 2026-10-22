@@ -24,6 +24,8 @@
 
   "block.nekomasfixed.glistering_melon": "Nom nom nom",
   "block.nekomasfixed.geyser": "AHH Burner",
+  "block.nekomasfixed.sulfur_lantern": "JUST ADD GOLD LANTERNS PLSSSSS",
+  "block.nekomasfixed.gold_chain": "Piglins favorite chains",
 
   "block.nekomasfixed.kiln": "KilN agomigues",
   "container.nekomasfixed.kiln": "Kill Kiln",
@@ -44,6 +46,7 @@
 
   "block.nekomasfixed.enderman_head": "Angry Black Mans Head",
   "item.nekomasfixed.redstone_striker": "Redstone Strikey",
+  "item.nekomasfixed.redstone_striker": "Redstone & Gold. Yea that one isnt funny:(",
   "block.nekomasfixed.glow_torch": "Nigthmare for a drowned",
   "block.nekomasfixed.glow_wall_torch": "Nightmare for any Drowned",
 
@@ -442,8 +445,6 @@
   "block.nekomasfixed.indigo_spotted_carpet": "Indusian Spotted Carpet",
   "block.nekomasfixed.maroon_spotted_carpet": "Im a maroon Spotted Carpet",
 
-
-
   "enchantment.nekomasfixed.dismount": "Discount",
   "enchantment.nekomasfixed.leeching": "Im a Vampy:)",
   "enchantment.nekomasfixed.shatter": "SHATTER IT",
@@ -453,7 +454,6 @@
 
   "advancements.husbandry.all_froglights.description": "Have all 20 froglights",
   "advancements.husbandry.all_froglights.title": "YOU ARE A FROG!!!",
-
 
   "option.namefield.optionA": "CyberMODDER",
   "option.namefield.optionB": "Akshaj"

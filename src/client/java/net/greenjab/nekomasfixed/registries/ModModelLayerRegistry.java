@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.registries;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.render.block.entity.TerracottaDecoratedPotBlockEntityRenderer;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClamBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.ClockBlockModel;
 import net.greenjab.nekomasfixed.render.block.entity.model.EndermanEyesBlockModel;
@@ -82,6 +83,9 @@ public class ModModelLayerRegistry {
     public static final ModelLayerLocation FLOWER_CROWN = register("flower_crown", "main");
     public static final ModelLayerLocation GOAT_HORN_HELMET = register("goat_horn_helmet", "main");
 	public static final ModelLayerLocation GOAT_HORN_HELMET_TRIM = register("goat_horn_helmet", "trim");
+
+    public static final ModelLayerLocation TERRACOTTA_DECORATED_POT_BASE = register("terracotta_decorated_pot_base", "main");
+    public static final ModelLayerLocation TERRACOTTA_DECORATED_POT_SIDE = register("terracotta_decorated_pot_side", "main");
 
     private static ModelLayerLocation register(final String model) {
         return register(model, "main");
@@ -179,5 +183,7 @@ public class ModModelLayerRegistry {
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.FLOWER_CROWN, FlowerCrownModel::getTexturedModelData);
         ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.GOAT_HORN_HELMET, GoatHornHelmetModel::getTexturedModelData);
 		ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.GOAT_HORN_HELMET_TRIM, GoatHornHelmetModel::getTexturedModelDataForTrim);
+        ModelLayerRegistry.registerModelLayer(ModModelLayerRegistry.TERRACOTTA_DECORATED_POT_BASE, TerracottaDecoratedPotBlockEntityRenderer::createBaseLayer);
+        ModelLayerRegistry.registerModelLayer(TerracottaDecoratedPotBlockEntityRenderer.CUSTOM_POT_SIDES, TerracottaDecoratedPotBlockEntityRenderer::createSidesLayer);
     }
 }

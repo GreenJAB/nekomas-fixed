@@ -10,13 +10,10 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.debug.DebugSubscription;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.dolphin.Dolphin;
-import net.minecraft.world.item.equipment.trim.TrimPattern;
-import net.minecraft.world.item.equipment.trim.TrimPatterns;
 
 import java.util.function.Supplier;
 
@@ -40,9 +37,5 @@ public class OtherRegistry {
     private static <T> DebugSubscription<T> registerDebug(String id, StreamCodec<? super RegistryFriendlyByteBuf, T> packetCodec) {
         return Registry.register(BuiltInRegistries.DEBUG_SUBSCRIPTION, NekomasFixed.id(id), new DebugSubscription<>(packetCodec));
     }
-
-
-    //trim
-
 
 }

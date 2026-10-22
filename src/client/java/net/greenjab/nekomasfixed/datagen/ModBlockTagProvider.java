@@ -1,13 +1,16 @@
 package net.greenjab.nekomasfixed.datagen;
 
+import com.terraformersmc.modmenu.util.mod.Mod;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
@@ -40,6 +43,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         BlockDyeMap.STAINED_GLASS_PANE.values().forEach(b->tag(ModTags.STAINED_GLASS_PANES).add(b.properties().blockId()));
 
         BlockDyeMap.GLAZED_TERRACOTTA.values().forEach(b->tag(ModTags.GLAZED_TERRACOTTAS).add(b.properties().blockId()));
+        BlockDyeMap.TERRACOTTA.values().forEach(b->tag(ModTags.CAN_BECOME_POT_FACE).add(b.properties().blockId()));
 
         BlockDyeMap.CONCRETE.values().forEach(b->tag(ModTags.CONCRETES).add(b.properties().blockId()));
         BlockDyeMap.CONCRETE_POWDER.values().forEach(b->tag(ModTags.CONCRETE_POWDERS).add(b.properties().blockId()));
@@ -77,6 +81,53 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
 
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
+
+        tag(BlockTags.CAMPFIRES)
+                .add(BlockRegistry.SULFUR_CAMPFIRE.properties().blockId());
+
+        tag(ModTags.SULFUR_BLOCKS)
+                .add(Blocks.SULFUR.properties().blockId())
+                .add(Blocks.SULFUR_BRICKS.properties().blockId())
+                .add(Blocks.CHISELED_SULFUR.properties().blockId())
+                .add(Blocks.POTENT_SULFUR.properties().blockId())
+                .add(Blocks.POLISHED_SULFUR.properties().blockId());
+
+        tag(BlockTags.BANNERS)
+                .add(BlockRegistry.AMBER_BANNER.properties().blockId())
+                .add(BlockRegistry.AQUA_BANNER.properties().blockId())
+                .add(BlockRegistry.MAROON_BANNER.properties().blockId())
+                .add(BlockRegistry.INDIGO_BANNER.properties().blockId())
+                .add(BlockRegistry.AMBER_WALL_BANNER.properties().blockId())
+                .add(BlockRegistry.AQUA_WALL_BANNER.properties().blockId())
+                .add(BlockRegistry.MAROON_WALL_BANNER.properties().blockId())
+                .add(BlockRegistry.INDIGO_WALL_BANNER.properties().blockId())
+        ;
+
+
+
+        tag(ModTags.CAN_BECOME_POT_FACE)
+                .addTag(ModTags.GLAZED_TERRACOTTAS)
+                .add(Blocks.BRICKS.properties().blockId());
+
+
+        tag(BlockTags.LANTERNS)
+                .add(BlockRegistry.SULFUR_LANTERN.properties().blockId());
+
+        tag(BlockTags.CHAINS)
+                .add(BlockRegistry.GOLD_CHAIN.properties().blockId());
+
+        tag(ModTags.TORCHES)
+                .add(Blocks.TORCH.properties().blockId())
+                .add(Blocks.REDSTONE_TORCH.properties().blockId())
+                .add(Blocks.REDSTONE_WALL_TORCH.properties().blockId())
+                .add(Blocks.SOUL_TORCH.properties().blockId())
+                .add(Blocks.SOUL_WALL_TORCH.properties().blockId())
+                .add(Blocks.COPPER_TORCH.properties().blockId())
+                .add(Blocks.COPPER_WALL_TORCH.properties().blockId())
+                .add(BlockRegistry.GLOW_TORCH.properties().blockId())
+                .add(BlockRegistry.GLOW_WALL_TORCH.properties().blockId())
+                .add(BlockRegistry.SULFUR_TORCH.properties().blockId())
+                .add(BlockRegistry.WALL_SULFUR_TORCH.properties().blockId());
 
         tag(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .addTag(ModTags.DYED_BRICKS)

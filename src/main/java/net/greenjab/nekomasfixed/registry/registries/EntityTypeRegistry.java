@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
+import me.shedaniel.clothconfig2.api.Tooltip;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
@@ -15,10 +16,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.storage.loot.functions.ToggleTooltips;
+
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -67,6 +71,9 @@ public class EntityTypeRegistry {
 
     public static final EntityType<TargetDummy> TARGET_DUMMY = register("target_dummy",
             EntityType.Builder.of(TargetDummy::new, MobCategory.MISC).sized(0.5F, 1.975F).eyeHeight(1.7775F).clientTrackingRange(10));
+
+    public static final EntityType<CustomArrow> CUSTOM_ARROW = register("custom_arrow",
+            EntityType.Builder.<CustomArrow>of(CustomArrow::new, MobCategory.MISC).noLootTable().sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20));
 
     public static final EntityType<SpearEntity> SPEAR = register("spear",
             EntityType.Builder.of(SpearEntity::new, MobCategory.MISC)

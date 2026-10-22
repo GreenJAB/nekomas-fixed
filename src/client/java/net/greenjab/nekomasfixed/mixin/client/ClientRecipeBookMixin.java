@@ -22,5 +22,9 @@ public class ClientRecipeBookMixin {
         byCategory.put(RecipeRegistry.KILNING, RecipeRegistry.KILNING.getCategories()
                         .stream().flatMap( group -> (byCategory.getOrDefault(group, List.of())).stream())
                         .collect(ImmutableList.toImmutableList()));
+
+        byCategory.put(RecipeRegistry.FLETCHING, RecipeRegistry.FLETCHING.getCategories()
+                .stream().flatMap( group -> (byCategory.getOrDefault(group, List.of())).stream())
+                .collect(ImmutableList.toImmutableList()));
     }
 }

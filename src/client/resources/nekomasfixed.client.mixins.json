@@ -38,8 +38,12 @@
     "IllagerModelMixin",
     "LivingEntityRendererMixin",
     "LootItemConditionTypesMixin",
-    "PauseScreenMixin"
+    "PauseScreenMixin",
     "LivingEntityRendererMixin",
-    "SmithingScreenMixin"
+    "SmithingScreenMixin",
+    "AtlasManagerMixin",
+    "BannerRendererMixin",
+    "IllagerModelMixin",
+    "ItemTintSourcesMixin"
   ]
 }

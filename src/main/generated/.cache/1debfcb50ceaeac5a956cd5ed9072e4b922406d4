@@ -1,3 +1,10 @@
+// 26.2	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
+d6feeb15afb94187b6c17c139bb676563d8fcb00 data/minecraft/tags/block/banners.json
+6d4e4842e7c4aedf0022d3cda8cd072f5e46175b data/minecraft/tags/block/campfires.json
+4e60b46a1610081371b7f4ec2dd74cc8e42b6c24 data/minecraft/tags/block/chains.json
+168bab13aadb88cf9eb95a278127ca851d860803 data/minecraft/tags/block/lanterns.json
+cc2df6c1fa06a20834ea62c9ae26adc62c893540 data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
+b614937558171867d10a027fbc11bf3f0c5e3f05 data/nekomasfixed/tags/block/can_become_pot_face.json
 // 26.3	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:block
 6249b5cebe0ac025db8b9803a5fc4466f1b3b49c data/c/tags/block/glass_blocks.json
 0479cf107119cd9c0d05dcb11a5ec1f08b9e28d0 data/c/tags/block/glass_panes.json
@@ -24,3 +31,5 @@ d4768119c0b0b4fc21f582fbfc4d21f9f169de9a data/nekomasfixed/tags/block/spotted_wo
 3d0f841cf8a65990db78c3fc0e28e31b8c670783 data/nekomasfixed/tags/block/spotted_wools.json
 d80bbc066a147edf4387ddc05419baa947b91490 data/nekomasfixed/tags/block/stained_glass_panes.json
 52666c5253ade4f7e7f0d82dd0f86eb82cb6083e data/nekomasfixed/tags/block/stained_glasses.json
+baf7498437921df8626588cba1952b50ec9bd43c data/nekomasfixed/tags/block/sulfur_blocks.json
+43fce11e01d6d59d0854dfb4d31054d72765b4b7 data/nekomasfixed/tags/block/torches.json

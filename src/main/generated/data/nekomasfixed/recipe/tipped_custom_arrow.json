@@ -1,0 +1,8 @@
+{
+  "type": "nekomasfixed:tipped_custom_arrow",
+  "arrow": "minecraft:arrow",
+  "potion": "#nekomasfixed:potions",
+  "result": {
+    "id": "nekomasfixed:tipped_arrow_custom"
+  }
+}

@@ -6,6 +6,10 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import org.jspecify.annotations.NonNull;
@@ -19,6 +23,34 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
+        tag(ModTags.CAN_BE_ENGRAVED)
+                .add(getKey(Items.IRON_INGOT))
+                .add(getKey(Items.GOLD_INGOT))
+                .add(getKey(Items.DIAMOND))
+                .add(getKey(Items.RESIN_BRICK))
+                .add(getKey(Items.REDSTONE))
+                .add(getKey(Items.LAPIS_LAZULI))
+                .add(getKey(Items.NETHERITE_INGOT))
+                .add(getKey(Items.QUARTZ))
+                .add(getKey(Items.COPPER_INGOT))
+                .add(getKey(Items.AMETHYST_SHARD))
+                .add(getKey(Items.EMERALD))
+        ;
+
+        tag(ItemTags.LOOM_DYES)
+                .add(getKey(ItemRegistry.AMBER_DYE))
+                .add(getKey(ItemRegistry.AQUA_DYE))
+                .add(getKey(ItemRegistry.MAROON_DYE))
+                .add(getKey(ItemRegistry.INDIGO_DYE));
+
+        tag(ItemTags.DYES)
+                .add(getKey(ItemRegistry.AMBER_DYE))
+                .add(getKey(ItemRegistry.AQUA_DYE))
+                .add(getKey(ItemRegistry.MAROON_DYE))
+                .add(getKey(ItemRegistry.INDIGO_DYE));
+
+        tag(ModTags.POTIONS)
+                .add(getKey(Items.POTION));
         tag(ModTags.FLOWER_CROWNS)
                 .add(ItemRegistry.TORCHFLOWER_FLOWER_CROWN.builtInRegistryHolder().key())
                 .add(ItemRegistry.BLUE_ORCHID_FLOWER_CROWN.builtInRegistryHolder().key())
@@ -45,8 +77,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemRegistry.GOAT_HORN_NETHERITE_HELMET.builtInRegistryHolder().key())
                 .add(ItemRegistry.GOAT_HORN_TURTLE_HELMET.builtInRegistryHolder().key());
 
-
-
+        tag(ItemTags.ARROWS).add(getKey(ItemRegistry.TIPPED_ARROW_CUSTOM));
     }
 
+    private ResourceKey<Item> getKey(Item item){
+        return item.asItem().builtInRegistryHolder().key();
+    }
 }

@@ -15,6 +15,7 @@ import net.greenjab.nekomasfixed.util.ModTreeDecorators;
 import net.greenjab.nekomasfixed.util.ModTrunkPlacers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.predicates.DataComponentPredicate;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.feline.Ocelot;
@@ -34,6 +35,7 @@ public class NekomasFixed implements ModInitializer {
 	public static final String NAMESPACE = "nekomasfixed";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAMESPACE);
 	public static final boolean IS_ALTERNATE_CURRENT_MOD_LOADED = FabricLoader.getInstance().isModLoaded("alternate-current");
+
 
 	@Override
 	public void onInitialize() {
@@ -57,6 +59,7 @@ public class NekomasFixed implements ModInitializer {
 		TrimRegistry.register();
 		EffectRegistry.registerEffects();
 		ComponentRegistry.registerComponents();
+		DataComponentPredicateRegistry.register();
 		LootTableRegistry.registerLootTables();
 		OtherRegistry.registerOther();
 		RecipeRegistry.registerRecipes();
@@ -64,6 +67,8 @@ public class NekomasFixed implements ModInitializer {
 		SyncHandler.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
+
+
 
 		BiomeAdditions.addSpawns();
 		LootTableAdditions.registerLootTableAdds();

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": "nekomasfixed:aqua_wool",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "###",
+    "###",
+    " S "
+  ],
+  "result": {
+    "id": "nekomasfixed:aqua_banner"
+  }
+}

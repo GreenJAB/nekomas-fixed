@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "nekomasfixed:block/sulfur_lantern"
+    },
+    "hanging=true": {
+      "model": "nekomasfixed:block/sulfur_lantern_hanging"
+    }
+  }
+}

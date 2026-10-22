@@ -1,0 +1,54 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:paletted_permutations",
+      "palette_key": "minecraft:trims/color_palettes/trim_palette",
+      "permutations": {
+        "amethyst": "minecraft:trims/color_palettes/amethyst",
+        "copper": "minecraft:trims/color_palettes/copper",
+        "copper_darker": "minecraft:trims/color_palettes/copper_darker",
+        "diamond": "minecraft:trims/color_palettes/diamond",
+        "diamond_darker": "minecraft:trims/color_palettes/diamond_darker",
+        "emerald": "minecraft:trims/color_palettes/emerald",
+        "gold": "minecraft:trims/color_palettes/gold",
+        "gold_darker": "minecraft:trims/color_palettes/gold_darker",
+        "iron": "minecraft:trims/color_palettes/iron",
+        "iron_darker": "minecraft:trims/color_palettes/iron_darker",
+        "lapis": "minecraft:trims/color_palettes/lapis",
+        "netherite": "minecraft:trims/color_palettes/netherite",
+        "netherite_darker": "minecraft:trims/color_palettes/netherite_darker",
+        "quartz": "minecraft:trims/color_palettes/quartz",
+        "redstone": "minecraft:trims/color_palettes/redstone",
+        "resin": "minecraft:trims/color_palettes/resin"
+      },
+      "textures": [
+
+        "nekomasfixed:trims/entity/pot/blade",
+        "nekomasfixed:trims/entity/pot/blank",
+        "nekomasfixed:trims/entity/pot/angler",
+        "nekomasfixed:trims/entity/pot/archer",
+        "nekomasfixed:trims/entity/pot/arms_up",
+        "nekomasfixed:trims/entity/pot/burn",
+        "nekomasfixed:trims/entity/pot/brewer",
+        "nekomasfixed:trims/entity/pot/danger",
+        "nekomasfixed:trims/entity/pot/explorer",
+        "nekomasfixed:trims/entity/pot/flow",
+        "nekomasfixed:trims/entity/pot/friend",
+        "nekomasfixed:trims/entity/pot/guster",
+        "nekomasfixed:trims/entity/pot/heart",
+        "nekomasfixed:trims/entity/pot/heartbreak",
+        "nekomasfixed:trims/entity/pot/howl",
+        "nekomasfixed:trims/entity/pot/miner",
+        "nekomasfixed:trims/entity/pot/mourner",
+        "nekomasfixed:trims/entity/pot/plenty",
+        "nekomasfixed:trims/entity/pot/prize",
+        "nekomasfixed:trims/entity/pot/scrape",
+        "nekomasfixed:trims/entity/pot/sheaf",
+        "nekomasfixed:trims/entity/pot/skull",
+        "nekomasfixed:trims/entity/pot/shelter",
+        "nekomasfixed:trims/entity/pot/snort"
+
+      ]
+    }
+  ]
+}
