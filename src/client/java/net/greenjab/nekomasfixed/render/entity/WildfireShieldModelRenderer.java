@@ -9,6 +9,7 @@ import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.object.equipment.ShieldModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.core.component.DataComponentMap;
@@ -24,13 +25,13 @@ import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
 public class WildfireShieldModelRenderer implements SpecialModelRenderer<DataComponentMap> {
-    private final ShieldModel model;
+	private final ShieldModel model;
 
 	public static final Identifier TEXTURE = NekomasFixed.id("textures/entity/wildfire_shield/default.png");
 	public static final Identifier TEXTURE_SOUL = NekomasFixed.id("textures/entity/wildfire_shield/soul.png");
 
 	public WildfireShieldModelRenderer(ShieldModel model) {
-        this.model = model;
+		this.model = model;
 	}
 
 	@Nullable
@@ -38,6 +39,7 @@ public class WildfireShieldModelRenderer implements SpecialModelRenderer<DataCom
 		return itemStack.immutableComponents();
 	}
 
+	@Override
 	public void submit(
 			final @Nullable DataComponentMap components,
 			final @NonNull PoseStack poseStack,
@@ -47,9 +49,36 @@ public class WildfireShieldModelRenderer implements SpecialModelRenderer<DataCom
 			final boolean hasFoil,
 			final int outlineColor
 	) {
-		int damage = components==null?0:components.getOrDefault(DataComponents.DAMAGE, 0);
-		submitNodeCollector.order(0).submitModel(this.model, Unit.INSTANCE, poseStack, damage< ItemRegistry.WILDFIRE_SHIELD.getDefaultInstance().getMaxDamage()/2 ? TEXTURE:TEXTURE_SOUL, lightCoords, overlayCoords, outlineColor, null);
-		if (hasFoil) submitNodeCollector.order(1).submitModel(this.model, Unit.INSTANCE, poseStack, RenderTypes.entityGlint(), lightCoords, overlayCoords, outlineColor, null);
+		int damage = components == null ? 0 : components.getOrDefault(DataComponents.DAMAGE, 0);
+		Identifier texture = damage < ItemRegistry.WILDFIRE_SHIELD.getDefaultInstance().getMaxDamage() / 2 ? TEXTURE : TEXTURE_SOUL;
+		RenderType renderType = RenderTypes.entitySolid(texture);
+
+		// 9 params: model, state, poseStack, renderType, lightCoords, overlayCoords, tintedColor, uvMapping, outlineColor
+		submitNodeCollector.submitModel(
+				this.model,
+				Unit.INSTANCE,
+				poseStack,
+				renderType,
+				lightCoords,
+				overlayCoords,
+				-1,
+				null,
+				outlineColor
+		);
+
+		if (hasFoil) {
+			submitNodeCollector.submitModel(
+					this.model,
+					Unit.INSTANCE,
+					poseStack,
+					RenderTypes.patternedShieldGlint(),
+					lightCoords,
+					overlayCoords,
+					-1,
+					null,
+					outlineColor
+			);
+		}
 	}
 
 	@Override

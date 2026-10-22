@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dye_thulian_froglight"
+        "recipes": [
+          "nekomasfixed:dye_thulian_froglight"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

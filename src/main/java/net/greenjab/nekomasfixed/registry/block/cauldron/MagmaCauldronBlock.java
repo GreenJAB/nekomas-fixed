@@ -30,7 +30,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
 
 public class MagmaCauldronBlock extends AbstractCauldronBlock {
-    public static final MapCodec<MagmaCauldronBlock> CODEC = simpleCodec(MagmaCauldronBlock::new);
     private static final VoxelShape LAVA_SHAPE = Block.column(12.0, 4.0, 15.0);
     private static final VoxelShape INSIDE_COLLISION_SHAPE = Shapes.or(AbstractCauldronBlock.SHAPE, LAVA_SHAPE);
 
@@ -56,11 +55,6 @@ public class MagmaCauldronBlock extends AbstractCauldronBlock {
         handler.apply(InsideBlockEffectType.CLEAR_FREEZE);
         handler.apply(InsideBlockEffectType.LAVA_IGNITE);
         handler.runAfter(InsideBlockEffectType.LAVA_IGNITE, Entity::lavaHurt);
-    }
-
-    @Override
-    protected @NonNull MapCodec<? extends AbstractCauldronBlock> codec() {
-        return CODEC;
     }
 
     @Override

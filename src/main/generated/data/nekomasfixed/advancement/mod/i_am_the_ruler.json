@@ -1,0 +1,102 @@
+{
+  "parent": "nekomasfixed:mod/root",
+  "criteria": {
+    "has_trimmed_copper_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:copper_crown",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_trimmed_diamond_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:diamond_crown",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_trimmed_golden_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:golden_crown",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_trimmed_iron_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:iron_crown",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_trimmed_netherite_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:netherite_crown",
+            "predicates": {
+              "minecraft:trim": {
+                "pattern": "nekomasfixed:jewel"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nekomasfixed.i_am_the_ruler.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "nekomasfixed:crown_smithing_template"
+    },
+    "title": {
+      "translate": "advancements.nekomasfixed.i_am_the_ruler.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_trimmed_iron_crown",
+      "has_trimmed_golden_crown",
+      "has_trimmed_diamond_crown",
+      "has_trimmed_copper_crown",
+      "has_trimmed_netherite_crown"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

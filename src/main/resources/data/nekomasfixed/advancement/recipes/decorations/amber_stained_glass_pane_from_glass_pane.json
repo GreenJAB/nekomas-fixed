@@ -23,7 +23,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:amber_stained_glass_pane_from_glass_pane"
+        "recipes": [
+          "nekomasfixed:amber_stained_glass_pane_from_glass_pane"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

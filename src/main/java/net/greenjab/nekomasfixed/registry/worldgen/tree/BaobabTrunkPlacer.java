@@ -15,7 +15,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature; // Updated import
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -39,7 +39,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     }
 
     @Override
-    public @NonNull List<FoliagePlacer.FoliageAttachment> placeTrunk(@NonNull WorldGenLevel level, @NonNull BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, int treeHeight, BlockPos origin, TreeConfiguration config) {
+    public @NonNull List<FoliagePlacer.FoliageAttachment> placeTrunk(@NonNull WorldGenLevel level, @NonNull BiConsumer<BlockPos, BlockState> trunkSetter, @NonNull RandomSource random, int treeHeight, @NonNull BlockPos origin, @NonNull TreeFeature config) {
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         boolean water = false;
         if (level instanceof WorldGenRegion chunkRegion)
@@ -48,6 +48,18 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         int x,y,z;
         float X = random.nextFloat()-0.5f;
         float Z = random.nextFloat()-0.5f;
+
+        boolean playerGrown = !(level instanceof WorldGenRegion);
+
+        if (playerGrown) {
+            for (int dx = 0; dx < 2; dx++) {
+                for (int dz = 0; dz < 2; dz++) {
+                    BlockPos basePos = origin.offset(dx, 0, dz);
+                    trunkSetter.accept(basePos, Blocks.BARRIER.defaultBlockState());
+                    trunkSetter.accept(basePos, Blocks.AIR.defaultBlockState());
+                }
+            }
+        }
 
         //"roots"
         for (y = -4; y < 0; y++) {

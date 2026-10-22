@@ -1,0 +1,6 @@
+{
+  "type": "nekomasfixed:mound",
+  "to_place": {
+    "id": "nekomasfixed:termite_block"
+  }
+}

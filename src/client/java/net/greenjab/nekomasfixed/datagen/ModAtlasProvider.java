@@ -10,13 +10,17 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.enchantment.providers.EnchantmentProvider;
+import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import org.spongepowered.asm.mixin.Unique;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class ModAtlasProvider extends AtlasProvider {
     public static List<ResourceKey<DecoratedPotPattern>> POT_FACE_PATTERNS = List.of(
@@ -63,7 +67,10 @@ public class ModAtlasProvider extends AtlasProvider {
 
     @Unique
     private static List<SpriteSource> sherdFaces() {
-        return List.of(new PalettedPermutations(patternTextures(), AtlasProvider.TRIM_PALETTE_KEY, AtlasProvider.TRIM_PALETTE_VALUES));
+        Map<String, Identifier> trimPaletteValues = Arrays.stream(TrimMaterials.Palette.values())
+                .collect(Collectors.toMap(TrimMaterials.Palette::suffix, TrimMaterials.Palette::id));
+
+        return List.of(new PalettedPermutations(patternTextures(), AtlasProvider.TRIM_PALETTE_KEY, trimPaletteValues));
     }
 
     public ModAtlasProvider(PackOutput output) {

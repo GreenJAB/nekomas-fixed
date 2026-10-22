@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:kiln"
+        "recipes": [
+          "nekomasfixed:kiln"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

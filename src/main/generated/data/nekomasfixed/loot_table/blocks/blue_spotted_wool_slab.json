@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nekomasfixed:blue_spotted_wool_slab"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

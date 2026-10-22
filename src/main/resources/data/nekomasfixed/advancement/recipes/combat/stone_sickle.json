@@ -4,7 +4,9 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "nekomasfixed:stone_sickle"
+        "recipes": [
+          "nekomasfixed:stone_sickle"
+        ]
       }
     },
     "has_ingredients": {

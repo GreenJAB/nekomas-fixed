@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.item.quiver.QuiverContents;
 import net.greenjab.nekomasfixed.registry.item.quiver.QuiverItem;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
+import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -60,7 +61,7 @@ public class ProjectileWeaponItemMixin {
 
         QuiverContents.Mutable mutable = new QuiverContents.Mutable(contents);
         int remaining = numProjectiles;
-        while (remaining > 0 && !mutable.items.isEmpty()) {
+        while (remaining > 0 && !mutable.items.isEmpty() && player.gameMode().isSurvival()) {
             ItemStack stack = mutable.items.get(0);
             int toTake = Math.min(remaining, stack.getCount());
             stack.shrink(toTake);

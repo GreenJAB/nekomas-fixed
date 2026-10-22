@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "nekomasfixed:aqua_concrete",
+  "result": {
+    "id": "nekomasfixed:aqua_concrete_stairs"
+  }
+}

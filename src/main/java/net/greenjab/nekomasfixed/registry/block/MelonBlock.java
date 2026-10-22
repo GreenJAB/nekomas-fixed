@@ -1,6 +1,5 @@
 package net.greenjab.nekomasfixed.registry.block;
 
-import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -107,7 +107,6 @@ public class MelonBlock extends Block {
 		return 1 << corner;
 	}
 
-
 	private static boolean isFull(BlockState state) {
 		return slices(state)==8;
 	}
@@ -176,19 +175,11 @@ public class MelonBlock extends Block {
 			List<ItemStack> stacks = lootTable.getRandomItems(lootContext);
 			int slices = (int) IntStream.range(0, 8).filter(j -> hasCorner(state, j)).count();
 			ArrayList<ItemStack> newstacks = new ArrayList<>(List.of());
-			if (glistering) {
-				stacks.forEach(stack -> {
-					if (stack.is(Items.MELON_SLICE) || (stack.is(Items.MELON) && slices != 8))
-						newstacks.add(Items.MELON_SLICE.getDefaultInstance().copyWithCount(slices));
-					else newstacks.add(stack);
-				});
-			} else {
-				stacks.forEach(stack -> {
-					if (stack.is(Items.GLISTERING_MELON_SLICE) || (stack.is(BlockRegistry.GLISTERING_MELON.asItem()) && slices != 8))
-						newstacks.add(Items.GLISTERING_MELON_SLICE.getDefaultInstance().copyWithCount(slices));
-					else newstacks.add(stack);
-				});
-			}
+			stacks.forEach(stack -> {
+				if (stack.is(Items.MELON_SLICE) || stack.is(Items.GLISTERING_MELON_SLICE))
+					newstacks.add(stack.getItem().getDefaultInstance().copyWithCount(Math.min(stack.count(), slices)));
+				else newstacks.add(stack);
+			});
 			return newstacks;
 		}
 	}

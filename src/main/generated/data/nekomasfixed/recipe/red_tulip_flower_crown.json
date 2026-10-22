@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "flower_crown",
+  "key": {
+    "#": "minecraft:red_tulip"
+  },
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "id": "nekomasfixed:red_tulip_flower_crown"
+  }
+}

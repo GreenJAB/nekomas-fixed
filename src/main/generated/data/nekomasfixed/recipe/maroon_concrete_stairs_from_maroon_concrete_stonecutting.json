@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "nekomasfixed:maroon_concrete",
+  "result": {
+    "id": "nekomasfixed:maroon_concrete_stairs"
+  }
+}

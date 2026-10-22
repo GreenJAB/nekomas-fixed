@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "flower_crown",
+  "key": {
+    "#": "minecraft:closed_eyeblossom"
+  },
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "id": "nekomasfixed:closed_eyeblossom_flower_crown"
+  }
+}

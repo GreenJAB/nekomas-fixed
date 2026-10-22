@@ -24,7 +24,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:aqua_concrete_powder"
+        "recipes": [
+          "nekomasfixed:aqua_concrete_powder"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

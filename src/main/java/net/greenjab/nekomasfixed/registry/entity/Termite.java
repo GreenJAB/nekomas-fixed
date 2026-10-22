@@ -38,8 +38,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.IntFunction;
+import java.util.function.Predicate;
 
 public class Termite extends Monster {
     public final AnimationState swipeAnimationState = new AnimationState();
@@ -133,7 +135,7 @@ public class Termite extends Monster {
     }
 
     public BlockPos findNearestMound(){
-        Optional<BlockPos> blockPos = BlockPos.findClosestMatch(
+        Optional<BlockPos> blockPos = Termite.findClosest(
                 this.blockPosition(),
                 16,
                 8,
@@ -178,7 +180,7 @@ public class Termite extends Monster {
 
         @Override
         public void start() {
-            Optional<BlockPos> target = BlockPos.findClosestMatch(
+            Optional<BlockPos> target = Termite.findClosest(
                     termite.blockPosition(),
                     5, 5,
                     pos -> {
@@ -264,7 +266,7 @@ public class Termite extends Monster {
         @Override
         public void start() {
             this.running = 0;
-            Optional<BlockPos> target = BlockPos.findClosestMatch(
+            Optional<BlockPos> target = Termite.findClosest(
                     termite.blockPosition(),
                     16,
                     8,
@@ -305,6 +307,15 @@ public class Termite extends Monster {
             this.running = -1;
             this.targetPos = null;
         }
+    }
+
+    public static Optional<BlockPos> findClosest(BlockPos center, int horizontalRange, int verticalRange, Predicate<BlockPos> predicate) {
+        return BlockPos.betweenClosedStream(
+                        center.offset(-horizontalRange, -verticalRange, -horizontalRange),
+                        center.offset(horizontalRange, verticalRange, horizontalRange)
+                )
+                .filter(predicate)
+                .min(Comparator.comparingDouble(center::distSqr));
     }
 
     public enum State {

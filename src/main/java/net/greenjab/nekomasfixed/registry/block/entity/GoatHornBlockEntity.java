@@ -41,7 +41,6 @@ public class GoatHornBlockEntity extends BlockEntity  {
     @Override
     protected void saveAdditional(@NonNull ValueOutput view) {
         super.saveAdditional(view);
-
         view.store("Torch", BlockState.CODEC, storedTorchState);
     }
 
@@ -49,8 +48,7 @@ public class GoatHornBlockEntity extends BlockEntity  {
     protected void loadAdditional(@NonNull ValueInput view) {
         super.loadAdditional(view);
 
-        this.storedTorchState = view.read("Torch", BlockState.CODEC)
-                .orElse(Blocks.AIR.defaultBlockState());
+        this.storedTorchState = view.read("Torch", BlockState.CODEC).orElse(Blocks.AIR.defaultBlockState());
 
     }
 
@@ -59,8 +57,6 @@ public class GoatHornBlockEntity extends BlockEntity  {
         super.saveCustomOnly(output);
         output.store("Torch", BlockState.CODEC, storedTorchState);
     }
-
-
 
     public BlockState getTorch(){
         return this.storedTorchState;

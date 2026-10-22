@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "nekomasfixed:block/ghost_pepper_shrub_stage4"
+  }
+}

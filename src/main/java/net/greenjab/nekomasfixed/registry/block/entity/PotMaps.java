@@ -40,6 +40,10 @@ public class PotMaps {
         SHERD_TO_STRING_MAPPING.put(Items.PRIZE_POTTERY_SHERD, "prize");
         SHERD_TO_STRING_MAPPING.put(Items.SCRAPE_POTTERY_SHERD, "scrape");
         SHERD_TO_STRING_MAPPING.put(Items.PLENTY_POTTERY_SHERD, "plenty");
+        SHERD_TO_STRING_MAPPING.put(Items.SHEAF_POTTERY_SHERD, "sheaf");
+        SHERD_TO_STRING_MAPPING.put(Items.SHELTER_POTTERY_SHERD, "shelter");
+        SHERD_TO_STRING_MAPPING.put(Items.SNORT_POTTERY_SHERD, "snort");
+        SHERD_TO_STRING_MAPPING.put(Items.SKULL_POTTERY_SHERD, "skull");
         SHERD_TO_STRING_MAPPING.put(Items.BRICK, "blank"); //fallback
 
         POT_FACE_TO_STRING_MAPPING.put(Blocks.GLAZED_TERRACOTTA.pick(DyeColor.LIGHT_BLUE), "light_blue");
@@ -69,10 +73,10 @@ public class PotMaps {
 
     public static List<String> getSherdTexture(PotDecorations decorations) {
         return List.of(
-                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.back().orElse(Items.BRICK), "blank"),
-                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.left().orElse(Items.BRICK), "blank"),
-                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.right().orElse(Items.BRICK), "blank"),
-                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.front().orElse(Items.BRICK), "blank")
+                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.back().map(t -> t.create().getItem()).orElse(Items.BRICK), "blank"),
+                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.left().map(t -> t.create().getItem()).orElse(Items.BRICK), "blank"),
+                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.right().map(t -> t.create().getItem()).orElse(Items.BRICK), "blank"),
+                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.front().map(t -> t.create().getItem()).orElse(Items.BRICK), "blank")
         );
     }
 

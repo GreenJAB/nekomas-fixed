@@ -19,17 +19,12 @@ import org.jspecify.annotations.NonNull;
 
 public class PyrotechnicsTableBlock extends HorizontalDirectionalBlock {
 
-    public static final MapCodec<PyrotechnicsTableBlock> CODEC = simpleCodec(PyrotechnicsTableBlock::new);
     private static final Component TITLE = Component.translatable("container.nekomasfixed.pyrotechnics");
 
     public PyrotechnicsTableBlock(Properties settings) {
         super(settings);
     }
 
-    @Override
-    protected @NonNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
 
     protected @NonNull InteractionResult useWithoutItem(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull BlockHitResult hit) {
         if (!level.isClientSide()) {

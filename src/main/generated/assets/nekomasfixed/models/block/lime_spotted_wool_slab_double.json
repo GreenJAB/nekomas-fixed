@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "nekomasfixed:block/lime_spotted_wool",
+    "side": "nekomasfixed:block/lime_spotted_wool"
+  }
+}

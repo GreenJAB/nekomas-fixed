@@ -40,9 +40,6 @@ import org.jspecify.annotations.Nullable;
 public abstract class AbstractClockBlock extends BaseEntityBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
-	@Override
-	public abstract @NonNull MapCodec<? extends AbstractClockBlock> codec();
-
 	public AbstractClockBlock(Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false));
@@ -74,7 +71,7 @@ public abstract class AbstractClockBlock extends BaseEntityBlock {
 					if (clockBlockEntity.hasBell()) {
 						clockBlockEntity.setBell(false);
 						clockBlockEntity.setTimer(-60);
-						stack.hurtWithoutBreaking(1, player);
+						stack.hurtAndBreak(1, player, hand);
 						ItemEntity itemEntity = new ItemEntity(level, pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5 , Items.BELL.getDefaultInstance());
 						itemEntity.setDefaultPickUpDelay();
 						level.addFreshEntity(itemEntity);

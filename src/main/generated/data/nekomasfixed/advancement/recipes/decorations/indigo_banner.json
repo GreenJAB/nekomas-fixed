@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_indigo_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:indigo_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:stick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:indigo_banner"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_indigo_wool",
+      "has_stick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:indigo_banner"
+    ]
+  }
+}

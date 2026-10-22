@@ -56,19 +56,11 @@ import org.jspecify.annotations.Nullable;
 import java.util.List;
 
 public class TerracottaDecoratedPotBlock extends DecoratedPotBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<? extends DecoratedPotBlock> CODEC = simpleCodec(TerracottaDecoratedPotBlock::new);
     public static final Identifier SHERDS_DYNAMIC_DROP_ID = Identifier.withDefaultNamespace("sherds");
     public static final EnumProperty<Direction> HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty CRACKED = BlockStateProperties.CRACKED;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 16.0);
-
-
-
-    @Override
-    public MapCodec<DecoratedPotBlock> codec() {
-        return (MapCodec<DecoratedPotBlock>) CODEC;
-    }
 
     public TerracottaDecoratedPotBlock(final BlockBehaviour.Properties properties) {
         super(properties);
@@ -104,7 +96,7 @@ public class TerracottaDecoratedPotBlock extends DecoratedPotBlock implements Si
 
 
     @Override
-    public void spawnDestroyParticles(Level level, Player player, BlockPos pos, BlockState state) {
+    public void spawnDestroyParticles(Level level, BlockPos pos, BlockState state) {
         BlockEntity be = level.getBlockEntity(pos);
         if (be instanceof TerracottaDecoratedPotBlockEntity potEntity) {
             Block faceBlock = potEntity.getPotFace().getSafeBlock();
@@ -113,7 +105,7 @@ public class TerracottaDecoratedPotBlock extends DecoratedPotBlock implements Si
             }
             level.levelEvent(2001, pos, Block.getId(faceBlock.defaultBlockState()));
         } else {
-            super.spawnDestroyParticles(level, player, pos, state);
+            super.spawnDestroyParticles(level, pos, state);
         }
     }
 
@@ -257,10 +249,12 @@ public class TerracottaDecoratedPotBlock extends DecoratedPotBlock implements Si
     protected List<ItemStack> getDrops(final BlockState state, final LootParams.Builder params) {
         BlockEntity maybeEntity = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
         if (maybeEntity instanceof TerracottaDecoratedPotBlockEntity entity) {
-            params.withDynamicDrop(SHERDS_DYNAMIC_DROP_ID, /* lambda$getDrops$0 */ output -> {
-                for (Item item : entity.getDecorations().ordered()) {
-                    output.accept(item.getDefaultInstance());
-                }
+            params.withDynamicDrop(SHERDS_DYNAMIC_DROP_ID, output -> {
+                PotDecorations dec = entity.getDecorations();
+                dec.back().ifPresent(template -> output.accept(template.create()));
+                dec.left().ifPresent(template -> output.accept(template.create()));
+                dec.right().ifPresent(template -> output.accept(template.create()));
+                dec.front().ifPresent(template -> output.accept(template.create()));
             });
         }
 
@@ -292,7 +286,7 @@ public class TerracottaDecoratedPotBlock extends DecoratedPotBlock implements Si
     @Override
     protected void onProjectileHit(final Level level, final BlockState state, final BlockHitResult blockHit, final Projectile projectile) {
         BlockPos pos = blockHit.getBlockPos();
-        if (level instanceof ServerLevel serverLevel && projectile.mayInteract(serverLevel, pos) && projectile.mayBreak(serverLevel)) {
+        if (level instanceof ServerLevel serverLevel && projectile.mayInteract(serverLevel, pos) && projectile.mayBreak(serverLevel, pos)) {
             level.setBlock(pos, state.setValue(CRACKED, true), 260);
             level.destroyBlock(pos, true, projectile);
         }

@@ -6,9 +6,9 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:copy_components",
+              "type": "minecraft:copy_components",
               "include": [
                 "minecraft:custom_name",
                 "minecraft:container",
@@ -22,7 +22,7 @@
           "name": "nekomasfixed:clam_blue"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "nekomasfixed:blocks/clam_blue"

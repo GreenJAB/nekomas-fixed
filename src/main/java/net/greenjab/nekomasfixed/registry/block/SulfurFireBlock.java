@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SulfurFireBlock extends BaseFireBlock {
-    public static final MapCodec<SulfurFireBlock> CODEC = simpleCodec(SulfurFireBlock::new);
     private final ParticleOptions PARTICLE_GAS = ParticleTypes.NOXIOUS_GAS;
     private final ParticleOptions PARTICLE_SMOKE = ParticleTypes.LARGE_SMOKE;
 
@@ -43,11 +42,6 @@ public class SulfurFireBlock extends BaseFireBlock {
 
     public static boolean canSurviveOnBlock(final BlockState state) {
         return state.is(ModTags.SULFUR_BLOCKS);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseFireBlock> codec() {
-        return CODEC;
     }
 
     @Override

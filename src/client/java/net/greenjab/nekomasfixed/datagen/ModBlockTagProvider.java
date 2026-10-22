@@ -1,7 +1,10 @@
 package net.greenjab.nekomasfixed.datagen;
 
+import com.terraformersmc.modmenu.util.mod.Mod;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.greenjab.nekomasfixed.util.ModTags;
@@ -11,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
@@ -21,12 +25,19 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
-        //TODO datagen tags
-
         BlockDyeMap.BRICKS.values().forEach(b->tag(ModTags.DYED_BRICKS).add(b.properties().blockId()));
-        BlockDyeMap.BRICK_SLAB.values().forEach(b->tag(ModTags.DYED_BRICK_SLABS).add(b.properties().blockId()));
-        BlockDyeMap.BRICK_STAIRS.values().forEach(b->tag(ModTags.DYED_BRICK_STAIRS).add(b.properties().blockId()));
-        BlockDyeMap.BRICK_WALL.values().forEach(b->tag(ModTags.DYED_BRICK_WALLS).add(b.properties().blockId()));
+        BlockDyeMap.BRICK_SLAB.values().forEach(b->{
+            tag(ModTags.DYED_BRICK_SLABS).add(b.properties().blockId());
+            tag(BlockTags.SLABS).add(b.properties().blockId());
+        });
+        BlockDyeMap.BRICK_STAIRS.values().forEach(b->{
+            tag(ModTags.DYED_BRICK_STAIRS).add(b.properties().blockId());
+            tag(BlockTags.STAIRS).add(b.properties().blockId());
+        });
+        BlockDyeMap.BRICK_WALL.values().forEach(b->{
+            tag(ModTags.DYED_BRICK_WALLS).add(b.properties().blockId());
+            tag(BlockTags.WALLS).add(b.properties().blockId());
+        });
 
         BlockDyeMap.STAINED_GLASS.values().forEach(b->tag(ModTags.STAINED_GLASSES).add(b.properties().blockId()));
         BlockDyeMap.STAINED_GLASS_PANE.values().forEach(b->tag(ModTags.STAINED_GLASS_PANES).add(b.properties().blockId()));
@@ -40,9 +51,39 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         BlockDyeMap.SPOTTED_WOOL.values().forEach(b->tag(ModTags.SPOTTED_WOOLS).add(b.properties().blockId()));
         BlockDyeMap.SPOTTED_CARPET.values().forEach(b->tag(ModTags.SPOTTED_CARPETS).add(b.properties().blockId()));
 
+        BlockDyeMap.CONCRETE_SLABS.values().forEach(b -> {
+            tag(BlockTags.CONCRETE_SLABS).add(b.properties().blockId());
+            tag(BlockTags.SLABS).add(b.properties().blockId());
+        });
+        BlockDyeMap.CONCRETE_STAIRS.values().forEach(b -> {
+            tag(BlockTags.CONCRETE_STAIRS).add(b.properties().blockId());
+            tag(BlockTags.STAIRS).add(b.properties().blockId());
+        });
+
+        BlockDyeMap.WOOL_SLABS.values().forEach(b -> {
+            tag(BlockTags.WOOL_SLABS).add(b.properties().blockId());
+            tag(BlockTags.SLABS).add(b.properties().blockId());
+        });
+        BlockDyeMap.WOOL_STAIRS.values().forEach(b -> {
+            tag(BlockTags.WOOL_STAIRS).add(b.properties().blockId());
+            tag(BlockTags.STAIRS).add(b.properties().blockId());
+        });
+
+        BlockDyeMap.SPOTTED_WOOL_SLABS.values().forEach(b -> {
+            tag(ModTags.SPOTTED_WOOL_SLABS).add(b.properties().blockId());
+            tag(BlockTags.SLABS).add(b.properties().blockId());
+        });
+        BlockDyeMap.SPOTTED_WOOL_STAIRS.values().forEach(b -> {
+            tag(ModTags.SPOTTED_WOOL_STAIRS).add(b.properties().blockId());
+            tag(BlockTags.STAIRS).add(b.properties().blockId());
+        });
+
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
 
         BlockDyeMap.FROGLIGHT.values().forEach(b->tag(ModTags.FROGLIGHTS).add(b.properties().blockId()));
+
+        tag(BlockTags.CAMPFIRES)
+                .add(BlockRegistry.SULFUR_CAMPFIRE.properties().blockId());
 
         tag(ModTags.SULFUR_BLOCKS)
                 .add(Blocks.SULFUR.properties().blockId())
@@ -51,10 +92,22 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.POTENT_SULFUR.properties().blockId())
                 .add(Blocks.POLISHED_SULFUR.properties().blockId());
 
+        tag(BlockTags.BANNERS)
+                .add(BlockRegistry.AMBER_BANNER.properties().blockId())
+                .add(BlockRegistry.AQUA_BANNER.properties().blockId())
+                .add(BlockRegistry.MAROON_BANNER.properties().blockId())
+                .add(BlockRegistry.INDIGO_BANNER.properties().blockId())
+                .add(BlockRegistry.AMBER_WALL_BANNER.properties().blockId())
+                .add(BlockRegistry.AQUA_WALL_BANNER.properties().blockId())
+                .add(BlockRegistry.MAROON_WALL_BANNER.properties().blockId())
+                .add(BlockRegistry.INDIGO_WALL_BANNER.properties().blockId())
+        ;
+
+
+
         tag(ModTags.CAN_BECOME_POT_FACE)
                 .addTag(ModTags.GLAZED_TERRACOTTAS)
-                .add(Blocks.BRICKS.properties().blockId())
-        ;
+                .add(Blocks.BRICKS.properties().blockId());
 
 
         tag(BlockTags.LANTERNS)
@@ -72,7 +125,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.COPPER_TORCH.properties().blockId())
                 .add(Blocks.COPPER_WALL_TORCH.properties().blockId())
                 .add(BlockRegistry.GLOW_TORCH.properties().blockId())
-                .add(BlockRegistry.GLOW_WALL_TORCH.properties().blockId());
+                .add(BlockRegistry.GLOW_WALL_TORCH.properties().blockId())
+                .add(BlockRegistry.SULFUR_TORCH.properties().blockId())
+                .add(BlockRegistry.WALL_SULFUR_TORCH.properties().blockId());
 
         tag(ModTags.CAN_BE_DYED_WITH_BRUSH)
                 .addTag(ModTags.DYED_BRICKS)
@@ -85,9 +140,15 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .addTag(ModTags.GLAZED_TERRACOTTAS)
                 .addOptionalTag(BlockTags.WOOL)
                 .addOptionalTag(BlockTags.WOOL_CARPETS)
+                .addTag(ModTags.SPOTTED_WOOL_SLABS)
+                .addTag(ModTags.SPOTTED_WOOL_STAIRS)
                 .addOptionalTag(BlockTags.CANDLES)
                 .addOptionalTag(BlockTags.CONCRETE)
                 .addOptionalTag(BlockTags.CONCRETE_POWDERS)
+                .addTag(BlockTags.CONCRETE_SLABS)
+                .addTag(BlockTags.CONCRETE_STAIRS)
+                .addTag(BlockTags.WOOL_SLABS)
+                .addTag(BlockTags.WOOL_STAIRS)
                 .addTag(ModTags.FROGLIGHTS)
                 .addOptionalTag(BlockTags.SHULKER_BOXES)
                 .addOptionalTag(BlockTags.BEDS)
@@ -97,73 +158,16 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.BRICK_SLAB.properties().blockId())
                 .add(Blocks.BRICK_STAIRS.properties().blockId())
                 .add(Blocks.BRICK_WALL.properties().blockId());
-
-
-        /*valueLookupBuilder(ModTags.DYED_BRICKS)
-                .add((Block) BlockDyeMap.BRICKS.values());
-        valueLookupBuilder(ModTags.DYED_BRICK_SLABS)
-                .add((Block) BlockDyeMap.BRICK_SLAB.values());
-        valueLookupBuilder(BlockTags.SLABS)
-                .add((Block) BlockDyeMap.BRICK_SLAB.values());
-        valueLookupBuilder(ModTags.DYED_BRICK_STAIRS)
-                .add((Block) BlockDyeMap.BRICK_STAIRS.values());
-        valueLookupBuilder(BlockTags.STAIRS)
-                .add((Block) BlockDyeMap.BRICK_STAIRS.values());
-        valueLookupBuilder(ModTags.DYED_BRICK_WALLS)
-                .add((Block) BlockDyeMap.BRICK_WALL.values());
-        valueLookupBuilder(BlockTags.WALLS)
-                .add((Block) BlockDyeMap.BRICK_WALL.values());
-
-        valueLookupBuilder(ModTags.STAINED_GLASSES)
-                .add((Block) BlockDyeMap.STAINED_GLASS.values());
-        valueLookupBuilder(ModTags.STAINED_GLASS_PANES)
-                .add((Block) BlockDyeMap.STAINED_GLASS_PANE.values());
-
-        valueLookupBuilder(ModTags.GLAZED_TERRACOTTAS)
-                .add((Block) BlockDyeMap.GLAZED_TERRACOTTA.values());
-
-        valueLookupBuilder(ModTags.CONCRETES)
-                .add((Block) BlockDyeMap.CONCRETE.values());
-        valueLookupBuilder(ModTags.CONCRETE_POWDERS)
-                .add((Block) BlockDyeMap.CONCRETE_POWDER.values());
-
-        valueLookupBuilder(ModTags.SPOTTED_WOOLS)
-                .add((Block) BlockDyeMap.SPOTTED_WOOL.values());
-        valueLookupBuilder(ModTags.SPOTTED_CARPETS)
-                .add((Block) BlockDyeMap.SPOTTED_CARPET.values());
-
-        valueLookupBuilder(ModTags.FROGLIGHTS)
-                .add((Block) BlockDyeMap.FROGLIGHT.values());
-
-
-        valueLookupBuilder(ModTags.CAN_BE_DYED_WITH_BRUSH)
-                .add((Block) BlockDyeMap.BRICKS.values())
-                .add((Block) BlockDyeMap.BRICK_SLAB.values())
-                .add((Block) BlockDyeMap.BRICK_STAIRS.values())
-                .add((Block) BlockDyeMap.BRICK_WALL.values())
-                .add((Block) BlockDyeMap.STAINED_GLASS.values())
-                .add((Block) BlockDyeMap.STAINED_GLASS_PANE.values())
-                .add((Block) BlockDyeMap.TERRACOTTA.values())
-                .add((Block) BlockDyeMap.GLAZED_TERRACOTTA.values())
-                .add((Block) BlockDyeMap.WOOL.values())
-                .add((Block) BlockDyeMap.SPOTTED_WOOL.values())
-                .add((Block) BlockDyeMap.CANDLE.values())
-                .add((Block) BlockDyeMap.CARPET.values())
-                .add((Block) BlockDyeMap.SPOTTED_CARPET.values())
-                .add((Block) BlockDyeMap.CONCRETE.values())
-                .add((Block) BlockDyeMap.CONCRETE_POWDER.values())
-                .add((Block) BlockDyeMap.FROGLIGHT.values())
-                .add((Block) BlockDyeMap.SHULKER_BOX.values())
-                .add((Block) BlockDyeMap.BED.values())
-                .add(Blocks.GLASS)
-                .add(Blocks.CANDLE)
-                .add(Blocks.GLASS_PANE)
-                .add(Blocks.BRICKS)
-                .add(Blocks.BRICK_SLAB)
-                .add(Blocks.BRICK_STAIRS)
-                .add(Blocks.BRICK_WALL)
-                .add(Blocks.SHULKER_BOX);*/
+        tag(ConventionalBlockTags.GLASS_BLOCKS)
+                .add(BlockRegistry.AMBER_STAINED_GLASS.properties().blockId())
+                .add(BlockRegistry.INDIGO_STAINED_GLASS.properties().blockId())
+                .add(BlockRegistry.AQUA_STAINED_GLASS.properties().blockId())
+                .add(BlockRegistry.MAROON_STAINED_GLASS.properties().blockId());
+        tag(ConventionalBlockTags.GLASS_PANES)
+                .add(BlockRegistry.AMBER_STAINED_GLASS_PANE.properties().blockId())
+                .add(BlockRegistry.INDIGO_STAINED_GLASS_PANE.properties().blockId())
+                .add(BlockRegistry.AQUA_STAINED_GLASS_PANE.properties().blockId())
+                .add(BlockRegistry.MAROON_STAINED_GLASS_PANE.properties().blockId());
     }
-
 }
 

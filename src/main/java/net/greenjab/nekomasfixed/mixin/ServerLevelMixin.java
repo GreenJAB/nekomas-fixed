@@ -1,9 +1,13 @@
 package net.greenjab.nekomasfixed.mixin;
 
+import net.greenjab.nekomasfixed.registry.entity.SuspiciousSpider;
 import net.greenjab.nekomasfixed.registry.item.RedstoneStrikerItem;
 import net.greenjab.nekomasfixed.screen.config.ModConfigValues;
+import net.greenjab.nekomasfixed.util.options.EntitySpawnOption;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.profiling.Profiler;
@@ -25,6 +29,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,9 +65,9 @@ public abstract class ServerLevelMixin {
         ProfilerFiller profiler = Profiler.get();
         profiler.push("thunder");
         ServerPlayer player = this.getRandomPlayer();
-        if (ModConfigValues.enableCopperBuff && bl && level.isThundering() && player != null) {
+        if (level.getRandom().nextInt(100) == 0 && ModConfigValues.enableCopperBuff.get() && bl && level.isThundering() && player != null) {
             int armor = getCopperArmor(player);
-            if (armor > 0 && level.getRandom().nextInt(14000-2000*armor) == 0) {
+            if (armor > 0 && level.getRandom().nextInt(1400-200*armor) == 0) {
                 BlockPos blockPos = player.blockPosition();
                 if (level.isRainingAt(blockPos)) {
                     LightningBolt lightningEntity = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
@@ -74,6 +79,13 @@ public abstract class ServerLevelMixin {
             }
         }
         profiler.pop();
+    }
+
+    @Inject(method = "addFreshEntity", at = @At("HEAD"), cancellable = true)
+    private void nekomasfixed$blockDisabledSpawns(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+        if (EntitySpawnOption.isDisabled(entity.getType())) {
+            cir.setReturnValue(false);
+        }
     }
 
     @Unique

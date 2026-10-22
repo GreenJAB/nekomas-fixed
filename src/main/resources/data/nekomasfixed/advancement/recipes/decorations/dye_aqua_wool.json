@@ -23,7 +23,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dye_aqua_wool"
+        "recipes": [
+          "nekomasfixed:dye_aqua_wool"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

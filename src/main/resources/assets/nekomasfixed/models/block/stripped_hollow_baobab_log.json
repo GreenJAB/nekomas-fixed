@@ -1,0 +1,9 @@
+{
+  "parent": "nekomasfixed:block/hollow_log_template",
+  "textures": {
+    "outside": "nekomasfixed:block/baobab_log",
+    "inside": "nekomasfixed:block/baobab_log",
+    "end": "nekomasfixed:block/baobab_log_top",
+    "particle": "nekomasfixed:block/baobab_log"
+  }
+}

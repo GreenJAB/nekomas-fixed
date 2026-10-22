@@ -28,7 +28,6 @@ public class RopeBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty ATTACHED = BlockStateProperties.ATTACHED;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public static final MapCodec<RopeBlock> CODEC = simpleCodec(RopeBlock::new);
     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 16.0);
 
     public RopeBlock(Properties settings) {
@@ -36,10 +35,6 @@ public class RopeBlock extends Block implements SimpleWaterloggedBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(ATTACHED, false).setValue(WATERLOGGED, false));
     }
 
-    @Override
-    public @NonNull MapCodec<RopeBlock> codec() {
-        return CODEC;
-    }
     
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

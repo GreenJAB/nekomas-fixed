@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.entity.PotDecorations;
@@ -44,13 +45,16 @@ public class PotDecorationsMixin {
     }
 
     @Unique
-    private static void addCustomSideDetailsToTooltip(final Consumer<Component> consumer, final Optional<Item> side, Item item, SpriteFacing facing) {
+    private static void addCustomSideDetailsToTooltip(final Consumer<Component> consumer, final Optional<ItemStackTemplate> side, Item item, SpriteFacing facing) {
         Integer formatting = PotMaps.ITEM_TO_CHAT_FORMATTING_MAPPING.get(item);
-        consumer.accept( Component.translatable("terracotta_decorated_pot."+facing.toString()).append(new ItemStack(side.orElse(Items.BRICK), 1).getHoverName()
-                .plainCopy().withColor(formatting != null ? formatting : TextColor.GRAY.getValue())
-                .withStyle(formatting != null ? ChatFormatting.BOLD : ChatFormatting.GRAY)));
-    }
+        Component hoverName = side.map(template -> template.create().getHoverName())
+                .orElseGet(() -> new ItemStack(Items.BRICK).getHoverName());
 
+        consumer.accept(Component.translatable("terracotta_decorated_pot." + facing.toString())
+                .append(hoverName.plainCopy()
+                        .withColor(formatting != null ? formatting : TextColor.GRAY.getValue())
+                        .withStyle(formatting != null ? ChatFormatting.BOLD : ChatFormatting.GRAY)));
+    }
 }
 
 

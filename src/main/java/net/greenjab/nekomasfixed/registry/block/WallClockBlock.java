@@ -30,18 +30,8 @@ import org.jspecify.annotations.NonNull;
 import java.util.Map;
 
 public class WallClockBlock extends AbstractClockBlock {
-	public static final MapCodec<WallClockBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-				propertiesCodec()
-			).apply(instance, WallClockBlock::new)
-	);
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 	private static final Map<Direction, VoxelShape> SHAPES_BY_DIRECTION = Shapes.rotateHorizontal(Block.boxZ(14.0, 15.0, 16.0));
-
-	@Override
-	public @NonNull MapCodec<? extends WallClockBlock> codec() {
-		return CODEC;
-	}
 
 	public WallClockBlock(Properties settings) {
 		super(settings);

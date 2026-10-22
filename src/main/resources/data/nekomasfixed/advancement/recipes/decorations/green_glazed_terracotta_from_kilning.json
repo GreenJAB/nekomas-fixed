@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:green_glazed_terracotta_from_kilning"
+        "recipes": [
+          "nekomasfixed:green_glazed_terracotta_from_kilning"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

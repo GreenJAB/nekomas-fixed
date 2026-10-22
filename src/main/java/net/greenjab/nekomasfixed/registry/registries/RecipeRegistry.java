@@ -22,7 +22,7 @@ public class RecipeRegistry {
     }
 
     public static final RecipeType<KilnRecipe> KILN = registerRecipeType("kiln");
-    public static final RecipeType<CustomTippedArrowRecipe> CUSTOM_TIPPED_ARROW_RECIPE = registerRecipeType("custom_tipped_arrow");
+    public static final RecipeType<CustomTippedArrowRecipe> CUSTOM_TIPPED_ARROW_RECIPE = registerRecipeType("tipped_custom_arrow");
 
     static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String id) {
         return Registry.register(

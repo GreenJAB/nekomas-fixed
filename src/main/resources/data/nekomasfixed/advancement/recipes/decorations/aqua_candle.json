@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:aqua_candle"
+        "recipes": [
+          "nekomasfixed:aqua_candle"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

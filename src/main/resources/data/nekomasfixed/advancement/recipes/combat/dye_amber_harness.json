@@ -13,7 +13,9 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:dye_amber_harness"
+        "recipes": [
+          "nekomasfixed:dye_amber_harness"
+        ]
       },
       "trigger": "minecraft:recipe_unlocked"
     }

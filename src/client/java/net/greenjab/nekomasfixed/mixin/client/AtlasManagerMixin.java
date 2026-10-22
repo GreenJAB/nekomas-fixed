@@ -23,14 +23,14 @@ public class AtlasManagerMixin {
 
          AtlasManager.AtlasConfig info = new AtlasManager.AtlasConfig(
                 SheetRegistry.TERRACOTTA_DECORATED_POT_SHEET,
-                Identifier.fromNamespaceAndPath("nekomasfixed", "terracotta_decorated_pot"), // FIXED: No more MAP_DECORATIONS!
+                Identifier.fromNamespaceAndPath("nekomasfixed", "terracotta_decorated_pot"),
                 false
         );
 
 
         AtlasManager.AtlasConfig pot_face_items_sheet = new AtlasManager.AtlasConfig(
                 SheetRegistry.POT_FACE_ITEMS_SHEET,
-                Identifier.fromNamespaceAndPath("nekomasfixed", "custom_pot"), // FIXED: Correct definition ID!
+                Identifier.fromNamespaceAndPath("nekomasfixed", "custom_pot"),
                 false
         );
 

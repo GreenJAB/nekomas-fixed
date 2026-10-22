@@ -1,7 +1,7 @@
 package net.greenjab.nekomasfixed.render.entity;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registries.ModEntityLayerRegistry;
+import net.greenjab.nekomasfixed.registries.ModModelLayerRegistry;
 import net.greenjab.nekomasfixed.render.entity.model.TermiteModel;import net.greenjab.nekomasfixed.render.entity.state.TermiteRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -11,7 +11,7 @@ import org.jspecify.annotations.NonNull;
 
 public class TermiteRenderer extends MobRenderer<Termite, TermiteRenderState, TermiteModel> {
     public TermiteRenderer(EntityRendererProvider.Context context) {
-        super(context, new TermiteModel(context.bakeLayer(ModEntityLayerRegistry.TERMITE)), 0.25f);
+        super(context, new TermiteModel(context.bakeLayer(ModModelLayerRegistry.TERMITE)), 0.25f);
     }
 
     @Override

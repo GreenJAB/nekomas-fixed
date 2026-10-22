@@ -70,7 +70,6 @@ public class AnimalTooltipComponent implements ClientTooltipComponent {
                 float dx = 10 * (float) (Math.cos(7 * time) + Math.sin(3 * time));
                 float dy = 10 * (float) (Math.cos(5 * time) + Math.sin(2 * time));
                 InventoryScreen.extractEntityInInventoryFollowsMouse(context, x, y - 20, x + getWidth(), y + getHeight(), 40, 0.25F, x - 15 + dx, y + 30 + dy, (LivingEntity) entity);
-                entity.discard();
             }
         }
     }

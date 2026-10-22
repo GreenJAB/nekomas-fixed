@@ -62,7 +62,6 @@ import java.util.Map;
 import static net.minecraft.core.Direction.*;
 
 public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, EntityBlock {
-    public static final MapCodec<GoatHornBlock> CODEC = simpleCodec(GoatHornBlock::new);
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<GoatHornTorchType> TORCH = EnumProperty.create("torch", GoatHornTorchType.class);
     public static final EnumProperty<GoatHornType> HORN = EnumProperty.create("horn", GoatHornType.class);
@@ -101,7 +100,7 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
 
     @Override
     protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, @NonNull Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hit) {
-        if(level.getBlockEntity(pos) instanceof GoatHornBlockEntity entity){
+        if (level.getBlockEntity(pos) instanceof GoatHornBlockEntity entity) {
             if (entity.getTorch() != Blocks.AIR.defaultBlockState()) {
                 if (stack.is(Items.SHEARS)) {
                     level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), entity.getTorch().getCloneItemStack(level, pos, true)));
@@ -114,22 +113,40 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
                 }
             } else {
                 if (stack.getItem() != entity.getTorch().getBlock().asItem()) {
-                    if(state.getValue(WATERLOGGED) && stack.is(ItemRegistry.GLOW_TORCH)){
+                    if (state.getValue(WATERLOGGED) && stack.is(ItemRegistry.GLOW_TORCH)) {
                         entity.setTorch(BlockRegistry.GLOW_TORCH.defaultBlockState().setValue(GlowTorchBlock.WATERLOGGED, true));
-                        level.setBlock(pos, state.setValue(TORCH, GoatHornTorchType.fromItem(stack.getItem(),true )), 3);
+                        level.setBlock(pos, state.setValue(TORCH, GoatHornTorchType.fromItem(stack.getItem(), true)), 3);
 
-                    }else{
+                    } else {
                         entity.setTorch(stack);
-                        level.setBlock(pos, state.setValue(TORCH, GoatHornTorchType.fromItem(stack.getItem(),false )), 3);
+                        level.setBlock(pos, state.setValue(TORCH, GoatHornTorchType.fromItem(stack.getItem(), false)), 3);
                     }
                     level.playSound(null, player, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.PLAYERS, 1.0F, 1.0F);
                     stack.consume(1, player);
                     return InteractionResult.SUCCESS;
                 }
+                if (state.getValue(TORCH) != GoatHornTorchType.NONE) {
+                    if (stack.is(Items.SHEARS)) {
+                        level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), state.getValue(TORCH).toItem().getDefaultInstance()));
+                        level.setBlockAndUpdate(pos, state.setValue(TORCH, GoatHornTorchType.NONE));
+                        level.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+                        stack.hurtAndBreak(1, player, hand);
+                        return InteractionResult.SUCCESS;
+                    }
+                } else {
+                    GoatHornTorchType type = GoatHornTorchType.fromItem(stack.getItem(), state.getValue(WATERLOGGED));
+                    if (type != GoatHornTorchType.NONE) {
+                        level.setBlockAndUpdate(pos, state.setValue(TORCH, type));
+                        level.playSound(null, player, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.PLAYERS, 1.0F, 1.0F);
+                        stack.consume(1, player);
+                        return InteractionResult.SUCCESS;
+                    }
+                }
             }
         }
         return InteractionResult.PASS;
     }
+
 
 
 
@@ -148,7 +165,6 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
 
     @Override
     public void animateTick(BlockState state, @NonNull Level level, BlockPos pos, @NonNull RandomSource random) {
-
         Direction facing = state.getValue(FACING);
         double d = pos.getX() + 0.5;
         double e = pos.getY() + 1;
@@ -274,7 +290,6 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
 
     @Override
     protected void tick(BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, @NonNull RandomSource random) {
-
         if (!state.canSurvive(level, pos)) {
             level.destroyBlock(pos, true);
         } else {
@@ -283,12 +298,6 @@ public class GoatHornBlock extends HorizontalDirectionalBlock implements SimpleW
             }
         }
     }
-
-    @Override
-    protected @NonNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
-
 
     protected @NonNull ItemStack getCloneItemStack(@NonNull LevelReader level, @NonNull BlockPos pos, @NonNull BlockState state, boolean includeData) {
         Holder<Instrument> entry = level.registryAccess().lookupOrThrow(Registries.INSTRUMENT).getOrThrow(state.getValue(HORN).getInstrument());

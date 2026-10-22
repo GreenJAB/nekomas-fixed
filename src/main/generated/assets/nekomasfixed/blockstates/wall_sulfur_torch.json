@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nekomasfixed:block/wall_sulfur_torch"
+    },
+    "facing=north": {
+      "model": "nekomasfixed:block/wall_sulfur_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "nekomasfixed:block/wall_sulfur_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "nekomasfixed:block/wall_sulfur_torch",
+      "y": 180
+    }
+  }
+}

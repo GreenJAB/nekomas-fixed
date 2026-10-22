@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#c:glass_blocks",
+    "#c:glass_panes",
+    "#nekomasfixed:stained_glasses",
+    "#nekomasfixed:stained_glass_panes",
+    "minecraft:ice",
+    "minecraft:tinted_glass"
+  ]
+}
