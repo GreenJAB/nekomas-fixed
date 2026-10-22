@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:indigo_banner"
+        "recipes": "nekomasfixed:indigo_banner"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

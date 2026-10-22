@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekomasfixed:maroon_banner"
+        "recipes": "nekomasfixed:maroon_banner"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

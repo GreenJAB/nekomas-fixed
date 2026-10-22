@@ -252,6 +252,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 ArrayList<Item> spotted_wool_slabs = new ArrayList<>();
                 ArrayList<Item> spotted_wool_stairs = new ArrayList<>();
 
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.SULFUR_TORCH, 4)
+                        .pattern("S")
+                        .pattern("T")
+                        .define('S', Items.SULFUR)
+                        .define('T', Items.STICK)
+                        .unlockedBy(getHasName(Items.SULFUR), has(Items.SULFUR))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .save(output);
+
                 for (AllDyes colour : AllDyes.values()) {
                     Item wool = BlockDyeMap.SPOTTED_WOOL.get(colour).asItem();
                     Item slab = BlockDyeMap.SPOTTED_WOOL_SLABS.get(colour).asItem();
@@ -264,15 +273,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .group("spotted_wool_slab")
                             .unlockedBy(getHasName(wool), has(wool))
                             .save(output);
-
-                shaped(RecipeCategory.DECORATIONS, ItemRegistry.SULFUR_TORCH, 4)
-                        .pattern("S")
-                        .pattern("T")
-                        .define('S', Items.SULFUR)
-                        .define('T', Items.STICK)
-                        .unlockedBy(getHasName(Items.SULFUR), has(Items.SULFUR))
-                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
-                        .save(output);
 
                     stairBuilder(stairs, Ingredient.of(wool))
                             .group("spotted_wool_stairs")

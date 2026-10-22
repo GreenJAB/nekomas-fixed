@@ -181,13 +181,11 @@ public class ItemGroupRegistry {
                          entries.accept(ItemRegistry.GOAT_HORN_DIAMOND_HELMET);
                          entries.accept(ItemRegistry.GOAT_HORN_NETHERITE_HELMET);
                          entries.accept(ItemRegistry.GOAT_HORN_TURTLE_HELMET);
-                        entries.accept(ItemRegistry.SULFUR_LANTERN);
-                        entries.accept(ItemRegistry.GOLD_CHAIN);
-                        entries.accept(ItemRegistry.SULFUR_CAMPFIRE);
-                        entries.accept(ItemRegistry.QUIVER);
-                        entries.accept(ItemRegistry.TERRACOTTA_DECORATED_POT);
-
-
+                         entries.accept(ItemRegistry.SULFUR_LANTERN);
+                         entries.accept(ItemRegistry.GOLD_CHAIN);
+                         entries.accept(ItemRegistry.SULFUR_CAMPFIRE);
+                         entries.accept(ItemRegistry.QUIVER);
+                         entries.accept(ItemRegistry.TERRACOTTA_DECORATED_POT);
                     }).build();
 
     public static final CreativeModeTab NEKOMASFIXEDCOLOURS = FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.nekomasfixedcolours"))
