@@ -17,6 +17,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -64,7 +65,7 @@ public class ServerPlayerGameModeMixin {
                 level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 
                 if (level.isClientSide()) {
-                    player.swing(player.getUsedItemHand(), true);
+                    player.swing(player.getUsedItemHand(), SwingAnimation.DEFAULT, true);
                 }
                 info.setReturnValue(InteractionResult.SUCCESS);
                 info.cancel();
@@ -86,7 +87,7 @@ public class ServerPlayerGameModeMixin {
                 stack.shrink(1);
 
                 if (level.isClientSide()) {
-                    player.swing(player.getUsedItemHand(), true);
+                    player.swing(player.getUsedItemHand(), SwingAnimation.DEFAULT, true);
                 }
                 info.setReturnValue(InteractionResult.SUCCESS);
                 info.cancel();
@@ -115,7 +116,7 @@ public class ServerPlayerGameModeMixin {
                 stack.shrink(1);
 
                 if (level.isClientSide()) {
-                    player.swing(player.getUsedItemHand(), true);
+                    player.swing(player.getUsedItemHand(), SwingAnimation.DEFAULT,true);
                 }
 
                 info.setReturnValue(InteractionResult.SUCCESS);

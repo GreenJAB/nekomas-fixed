@@ -183,47 +183,31 @@ public class TerracottaDecoratedPotBlockEntityRenderer implements BlockEntityRen
 
         RenderType renderTypeBase = SheetRegistry.TERRACOTTA_DECORATED_POT_BASE.renderType(RenderTypes::entitySolid);
 
-        SpriteId potBase = new SpriteId(
-                TERRACOTTA_POT,
-                Identifier.fromNamespaceAndPath("nekomasfixed", "entity/terracotta_decorated_pot/terracotta_decorated_pot_" +
-                        PotMaps.POT_FACE_TO_STRING_MAPPING.get(state.potFace.getSafeBlock()) + PotMaps.SpritePart.BASE)
-        );
-        TextureAtlasSprite spriteBase = this.customPotSprites.get(potBase);
-
-        submitNodeCollector.submitModelPart(this.neck, poseStack, renderTypeBase, lightCoords, overlayCoords, spriteBase, -1, null, outlineColor);
-        submitNodeCollector.submitModelPart(this.top, poseStack, renderTypeBase, lightCoords, overlayCoords, spriteBase, -1, null, outlineColor);
-        submitNodeCollector.submitModelPart(this.bottom, poseStack, renderTypeBase, lightCoords, overlayCoords, spriteBase, -1, null, outlineColor);
+        submitNodeCollector.submitModelPart(this.neck, poseStack, renderTypeBase, lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.top, poseStack, renderTypeBase, lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.bottom, poseStack, renderTypeBase, lightCoords, overlayCoords, null, -1, outlineColor);
 
         SpriteId potFace = new SpriteId(
                 TERRACOTTA_POT,
                 Identifier.fromNamespaceAndPath("nekomasfixed", "entity/terracotta_decorated_pot/terracotta_decorated_pot_" +
                         PotMaps.POT_FACE_TO_STRING_MAPPING.get(state.potFace.getSafeBlock()) + PotMaps.SpritePart.SIDE)
         );
-        TextureAtlasSprite potSprite = this.customPotSprites.get(potFace);
 
         SpriteId frontSprite = getSpriteForSide(state, SpriteFacing.FRONT);
         SpriteId backSprite  = getSpriteForSide(state, SpriteFacing.BACK);
         SpriteId leftSprite  = getSpriteForSide(state, SpriteFacing.LEFT);
         SpriteId rightSprite = getSpriteForSide(state, SpriteFacing.RIGHT);
 
-        TextureAtlasSprite frontText = this.customPotSprites.get(frontSprite);
-        TextureAtlasSprite backText  = this.customPotSprites.get(backSprite);
-        TextureAtlasSprite leftText  = this.customPotSprites.get(leftSprite);
-        TextureAtlasSprite rightText = this.customPotSprites.get(rightSprite);
+        RenderType potFaceRenderType = potFace.renderType(RenderTypes::entityCutout);
+        submitNodeCollector.submitModelPart(this.leftPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.rightPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.backPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.frontPane, poseStack, potFaceRenderType, lightCoords, overlayCoords, null, -1, outlineColor);
 
-        if (frontText == null || backText == null || leftText == null || rightText == null) {
-            return;
-        }
-
-        submitNodeCollector.submitModelPart(this.leftPane, poseStack, potFace.renderType(RenderTypes::entityCutout), lightCoords, overlayCoords, potSprite, -1, null, outlineColor);
-        submitNodeCollector.submitModelPart(this.rightPane, poseStack, potFace.renderType(RenderTypes::entityCutout), lightCoords, overlayCoords, potSprite, -1, null, outlineColor);
-        submitNodeCollector.submitModelPart(this.backPane, poseStack, potFace.renderType(RenderTypes::entityCutout), lightCoords, overlayCoords, potSprite, -1, null, outlineColor);
-        submitNodeCollector.submitModelPart(this.frontPane, poseStack, potFace.renderType(RenderTypes::entityCutout), lightCoords, overlayCoords, potSprite, -1, null, outlineColor);
-
-        submitNodeCollector.submitModelPart(this.frontSide, poseStack, frontSprite.renderType(RenderTypes::entityTranslucent), lightCoords, overlayCoords, frontText, -1, null, outlineColor);
-        submitNodeCollector.submitModelPart(this.backSide,  poseStack, backSprite.renderType(RenderTypes::entityTranslucent),  lightCoords, overlayCoords, backText,  -1, null, outlineColor);
-        submitNodeCollector.submitModelPart(this.leftSide,  poseStack, leftSprite.renderType(RenderTypes::entityTranslucent),  lightCoords, overlayCoords, leftText,  -1, null, outlineColor);
-        submitNodeCollector.submitModelPart(this.rightSide, poseStack, rightSprite.renderType(RenderTypes::entityTranslucent), lightCoords, overlayCoords, rightText, -1, null, outlineColor);
+        submitNodeCollector.submitModelPart(this.frontSide, poseStack, frontSprite.renderType(RenderTypes::entityTranslucent), lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.backSide,  poseStack, backSprite.renderType(RenderTypes::entityTranslucent),  lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.leftSide,  poseStack, leftSprite.renderType(RenderTypes::entityTranslucent),  lightCoords, overlayCoords, null, -1, outlineColor);
+        submitNodeCollector.submitModelPart(this.rightSide, poseStack, rightSprite.renderType(RenderTypes::entityTranslucent), lightCoords, overlayCoords, null, -1, outlineColor);
     }
 
     private SpriteId spriteForVanillaSherd(String sherdName) {

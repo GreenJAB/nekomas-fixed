@@ -30,7 +30,7 @@ import static net.minecraft.client.renderer.blockentity.BannerRenderer.submitPat
 public class BannerRendererMixin {
     @Inject(method = "submitPatternLayer", at = @At("HEAD"), cancellable = true)
     private static <S> void submitPatternLayer(
-            SpriteGetter sprites, PoseStack poseStack, OrderedSubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, Model<S> model, S state, SpriteId sprite, DyeColor color, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress, CallbackInfo ci
+            SpriteGetter sprites, PoseStack poseStack, OrderedSubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, Model<S> model, S state, SpriteId sprite, DyeColor color, CallbackInfo ci
     ) {
         int diffuseColor = color.getTextureDiffuseColor();
 
@@ -48,7 +48,7 @@ public class BannerRendererMixin {
             diffuseColor = ModColors.INDIGO.getColor();
         }
         submitNodeCollector.submitModel(
-                model, state, poseStack, sprite.renderType(RenderTypes::bannerPattern), lightCoords, overlayCoords, diffuseColor, sprites.get(sprite), 0, breakProgress
+                model, state, poseStack, sprite.renderType(RenderTypes::bannerPattern), lightCoords, overlayCoords, diffuseColor, null, 0
         );
         ci.cancel();
     }
@@ -58,9 +58,9 @@ public class BannerRendererMixin {
             SpriteGetter sprites, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, BannerModel model, BannerFlagModel flagModel, float phase, DyeColor baseColor, BannerPatternLayers patterns, ModelFeatureRenderer.CrumblingOverlay breakProgress, int outlineColor, CallbackInfo ci
     ) {
         SpriteId sprite = Sheets.BANNER_BASE;
-        submitNodeCollector.submitModel(model, Unit.INSTANCE, poseStack, lightCoords, overlayCoords, -1, sprite, sprites, outlineColor, breakProgress);
-        submitNodeCollector.submitModel(flagModel, phase, poseStack, lightCoords, overlayCoords, -1, sprite, sprites, outlineColor, breakProgress);
-        submitPatterns(sprites, poseStack, submitNodeCollector, lightCoords, overlayCoords, flagModel, phase, true, baseColor, patterns, breakProgress);
+        submitNodeCollector.submitModel(model, Unit.INSTANCE, poseStack, lightCoords, overlayCoords, -1, sprite, sprites, outlineColor);
+        submitNodeCollector.submitModel(flagModel, phase, poseStack, lightCoords, overlayCoords, -1, sprite, sprites, outlineColor);
+        submitPatterns(sprites, poseStack, submitNodeCollector, lightCoords, overlayCoords, flagModel, phase, true, baseColor, patterns);
         ci.cancel();
     }
 }

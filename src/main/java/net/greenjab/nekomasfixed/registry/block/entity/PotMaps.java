@@ -73,10 +73,10 @@ public class PotMaps {
 
     public static List<String> getSherdTexture(PotDecorations decorations) {
         return List.of(
-                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.back().orElse(Items.BRICK), "blank"),
-                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.left().orElse(Items.BRICK), "blank"),
-                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.right().orElse(Items.BRICK), "blank"),
-                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.front().orElse(Items.BRICK), "blank")
+                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.back().map(t -> t.create().getItem()).orElse(Items.BRICK), "blank"),
+                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.left().map(t -> t.create().getItem()).orElse(Items.BRICK), "blank"),
+                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.right().map(t -> t.create().getItem()).orElse(Items.BRICK), "blank"),
+                SHERD_TO_STRING_MAPPING.getOrDefault(decorations.front().map(t -> t.create().getItem()).orElse(Items.BRICK), "blank")
         );
     }
 

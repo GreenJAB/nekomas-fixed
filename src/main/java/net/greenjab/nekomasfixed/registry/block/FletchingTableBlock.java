@@ -20,10 +20,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class FletchingTableBlock extends Block {
     private static final Component CONTAINER_TITLE = Component.translatable("container.fletching");
-    public static final MapCodec<FletchingTableBlock> CODEC = simpleCodec(FletchingTableBlock::new);
-    public MapCodec<? extends FletchingTableBlock> codec() {
-        return CODEC;
-    }
 
     public FletchingTableBlock(final BlockBehaviour.Properties properties) {
         super(properties);
