@@ -26,11 +26,11 @@
       "required": false
     },
     {
-      "id": "#minecraft:concrete",
+      "id": "#nekomasfixed:concretes",
       "required": false
     },
     {
-      "id": "#minecraft:concrete_powders",
+      "id": "#nekomasfixed:concrete_powders",
       "required": false
     },
     "#minecraft:concrete_slabs",

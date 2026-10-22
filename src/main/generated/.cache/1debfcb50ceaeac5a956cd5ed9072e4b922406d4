@@ -6,6 +6,7 @@ c1e7a9b308a34533cd16111377a801fb7d9b8ffd data/minecraft/tags/block/concrete_stai
 123089241652da71475ef527b6d92da89165ae8f data/minecraft/tags/block/slabs.json
 827ae6478be8d3e2331525f9115d0e22f4d48f19 data/minecraft/tags/block/stairs.json
 ab585463eabec5a572000f58a11101ea2ec0c31f data/minecraft/tags/block/walls.json
+15357d36ad57dc9855cb857c01d66cf3d937c260 data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
 24782cdbe6843bde0f0cdf9092618034ab252d4e data/minecraft/tags/block/wool_slabs.json
 8b721ff4f2d29cc8ed061863cc900d88f3f292d4 data/minecraft/tags/block/wool_stairs.json
 42857e81b62b031198ff50d999f034ca78a54e3c data/nekomasfixed/tags/block/can_be_dyed_with_brush.json
