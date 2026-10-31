@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "light_wool",
+  "ingredients": [
+    "minecraft:glow_ink_sac",
+    "nekomasfixed:aqua_wool"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:glowing_aqua_wool"
+  }
+}

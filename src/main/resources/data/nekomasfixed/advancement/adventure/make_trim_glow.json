@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:adventure/trim_with_any_armor_pattern",
+  "criteria": {
+    "make_trim_glow": {
+      "conditions": {
+        "recipe_id": "nekomasfixed:glowing_smithing"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.nekomasfixed.adventure.make_trim_glow.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "minecraft:netherite_chestplate",
+      "components": {"trim": {"material": "diamond", "pattern": "dune"}, "nekomasfixed:echoing_layers": [{"glowing": true}]}
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.nekomasfixed.adventure.make_trim_glow.title"
+    }
+  },
+  "requirements": [
+    [
+      "make_trim_glow"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

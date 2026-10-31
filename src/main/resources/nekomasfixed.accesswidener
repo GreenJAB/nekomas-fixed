@@ -29,3 +29,6 @@ accessible method net/minecraft/block/WoodType register (Lnet/minecraft/block/Wo
 accessible field net/minecraft/block/entity/LockableContainerBlockEntity customName Lnet/minecraft/text/Text;
 accessible method net/minecraft/entity/mob/AbstractSkeletonEntity getStepSound ()Lnet/minecraft/sound/SoundEvent;
 accessible method net/minecraft/entity/mob/MobEntity isAffectedByDaylight ()Z
+accessible field net/minecraft/block/entity/BlockEntityType blocks Ljava/util/Set;
+mutable field net/minecraft/block/entity/BlockEntityType blocks Ljava/util/Set;
+accessible class net/minecraft/client/render/entity/equipment/EquipmentRenderer$TrimSpriteKey

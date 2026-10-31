@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/template_item_frame",
+    "textures": {
+        "particle": "nekomasfixed:block/clear_item_frame_frame",
+        "wood": "nekomasfixed:block/clear_item_frame_frame",
+        "back": "nekomasfixed:block/clear_item_frame"
+    }
+}

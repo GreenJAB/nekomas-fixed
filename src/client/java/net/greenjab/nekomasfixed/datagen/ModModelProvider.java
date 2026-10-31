@@ -4,10 +4,15 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
+import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.model.special.BannerModelRenderer;
+import net.minecraft.client.render.model.json.ModelVariant;
 import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.WeightedPool;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 
@@ -102,6 +107,29 @@ public class ModModelProvider extends FabricModelProvider {
         registerWall(blockStateModelGenerator, BlockRegistry.AQUA_BRICKS, BlockRegistry.AQUA_BRICK_WALL);
         registerWall(blockStateModelGenerator, BlockRegistry.INDIGO_BRICKS, BlockRegistry.INDIGO_BRICK_WALL);
         registerWall(blockStateModelGenerator, BlockRegistry.MAROON_BRICKS, BlockRegistry.MAROON_BRICK_WALL);
+
+        BlockDyeMap.GLOWING_WOOL.forEach((color, block) ->
+                registerParentedWithItem(blockStateModelGenerator, BlockDyeMap.WOOL.get(color), block));
+        BlockDyeMap.GLOWING_CARPET.forEach((color, block) ->
+                registerParentedWithItem(blockStateModelGenerator, BlockDyeMap.CARPET.get(color), block));
+        //TODO uncomment when DyeColor is finally extended
+//        BlockDyeMap.GLOWING_BANNER.forEach((color, block) -> {
+//            registerParented(blockStateModelGenerator, Identifier.of("block/banner"), block);
+//            Item item = block.asItem();
+//            Identifier base = Identifier.of("item/template_banner");
+//            blockStateModelGenerator.itemModelOutput.accept(item, ItemModels.special(base, new BannerModelRenderer.Unbaked(color)));
+//        });
+        BlockDyeMap.GLOWING_WALL_BANNER.forEach((color, block) -> {
+            registerParented(blockStateModelGenerator, Identifier.of("block/banner"), block);
+        });
+        //TODO uncomment when DyeColor is finally extended
+//        BlockDyeMap.GLOWING_BED.forEach((color, block) -> {
+//            Block parent = BlockDyeMap.BED.get(color);
+//            registerParented(blockStateModelGenerator, Identifier.of("block/bed"), block);
+//            Item item = block.asItem();
+//            Identifier base = ModelIds.getItemModelId(parent.asItem());
+//            blockStateModelGenerator.itemModelOutput.accept(item, ItemModels.special(base, new BedModelRenderer.Unbaked(color)));
+//        });
     }
 
     @Override
@@ -156,6 +184,24 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createWallBlockState(wall, weightedVariant, weightedVariant2, weightedVariant3));
         Identifier identifier = Models.WALL_INVENTORY.upload(wall, textureMap, blockStateModelGenerator.modelCollector);
         blockStateModelGenerator.registerParentedItemModel(wall, identifier);
+    }
+
+
+    public void registerParentedWithItem(@NotNull BlockStateModelGenerator blockStateModelGenerator, Block parent, Block block) {
+        registerParented(blockStateModelGenerator, ModelIds.getBlockModelId(parent), block);
+        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(parent));
+    }
+
+    /**
+     * Registers block_state same as provided parent block
+     */
+    public void registerParented(@NotNull BlockStateModelGenerator blockStateModelGenerator, Identifier parent, Block block) {
+        blockStateModelGenerator.blockStateCollector.accept(
+                VariantsBlockModelDefinitionCreator.of(
+                        block,
+                        new WeightedVariant(WeightedPool.of(new ModelVariant(parent)))
+                )
+        );
     }
 
 }

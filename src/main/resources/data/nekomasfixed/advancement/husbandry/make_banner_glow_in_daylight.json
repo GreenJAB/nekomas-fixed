@@ -1,0 +1,61 @@
+{
+  "parent": "minecraft:husbandry/make_a_sign_glow",
+  "criteria": {
+    "make_banner_glow_in_daylight": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "#banners"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "minecraft:glow_ink_sac"
+              ]
+            }
+          },
+          {
+            "condition": "minecraft:inverted",
+            "term": {
+              "condition": "minecraft:time_check",
+              "clock": "overworld",
+              "value": {
+                "min": 12040,
+                "max": 23961
+              },
+              "period": 24000
+            }
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.nekomasfixed.husbandry.make_banner_glow_in_daylight.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "light_gray_banner"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.nekomasfixed.husbandry.make_banner_glow_in_daylight.title"
+    }
+  },
+  "requirements": [
+    [
+      "make_banner_glow_in_daylight"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

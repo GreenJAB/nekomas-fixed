@@ -1,0 +1,6 @@
+{
+  "type": "nekomasfixed:smithing_glowing",
+  "template": "minecraft:glow_ink_sac",
+  "base": "#minecraft:trimmable_armor",
+  "addition": "minecraft:glow_ink_sac"
+}

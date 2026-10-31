@@ -28,6 +28,8 @@ public class NekomasFixed implements ModInitializer {
 	public static final String NAMESPACE = "nekomasfixed";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAMESPACE);
 
+	public static final int ECHOING_LAYER_LIMIT = 8;
+
 	@Override
 	public void onInitialize() {
 		BlockRegistry.registerBlocks();
@@ -50,9 +52,12 @@ public class NekomasFixed implements ModInitializer {
 		CakeRegistry.init();
 		CauldronBehaviour.register();
 		ScreenHandlerRegistry.registerScreenHandlers();
+		SoundRegistry.register();
 
 		BiomeAdditions.addSpawns();
 		LootTableAdditions.registerLootTableAdds();
+
+		BlockUseCallbacks.onInitialize();
 
 		ItemDyeMap.BRUSH.values().forEach(brush-> DispenserBlock.registerBehavior(brush, new DyedBrushBehaviour()));
 

@@ -83,6 +83,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.BRICK_STAIRS)
                 .add(Blocks.BRICK_WALL)
                 .add(Blocks.SHULKER_BOX);
+
+        valueLookupBuilder(ModTags.GLOWING_WOOL).add(BlockDyeMap.GLOWING_WOOL.values());
+        valueLookupBuilder(ModTags.GLOWING_WOOL_CARPETS).add(BlockDyeMap.GLOWING_CARPET.values());
+        valueLookupBuilder(ModTags.GLOWING_BEDS).add(BlockDyeMap.GLOWING_BED.values());
+        valueLookupBuilder(ModTags.GLOWING_BANNERS).add(BlockDyeMap.GLOWING_BANNER.values()).add(BlockDyeMap.GLOWING_WALL_BANNER.values());
+        valueLookupBuilder(ModTags.GLOWING_WALL_BANNERS).add(BlockDyeMap.GLOWING_WALL_BANNER.values());
     }
 
 }

@@ -7,6 +7,8 @@ import net.greenjab.nekomasfixed.registry.block.cauldron.*;
 import net.greenjab.nekomasfixed.registry.block.enums.ClamType;
 import net.greenjab.nekomasfixed.registry.block.enums.NautilusBlockType;
 import net.greenjab.nekomasfixed.registry.worldgen.ModConfiguredFeatures;
+import net.greenjab.nekomasfixed.util.AllDyes;
+import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -409,6 +411,111 @@ public class BlockRegistry {
     public static final Block INDIGO_SPOTTED_CARPET = register("indigo_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.MAGENTA).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
     public static final Block MAROON_SPOTTED_CARPET = register("maroon_spotted_carpet", CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.RED).instrument(NoteBlockInstrument.GUITAR).strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
 
+    public static final Block GLOWING_WHITE_WOOL = registerGlowingWool("glowing_white_wool", AllDyes.WHITE);
+    public static final Block GLOWING_LIGHT_GRAY_WOOL = registerGlowingWool("glowing_light_gray_wool", AllDyes.LIGHT_GRAY);
+    public static final Block GLOWING_GRAY_WOOL = registerGlowingWool("glowing_gray_wool", AllDyes.GRAY);
+    public static final Block GLOWING_BLACK_WOOL = registerGlowingWool("glowing_black_wool", AllDyes.BLACK);
+    public static final Block GLOWING_BROWN_WOOL = registerGlowingWool("glowing_brown_wool", AllDyes.BROWN);
+    public static final Block GLOWING_RED_WOOL = registerGlowingWool("glowing_red_wool", AllDyes.RED);
+    public static final Block GLOWING_ORANGE_WOOL = registerGlowingWool("glowing_orange_wool", AllDyes.ORANGE);
+    public static final Block GLOWING_YELLOW_WOOL = registerGlowingWool("glowing_yellow_wool", AllDyes.YELLOW);
+    public static final Block GLOWING_LIME_WOOL = registerGlowingWool("glowing_lime_wool", AllDyes.LIME);
+    public static final Block GLOWING_GREEN_WOOL = registerGlowingWool("glowing_green_wool", AllDyes.GREEN);
+    public static final Block GLOWING_CYAN_WOOL = registerGlowingWool("glowing_cyan_wool", AllDyes.CYAN);
+    public static final Block GLOWING_LIGHT_BLUE_WOOL = registerGlowingWool("glowing_light_blue_wool", AllDyes.LIGHT_BLUE);
+    public static final Block GLOWING_BLUE_WOOL = registerGlowingWool("glowing_blue_wool", AllDyes.BLUE);
+    public static final Block GLOWING_PURPLE_WOOL = registerGlowingWool("glowing_purple_wool", AllDyes.PURPLE);
+    public static final Block GLOWING_MAGENTA_WOOL = registerGlowingWool("glowing_magenta_wool", AllDyes.MAGENTA);
+    public static final Block GLOWING_PINK_WOOL = registerGlowingWool("glowing_pink_wool", AllDyes.PINK);
+    public static final Block GLOWING_AMBER_WOOL = registerGlowingWool("glowing_amber_wool", AllDyes.AMBER);
+    public static final Block GLOWING_AQUA_WOOL = registerGlowingWool("glowing_aqua_wool", AllDyes.AQUA);
+    public static final Block GLOWING_INDIGO_WOOL = registerGlowingWool("glowing_indigo_wool", AllDyes.INDIGO);
+    public static final Block GLOWING_MAROON_WOOL = registerGlowingWool("glowing_maroon_wool", AllDyes.MAROON);
+
+    public static final Block GLOWING_WHITE_CARPET = registerGlowingCarpet("glowing_white_carpet", AllDyes.WHITE);
+    public static final Block GLOWING_LIGHT_GRAY_CARPET = registerGlowingCarpet("glowing_light_gray_carpet", AllDyes.LIGHT_GRAY);
+    public static final Block GLOWING_GRAY_CARPET = registerGlowingCarpet("glowing_gray_carpet", AllDyes.GRAY);
+    public static final Block GLOWING_BLACK_CARPET = registerGlowingCarpet("glowing_black_carpet", AllDyes.BLACK);
+    public static final Block GLOWING_BROWN_CARPET = registerGlowingCarpet("glowing_brown_carpet", AllDyes.BROWN);
+    public static final Block GLOWING_RED_CARPET = registerGlowingCarpet("glowing_red_carpet", AllDyes.RED);
+    public static final Block GLOWING_ORANGE_CARPET = registerGlowingCarpet("glowing_orange_carpet", AllDyes.ORANGE);
+    public static final Block GLOWING_YELLOW_CARPET = registerGlowingCarpet("glowing_yellow_carpet", AllDyes.YELLOW);
+    public static final Block GLOWING_LIME_CARPET = registerGlowingCarpet("glowing_lime_carpet", AllDyes.LIME);
+    public static final Block GLOWING_GREEN_CARPET = registerGlowingCarpet("glowing_green_carpet", AllDyes.GREEN);
+    public static final Block GLOWING_CYAN_CARPET = registerGlowingCarpet("glowing_cyan_carpet", AllDyes.CYAN);
+    public static final Block GLOWING_LIGHT_BLUE_CARPET = registerGlowingCarpet("glowing_light_blue_carpet", AllDyes.LIGHT_BLUE);
+    public static final Block GLOWING_BLUE_CARPET = registerGlowingCarpet("glowing_blue_carpet", AllDyes.BLUE);
+    public static final Block GLOWING_PURPLE_CARPET = registerGlowingCarpet("glowing_purple_carpet", AllDyes.PURPLE);
+    public static final Block GLOWING_MAGENTA_CARPET = registerGlowingCarpet("glowing_magenta_carpet", AllDyes.MAGENTA);
+    public static final Block GLOWING_PINK_CARPET = registerGlowingCarpet("glowing_pink_carpet", AllDyes.PINK);
+    public static final Block GLOWING_AMBER_CARPET = registerGlowingCarpet("glowing_amber_carpet", AllDyes.AMBER);
+    public static final Block GLOWING_AQUA_CARPET = registerGlowingCarpet("glowing_aqua_carpet", AllDyes.AQUA);
+    public static final Block GLOWING_INDIGO_CARPET = registerGlowingCarpet("glowing_indigo_carpet", AllDyes.INDIGO);
+    public static final Block GLOWING_MAROON_CARPET = registerGlowingCarpet("glowing_maroon_carpet", AllDyes.MAROON);
+
+    public static final Block GLOWING_WHITE_BED = registerGlowingBed("glowing_white_bed", AllDyes.WHITE);
+    public static final Block GLOWING_LIGHT_GRAY_BED = registerGlowingBed("glowing_light_gray_bed", AllDyes.LIGHT_GRAY);
+    public static final Block GLOWING_GRAY_BED = registerGlowingBed("glowing_gray_bed", AllDyes.GRAY);
+    public static final Block GLOWING_BLACK_BED = registerGlowingBed("glowing_black_bed", AllDyes.BLACK);
+    public static final Block GLOWING_BROWN_BED = registerGlowingBed("glowing_brown_bed", AllDyes.BROWN);
+    public static final Block GLOWING_RED_BED = registerGlowingBed("glowing_red_bed", AllDyes.RED);
+    public static final Block GLOWING_ORANGE_BED = registerGlowingBed("glowing_orange_bed", AllDyes.ORANGE);
+    public static final Block GLOWING_YELLOW_BED = registerGlowingBed("glowing_yellow_bed", AllDyes.YELLOW);
+    public static final Block GLOWING_LIME_BED = registerGlowingBed("glowing_lime_bed", AllDyes.LIME);
+    public static final Block GLOWING_GREEN_BED = registerGlowingBed("glowing_green_bed", AllDyes.GREEN);
+    public static final Block GLOWING_CYAN_BED = registerGlowingBed("glowing_cyan_bed", AllDyes.CYAN);
+    public static final Block GLOWING_LIGHT_BLUE_BED = registerGlowingBed("glowing_light_blue_bed", AllDyes.LIGHT_BLUE);
+    public static final Block GLOWING_BLUE_BED = registerGlowingBed("glowing_blue_bed", AllDyes.BLUE);
+    public static final Block GLOWING_PURPLE_BED = registerGlowingBed("glowing_purple_bed", AllDyes.PURPLE);
+    public static final Block GLOWING_MAGENTA_BED = registerGlowingBed("glowing_magenta_bed", AllDyes.MAGENTA);
+    public static final Block GLOWING_PINK_BED = registerGlowingBed("glowing_pink_bed", AllDyes.PINK);
+    public static final Block GLOWING_AMBER_BED = registerGlowingBed("glowing_amber_bed", AllDyes.AMBER);
+    public static final Block GLOWING_AQUA_BED = registerGlowingBed("glowing_aqua_bed", AllDyes.AQUA);
+    public static final Block GLOWING_INDIGO_BED = registerGlowingBed("glowing_indigo_bed", AllDyes.INDIGO);
+    public static final Block GLOWING_MAROON_BED = registerGlowingBed("glowing_maroon_bed", AllDyes.MAROON);
+
+    public static final Block GLOWING_WHITE_BANNER = registerGlowingBanner("glowing_white_banner", AllDyes.WHITE);
+    public static final Block GLOWING_LIGHT_GRAY_BANNER = registerGlowingBanner("glowing_light_gray_banner", AllDyes.LIGHT_GRAY);
+    public static final Block GLOWING_GRAY_BANNER = registerGlowingBanner("glowing_gray_banner", AllDyes.GRAY);
+    public static final Block GLOWING_BLACK_BANNER = registerGlowingBanner("glowing_black_banner", AllDyes.BLACK);
+    public static final Block GLOWING_BROWN_BANNER = registerGlowingBanner("glowing_brown_banner", AllDyes.BROWN);
+    public static final Block GLOWING_RED_BANNER = registerGlowingBanner("glowing_red_banner", AllDyes.RED);
+    public static final Block GLOWING_ORANGE_BANNER = registerGlowingBanner("glowing_orange_banner", AllDyes.ORANGE);
+    public static final Block GLOWING_YELLOW_BANNER = registerGlowingBanner("glowing_yellow_banner", AllDyes.YELLOW);
+    public static final Block GLOWING_LIME_BANNER = registerGlowingBanner("glowing_lime_banner", AllDyes.LIME);
+    public static final Block GLOWING_GREEN_BANNER = registerGlowingBanner("glowing_green_banner", AllDyes.GREEN);
+    public static final Block GLOWING_CYAN_BANNER = registerGlowingBanner("glowing_cyan_banner", AllDyes.CYAN);
+    public static final Block GLOWING_LIGHT_BLUE_BANNER = registerGlowingBanner("glowing_light_blue_banner", AllDyes.LIGHT_BLUE);
+    public static final Block GLOWING_BLUE_BANNER = registerGlowingBanner("glowing_blue_banner", AllDyes.BLUE);
+    public static final Block GLOWING_PURPLE_BANNER = registerGlowingBanner("glowing_purple_banner", AllDyes.PURPLE);
+    public static final Block GLOWING_MAGENTA_BANNER = registerGlowingBanner("glowing_magenta_banner", AllDyes.MAGENTA);
+    public static final Block GLOWING_PINK_BANNER = registerGlowingBanner("glowing_pink_banner", AllDyes.PINK);
+    public static final Block GLOWING_AMBER_BANNER = registerGlowingBanner("glowing_amber_banner", AllDyes.AMBER);
+    public static final Block GLOWING_AQUA_BANNER = registerGlowingBanner("glowing_aqua_banner", AllDyes.AQUA);
+    public static final Block GLOWING_INDIGO_BANNER = registerGlowingBanner("glowing_indigo_banner", AllDyes.INDIGO);
+    public static final Block GLOWING_MAROON_BANNER = registerGlowingBanner("glowing_maroon_banner", AllDyes.MAROON);
+
+    public static final Block GLOWING_WHITE_WALL_BANNER = registerGlowingWallBanner("glowing_white_wall_banner", GLOWING_WHITE_BANNER, AllDyes.WHITE);
+    public static final Block GLOWING_LIGHT_GRAY_WALL_BANNER = registerGlowingWallBanner("glowing_light_gray_wall_banner", GLOWING_LIGHT_GRAY_BANNER, AllDyes.LIGHT_GRAY);
+    public static final Block GLOWING_GRAY_WALL_BANNER = registerGlowingWallBanner("glowing_gray_wall_banner", GLOWING_GRAY_BANNER, AllDyes.GRAY);
+    public static final Block GLOWING_BLACK_WALL_BANNER = registerGlowingWallBanner("glowing_black_wall_banner", GLOWING_BLACK_BANNER, AllDyes.BLACK);
+    public static final Block GLOWING_BROWN_WALL_BANNER = registerGlowingWallBanner("glowing_brown_wall_banner", GLOWING_BROWN_BANNER, AllDyes.BROWN);
+    public static final Block GLOWING_RED_WALL_BANNER = registerGlowingWallBanner("glowing_red_wall_banner", GLOWING_RED_BANNER, AllDyes.RED);
+    public static final Block GLOWING_ORANGE_WALL_BANNER = registerGlowingWallBanner("glowing_orange_wall_banner", GLOWING_ORANGE_BANNER, AllDyes.ORANGE);
+    public static final Block GLOWING_YELLOW_WALL_BANNER = registerGlowingWallBanner("glowing_yellow_wall_banner", GLOWING_YELLOW_BANNER, AllDyes.YELLOW);
+    public static final Block GLOWING_LIME_WALL_BANNER = registerGlowingWallBanner("glowing_lime_wall_banner", GLOWING_LIME_BANNER, AllDyes.LIME);
+    public static final Block GLOWING_GREEN_WALL_BANNER = registerGlowingWallBanner("glowing_green_wall_banner", GLOWING_GREEN_BANNER, AllDyes.GREEN);
+    public static final Block GLOWING_CYAN_WALL_BANNER = registerGlowingWallBanner("glowing_cyan_wall_banner", GLOWING_CYAN_BANNER, AllDyes.CYAN);
+    public static final Block GLOWING_LIGHT_BLUE_WALL_BANNER = registerGlowingWallBanner("glowing_light_blue_wall_banner", GLOWING_LIGHT_BLUE_BANNER, AllDyes.LIGHT_BLUE);
+    public static final Block GLOWING_BLUE_WALL_BANNER = registerGlowingWallBanner("glowing_blue_wall_banner", GLOWING_BLUE_BANNER, AllDyes.BLUE);
+    public static final Block GLOWING_PURPLE_WALL_BANNER = registerGlowingWallBanner("glowing_purple_wall_banner", GLOWING_PURPLE_BANNER, AllDyes.PURPLE);
+    public static final Block GLOWING_MAGENTA_WALL_BANNER = registerGlowingWallBanner("glowing_magenta_wall_banner", GLOWING_MAGENTA_BANNER, AllDyes.MAGENTA);
+    public static final Block GLOWING_PINK_WALL_BANNER = registerGlowingWallBanner("glowing_pink_wall_banner", GLOWING_PINK_BANNER, AllDyes.PINK);
+    public static final Block GLOWING_AMBER_WALL_BANNER = registerGlowingWallBanner("glowing_amber_wall_banner", GLOWING_AMBER_BANNER, AllDyes.AMBER);
+    public static final Block GLOWING_AQUA_WALL_BANNER = registerGlowingWallBanner("glowing_aqua_wall_banner", GLOWING_AQUA_BANNER, AllDyes.AQUA);
+    public static final Block GLOWING_INDIGO_WALL_BANNER = registerGlowingWallBanner("glowing_indigo_wall_banner", GLOWING_INDIGO_BANNER, AllDyes.INDIGO);
+    public static final Block GLOWING_MAROON_WALL_BANNER = registerGlowingWallBanner("glowing_maroon_wall_banner", GLOWING_MAROON_BANNER, AllDyes.MAROON);
+
 
     private static Block register(String id, AbstractBlock.Settings settings) {
         return register(id, Block::new, settings);
@@ -473,6 +580,61 @@ public class BlockRegistry {
                         .burnable()
                         .pistonBehavior(PistonBehavior.DESTROY)
         );
+    }
+
+    private static Block registerGlowingWool(String id, AllDyes color) {
+        Block block = register(id, AbstractBlock.Settings.create()
+                //TODO change map color to the one from provided color, when DyeColor is finally extended and ALlDyes disappear
+                .luminance(state -> 2).emissiveLighting(Blocks::always).postProcess(Blocks::always).mapColor(MapColor.WHITE)
+                .instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sounds(BlockSoundGroup.WOOL).burnable());
+        BlockDyeMap.GLOWING_WOOL.put(color, block);
+        return block;
+    }
+    private static Block registerGlowingCarpet(String id, AllDyes color) {
+        Block block = register(id,
+                //TODO change map color to the one from provided color, when DyeColor is finally extended and ALlDyes disappear
+                (settings) -> new DyedCarpetBlock(DyeColor.WHITE, settings),
+                //TODO change map color to the one from provided color, when DyeColor is finally extended and ALlDyes disappear
+                AbstractBlock.Settings.create().mapColor(MapColor.WHITE).emissiveLighting(Blocks::always).luminance(state -> 2)
+                        .strength(0.1F).sounds(BlockSoundGroup.WOOL).burnable());
+        BlockDyeMap.GLOWING_CARPET.put(color, block);
+        return block;
+    }
+    private static Block registerGlowingBed(String id, AllDyes color) {
+        Block block = register(id,
+                //TODO change map color to the one from provided color, when DyeColor is finally extended and ALlDyes disappear
+                (settings) -> new BedBlock(DyeColor.WHITE, settings),
+                AbstractBlock.Settings.create()
+                        .mapColor((state) ->
+                                //TODO change map color to the one from provided color, when DyeColor is finally extended and ALlDyes disappear
+                                state.get(BedBlock.PART) == BedPart.FOOT ? MapColor.WHITE : MapColor.WHITE_GRAY
+                        ).emissiveLighting(Blocks::always).luminance(state -> 2).sounds(BlockSoundGroup.WOOD)
+                        .strength(0.2F).nonOpaque().burnable().pistonBehavior(PistonBehavior.DESTROY));
+        BlockDyeMap.GLOWING_BED.put(color, block);
+        return block;
+    }
+    private static Block registerGlowingBanner(String id, AllDyes color) {
+        Block block = register(id,
+                //TODO change map color to the one from provided color, when DyeColor is finally extended and ALlDyes disappear
+                (settings) -> new GlowingBannerBlock(DyeColor.WHITE, settings),
+                AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).solid().instrument(NoteBlockInstrument.BASS)
+                        .emissiveLighting(Blocks::always).luminance(state -> 2)
+                        .noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).burnable());
+        BlockDyeMap.GLOWING_BANNER.put(color, block);
+        return block;
+    }
+    private static Block registerGlowingWallBanner(String id, Block baseBanner, AllDyes color) {
+        if (baseBanner instanceof BannerBlock banner) {
+            Block block = register(id,
+                    (settings) -> new WallBannerBlock(banner.getColor(), settings),
+                    copyLootTable(baseBanner, true).mapColor(MapColor.OAK_TAN).solid().instrument(NoteBlockInstrument.BASS)
+                            .emissiveLighting(Blocks::always).luminance(state -> 2)
+                            .noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).burnable());
+            //TODO get the color from banner via banner.getColor() and remove unused "AllDyes color" parameter
+            BlockDyeMap.GLOWING_WALL_BANNER.put(color, block);
+            return block;
+        }
+        return register(id, AbstractBlock.Settings.create());
     }
 	
     public static void registerBlocks() {

@@ -1,1 +1,5 @@
 // 1.21.11	-999999999-01-01T00:00:00	Nekomas Fixed Minecraft/Tags for minecraft:item
+146ff830fb7e99b5ac5c814e92dfa0fb17f0412f data/nekomasfixed/tags/item/glowing_banners.json
+f819c973c486f207e75e81426fc48cd76d571874 data/nekomasfixed/tags/item/glowing_beds.json
+8e98e498fc0cdd2e8e60f2cc7ef0fe778793ad8c data/nekomasfixed/tags/item/glowing_wool.json
+4554971f14ab134bb1fa8219a7c16c95de7f3cc0 data/nekomasfixed/tags/item/glowing_wool_carpets.json

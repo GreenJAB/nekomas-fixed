@@ -24,6 +24,11 @@ public class ModTags {
     public static final TagKey<Block> SPOTTED_WOOLS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("spotted_wools"));
     public static final TagKey<Block> SPOTTED_CARPETS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("spotted_carpets"));
     public static final TagKey<Block> FROGLIGHTS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("froglights"));
+    public static final TagKey<Block> GLOWING_WOOL = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("glowing_wool"));
+    public static final TagKey<Block> GLOWING_WOOL_CARPETS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("glowing_wool_carpets"));
+    public static final TagKey<Block> GLOWING_BEDS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("glowing_beds"));
+    public static final TagKey<Block> GLOWING_BANNERS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("glowing_banners"));
+    public static final TagKey<Block> GLOWING_WALL_BANNERS = TagKey.of(RegistryKeys.BLOCK, NekomasFixed.id("glowing_wall_banners"));
 
     public static final TagKey<Item> BAOBAB_LOGS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("baobab_logs"));
     public static final TagKey<Item> CLAMTAG = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("clams"));
@@ -33,4 +38,8 @@ public class ModTags {
     public static final TagKey<Item> FOOD_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("food_items"));
     public static final TagKey<Item> MOOBLOOM_FLOWERS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("moobloom_flowers"));
     public static final TagKey<Item> SLINGSHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("slingshot_projectiles"));
+    public static final TagKey<Item> GLOWING_WOOL_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("glowing_wool"));
+    public static final TagKey<Item> GLOWING_WOOL_CARPET_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("glowing_wool_carpets"));
+    public static final TagKey<Item> GLOWING_BED_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("glowing_beds"));
+    public static final TagKey<Item> GLOWING_BANNER_ITEMS = TagKey.of(RegistryKeys.ITEM, NekomasFixed.id("glowing_banners"));
 }

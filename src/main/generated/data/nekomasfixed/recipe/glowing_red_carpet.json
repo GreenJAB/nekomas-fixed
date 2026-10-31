@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "glowing_carpet",
+  "key": {
+    "w": "nekomasfixed:glowing_red_wool"
+  },
+  "pattern": [
+    "ww"
+  ],
+  "result": {
+    "count": 3,
+    "id": "nekomasfixed:glowing_red_carpet"
+  }
+}

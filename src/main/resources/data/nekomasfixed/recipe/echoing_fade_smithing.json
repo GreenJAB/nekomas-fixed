@@ -1,0 +1,6 @@
+{
+  "type": "nekomasfixed:smithing_echoing_fade",
+  "template": "minecraft:echo_shard",
+  "base": "#minecraft:trimmable_armor",
+  "addition": "minecraft:phantom_membrane"
+}
