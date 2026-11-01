@@ -107,6 +107,9 @@ public class EntityTypeRegistry {
             EntityType.Builder.create(DrenchedEntity::new, SpawnGroup.MONSTER)
                     .dimensions(0.6f, 1.99f).notAllowedInPeaceful());
 
+    public static final EntityType<ClearItemFrameEntity> CLEAR_ITEM_FRAME = register("clear_item_frame",
+            EntityType.Builder.<ClearItemFrameEntity>create(ClearItemFrameEntity::new, SpawnGroup.MISC).dimensions(0.5F, 0.5F).maxTrackingRange(10).trackingTickInterval(Integer.MAX_VALUE)
+    );
 
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {

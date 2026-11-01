@@ -3,11 +3,10 @@ package net.greenjab.nekomasfixed.registry.registries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
+import net.fabricmc.loader.api.FabricLoader;
 import net.greenjab.nekomasfixed.NekomasFixed;
-import net.greenjab.nekomasfixed.registry.recipe.CoralNautilusRecipe;
-import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
-import net.greenjab.nekomasfixed.registry.recipe.PyrotechnicsRecipe;
-import net.greenjab.nekomasfixed.registry.recipe.ZombieNautilusRecipe;
+import net.greenjab.nekomasfixed.registry.recipe.*;
 import net.greenjab.nekomasfixed.util.ModRecipeBookType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
@@ -156,4 +155,18 @@ public class RecipeRegistry {
                     NekomasFixed.id("pyrotechnics"),
                     PyrotechnicsRecipe.Type.INSTANCE
             );
+
+
+    public static RecipeSerializer<SmithingEchoingFadeRecipe> SMITHING_ECHOING_FADE_RECIPE = register("smithing_echoing_fade", new SmithingEchoingRecipe.Serializer<>(SmithingEchoingFadeRecipe::new));
+    public static RecipeSerializer<SmithingEchoingPigmentRecipe> SMITHING_ECHOING_PIGMENT_RECIPE = register("smithing_echoing_pigment", new SmithingEchoingRecipe.Serializer<>(SmithingEchoingPigmentRecipe::new));
+    public static RecipeSerializer<SmithingEchoingTwinkleRecipe> SMITHING_ECHOING_TWINKLE_RECIPE = register("smithing_echoing_twinkle", new SmithingEchoingRecipe.Serializer<>(SmithingEchoingTwinkleRecipe::new));
+    public static RecipeSerializer<SmithingGlowingRecipe> SMITHING_GLOWING_RECIPE = register("smithing_glowing", new SmithingEchoingRecipe.Serializer<>(SmithingGlowingRecipe::new));
+
+    static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(String name, S serializer) {
+        // JEI requires recipes to be synced with client
+        if (FabricLoader.getInstance().isModLoaded("jei"))
+            RecipeSynchronization.synchronizeRecipeSerializer(serializer);
+
+        return Registry.register(Registries.RECIPE_SERIALIZER, NekomasFixed.id(name), serializer);
+    }
 }

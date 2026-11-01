@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "dye_glowing_wool",
+  "ingredients": [
+    "minecraft:pink_dye",
+    "#nekomasfixed:glowing_wool"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:pink_wool"
+  }
+}

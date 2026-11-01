@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "map=false": { "model": "nekomasfixed:block/clear_item_frame" },
+        "map=true":  { "model": "nekomasfixed:block/clear_item_frame_map" }
+    }
+}

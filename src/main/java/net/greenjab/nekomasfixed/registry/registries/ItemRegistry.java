@@ -211,6 +211,10 @@ public class ItemRegistry {
 
     public static final Item SPECIAL_STEW = register("special_stew",SpecialSoupItem::new, new Item.Settings().maxCount(1).food((new FoodComponent.Builder()).nutrition(0).saturationModifier(0.0F).build()).useRemainder(Items.BOWL));
     public static final RegistryEntry<Potion> LIGHTNING = register("lightning", new Potion("lightning", new StatusEffectInstance(EffectRegistry.LIGHTNING, 1)));
+
+    public static final Item CLEAR_ITEM_FRAME = register("clear_item_frame",
+            settings -> new ClearItemFrameItem(EntityTypeRegistry.CLEAR_ITEM_FRAME, settings), new Item.Settings());
+
     private static RegistryEntry<Potion> register(String name, Potion potion) {
         return Registry.registerReference(Registries.POTION, NekomasFixed.id(name), potion);
     }
@@ -451,6 +455,92 @@ public class ItemRegistry {
     public static final Item INDIGO_SPOTTED_CARPET = register(BlockRegistry.INDIGO_SPOTTED_CARPET);
     public static final Item MAROON_SPOTTED_CARPET = register(BlockRegistry.MAROON_SPOTTED_CARPET);
 
+    public static final Item GLOWING_WHITE_WOOL = Items.register(BlockRegistry.GLOWING_WHITE_WOOL);
+    public static final Item GLOWING_LIGHT_GRAY_WOOL = Items.register(BlockRegistry.GLOWING_LIGHT_GRAY_WOOL);
+    public static final Item GLOWING_GRAY_WOOL = Items.register(BlockRegistry.GLOWING_GRAY_WOOL);
+    public static final Item GLOWING_BLACK_WOOL = Items.register(BlockRegistry.GLOWING_BLACK_WOOL);
+    public static final Item GLOWING_BROWN_WOOL = Items.register(BlockRegistry.GLOWING_BROWN_WOOL);
+    public static final Item GLOWING_RED_WOOL = Items.register(BlockRegistry.GLOWING_RED_WOOL);
+    public static final Item GLOWING_ORANGE_WOOL = Items.register(BlockRegistry.GLOWING_ORANGE_WOOL);
+    public static final Item GLOWING_YELLOW_WOOL = Items.register(BlockRegistry.GLOWING_YELLOW_WOOL);
+    public static final Item GLOWING_LIME_WOOL = Items.register(BlockRegistry.GLOWING_LIME_WOOL);
+    public static final Item GLOWING_GREEN_WOOL = Items.register(BlockRegistry.GLOWING_GREEN_WOOL);
+    public static final Item GLOWING_CYAN_WOOL = Items.register(BlockRegistry.GLOWING_CYAN_WOOL);
+    public static final Item GLOWING_LIGHT_BLUE_WOOL = Items.register(BlockRegistry.GLOWING_LIGHT_BLUE_WOOL);
+    public static final Item GLOWING_BLUE_WOOL = Items.register(BlockRegistry.GLOWING_BLUE_WOOL);
+    public static final Item GLOWING_PURPLE_WOOL = Items.register(BlockRegistry.GLOWING_PURPLE_WOOL);
+    public static final Item GLOWING_MAGENTA_WOOL = Items.register(BlockRegistry.GLOWING_MAGENTA_WOOL);
+    public static final Item GLOWING_PINK_WOOL = Items.register(BlockRegistry.GLOWING_PINK_WOOL);
+    public static final Item GLOWING_AMBER_WOOL = Items.register(BlockRegistry.GLOWING_AMBER_WOOL);
+    public static final Item GLOWING_AQUA_WOOL = Items.register(BlockRegistry.GLOWING_AQUA_WOOL);
+    public static final Item GLOWING_INDIGO_WOOL = Items.register(BlockRegistry.GLOWING_INDIGO_WOOL);
+    public static final Item GLOWING_MAROON_WOOL = Items.register(BlockRegistry.GLOWING_MAROON_WOOL);
+
+    public static final Item GLOWING_WHITE_CARPET = registerCarpet(BlockRegistry.GLOWING_WHITE_CARPET, DyeColor.WHITE);
+    public static final Item GLOWING_LIGHT_GRAY_CARPET = registerCarpet(BlockRegistry.GLOWING_LIGHT_GRAY_CARPET, DyeColor.LIGHT_GRAY);
+    public static final Item GLOWING_GRAY_CARPET = registerCarpet(BlockRegistry.GLOWING_GRAY_CARPET, DyeColor.GRAY);
+    public static final Item GLOWING_BLACK_CARPET = registerCarpet(BlockRegistry.GLOWING_BLACK_CARPET, DyeColor.BLACK);
+    public static final Item GLOWING_BROWN_CARPET = registerCarpet(BlockRegistry.GLOWING_BROWN_CARPET, DyeColor.BROWN);
+    public static final Item GLOWING_RED_CARPET = registerCarpet(BlockRegistry.GLOWING_RED_CARPET, DyeColor.RED);
+    public static final Item GLOWING_ORANGE_CARPET = registerCarpet(BlockRegistry.GLOWING_ORANGE_CARPET, DyeColor.ORANGE);
+    public static final Item GLOWING_YELLOW_CARPET = registerCarpet(BlockRegistry.GLOWING_YELLOW_CARPET, DyeColor.YELLOW);
+    public static final Item GLOWING_LIME_CARPET = registerCarpet(BlockRegistry.GLOWING_LIME_CARPET, DyeColor.LIME);
+    public static final Item GLOWING_GREEN_CARPET = registerCarpet(BlockRegistry.GLOWING_GREEN_CARPET, DyeColor.GREEN);
+    public static final Item GLOWING_CYAN_CARPET = registerCarpet(BlockRegistry.GLOWING_CYAN_CARPET, DyeColor.CYAN);
+    public static final Item GLOWING_LIGHT_BLUE_CARPET = registerCarpet(BlockRegistry.GLOWING_LIGHT_BLUE_CARPET, DyeColor.LIGHT_BLUE);
+    public static final Item GLOWING_BLUE_CARPET = registerCarpet(BlockRegistry.GLOWING_BLUE_CARPET, DyeColor.BLUE);
+    public static final Item GLOWING_PURPLE_CARPET = registerCarpet(BlockRegistry.GLOWING_PURPLE_CARPET, DyeColor.PURPLE);
+    public static final Item GLOWING_MAGENTA_CARPET = registerCarpet(BlockRegistry.GLOWING_MAGENTA_CARPET, DyeColor.MAGENTA);
+    public static final Item GLOWING_PINK_CARPET = registerCarpet(BlockRegistry.GLOWING_PINK_CARPET, DyeColor.PINK);
+    // TODO change to appropriate colors once DyeColor is extended
+    public static final Item GLOWING_AMBER_CARPET = registerCarpet(BlockRegistry.GLOWING_AMBER_CARPET, DyeColor.YELLOW);
+    public static final Item GLOWING_AQUA_CARPET = registerCarpet(BlockRegistry.GLOWING_AQUA_CARPET, DyeColor.LIGHT_BLUE);
+    public static final Item GLOWING_INDIGO_CARPET = registerCarpet(BlockRegistry.GLOWING_INDIGO_CARPET, DyeColor.PURPLE);
+    public static final Item GLOWING_MAROON_CARPET = registerCarpet(BlockRegistry.GLOWING_MAROON_CARPET, DyeColor.RED);
+
+
+    public static final Item GLOWING_WHITE_BED = registerBed(BlockRegistry.GLOWING_WHITE_BED);
+    public static final Item GLOWING_LIGHT_GRAY_BED = registerBed(BlockRegistry.GLOWING_LIGHT_GRAY_BED);
+    public static final Item GLOWING_GRAY_BED = registerBed(BlockRegistry.GLOWING_GRAY_BED);
+    public static final Item GLOWING_BLACK_BED = registerBed(BlockRegistry.GLOWING_BLACK_BED);
+    public static final Item GLOWING_BROWN_BED = registerBed(BlockRegistry.GLOWING_BROWN_BED);
+    public static final Item GLOWING_RED_BED = registerBed(BlockRegistry.GLOWING_RED_BED);
+    public static final Item GLOWING_ORANGE_BED = registerBed(BlockRegistry.GLOWING_ORANGE_BED);
+    public static final Item GLOWING_YELLOW_BED = registerBed(BlockRegistry.GLOWING_YELLOW_BED);
+    public static final Item GLOWING_LIME_BED = registerBed(BlockRegistry.GLOWING_LIME_BED);
+    public static final Item GLOWING_GREEN_BED = registerBed(BlockRegistry.GLOWING_GREEN_BED);
+    public static final Item GLOWING_CYAN_BED = registerBed(BlockRegistry.GLOWING_CYAN_BED);
+    public static final Item GLOWING_LIGHT_BLUE_BED = registerBed(BlockRegistry.GLOWING_LIGHT_BLUE_BED);
+    public static final Item GLOWING_BLUE_BED = registerBed(BlockRegistry.GLOWING_BLUE_BED);
+    public static final Item GLOWING_PURPLE_BED = registerBed(BlockRegistry.GLOWING_PURPLE_BED);
+    public static final Item GLOWING_MAGENTA_BED = registerBed(BlockRegistry.GLOWING_MAGENTA_BED);
+    public static final Item GLOWING_PINK_BED = registerBed(BlockRegistry.GLOWING_PINK_BED);
+    public static final Item GLOWING_AMBER_BED = registerBed(BlockRegistry.GLOWING_AMBER_BED);
+    public static final Item GLOWING_AQUA_BED = registerBed(BlockRegistry.GLOWING_AQUA_BED);
+    public static final Item GLOWING_INDIGO_BED = registerBed(BlockRegistry.GLOWING_INDIGO_BED);
+    public static final Item GLOWING_MAROON_BED = registerBed(BlockRegistry.GLOWING_MAROON_BED);
+
+    public static final Item GLOWING_WHITE_BANNER = registerBanner(BlockRegistry.GLOWING_WHITE_BANNER, BlockRegistry.GLOWING_WHITE_WALL_BANNER);
+    public static final Item GLOWING_LIGHT_GRAY_BANNER = registerBanner(BlockRegistry.GLOWING_LIGHT_GRAY_BANNER, BlockRegistry.GLOWING_LIGHT_GRAY_WALL_BANNER);
+    public static final Item GLOWING_GRAY_BANNER = registerBanner(BlockRegistry.GLOWING_GRAY_BANNER, BlockRegistry.GLOWING_GRAY_WALL_BANNER);
+    public static final Item GLOWING_BLACK_BANNER = registerBanner(BlockRegistry.GLOWING_BLACK_BANNER, BlockRegistry.GLOWING_BLACK_WALL_BANNER);
+    public static final Item GLOWING_BROWN_BANNER = registerBanner(BlockRegistry.GLOWING_BROWN_BANNER, BlockRegistry.GLOWING_BROWN_WALL_BANNER);
+    public static final Item GLOWING_RED_BANNER = registerBanner(BlockRegistry.GLOWING_RED_BANNER, BlockRegistry.GLOWING_RED_WALL_BANNER);
+    public static final Item GLOWING_ORANGE_BANNER = registerBanner(BlockRegistry.GLOWING_ORANGE_BANNER, BlockRegistry.GLOWING_ORANGE_WALL_BANNER);
+    public static final Item GLOWING_YELLOW_BANNER = registerBanner(BlockRegistry.GLOWING_YELLOW_BANNER, BlockRegistry.GLOWING_YELLOW_WALL_BANNER);
+    public static final Item GLOWING_LIME_BANNER = registerBanner(BlockRegistry.GLOWING_LIME_BANNER, BlockRegistry.GLOWING_LIME_WALL_BANNER);
+    public static final Item GLOWING_GREEN_BANNER = registerBanner(BlockRegistry.GLOWING_GREEN_BANNER, BlockRegistry.GLOWING_GREEN_WALL_BANNER);
+    public static final Item GLOWING_CYAN_BANNER = registerBanner(BlockRegistry.GLOWING_CYAN_BANNER, BlockRegistry.GLOWING_CYAN_WALL_BANNER);
+    public static final Item GLOWING_LIGHT_BLUE_BANNER = registerBanner(BlockRegistry.GLOWING_LIGHT_BLUE_BANNER, BlockRegistry.GLOWING_LIGHT_BLUE_WALL_BANNER);
+    public static final Item GLOWING_BLUE_BANNER = registerBanner(BlockRegistry.GLOWING_BLUE_BANNER, BlockRegistry.GLOWING_BLUE_WALL_BANNER);
+    public static final Item GLOWING_PURPLE_BANNER = registerBanner(BlockRegistry.GLOWING_PURPLE_BANNER, BlockRegistry.GLOWING_PURPLE_WALL_BANNER);
+    public static final Item GLOWING_MAGENTA_BANNER = registerBanner(BlockRegistry.GLOWING_MAGENTA_BANNER, BlockRegistry.GLOWING_MAGENTA_WALL_BANNER);
+    public static final Item GLOWING_PINK_BANNER = registerBanner(BlockRegistry.GLOWING_PINK_BANNER, BlockRegistry.GLOWING_PINK_WALL_BANNER);
+    public static final Item GLOWING_AMBER_BANNER = registerBanner(BlockRegistry.GLOWING_AMBER_BANNER, BlockRegistry.GLOWING_AMBER_WALL_BANNER);
+    public static final Item GLOWING_AQUA_BANNER = registerBanner(BlockRegistry.GLOWING_AQUA_BANNER, BlockRegistry.GLOWING_AQUA_WALL_BANNER);
+    public static final Item GLOWING_INDIGO_BANNER = registerBanner(BlockRegistry.GLOWING_INDIGO_BANNER, BlockRegistry.GLOWING_INDIGO_WALL_BANNER);
+    public static final Item GLOWING_MAROON_BANNER = registerBanner(BlockRegistry.GLOWING_MAROON_BANNER, BlockRegistry.GLOWING_MAROON_WALL_BANNER);
+
 
 
     public static Item register(String id, Item.Settings settings) {
@@ -510,5 +600,18 @@ public class ItemRegistry {
         return register(
                 RegistryKey.of(RegistryKeys.ITEM, EntityType.getId(type).withSuffixedPath("_spawn_egg")), SpawnEggItem::new, new Item.Settings().spawnEgg(type)
         );
+    }
+    private static Item registerCarpet(Block block, DyeColor color) {
+        return Items.register(block, (settings) -> settings.component(DataComponentTypes.EQUIPPABLE, EquippableComponent.ofCarpet(color)));
+    }
+    private static Item registerBed(Block block) {
+        return Items.register(block, BedItem::new, (new Item.Settings()).maxCount(1));
+    }
+    private static Item registerBanner(Block banner, Block wallBanner) {
+        return Items.register(banner,
+                (block, settings) -> new BannerItem(block, wallBanner, settings),
+                (new Item.Settings()).maxCount(16)
+                        .component(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT));
+
     }
 }

@@ -4,6 +4,7 @@
     "nekomasfixed:amber_bed",
     "nekomasfixed:aqua_bed",
     "nekomasfixed:indigo_bed",
-    "nekomasfixed:maroon_bed"
+    "nekomasfixed:maroon_bed",
+    "#nekomasfixed:glowing_beds"
   ]
 }

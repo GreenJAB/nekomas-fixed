@@ -16,5 +16,7 @@ public class NekomasFixedDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModLootTableProvider::new);
 		pack.addProvider(ModRegistryDataGenerator::new);
 		pack.addProvider(ModAdvancementProvider::new);
+		// Generates lang file in "generated" directory. Although, duplicated file from "resources" dir conflict
+		//pack.addProvider(ModLanguageProvider::new);
 	}
 }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "dye_glowing_wool_carpet",
+  "ingredients": [
+    "minecraft:orange_dye",
+    "#nekomasfixed:glowing_wool_carpets"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:orange_carpet"
+  }
+}

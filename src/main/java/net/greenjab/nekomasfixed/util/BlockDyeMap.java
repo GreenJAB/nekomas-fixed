@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.util;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.DyeColor;
 
 import java.util.EnumMap;
 
@@ -25,6 +26,12 @@ public class BlockDyeMap {
     public static final EnumMap<AllDyes, Block> FROGLIGHT = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Block> SHULKER_BOX = new EnumMap<>(AllDyes.class);
     public static final EnumMap<AllDyes, Block> BED = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> BANNER = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> GLOWING_WOOL = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> GLOWING_CARPET = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> GLOWING_BED = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> GLOWING_BANNER = new EnumMap<>(AllDyes.class);
+    public static final EnumMap<AllDyes, Block> GLOWING_WALL_BANNER = new EnumMap<>(AllDyes.class);
 
     //this class provides all the mappings for both datagen and server side logic... its used by tagProvider and DyedBRushItem
 
@@ -406,5 +413,21 @@ public class BlockDyeMap {
         BED.put(AllDyes.AQUA, BlockRegistry.AQUA_BED);
         BED.put(AllDyes.INDIGO, BlockRegistry.INDIGO_BED);
         BED.put(AllDyes.MAROON, BlockRegistry.MAROON_BED);
+        BANNER.put(AllDyes.WHITE, Blocks.WHITE_BANNER);
+        BANNER.put(AllDyes.ORANGE, Blocks.ORANGE_BANNER);
+        BANNER.put(AllDyes.MAGENTA, Blocks.MAGENTA_BANNER);
+        BANNER.put(AllDyes.LIGHT_BLUE, Blocks.LIGHT_BLUE_BANNER);
+        BANNER.put(AllDyes.YELLOW, Blocks.YELLOW_BANNER);
+        BANNER.put(AllDyes.LIME, Blocks.LIME_BANNER);
+        BANNER.put(AllDyes.PINK, Blocks.PINK_BANNER);
+        BANNER.put(AllDyes.GRAY, Blocks.GRAY_BANNER);
+        BANNER.put(AllDyes.LIGHT_GRAY, Blocks.LIGHT_GRAY_BANNER);
+        BANNER.put(AllDyes.CYAN, Blocks.CYAN_BANNER);
+        BANNER.put(AllDyes.PURPLE, Blocks.PURPLE_BANNER);
+        BANNER.put(AllDyes.BLUE, Blocks.BLUE_BANNER);
+        BANNER.put(AllDyes.BROWN, Blocks.BROWN_BANNER);
+        BANNER.put(AllDyes.GREEN, Blocks.GREEN_BANNER);
+        BANNER.put(AllDyes.RED, Blocks.RED_BANNER);
+        BANNER.put(AllDyes.BLACK, Blocks.BLACK_BANNER);
     }
 }

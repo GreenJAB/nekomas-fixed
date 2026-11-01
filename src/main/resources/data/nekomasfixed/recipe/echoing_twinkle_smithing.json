@@ -1,0 +1,6 @@
+{
+  "type": "nekomasfixed:smithing_echoing_twinkle",
+  "template": "minecraft:echo_shard",
+  "base": "#minecraft:trimmable_armor",
+  "addition": "minecraft:glow_ink_sac"
+}

@@ -1,0 +1,40 @@
+{
+  "parent": "nekomasfixed:adventure/make_trim_glow",
+  "criteria": {
+    "make_it_fade": {
+      "conditions": {
+        "recipe_id": "nekomasfixed:echoing_fade_smithing"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    },
+    "make_it_twinkle": {
+      "conditions": {
+        "recipe_id": "nekomasfixed:echoing_twinkle_smithing"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.nekomasfixed.adventure.make_echoing_trim.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "minecraft:netherite_chestplate",
+      "components": {"trim": {"material": "gold", "pattern": "dune"}, "nekomasfixed:echoing_layers": [{}, {"hidden": true}]}
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.nekomasfixed.adventure.make_echoing_trim.title"
+    }
+  },
+  "requirements": [
+    [
+      "make_it_fade",
+      "make_it_twinkle"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

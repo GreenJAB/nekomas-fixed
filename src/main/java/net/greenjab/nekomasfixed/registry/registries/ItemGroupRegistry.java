@@ -1,11 +1,19 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.greenjab.nekomasfixed.util.AllDyes;
+import net.greenjab.nekomasfixed.util.BlockDyeMap;
+import net.greenjab.nekomasfixed.util.ItemDyeMap;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
+
+import java.util.List;
+import java.util.Map;
 
 public class ItemGroupRegistry {
 
@@ -30,6 +38,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.ENDERMAN_HEAD);
                         entries.add(ItemRegistry.REDSTONE_STRIKER);
                         entries.add(ItemRegistry.GLOW_TORCH);
+                        entries.add(ItemRegistry.CLEAR_ITEM_FRAME);
                         entries.add(ItemRegistry.TARGET_DUMMY);
                         entries.add(ItemRegistry.TURTLE_CHESTPLATE);
                         entries.add(ItemRegistry.TURTLE_LEGGINGS);
@@ -213,112 +222,11 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.INDIGO_DYE);
                         entries.add(ItemRegistry.MAROON_DYE);
 
-
-                        entries.add(ItemRegistry.WHITE_DYED_BRUSH);
-                        entries.add(ItemRegistry.LIGHT_GRAY_DYED_BRUSH);
-                        entries.add(ItemRegistry.GRAY_DYED_BRUSH);
-                        entries.add(ItemRegistry.BLACK_DYED_BRUSH);
-                        entries.add(ItemRegistry.BROWN_DYED_BRUSH);
-                        entries.add(ItemRegistry.RED_DYED_BRUSH);
-                        entries.add(ItemRegistry.ORANGE_DYED_BRUSH);
-                        entries.add(ItemRegistry.YELLOW_DYED_BRUSH);
-                        entries.add(ItemRegistry.LIME_DYED_BRUSH);
-                        entries.add(ItemRegistry.GREEN_DYED_BRUSH);
-                        entries.add(ItemRegistry.CYAN_DYED_BRUSH);
-                        entries.add(ItemRegistry.LIGHT_BLUE_DYED_BRUSH);
-                        entries.add(ItemRegistry.BLUE_DYED_BRUSH);
-                        entries.add(ItemRegistry.PURPLE_DYED_BRUSH);
-                        entries.add(ItemRegistry.MAGENTA_DYED_BRUSH);
-                        entries.add(ItemRegistry.PINK_DYED_BRUSH);
-                        entries.add(ItemRegistry.AMBER_DYED_BRUSH);
-                        entries.add(ItemRegistry.AQUA_DYED_BRUSH);
-                        entries.add(ItemRegistry.INDIGO_DYED_BRUSH);
-                        entries.add(ItemRegistry.MAROON_DYED_BRUSH);
-
-                        entries.add(ItemRegistry.WHITE_BRICKS);
-                        entries.add(ItemRegistry.LIGHT_GRAY_BRICKS);
-                        entries.add(ItemRegistry.GRAY_BRICKS);
-                        entries.add(ItemRegistry.BLACK_BRICKS);
-                        entries.add(ItemRegistry.BROWN_BRICKS);
-                        entries.add(ItemRegistry.RED_BRICKS);
-                        entries.add(ItemRegistry.ORANGE_BRICKS);
-                        entries.add(ItemRegistry.YELLOW_BRICKS);
-                        entries.add(ItemRegistry.LIME_BRICKS);
-                        entries.add(ItemRegistry.GREEN_BRICKS);
-                        entries.add(ItemRegistry.CYAN_BRICKS);
-                        entries.add(ItemRegistry.LIGHT_BLUE_BRICKS);
-                        entries.add(ItemRegistry.BLUE_BRICKS);
-                        entries.add(ItemRegistry.PURPLE_BRICKS);
-                        entries.add(ItemRegistry.MAGENTA_BRICKS);
-                        entries.add(ItemRegistry.PINK_BRICKS);
-                        entries.add(ItemRegistry.AMBER_BRICKS);
-                        entries.add(ItemRegistry.AQUA_BRICKS);
-                        entries.add(ItemRegistry.INDIGO_BRICKS);
-                        entries.add(ItemRegistry.MAROON_BRICKS);
-
-                        entries.add(ItemRegistry.WHITE_BRICK_SLAB);
-                        entries.add(ItemRegistry.LIGHT_GRAY_BRICK_SLAB);
-                        entries.add(ItemRegistry.GRAY_BRICK_SLAB);
-                        entries.add(ItemRegistry.BLACK_BRICK_SLAB);
-                        entries.add(ItemRegistry.BROWN_BRICK_SLAB);
-                        entries.add(ItemRegistry.RED_BRICK_SLAB);
-                        entries.add(ItemRegistry.ORANGE_BRICK_SLAB);
-                        entries.add(ItemRegistry.YELLOW_BRICK_SLAB);
-                        entries.add(ItemRegistry.LIME_BRICK_SLAB);
-                        entries.add(ItemRegistry.GREEN_BRICK_SLAB);
-                        entries.add(ItemRegistry.CYAN_BRICK_SLAB);
-                        entries.add(ItemRegistry.LIGHT_BLUE_BRICK_SLAB);
-                        entries.add(ItemRegistry.BLUE_BRICK_SLAB);
-                        entries.add(ItemRegistry.PURPLE_BRICK_SLAB);
-                        entries.add(ItemRegistry.MAGENTA_BRICK_SLAB);
-                        entries.add(ItemRegistry.PINK_BRICK_SLAB);
-                        entries.add(ItemRegistry.AMBER_BRICK_SLAB);
-                        entries.add(ItemRegistry.AQUA_BRICK_SLAB);
-                        entries.add(ItemRegistry.INDIGO_BRICK_SLAB);
-                        entries.add(ItemRegistry.MAROON_BRICK_SLAB);
-
-                        entries.add(ItemRegistry.WHITE_BRICK_STAIRS);
-                        entries.add(ItemRegistry.LIGHT_GRAY_BRICK_STAIRS);
-                        entries.add(ItemRegistry.GRAY_BRICK_STAIRS);
-                        entries.add(ItemRegistry.BLACK_BRICK_STAIRS);
-                        entries.add(ItemRegistry.BROWN_BRICK_STAIRS);
-                        entries.add(ItemRegistry.RED_BRICK_STAIRS);
-                        entries.add(ItemRegistry.ORANGE_BRICK_STAIRS);
-                        entries.add(ItemRegistry.YELLOW_BRICK_STAIRS);
-                        entries.add(ItemRegistry.LIME_BRICK_STAIRS);
-                        entries.add(ItemRegistry.GREEN_BRICK_STAIRS);
-                        entries.add(ItemRegistry.CYAN_BRICK_STAIRS);
-                        entries.add(ItemRegistry.LIGHT_BLUE_BRICK_STAIRS);
-                        entries.add(ItemRegistry.BLUE_BRICK_STAIRS);
-                        entries.add(ItemRegistry.PURPLE_BRICK_STAIRS);
-                        entries.add(ItemRegistry.MAGENTA_BRICK_STAIRS);
-                        entries.add(ItemRegistry.PINK_BRICK_STAIRS);
-                        entries.add(ItemRegistry.AMBER_BRICK_STAIRS);
-                        entries.add(ItemRegistry.AQUA_BRICK_STAIRS);
-                        entries.add(ItemRegistry.INDIGO_BRICK_STAIRS);
-                        entries.add(ItemRegistry.MAROON_BRICK_STAIRS);
-
-                        entries.add(ItemRegistry.WHITE_BRICK_WALL);
-                        entries.add(ItemRegistry.LIGHT_GRAY_BRICK_WALL);
-                        entries.add(ItemRegistry.GRAY_BRICK_WALL);
-                        entries.add(ItemRegistry.BLACK_BRICK_WALL);
-                        entries.add(ItemRegistry.BROWN_BRICK_WALL);
-                        entries.add(ItemRegistry.RED_BRICK_WALL);
-                        entries.add(ItemRegistry.ORANGE_BRICK_WALL);
-                        entries.add(ItemRegistry.YELLOW_BRICK_WALL);
-                        entries.add(ItemRegistry.LIME_BRICK_WALL);
-                        entries.add(ItemRegistry.GREEN_BRICK_WALL);
-                        entries.add(ItemRegistry.CYAN_BRICK_WALL);
-                        entries.add(ItemRegistry.LIGHT_BLUE_BRICK_WALL);
-                        entries.add(ItemRegistry.BLUE_BRICK_WALL);
-                        entries.add(ItemRegistry.PURPLE_BRICK_WALL);
-                        entries.add(ItemRegistry.MAGENTA_BRICK_WALL);
-                        entries.add(ItemRegistry.PINK_BRICK_WALL);
-                        entries.add(ItemRegistry.AMBER_BRICK_WALL);
-                        entries.add(ItemRegistry.AQUA_BRICK_WALL);
-                        entries.add(ItemRegistry.INDIGO_BRICK_WALL);
-                        entries.add(ItemRegistry.MAROON_BRICK_WALL);
-                        
+                        entries.addAll(orderDyedItems(ItemDyeMap.BRUSH));
+                        entries.addAll(orderDyedItems(BlockDyeMap.BRICKS));
+                        entries.addAll(orderDyedItems(BlockDyeMap.BRICK_SLAB));
+                        entries.addAll(orderDyedItems(BlockDyeMap.BRICK_STAIRS));
+                        entries.addAll(orderDyedItems(BlockDyeMap.BRICK_WALL));
 
                         entries.add(ItemRegistry.CLEAR_FROGLIGHT);
                         entries.add(ItemRegistry.CLOUDY_FROGLIGHT);
@@ -338,48 +246,39 @@ public class ItemGroupRegistry {
                         entries.add(ItemRegistry.THULIAN_FROGLIGHT);
                         entries.add(ItemRegistry.SAKURA_FROGLIGHT);
 
-                        entries.add(ItemRegistry.WHITE_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.LIGHT_GRAY_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.GRAY_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.BLACK_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.BROWN_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.RED_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.ORANGE_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.YELLOW_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.LIME_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.GREEN_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.CYAN_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.LIGHT_BLUE_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.BLUE_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.PURPLE_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.MAGENTA_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.PINK_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.AMBER_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.AQUA_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.INDIGO_SPOTTED_WOOL);
-                        entries.add(ItemRegistry.MAROON_SPOTTED_WOOL);
-
-                        entries.add(ItemRegistry.WHITE_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.LIGHT_GRAY_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.GRAY_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.BLACK_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.BROWN_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.RED_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.ORANGE_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.YELLOW_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.LIME_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.GREEN_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.CYAN_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.LIGHT_BLUE_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.BLUE_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.PURPLE_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.MAGENTA_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.PINK_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.AMBER_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.AQUA_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.INDIGO_SPOTTED_CARPET);
-                        entries.add(ItemRegistry.MAROON_SPOTTED_CARPET);
+                        entries.addAll(orderDyedItems(BlockDyeMap.SPOTTED_WOOL));
+                        entries.addAll(orderDyedItems(BlockDyeMap.SPOTTED_CARPET));
+                        entries.addAll(orderDyedItems(BlockDyeMap.GLOWING_WOOL));
+                        entries.addAll(orderDyedItems(BlockDyeMap.GLOWING_CARPET));
+                        //TODO uncomment when DyeColor is extended
+//                        entries.addAll(orderDyedItems(BlockDyeMap.GLOWING_BED));
+//                        entries.addAll(orderDyedItems(BlockDyeMap.GLOWING_BANNER));
                     }).build();
+
+    private static <T extends ItemConvertible> List<ItemStack> orderDyedItems(Map<AllDyes, T> map) {
+        return List.of(
+                new ItemStack(map.get(AllDyes.WHITE).asItem()),
+                new ItemStack(map.get(AllDyes.LIGHT_GRAY).asItem()),
+                new ItemStack(map.get(AllDyes.GRAY).asItem()),
+                new ItemStack(map.get(AllDyes.BLACK).asItem()),
+                new ItemStack(map.get(AllDyes.BROWN).asItem()),
+                new ItemStack(map.get(AllDyes.RED).asItem()),
+                new ItemStack(map.get(AllDyes.ORANGE).asItem()),
+                new ItemStack(map.get(AllDyes.YELLOW).asItem()),
+                new ItemStack(map.get(AllDyes.LIME).asItem()),
+                new ItemStack(map.get(AllDyes.GREEN).asItem()),
+                new ItemStack(map.get(AllDyes.CYAN).asItem()),
+                new ItemStack(map.get(AllDyes.LIGHT_BLUE).asItem()),
+                new ItemStack(map.get(AllDyes.BLUE).asItem()),
+                new ItemStack(map.get(AllDyes.PURPLE).asItem()),
+                new ItemStack(map.get(AllDyes.MAGENTA).asItem()),
+                new ItemStack(map.get(AllDyes.PINK).asItem()),
+                new ItemStack(map.get(AllDyes.AMBER).asItem()),
+                new ItemStack(map.get(AllDyes.AQUA).asItem()),
+                new ItemStack(map.get(AllDyes.INDIGO).asItem()),
+                new ItemStack(map.get(AllDyes.MAROON).asItem())
+        );
+    }
 
     public static void registerItemGroup() {
         System.out.println("register ItemGroup");

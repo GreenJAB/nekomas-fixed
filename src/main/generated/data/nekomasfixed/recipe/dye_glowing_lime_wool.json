@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "dye_glowing_wool",
+  "ingredients": [
+    "minecraft:lime_dye",
+    "#nekomasfixed:glowing_wool"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:lime_wool"
+  }
+}
