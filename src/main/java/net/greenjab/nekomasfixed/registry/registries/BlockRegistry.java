@@ -74,6 +74,15 @@ public class BlockRegistry {
                     .noOcclusion()
                     .isRedstoneConductor(Blocks::never)
     );
+    public static final Block KILN = register(
+            "kiln",
+            KilnBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_GRAY)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .sound(SoundType.GILDED_BLACKSTONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F));
     public static final Block PYROTECHNICS_TABLE = register(
             "pyrotechnics_table",
             PyrotechnicsTableBlock::new,

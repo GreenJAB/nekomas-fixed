@@ -254,6 +254,8 @@
   "block.nekomasfixed.magma_cauldron": "Magma Cauldron",
   "block.nekomasfixed.slime_cauldron": "Slime Cauldron",
   "block.nekomasfixed.ice_cauldron": "Ice Cauldron",
+  "block.nekomasfixed.kiln": "Kiln",
+  "container.nekomasfixed.kiln": "Kiln",
   "block.nekomasfixed.pyrotechnics_table": "Pyrotechnics Table",
   "container.nekomasfixed.pyrotechnics": "Pyrotechnics",
   "container.nekomasfixed.pyrotechnics.none": "No Effect",

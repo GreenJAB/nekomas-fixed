@@ -103,6 +103,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.BAOBAB_TRAPDOOR));
         getOrCreateTagBuilder(BlockTags.LEAVES).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.BAOBAB_LEAVES));
         getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.ROPE));
+        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.KILN));
         // No BlockTags.LOGS_THAT_BURN constant in 1.21.1; reference by name.
         getOrCreateTagBuilder(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("logs_that_burn")))
                 .addTag(ModTags.BAOBAB_LOGS);

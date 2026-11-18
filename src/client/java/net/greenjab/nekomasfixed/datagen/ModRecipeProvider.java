@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
@@ -11,10 +12,12 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 
@@ -332,6 +335,49 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .save(output, NekomasFixed.id("pyrotechnics_table"));
     }
 
+    private void generateKilnRecipes(RecipeOutput output) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.KILN)
+                .pattern("###").pattern("#D#").pattern("CCC")
+                .define('#', Items.MUD_BRICKS).define('D', Items.FURNACE).define('C', Items.TERRACOTTA)
+                .unlockedBy("has_furnace", has(Items.FURNACE))
+                .save(output, NekomasFixed.id("kiln"));
+
+        kiln(output, Items.SAND, Items.GLASS, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.CLAY, Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.COBBLESTONE, Items.STONE, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.STONE, Items.SMOOTH_STONE, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.SANDSTONE, Items.SMOOTH_SANDSTONE, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.RED_SANDSTONE, Items.SMOOTH_RED_SANDSTONE, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.QUARTZ_BLOCK, Items.SMOOTH_QUARTZ, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.BASALT, Items.SMOOTH_BASALT, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.COBBLED_DEEPSLATE, Items.DEEPSLATE, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.STONE_BRICKS, Items.CRACKED_STONE_BRICKS, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.DEEPSLATE_BRICKS, Items.CRACKED_DEEPSLATE_BRICKS, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.DEEPSLATE_TILES, Items.CRACKED_DEEPSLATE_TILES, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.NETHER_BRICKS, Items.CRACKED_NETHER_BRICKS, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.POLISHED_BLACKSTONE_BRICKS, Items.CRACKED_POLISHED_BLACKSTONE_BRICKS, RecipeCategory.BUILDING_BLOCKS);
+        kiln(output, Items.CLAY_BALL, Items.BRICK, RecipeCategory.MISC);
+        kiln(output, Items.NETHERRACK, Items.NETHER_BRICK, RecipeCategory.MISC);
+        kiln(output, Items.CHORUS_FRUIT, Items.POPPED_CHORUS_FRUIT, RecipeCategory.MISC);
+        kiln(output, Items.WET_SPONGE, Items.SPONGE, RecipeCategory.MISC);
+
+        for (AllDyes dye : AllDyes.values()) {
+            Block baked = BlockDyeMap.TERRACOTTA.get(dye);
+            Block glazed = BlockDyeMap.GLAZED_TERRACOTTA.get(dye);
+            Item bakedItem = baked != null ? baked.asItem() : BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dye.getSerializedName() + "_terracotta"));
+            Item glazedItem = glazed != null ? glazed.asItem() : BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dye.getSerializedName() + "_glazed_terracotta"));
+            kiln(output, bakedItem, glazedItem, RecipeCategory.BUILDING_BLOCKS);
+        }
+    }
+
+    private void kiln(RecipeOutput output, Item input, Item result, RecipeCategory category) {
+        String name = BuiltInRegistries.ITEM.getKey(result).getPath() + "_from_kilning";
+        CookingBookCategory bookCategory = category == RecipeCategory.MISC ? CookingBookCategory.MISC : CookingBookCategory.BLOCKS;
+        new SimpleCookingRecipeBuilder(category, bookCategory, result, Ingredient.of(input), 0.4F, 100, KilnRecipe::new)
+                .unlockedBy(getHasName(input), has(input))
+                .save(output, NekomasFixed.id(name));
+    }
+
     @Override
     public void buildRecipes(RecipeOutput output) {
         generateBaobabRecipes(output);
@@ -343,6 +389,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateSickleRecipes(output);
         generateNautilusRecipes(output);
         generatePyrotechnicsRecipe(output);
+        generateKilnRecipes(output);
 
         for (AllDyes dye : AllDyes.values()) {
             Item dyeItem = dyeItem(dye);

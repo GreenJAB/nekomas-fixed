@@ -1,0 +1,12 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "blocks",
+  "cookingtime": 100,
+  "experience": 0.4,
+  "ingredient": {
+    "item": "minecraft:yellow_terracotta"
+  },
+  "result": {
+    "id": "minecraft:yellow_glazed_terracotta"
+  }
+}

@@ -82,6 +82,14 @@ public class BlockEntityTypeRegistry {
                                     BlockRegistry.CORAL_NAUTILUS_BLOCK),
                             null));
 
+    @SuppressWarnings("DataFlowIssue")
+    public static final BlockEntityType<KilnBlockEntity> KILN_BLOCK_ENTITY =
+            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, NekomasFixed.id("kiln"),
+                    new BlockEntityType<>(
+                            KilnBlockEntity::new,
+                            Set.of(BlockRegistry.KILN),
+                            null));
+
     public static void registerBlockEntityTypes() {
         NekomasFixed.LOGGER.info("Registering block entity types");
     }

@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
 import net.greenjab.nekomasfixed.NekomasFixed;
+import net.greenjab.nekomasfixed.screen.KilnMenu;
 import net.greenjab.nekomasfixed.screen.PyrotechnicsMenu;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,6 +15,13 @@ public class ScreenHandlerRegistry {
                     BuiltInRegistries.MENU,
                     NekomasFixed.id("pyrotechnics"),
                     new MenuType<>(PyrotechnicsMenu::new, FeatureFlags.VANILLA_SET)
+            );
+
+    public static final MenuType<KilnMenu> KILN =
+            Registry.register(
+                    BuiltInRegistries.MENU,
+                    NekomasFixed.id("kiln"),
+                    new MenuType<>(KilnMenu::new, FeatureFlags.VANILLA_SET)
             );
 
     public static void registerScreenHandlers() {

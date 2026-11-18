@@ -1,0 +1,12 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.4,
+  "ingredient": {
+    "item": "minecraft:clay_ball"
+  },
+  "result": {
+    "id": "minecraft:brick"
+  }
+}

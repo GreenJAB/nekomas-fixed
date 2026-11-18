@@ -1,0 +1,12 @@
+{
+  "type": "nekomasfixed:kilning",
+  "category": "blocks",
+  "cookingtime": 100,
+  "experience": 0.4,
+  "ingredient": {
+    "item": "nekomasfixed:aqua_terracotta"
+  },
+  "result": {
+    "id": "nekomasfixed:aqua_glazed_terracotta"
+  }
+}
