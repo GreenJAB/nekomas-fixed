@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.registry.registries;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
+import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.greenjab.nekomasfixed.util.SickleTiers;
 import net.minecraft.core.Direction;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 
+import java.util.EnumMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -368,6 +370,15 @@ public class ItemRegistry {
     public static final Item AQUA_DYE = registerDye("aqua_dye");
     public static final Item INDIGO_DYE = registerDye("indigo_dye");
     public static final Item MAROON_DYE = registerDye("maroon_dye");
+
+    public static final EnumMap<AllDyes, Item> DYED_BRUSHES = new EnumMap<>(AllDyes.class);
+
+    static {
+        for (AllDyes dye : AllDyes.values()) {
+            DYED_BRUSHES.put(dye, register(dye.getSerializedName() + "_dyed_brush",
+                    settings -> new DyedBrushItem(dye, settings), new Item.Properties().stacksTo(1).durability(64)));
+        }
+    }
 
     // Ancient-dye terracotta + concrete + concrete powder (plain block items).
     public static final Item AMBER_TERRACOTTA = register(BlockRegistry.AMBER_TERRACOTTA);

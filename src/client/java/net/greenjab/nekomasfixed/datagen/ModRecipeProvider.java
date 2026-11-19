@@ -399,6 +399,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             Item wall = BlockDyeMap.BRICK_WALL.get(dye).asItem();
             String c = dye.getSerializedName();
 
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.DYED_BRUSHES.get(dye))
+                    .pattern("###")
+                    .pattern("#B#")
+                    .pattern("###")
+                    .define('#', dyeItem)
+                    .define('B', Items.BRUSH)
+                    .group("dyed_brush")
+                    .unlockedBy("has_brush", has(Items.BRUSH))
+                    .save(output, NekomasFixed.id(c + "_dyed_brush"));
+
             ring(output, c + "_bricks_dyed", "dyed_bricks_dyed", Items.BRICKS, dyeItem,
                     bricks, 8, "has_plain_bricks", Items.BRICKS, "has_needed_dye", dyeItem);
 

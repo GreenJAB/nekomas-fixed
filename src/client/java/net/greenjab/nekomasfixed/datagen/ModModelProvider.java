@@ -6,6 +6,8 @@ import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelTemplates;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
@@ -182,5 +184,6 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerators generator) {
         // Block items parent to their block model automatically (handled by the
         // ModelProviderMixin filter); nothing extra needed for these blocks.
+        ItemRegistry.DYED_BRUSHES.values().forEach(brush -> generator.generateFlatItem(brush, ModelTemplates.FLAT_ITEM));
     }
 }

@@ -3,6 +3,8 @@ package net.greenjab.nekomasfixed;
 import net.fabricmc.api.ModInitializer;
 import net.greenjab.nekomasfixed.network.SyncHandler;
 import net.greenjab.nekomasfixed.registry.block.cauldron.CauldronBehaviour;
+import net.greenjab.nekomasfixed.registry.other.DyedBrushBehaviour;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.greenjab.nekomasfixed.registry.registries.*;
 import net.greenjab.nekomasfixed.registry.worldgen.BiomeAdditions;
 import net.greenjab.nekomasfixed.registry.worldgen.ModWorldGeneration;
@@ -52,6 +54,7 @@ public class NekomasFixed implements ModInitializer {
         BlockRegistry.registerBlocks();
         CauldronBehaviour.register();
         ItemRegistry.registerItems();
+        ItemRegistry.DYED_BRUSHES.values().forEach(brush -> DispenserBlock.registerBehavior(brush, new DyedBrushBehaviour()));
         ScreenHandlerRegistry.registerScreenHandlers();
         EntityTypeRegistry.registerEntityType();
         BiomeAdditions.addSpawns();
