@@ -9,6 +9,7 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registries.ModEntityRendererRegistry;
 import net.greenjab.nekomasfixed.registry.entity.TargetDummy;
 import net.greenjab.nekomasfixed.render.entity.feature.BasePlateFeatureRenderer;
+import net.greenjab.nekomasfixed.render.entity.feature.FlowerCrownLayer;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyArmorModel;
 import net.greenjab.nekomasfixed.render.entity.model.TargetDummyModel;
 import net.minecraft.Util;
@@ -53,6 +54,7 @@ public class TargetDummyRenderer extends LivingEntityRenderer<TargetDummy, Targe
                 new TargetDummyArmorModel(context.bakeLayer(ModEntityRendererRegistry.TARGET_DUMMY_INNER_ARMOR)),
                 new TargetDummyArmorModel(context.bakeLayer(ModEntityRendererRegistry.TARGET_DUMMY_OUTER_ARMOR)),
                 context.getModelManager()));
+        this.addLayer(new FlowerCrownLayer<>(this, context.getModelSet()));
         this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
         this.addLayer(new BasePlateFeatureRenderer(this, context.getModelSet()));
     }

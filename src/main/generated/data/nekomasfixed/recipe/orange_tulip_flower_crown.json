@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "flower_crown",
+  "key": {
+    "#": {
+      "item": "minecraft:orange_tulip"
+    }
+  },
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:orange_tulip_flower_crown"
+  }
+}

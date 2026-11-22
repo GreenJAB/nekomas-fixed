@@ -235,6 +235,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         }
     }
 
+    private void generateFlowerCrowns(RecipeOutput output) {
+        ItemRegistry.FLOWER_CROWNS.forEach((variant, crown) ->
+                ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, crown)
+                        .pattern("###").pattern("# #").pattern("###")
+                        .define('#', variant.flower)
+                        .group("flower_crown")
+                        .unlockedBy(getHasName(variant.flower), has(variant.flower))
+                        .save(output));
+    }
+
     private void generateCakesAndDyes(RecipeOutput output) {
         // Cakes: all share the ADA/BEB/CCC shaped pattern; only the flavour item (D) differs.
         // RecipeCategory.FOOD puts the advancement under food/ and, via
@@ -384,6 +394,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateHollowLogRecipes(output);
         generateStrippedHollowLogRecipes(output);
         generateCakesAndDyes(output);
+        generateFlowerCrowns(output);
         generateTurtleRecipes(output);
         generateSlingshotRecipe(output);
         generateSickleRecipes(output);

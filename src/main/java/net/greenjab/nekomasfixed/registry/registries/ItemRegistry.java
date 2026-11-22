@@ -4,6 +4,7 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.AllDyes;
+import net.greenjab.nekomasfixed.util.FlowerCrownVariants;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.greenjab.nekomasfixed.util.SickleTiers;
 import net.minecraft.core.Direction;
@@ -377,6 +378,15 @@ public class ItemRegistry {
         for (AllDyes dye : AllDyes.values()) {
             DYED_BRUSHES.put(dye, register(dye.getSerializedName() + "_dyed_brush",
                     settings -> new DyedBrushItem(dye, settings), new Item.Properties().stacksTo(1).durability(64)));
+        }
+    }
+
+    public static final EnumMap<FlowerCrownVariants, Item> FLOWER_CROWNS = new EnumMap<>(FlowerCrownVariants.class);
+
+    static {
+        for (FlowerCrownVariants variant : FlowerCrownVariants.values()) {
+            FLOWER_CROWNS.put(variant, register(variant.itemId(),
+                    settings -> new FlowerCrownItem(variant, settings), new Item.Properties().stacksTo(1)));
         }
     }
 

@@ -185,5 +185,6 @@ public class ModModelProvider extends FabricModelProvider {
         // Block items parent to their block model automatically (handled by the
         // ModelProviderMixin filter); nothing extra needed for these blocks.
         ItemRegistry.DYED_BRUSHES.values().forEach(brush -> generator.generateFlatItem(brush, ModelTemplates.FLAT_ITEM));
+        ItemRegistry.FLOWER_CROWNS.values().forEach(crown -> generator.generateFlatItem(crown, ModelTemplates.FLAT_ITEM));
     }
 }

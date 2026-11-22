@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "flower_crown",
+  "key": {
+    "#": {
+      "item": "minecraft:white_tulip"
+    }
+  },
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:white_tulip_flower_crown"
+  }
+}

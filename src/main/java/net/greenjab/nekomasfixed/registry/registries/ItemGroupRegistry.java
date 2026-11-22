@@ -133,6 +133,7 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.INDIGO_DYE);
                         entries.accept(ItemRegistry.MAROON_DYE);
                         ItemRegistry.DYED_BRUSHES.values().forEach(entries::accept);
+                        ItemRegistry.FLOWER_CROWNS.values().forEach(entries::accept);
                         entries.accept(ItemRegistry.CLEAR_FROGLIGHT);
                         entries.accept(ItemRegistry.CLOUDY_FROGLIGHT);
                         entries.accept(ItemRegistry.CASCADING_FROGLIGHT);

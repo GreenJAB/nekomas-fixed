@@ -16,6 +16,7 @@ public class ModTags {
 
     // The 7 sickle tiers (wooden..netherite), used for the dual-wield offhand attack.
     public static final TagKey<Item> SICKLES = itemTag("sickles");
+    public static final TagKey<Item> FLOWER_CROWNS = itemTag("flower_crowns");
 
     // Wood-family tag: the four baobab log/wood variants that yield planks.
     public static final TagKey<Block> BAOBAB_LOGS = blockTag("baobab_logs");

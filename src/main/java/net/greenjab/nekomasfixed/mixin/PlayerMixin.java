@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.greenjab.nekomasfixed.registry.item.FlowerCrownItem;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.ModData;
@@ -91,6 +92,12 @@ public class PlayerMixin {
         // dual-wielding sickles: shorter invulnerability window so both hits connect
         if (PE.getItemInHand(InteractionHand.MAIN_HAND).is(ModTags.SICKLES) && PE.getItemInHand(InteractionHand.OFF_HAND).is(ModTags.SICKLES)) {
             target.invulnerableTime = 10;
+        }
+
+        if (target instanceof LivingEntity livingTarget
+                && livingTarget.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof FlowerCrownItem crown
+                && PE.getRandom().nextFloat() < 0.5F) {
+            livingTarget.addEffect(new MobEffectInstance(crown.variant.effect, 100, 0, false, true, true));
         }
 
         return original.call(target, source, damage);

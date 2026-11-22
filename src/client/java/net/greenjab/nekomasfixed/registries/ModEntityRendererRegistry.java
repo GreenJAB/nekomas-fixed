@@ -47,6 +47,8 @@ public class ModEntityRendererRegistry {
             new ModelLayerLocation(NekomasFixed.id("rime"), "main");
     public static final ModelLayerLocation RIME_OUTER_LAYER =
             new ModelLayerLocation(NekomasFixed.id("rime"), "outer");
+    public static final ModelLayerLocation FLOWER_CROWN =
+            new ModelLayerLocation(NekomasFixed.id("flower_crown"), "main");
     public static final ModelLayerLocation SUSPICIOUS_SPIDER =
             new ModelLayerLocation(NekomasFixed.id("suspicious_spider"), "main");
 
@@ -67,6 +69,7 @@ public class ModEntityRendererRegistry {
         EntityModelLayerRegistry.registerModelLayer(RIME, RimeModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(RIME_OUTER_LAYER, RimeModel::createOuterLayer);
         EntityModelLayerRegistry.registerModelLayer(SUSPICIOUS_SPIDER, SuspiciousSpiderModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(FLOWER_CROWN, FlowerCrownModel::getTexturedModelData);
 
         EntityRendererRegistry.register(EntityTypeRegistry.BAOBAB_BOAT, context ->
                 new BaobabBoatRenderer(context, BAOBAB_BOAT_LAYER, false,
