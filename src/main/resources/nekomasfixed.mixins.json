@@ -20,6 +20,7 @@
     "EatGrassGoalMixin",
     "EntityMixin",
     "FarmBlockMixin",
+    "FoxMixin",
     "ItemsMixin",
     "ItemStackMixin",
     "LayeredCauldronBlockMixin",
