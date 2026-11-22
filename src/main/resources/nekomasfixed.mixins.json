@@ -16,6 +16,7 @@
     "BlocksMixin",
     "DecoratedPotBlockEntityMixin",
     "DecoratedPotBlockMixin",
+    "DolphinMixin",
     "EatGrassGoalMixin",
     "EntityMixin",
     "FarmBlockMixin",
