@@ -71,6 +71,7 @@ public class ClamFeature extends Feature<CountConfiguration> {
 
                             LootParams lootParams = (new LootParams.Builder(level.getLevel()))
                                     .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                                    .withParameter(LootContextParams.TOOL, ItemStack.EMPTY)
                                     .withLuck(getLuck(clamType))
                                     .create(LootContextParamSets.FISHING);
 
