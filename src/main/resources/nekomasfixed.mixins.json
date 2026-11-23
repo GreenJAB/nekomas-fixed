@@ -13,6 +13,7 @@
     "BlockBehaviourMixin",
     "BlockEntityTypeAccessor",
     "BlockItemMixin",
+    "BlockMixin",
     "BlocksMixin",
     "DecoratedPotBlockEntityMixin",
     "DecoratedPotBlockMixin",
