@@ -27,6 +27,7 @@
     "LightningRodBlockMixin",
     "LivingEntityMixin",
     "NoteBlockMixin",
+    "OcelotMixin",
     "PistonBaseBlockMixin",
     "PlayerMixin",
     "RedStoneWireBlockMixin",
