@@ -23,6 +23,7 @@
     "FallingBlockEntityMixin",
     "FarmBlockMixin",
     "FoxMixin",
+    "InstrumentItemMixin",
     "ItemsMixin",
     "ItemStackMixin",
     "LayeredCauldronBlockMixin",
