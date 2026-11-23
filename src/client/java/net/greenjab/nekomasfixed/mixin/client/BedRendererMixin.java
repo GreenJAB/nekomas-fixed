@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.mixin.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
+import net.greenjab.nekomasfixed.util.MessyBedAccessor;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BedRenderer;
@@ -27,14 +28,20 @@ public class BedRendererMixin {
             Material material, BedBlockEntity blockEntity, float partialTick,
             PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         if (material.atlasLocation().equals(Sheets.BED_SHEET)) {
-            var block = blockEntity.getBlockState().getBlock();
-            var sprite = block == BlockRegistry.AMBER_BED ? "entity/bed/amber"
-                    : block == BlockRegistry.AQUA_BED ? "entity/bed/aqua"
-                    : block == BlockRegistry.INDIGO_BED ? "entity/bed/indigo"
-                    : block == BlockRegistry.MAROON_BED ? "entity/bed/maroon"
-                    : null;
-            if (sprite != null) {
-                return new Material(Sheets.BED_SHEET, NekomasFixed.id(sprite));
+            var state = blockEntity.getBlockState();
+            var block = state.getBlock();
+            var color = block == BlockRegistry.AMBER_BED ? "amber"
+                    : block == BlockRegistry.AQUA_BED ? "aqua"
+                    : block == BlockRegistry.INDIGO_BED ? "indigo"
+                    : block == BlockRegistry.MAROON_BED ? "maroon"
+                    : blockEntity.getColor().getName();
+            boolean ancient = block == BlockRegistry.AMBER_BED || block == BlockRegistry.AQUA_BED
+                    || block == BlockRegistry.INDIGO_BED || block == BlockRegistry.MAROON_BED;
+            if (state.getValue(MessyBedAccessor.MESSY)) {
+                return new Material(Sheets.BED_SHEET, NekomasFixed.id("entity/bed/" + color + "_messy"));
+            }
+            if (ancient) {
+                return new Material(Sheets.BED_SHEET, NekomasFixed.id("entity/bed/" + color));
             }
         }
         return material;
