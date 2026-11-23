@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
+import net.greenjab.nekomasfixed.registry.other.AnimalTooltipData;
 import net.greenjab.nekomasfixed.registry.other.ComboComponent;
 import net.greenjab.nekomasfixed.registry.other.ContainerTooltipData;
 import net.greenjab.nekomasfixed.registry.other.StoredTimeComponent;
@@ -45,6 +46,8 @@ public class ItemStackMixin {
             if (contents != null && contents.nonEmptyItems().iterator().hasNext()) {
                 cir.setReturnValue(Optional.of(new ContainerTooltipData(contents)));
             }
+        } else if (stack.has(ComponentRegistry.ANIMAL)) {
+            cir.setReturnValue(Optional.of(new AnimalTooltipData(stack.get(ComponentRegistry.ANIMAL))));
         }
     }
 
