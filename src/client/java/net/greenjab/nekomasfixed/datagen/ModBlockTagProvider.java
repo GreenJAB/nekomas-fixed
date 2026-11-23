@@ -52,6 +52,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         for (Block b : strippedHollowLogs) {
             getOrCreateTagBuilder(ModTags.STRIPPED_HOLLOW_LOGS).add(BuiltInRegistries.BLOCK.getKey(b));
         }
+        getOrCreateTagBuilder(ModTags.SIEVABLE_BLOCKS).add(Blocks.SAND).add(Blocks.GRAVEL);
         getOrCreateTagBuilder(ModTags.BAOBAB_LOGS)
                 .add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.BAOBAB_LOG))
                 .add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.BAOBAB_WOOD))

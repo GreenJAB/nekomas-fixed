@@ -20,6 +20,7 @@
     "DolphinMixin",
     "EatGrassGoalMixin",
     "EntityMixin",
+    "FallingBlockEntityMixin",
     "FarmBlockMixin",
     "FoxMixin",
     "ItemsMixin",
