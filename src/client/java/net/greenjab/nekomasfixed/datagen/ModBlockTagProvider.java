@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -102,6 +103,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.WOODEN_STAIRS).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.BAOBAB_STAIRS));
         getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.BAOBAB_TRAPDOOR));
         getOrCreateTagBuilder(BlockTags.LEAVES).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.BAOBAB_LEAVES));
+        getOrCreateTagBuilder(BlockTags.SNIFFER_DIGGABLE_BLOCK).add(Blocks.SAND, Blocks.RED_SAND);
         getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.ROPE));
         getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(BuiltInRegistries.BLOCK.getKey(BlockRegistry.KILN));
         // No BlockTags.LOGS_THAT_BURN constant in 1.21.1; reference by name.
