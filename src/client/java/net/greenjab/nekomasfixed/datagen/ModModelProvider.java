@@ -2,6 +2,7 @@ package net.greenjab.nekomasfixed.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
 import net.minecraft.data.models.BlockModelGenerators;
@@ -14,6 +15,7 @@ import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 /**
  * Generates blockstates + models for the colour-suite blocks.
@@ -178,6 +180,12 @@ public class ModModelProvider extends FabricModelProvider {
                 .pressurePlate(BlockRegistry.BAOBAB_PRESSURE_PLATE);
         generator.delegateItemModel(BlockRegistry.BAOBAB_PLANKS,
                 ModelLocationUtils.getModelLocation(BlockRegistry.BAOBAB_PLANKS));
+
+        generator.blockEntityModels(NekomasFixed.id("block/banner"), Blocks.OAK_PLANKS)
+                .createWithCustomBlockItemModel(ModelTemplates.BANNER_INVENTORY,
+                        BlockRegistry.AMBER_BANNER, BlockRegistry.AQUA_BANNER, BlockRegistry.INDIGO_BANNER, BlockRegistry.MAROON_BANNER)
+                .createWithoutBlockItem(
+                        BlockRegistry.AMBER_WALL_BANNER, BlockRegistry.AQUA_WALL_BANNER, BlockRegistry.INDIGO_WALL_BANNER, BlockRegistry.MAROON_WALL_BANNER);
     }
 
     @Override

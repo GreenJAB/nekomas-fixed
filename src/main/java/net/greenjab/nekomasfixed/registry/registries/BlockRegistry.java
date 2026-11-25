@@ -475,6 +475,15 @@ public class BlockRegistry {
     public static final Block INDIGO_BED = registerBedBlock("indigo_bed", DyeColor.MAGENTA);
     public static final Block MAROON_BED = registerBedBlock("maroon_bed", DyeColor.RED);
 
+    public static final Block AMBER_BANNER = registerBannerBlock("amber_banner", DyeColor.YELLOW);
+    public static final Block AQUA_BANNER = registerBannerBlock("aqua_banner", DyeColor.LIGHT_BLUE);
+    public static final Block INDIGO_BANNER = registerBannerBlock("indigo_banner", DyeColor.MAGENTA);
+    public static final Block MAROON_BANNER = registerBannerBlock("maroon_banner", DyeColor.RED);
+    public static final Block AMBER_WALL_BANNER = registerWallBannerBlock("amber_wall_banner", DyeColor.YELLOW, AMBER_BANNER);
+    public static final Block AQUA_WALL_BANNER = registerWallBannerBlock("aqua_wall_banner", DyeColor.LIGHT_BLUE, AQUA_BANNER);
+    public static final Block INDIGO_WALL_BANNER = registerWallBannerBlock("indigo_wall_banner", DyeColor.MAGENTA, INDIGO_BANNER);
+    public static final Block MAROON_WALL_BANNER = registerWallBannerBlock("maroon_wall_banner", DyeColor.RED, MAROON_BANNER);
+
     // Ancient-colour shulker boxes: vanilla ShulkerBoxBlock with a representational DyeColor +
     // vanilla shulker properties. Rendered by the vanilla ShulkerBoxRenderer, which we override
     // (client ShulkerBoxRendererMixin) to swap in the amber/aqua/indigo/maroon texture. The block
@@ -770,6 +779,25 @@ public class BlockRegistry {
                 .sound(SoundType.CANDLE)
                 .lightLevel(CandleBlock.LIGHT_EMISSION)
                 .pushReaction(PushReaction.DESTROY);
+    }
+
+    private static BlockBehaviour.Properties bannerProperties() {
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.WOOD)
+                .forceSolidOn()
+                .instrument(NoteBlockInstrument.BASS)
+                .noCollission()
+                .strength(1.0F)
+                .sound(SoundType.WOOD)
+                .ignitedByLava();
+    }
+
+    private static Block registerBannerBlock(String id, DyeColor color) {
+        return register(id, settings -> new BannerBlock(color, settings), bannerProperties());
+    }
+
+    private static Block registerWallBannerBlock(String id, DyeColor color, Block banner) {
+        return register(id, settings -> new WallBannerBlock(color, settings), bannerProperties().dropsLike(banner));
     }
 
     private static Block registerBedBlock(String id, DyeColor color) {

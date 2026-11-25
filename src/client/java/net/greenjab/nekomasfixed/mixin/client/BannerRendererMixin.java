@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBannerBlock;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
@@ -74,8 +74,9 @@ public class BannerRendererMixin {
         BannerAccess banner = (BannerAccess) bannerBlockEntity;
         this.patterns.xRot = this.flag.xRot;
         this.patterns.y = this.flag.y;
-        DyeColor color = bannerBlockEntity.getBaseColor();
-        boolean isWall = bannerBlockEntity.getBlockState().getBlock() instanceof WallBannerBlock;
+        Block block = bannerBlockEntity.getBlockState().getBlock();
+        int color = CanvasRenderer.baseColor(block, bannerBlockEntity.getBaseColor());
+        boolean isWall = block instanceof WallBannerBlock;
         CanvasRenderer.renderCanvas(matrixStack, vertexConsumerProvider, i, j, this.flag, this.patterns, ModelBakery.BANNER_BASE, true, color, patterns, false, banner.nekomasfixed$getBannerEffects(), isWall);
         // Rest of code
         matrixStack.popPose();

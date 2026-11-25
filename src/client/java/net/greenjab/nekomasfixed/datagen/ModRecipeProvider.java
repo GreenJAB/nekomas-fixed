@@ -456,6 +456,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateAncientGlass(output);
         generateAncientCandle(output);
         generateAncientBed(output);
+        banner(output, ItemRegistry.AMBER_BANNER, ItemRegistry.AMBER_WOOL);
+        banner(output, ItemRegistry.AQUA_BANNER, ItemRegistry.AQUA_WOOL);
+        banner(output, ItemRegistry.INDIGO_BANNER, ItemRegistry.INDIGO_WOOL);
+        banner(output, ItemRegistry.MAROON_BANNER, ItemRegistry.MAROON_WOOL);
         generateAncientShulkerBox(output);
         generateAncientConcreteTerracotta(output);
         generateAncientGlazedTerracotta(output);

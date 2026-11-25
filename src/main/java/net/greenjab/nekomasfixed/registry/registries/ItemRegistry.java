@@ -20,6 +20,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
@@ -361,6 +362,11 @@ public class ItemRegistry {
     public static final Item INDIGO_BED = registerBedItem(BlockRegistry.INDIGO_BED);
     public static final Item MAROON_BED = registerBedItem(BlockRegistry.MAROON_BED);
 
+    public static final Item AMBER_BANNER = registerBanner(BlockRegistry.AMBER_BANNER, BlockRegistry.AMBER_WALL_BANNER);
+    public static final Item AQUA_BANNER = registerBanner(BlockRegistry.AQUA_BANNER, BlockRegistry.AQUA_WALL_BANNER);
+    public static final Item INDIGO_BANNER = registerBanner(BlockRegistry.INDIGO_BANNER, BlockRegistry.INDIGO_WALL_BANNER);
+    public static final Item MAROON_BANNER = registerBanner(BlockRegistry.MAROON_BANNER, BlockRegistry.MAROON_WALL_BANNER);
+
     // Ancient-colour shulker boxes: stack to 1 with an empty container component (vanilla shulker).
     public static final Item AMBER_SHULKER_BOX = register(BlockRegistry.AMBER_SHULKER_BOX, shulkerBoxProperties());
     public static final Item AQUA_SHULKER_BOX = register(BlockRegistry.AQUA_SHULKER_BOX, shulkerBoxProperties());
@@ -446,6 +452,11 @@ public class ItemRegistry {
         return Registry.register(BuiltInRegistries.ITEM,
                 ResourceKey.create(Registries.ITEM, blockKeyOf(block)),
                 factory.apply(block, settings));
+    }
+
+    private static Item registerBanner(Block banner, Block wallBanner) {
+        return register(banner, (block, settings) -> new BannerItem(block, wallBanner, settings),
+                new Item.Properties().stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY));
     }
 
     private static Item registerDye(String id) {

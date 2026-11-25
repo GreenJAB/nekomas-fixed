@@ -61,6 +61,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         // WOOL/CARPET maps mix mod ancient blocks; filter so vanilla blocks are never overridden.
         BlockDyeMap.WOOL.values().stream().filter(ModLootTableProvider::isModBlock).forEach(this::dropSelf);
         BlockDyeMap.CARPET.values().stream().filter(ModLootTableProvider::isModBlock).forEach(this::dropSelf);
+        for (Block banner : new Block[]{BlockRegistry.AMBER_BANNER, BlockRegistry.AQUA_BANNER, BlockRegistry.INDIGO_BANNER, BlockRegistry.MAROON_BANNER}) {
+            this.add(banner, this::createBannerDrop);
+        }
         // Stained glass + panes are silk-touch only (Vanilla-correct: glass drops nothing
         // without silk touch). Filter to mod blocks so vanilla glass loot is untouched.
         BlockDyeMap.STAINED_GLASS.values().stream()

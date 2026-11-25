@@ -12,7 +12,9 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
@@ -38,6 +40,20 @@ public class BlockEntityWithoutLevelRendererMixin {
     private static final ShulkerBoxBlockEntity MAROON = shulker(DyeColor.RED, BlockRegistry.MAROON_SHULKER_BOX);
 
     @Unique
+    private static final BannerBlockEntity AMBER_BANNER = banner(BlockRegistry.AMBER_BANNER);
+    @Unique
+    private static final BannerBlockEntity AQUA_BANNER = banner(BlockRegistry.AQUA_BANNER);
+    @Unique
+    private static final BannerBlockEntity INDIGO_BANNER = banner(BlockRegistry.INDIGO_BANNER);
+    @Unique
+    private static final BannerBlockEntity MAROON_BANNER = banner(BlockRegistry.MAROON_BANNER);
+
+    @Unique
+    private static BannerBlockEntity banner(Block block) {
+        return new BannerBlockEntity(BlockPos.ZERO, block.defaultBlockState());
+    }
+
+    @Unique
     private static ShulkerBoxBlockEntity shulker(DyeColor color, Block block) {
         return new ShulkerBoxBlockEntity(color, BlockPos.ZERO, block.defaultBlockState());
     }
@@ -57,6 +73,15 @@ public class BlockEntityWithoutLevelRendererMixin {
             if (b == BlockRegistry.AQUA_SHULKER_BOX) return AQUA;
             if (b == BlockRegistry.INDIGO_SHULKER_BOX) return INDIGO;
             if (b == BlockRegistry.MAROON_SHULKER_BOX) return MAROON;
+            BannerBlockEntity banner = b == BlockRegistry.AMBER_BANNER ? AMBER_BANNER
+                    : b == BlockRegistry.AQUA_BANNER ? AQUA_BANNER
+                    : b == BlockRegistry.INDIGO_BANNER ? INDIGO_BANNER
+                    : b == BlockRegistry.MAROON_BANNER ? MAROON_BANNER
+                    : null;
+            if (banner != null) {
+                banner.fromItem(stack, ((BannerBlock) b).getColor());
+                return banner;
+            }
         }
         return blockEntity;
     }
@@ -71,6 +96,6 @@ public class BlockEntityWithoutLevelRendererMixin {
         if (effects.isBackgroundHidden()) {
             baseSprite = ModelBakery.NO_PATTERN_SHIELD;
         }
-        CanvasRenderer.renderCanvas(matrices, vertexConsumers, light, overlay, canvas, canvas, baseSprite, isBanner, color, patterns, glint, effects, false);
+        CanvasRenderer.renderCanvas(matrices, vertexConsumers, light, overlay, canvas, canvas, baseSprite, isBanner, color.getTextureDiffuseColor(), patterns, glint, effects, false);
     }
 }

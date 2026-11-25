@@ -10,6 +10,7 @@ public class BlockEntityRegistry {
     public static void attachBlockEntities() {
         attachSignBlockEntities();
         attachBedBlockEntities();
+        attachBannerBlockEntities();
         attachShulkerBoxBlockEntities();
     }
 
@@ -38,6 +39,21 @@ public class BlockEntityRegistry {
                         BlockRegistry.AQUA_BED,
                         BlockRegistry.INDIGO_BED,
                         BlockRegistry.MAROON_BED
+                ));
+    }
+
+    private static void attachBannerBlockEntities() {
+        ((BlockEntityTypeAccessor) BlockEntityType.BANNER)
+                .nekomasfixed$getValidBlocks()
+                .addAll(Set.of(
+                        BlockRegistry.AMBER_BANNER,
+                        BlockRegistry.AQUA_BANNER,
+                        BlockRegistry.INDIGO_BANNER,
+                        BlockRegistry.MAROON_BANNER,
+                        BlockRegistry.AMBER_WALL_BANNER,
+                        BlockRegistry.AQUA_WALL_BANNER,
+                        BlockRegistry.INDIGO_WALL_BANNER,
+                        BlockRegistry.MAROON_WALL_BANNER
                 ));
     }
 

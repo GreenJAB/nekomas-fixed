@@ -75,6 +75,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         BlockDyeMap.CANDLE.values().forEach(block -> getOrCreateTagBuilder(BlockTags.CANDLES).add(BuiltInRegistries.BLOCK.getKey(block)));
         // Beds: vanilla #minecraft:beds block tag override (replace: false semantics).
         BlockDyeMap.BED.values().forEach(block -> getOrCreateTagBuilder(BlockTags.BEDS).add(BuiltInRegistries.BLOCK.getKey(block)));
+        for (Block banner : new Block[]{
+                BlockRegistry.AMBER_BANNER, BlockRegistry.AQUA_BANNER, BlockRegistry.INDIGO_BANNER, BlockRegistry.MAROON_BANNER,
+                BlockRegistry.AMBER_WALL_BANNER, BlockRegistry.AQUA_WALL_BANNER, BlockRegistry.INDIGO_WALL_BANNER, BlockRegistry.MAROON_WALL_BANNER}) {
+            getOrCreateTagBuilder(BlockTags.BANNERS).add(BuiltInRegistries.BLOCK.getKey(banner));
+        }
         // Terracotta / concrete powder: vanilla tag overrides (replace: false) so ancient
         // blocks join the vanilla families (concrete has no block tag; it's not tagged).
         BlockDyeMap.TERRACOTTA.values().forEach(block -> getOrCreateTagBuilder(BlockTags.TERRACOTTA).add(BuiltInRegistries.BLOCK.getKey(block)));

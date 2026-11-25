@@ -69,6 +69,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         BlockDyeMap.CANDLE.values().forEach(block -> getOrCreateTagBuilder(ItemTags.CANDLES).add(BuiltInRegistries.ITEM.getKey(block.asItem())));
         // Beds: vanilla #minecraft:beds item tag override (replace: false semantics).
         BlockDyeMap.BED.values().forEach(block -> getOrCreateTagBuilder(ItemTags.BEDS).add(BuiltInRegistries.ITEM.getKey(block.asItem())));
+        for (Item banner : new Item[]{ItemRegistry.AMBER_BANNER, ItemRegistry.AQUA_BANNER, ItemRegistry.INDIGO_BANNER, ItemRegistry.MAROON_BANNER}) {
+            getOrCreateTagBuilder(ItemTags.BANNERS).add(BuiltInRegistries.ITEM.getKey(banner));
+        }
         // Terracotta: vanilla #minecraft:terracotta item override (replace: false) so the
         // ancient items join the vanilla family (concrete/powder have no vanilla item tag).
         BlockDyeMap.TERRACOTTA.values().forEach(block -> getOrCreateTagBuilder(ItemTags.TERRACOTTA).add(BuiltInRegistries.ITEM.getKey(block.asItem())));

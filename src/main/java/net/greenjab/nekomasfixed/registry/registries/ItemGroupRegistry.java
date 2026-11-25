@@ -215,6 +215,10 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.AQUA_BED);
                         entries.accept(ItemRegistry.INDIGO_BED);
                         entries.accept(ItemRegistry.MAROON_BED);
+                        entries.accept(ItemRegistry.AMBER_BANNER);
+                        entries.accept(ItemRegistry.AQUA_BANNER);
+                        entries.accept(ItemRegistry.INDIGO_BANNER);
+                        entries.accept(ItemRegistry.MAROON_BANNER);
                         entries.accept(ItemRegistry.AMBER_SHULKER_BOX);
                         entries.accept(ItemRegistry.AQUA_SHULKER_BOX);
                         entries.accept(ItemRegistry.INDIGO_SHULKER_BOX);

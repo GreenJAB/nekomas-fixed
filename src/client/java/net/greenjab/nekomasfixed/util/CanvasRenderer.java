@@ -1,6 +1,7 @@
 package net.greenjab.nekomasfixed.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -8,11 +9,21 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 import java.util.stream.IntStream;
 
 public class CanvasRenderer {
+    public static int baseColor(Block block, DyeColor dye) {
+        ModColors color = block == BlockRegistry.AMBER_BANNER || block == BlockRegistry.AMBER_WALL_BANNER ? ModColors.AMBER
+                : block == BlockRegistry.AQUA_BANNER || block == BlockRegistry.AQUA_WALL_BANNER ? ModColors.AQUA
+                : block == BlockRegistry.INDIGO_BANNER || block == BlockRegistry.INDIGO_WALL_BANNER ? ModColors.INDIGO
+                : block == BlockRegistry.MAROON_BANNER || block == BlockRegistry.MAROON_WALL_BANNER ? ModColors.MAROON
+                : null;
+        return color == null ? dye.getTextureDiffuseColor() : FastColor.ARGB32.opaque(color.getColor());
+    }
+
     public static void renderCanvas(
             PoseStack matrices,
             MultiBufferSource vertexConsumers,
@@ -22,7 +33,7 @@ public class CanvasRenderer {
             ModelPart patternPart,
             Material baseSprite,
             boolean isBanner,
-            DyeColor dye,
+            int baseColor,
             BannerPatternLayers patterns,
             boolean glint,
             BannerEffects effects,
@@ -34,7 +45,7 @@ public class CanvasRenderer {
                 matrices.translate(0.0F, 0.0F, 0.2F);
             }
         }
-        canvas.render(matrices, baseSprite.buffer(vertexConsumers, RenderType::entitySolid, glint), light, overlay, dye.getTextureDiffuseColor());
+        canvas.render(matrices, baseSprite.buffer(vertexConsumers, RenderType::entitySolid, glint), light, overlay, baseColor);
 
         for (int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
             BannerPatternLayers.Layer layer = patterns.layers().get(i);
