@@ -75,7 +75,7 @@ public class ClamFeature extends Feature<CountConfiguration> {
                                     .withLuck(getLuck(clamType))
                                     .create(LootContextParamSets.FISHING);
 
-                            ObjectArrayList<ItemStack> loots = lootTable.getRandomItems(lootParams);
+                            ObjectArrayList<ItemStack> loots = lootTable.getRandomItems(lootParams, random);
                             if (!loots.isEmpty()) {
                                 blockEntity.setHeldStack(loots.getFirst());
                             }
