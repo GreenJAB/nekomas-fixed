@@ -15,6 +15,14 @@ public final class LootTableRegistry {
             ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
                     NekomasFixed.id("gameplay/clam"));
 
+    public static final ResourceKey<LootTable> PYROTECHNIST_LOOT =
+            ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                    NekomasFixed.id("chests/village/pyrotechnist_loot"));
+
+    public static final ResourceKey<LootTable> PYROTECHNIST_DISPENSER =
+            ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                    NekomasFixed.id("chests/village/pyrotechnist_dispenser"));
+
     private LootTableRegistry() {
     }
 }

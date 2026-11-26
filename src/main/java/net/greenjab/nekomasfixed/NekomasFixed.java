@@ -60,6 +60,7 @@ public class NekomasFixed implements ModInitializer {
         BlockRegistry.registerBlocks();
         CauldronBehaviour.register();
         ItemRegistry.registerItems();
+        VillagerRegistry.registerVillagers();
         ItemRegistry.DYED_BRUSHES.values().forEach(brush -> DispenserBlock.registerBehavior(brush, new DyedBrushBehaviour()));
         ScreenHandlerRegistry.registerScreenHandlers();
         EntityTypeRegistry.registerEntityType();

@@ -3,3 +3,4 @@ accessible	class	net/minecraft/world/level/block/entity/BlockEntity$DataComponen
 accessible	method	net/minecraft/data/recipes/SimpleCookingRecipeBuilder	<init>	(Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/crafting/CookingBookCategory;Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/world/item/crafting/Ingredient;FILnet/minecraft/world/item/crafting/AbstractCookingRecipe$Factory;)V
 accessible	method	net/minecraft/world/entity/animal/Ocelot	isTrusting	()Z
 accessible	method	net/minecraft/world/entity/animal/Ocelot	setTrusting	(Z)V
+accessible	field	net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool	templates	Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
