@@ -49,6 +49,10 @@ public class ModEntityRendererRegistry {
             new ModelLayerLocation(NekomasFixed.id("rime"), "outer");
     public static final ModelLayerLocation FLOWER_CROWN =
             new ModelLayerLocation(NekomasFixed.id("flower_crown"), "main");
+    public static final ModelLayerLocation GOAT_HORN_HELMET =
+            new ModelLayerLocation(NekomasFixed.id("goat_horn_helmet"), "main");
+    public static final ModelLayerLocation GOAT_HORN_HELMET_TRIM =
+            new ModelLayerLocation(NekomasFixed.id("goat_horn_helmet"), "trim");
     public static final ModelLayerLocation SUSPICIOUS_SPIDER =
             new ModelLayerLocation(NekomasFixed.id("suspicious_spider"), "main");
 
@@ -70,6 +74,8 @@ public class ModEntityRendererRegistry {
         EntityModelLayerRegistry.registerModelLayer(RIME_OUTER_LAYER, RimeModel::createOuterLayer);
         EntityModelLayerRegistry.registerModelLayer(SUSPICIOUS_SPIDER, SuspiciousSpiderModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(FLOWER_CROWN, FlowerCrownModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(GOAT_HORN_HELMET, GoatHornHelmetModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(GOAT_HORN_HELMET_TRIM, GoatHornHelmetModel::getTexturedModelDataForTrim);
 
         EntityRendererRegistry.register(EntityTypeRegistry.BAOBAB_BOAT, context ->
                 new BaobabBoatRenderer(context, BAOBAB_BOAT_LAYER, false,

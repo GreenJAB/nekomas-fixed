@@ -5,6 +5,7 @@ import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.FlowerCrownVariants;
+import net.greenjab.nekomasfixed.util.GoatHornHelmetTiers;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.greenjab.nekomasfixed.util.SickleTiers;
 import net.minecraft.core.Direction;
@@ -393,6 +394,16 @@ public class ItemRegistry {
         for (FlowerCrownVariants variant : FlowerCrownVariants.values()) {
             FLOWER_CROWNS.put(variant, register(variant.itemId(),
                     settings -> new FlowerCrownItem(variant, settings), new Item.Properties().stacksTo(1)));
+        }
+    }
+
+    public static final EnumMap<GoatHornHelmetTiers, Item> GOAT_HORN_HELMETS = new EnumMap<>(GoatHornHelmetTiers.class);
+
+    static {
+        for (GoatHornHelmetTiers tier : GoatHornHelmetTiers.values()) {
+            Item.Properties settings = new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(tier.durability));
+            if (tier == GoatHornHelmetTiers.NETHERITE) settings.fireResistant();
+            GOAT_HORN_HELMETS.put(tier, register(tier.itemId(), props -> new GoatHornHelmetItem(tier, props), settings));
         }
     }
 

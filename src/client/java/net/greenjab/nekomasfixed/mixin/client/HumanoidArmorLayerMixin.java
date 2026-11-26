@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.mixin.client;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.greenjab.nekomasfixed.registry.item.GoatHornHelmetItem;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.util.EchoingKeyframe;
 import net.greenjab.nekomasfixed.util.EchoingLayer;
@@ -23,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -33,7 +35,9 @@ import net.minecraft.world.item.armortrim.ArmorTrim;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
@@ -47,6 +51,14 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
     public HumanoidArmorLayerMixin(RenderLayerParent<T, M> context, TextureAtlas armorTrimsAtlas) {
         super(context);
         this.armorTrimAtlas = armorTrimsAtlas;
+    }
+
+    @Inject(method = "renderArmorPiece", at = @At("HEAD"), cancellable = true)
+    private void skipGoatHornHelmet(PoseStack poseStack, MultiBufferSource buffer, T entity, EquipmentSlot slot,
+                                    int packedLight, A model, CallbackInfo ci) {
+        if (entity.getItemBySlot(slot).getItem() instanceof GoatHornHelmetItem) {
+            ci.cancel();
+        }
     }
 
     @Redirect(

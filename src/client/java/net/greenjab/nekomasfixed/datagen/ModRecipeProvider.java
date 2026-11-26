@@ -243,6 +243,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group("flower_crown")
                         .unlockedBy(getHasName(variant.flower), has(variant.flower))
                         .save(output));
+        ItemRegistry.GOAT_HORN_HELMETS.forEach((tier, helmet) ->
+                ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet)
+                        .pattern("#D#")
+                        .define('#', Items.GOAT_HORN)
+                        .define('D', tier.helmet)
+                        .group("goat_horn")
+                        .unlockedBy(getHasName(Items.GOAT_HORN), has(Items.GOAT_HORN))
+                        .unlockedBy(getHasName(tier.helmet), has(tier.helmet))
+                        .save(output));
     }
 
     private void generateCakesAndDyes(RecipeOutput output) {

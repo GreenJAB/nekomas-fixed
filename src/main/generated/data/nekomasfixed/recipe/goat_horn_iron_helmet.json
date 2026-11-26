@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "goat_horn",
+  "key": {
+    "#": {
+      "item": "minecraft:goat_horn"
+    },
+    "D": {
+      "item": "minecraft:iron_helmet"
+    }
+  },
+  "pattern": [
+    "#D#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:goat_horn_iron_helmet"
+  }
+}

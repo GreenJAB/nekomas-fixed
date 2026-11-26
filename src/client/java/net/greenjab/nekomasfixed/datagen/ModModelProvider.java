@@ -14,6 +14,7 @@ import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
@@ -194,5 +195,6 @@ public class ModModelProvider extends FabricModelProvider {
         // ModelProviderMixin filter); nothing extra needed for these blocks.
         ItemRegistry.DYED_BRUSHES.values().forEach(brush -> generator.generateFlatItem(brush, ModelTemplates.FLAT_ITEM));
         ItemRegistry.FLOWER_CROWNS.values().forEach(crown -> generator.generateFlatItem(crown, ModelTemplates.FLAT_ITEM));
+        ItemRegistry.GOAT_HORN_HELMETS.values().forEach(helmet -> generator.generateArmorTrims((ArmorItem) helmet));
     }
 }

@@ -1,7 +1,9 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
 import net.greenjab.nekomasfixed.render.entity.feature.FlowerCrownLayer;
+import net.greenjab.nekomasfixed.render.entity.feature.GoatHornHelmetLayer;
 import net.minecraft.client.model.ArmorStandArmorModel;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ArmorStandRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -18,7 +20,9 @@ public abstract class ArmorStandRendererMixin extends LivingEntityRenderer<Armor
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void addFlowerCrownLayer(EntityRendererProvider.Context context, CallbackInfo ci) {
+    private void addHeadLayers(EntityRendererProvider.Context context, CallbackInfo ci) {
         this.addLayer(new FlowerCrownLayer<>(this, context.getModelSet()));
+        this.addLayer(new GoatHornHelmetLayer<>(this, context.getModelSet(),
+                context.getModelManager().getAtlas(Sheets.ARMOR_TRIMS_SHEET)));
     }
 }

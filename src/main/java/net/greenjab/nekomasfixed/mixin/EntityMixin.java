@@ -3,18 +3,43 @@ package net.greenjab.nekomasfixed.mixin;
 import net.greenjab.nekomasfixed.registry.registries.BlockRegistry;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.target_access_class.SpottedSheepAccess;
+import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
+
+    @Unique
+    private int goatHornCooldown = 80;
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tickGoatHornCooldown(CallbackInfo ci) {
+        if (goatHornCooldown > 0) goatHornCooldown--;
+    }
+
+    @Inject(method = "playerTouch", at = @At("HEAD"))
+    private void throwEntityWhenWearingGoatHornHelmet(Player player, CallbackInfo ci) {
+        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
+        if (helmet.is(ModTags.GOAT_HORN_HELMETS) && (Object) this instanceof LivingEntity entity
+                && player.getXRot() > 40 && goatHornCooldown <= 0) {
+            entity.push(player.getLookAngle().scale(3).add(0, 1.5, 0));
+            helmet.hurtAndBreak(1, player, EquipmentSlot.HEAD);
+            goatHornCooldown = 80;
+        }
+    }
 
     // A spotted sheep drops the matching spotted wool instead of plain wool.
     @ModifyVariable(method = "spawnAtLocation(Lnet/minecraft/world/item/ItemStack;F)Lnet/minecraft/world/entity/item/ItemEntity;",

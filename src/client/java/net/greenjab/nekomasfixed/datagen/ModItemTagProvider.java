@@ -160,6 +160,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE).add(BuiltInRegistries.ITEM.getKey(brush)));
         ItemRegistry.FLOWER_CROWNS.values().forEach(crown ->
                 getOrCreateTagBuilder(ModTags.FLOWER_CROWNS).add(BuiltInRegistries.ITEM.getKey(crown)));
+        ItemRegistry.GOAT_HORN_HELMETS.values().forEach(helmet -> {
+            getOrCreateTagBuilder(ModTags.GOAT_HORN_HELMETS).add(BuiltInRegistries.ITEM.getKey(helmet));
+            getOrCreateTagBuilder(ItemTags.HEAD_ARMOR).add(BuiltInRegistries.ITEM.getKey(helmet));
+        });
         // Moobloom food: every vanilla flower (open_eyeblossom is 26.x-only and skipped).
         getOrCreateTagBuilder(ModTags.MOOBLOOM_FLOWERS)
                 .add(BuiltInRegistries.ITEM.getKey(Items.DANDELION))
