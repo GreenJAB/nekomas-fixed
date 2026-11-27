@@ -27,6 +27,10 @@ public final class LootTableRegistry {
             ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
                     NekomasFixed.id("chests/patrol_boat"));
 
+    public static final ResourceKey<LootTable> WILDFIRE_SPAWNER_OMINOUS =
+            ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                    NekomasFixed.id("spawners/wildfire_ominous"));
+
     private LootTableRegistry() {
     }
 }

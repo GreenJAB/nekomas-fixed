@@ -39,5 +39,11 @@ public class ModEntityTypeTagProvider extends FabricTagProvider.EntityTypeTagPro
                 .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.SUSPICIOUS_SPIDER));
         getOrCreateTagBuilder(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS)
                 .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.SUSPICIOUS_SPIDER));
+        getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
+                .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.WILDFIRE));
+        getOrCreateTagBuilder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
+                .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.WILDFIRE));
+        getOrCreateTagBuilder(EntityTypeTags.IMPACT_PROJECTILES)
+                .add(BuiltInRegistries.ENTITY_TYPE.getKey(EntityTypeRegistry.FIRE_BOMB));
     }
 }

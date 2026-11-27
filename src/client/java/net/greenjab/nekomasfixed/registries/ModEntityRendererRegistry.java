@@ -10,10 +10,12 @@ import net.greenjab.nekomasfixed.render.entity.FakeBoatRenderer;
 import net.greenjab.nekomasfixed.render.entity.HugeBoatRenderer;
 import net.greenjab.nekomasfixed.render.entity.DerelictRenderer;
 import net.greenjab.nekomasfixed.render.entity.DrenchedRenderer;
+import net.greenjab.nekomasfixed.render.entity.FireBombRenderer;
 import net.greenjab.nekomasfixed.render.entity.RimeRenderer;
 import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderRenderer;
 import net.greenjab.nekomasfixed.render.entity.MoobloomRenderer;
 import net.greenjab.nekomasfixed.render.entity.TargetDummyRenderer;
+import net.greenjab.nekomasfixed.render.entity.WildfireRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.*;
 import net.greenjab.nekomasfixed.util.BoatWoods;
 import net.minecraft.client.model.BoatModel;
@@ -59,6 +61,8 @@ public class ModEntityRendererRegistry {
             new ModelLayerLocation(NekomasFixed.id("goat_horn_helmet"), "trim");
     public static final ModelLayerLocation SUSPICIOUS_SPIDER =
             new ModelLayerLocation(NekomasFixed.id("suspicious_spider"), "main");
+    public static final ModelLayerLocation WILDFIRE =
+            new ModelLayerLocation(NekomasFixed.id("wildfire"), "main");
 
     public static void registerEntityRenderer() {
         EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT_LAYER, BoatModel::createBodyModel);
@@ -85,6 +89,7 @@ public class ModEntityRendererRegistry {
         EntityModelLayerRegistry.registerModelLayer(RIME, RimeModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(RIME_OUTER_LAYER, RimeModel::createOuterLayer);
         EntityModelLayerRegistry.registerModelLayer(SUSPICIOUS_SPIDER, SuspiciousSpiderModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(WILDFIRE, WildfireModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(FLOWER_CROWN, FlowerCrownModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(GOAT_HORN_HELMET, GoatHornHelmetModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(GOAT_HORN_HELMET_TRIM, GoatHornHelmetModel::getTexturedModelDataForTrim);
@@ -103,6 +108,8 @@ public class ModEntityRendererRegistry {
         EntityRendererRegistry.register(EntityTypeRegistry.DRENCHED, DrenchedRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.RIME, RimeRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SUSPICIOUS_SPIDER, SuspiciousSpiderRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.WILDFIRE, WildfireRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.FIRE_BOMB, FireBombRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SLOWNESS_SNOWBALL, ThrownItemRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, ThrownItemRenderer::new);
     }

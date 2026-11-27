@@ -12,6 +12,7 @@
     "ClientTooltipComponentMixin",
     "CustomHeadLayerMixin",
     "DecoratedPotRendererMixin",
+    "EntityRenderDispatcherMixin",
     "HumanoidArmorLayerMixin",
     "ItemFrameRendererMixin",
     "ItemPropertiesAccessor",

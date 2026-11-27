@@ -4,3 +4,7 @@ accessible	method	net/minecraft/data/recipes/SimpleCookingRecipeBuilder	<init>	(
 accessible	method	net/minecraft/world/entity/animal/Ocelot	isTrusting	()Z
 accessible	method	net/minecraft/world/entity/animal/Ocelot	setTrusting	(Z)V
 accessible	field	net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool	templates	Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
+accessible	class	net/minecraft/world/level/levelgen/structure/structures/NetherFortressPieces$NetherBridgePiece
+accessible	method	net/minecraft/world/level/levelgen/structure/StructurePiece	generateBox	(Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIIIIILnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Z)V
+accessible	method	net/minecraft/world/level/levelgen/structure/StructurePiece	placeBlock	(Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
+accessible	method	net/minecraft/world/level/levelgen/structure/StructurePiece	getWorldPos	(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;

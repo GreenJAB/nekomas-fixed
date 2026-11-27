@@ -50,6 +50,10 @@ public class ModChestLootTableProvider extends SimpleFabricLootTableProvider {
                         .setRolls(UniformGenerator.between(2.0F, 6.0F))
                         .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).apply(RandomFireworkModifier.builder()))));
 
+        output.accept(LootTableRegistry.WILDFIRE_SPAWNER_OMINOUS, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP))));
+
         output.accept(LootTableRegistry.PATROL_BOAT, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(ItemRegistry.BOAT_UPGRADE_TEMPLATE)))

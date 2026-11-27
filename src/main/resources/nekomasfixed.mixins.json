@@ -63,7 +63,12 @@
     "integration.GlowInkPlus",
     "target_dummy.CarvedPumpkinBlockMixin",
     "target_dummy.EnchantmentMixin",
-    "target_dummy.WeightedPressurePlateBlockMixin"
+    "target_dummy.WeightedPressurePlateBlockMixin",
+    "wildfire.LivingEntityMixin",
+    "wildfire.LongJumpUtilMixin",
+    "wildfire.NetherFortressPiecesCastleEntranceMixin",
+    "wildfire.SmallFireballMixin",
+    "wildfire.SnowballMixin"
   ],
   "plugin": "net.greenjab.nekomasfixed.Integration",
   "injectors": {

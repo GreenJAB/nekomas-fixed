@@ -4,6 +4,9 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.moobloom.Moobloom;
+import net.greenjab.nekomasfixed.registry.entity.wildfire.FireBomb;
+import net.greenjab.nekomasfixed.registry.entity.wildfire.WildfireAttackablesSensor;
+import net.greenjab.nekomasfixed.registry.entity.wildfire.WildfireEntity;
 import net.greenjab.nekomasfixed.util.BoatWoods;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,6 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -111,6 +115,21 @@ public class EntityTypeRegistry {
                     .sized(1.0F, 1.0F)
     );
 
+    public static final EntityType<FireBomb> FIRE_BOMB = register(
+            "fire_bomb",
+            EntityType.Builder.<FireBomb>of(FireBomb::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
+    );
+
+    public static final EntityType<WildfireEntity> WILDFIRE = register(
+            "wildfire",
+            EntityType.Builder.of(WildfireEntity::new, MobCategory.MONSTER)
+                    .fireImmune().sized(0.75F, 1.975F).clientTrackingRange(8)
+    );
+
+    public static final SensorType<WildfireAttackablesSensor> WILDFIRE_ATTACK_ENTITY_SENSOR = Registry.register(
+            BuiltInRegistries.SENSOR_TYPE, NekomasFixed.id("wildfire_attack_entity_sensor"), new SensorType<>(WildfireAttackablesSensor::new));
+
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE,
                 ResourceKey.create(Registries.ENTITY_TYPE, NekomasFixed.id(id)),
@@ -124,6 +143,7 @@ public class EntityTypeRegistry {
         FabricDefaultAttributeRegistry.register(DRENCHED, Drenched.createDrenchedAttributes());
         FabricDefaultAttributeRegistry.register(RIME, Zombie.createAttributes());
         FabricDefaultAttributeRegistry.register(SUSPICIOUS_SPIDER, SuspiciousSpider.createSuspiciousSpiderAttributes());
+        FabricDefaultAttributeRegistry.register(WILDFIRE, WildfireEntity.createWildfireAttributes());
         SpawnPlacements.register(DERELICT, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Monster::checkMonsterSpawnRules);
         SpawnPlacements.register(DRENCHED, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -132,6 +152,8 @@ public class EntityTypeRegistry {
                 Monster::checkMonsterSpawnRules);
         SpawnPlacements.register(SUSPICIOUS_SPIDER, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 SuspiciousSpider::canSpawn);
+        SpawnPlacements.register(WILDFIRE, SpawnPlacementTypes.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                WildfireEntity::canSpawn);
         NekomasFixed.LOGGER.info("Registering entity types");
     }
 }
