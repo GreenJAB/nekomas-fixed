@@ -52,6 +52,8 @@ public class ModChestLootTableProvider extends SimpleFabricLootTableProvider {
 
         output.accept(LootTableRegistry.WILDFIRE_SPAWNER_OMINOUS, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
+                        .add(LootItem.lootTableItem(ItemRegistry.NETHER_HEART)))
+                .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP))));
 
         output.accept(LootTableRegistry.PATROL_BOAT, LootTable.lootTable()

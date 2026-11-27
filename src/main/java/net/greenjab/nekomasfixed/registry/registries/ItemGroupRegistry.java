@@ -70,6 +70,9 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.RIME_SPAWN_EGG);
                         entries.accept(ItemRegistry.SUSPICIOUS_SPIDER_SPAWN_EGG);
                         entries.accept(ItemRegistry.WILDFIRE_SPAWN_EGG);
+                        entries.accept(ItemRegistry.NETHER_HEART);
+                        entries.accept(ItemRegistry.WILDFIRE_TRIDENT);
+                        entries.accept(ItemRegistry.WILDFIRE_SHIELD);
                         entries.accept(ItemRegistry.ANCHOR);
                         entries.accept(ItemRegistry.TURTLE_CHESTPLATE);
                         entries.accept(ItemRegistry.TURTLE_LEGGINGS);

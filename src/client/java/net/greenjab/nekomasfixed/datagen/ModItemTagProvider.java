@@ -180,5 +180,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(BuiltInRegistries.ITEM.getKey(Items.LILY_OF_THE_VALLEY))
                 .add(BuiltInRegistries.ITEM.getKey(Items.WITHER_ROSE))
                 .add(BuiltInRegistries.ITEM.getKey(Items.TORCHFLOWER));
+        getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.WILDFIRE_SHIELD))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.WILDFIRE_TRIDENT));
+        getOrCreateTagBuilder(ItemTags.TRIDENT_ENCHANTABLE)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.WILDFIRE_TRIDENT));
+        getOrCreateTagBuilder(ModTags.EXPLOSION_RESISTANT)
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.NETHER_HEART));
     }
 }

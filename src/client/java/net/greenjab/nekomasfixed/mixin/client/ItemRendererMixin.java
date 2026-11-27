@@ -1,29 +1,39 @@
 package net.greenjab.nekomasfixed.mixin.client;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.greenjab.nekomasfixed.NekomasFixedClient;
+import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.EchoingKeyframe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import static net.greenjab.nekomasfixed.registry.registries.ComponentRegistry.ECHOING_LAYERS;
 import static net.minecraft.core.component.DataComponents.TRIM;
 
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
+
+    @Shadow @Final private ItemModelShaper itemModelShaper;
 
     @Unique
     private static float nekomasfixed$nextAlpha = 1.0f;
@@ -77,6 +87,19 @@ public class ItemRendererMixin {
             }
         }
         original.call(instance, model, stack, light, overlay, matrices, vertices);
+    }
+
+    @ModifyExpressionValue(method = "getModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/ItemModelShaper;getItemModel(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/BakedModel;"))
+    private BakedModel wildfireTridentInHand(BakedModel original, ItemStack stack) {
+        return stack.is(ItemRegistry.WILDFIRE_TRIDENT) ? itemModelShaper.getModelManager().getModel(NekomasFixedClient.WILDFIRE_TRIDENT_IN_HAND) : original;
+    }
+
+    @ModifyVariable(method = "render(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemDisplayContext;ZLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/client/resources/model/BakedModel;)V", at = @At("HEAD"), argsOnly = true)
+    private BakedModel wildfireTridentFlat(BakedModel model, ItemStack stack, ItemDisplayContext displayContext) {
+        if (stack.is(ItemRegistry.WILDFIRE_TRIDENT) && (displayContext == ItemDisplayContext.GUI || displayContext == ItemDisplayContext.GROUND || displayContext == ItemDisplayContext.FIXED)) {
+            return itemModelShaper.getItemModel(stack);
+        }
+        return model;
     }
 
     @ModifyArg(

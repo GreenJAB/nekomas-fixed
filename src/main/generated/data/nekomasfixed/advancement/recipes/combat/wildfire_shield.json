@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nether_heart": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:nether_heart"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:wildfire_shield"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nether_heart"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:wildfire_shield"
+    ]
+  }
+}

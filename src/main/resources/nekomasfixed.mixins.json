@@ -25,6 +25,7 @@
     "FarmBlockMixin",
     "FoxMixin",
     "InstrumentItemMixin",
+    "ItemEntityMixin",
     "ItemsMixin",
     "ItemStackMixin",
     "LayeredCauldronBlockMixin",

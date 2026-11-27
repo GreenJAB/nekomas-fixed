@@ -15,6 +15,7 @@ import net.greenjab.nekomasfixed.render.entity.RimeRenderer;
 import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderRenderer;
 import net.greenjab.nekomasfixed.render.entity.MoobloomRenderer;
 import net.greenjab.nekomasfixed.render.entity.TargetDummyRenderer;
+import net.greenjab.nekomasfixed.render.entity.ThrownWildfireTridentRenderer;
 import net.greenjab.nekomasfixed.render.entity.WildfireRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.*;
 import net.greenjab.nekomasfixed.util.BoatWoods;
@@ -110,6 +111,7 @@ public class ModEntityRendererRegistry {
         EntityRendererRegistry.register(EntityTypeRegistry.SUSPICIOUS_SPIDER, SuspiciousSpiderRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.WILDFIRE, WildfireRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.FIRE_BOMB, FireBombRenderer::new);
+        EntityRendererRegistry.register(EntityTypeRegistry.WILDFIRE_TRIDENT, ThrownWildfireTridentRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SLOWNESS_SNOWBALL, ThrownItemRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.SLINGSHOT_PROJECTILE, ThrownItemRenderer::new);
     }

@@ -1,5 +1,6 @@
 package net.greenjab.nekomasfixed.registry.registries;
 
+import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
@@ -19,6 +20,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -84,6 +86,20 @@ public class ItemRegistry {
     public static final Item RIME_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.RIME, 0x608775, 0x136161);
     public static final Item SUSPICIOUS_SPIDER_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.SUSPICIOUS_SPIDER, 0x120E0A, 0xCC9978);
     public static final Item WILDFIRE_SPAWN_EGG = registerSpawnEgg(EntityTypeRegistry.WILDFIRE, 0x4A2410, 0xF6B201);
+    public static final Item NETHER_HEART = Registry.register(BuiltInRegistries.ITEM, NekomasFixed.id("nether_heart"),
+            new SmithingTemplateItem(
+                    Component.translatable("item.nekomasfixed.smithing_template.ingredients_shield_trident").withStyle(ChatFormatting.BLUE),
+                    Component.translatable("item.minecraft.smithing_template.netherite_upgrade.ingredients").withStyle(ChatFormatting.BLUE),
+                    Component.empty(),
+                    Component.empty(),
+                    Component.empty(),
+                    List.of(NekomasFixed.id("item/empty_slot_trident"), NekomasFixed.id("item/empty_slot_shield")),
+                    List.of(ResourceLocation.withDefaultNamespace("item/empty_slot_ingot"))));
+    public static final Item WILDFIRE_TRIDENT = register("wildfire_trident", WildfireTridentItem::new, new Item.Properties()
+            .rarity(Rarity.RARE).durability(1000).attributes(TridentItem.createAttributes())
+            .component(DataComponents.TOOL, TridentItem.createToolProperties()).fireResistant());
+    public static final Item WILDFIRE_SHIELD = register("wildfire_shield", WildfireShieldItem::new, new Item.Properties()
+            .rarity(Rarity.RARE).durability(336).fireResistant());
     public static final FoodProperties BAOBAB_FRUIT_FOOD = new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build();
     public static final Item BAOBAB_FRUIT = register(
             "baobab_fruit",
@@ -522,5 +538,8 @@ public class ItemRegistry {
 
     public static void registerItems() {
         NekomasFixed.LOGGER.info("Registering items");
+        DefaultItemComponentEvents.MODIFY.register(context -> context.modify(NETHER_HEART, builder -> builder
+                .set(DataComponents.RARITY, Rarity.UNCOMMON)
+                .set(DataComponents.FIRE_RESISTANT, Unit.INSTANCE)));
     }
 }

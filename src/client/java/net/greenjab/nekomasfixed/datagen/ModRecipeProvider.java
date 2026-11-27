@@ -412,6 +412,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generatePyrotechnicsRecipe(output);
         generateKilnRecipes(output);
         generateBoatRecipes(output);
+        generateWildfireRecipes(output);
 
         for (AllDyes dye : AllDyes.values()) {
             Item dyeItem = dyeItem(dye);
@@ -480,6 +481,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         allBut(blockItems(BlockDyeMap.FROGLIGHT.values()), block.asItem()),
                         dyeItem(dye), block.asItem(),
                         RecipeCategory.DECORATIONS, "has_item", has(ModTags.FROGLIGHTS_ITEM)));
+    }
+
+    private void generateWildfireRecipes(RecipeOutput output) {
+        Item template = ItemRegistry.NETHER_HEART;
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(template), Ingredient.of(Items.SHIELD),
+                        Ingredient.of(Items.NETHERITE_INGOT), RecipeCategory.COMBAT, ItemRegistry.WILDFIRE_SHIELD)
+                .unlocks(getHasName(template), has(template))
+                .save(output, NekomasFixed.id(getItemName(ItemRegistry.WILDFIRE_SHIELD)));
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(template), Ingredient.of(Items.TRIDENT),
+                        Ingredient.of(Items.NETHERITE_INGOT), RecipeCategory.COMBAT, ItemRegistry.WILDFIRE_TRIDENT)
+                .unlocks(getHasName(template), has(template))
+                .save(output, NekomasFixed.id(getItemName(ItemRegistry.WILDFIRE_TRIDENT)));
     }
 
     private void generateBoatRecipes(RecipeOutput output) {

@@ -151,4 +151,27 @@ public class PlayerMixin {
             else ModData.combos.put(PE.getUUID(), comboTimer);
         }
     }
+
+    @ModifyExpressionValue(method = "hurtCurrentlyUsedShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
+    private boolean damageWildfireShield(boolean original) {
+        return original || ((Player) (Object) this).getUseItem().is(ItemRegistry.WILDFIRE_SHIELD);
+    }
+
+    @Inject(method = "disableShield", at = @At("HEAD"))
+    private void disableWildfireShield(CallbackInfo ci) {
+        ((Player) (Object) this).getCooldowns().addCooldown(ItemRegistry.WILDFIRE_SHIELD, 100);
+    }
+
+    @Inject(method = "blockUsingShield", at = @At("HEAD"))
+    private void onWildfireShieldHit(LivingEntity attacker, CallbackInfo ci) {
+        Player player = (Player) (Object) this;
+        if (player.getUseItem().is(ItemRegistry.WILDFIRE_SHIELD)) {
+            if (player.getHealth() <= 6.0F) {
+                attacker.igniteForTicks(20 * 3);
+                attacker.knockback(1.0, player.getX() - attacker.getX(), player.getZ() - attacker.getZ());
+            } else {
+                attacker.igniteForTicks(20);
+            }
+        }
+    }
 }

@@ -18,6 +18,7 @@ public class ModTags {
     public static final TagKey<Item> SICKLES = itemTag("sickles");
     public static final TagKey<Item> FLOWER_CROWNS = itemTag("flower_crowns");
     public static final TagKey<Item> GOAT_HORN_HELMETS = itemTag("goat_horn_helmets");
+    public static final TagKey<Item> EXPLOSION_RESISTANT = itemTag("explosion_resistant");
 
     // Wood-family tag: the four baobab log/wood variants that yield planks.
     public static final TagKey<Block> BAOBAB_LOGS = blockTag("baobab_logs");

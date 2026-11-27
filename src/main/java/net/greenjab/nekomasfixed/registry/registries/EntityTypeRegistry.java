@@ -121,6 +121,12 @@ public class EntityTypeRegistry {
                     .sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
     );
 
+    public static final EntityType<WildfireTrident> WILDFIRE_TRIDENT = register(
+            "wildfire_trident",
+            EntityType.Builder.<WildfireTrident>of(WildfireTrident::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20)
+    );
+
     public static final EntityType<WildfireEntity> WILDFIRE = register(
             "wildfire",
             EntityType.Builder.of(WildfireEntity::new, MobCategory.MONSTER)

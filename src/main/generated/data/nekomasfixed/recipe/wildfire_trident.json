@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "minecraft:trident"
+  },
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:wildfire_trident"
+  },
+  "template": {
+    "item": "nekomasfixed:nether_heart"
+  }
+}
