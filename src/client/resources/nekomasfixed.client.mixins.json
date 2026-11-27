@@ -16,6 +16,7 @@
     "ItemFrameRendererMixin",
     "ItemPropertiesAccessor",
     "ItemRendererMixin",
+    "MultiPlayerGameModeMixin",
     "PlayerRendererMixin",
     "SheepFurLayerMixin",
     "ShulkerBoxRendererMixin",

@@ -4,16 +4,19 @@ import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.AllDyes;
+import net.greenjab.nekomasfixed.util.BoatWoods;
 import net.greenjab.nekomasfixed.util.FlowerCrownVariants;
 import net.greenjab.nekomasfixed.util.GoatHornHelmetTiers;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
 import net.greenjab.nekomasfixed.util.SickleTiers;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -27,6 +30,7 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -394,6 +398,28 @@ public class ItemRegistry {
         for (FlowerCrownVariants variant : FlowerCrownVariants.values()) {
             FLOWER_CROWNS.put(variant, register(variant.itemId(),
                     settings -> new FlowerCrownItem(variant, settings), new Item.Properties().stacksTo(1)));
+        }
+    }
+
+    public static final Item BOAT_UPGRADE_TEMPLATE = Registry.register(BuiltInRegistries.ITEM, NekomasFixed.id("boat_upgrade_template"),
+            new SmithingTemplateItem(
+                    Component.translatable("item.nekomasfixed.boat").withStyle(ChatFormatting.BLUE),
+                    Component.translatable("item.nekomasfixed.planks").withStyle(ChatFormatting.BLUE),
+                    Component.translatable("upgrade.nekomasfixed.boat_upgrade").withStyle(ChatFormatting.GRAY),
+                    Component.translatable("item.nekomasfixed.boat_upgrade_template.base_slot_description"),
+                    Component.translatable("item.nekomasfixed.boat_upgrade_template.additions_slot_description"),
+                    List.of(NekomasFixed.id("item/empty_slot_boat")),
+                    List.of(NekomasFixed.id("item/empty_slot_planks"))));
+
+    public static final EnumMap<BoatWoods, Item> BIG_BOATS = new EnumMap<>(BoatWoods.class);
+    public static final EnumMap<BoatWoods, Item> HUGE_BOATS = new EnumMap<>(BoatWoods.class);
+
+    static {
+        for (BoatWoods wood : BoatWoods.values()) {
+            BIG_BOATS.put(wood, register("big_" + wood.id() + "_boat",
+                    settings -> new BigBoatItem(EntityTypeRegistry.BIG_BOATS.get(wood), settings), new Item.Properties().stacksTo(1)));
+            HUGE_BOATS.put(wood, register("huge_" + wood.id() + "_boat",
+                    settings -> new BigBoatItem(EntityTypeRegistry.HUGE_BOATS.get(wood), settings), new Item.Properties().stacksTo(1)));
         }
     }
 

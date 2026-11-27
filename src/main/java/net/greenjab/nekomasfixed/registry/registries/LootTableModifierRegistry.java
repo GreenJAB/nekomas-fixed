@@ -16,7 +16,11 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.AbstractBannerBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
@@ -77,6 +81,10 @@ public class LootTableModifierRegistry {
                                     )
                             ).build();
                     tableBuilder.apply(function);
+                } else if (registryKey.equals(BuiltInLootTables.SHIPWRECK_TREASURE)) {
+                    tableBuilder.withPool(LootPool.lootPool()
+                            .add(LootItem.lootTableItem(ItemRegistry.BOAT_UPGRADE_TEMPLATE))
+                            .add(EmptyLootItem.emptyItem()));
                 }
         });
     }

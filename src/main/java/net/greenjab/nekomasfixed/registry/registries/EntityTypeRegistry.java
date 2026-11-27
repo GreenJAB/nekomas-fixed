@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.entity.*;
 import net.greenjab.nekomasfixed.registry.entity.moobloom.Moobloom;
+import net.greenjab.nekomasfixed.util.BoatWoods;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -15,6 +16,8 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.levelgen.Heightmap;
+
+import java.util.EnumMap;
 
 public class EntityTypeRegistry {
 
@@ -30,6 +33,26 @@ public class EntityTypeRegistry {
                             BaobabChestBoat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F).clientTrackingRange(10)
     );
+
+    public static final EntityType<FakeBoat> FAKE_BOAT = register(
+            "fake_boat",
+            EntityType.Builder.of(FakeBoat::new, MobCategory.MISC)
+                    .sized(1.65F, 0.5625F).clientTrackingRange(10)
+    );
+
+    public static final EnumMap<BoatWoods, EntityType<BigBoat>> BIG_BOATS = new EnumMap<>(BoatWoods.class);
+    public static final EnumMap<BoatWoods, EntityType<HugeBoat>> HUGE_BOATS = new EnumMap<>(BoatWoods.class);
+
+    static {
+        for (BoatWoods wood : BoatWoods.values()) {
+            BIG_BOATS.put(wood, register("big_" + wood.id() + "_boat",
+                    EntityType.Builder.<BigBoat>of((type, level) -> new BigBoat(type, level, () -> ItemRegistry.BIG_BOATS.get(wood)), MobCategory.MISC)
+                            .sized(1.9F, 0.5625F).clientTrackingRange(10)));
+            HUGE_BOATS.put(wood, register("huge_" + wood.id() + "_boat",
+                    EntityType.Builder.<HugeBoat>of((type, level) -> new HugeBoat(type, level, () -> ItemRegistry.HUGE_BOATS.get(wood)), MobCategory.MISC)
+                            .sized(2.6F, 0.5625F).clientTrackingRange(10)));
+        }
+    }
 
     public static final EntityType<ClearItemFrameEntity> CLEAR_ITEM_FRAME = register(
             "clear_item_frame",

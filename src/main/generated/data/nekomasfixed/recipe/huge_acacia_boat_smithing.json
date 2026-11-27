@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:acacia_planks"
+  },
+  "base": {
+    "item": "nekomasfixed:big_acacia_boat"
+  },
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:huge_acacia_boat"
+  },
+  "template": {
+    "item": "nekomasfixed:boat_upgrade_template"
+  }
+}

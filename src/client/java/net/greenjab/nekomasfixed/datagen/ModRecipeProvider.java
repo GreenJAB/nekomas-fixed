@@ -7,6 +7,7 @@ import net.greenjab.nekomasfixed.registry.recipe.KilnRecipe;
 import net.greenjab.nekomasfixed.registry.registries.ItemRegistry;
 import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BlockDyeMap;
+import net.greenjab.nekomasfixed.util.BoatWoods;
 import net.greenjab.nekomasfixed.util.ModTags;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.HolderLookup;
@@ -410,6 +411,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateNautilusRecipes(output);
         generatePyrotechnicsRecipe(output);
         generateKilnRecipes(output);
+        generateBoatRecipes(output);
 
         for (AllDyes dye : AllDyes.values()) {
             Item dyeItem = dyeItem(dye);
@@ -478,6 +480,27 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         allBut(blockItems(BlockDyeMap.FROGLIGHT.values()), block.asItem()),
                         dyeItem(dye), block.asItem(),
                         RecipeCategory.DECORATIONS, "has_item", has(ModTags.FROGLIGHTS_ITEM)));
+    }
+
+    private void generateBoatRecipes(RecipeOutput output) {
+        Item template = ItemRegistry.BOAT_UPGRADE_TEMPLATE;
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, template, 2)
+                .pattern("#S#").pattern("#C#").pattern("###")
+                .define('#', Items.DIAMOND).define('C', ItemTags.PLANKS).define('S', template)
+                .unlockedBy(getHasName(template), has(template))
+                .save(output);
+        for (BoatWoods wood : BoatWoods.values()) {
+            Item big = ItemRegistry.BIG_BOATS.get(wood);
+            Item huge = ItemRegistry.HUGE_BOATS.get(wood);
+            SmithingTransformRecipeBuilder.smithing(Ingredient.of(template), Ingredient.of(wood.boat.get()),
+                            Ingredient.of(wood.planks.get()), RecipeCategory.TRANSPORTATION, big)
+                    .unlocks(getHasName(template), has(template))
+                    .save(output, NekomasFixed.id(getItemName(big) + "_smithing"));
+            SmithingTransformRecipeBuilder.smithing(Ingredient.of(template), Ingredient.of(big),
+                            Ingredient.of(wood.planks.get()), RecipeCategory.TRANSPORTATION, huge)
+                    .unlocks(getHasName(template), has(template))
+                    .save(output, NekomasFixed.id(getItemName(huge) + "_smithing"));
+        }
     }
 
     private void generateTurtleRecipes(RecipeOutput output) {

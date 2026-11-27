@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:birch_planks"
+  },
+  "base": {
+    "item": "nekomasfixed:big_birch_boat"
+  },
+  "result": {
+    "count": 1,
+    "id": "nekomasfixed:huge_birch_boat"
+  },
+  "template": {
+    "item": "nekomasfixed:boat_upgrade_template"
+  }
+}

@@ -196,5 +196,8 @@ public class ModModelProvider extends FabricModelProvider {
         ItemRegistry.DYED_BRUSHES.values().forEach(brush -> generator.generateFlatItem(brush, ModelTemplates.FLAT_ITEM));
         ItemRegistry.FLOWER_CROWNS.values().forEach(crown -> generator.generateFlatItem(crown, ModelTemplates.FLAT_ITEM));
         ItemRegistry.GOAT_HORN_HELMETS.values().forEach(helmet -> generator.generateArmorTrims((ArmorItem) helmet));
+        generator.generateFlatItem(ItemRegistry.BOAT_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        ItemRegistry.BIG_BOATS.values().forEach(boat -> generator.generateFlatItem(boat, ModelTemplates.FLAT_ITEM));
+        ItemRegistry.HUGE_BOATS.values().forEach(boat -> generator.generateFlatItem(boat, ModelTemplates.FLAT_ITEM));
     }
 }

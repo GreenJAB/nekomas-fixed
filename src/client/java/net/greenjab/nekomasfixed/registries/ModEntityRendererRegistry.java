@@ -5,6 +5,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.greenjab.nekomasfixed.NekomasFixed;
 import net.greenjab.nekomasfixed.registry.registries.EntityTypeRegistry;
 import net.greenjab.nekomasfixed.render.entity.BaobabBoatRenderer;
+import net.greenjab.nekomasfixed.render.entity.BigBoatRenderer;
+import net.greenjab.nekomasfixed.render.entity.FakeBoatRenderer;
+import net.greenjab.nekomasfixed.render.entity.HugeBoatRenderer;
 import net.greenjab.nekomasfixed.render.entity.DerelictRenderer;
 import net.greenjab.nekomasfixed.render.entity.DrenchedRenderer;
 import net.greenjab.nekomasfixed.render.entity.RimeRenderer;
@@ -12,6 +15,7 @@ import net.greenjab.nekomasfixed.render.entity.SuspiciousSpiderRenderer;
 import net.greenjab.nekomasfixed.render.entity.MoobloomRenderer;
 import net.greenjab.nekomasfixed.render.entity.TargetDummyRenderer;
 import net.greenjab.nekomasfixed.render.entity.model.*;
+import net.greenjab.nekomasfixed.util.BoatWoods;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -59,6 +63,14 @@ public class ModEntityRendererRegistry {
     public static void registerEntityRenderer() {
         EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT_LAYER, BoatModel::createBodyModel);
         EntityModelLayerRegistry.registerModelLayer(BAOBAB_CHEST_BOAT_LAYER, ChestBoatModel::createBodyModel);
+        for (BoatWoods wood : BoatWoods.values()) {
+            ModelLayerLocation big = new ModelLayerLocation(NekomasFixed.id("big_boat/" + wood.id()), "main");
+            ModelLayerLocation huge = new ModelLayerLocation(NekomasFixed.id("huge_boat/" + wood.id()), "main");
+            EntityModelLayerRegistry.registerModelLayer(big, BigBoatModel::createBodyLayer);
+            EntityModelLayerRegistry.registerModelLayer(huge, HugeBoatModel::createBodyLayer);
+            EntityRendererRegistry.register(EntityTypeRegistry.BIG_BOATS.get(wood), context -> new BigBoatRenderer(context, big));
+            EntityRendererRegistry.register(EntityTypeRegistry.HUGE_BOATS.get(wood), context -> new HugeBoatRenderer(context, huge));
+        }
         EntityModelLayerRegistry.registerModelLayer(TARGET_DUMMY, TargetDummyModel::createBodyModel);
         EntityModelLayerRegistry.registerModelLayer(TARGET_DUMMY_BASE, BasePlateModel::createBodyModel);
         EntityModelLayerRegistry.registerModelLayer(TARGET_DUMMY_INNER_ARMOR,
@@ -83,6 +95,7 @@ public class ModEntityRendererRegistry {
         EntityRendererRegistry.register(EntityTypeRegistry.BAOBAB_CHEST_BOAT, context ->
                 new BaobabBoatRenderer(context, BAOBAB_CHEST_BOAT_LAYER, true,
                         NekomasFixed.id("textures/entity/chest_boat/baobab.png")));
+        EntityRendererRegistry.register(EntityTypeRegistry.FAKE_BOAT, FakeBoatRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.TARGET_DUMMY, TargetDummyRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.CLEAR_ITEM_FRAME, ItemFrameRenderer::new);
         EntityRendererRegistry.register(EntityTypeRegistry.MOOBLOOM, MoobloomRenderer::new);

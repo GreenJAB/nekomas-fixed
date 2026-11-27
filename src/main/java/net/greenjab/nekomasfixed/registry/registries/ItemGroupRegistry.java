@@ -46,6 +46,9 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.BAOBAB_SEEDS);
                         entries.accept(ItemRegistry.BAOBAB_BOAT);
                         entries.accept(ItemRegistry.BAOBAB_CHEST_BOAT);
+                        entries.accept(ItemRegistry.BOAT_UPGRADE_TEMPLATE);
+                        ItemRegistry.BIG_BOATS.values().forEach(entries::accept);
+                        ItemRegistry.HUGE_BOATS.values().forEach(entries::accept);
                         entries.accept(ItemRegistry.GHOST_PEPPER);
                         entries.accept(ItemRegistry.CLAM);
                         entries.accept(ItemRegistry.CLAM_BLUE);
