@@ -8,6 +8,7 @@ import net.greenjab.nekomasfixed.registry.entity.BigBoat;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +26,8 @@ public abstract class BoatMixin {
     @Shadow private float invFriction;
 
     @Shadow protected abstract int getMaxPassengers();
+
+    @Shadow protected abstract void controlBoat();
 
     @Unique
     private float rotationSpeed() {
@@ -85,9 +88,18 @@ public abstract class BoatMixin {
         original.call(boat, x, y, z);
     }
 
+    @ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/Level;isClientSide:Z", ordinal = 1))
+    private boolean letIllagerControl(boolean original) {
+        if (!original && ((Boat) (Object) this).getFirstPassenger() instanceof Raider) {
+            this.controlBoat();
+        }
+        return original;
+    }
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void stopTurnWhenEmpty(CallbackInfo ci) {
-        if (!(((Boat) (Object) this).getFirstPassenger() instanceof Player)) {
+        Entity passenger = ((Boat) (Object) this).getFirstPassenger();
+        if (!(passenger instanceof Player || passenger instanceof Raider)) {
             deltaRotation = 0.0F;
         }
     }

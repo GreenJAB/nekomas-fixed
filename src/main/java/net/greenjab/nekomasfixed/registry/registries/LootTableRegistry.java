@@ -23,6 +23,10 @@ public final class LootTableRegistry {
             ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
                     NekomasFixed.id("chests/village/pyrotechnist_dispenser"));
 
+    public static final ResourceKey<LootTable> PATROL_BOAT =
+            ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                    NekomasFixed.id("chests/patrol_boat"));
+
     private LootTableRegistry() {
     }
 }
