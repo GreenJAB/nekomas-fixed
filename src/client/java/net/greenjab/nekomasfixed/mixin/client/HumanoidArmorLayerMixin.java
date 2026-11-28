@@ -3,6 +3,7 @@ package net.greenjab.nekomasfixed.mixin.client;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.greenjab.nekomasfixed.registry.item.CrownItem;
 import net.greenjab.nekomasfixed.registry.item.GoatHornHelmetItem;
 import net.greenjab.nekomasfixed.registry.registries.ComponentRegistry;
 import net.greenjab.nekomasfixed.util.EchoingKeyframe;
@@ -36,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -59,6 +61,11 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
         if (entity.getItemBySlot(slot).getItem() instanceof GoatHornHelmetItem) {
             ci.cancel();
         }
+    }
+
+    @ModifyArg(method = "renderArmorPiece", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderModel(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/model/HumanoidModel;ILnet/minecraft/resources/ResourceLocation;)V"), index = 5)
+    private ResourceLocation crownTexture(ResourceLocation texture, @Local ItemStack stack) {
+        return stack.getItem() instanceof CrownItem crown ? crown.tier.texture : texture;
     }
 
     @Redirect(

@@ -6,6 +6,7 @@ import net.greenjab.nekomasfixed.registry.item.*;
 import net.greenjab.nekomasfixed.registry.other.AnimalComponent;
 import net.greenjab.nekomasfixed.util.AllDyes;
 import net.greenjab.nekomasfixed.util.BoatWoods;
+import net.greenjab.nekomasfixed.util.CrownTiers;
 import net.greenjab.nekomasfixed.util.FlowerCrownVariants;
 import net.greenjab.nekomasfixed.util.GoatHornHelmetTiers;
 import net.greenjab.nekomasfixed.util.ModItemSettings;
@@ -102,6 +103,15 @@ public class ItemRegistry {
             .rarity(Rarity.RARE).durability(336).fireResistant());
     public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = Registry.register(BuiltInRegistries.ITEM, NekomasFixed.id("jewel_armor_trim_smithing_template"),
             SmithingTemplateItem.createArmorTrimTemplate(TrimRegistry.JEWEL));
+    public static final Item CROWN_SMITHING_TEMPLATE = Registry.register(BuiltInRegistries.ITEM, NekomasFixed.id("crown_smithing_template"),
+            new SmithingTemplateItem(
+                    Component.translatable("item.nekomasfixed.helmets").withStyle(ChatFormatting.BLUE),
+                    Component.translatable("item.nekomasfixed.nether_heart").withStyle(ChatFormatting.BLUE),
+                    Component.empty(),
+                    Component.empty(),
+                    Component.empty(),
+                    List.of(NekomasFixed.id("item/empty_slot_helmet")),
+                    List.of(NekomasFixed.id("item/empty_slot_nether_heart"))));
     public static final FoodProperties BAOBAB_FRUIT_FOOD = new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build();
     public static final Item BAOBAB_FRUIT = register(
             "baobab_fruit",
@@ -452,6 +462,16 @@ public class ItemRegistry {
         }
     }
 
+    public static final EnumMap<CrownTiers, Item> CROWNS = new EnumMap<>(CrownTiers.class);
+
+    static {
+        for (CrownTiers tier : CrownTiers.values()) {
+            Item.Properties settings = new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(tier.durability));
+            if (tier == CrownTiers.NETHERITE) settings.fireResistant();
+            CROWNS.put(tier, register(tier.itemId(), props -> new CrownItem(tier, props), settings));
+        }
+    }
+
     // Ancient-dye terracotta + concrete + concrete powder (plain block items).
     public static final Item AMBER_TERRACOTTA = register(BlockRegistry.AMBER_TERRACOTTA);
     public static final Item AQUA_TERRACOTTA = register(BlockRegistry.AQUA_TERRACOTTA);
@@ -540,7 +560,7 @@ public class ItemRegistry {
 
     public static void registerItems() {
         NekomasFixed.LOGGER.info("Registering items");
-        DefaultItemComponentEvents.MODIFY.register(context -> context.modify(List.of(NETHER_HEART, JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE), (builder, item) -> builder
+        DefaultItemComponentEvents.MODIFY.register(context -> context.modify(List.of(NETHER_HEART, JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE, CROWN_SMITHING_TEMPLATE), (builder, item) -> builder
                 .set(DataComponents.RARITY, Rarity.UNCOMMON)
                 .set(DataComponents.FIRE_RESISTANT, Unit.INSTANCE)));
     }

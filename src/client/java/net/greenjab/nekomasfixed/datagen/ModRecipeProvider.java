@@ -495,6 +495,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .save(output, NekomasFixed.id(getItemName(ItemRegistry.WILDFIRE_TRIDENT)));
         copySmithingTemplate(output, ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE, Items.BLAZE_ROD);
         trimSmithing(output, ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE, NekomasFixed.id("jewel_armor_trim_smithing_trim"));
+        Item crownTemplate = ItemRegistry.CROWN_SMITHING_TEMPLATE;
+        copySmithingTemplate(output, crownTemplate, Items.GOLD_INGOT);
+        ItemRegistry.CROWNS.forEach((tier, crown) ->
+                SmithingTransformRecipeBuilder.smithing(Ingredient.of(crownTemplate), Ingredient.of(tier.helmet),
+                                Ingredient.of(ItemRegistry.NETHER_HEART), RecipeCategory.COMBAT, crown)
+                        .unlocks(getHasName(crownTemplate), has(crownTemplate))
+                        .save(output, NekomasFixed.id(getItemName(crown) + "_smithing")));
     }
 
     private void generateBoatRecipes(RecipeOutput output) {

@@ -54,7 +54,9 @@ public class ModChestLootTableProvider extends SimpleFabricLootTableProvider {
                 .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(ItemRegistry.NETHER_HEART)))
                 .withPool(LootPool.lootPool()
-                        .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP))));
+                        .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP)))
+                .withPool(LootPool.lootPool()
+                        .add(LootItem.lootTableItem(ItemRegistry.CROWN_SMITHING_TEMPLATE))));
 
         output.accept(LootTableRegistry.PATROL_BOAT, LootTable.lootTable()
                 .withPool(LootPool.lootPool()

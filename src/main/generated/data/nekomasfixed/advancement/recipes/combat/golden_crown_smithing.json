@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crown_smithing_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekomasfixed:crown_smithing_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekomasfixed:golden_crown_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_crown_smithing_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekomasfixed:golden_crown_smithing"
+    ]
+  }
+}

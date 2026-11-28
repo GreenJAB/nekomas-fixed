@@ -187,6 +187,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.WILDFIRE_TRIDENT));
         getOrCreateTagBuilder(ModTags.EXPLOSION_RESISTANT)
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.NETHER_HEART))
-                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE));
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.CROWN_SMITHING_TEMPLATE));
+        ItemRegistry.CROWNS.values().forEach(crown ->
+                getOrCreateTagBuilder(ItemTags.HEAD_ARMOR).add(BuiltInRegistries.ITEM.getKey(crown)));
     }
 }

@@ -202,5 +202,7 @@ public class ModModelProvider extends FabricModelProvider {
         generator.generateFlatItem(ItemRegistry.NETHER_HEART, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(ItemRegistry.WILDFIRE_TRIDENT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(ItemRegistry.CROWN_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        ItemRegistry.CROWNS.values().forEach(crown -> generator.generateArmorTrims((ArmorItem) crown));
     }
 }

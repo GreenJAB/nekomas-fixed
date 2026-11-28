@@ -74,6 +74,8 @@ public class ItemGroupRegistry {
                         entries.accept(ItemRegistry.WILDFIRE_TRIDENT);
                         entries.accept(ItemRegistry.WILDFIRE_SHIELD);
                         entries.accept(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE);
+                        entries.accept(ItemRegistry.CROWN_SMITHING_TEMPLATE);
+                        ItemRegistry.CROWNS.values().forEach(entries::accept);
                         entries.accept(ItemRegistry.ANCHOR);
                         entries.accept(ItemRegistry.TURTLE_CHESTPLATE);
                         entries.accept(ItemRegistry.TURTLE_LEGGINGS);
