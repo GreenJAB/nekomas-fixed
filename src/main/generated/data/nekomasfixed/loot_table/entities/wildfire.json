@@ -12,6 +12,10 @@
         {
           "type": "minecraft:item",
           "name": "nekomasfixed:nether_heart"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "nekomasfixed:jewel_armor_trim_smithing_template"
         }
       ],
       "rolls": 1.0

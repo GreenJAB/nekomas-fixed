@@ -26,6 +26,7 @@ public class ModEntityLootTableProvider extends SimpleFabricLootTableProvider {
         output.accept(EntityTypeRegistry.WILDFIRE.getDefaultLootTable(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
-                        .add(LootItem.lootTableItem(ItemRegistry.NETHER_HEART))));
+                        .add(LootItem.lootTableItem(ItemRegistry.NETHER_HEART))
+                        .add(LootItem.lootTableItem(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE))));
     }
 }

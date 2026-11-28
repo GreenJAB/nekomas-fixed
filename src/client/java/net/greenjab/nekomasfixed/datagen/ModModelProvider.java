@@ -201,5 +201,6 @@ public class ModModelProvider extends FabricModelProvider {
         ItemRegistry.HUGE_BOATS.values().forEach(boat -> generator.generateFlatItem(boat, ModelTemplates.FLAT_ITEM));
         generator.generateFlatItem(ItemRegistry.NETHER_HEART, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(ItemRegistry.WILDFIRE_TRIDENT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
     }
 }

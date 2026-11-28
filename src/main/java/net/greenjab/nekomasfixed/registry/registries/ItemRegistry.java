@@ -100,6 +100,8 @@ public class ItemRegistry {
             .component(DataComponents.TOOL, TridentItem.createToolProperties()).fireResistant());
     public static final Item WILDFIRE_SHIELD = register("wildfire_shield", WildfireShieldItem::new, new Item.Properties()
             .rarity(Rarity.RARE).durability(336).fireResistant());
+    public static final Item JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE = Registry.register(BuiltInRegistries.ITEM, NekomasFixed.id("jewel_armor_trim_smithing_template"),
+            SmithingTemplateItem.createArmorTrimTemplate(TrimRegistry.JEWEL));
     public static final FoodProperties BAOBAB_FRUIT_FOOD = new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build();
     public static final Item BAOBAB_FRUIT = register(
             "baobab_fruit",
@@ -538,7 +540,7 @@ public class ItemRegistry {
 
     public static void registerItems() {
         NekomasFixed.LOGGER.info("Registering items");
-        DefaultItemComponentEvents.MODIFY.register(context -> context.modify(NETHER_HEART, builder -> builder
+        DefaultItemComponentEvents.MODIFY.register(context -> context.modify(List.of(NETHER_HEART, JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE), (builder, item) -> builder
                 .set(DataComponents.RARITY, Rarity.UNCOMMON)
                 .set(DataComponents.FIRE_RESISTANT, Unit.INSTANCE)));
     }

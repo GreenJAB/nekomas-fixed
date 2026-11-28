@@ -186,6 +186,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.TRIDENT_ENCHANTABLE)
                 .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.WILDFIRE_TRIDENT));
         getOrCreateTagBuilder(ModTags.EXPLOSION_RESISTANT)
-                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.NETHER_HEART));
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.NETHER_HEART))
+                .add(BuiltInRegistries.ITEM.getKey(ItemRegistry.JEWEL_ARMOR_TRIM_SMITHING_TEMPLATE));
     }
 }

@@ -111,6 +111,8 @@
   "item.nekomasfixed.smithing_template.ingredients_shield_trident": "Shields & Tridents",
   "item.nekomasfixed.wildfire_trident": "Wildfire Trident",
   "item.nekomasfixed.wildfire_shield": "Wildfire Shield",
+  "item.nekomasfixed.jewel_armor_trim_smithing_template": "Jewel Armor Trim",
+  "trim_pattern.nekomasfixed.jewel": "Jewel Armor Trim",
   "entity.nekomasfixed.wildfire_trident": "Wildfire Trident",
   "entity.nekomasfixed.fire_bomb": "Fire Bomb",
   "item.nekomasfixed.anchor": "Anchor",
